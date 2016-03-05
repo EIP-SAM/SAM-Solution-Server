@@ -6,7 +6,7 @@ config.rootFolder = __dirname;
 const libs = require('./libs')(config);
 
 // init routes
-require('./routes')(libs.app);
+require('./routes')(libs, config);
 
 // start server
 var server = libs.app.listen(config.port, function () {
