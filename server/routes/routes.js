@@ -1,7 +1,4 @@
-var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
-var ensureLoggedOut = require('connect-ensure-login').ensureLoggedOut;
-
-module.exports = function (app) {
+module.exports = function initBaseRoutes(app, ensureLoggedIn, ensureLoggedOut) {
 
   /**
   ** BASE
