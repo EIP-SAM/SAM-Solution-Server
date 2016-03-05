@@ -1,10 +1,10 @@
-var dbConfig = require('../config/config.json').dbConfig;
+module.exports = function initSequelize(libs, conf) {
+    const dbConf = conf.dbConfig;
 
-var Sequelize = require('sequelize');
-
-module.exports = new Sequelize(
-    dbConfig.database,
-    dbConfig.username,
-    dbConfig.password,
-    dbConfig.options
-  );
+    libs.Sequelize = require('sequelize');
+    libs.sequelize = new libs.Sequelize(
+        dbConf.database,
+        dbConf.username,
+        dbConf.password,
+        dbConf.options);
+  };
