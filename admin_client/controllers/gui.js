@@ -20,7 +20,7 @@ module.exports = function initHttpRoutes(conf, libs) {
       mainWindow.webContents.openDevTools();
     }
 
-    mainWindow.loadURL('http://' + conf.server.hostname + ':' + conf.server.port + '/index.html');
+    mainWindow.loadURL('http://' + conf.server.hostname + ':' + conf.server.port);
 
     mainWindow.on('closed', function () {
       mainWindow = null;
