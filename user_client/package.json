@@ -1,0 +1,30 @@
+{
+  "name": "sam-user-client",
+  "description": "User client of the SAM-Solution project",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=5.4.X",
+    "npm": ">=1.2.x"
+  },
+  "dependencies": {
+    "electron-prebuilt": "^0.36.7"
+  },
+  "scripts": {
+    "start": "./node_modules/electron-prebuilt/dist/electron userClient.js"
+  },
+  "main": "userClient.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EIP-SAM/SAM-Solution-Node-js.git"
+  },
+  "author": "SAM-Solution",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/EIP-SAM/SAM-Solution-Node-js/issues"
+  },
+  "homepage": "https://github.com/EIP-SAM/SAM-Solution-Node-js#readme",
+  "jshintConfig": {
+    "esversion": 6
+  }
+}
