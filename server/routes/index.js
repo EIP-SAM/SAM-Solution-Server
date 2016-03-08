@@ -1,5 +1,5 @@
-var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
-var ensureLoggedOut = require('connect-ensure-login').ensureLoggedOut;
+const ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
+const ensureLoggedOut = require('connect-ensure-login').ensureLoggedOut;
 
 module.exports = function initRoutes(libs, conf) {
   const routes = {};
