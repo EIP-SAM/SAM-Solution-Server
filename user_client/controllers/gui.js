@@ -1,4 +1,4 @@
-module.exports = function initHttpRoutes(conf, libs) {
+module.exports = function initElectron(conf, libs) {
   var mainWindow = null;
 
   libs.app.on('window-all-closed', function () {
