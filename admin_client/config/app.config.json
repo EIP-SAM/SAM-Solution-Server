@@ -1,7 +1,0 @@
-{
-  "debug": true,
-  "server": {
-    "port": 8081,
-    "hostname": "localhost"
-  }
-}
