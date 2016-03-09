@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "test": "istanbul cover -x **/spec/** --include-all-sources jasmine"
+    "test": "istanbul cover -x server.js -x **/routes/** -x **/spec/** --include-all-sources jasmine"
   },
   "main": "server.js",
   "repository": {
