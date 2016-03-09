@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "test": "istanbul cover -x **/spec/** --include-all-sources jasmine"
+    "test": "istanbul cover -x server.js -x **/routes/** -x **/spec/** --include-all-sources jasmine"
   },
   "main": "server.js",
   "repository": {
@@ -33,5 +33,8 @@
   "bugs": {
     "url": "https://github.com/EIP-SAM/SAM-Solution-Node-js/issues"
   },
-  "homepage": "https://github.com/EIP-SAM/SAM-Solution-Node-js#readme"
+  "homepage": "https://github.com/EIP-SAM/SAM-Solution-Node-js#readme",
+  "jshintConfig": {
+  "esversion": 6
+  }
 }
