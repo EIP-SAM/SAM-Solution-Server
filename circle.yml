@@ -1,0 +1,15 @@
+## Customize dependencies
+dependencies:
+  override:
+    - npm install:
+        timeout: 180
+        pwd:
+          server/
+
+## Customize test commands
+test:
+  override:
+    - npm test:
+        timeout: 180
+        pwd:
+          server/
