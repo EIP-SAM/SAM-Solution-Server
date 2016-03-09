@@ -33,5 +33,8 @@
   "bugs": {
     "url": "https://github.com/EIP-SAM/SAM-Solution-Node-js/issues"
   },
-  "homepage": "https://github.com/EIP-SAM/SAM-Solution-Node-js#readme"
+  "homepage": "https://github.com/EIP-SAM/SAM-Solution-Node-js#readme",
+  "jshintConfig": {
+  "esversion": 6
+  }
 }
