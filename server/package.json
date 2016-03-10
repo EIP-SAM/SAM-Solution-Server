@@ -1,0 +1,40 @@
+{
+  "name": "sam-server",
+  "description": "Server of the SAM-SOLUTION project",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=5.4.X",
+    "npm": ">=1.2.x"
+  },
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "connect-ensure-login": "^0.1.1",
+    "connect-flash": "^0.1.1",
+    "connect-session-sequelize": "^3.0.0",
+    "cookie-parser": "^1.4.1",
+    "express": "^4.12.4",
+    "express-session": "^1.13.0",
+    "istanbul": "^0.4.2",
+    "jasmine": "^2.4.1",
+    "sequelize": "^3.17.3"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "istanbul cover -x server.js -x **/routes/** -x **/spec/** --include-all-sources jasmine"
+  },
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EIP-SAM/SAM-Solution-Node-js.git"
+  },
+  "author": "SAM-SOLUTION",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/EIP-SAM/SAM-Solution-Node-js/issues"
+  },
+  "homepage": "https://github.com/EIP-SAM/SAM-Solution-Node-js#readme",
+  "jshintConfig": {
+  "esversion": 6
+  }
+}

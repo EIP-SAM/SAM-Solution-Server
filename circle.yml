@@ -1,0 +1,30 @@
+## Customize machine
+machine:
+  node:
+    version: 5.1.0
+
+## Customize dependencies
+dependencies:
+  override:
+    - npm install:
+        timeout: 180
+        pwd:
+          server/
+  post:
+    - npm install mysql:
+        timeout: 180
+        pwd:
+          server/
+
+## Customize test commands
+test:
+  pre:
+    - for f in *config.json.exemple; do cp "$f" "`echo $f | sed s/json.exemple/json/`"; done:
+        pwd:
+          server/config/
+
+  override:
+    - npm test:
+        timeout: 180
+        pwd:
+          server/
