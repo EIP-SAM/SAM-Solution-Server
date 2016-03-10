@@ -10,6 +10,11 @@ dependencies:
         timeout: 180
         pwd:
           server/
+  post:
+    - npm install mysql:
+        timeout: 180
+        pwd:
+          server/
 
 ## Customize test commands
 test:
