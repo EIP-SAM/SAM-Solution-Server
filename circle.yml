@@ -20,11 +20,7 @@ dependencies:
 test:
   pre:
     - for f in *config.json.exemple; do cp "$f" "`echo $f | sed s/json.exemple/json/`"; done:
-        pwd:
-          server/config/
 
   override:
     - npm test:
         timeout: 180
-        pwd:
-          server/
