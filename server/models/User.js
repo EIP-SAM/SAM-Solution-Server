@@ -1,4 +1,4 @@
-module.exports = function initRestoreModel(libs, models) {
+module.exports = function initUserModel(libs, models) {
   models.user = libs.sequelize.define('User', {
     login: {
       type: libs.Sequelize.STRING,
