@@ -21,7 +21,7 @@ const managers = require('./managers')(libs, config, adapters);
 const controllers = require('./controllers')(libs, config, managers);
 
 // init routes
-require('./routes')(libs, config);
+require('./routes')(libs, config, controllers);
 
 // start server
 var server = libs.app.listen(config.port, function () {
