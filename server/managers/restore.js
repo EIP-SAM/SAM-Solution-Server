@@ -1,3 +1,6 @@
+//
+// Manager Restore
+//
 module.exports = function initRestoreManagers(adapters, managers) {
 
   managers.launchRestore = function(userId, saveId) {
@@ -5,14 +8,14 @@ module.exports = function initRestoreManagers(adapters, managers) {
   };
 
   managers.startRestore = function(restoreId) {
-    adapters.isStart(restoreId);
+    adapters.restoreIsStart(restoreId);
   };
 
   managers.restoreFinish = function(restoreId) {
-    adapters.isFinish(restoreId);
+    adapters.restoreIsFinish(restoreId);
   };
 
-  managers.restoreSuccess = function(restoreId, hash) {
-    adapters.isSuccess(restoreId, hash);
+  managers.restoreSuccess = function(restoreId) {
+    adapters.isSuccess(restoreId);
   };
 };
