@@ -1,9 +1,9 @@
+//
+// Routes Restore
+//
 module.exports = function initRestoreRoutes(app, ensureLoggedIn,
   ensureLoggedOut, controllers) {
 
-  /**
-  ** BASE
-  */
   app.get('/restore', function(req, res) {
     res.render('program_save_restore_test.ejs');
   });
