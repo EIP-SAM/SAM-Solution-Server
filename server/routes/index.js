@@ -1,7 +1,7 @@
 const ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 const ensureLoggedOut = require('connect-ensure-login').ensureLoggedOut;
 
-module.exports = function initRoutes(libs, conf) {
+module.exports = function initRoutes(libs, conf, controllers) {
   const routes = {};
 
   libs.app.use(libs.express.static(conf.rootFolder + '/public'));
