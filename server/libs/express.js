@@ -8,6 +8,7 @@ module.exports = function initExpress(libs, conf) {
   libs.app = libs.express();
 
   // set position of static files
+  libs.app.set('view engine', 'ejs');
   libs.app.use(libs.express.static(conf.rootFolder + '/public'));
 
   // init global middleware
