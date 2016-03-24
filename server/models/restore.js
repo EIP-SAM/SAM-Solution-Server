@@ -25,8 +25,8 @@ module.exports = function initRestoreModel(libs, models) {
   //
   // Setup ForeignKeys
   //
-  models.restore.belongsTo(models.user, { foreignKey: 'fk_user' });
-  models.restore.belongsTo(models.save, { foreignKey: 'fk_save' });
+  models.restore.belongsTo(models.user, { foreignKey: 'userId' });
+  models.restore.belongsTo(models.save, { foreignKey: 'saveId' });
 
   //
   // Sync model Restore
