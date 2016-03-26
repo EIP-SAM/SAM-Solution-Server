@@ -1,41 +1,22 @@
-const Sequelize = require('sequelize');
-const database = require('database.js');
+module.exports = function initUsersModel(libs, conf) {
+  const Users = libs.sequelize.define('users', {
+    name: {
+      type: libs.Sequelize.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    email: {
+      type: libs.Sequelize.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    password: {
+      type: libs.Sequelize.STRING,
+      allowNull: false,
+    },
+  }, {
+    freezeTableName: true,
+  });
 
-var Users = database.db.define('users', {
-  firstname: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: false,
-  },
-  lastname: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: false,
-  },
-  email: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: true,
-  },
-  password: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: false,
-  },
-}, { freezeTableName: true });
-
-var findById = function (id) {
-  Users.findOne({ where: { id: id } });
+  return Users;
 };
-
-var findByEmail = function (email) {
-  Users.findOne({ where: { email: email } });
-};
-
-var createUser = function (firstname, lastname, email, password) {
-  Users.create({ firstname: firstname, lastname: lastname, email: email, password: password });
-};
-
-exports.findById = findById;
-exports.findByEmail = findByEmail;
-exports.createUser = createUser;

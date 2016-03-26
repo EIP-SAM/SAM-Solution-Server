@@ -1,21 +1,13 @@
-const Sequelize = require('sequelize');
-const database = require('database.js');
+module.exports = function initRightsModel(libs, conf) {
+  const Rights = libs.sequelize.define('rights', {
+    data: {
+      type: libs.Sequelize.STRING,
+      allowNull: false,
+      unique: false,
+    },
+  }, {
+    freezeTableName: true,
+  });
 
-var Rights = database.db.define('rights', {
-  data: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: false,
-  },
-}, { freezeTableName: true });
-
-var findById = function (id) {
-  Rights.findOne({ where: { id: id } });
+  return Rights;
 };
-
-var createRight = function (data) {
-  Rights.create({ data: data });
-};
-
-exports.findById = findById;
-exports.createRight = createRight;
