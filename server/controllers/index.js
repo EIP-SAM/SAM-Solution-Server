@@ -1,5 +1,3 @@
-module.exports = function initControllers(libs, conf, managers) {
-  const controllers = {};
-
-  return controllers;
+module.exports = function initControllers(libs, conf, managers, adapters) {
+  require('./users')(libs, conf, managers, adapters);
 };
