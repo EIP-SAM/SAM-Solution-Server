@@ -41,7 +41,6 @@ module.exports.createUser = function (params) {
     createUser(req.body.username, req.body.email, req.body.password, req.body.confirmation)
       .then(function (user) {
         console.log('user created');
-        res.redirect(params.successRedirect);
       }).catch(function (error) {
         console.log(error);
         res.redirect(params.failureRedirect);
