@@ -3,8 +3,8 @@
 //
 module.exports = function initLogManager(adapters, managers) {
 
-  managers.launchLog = function (model) {
-    adapters.createLogger(model);
+  managers.launchLog = function () {
+    adapters.createLogger();
   };
 
   managers.startLog = function (header) {
