@@ -3,11 +3,19 @@
 //
 module.exports = function initLogManager(adapters, managers) {
 
-  managers.launchLog = function () {
-    adapters.createLogger();
+  //
+  // Get libs in parameter and launch function createLogger from adapters
+  //
+  managers.launchLog = function (libs) {
+    adapters.createLogger(libs);
   };
 
-  managers.startLog = function (header) {
-    adapters.startChild(header);
+  //
+  // Get libs and header in parameter,
+  // launch function createLog from adapters
+  // and return it to controllers
+  //
+  managers.startLog = function (libs, header) {
+    return adapters.createChild(libs, header);
   };
 };
