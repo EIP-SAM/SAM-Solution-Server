@@ -1,0 +1,10 @@
+{
+  "port": 27017,
+  "dbConfig" : {
+    "host": "localhost",
+    "database": "log",
+    "username": "dev",
+    "password": "dev"
+  },
+  "debug": false
+}
