@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "body-parser": "^1.14.2",
+    "bunyan": "^1.8.0",
+    "bunyan-mongodb-stream": "0.0.3",
     "connect-ensure-login": "^0.1.1",
     "connect-flash": "^0.1.1",
     "connect-session-sequelize": "^3.0.0",
