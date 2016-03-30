@@ -1,0 +1,9 @@
+{
+  "devDatabase": {
+    "port": 27017,
+    "host": "localhost",
+    "name": "devDatabase",
+    "username": "dev",
+    "password": "dev"
+  }
+}
