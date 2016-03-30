@@ -16,6 +16,10 @@ module.exports = function (libs, conf) {
     stream: [
       {
         level: 'info',
+        stream: bunyanMongodbStream,
+      },
+      {
+        level: 'info',
         stream: process.stdout,
       },
       {
