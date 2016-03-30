@@ -1,13 +1,13 @@
 //
 // Manager Log
 //
-module.exports = function initLogManager(adapter, manager) {
+module.exports = function initLogManager(adapters, managers) {
 
-  manager.launchLog = function (model) {
-    adapter.createLogger(model);
+  managers.launchLog = function (model) {
+    adapters.createLogger(model);
   };
 
-  manager.startLog = function (header) {
-    adapter.startChild(header);
+  managers.startLog = function (header) {
+    adapters.startChild(header);
   };
 };
