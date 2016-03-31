@@ -20,9 +20,16 @@ module.exports = function initLogManager(adapters, managers) {
   };
 
   //
-  // Launch getLogById from adapters
+  // Launch getLogsById from adapters and return the result
   //
-  managers.getLogById = function (userId) {
-    return adapters.getLogById(userId);
+  managers.getLogsById = function (userId) {
+    return adapters.getLogsById(userId);
+  };
+
+  //
+  // Launch getLimitedLogsById from adapters and return the result
+  //
+  managers.getLimitedLogsById = function (userId, limit) {
+    return adapters.getLimitedLogsById(userId, limit);
   };
 };
