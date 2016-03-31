@@ -8,6 +8,8 @@ module.exports = function initLogAdapter(models, adapters) {
   //
   adapters.createLogger = function (libs) {
 
+    const Log = models.log;
+
     const bunyanMongodbStream = require('bunyan-mongodb-stream')({ model: Log });
 
     libs.logger = new libs.bunyan.createLogger({
