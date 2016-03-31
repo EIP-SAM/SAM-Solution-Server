@@ -1,8 +1,7 @@
 //
 // Model User
 //
-
-module.exports = function initUsersModel(libs, conf) {
+module.exports = function initUsersModel(libs, conf, models) {
   const Users = libs.sequelize.define('users', {
     name: {
       type: libs.Sequelize.STRING,
@@ -23,16 +22,8 @@ module.exports = function initUsersModel(libs, conf) {
   });
 
   //
-  // Setup Foreign Keys
-  //
-  const UsersGroups = initUsersGroupsModel(libs, conf);
-
-  Users.belongsToMany(UsersGroups);
-
-  //
   // Sync model User
   //
-
   Users.sync();
   return Users;
 };
