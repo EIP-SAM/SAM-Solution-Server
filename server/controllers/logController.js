@@ -22,9 +22,16 @@ module.exports = function initLogController(libs, managers, controllers) {
   };
 
   //
-  // Launch getLogById from managers
+  // Launch getLogsById from managers and return the result
   //
-  controllers.getLogById = function (userId) {
-    return managers.getLogById(userId);
+  controllers.getLogsById = function (userId) {
+    return managers.getLogsById(userId);
+  };
+
+  //
+  // Launch getLimitedLogsById from managers and return the result
+  //
+  controllers.getLimitedLogsById = function (userId, limit) {
+    return managers.getLimitedLogsById(userId, limit);
   };
 };

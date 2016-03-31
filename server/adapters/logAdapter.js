@@ -44,7 +44,26 @@ module.exports = function initLogAdapter(models, adapters) {
   //
   // Get all the log from userId
   //
-  controllers.getLogById = function (userId) {
-    models.Log.find({ header: { userId: userId } });
+  adapters.getLogsById = function (userId) {
+    models.log.find({ header: { userId: userId } });
+  };
+
+  //
+  // Get limited amout of logs from userId
+  // given by limit parameter
+  // and return the result
+  //
+  adapters.getLimitedLogsById = function (userId, limit) {
+    models.log
+    .find({ header: { userId: userId } })
+    .limit(limit)
+    .exec(function (err, logs) {
+      if (err) {
+        libs.logger(err);
+        return { error: true, data:err };
+      } else {
+        return { error: false, data: logs };
+      }
+    });
   };
 };
