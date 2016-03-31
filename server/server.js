@@ -1,5 +1,6 @@
 // retrieve configuration from main config file
 const config = require('./config/base.config.json');
+config.mongoose = require('./config/database.log.json');
 config.rootFolder = __dirname;
 
 // retrieve libs
