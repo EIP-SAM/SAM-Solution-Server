@@ -4,6 +4,8 @@ module.exports = function initNodeLibraries(conf) {
   require('./express')(libs, conf);
   require('./sequelize')(libs, conf);
   require('./sequelize-session')(libs, conf);
+  require('./bunyan')(libs);
+  require('./mongoose')(libs, conf);
 
   return libs;
 };
