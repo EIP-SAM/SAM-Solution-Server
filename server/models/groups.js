@@ -1,8 +1,7 @@
 //
 // Model Groups
 //
-
-module.exports = function initGroupsModel(libs, conf) {
+module.exports = function initGroupsModel(libs, conf, models) {
   const Groups = libs.sequelize.define('groups', {
     name: {
       type: libs.Sequelize.STRING,
@@ -19,19 +18,9 @@ module.exports = function initGroupsModel(libs, conf) {
   });
 
   //
-  // Setup Foreign Keys
-  //
-
-  const UsersGroups = initUsersGroupsModel(libs, conf);
-  const RightsGroups = initRightsGroupsModel(libs, conf);
-
-  Groups.belongsTo(UsersGroups);
-  Groups.belongsTo(RightsGroups);
-
-  //
   // Sync Model Groups
   //
-
   Groups.sync();
+
   return Groups;
 };

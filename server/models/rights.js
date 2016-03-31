@@ -1,9 +1,8 @@
 //
 // Model rights
 //
-
-module.exports = function initRightsModel(libs, conf) {
-   const Rights = libs.sequelize.define('rights', {
+module.exports = function initRightsModel(libs, conf, models) {
+  const Rights = libs.sequelize.define('rights', {
     data: {
       type: libs.Sequelize.STRING,
       allowNull: false,
@@ -14,16 +13,9 @@ module.exports = function initRightsModel(libs, conf) {
   });
 
   //
-  // Setup Foreign Keys
-  //
-  const RightsGroups = initRightsModel(libs, conf);
-
-  Rights.belongsTo(RightsGroups);
-
-  //
   // Sync Model Rights
   //
-
   Rights.sync();
+
   return Rights;
 };
