@@ -1,5 +1,6 @@
 // retrieve configuration from main config file
 const config = require('./config/base.config.json');
+config.git = require('./config/git.config.json');
 config.rootFolder = __dirname;
 
 // retrieve libs
@@ -24,6 +25,6 @@ const controllers = require('./controllers')(libs, config, managers);
 require('./routes')(libs, config, controllers);
 
 // start server
-var server = libs.app.listen(config.port, function() {
+var server = libs.app.listen(config.port, function () {
   console.log('Listening on port ' + config.port);
 });
