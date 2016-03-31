@@ -2,7 +2,10 @@
 // Model Log
 //
 module.exports = function initLogModel(libs, models) {
-  var logSchema = new libs.mongoose.Schema({
+
+  const Schema = libs.mongoose.Schema;
+
+  var logSchema = new Schema({
     name: {
       type: String,
       required: true,
@@ -34,5 +37,6 @@ module.exports = function initLogModel(libs, models) {
       required: true,
     },
   });
+
   models.log = libs.mongoose.model('log', logSchema);
 };
