@@ -41,4 +41,10 @@ module.exports = function initLogAdapter(models, adapters) {
     return libs.logger.child(header);
   };
 
+  //
+  // Get all the log from userId
+  //
+  controllers.getLogById = function (userId) {
+    models.Log.find({ header: { userId: userId } });
+  };
 };

@@ -18,4 +18,11 @@ module.exports = function initLogManager(adapters, managers) {
   managers.startLog = function (libs, header) {
     return adapters.createChild(libs, header);
   };
+
+  //
+  // Launch getLogById from adapters
+  //
+  managers.getLogById = function (userId) {
+    return adapters.getLogById(userId);
+  };
 };

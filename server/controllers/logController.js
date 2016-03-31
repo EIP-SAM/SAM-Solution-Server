@@ -13,9 +13,18 @@ module.exports = function initLogController(libs, managers, controllers) {
   //
   // Get libs and header,
   // launch function startLog from managers
-  // and return the persona
+  // and return the logger.
+  // The header is composed of
+  // userId and moduleName.
   //
   controllers.startLog = function (libs, header) {
     return managers.startLog(libs, header);
+  };
+
+  //
+  // Launch getLogById from managers
+  //
+  controllers.getLogById = function (userId) {
+    return managers.getLogById(userId);
   };
 };
