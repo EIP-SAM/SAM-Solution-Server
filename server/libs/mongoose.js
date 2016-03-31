@@ -1,4 +1,4 @@
-module.exports = function (libs, config) {
+module.exports = function (libs, conf) {
   libs.mongoose = require('mongoose');
 
   var url = 'mongodb://';
