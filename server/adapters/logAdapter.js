@@ -5,6 +5,7 @@ module.exports = function initLogAdapter(models, adapters) {
 
   //
   // Initialize Bunyan logger and store it in libs
+  // @TODO: Fix model dependency
   //
   adapters.createLogger = function (libs) {
 
