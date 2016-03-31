@@ -1,4 +1,4 @@
-module.exports = function (libs, conf) {
+module.exports = function (libs) {
 
   libs.bunyan = require('bunyan');
 
