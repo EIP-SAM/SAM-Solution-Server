@@ -36,7 +36,7 @@ module.exports = function initLogAdapter(models, adapters) {
   // The stream is the same as the parent's
   //
   adapters.createChild = function (libs, header) {
-    return libs.child(header);
+    return libs.logger.child(header);
   };
 
 };
