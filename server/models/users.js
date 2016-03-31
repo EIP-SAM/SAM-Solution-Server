@@ -1,3 +1,7 @@
+//
+// Model User
+//
+
 module.exports = function initUsersModel(libs, conf) {
   const Users = libs.sequelize.define('users', {
     name: {
@@ -18,5 +22,17 @@ module.exports = function initUsersModel(libs, conf) {
     freezeTableName: true,
   });
 
+  //
+  // Setup Foreign Keys
+  //
+  const UsersGroups = initUsersGroupsModel(libs, conf);
+
+  Users.belongsToMany(UsersGroups);
+
+  //
+  // Sync model User
+  //
+
+  Users.sync();
   return Users;
 };
