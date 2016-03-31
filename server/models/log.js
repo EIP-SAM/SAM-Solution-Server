@@ -3,7 +3,7 @@
 //
 module.exports = function initLogModel(libs, models) {
 
-  const Schema = libs.mongoose.Schema;
+  var Schema = require('mongoose').Schema;
 
   var logSchema = new Schema({
     name: {
