@@ -9,16 +9,15 @@ module.exports = function initUsersGroupsRelationsModel(libs, conf, models) {
   //
   // Setup Foreign Keys
   //
-  models.Groups.belongsTo(UsersGroupsRelations);
-  models.Users.belongsToMany(UsersGroupsRelations);
-  UsersGroupsRelations.belongsTo(models.Users, { foreignKey: 'fk_user_id' });
-  UsersGroupsRelations.belongsTo(models.Groups, { foreignKey: 'fk_group_id' });
+  models.Groups.belongsToMany(models.Users, { through: 'users_groups_relations', foreignKey: 'fk_group_id' });
+  models.Users.belongsToMany(models.Groups, { through: 'users_groups_relations', foreignKey: 'fk_user_id' });
 
   //
   // Sync Model UsersGroupsRelations
   //
-  UsersGroups.sync();
+  UsersGroupsRelations.sync();
   models.Users.sync();
+  models.Groups.sync();
 
   return UsersGroupsRelations;
 };
