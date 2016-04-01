@@ -6,7 +6,7 @@ module.exports = function initRestoreAdapters(models, adapters) {
   //
   // Create new restore instance
   //
-  adapters.createRestore = function(userId, saveId) {
+  adapters.createRestore = function (userId, saveId) {
     models.restore.create({
       userId: userId,
       saveId: saveId,
@@ -18,8 +18,8 @@ module.exports = function initRestoreAdapters(models, adapters) {
   // Search in the database a restore instance with id = restoreId
   // Update boolean isStart
   //
-  adapters.restoreIsStart = function(restoreId) {
-    models.restore.findById(restoreId).then(function(restore) {
+  adapters.restoreIsStart = function (restoreId) {
+    models.restore.findById(restoreId).then(function (restore) {
       restore.isStart = true;
       restore.save();
     });
@@ -29,8 +29,8 @@ module.exports = function initRestoreAdapters(models, adapters) {
   // Search in the database a restore instance with id = restoreId
   // Update boolean isFinish
   //
-  adapters.restoreIsFinish = function(restoreId) {
-    models.restore.findById(restoreId).then(function(restore) {
+  adapters.restoreIsFinish = function (restoreId) {
+    models.restore.findById(restoreId).then(function (restore) {
       restore.isFinish = true;
       restore.save();
     });
@@ -40,8 +40,8 @@ module.exports = function initRestoreAdapters(models, adapters) {
   // Search in the database a restore instance with id = restoreId
   // Update boolean isSucess
   //
-  adapters.restoreIsSuccess = function(restoreId) {
-    models.restore.findById(restoreId).then(function(restore) {
+  adapters.restoreIsSuccess = function (restoreId) {
+    models.restore.findById(restoreId).then(function (restore) {
       restore.isSuccess = true;
       restore.save();
     });
