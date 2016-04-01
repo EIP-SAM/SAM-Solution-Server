@@ -13,6 +13,10 @@ module.exports = function initSaveScheduleModel(libs, models) {
       allowNull: true,
       defaultValue: null,
     },
+    isActive: {
+      type: libs.Sequelize.BOOLEAN,
+      defaultValue: true,
+    },
   }, {
     freezeTableName: true,
   });
@@ -20,7 +24,7 @@ module.exports = function initSaveScheduleModel(libs, models) {
   //
   // Setup ForeignKeys
   //
-  models.saveSchedule.belongsTo(models.user, { foreignKey: 'fk_user' });
+  models.saveSchedule.belongsTo(models.user, { foreignKey: 'userId' });
 
   //
   // Sync model SaveSchedule
