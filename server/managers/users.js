@@ -21,7 +21,7 @@ function createUser(name, email, password, confirmation) {
         UsersAdapter.findByName(name)
         .then(function (user) {
           if (!user) {
-            UsersAdapter.createUser(name, email, sha256(password))
+            UsersAdapter.createUser(name, email, password)
             .then(function (user) {
               fulfill(user);
             });
