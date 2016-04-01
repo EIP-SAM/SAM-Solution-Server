@@ -1,7 +1,8 @@
 var UsersAdapter = null;
-var sha256 = require('js-sha256');
+var sha256 = null;
 
 module.exports.init = function (libs, conf, managers, adapters) {
+  sha256 = libs.sha256;
   UsersAdapter = adapters.Users;
 
   UsersAdapter.initAdminUser();
@@ -9,9 +10,11 @@ module.exports.init = function (libs, conf, managers, adapters) {
 
 function createUser(name, email, password, confirmation) {
   return new Promise(function (fulfill, reject) {
-    if (!name.length) {
+    if (!name || !name.length) {
       reject('Empty username');
-    } else if (!password.length) {
+    } else if (!email || !email.length) {
+      reject('Empty email');
+    } else if (!password || !password.length) {
       reject('Empty password');
     } else if (password !== confirmation) {
       reject('Password and confirmation aren\'t the same');
@@ -23,7 +26,7 @@ function createUser(name, email, password, confirmation) {
         UsersAdapter.findByName(name)
         .then(function (user) {
           if (!user) {
-            UsersAdapter.createUser(name, email, password)
+            UsersAdapter.createUser(name, email, sha256(password))
             .then(function (user) {
               fulfill(user);
             });
@@ -41,7 +44,7 @@ function createUser(name, email, password, confirmation) {
 module.exports.createUser = function (params) {
   return function (req, res) {
     console.log(req.body.username + ' ' + req.body.email + ' ' + req.body.password + ' ' + req.body.confirmation);
-    createUser(req.body.username, req.body.email, sha256(req.body.password), sha256(req.body.confirmation))
+    createUser(req.body.username, req.body.email, req.body.password, req.body.confirmation)
       .then(function (user) {
         console.log('user created');
         req.session.save(function () {
@@ -60,7 +63,7 @@ module.exports.identifyUser = function (name, password) {
     UsersAdapter.findByName(name)
     .then(function (user) {
       if (user) {
-        if (user.password == sha256(password)) {
+        if (password && user.password == sha256(password)) {
           fulfill(user);
         } else {
           reject('Invalid password');
