@@ -13,9 +13,9 @@ module.exports = function initRightsModel(libs, conf, models) {
   });
 
   //
-  // Sync Model Rights
+  // Setup Relations
   //
-  Rights.sync();
+  models.Groups.hasMany(Rights);
 
   return Rights;
 };

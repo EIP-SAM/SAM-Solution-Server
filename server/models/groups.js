@@ -8,7 +8,7 @@ module.exports = function initGroupsModel(libs, conf, models) {
       allowNull: false,
       unique: false,
     },
-    rights: {
+    baseRights: {
       type: libs.Sequelize.INTEGER,
       allowNull: false,
       unique: false,
@@ -16,11 +16,6 @@ module.exports = function initGroupsModel(libs, conf, models) {
   }, {
     freezeTableName: true,
   });
-
-  //
-  // Sync Model Groups
-  //
-  Groups.sync();
 
   return Groups;
 };
