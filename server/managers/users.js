@@ -3,6 +3,8 @@ var sha256 = require('js-sha256');
 
 module.exports.init = function (libs, conf, managers, adapters) {
   UsersAdapter = adapters.Users;
+
+  UsersAdapter.initAdminUser();
 };
 
 function createUser(name, email, password, confirmation) {
