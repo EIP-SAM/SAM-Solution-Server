@@ -72,11 +72,9 @@ module.exports = function initBaseRoutes(libs, conf, managers) {
   );
 
   libs.app.post('/sign-up',
-    managers.users.createUser({ failureRedirect: '/index.html' }),
-    function (req, res) {
-      req.session.save(function () {
-        res.redirect('/login-signup-poc.html');
-      });
-    }
+    managers.users.createUser({
+      successRedirect: '/login-signup-poc.html',
+      failureRedirect: '/index.html',
+    })
   );
 };
