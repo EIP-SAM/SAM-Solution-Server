@@ -16,6 +16,6 @@ module.exports = function initRestoreManagers(adapters, managers) {
   };
 
   managers.restoreSuccess = function(restoreId) {
-    adapters.isSuccess(restoreId);
+    adapters.restoreIsSuccess(restoreId);
   };
 };
