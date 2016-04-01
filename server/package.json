@@ -18,6 +18,7 @@
     "express-session": "^1.13.0",
     "istanbul": "^0.4.2",
     "jasmine": "^2.4.1",
+    "node-schedule": "^1.1.0",
     "sequelize": "^3.17.3"
   },
   "scripts": {
