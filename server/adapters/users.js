@@ -4,18 +4,34 @@ module.exports.init = function (libs, conf, models, workers) {
   UsersModel = models.Users;
 };
 
-module.exports.findById = function (id) {
+function findById(id) {
   return UsersModel.findOne({ where: { id: id } });
-};
+}
 
-module.exports.findByName = function (name) {
+function findByName(name) {
   return UsersModel.findOne({ where: { name: name } });
-};
+}
 
-module.exports.findByEmail = function (email) {
+function findByEmail(email) {
   return UsersModel.findOne({ where: { email: email } });
-};
+}
 
-module.exports.createUser = function (name, email, password) {
+function createUser(name, email, password) {
   return UsersModel.create({ name: name, email: email, password: password });
-};
+}
+
+function initAdminUser() {
+  return UsersModel.sync().then(function () {
+    findByName('admin').then(function (user) {
+      if (!user) {
+        createUser('admin', 'admin@example.com', 'admin');
+      }
+    });
+  });
+}
+
+module.exports.findById = findById;
+module.exports.findByName = findByName;
+module.exports.findByEmail = findByEmail;
+module.exports.createUser = createUser;
+module.exports.initAdminUser = initAdminUser;

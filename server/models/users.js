@@ -25,5 +25,6 @@ module.exports = function initUsersModel(libs, conf, models) {
   // Sync model User
   //
   Users.sync();
+
   return Users;
 };
