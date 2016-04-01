@@ -13,5 +13,5 @@ module.exports.findByName = function (name) {
 };
 
 module.exports.createGroup = function (name, rights) {
-  return GroupsModel.create({ name: name, rights: rights });
+  return GroupsModel.create({ name: name, baseRights: rights });
 };
