@@ -8,6 +8,7 @@ module.exports = function initRoutes(libs, conf, controllers) {
 
   require('./routes')(libs.app, ensureLoggedIn, ensureLoggedOut);
   require('./restore')(libs.app, ensureLoggedIn, ensureLoggedOut, controllers);
+  require('./save')(libs.app, ensureLoggedIn, ensureLoggedOut, controllers);
 
   return routes;
 };
