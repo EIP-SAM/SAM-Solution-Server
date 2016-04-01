@@ -42,6 +42,9 @@ module.exports.createUser = function (params) {
     createUser(req.body.username, req.body.email, sha256(req.body.password), sha256(req.body.confirmation))
       .then(function (user) {
         console.log('user created');
+        req.session.save(function () {
+          res.redirect(params.successRedirect);
+        });
       }).catch(function (error) {
         console.log(error);
         res.redirect(params.failureRedirect);
