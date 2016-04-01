@@ -21,10 +21,5 @@ module.exports = function initUsersModel(libs, conf, models) {
     freezeTableName: true,
   });
 
-  //
-  // Sync model User
-  //
-  Users.sync();
-
   return Users;
 };

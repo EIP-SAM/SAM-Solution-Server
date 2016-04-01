@@ -5,7 +5,8 @@ module.exports = function initModels(libs, conf) {
   models.Groups = require('./groups')(libs, conf, models);
   models.Rights = require('./rights')(libs, conf, models);
   models.UsersGroupsRelations = require('./usersGroupsRelations')(libs, conf, models);
-  models.GroupsRightsRelations = require('./groupsRightsRelations')(libs, conf, models);
+
+  libs.sequelize.sync();
 
   return models;
 };
