@@ -1,4 +1,5 @@
 var UsersAdapter = null;
+var sha256 = require('js-sha256');
 
 module.exports.init = function (libs, conf, managers, adapters) {
   UsersAdapter = adapters.Users;
@@ -20,16 +21,16 @@ function createUser(name, email, password, confirmation) {
         UsersAdapter.findByName(name)
         .then(function (user) {
           if (!user) {
-            UsersAdapter.createUser(name, email, password)
+            UsersAdapter.createUser(name, email, sha256(password))
             .then(function (user) {
               fulfill(user);
             });
           } else {
-            reject('An user already exists with this name');
+            reject('A user already exists with this name');
           }
         });
       } else {
-        reject('An user already exists with this email');
+        reject('A user already exists with this email');
       }
     });
   });
@@ -38,7 +39,7 @@ function createUser(name, email, password, confirmation) {
 module.exports.createUser = function (params) {
   return function (req, res) {
     console.log(req.body.username + ' ' + req.body.email + ' ' + req.body.password + ' ' + req.body.confirmation);
-    createUser(req.body.username, req.body.email, req.body.password, req.body.confirmation)
+    createUser(req.body.username, req.body.email, sha256(req.body.password), sha256(req.body.confirmation))
       .then(function (user) {
         console.log('user created');
       }).catch(function (error) {
@@ -54,7 +55,7 @@ module.exports.identifyUser = function (name, password) {
     UsersAdapter.findByName(name)
     .then(function (user) {
       if (user) {
-        if (user.password == password) {
+        if (user.password == sha256(password)) {
           fulfill(user);
         } else {
           reject('Invalid password');
