@@ -14,7 +14,7 @@ function initAdminUser() {
   return UsersAdapter.findByName('admin')
   .then(function (user) {
     if (!user) {
-      UsersAdapter.createUser('admin', 'admin@example.com', 'admin')
+      UsersAdapter.createUser('admin', 'admin@example.com', sha256('admin'))
       .then(function (user) {
         GroupsAdapter.findByName('admin_default')
         .then(function (group) {
