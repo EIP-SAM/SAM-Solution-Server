@@ -17,5 +17,31 @@
       <input type="text" name="restoreId">
       <input type="submit"/>
     </form>
+    <form action="launch_save" method="post">
+      <select name="userId">
+        <option value="1">test</option>
+        <option value="2">tutu</option>
+      </select>
+      <input type="date" name="dateProgSave"/>
+      <input type="time" name="timeProgSave"/>
+      <select name="repeatSave">
+        <option value="daily">daily</option>
+        <option value="weekly">weekly</option>
+        <option value="monthly">monthly</option>
+        <option value="no">no repeat</option>
+      </select>
+      <select name="repeatFrequenceSave">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+      <input type="text" name="cron"/>
+      <input type="text" name="files"/>
+      <input type="submit"/>
+    </form>
+    <form action="save_is_start" method="post">
+      <input type="text" name="saveId">
+      <input type="submit"/>
+    </form>
   </boddy>
 </html>
