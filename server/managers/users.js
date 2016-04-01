@@ -1,12 +1,31 @@
 var UsersAdapter = null;
+var GroupsAdapter = null;
 var sha256 = null;
 
 module.exports.init = function (libs, conf, managers, adapters) {
   sha256 = libs.sha256;
   UsersAdapter = adapters.Users;
+  GroupsAdapter = adapters.Groups;
 
-  UsersAdapter.initAdminUser();
+  initAdminUser();
 };
+
+function initAdminUser() {
+  return UsersAdapter.findByName('admin')
+  .then(function (user) {
+    if (!user) {
+      UsersAdapter.createUser('admin', 'admin@example.com', 'admin')
+      .then(function (user) {
+        GroupsAdapter.findByName('admin_default')
+        .then(function (group) {
+          if (group) {
+            user.addGroups([group]);
+          }
+        });
+      });
+    }
+  });
+}
 
 function checkNewUserValues(name, email, password, confirmation) {
   if (!name || !name.length) {
@@ -38,7 +57,13 @@ function checkAndCreateUser(name, email, password, confirmation) {
           if (!user) {
             UsersAdapter.createUser(name, email, sha256(password))
             .then(function (user) {
-              fulfill(user);
+              GroupsAdapter.findByName('user_default')
+              .then(function (group) {
+                user.addGroups([group])
+                .then(function () {
+                  fulfill(user);
+                });
+              });
             });
           } else {
             reject('A user already exists with this name');
