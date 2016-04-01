@@ -19,6 +19,7 @@
     "istanbul": "^0.4.2",
     "jasmine": "^2.4.1",
     "node-schedule": "^1.1.0",
+    "nodegit": "^0.11.9",
     "sequelize": "^3.17.3"
   },
   "scripts": {

@@ -5,6 +5,7 @@ module.exports = function initNodeLibraries(conf) {
   require('./sequelize')(libs, conf);
   require('./sequelize-session')(libs, conf);
   require('./nodeSchedule')(libs);
+  require('./nodegit')(libs);
 
   return libs;
 };
