@@ -8,16 +8,26 @@ module.exports.init = function (libs, conf, managers, adapters) {
   UsersAdapter.initAdminUser();
 };
 
-function createUser(name, email, password, confirmation) {
+function checkNewUserValues(name, email, password, confirmation) {
+  if (!name || !name.length) {
+    return ('Empty username');
+  } else if (!email || !email.length) {
+    return ('Empty email');
+  } else if (!password || !password.length) {
+    return ('Empty password');
+  } else if (password !== confirmation) {
+    return ('Password and confirmation aren\'t the same');
+  }
+
+  return null;
+}
+
+function checkAndCreateUser(name, email, password, confirmation) {
   return new Promise(function (fulfill, reject) {
-    if (!name || !name.length) {
-      reject('Empty username');
-    } else if (!email || !email.length) {
-      reject('Empty email');
-    } else if (!password || !password.length) {
-      reject('Empty password');
-    } else if (password !== confirmation) {
-      reject('Password and confirmation aren\'t the same');
+    const error = checkNewUserValues(name, email, password, confirmation);
+
+    if (error) {
+      reject(error);
     }
 
     UsersAdapter.findByEmail(email)
@@ -44,7 +54,7 @@ function createUser(name, email, password, confirmation) {
 module.exports.createUser = function (params) {
   return function (req, res) {
     console.log(req.body.username + ' ' + req.body.email + ' ' + req.body.password + ' ' + req.body.confirmation);
-    createUser(req.body.username, req.body.email, req.body.password, req.body.confirmation)
+    checkAndCreateUser(req.body.username, req.body.email, req.body.password, req.body.confirmation)
       .then(function (user) {
         console.log('user created');
         req.session.save(function () {
