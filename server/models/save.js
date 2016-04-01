@@ -30,7 +30,7 @@ module.exports = function initSaveModel(libs, models) {
   //
   // Setup ForeignKeys
   //
-  models.save.belongsTo(models.saveSchedule, { foreignKey: 'fk_save_schedule' });
+  models.save.belongsTo(models.saveSchedule, { foreignKey: 'saveScheduleId' });
 
   //
   // Sync model SaveSchedule
