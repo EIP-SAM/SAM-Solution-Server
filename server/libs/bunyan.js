@@ -2,7 +2,7 @@ module.exports = function initBunyan(libs, conf) {
 
   libs.bunyan = require('bunyan');
 
-  const Log = require('../models').initLogModel(libs, Log);
+  const Log = require('../models')(libs, {}).log;
 
   const bunyanMongodbStream = require('bunyan-mongodb-stream')({ model: Log });
 
