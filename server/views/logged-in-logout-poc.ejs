@@ -8,6 +8,8 @@
     <% if (user) { %>
       <h1>Yeah you're logged in!</h1>
         <p>Hey <%= user.name %>, click on the link to <a href="/logout">log out</a></p>
+        <p>You can also go to the <a href="/users_and_rights/users.html">users manager</a></p>
+        <p>You can also go to the <a href="/users_and_rights/groups.html">groups manager</a></p>
     <% } else { %>
       <h1>An error occured</h1>
         <p>Go back to the <a href="/login-signup-poc.html">login page</a></p>
