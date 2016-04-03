@@ -109,3 +109,45 @@ module.exports.identifyUser = function (name, password) {
     });
   });
 };
+
+module.exports.retrieveAllUsers = function (req, res) {
+  return new Promise(function (fulfill, reject) {
+    const users = {};
+
+    users.lastOperation = req.session.lastOperation;
+    req.session.lastOperation = null;
+    req.session.save(function () {
+      fulfill(users);
+    });
+  });
+};
+
+module.exports.updateUsers = function (params) {
+  return function (req, res) {
+    console.log('updateUsers');
+    req.session.lastOperation = 'updateUsers';
+    req.session.save(function () {
+      res.redirect(params.successRedirect);
+    });
+  };
+};
+
+module.exports.createUsers = function (params) {
+  return function (req, res) {
+    console.log('createUsers');
+    req.session.lastOperation = 'createUsers';
+    req.session.save(function () {
+      res.redirect(params.successRedirect);
+    });
+  };
+};
+
+module.exports.deleteUsers = function (params) {
+  return function (req, res) {
+    console.log('deleteUsers');
+    req.session.lastOperation = 'deleteUsers';
+    req.session.save(function () {
+      res.redirect(params.successRedirect);
+    });
+  };
+};
