@@ -24,3 +24,45 @@ function initAdminDefaultGroup() {
     }
   });
 }
+
+module.exports.retrieveAllGroups = function () {
+  return new Promise(function (fulfill, reject) {
+    const groups = {};
+
+    groups.lastOperation = req.session.lastOperation;
+    req.session.lastOperation = null;
+    req.session.save(function () {
+      fulfill(groups);
+    });
+  });
+};
+
+module.exports.updateGroups = function (params) {
+  return function (req, res) {
+    console.log('updateGroups');
+    req.session.lastOperation = 'updateGroups';
+    req.session.save(function () {
+      res.redirect(params.successRedirect);
+    });
+  };
+};
+
+module.exports.createGroups = function (params) {
+  return function (req, res) {
+    console.log('createGroups');
+    req.session.lastOperation = 'createGroups';
+    req.session.save(function () {
+      res.redirect(params.successRedirect);
+    });
+  };
+};
+
+module.exports.deleteGroups = function (params) {
+  return function (req, res) {
+    console.log('deleteGroups');
+    req.session.lastOperation = 'deleteGroups';
+    req.session.save(function () {
+      res.redirect(params.successRedirect);
+    });
+  };
+};

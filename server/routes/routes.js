@@ -49,11 +49,32 @@ module.exports = function initBaseRoutes(libs, conf, managers) {
     }
   );
 
+  libs.app.get('/users_and_rights/users.html',
+    ensureLoggedIn('/login-signup-poc.html'),
+    function (req, res) {
+      managers.users.retrieveAllUsers(req, res)
+      .then(function (users) {
+        res.render('users_and_rights/users', { users: users });
+      });
+    }
+  );
+
   libs.app.get('/logout',
     function (req, res) {
       req.logout();
       req.session.save(function () {
         res.redirect('/index.html');
+      });
+    }
+  );
+
+  // Groups management
+  libs.app.get('/users_and_rights/groups.html',
+    ensureLoggedIn('/login-signup-poc.html'),
+    function (req, res) {
+      managers.groups.retrieveAllGroups(req, res)
+      .then(function (groups) {
+        res.render('users_and_rights/groups', { groups: groups });
       });
     }
   );
@@ -74,6 +95,49 @@ module.exports = function initBaseRoutes(libs, conf, managers) {
   libs.app.post('/sign-up',
     managers.users.createUser({
       successRedirect: '/login-signup-poc.html',
+      failureRedirect: '/index.html',
+    })
+  );
+
+  libs.app.post('/users_and_rights/update_users',
+    managers.users.updateUsers({
+      successRedirect: '/users_and_rights/users.html',
+      failureRedirect: '/index.html',
+    })
+  );
+
+  libs.app.post('/users_and_rights/create_users',
+    managers.users.createUsers({
+      successRedirect: '/users_and_rights/users.html',
+      failureRedirect: '/index.html',
+    })
+  );
+
+  libs.app.post('/users_and_rights/delete_users',
+    managers.users.deleteUsers({
+      successRedirect: '/users_and_rights/users.html',
+      failureRedirect: '/index.html',
+    })
+  );
+
+  // Groups management
+  libs.app.post('/users_and_rights/update_groups',
+    managers.groups.updateGroups({
+      successRedirect: '/users_and_rights/groups.html',
+      failureRedirect: '/index.html',
+    })
+  );
+
+  libs.app.post('/users_and_rights/create_groups',
+    managers.groups.createGroups({
+      successRedirect: '/users_and_rights/groups.html',
+      failureRedirect: '/index.html',
+    })
+  );
+
+  libs.app.post('/users_and_rights/delete_groups',
+    managers.groups.deleteGroups({
+      successRedirect: '/users_and_rights/groups.html',
       failureRedirect: '/index.html',
     })
   );
