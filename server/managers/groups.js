@@ -25,14 +25,14 @@ function initAdminDefaultGroup() {
   });
 }
 
-module.exports.retrieveAllGroups = function () {
+module.exports.retrieveAllGroups = function (req, res) {
   return new Promise(function (fulfill, reject) {
-    const groups = {};
-
-    groups.lastOperation = req.session.lastOperation;
-    req.session.lastOperation = null;
-    req.session.save(function () {
-      fulfill(groups);
+    GroupsAdapter.findAll().then(function (groups) {
+      groups.lastOperation = req.session.lastOperation;
+      req.session.lastOperation = null;
+      req.session.save(function () {
+        fulfill(groups);
+      });
     });
   });
 };

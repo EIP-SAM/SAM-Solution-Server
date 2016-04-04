@@ -112,12 +112,12 @@ module.exports.identifyUser = function (name, password) {
 
 module.exports.retrieveAllUsers = function (req, res) {
   return new Promise(function (fulfill, reject) {
-    const users = {};
-
-    users.lastOperation = req.session.lastOperation;
-    req.session.lastOperation = null;
-    req.session.save(function () {
-      fulfill(users);
+    UsersAdapter.findAll().then(function (users) {
+      users.lastOperation = req.session.lastOperation;
+      req.session.lastOperation = null;
+      req.session.save(function () {
+        fulfill(users);
+      });
     });
   });
 };

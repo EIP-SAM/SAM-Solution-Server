@@ -1,7 +1,22 @@
+var Sequelize = null;
 var UsersModel = null;
+var GroupsModel = null;
 
 module.exports.init = function (libs, conf, models, workers) {
+  Sequelize = libs.Sequelize;
   UsersModel = models.Users;
+  GroupsModel = models.Groups;
+};
+
+module.exports.findAll = function () {
+  return UsersModel.findAll({
+    attributes: ['id', 'name', 'email'],
+    include: [{
+        model: GroupsModel,
+        where: { userId: Sequelize.col('users.id') },
+      },
+    ],
+  });
 };
 
 module.exports.findById = function (id) {

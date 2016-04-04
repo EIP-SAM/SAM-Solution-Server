@@ -6,10 +6,31 @@
   </head>
   <body>
     <% if (users) { %>
-      <h1>Yeah users var found</h1>
+      <h1>Users</h1>
       <% if (users.lastOperation) { %>
         <p>Last operation = <%= users.lastOperation %></p>
       <% } %>
+      <table border="10" style="width:50%">
+        <tr>
+          <td>Id</td>
+          <td>Name</td>
+          <td>Email</td>
+          <td>Belongs to group(s)</td>
+        </tr>
+        <% users.forEach(function (user) { %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td>
+              <% user.groups.forEach(function (group) { %>
+                <%= group.name %>,
+              <% }); %>
+            </td>
+          </tr>
+        <% }); %>
+      </table>
+      <h1>Actions on users</h1>
       <form action="/users_and_rights/update_users" method="post">
         <div>
           <button type="submit">POST update_users</button>
