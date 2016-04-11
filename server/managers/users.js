@@ -113,10 +113,19 @@ module.exports.identifyUser = function (name, password) {
 module.exports.retrieveAllUsers = function (req, res) {
   return new Promise(function (fulfill, reject) {
     UsersAdapter.findAll().then(function (users) {
-      users.lastOperation = req.session.lastOperation;
+      const errors = [];
+
+      if (req.session.lastOperation) {
+        errors[0] = { reason: req.session.lastOperation };
+        errors[1] = { reason: 'Hi I\'m an error' };
+      }
+
       req.session.lastOperation = null;
+      console.log('retrieveAllUsers');
+      console.log('lastOp, before save, ' + errors[0]);
       req.session.save(function () {
-        fulfill(users);
+        fulfill({ users: users, errors: (errors[0] ? errors : null) });
+        console.log('lastOp, after save, ' + errors[0]);
       });
     });
   });
@@ -124,9 +133,13 @@ module.exports.retrieveAllUsers = function (req, res) {
 
 module.exports.updateUsers = function (params) {
   return function (req, res) {
-    console.log('updateUsers');
+    const request = req.body;
+
     req.session.lastOperation = 'updateUsers';
+    console.log('currentOp, before save, ' + req.session.lastOperation);
+    console.log(request);
     req.session.save(function () {
+      console.log('currentOp, after save, ' + req.session.lastOperation);
       res.redirect(params.successRedirect);
     });
   };
@@ -134,9 +147,13 @@ module.exports.updateUsers = function (params) {
 
 module.exports.createUsers = function (params) {
   return function (req, res) {
-    console.log('createUsers');
+    const request = req.body;
+
     req.session.lastOperation = 'createUsers';
+    console.log('currentOp, before save, ' + req.session.lastOperation);
+    console.log(request);
     req.session.save(function () {
+      console.log('currentOp, after save, ' + req.session.lastOperation);
       res.redirect(params.successRedirect);
     });
   };
@@ -144,9 +161,13 @@ module.exports.createUsers = function (params) {
 
 module.exports.deleteUsers = function (params) {
   return function (req, res) {
-    console.log('deleteUsers');
+    const request = req.body;
+
     req.session.lastOperation = 'deleteUsers';
+    console.log('currentOp, before save, ' + req.session.lastOperation);
+    console.log(request);
     req.session.save(function () {
+      console.log('currentOp, after save, ' + req.session.lastOperation);
       res.redirect(params.successRedirect);
     });
   };

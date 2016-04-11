@@ -53,8 +53,10 @@ module.exports = function initBaseRoutes(libs, conf, managers) {
     ensureLoggedIn('/login-signup-poc.html'),
     function (req, res) {
       managers.users.retrieveAllUsers(req, res)
-      .then(function (users) {
-        res.render('users_and_rights/users', { users: users });
+      .then(function (data) {
+        console.log('in route, after save, ' + data.errors);
+        res.render('users_and_rights/users', data);
+        console.log('');
       });
     }
   );
