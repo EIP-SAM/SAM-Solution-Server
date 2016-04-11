@@ -6,10 +6,34 @@
   </head>
   <body>
     <% if (users) { %>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+      <script>
+        const rawUpdateUsersRequest = { users: [
+          { id: 2, password: "newPassword", groups: ["user_default", "new_group_on_the_fly"] },
+          { id: 21, name: "boba fett" },
+        ]};
+        const rawCreateUsersRequest = { users: [
+          { name: "hubert", email: "hubert.bonisseur.de.la.bath@oss.com", password: "hello42", confirmation: "hello42", groups: ["user_default", "new_group_on_the_fly_2"] },
+          { name: "deray_o", email: "odile.deray@null.fr", password: "hello42", confirmation: "hello42" },
+          { name: "foo", email: "new.foo@gmail.com", password: "hello42", confirmation: "hello42", groups: ["user_default"] },
+        ]};
+        const rawDeleteUsersRequest = { users: [4, 5, 42] };
+
+        function post(route, object) {
+          $.ajax({
+              type: "POST",
+              url: route,
+              data: object,
+              dataType: "json"
+          });
+        }
+        function injectUpdateUsers() { post("/users_and_rights/update_users", rawUpdateUsersRequest); };
+        function injectCreateUsers() { post("/users_and_rights/create_users", rawCreateUsersRequest); };
+        function injectDeleteUsers() { post("/users_and_rights/delete_users", rawDeleteUsersRequest); };
+      </script>
       <h1>Users</h1>
-      <% if (users.lastOperation) { %>
-        <p>Last operation = <%= users.lastOperation %></p>
-      <% } %>
+
+      <h2>Users list</h2>
       <table border="10" style="width:50%">
         <tr>
           <td>Id</td>
@@ -30,22 +54,35 @@
           </tr>
         <% }); %>
       </table>
-      <h1>Actions on users</h1>
-      <form action="/users_and_rights/update_users" method="post">
-        <div>
-          <button type="submit">POST update_users</button>
-        </div>
-      </form>
-      <form action="/users_and_rights/create_users" method="post">
-        <div>
-          <button type="submit">POST create_users</button>
-        </div>
-      </form>
-      <form action="/users_and_rights/delete_users" method="post">
-        <div>
-          <button type="submit">POST delete_users</button>
-        </div>
-      </form>
+
+      <h2>Actions on users</h2>
+      <% if (errors) { %>
+        <% console.log("yes"); %>
+        <table border="10" style="width:50%">
+          <tr><td>Log</td></tr>
+          <% errors.forEach(function (error) { %>
+            <tr><td>
+              <% console.log("error reason = " + error.reason); %>
+              <%= error.reason %>
+            </td></tr>
+          <% }); %>
+        </table>
+      <% } else { %>
+        <% console.log("no"); %>
+      <% } %>
+
+      <h3>Update users</h3>
+      <div>
+        <button onClick="injectUpdateUsers()">POST update_users</button>
+      </div>
+      <h3>Create users</h3>
+      <div>
+        <button onClick="injectCreateUsers()">POST create_users</button>
+      </div>
+      <h3>Delete users</h3>
+      <div>
+        <button onClick="injectDeleteUsers()">POST delete_users</button>
+      </div>
     <% } else { %>
       <h1>An error occured</h1>
         <p>Go back to the <a href="/login-signup-poc.html">login page</a></p>
