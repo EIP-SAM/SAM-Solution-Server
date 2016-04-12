@@ -135,6 +135,20 @@ module.exports.retrieveAllUsers = function (req, res) {
   });
 };
 
+module.exports.retrieveUserProfile = function (req, res) {
+  return new Promise(function (fulfill, reject) {
+    UsersAdapter.findById(req.user.id).then(function (user) {
+      const errors = req.session.errors;
+
+      req.session.errors = null;
+      console.log('retrieveUserProfile');
+      req.session.save(function () {
+        fulfill({ user: user, errors: errors });
+      });
+    });
+  });
+};
+
 function ajaxRedirect(res, url) {
   const data = JSON.stringify(url);
 
@@ -195,12 +209,6 @@ function prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate,
   }
 }
 
-function prepareUserGroupsUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject) {
-  if (userUpdateRequest.groups) {
-    console.log('should update user groups');
-  }
-}
-
 function updateUserProfile(userModel, userUpdateRequest) {
   return new Promise(function (fulfill, reject) {
     const fieldsToUpdate = [];
@@ -208,7 +216,6 @@ function updateUserProfile(userModel, userUpdateRequest) {
     prepareUserNameUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
     prepareUserEmailUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
     prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
-    prepareUserGroupsUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
 
     console.log(fieldsToUpdate);
     if (!fieldsToUpdate.length) {
@@ -218,6 +225,25 @@ function updateUserProfile(userModel, userUpdateRequest) {
     fulfill(userModel.save({ fields: fieldsToUpdate }));
   });
 }
+
+module.exports.updateUserProfile = function (params) {
+  return function (req, res) {
+    const userUpdate = {};
+
+    userUpdate.name = req.body.username ? req.body.username : null;
+    userUpdate.email = req.body.email ? req.body.email : null;
+    userUpdate.password = req.body.password ? req.body.password : null;
+    userUpdate.confirmation = req.body.confirmation ? req.body.confirmation : null;
+    updateUserProfile(req.user, userUpdate)
+    .then(function (user) {
+      res.redirect(params.successRedirect);
+    })
+    .catch(function (error) {
+      pushErrorInUserSession(req, userUpdate, error);
+      res.redirect(params.failureRedirect);
+    });
+  };
+};
 
 module.exports.updateUsers = function (params) {
   return function (req, res) {

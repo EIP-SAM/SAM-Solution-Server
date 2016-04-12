@@ -49,6 +49,16 @@ module.exports = function initBaseRoutes(libs, conf, managers) {
     }
   );
 
+  libs.app.get('/users_and_rights/user_profile.html',
+    ensureLoggedIn('/login-signup-poc.html'),
+    function (req, res) {
+      managers.users.retrieveUserProfile(req, res)
+      .then(function (data) {
+        res.render('users_and_rights/user_profile', data);
+      });
+    }
+  );
+
   libs.app.get('/users_and_rights/users.html',
     ensureLoggedIn('/login-signup-poc.html'),
     function (req, res) {
@@ -98,6 +108,13 @@ module.exports = function initBaseRoutes(libs, conf, managers) {
     managers.users.createUser({
       successRedirect: '/login-signup-poc.html',
       failureRedirect: '/index.html',
+    })
+  );
+
+  libs.app.post('/update_user_profile',
+    managers.users.updateUserProfile({
+      successRedirect: '/users_and_rights/user_profile.html',
+      failureRedirect: '/users_and_rights/user_profile.html',
     })
   );
 
