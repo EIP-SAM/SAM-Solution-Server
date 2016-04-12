@@ -6,7 +6,7 @@ module.exports = function initGroupsModel(libs, conf, models) {
     name: {
       type: libs.Sequelize.STRING,
       allowNull: false,
-      unique: false,
+      unique: true,
     },
     baseRights: {
       type: libs.Sequelize.INTEGER,
