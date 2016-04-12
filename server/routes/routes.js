@@ -64,9 +64,7 @@ module.exports = function initBaseRoutes(libs, conf, managers) {
     function (req, res) {
       managers.users.retrieveAllUsers(req, res)
       .then(function (data) {
-        console.log('in route, after save, ' + data.errors);
         res.render('users_and_rights/users', data);
-        console.log('');
       });
     }
   );

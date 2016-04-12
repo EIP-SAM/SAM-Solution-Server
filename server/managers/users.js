@@ -95,15 +95,12 @@ function checkAndCreateUser(name, email, password, confirmation) {
 // Create user entry point from its POST route
 module.exports.createUser = function (params) {
   return function (req, res) {
-    console.log(req.body.username + ' ' + req.body.email + ' ' + req.body.password + ' ' + req.body.confirmation);
     checkAndCreateUser(req.body.username, req.body.email, req.body.password, req.body.confirmation)
       .then(function (user) {
-        console.log('user created');
         req.session.save(function () {
           res.redirect(params.successRedirect);
         });
       }).catch(function (error) {
-        console.log(error);
         res.redirect(params.failureRedirect);
       }
     );
@@ -137,11 +134,8 @@ module.exports.retrieveAllUsers = function (req, res) {
       const errors = req.session.errors;
 
       req.session.errors = null;
-      console.log('retrieveAllUsers');
-      console.log('lastOp, before save, ' + errors);
       req.session.save(function () {
         fulfill({ users: users, errors: errors });
-        console.log('lastOp, after save, ' + errors);
       });
     });
   });
@@ -155,7 +149,6 @@ module.exports.retrieveUserProfile = function (req, res) {
       const errors = req.session.errors;
 
       req.session.errors = null;
-      console.log('retrieveUserProfile');
       req.session.save(function () {
         fulfill({ user: user, errors: errors });
       });
@@ -184,8 +177,6 @@ function saveSessionAndRedirect(req, res, redirect) {
 function pushErrorInUserSession(req, request, reason) {
   req.session.errors = (req.session.errors ? req.session.errors : []);
   req.session.errors.push({ request: request, reason: reason });
-  console.log('New error');
-  console.log({ request: request, reason: reason });
 }
 
 // Check new user name, set model field to update, or reject with error
@@ -239,7 +230,6 @@ function updateUserProfile(userModel, userUpdateRequest) {
     prepareUserEmailUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
     prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
 
-    console.log(fieldsToUpdate);
     if (!fieldsToUpdate.length) {
       reject('No update needed for user id ' + userUpdateRequest.id);
     }
@@ -306,7 +296,6 @@ module.exports.createUsers = function (params) {
       req.body.users.forEach(function (user) {
         checkAndCreateUser(user.name, user.email, user.password, user.confirmation)
           .then(function (user) {
-            console.log('user ' + user.name + ' created by admin');
           }).catch(function (error) {
             pushErrorInUserSession(req, user, error);
           }
