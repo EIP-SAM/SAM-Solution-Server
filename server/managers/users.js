@@ -27,15 +27,24 @@ function initAdminUser() {
   });
 }
 
+function checkNewUserName(name) {
+  return (!name || !name.length ? 'Empty user name' : null);
+}
+
+function checkNewUserEmail(email) {
+  return (!email || !email.length ? 'Invalid user email' : null);
+}
+
+function checkNewUserPassword(password, confirmation) {
+  return (!password || !confirmation || !password.length ? 'Invalid user password/confirmation' : null);
+}
+
 function checkNewUserValues(name, email, password, confirmation) {
-  if (!name || !name.length) {
-    return ('Empty username');
-  } else if (!email || !email.length) {
-    return ('Empty email');
-  } else if (!password || !password.length) {
-    return ('Empty password');
-  } else if (password !== confirmation) {
-    return ('Password and confirmation aren\'t the same');
+  var error = null;
+
+  if ((error = checkNewUserName(name)) || (error = checkNewUserEmail(email)) ||
+  (error = checkNewUserPassword(password, confirmation))) {
+    return error;
   }
 
   return null;
@@ -66,11 +75,11 @@ function checkAndCreateUser(name, email, password, confirmation) {
               });
             });
           } else {
-            reject('A user already exists with this name');
+            reject('A user already exists with this name ' + name);
           }
         });
       } else {
-        reject('A user already exists with this email');
+        reject('A user already exists with this email ' + email);
       }
     });
   });
@@ -113,62 +122,168 @@ module.exports.identifyUser = function (name, password) {
 module.exports.retrieveAllUsers = function (req, res) {
   return new Promise(function (fulfill, reject) {
     UsersAdapter.findAll().then(function (users) {
-      const errors = [];
+      const errors = req.session.errors;
 
-      if (req.session.lastOperation) {
-        errors[0] = { reason: req.session.lastOperation };
-        errors[1] = { reason: 'Hi I\'m an error' };
-      }
-
-      req.session.lastOperation = null;
+      req.session.errors = null;
       console.log('retrieveAllUsers');
-      console.log('lastOp, before save, ' + errors[0]);
+      console.log('lastOp, before save, ' + errors);
       req.session.save(function () {
-        fulfill({ users: users, errors: (errors[0] ? errors : null) });
-        console.log('lastOp, after save, ' + errors[0]);
+        fulfill({ users: users, errors: errors });
+        console.log('lastOp, after save, ' + errors);
       });
     });
   });
 };
 
+function ajaxRedirect(res, url) {
+  const data = JSON.stringify(url);
+
+  res.contentType('application/json');
+  res.header('Content-Length', data.length);
+  res.end(data);
+}
+
+function saveSessionAndRedirect(req, res, redirect) {
+  req.session.save(function () {
+    ajaxRedirect(res, redirect);
+  });
+}
+
+function pushErrorInUserSession(req, request, reason) {
+  req.session.errors = (req.session.errors ? req.session.errors : []);
+  req.session.errors.push({ request: request, reason: reason });
+  console.log('New error');
+  console.log({ request: request, reason: reason });
+}
+
+function prepareUserNameUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject) {
+  var error = null;
+
+  if (userUpdateRequest.name) {
+    if (!(error = checkNewUserName(userUpdateRequest.name))) {
+      userModel.name = userUpdateRequest.name;
+      fieldsToUpdate.push('name');
+    } else {
+      reject(error + 'for user id ' + userUpdateRequest.id);
+    }
+  }
+}
+
+function prepareUserEmailUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject) {
+  var error = null;
+
+  if (userUpdateRequest.email) {
+    if (!(error = checkNewUserEmail(userUpdateRequest.email))) {
+      userModel.email = userUpdateRequest.email;
+      fieldsToUpdate.push('email');
+    } else {
+      reject(error + 'for user id ' + userUpdateRequest.id);
+    }
+  }
+}
+
+function prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject) {
+  var error = null;
+
+  if (userUpdateRequest.password) {
+    if (!(error = checkNewUserPassword(userUpdateRequest.password, userUpdateRequest.confirmation))) {
+      userModel.password = sha256(userUpdateRequest.password);
+      fieldsToUpdate.push('password');
+    } else {
+      reject(error + 'for user id ' + userUpdateRequest.id);
+    }
+  }
+}
+
+function prepareUserGroupsUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject) {
+  if (userUpdateRequest.groups) {
+    console.log('should update user groups');
+  }
+}
+
+function updateUserProfile(userModel, userUpdateRequest) {
+  return new Promise(function (fulfill, reject) {
+    const fieldsToUpdate = [];
+
+    prepareUserNameUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
+    prepareUserEmailUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
+    prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
+    prepareUserGroupsUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
+
+    console.log(fieldsToUpdate);
+    if (!fieldsToUpdate.length) {
+      reject('No update needed for user id ' + userUpdateRequest.id);
+    }
+
+    fulfill(userModel.save({ fields: fieldsToUpdate }));
+  });
+}
+
 module.exports.updateUsers = function (params) {
   return function (req, res) {
-    const request = req.body;
+    if (req.body.users && req.body.users.constructor == Array) {
+      req.body.users.forEach(function (user) {
+        if (user.id) {
+          UsersAdapter.findById(user.id).then(function (foundUser) {
+            if (foundUser) {
+              updateUserProfile(foundUser, user).catch(function (error) {
+                pushErrorInUserSession(req, user, error);
+              });
+            } else {
+              pushErrorInUserSession(req, user, 'User id ' + user.id + ' not found');
+            }
+          });
+        } else {
+          pushErrorInUserSession(req, user, 'Malformed user object');
+        }
+      });
 
-    req.session.lastOperation = 'updateUsers';
-    console.log('currentOp, before save, ' + req.session.lastOperation);
-    console.log(request);
-    req.session.save(function () {
-      console.log('currentOp, after save, ' + req.session.lastOperation);
-      res.redirect(params.successRedirect);
-    });
+      saveSessionAndRedirect(req, res, params.successRedirect);
+    } else {
+      pushErrorInUserSession(req, req.body, 'Invalid request');
+      saveSessionAndRedirect(req, res, params.failureRedirect);
+    }
   };
 };
 
 module.exports.createUsers = function (params) {
   return function (req, res) {
-    const request = req.body;
+    if (req.body.users && req.body.users.constructor == Array) {
+      req.body.users.forEach(function (user) {
+        checkAndCreateUser(user.name, user.email, user.password, user.confirmation)
+          .then(function (user) {
+            console.log('user ' + user.name + ' created by admin');
+          }).catch(function (error) {
+            pushErrorInUserSession(req, user, error);
+          }
+        );
+      });
 
-    req.session.lastOperation = 'createUsers';
-    console.log('currentOp, before save, ' + req.session.lastOperation);
-    console.log(request);
-    req.session.save(function () {
-      console.log('currentOp, after save, ' + req.session.lastOperation);
-      res.redirect(params.successRedirect);
-    });
+      saveSessionAndRedirect(req, res, params.successRedirect);
+    } else {
+      pushErrorInUserSession(req, req.body, 'Invalid request');
+      saveSessionAndRedirect(req, res, params.failureRedirect);
+    }
   };
 };
 
 module.exports.deleteUsers = function (params) {
   return function (req, res) {
-    const request = req.body;
+    if (req.body.users && req.body.users.constructor == Array) {
+      req.body.users.forEach(function (userId) {
+        UsersAdapter.findById(userId).then(function (user) {
+          if (user) {
+            user.destroy();
+          } else {
+            pushErrorInUserSession(req, userId, 'User id ' + userId + ' not found');
+          }
+        });
+      });
 
-    req.session.lastOperation = 'deleteUsers';
-    console.log('currentOp, before save, ' + req.session.lastOperation);
-    console.log(request);
-    req.session.save(function () {
-      console.log('currentOp, after save, ' + req.session.lastOperation);
-      res.redirect(params.successRedirect);
-    });
+      saveSessionAndRedirect(req, res, params.successRedirect);
+    } else {
+      pushErrorInUserSession(req, req.body, 'Invalid request');
+      saveSessionAndRedirect(req, res, params.failureRedirect);
+    }
   };
 };

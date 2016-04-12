@@ -19,12 +19,13 @@
         ]};
         const rawDeleteUsersRequest = { users: [4, 5, 42] };
 
+        function success(data) {
+          window.location = data;
+        }
         function post(route, object) {
-          $.ajax({
-              type: "POST",
-              url: route,
-              data: object,
-              dataType: "json"
+          var ret = $.post(route, object, success, "json")
+          .fail(function() {
+            alert("Error");
           });
         }
         function injectUpdateUsers() { post("/users_and_rights/update_users", rawUpdateUsersRequest); };
@@ -36,10 +37,10 @@
       <h2>Users list</h2>
       <table border="10" style="width:50%">
         <tr>
-          <td>Id</td>
-          <td>Name</td>
-          <td>Email</td>
-          <td>Belongs to group(s)</td>
+          <td><b>Id</b></td>
+          <td><b>Name</b></td>
+          <td><b>Email</b></td>
+          <td><b>Belongs to group(s)</b></td>
         </tr>
         <% users.forEach(function (user) { %>
           <tr>
@@ -57,18 +58,12 @@
 
       <h2>Actions on users</h2>
       <% if (errors) { %>
-        <% console.log("yes"); %>
         <table border="10" style="width:50%">
-          <tr><td>Log</td></tr>
+          <tr><td><b>Log</b></td></tr>
           <% errors.forEach(function (error) { %>
-            <tr><td>
-              <% console.log("error reason = " + error.reason); %>
-              <%= error.reason %>
-            </td></tr>
+            <tr><td><%= error.reason %></td></tr>
           <% }); %>
         </table>
-      <% } else { %>
-        <% console.log("no"); %>
       <% } %>
 
       <h3>Update users</h3>
