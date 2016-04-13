@@ -7,6 +7,7 @@ module.exports = function initRoutes(libs, conf, controllers) {
   libs.app.use(libs.express.static(conf.rootFolder + '/public'));
 
   require('./routes')(libs.app, ensureLoggedIn, ensureLoggedOut);
+  require('./statistic')(libs.app, ensureLoggedIn, ensureLoggedOut, controllers);
 
   return routes;
 };

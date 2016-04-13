@@ -13,10 +13,12 @@
     "connect-flash": "^0.1.1",
     "connect-session-sequelize": "^3.0.0",
     "cookie-parser": "^1.4.1",
+    "ejs": "^2.4.1",
     "express": "^4.12.4",
     "express-session": "^1.13.0",
     "istanbul": "^0.4.2",
     "jasmine": "^2.4.1",
+    "mysql": "^2.10.2",
     "sequelize": "^3.17.3"
   },
   "scripts": {
@@ -35,6 +37,6 @@
   },
   "homepage": "https://github.com/EIP-SAM/SAM-Solution-Node-js#readme",
   "jshintConfig": {
-  "esversion": 6
+    "esversion": 6
   }
 }
