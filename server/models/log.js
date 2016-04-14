@@ -5,8 +5,7 @@
 var modelInit = false;
 
 module.exports = function initLogModel(libs, models) {
-
-  var Schema = require('mongoose').Schema;
+  var Schema = libs.mongoose.Schema;
 
   var logSchema = new Schema({
     name: {
@@ -42,7 +41,7 @@ module.exports = function initLogModel(libs, models) {
   });
 
   if (!modelInit) {
-    models.log = require('mongoose').model('log', logSchema);
+    models.log = libs.mongoose.model('log', logSchema);
     modelInit = true;
   }
 };
