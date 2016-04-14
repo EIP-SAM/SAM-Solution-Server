@@ -8,7 +8,7 @@ module.exports = function initBunyan(libs, conf) {
 
   libs.logger = new libs.bunyan.createLogger({
     name: 'sam-logger',
-    stream: [
+    streams: [
       {
         level: 'info',
         stream: bunyanMongodbStream,
@@ -22,7 +22,7 @@ module.exports = function initBunyan(libs, conf) {
         path: './log/error.log',
       },
     ],
-    serializers: bunyan.stdSerializers,
+    serializers: libs.bunyan.stdSerializers,
   });
 
 };

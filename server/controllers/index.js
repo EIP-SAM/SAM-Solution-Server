@@ -1,7 +1,7 @@
 module.exports = function initControllers(libs, conf, managers) {
   const controllers = {};
 
-  require('./logController')(libs, managers, controllers);
+  require('./log')(libs, managers, controllers);
 
   return controllers;
 };

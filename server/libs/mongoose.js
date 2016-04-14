@@ -6,6 +6,5 @@ module.exports = function initMongoose(libs, conf) {
   url += ':' + conf.mongoose.port;
   url += '/' + conf.mongoose.dbConfig.database;
 
-  console.log(url);
   libs.mongoose.connect(url);
 };
