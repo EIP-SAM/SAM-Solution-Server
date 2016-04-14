@@ -2,7 +2,7 @@
   "port": 27017,
   "dbConfig" : {
     "host": "localhost",
-    "database": "log",
+    "database": "SAMlog",
     "username": "dev",
     "password": "dev"
   },

@@ -1,6 +1,9 @@
 //
 // Model Log
 //
+
+var modelInit = false;
+
 module.exports = function initLogModel(libs, models) {
 
   var Schema = require('mongoose').Schema;
@@ -38,5 +41,8 @@ module.exports = function initLogModel(libs, models) {
     },
   });
 
-  models.log = libs.mongoose.model('log', logSchema);
+  if (!modelInit) {
+    models.log = require('mongoose').model('log', logSchema);
+    modelInit = true;
+  }
 };
