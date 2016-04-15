@@ -7,4 +7,7 @@ module.exports = function initMongoose(libs, conf) {
   url += '/' + conf.mongoose.dbConfig.database;
 
   libs.mongoose.connect(url);
+  return new Promise(function (fulfill) {
+    fulfill();
+  });
 };
