@@ -3,6 +3,7 @@
   <head>
   </head>
   <body>
+    <h1>RESTORE</h1>
     <form action="launch_restore" method="post">
       <select name="userId">
         <option value="1">test</option>
@@ -17,6 +18,7 @@
       <input type="text" name="restoreId">
       <input type="submit"/>
     </form>
+    <h1>SAVE</h1>
     <form action="launch_save" method="post">
       <select name="userId">
         <option value="1">test</option>
@@ -43,5 +45,6 @@
       <input type="text" name="saveId">
       <input type="submit"/>
     </form>
+    <% include ./flash %>
   </boddy>
 </html>
