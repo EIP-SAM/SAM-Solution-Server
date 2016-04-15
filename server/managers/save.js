@@ -3,9 +3,9 @@
 //
 module.exports = function initSaveManagers(adapters, managers, libs) {
 
-  managers.launchSave = function(userId, date, cron, files) {
+  managers.launchSave = function (userId, date, cron, files) {
     adapters.createSaveSchedule(userId, cron, files).then(
-      function(saveSchedule) {
+      function (saveSchedule) {
         if (cron === null) {
           libs.cron.listCron[saveSchedule.id] = libs.cron.createSaveSchedule(cron);
         } else {
@@ -16,17 +16,17 @@ module.exports = function initSaveManagers(adapters, managers, libs) {
       });
   };
 
-  managers.startSave = function(saveId) {
+  managers.startSave = function (saveId) {
     adapters.saveIsStart(saveId);
   };
 
-  managers.saveFinish = function(saveId) {
+  managers.saveFinish = function (saveId) {
     adapters.saveIsFinish(saveId);
   };
 
-  managers.saveSuccess = function(saveId, hash) {
+  managers.saveSuccess = function (saveId, hash) {
     adapters.saveIsSuccess(saveId);
-    adapters.hashSave(hash).then(function(save) {
+    adapters.hashSave(hash).then(function (save) {
       libs.cron.removeSaveSchedule(save.saveScheduleId);
     });
   };
