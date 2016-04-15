@@ -8,7 +8,7 @@ module.exports = function initSaveController(managers, controllers, libs) {
   // Format date
   // Launch save
   //
-  controllers.launchSave = function(req, res) {
+  controllers.launchSave = function (req, res) {
     const userId = req.body.userId;
     var dateProgSave = req.body.dateProgSave;
     var timeProgSave = req.body.timeProgSave;
@@ -31,25 +31,43 @@ module.exports = function initSaveController(managers, controllers, libs) {
     res.redirect('/restore');
   };
 
-  controllers.startSave = function(req, res) {
+  //
+  // Call when a save is start
+  // Redirect to save view
+  //
+  controllers.startSave = function (req, res) {
     const saveId = req.body.saveId;
+    managers.startSave(saveId);
+    res.redirect('/save');
+  };
+
+  //
+  // Call when a save is finish
+  // Redirect to save view
+  //
+  controllers.saveFinish = function (req, res) {
+    const saveId = req.body.saveId;
+    managers.saveFinish(saveId);
+    res.redirect('/save');
+  };
+
+  //
+  // Call when a save has succeeded
+  // Redirect to save view
+  //
+  controllers.saveSuccess = function (req, res) {
+    const saveId = req.body.saveId;
+    req.flash('msg', 'Your save has succeeded');
     managers.saveSuccess(saveId);
     res.redirect('/save');
   };
 
-  controllers.saveFinish = function(req, res) {
-    const saveId = req.body.saveId;
-    managers.saveSuccess(saveId);
+  //
+  // Call when a save has failed
+  // Redirect to save view
+  //
+  controllers.saveFail = function (req, res) {
+    req.flash('msg', 'Your save has failed');
     res.redirect('/save');
-  };
-
-  controllers.saveSuccess = function(req, res) {
-    const saveId = req.body.saveId;
-    managers.saveSuccess(saveId);
-    res.redirect('/save');
-  };
-
-  controllers.restoreFail = function(req, res) {
-
   };
 };
