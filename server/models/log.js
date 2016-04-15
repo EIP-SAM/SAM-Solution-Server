@@ -1,8 +1,7 @@
 //
 // Model Log
 //
-
-var modelInit = false;
+var logModel;
 
 module.exports = function initLogModel(libs, models) {
   var Schema = libs.mongoose.Schema;
@@ -40,8 +39,9 @@ module.exports = function initLogModel(libs, models) {
     },
   });
 
-  if (!modelInit) {
-    models.log = libs.mongoose.model('log', logSchema);
-    modelInit = true;
+  if (logModel === undefined) {
+    logModel = libs.mongoose.model('log', logSchema);
   }
+
+  models.log = logModel;
 };
