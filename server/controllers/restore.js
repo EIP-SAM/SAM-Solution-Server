@@ -6,7 +6,7 @@ module.exports = function initRestoreController(managers, controllers) {
   //
   //
   //
-  controllers.launchRestore = function(req, res) {
+  controllers.launchRestore = function (req, res) {
     const userId = req.body.userId; // Be able to change
     const saveId = req.body.saveId; // Be able to change
 
@@ -24,7 +24,7 @@ module.exports = function initRestoreController(managers, controllers) {
   //
   // Get restodeId and launch function startRestore in the manager
   //
-  controllers.startRestore = function(req, res) {
+  controllers.startRestore = function (req, res) {
     const restoreId = req.body.restoreId;
     managers.startRestore(restoreId);
     res.redirect('/restore');
@@ -33,7 +33,7 @@ module.exports = function initRestoreController(managers, controllers) {
   //
   // Get restodeId and launch function restoreFinish in the manager
   //
-  controllers.restoreFinish = function(req, res) {
+  controllers.restoreFinish = function (req, res) {
     const restoreId = req.body.restoreId;
     managers.restoreFinish(restoreId);
     res.redirect('/restore');
@@ -42,13 +42,13 @@ module.exports = function initRestoreController(managers, controllers) {
   //
   // Get restodeId and launch function restoreSuccess in the manager
   //
-  controllers.restoreSuccess = function(req, res) {
+  controllers.restoreSuccess = function (req, res) {
     const restoreId = req.body.restoreId;
     managers.restoreSuccess(restoreId);
     res.redirect('/restore');
   };
 
-  controllers.restoreFail = function(req, res) {
+  controllers.restoreFail = function (req, res) {
 
   };
 };
