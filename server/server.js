@@ -36,7 +36,7 @@ var server = libs.app.listen(config.port, function () {
     },
   };
 
-  var restoreLogger = {
+  var restoreHeader = {
     header: {
       userId: 'restoreLogger',
       module: 'restore',
@@ -45,8 +45,8 @@ var server = libs.app.listen(config.port, function () {
 
   var saveLogger = controllers.launchLog(libs, saveHeader);
 
-  var restoreLogger = controllers.launchLog(libs, restoreLogger);
+  var restoreLogger = controllers.launchLog(libs, restoreHeader);
 
-  saveLogger.info('saveLogger level info');
+  saveLogger.info({ data: { type: 'data type 1', test_data: 'test' } }, 'saveLogger level info');
   restoreLogger.warn('restoreLogger level warn');
 });
