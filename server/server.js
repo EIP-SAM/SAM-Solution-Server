@@ -27,26 +27,4 @@ require('./routes')(libs, config, controllers);
 // start server
 var server = libs.app.listen(config.port, function () {
   console.log('Listening on port ' + config.port);
-
-  // Logger test
-  var saveHeader = {
-    header: {
-      userId: 'saveLogger',
-      module: 'save',
-    },
-  };
-
-  var restoreHeader = {
-    header: {
-      userId: 'restoreLogger',
-      module: 'restore',
-    },
-  };
-
-  var saveLogger = controllers.launchLog(libs, saveHeader);
-
-  var restoreLogger = controllers.launchLog(libs, restoreHeader);
-
-  saveLogger.info({ data: { type: 'data type 1', test_data: 'test' } }, 'saveLogger level info');
-  restoreLogger.warn('restoreLogger level warn');
 });
