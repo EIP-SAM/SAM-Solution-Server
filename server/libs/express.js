@@ -14,6 +14,6 @@ module.exports = function initExpress(conf) {
 
   require('./ejs')(app, conf);
   require('./sequelizeSession')(app, conf);
-
+  require('./connectFlash')(app);
   return app;
 };
