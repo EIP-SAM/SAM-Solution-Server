@@ -4,22 +4,25 @@
   </head>
   <body>
     <h1>RESTORE</h1>
-    <form action="launch_restore" method="post">
+    <form action="create_restore" method="post">
+      <p>Create restore</p>
       <select name="userId">
         <option value="1">test</option>
         <option value="2">tutu</option>
       </select>
       <select name="saveId">
-        <option value="2">fdfsd</option>
+        <option value="40">SaveId</option>
       </select>
       <input type="submit"/>
     </form>
-    <form action="restore_is_start" method="post">
+    <form action="restore_start" method="post">
+      <p>Update DB when restore is launch</p>
       <input type="text" name="restoreId">
       <input type="submit"/>
     </form>
     <h1>SAVE</h1>
-    <form action="launch_save" method="post">
+    <form action="create_save" method="post">
+      <p>Create save</p>
       <select name="userId">
         <option value="1">test</option>
         <option value="2">tutu</option>
@@ -42,6 +45,7 @@
       <input type="submit"/>
     </form>
     <form action="save_is_start" method="post">
+      <p>Update DB when save is launch</p>
       <input type="text" name="saveId">
       <input type="submit"/>
     </form>
