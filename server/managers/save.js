@@ -3,7 +3,7 @@
 //
 module.exports = function initSaveManagers(adapters, managers, libs) {
 
-  managers.launchSave = function (userId, date, cron, files) {
+  managers.createSave = function (userId, date, cron, files) {
     adapters.createSaveSchedule(userId, cron, files).then(
       function (saveSchedule) {
         if (cron === null) {
@@ -29,5 +29,8 @@ module.exports = function initSaveManagers(adapters, managers, libs) {
     adapters.hashSave(hash).then(function (save) {
       libs.cron.removeSaveSchedule(save.saveScheduleId);
     });
+  };
+
+  managers.removeSave = function (saveScheduleId) {
   };
 };
