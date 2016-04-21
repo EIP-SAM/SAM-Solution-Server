@@ -2,34 +2,10 @@
 const config = require('./config/base.config.json');
 config.rootFolder = __dirname;
 
-// retrieve libs
-const libs = require('./libs')(config);
+var app = require('./libs/express')(config);
 
-// retrieve models
-const models = require('./models')(libs, config);
+require('./routes')(app, config);
 
-// retrieve workers
-const workers = require('./workers')(libs, config);
-
-// retrieve adapters
-const adapters = require('./adapters')(libs, config, models, workers);
-
-// retrieve managers
-const managers = require('./managers')(libs, config, adapters);
-
-//
-// Let be sure that sequelize has created/updated all our models in the
-// database before starting the real job
-//
-libs.sequelize.sync().then(function () {
-  // init controllers
-  require('./controllers')(libs, config, managers, adapters);
-
-  // init routes
-  require('./routes')(libs, config, managers);
-
-  // start server
-  var server = libs.app.listen(config.port, function () {
-    console.log('Listening on port ' + config.port);
-  });
+var server = app.listen(config.port, function () {
+  console.log('Listening on port ' + config.port);
 });

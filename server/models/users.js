@@ -1,25 +1,30 @@
+var Sequelize = require('sequelize');
+var sequelize = require('../libs/sequelize');
+
 //
 // Model User
 //
-module.exports = function initUsersModel(libs, conf, models) {
-  const Users = libs.sequelize.define('users', {
-    name: {
-      type: libs.Sequelize.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    email: {
-      type: libs.Sequelize.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    password: {
-      type: libs.Sequelize.STRING,
-      allowNull: false,
-    },
-  }, {
-    freezeTableName: true,
-  });
+const Users = sequelize.define('users', {
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  password: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+}, {
+  freezeTableName: true,
+});
 
-  return Users;
-};
+Users.sync();
+
+module.exports =  Users;
+
+var _ = require('./usersGroupsRelations');

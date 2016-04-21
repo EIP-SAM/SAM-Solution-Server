@@ -1,11 +1,7 @@
-var GroupsAdapter = null;
+var GroupsAdapter = require('../adapters/groups');
 
-module.exports.init = function (libs, conf, managers, adapters) {
-  GroupsAdapter = adapters.Groups;
-
-  initUserDefaultGroup();
-  initAdminDefaultGroup();
-};
+initUserDefaultGroup();
+initAdminDefaultGroup();
 
 function initUserDefaultGroup() {
   return GroupsAdapter.findByName('user_default')

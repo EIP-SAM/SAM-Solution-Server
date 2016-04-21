@@ -1,12 +1,6 @@
-var Sequelize = null;
-var UsersModel = null;
-var GroupsModel = null;
-
-module.exports.init = function (libs, conf, models, workers) {
-  Sequelize = libs.Sequelize;
-  UsersModel = models.Users;
-  GroupsModel = models.Groups;
-};
+var Sequelize = require('sequelize');
+var UsersModel = require('../models/users');
+var GroupsModel = require('../models/groups');
 
 module.exports.findAll = function () {
   return UsersModel.findAll({

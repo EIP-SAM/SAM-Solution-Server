@@ -1,18 +1,10 @@
 //
 // Libraries used in this manager
-var UsersAdapter = null;
-var GroupsAdapter = null;
-var sha256 = null;
+var UsersAdapter = require('../adapters/users');
+var GroupsAdapter = require('../adapters/groups');
+var sha256 = require('../libs/sha256');
 
-//
-// Manager initialization
-module.exports.init = function (libs, conf, managers, adapters) {
-  sha256 = libs.sha256;
-  UsersAdapter = adapters.Users;
-  GroupsAdapter = adapters.Groups;
-
-  initAdminUser();
-};
+initAdminUser();
 
 //
 // Create admin if not exists

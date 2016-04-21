@@ -1,3 +1,1 @@
-module.exports = function initSha256(libs, conf) {
-  libs.sha256 = require('js-sha256');
-};
+module.exports = require('js-sha256');

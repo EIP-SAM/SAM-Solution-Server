@@ -1,7 +1,6 @@
-module.exports = function initRoutes(libs, conf, managers) {
-  const routes = {};
+module.exports = function initRoutes(app, conf) {
+  const passport = require('../libs/passport')(app);
 
-  require('./routes')(libs, conf, managers);
-
-  return routes;
+  require('./routes')(app, conf, passport);
+  require('./users')(app, conf, passport);
 };
