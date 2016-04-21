@@ -1,14 +1,16 @@
-module.exports = function initSequelizeSession(libs, conf) {
-  libs.session = require('express-session');
-  libs.Store = require('connect-session-sequelize')(libs.session.Store);
-  libs.store = new libs.Store({ db: libs.sequelize });
+var sequelize = require('./sequelize');
 
-  libs.app.use(libs.session({
+module.exports = function initSequelizeSession(app, conf) {
+  var session = require('express-session');
+  var Store = require('connect-session-sequelize')(session.Store);
+  var store = new Store({ db: sequelize });
+
+  app.use(session({
     secret: conf.secret,
-    store: libs.store,
+    store: store,
     resave: false,
     saveUninitialized: true,
   }));
 
-  libs.store.sync();
+  store.sync();
 };

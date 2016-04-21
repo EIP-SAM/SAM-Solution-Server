@@ -1,3 +1,1 @@
-module.exports = function initConnectEnsureLogin(libs, conf) {
-  libs.connectEnsureLogin = require('connect-ensure-login');
-};
+module.exports = require('connect-ensure-login');

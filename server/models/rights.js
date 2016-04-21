@@ -1,21 +1,22 @@
+var Sequelize = require('sequelize');
+var sequelize = require('../libs/sequelize');
+
 //
 // Model rights
 //
-module.exports = function initRightsModel(libs, conf, models) {
-  const Rights = libs.sequelize.define('rights', {
-    data: {
-      type: libs.Sequelize.STRING,
-      allowNull: false,
-      unique: false,
-    },
-  }, {
-    freezeTableName: true,
-  });
+const Rights = sequelize.define('rights', {
+  data: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: false,
+  },
+}, {
+  freezeTableName: true,
+});
 
-  //
-  // Setup Relations
-  //
-  models.Groups.hasMany(Rights);
+//
+// Setup Relations
+//
+models.Groups.hasMany(Rights);
 
-  return Rights;
-};
+module.exports = Rights;

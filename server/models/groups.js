@@ -1,21 +1,27 @@
+
+var Sequelize = require('sequelize');
+var sequelize = require('../libs/sequelize');
+
 //
 // Model Groups
 //
-module.exports = function initGroupsModel(libs, conf, models) {
-  const Groups = libs.sequelize.define('groups', {
-    name: {
-      type: libs.Sequelize.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    baseRights: {
-      type: libs.Sequelize.INTEGER,
-      allowNull: false,
-      unique: false,
-    },
-  }, {
-    freezeTableName: true,
-  });
+var Groups = sequelize.define('groups', {
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  baseRights: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    unique: false,
+  },
+}, {
+  freezeTableName: true,
+});
 
-  return Groups;
-};
+Groups.sync();
+
+module.exports = Groups;
+
+var _ = require('./usersGroupsRelations');
