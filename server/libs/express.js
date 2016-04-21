@@ -1,18 +1,19 @@
-module.exports = function initExpress(libs, conf) {
-  libs.express = require('express');
-  libs.cookieParser = require('cookie-parser');
-  libs.bodyParser = require('body-parser');
-  libs.flash = require('connect-flash');
+module.exports = function initExpress(conf) {
+  var express = require('express');
+  var cookieParser = require('cookie-parser');
+  var bodyParser = require('body-parser');
+  var flash = require('connect-flash');
 
   // init express
-  libs.app = libs.express();
-
-  // set position of static files
-  libs.app.use(libs.express.static(conf.rootFolder + '/public'));
+  var app = express();
 
   // init global middleware
-  libs.app.use(libs.cookieParser(conf.secret));
-  libs.app.use(libs.bodyParser.urlencoded({ extended: true }));
-  libs.app.use(libs.flash());
+  app.use(cookieParser(conf.secret));
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(flash());
 
+  require('./ejs')(app, conf);
+  require('./sequelizeSession')(app, conf);
+  require('./connectFlash')(app);
+  return app;
 };
