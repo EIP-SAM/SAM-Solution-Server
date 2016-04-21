@@ -4,51 +4,31 @@
 module.exports = function initRestoreController(managers, controllers) {
 
   //
+  // Called when a restoration is created
   //
-  //
-  controllers.launchRestore = function (req, res) {
-    const userId = req.body.userId; // Be able to change
-    const saveId = req.body.saveId; // Be able to change
-
-    //
-    // Loop with group of User.
-    // One request per UserId.
-    // Is a user inevitably part of a group ?
-    // Yes then request to groupUser to get all UserId.
-    // No then request to groupUser to get all UserId or if alone request to User to get Id.
-    //
-    managers.launchRestore(userId, saveId);
-    res.redirect('/restore');
+  controllers.createRestore = function (req, res) {
+    managers.createRestore(req, res);
   };
 
   //
-  // Get restodeId and launch function startRestore in the manager
+  // Called when a restoration is launched
   //
   controllers.startRestore = function (req, res) {
-    const restoreId = req.body.restoreId;
-    managers.startRestore(restoreId);
-    res.redirect('/restore');
+    managers.startRestore(req, res);
   };
 
   //
-  // Get restodeId and launch function restoreFinish in the manager
+  // Called when a restoration is finished
   //
   controllers.restoreFinish = function (req, res) {
-    const restoreId = req.body.restoreId;
-    managers.restoreFinish(restoreId);
-    res.redirect('/restore');
+    managers.restoreFinish(req, res);
   };
 
   //
-  // Get restodeId and launch function restoreSuccess in the manager
+  // Called when a restoration has succeeded
   //
   controllers.restoreSuccess = function (req, res) {
-    const restoreId = req.body.restoreId;
-    managers.restoreSuccess(restoreId);
-    res.redirect('/restore');
+    return managers.restoreSuccess(req, res);
   };
 
-  controllers.restoreFail = function (req, res) {
-
-  };
 };
