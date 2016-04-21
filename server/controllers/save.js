@@ -8,7 +8,7 @@ module.exports = function initSaveController(managers, controllers, libs) {
   // Format date
   // Launch save
   //
-  controllers.launchSave = function (req, res) {
+  controllers.createSave = function (req, res) {
     const userId = req.body.userId;
     var dateProgSave = req.body.dateProgSave;
     var timeProgSave = req.body.timeProgSave;
@@ -18,16 +18,16 @@ module.exports = function initSaveController(managers, controllers, libs) {
 
     dateProgSave = dateProgSave.split('-');
     timeProgSave = timeProgSave.split(':');
+
     const date = new Date(dateProgSave[0], dateProgSave[1], dateProgSave[2],
-      timeProgSave[0], timeProgSave[1]);
+        timeProgSave[0], timeProgSave[1]);
 
     var cron = req.body.cron; // to modify
     if (repeatSave == 'no') {
       cron = null;
     }
 
-    managers.launchSave(userId, date, cron, files);
-
+    managers.createSave(userId, date, cron, files);
     res.redirect('/restore');
   };
 
@@ -68,6 +68,12 @@ module.exports = function initSaveController(managers, controllers, libs) {
   //
   controllers.saveFail = function (req, res) {
     req.flash('msg', 'Your save has failed');
+    res.redirect('/save');
+  };
+
+  controllers.removeSave = function (req, res) {
+    req.flash('msg', 'Your auto/program save has been removed');
+    managers.removeSave(saveScheduleId);
     res.redirect('/save');
   };
 };
