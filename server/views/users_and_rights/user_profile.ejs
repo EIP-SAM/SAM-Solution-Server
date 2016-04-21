@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>SAM Solution | User Profile POC</title>
+  </head>
+  <body>
+    <% if (user) { %>
+      <h1>Update your profile</h1>
+      <p>
+        Hey <i><%= user.name %></i>, for your information, you're currently belonging to the following groups: <i>
+        <% user.groups.forEach(function (group) { %>
+          <%= group.name %>,
+        <% }); %></i>
+      </p>
+      <form action="/update_user_profile" method="post">
+        <div>
+          <label>Username :</label>
+          <input type="text" name="username" placeholder="<%= user.name %>" />
+        </div>
+        <div>
+          <label>Email :</label>
+          <input type="email" name="email" placeholder="<%= user.email %>" />
+        </div>
+        <div>
+          <label>Password :</label>
+          <input type="password" name="password" placeholder="●●●●●●●●" />
+        </div>
+        <div>
+          <label>Confirmation :</label>
+          <input type="password" name="confirmation" placeholder="●●●●●●●●" />
+        </div>
+        <div>
+          <button type="submit">Update your profile</button>
+        </div>
+      </form>
+    <% } else { %>
+      <h1>An error occured</h1>
+        <p>Go back to the <a href="/login-signup-poc.html">login page</a></p>
+    <% } %>
+  </body>
+</html>
