@@ -3,4 +3,5 @@ module.exports = function initRoutes(app, conf) {
 
   require('./routes')(app, conf, passport);
   require('./users')(app, conf, passport);
+  require('./statistic')(app, conf);
 };
