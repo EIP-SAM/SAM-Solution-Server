@@ -8,12 +8,15 @@ module.exports = function initSaveRoutes(app, ensureLoggedIn,
     res.render('program_save_restore_test.ejs');
   });
 
-  app.post('/launch_save', function (req, res) {
-    controllers.launchSave(req, res);
+  app.post('/create_save', function (req, res) {
+    controllers.createSave(req, res);
   });
 
   app.post('/save_is_start', function (req, res) {
     controllers.startSave(req, res);
   });
 
+  app.post('/remove_save', function (req, res) {
+    controllers.removeSave(req, res);
+  });
 };
