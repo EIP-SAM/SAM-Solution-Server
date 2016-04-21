@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "body-parser": "^1.14.2",
+    "bunyan": "^1.8.0",
+    "bunyan-mongodb-stream": "0.0.3",
     "connect-ensure-login": "^0.1.1",
     "connect-flash": "^0.1.1",
     "connect-session-sequelize": "^3.0.0",
@@ -19,14 +21,15 @@
     "istanbul": "^0.4.2",
     "jasmine": "^2.4.1",
     "js-sha256": "^0.3.0",
-    "mysql": "^2.10.2",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "mongoose": "^4.4.10",
     "sequelize": "^3.17.3"
   },
   "scripts": {
-    "start": "node server.js",
-    "test": "istanbul cover -x server.js -x **/routes/** -x **/spec/** --include-all-sources jasmine"
+    "start": "node server.js | ./node_modules/bunyan/bin/bunyan",
+    "test": "istanbul cover -x server.js -x **/routes/** -x **/spec/** --include-all-sources jasmine",
+    "log_file": "cat ./log/error.log | ./node_modules/bunyan/bin/bunyan"
   },
   "main": "server.js",
   "repository": {
