@@ -4,21 +4,21 @@
 var Sequelize = require('sequelize');
 var sequelize = require('../libs/sequelize');
 
-var user = require('./user');
+var user = require('./users');
 
-var saveSchedule = libs.sequelize.define('save_schedule', {
+var saveSchedule = sequelize.define('save_schedule', {
   cron: {
-    type: libs.Sequelize.STRING,
+    type: Sequelize.STRING,
     allowNull: true,
     defaultValue: null,
   },
   files: {
-    type: libs.Sequelize.TEXT,
+    type: Sequelize.TEXT,
     allowNull: true,
     defaultValue: null,
   },
   isActive: {
-    type: libs.Sequelize.BOOLEAN,
+    type: Sequelize.BOOLEAN,
     defaultValue: true,
   },
 }, {
