@@ -4,7 +4,7 @@
 var Sequelize = require('sequelize');
 var sequelize = require('../libs/sequelize');
 
-var user = require('./user');
+var user = require('./users');
 var save = require('./save');
 
 var restore = sequelize.define('restore', {
