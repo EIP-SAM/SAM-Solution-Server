@@ -31,7 +31,7 @@
   },
   "scripts": {
     "start": "node server.js | ./node_modules/bunyan/bin/bunyan",
-    "test": "istanbul cover -x server.js -x **/routes/** -x **/spec/** --include-all-sources jasmine",
+    "test": "node_modules/.bin/istanbul cover -x server.js -x **/routes/** -x **/spec/** --include-all-sources node_modules/.bin/jasmine",
     "log_file": "cat ./log/error.log | ./node_modules/bunyan/bin/bunyan"
   },
   "main": "server.js",
