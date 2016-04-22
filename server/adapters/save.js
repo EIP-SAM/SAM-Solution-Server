@@ -1,13 +1,13 @@
 //
 // Adapter Save
 //
+SaveModel = require('../models/save');
+
 //
 // Create new save instance
 //
-SaveModel = require('../models/save');
-
 module.exports.createSave = function (saveSchedule, date) {
-  SaveModel.create({
+  return SaveModel.create({
     saveScheduleId: saveSchedule,
     execDate: date,
   });
@@ -18,7 +18,7 @@ module.exports.createSave = function (saveSchedule, date) {
 // Update boolean isStart
 //
 module.exports.saveIsStart = function (saveId) {
-  SaveModel.findById(saveId).then(function (save) {
+  return SaveModel.findById(saveId).then(function (save) {
     save.isStart = true;
     save.save();
   });
@@ -29,7 +29,7 @@ module.exports.saveIsStart = function (saveId) {
 // Update boolean isFinish
 //
 module.exports.saveIsFinish = function (saveId) {
-  SaveModel.findById(saveId).then(function (save) {
+  return SaveModel.findById(saveId).then(function (save) {
     save.isFinish = true;
     save.save();
   });
@@ -40,7 +40,7 @@ module.exports.saveIsFinish = function (saveId) {
 // Update boolean isSuccess
 //
 module.exports.saveIsSuccess = function (saveId) {
-  SaveModel.findById(saveId).then(function (save) {
+  return SaveModel.findById(saveId).then(function (save) {
     save.isSuccess = true;
     save.save();
   });
