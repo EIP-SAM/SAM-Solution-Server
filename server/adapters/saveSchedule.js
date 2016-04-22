@@ -18,7 +18,7 @@ module.exports.createSaveSchedule = function (userId, cron, files) {
 // Disable saveSchedule instance
 //
 module.exports.disableSaveSchedule = function (saveScheduleId) {
-  SaveScheduleModel.findById(saveScheduleId).then(function (saveSchedule) {
+  return SaveScheduleModel.findById(saveScheduleId).then(function (saveSchedule) {
     saveSchedule.isActive = false;
     saveSchedule.save();
   });
