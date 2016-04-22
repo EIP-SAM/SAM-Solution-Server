@@ -15,4 +15,6 @@ const UsersGroupsRelations = sequelize.define('UsersGroupsRelations', {}, {
 Groups.belongsToMany(Users, { through: 'UsersGroupsRelations', foreignKey: 'userId' });
 Users.belongsToMany(Groups, { through: 'UsersGroupsRelations', foreignKey: 'groupId' });
 
+UsersGroupsRelations.sync();
+
 module.exports = UsersGroupsRelations;
