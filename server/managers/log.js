@@ -8,8 +8,8 @@ var logAdapter = require('../adapters/log');
 // launch function createLog from adapters
 // and return it to controllers
 //
-module.exports.launchLog = function (libs, header) {
-  return logAdapter.createChild(libs, header);
+module.exports.launchLog = function (header) {
+  return logAdapter.createChild(header);
 };
 
 //
