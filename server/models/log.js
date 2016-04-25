@@ -2,11 +2,11 @@
 // Model Log
 //
 
-var mongoose = require('../libs/mongoose');
+const mongoose = require('../libs/mongoose');
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-var logSchema = new Schema({
+const logSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -39,8 +39,6 @@ var logSchema = new Schema({
   },
 });
 
-if (logModel === undefined) {
-  logModel = mongoose.model('log', logSchema);
-}
+const logModel = mongoose.model('log', logSchema);
 
 module.exports = logModel;

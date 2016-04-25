@@ -1,10 +1,10 @@
-var bunyan = require('bunyan');
+const bunyan = require('bunyan');
 
 const Log = require('../models/log');
 
 const bunyanMongodbStream = require('bunyan-mongodb-stream')({ model: Log });
 
-var logger = new bunyan.createLogger({
+const logger = new bunyan.createLogger({
   name: 'sam-logger',
   streams: [
     {
