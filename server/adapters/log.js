@@ -10,15 +10,35 @@ var logger  = require('../libs/bunyan');
 // A logger child is just a logger with an header
 // The stream is the same as the parent's
 //
-module.exports.createChild = function (libs, header) {
+module.exports.createChild = function (header) {
   return libs.logger.child(header);
+};
+
+module.exports.getAllLogs = function () {
+  logModel.find({})
+  .exec(function (err, logs) {
+    if (err) {
+      logger(err);
+      return { error: true, data: err };
+    } else {
+      return { error: false, data: logs };
+    }
+  });
 };
 
 //
 // Get all the log from userId
 //
 module.exports.getLogsById = function (userId) {
-  logModel.find({ header: { userId: userId } });
+  logModel.find({ header: { userId: userId } })
+  .exec(function (err, logs) {
+    if (err) {
+      logger(err);
+      return { error: true, data: err };
+    } else {
+      return { error: false, data: logs };
+    }
+  });
 };
 
 //
@@ -32,7 +52,7 @@ module.exports.getLimitedLogsById = function (userId, limit) {
   .limit(limit)
   .exec(function (err, logs) {
     if (err) {
-      libs.logger(err);
+      logger(err);
       return { error: true, data:err };
     } else {
       return { error: false, data: logs };

@@ -11,8 +11,8 @@ var logManager = require('../managers/log');
 // The header is composed of
 // userId and moduleName.
 //
-module.exports.launchLog = function (libs, header) {
-  return logManagers.launchLog(libs, header);
+module.exports.launchLog = function (header) {
+  return logManagers.launchLog(header);
 };
 
 //
