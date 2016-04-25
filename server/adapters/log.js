@@ -14,6 +14,9 @@ module.exports.createChild = function (header) {
   return libs.logger.child(header);
 };
 
+//
+// Get all the log from database
+//
 module.exports.getAllLogs = function () {
   logModel.find({})
   .exec(function (err, logs) {
