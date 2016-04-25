@@ -8,4 +8,5 @@ url += ':' + conf.port;
 url += '/' + conf.dbConfig.database;
 
 mongoose.connect(url);
+
 module.exports = mongoose;
