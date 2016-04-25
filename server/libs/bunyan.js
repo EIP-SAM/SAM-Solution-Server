@@ -20,7 +20,7 @@ const logger = new bunyan.createLogger({
       path: './log/error.log',
     },
   ],
-  serializers: libs.bunyan.stdSerializers,
+  serializers: bunyan.stdSerializers,
 });
 
 module.exports = logger;
