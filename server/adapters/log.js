@@ -11,7 +11,7 @@ var logger  = require('../libs/bunyan');
 // The stream is the same as the parent's
 //
 module.exports.createChild = function (header) {
-  return libs.logger.child(header);
+  return logger.child(header);
 };
 
 //
