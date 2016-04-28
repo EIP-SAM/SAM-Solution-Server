@@ -46,3 +46,17 @@ module.exports.restoreIsSuccess = function (restoreId) {
     restore.save();
   });
 };
+
+module.exports.getAllRestore = function () {
+  return RestoreModel.findAll();
+};
+
+module.exports.getRestoreByUserId = function (userId) {
+  return RestoreModel.findAll({
+    where: {
+      userId: {
+        $in: userId,
+      },
+    },
+  });
+};
