@@ -11,21 +11,34 @@
         <option value="2">tutu</option>
       </select>
       <select name="saveId">
-        <option value="40">SaveId</option>
+        <option value="1">SaveId</option>
       </select>
       <input type="submit"/>
     </form>
     <form action="restore_start" method="post">
-      <p>Update DB when restore is launch</p>
+      <p>Update is_start</p>
       <input type="text" name="restoreId">
+      <input type="submit"/>
+    </form>
+    <form action="restore_finish" method="post">
+      <p>Update is_finish</p>
+      <input type="text" name="restoreId">
+      <input type="submit"/>
+    </form>
+    <form action="restore_success" method="post">
+      <p>Update is_success</p>
+      <input type="text" name="restoreId">
+      <input type="submit"/>
+    </form>
+    <form action="get_history_restore" method="post">
+      <p>Get History</p>
       <input type="submit"/>
     </form>
     <h1>SAVE</h1>
     <form action="create_save" method="post">
       <p>Create save</p>
       <select name="userId">
-        <option value="1">test</option>
-        <option value="2">tutu</option>
+        <option value="1">admin</option>
       </select>
       <input type="date" name="dateProgSave"/>
       <input type="time" name="timeProgSave"/>
