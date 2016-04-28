@@ -39,3 +39,10 @@ module.exports.restoreSuccess = function (req, res) {
   const restoreId = req.body.restoreId;
   return restoreAdapter.restoreIsSuccess(restoreId);
 };
+
+module.exports.getHistoryRestore = function (req, res) {
+  const userId = []; // init with req.body
+  if (userId.length === 0)
+    return restoreAdapter.getAllRestore();
+  return restoreAdapter.getRestoreByUserId(userId);
+};
