@@ -6,7 +6,7 @@ SaveScheduleModel = require('../models/saveSchedule');
 //
 // Create new SaveSchedule instance
 //
-module.exports.createSaveSchedule = function (userId, cron, files) {
+module.exports.createSaveScheduled = function (userId, cron, files) {
   return SaveScheduleModel.create({
     userId: userId,
     cron: cron,
