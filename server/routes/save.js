@@ -23,7 +23,7 @@ module.exports = function initSaveRoutes(app) {
   });
 
   app.post('/save_finish', function (req, res) {
-    restoreController.saveFinish(req, res);
+    saveController.saveFinish(req, res);
     res.redirect('/save');
   });
 
