@@ -21,5 +21,6 @@ module.exports.disableSaveSchedule = function (saveScheduleId) {
   return SaveScheduleModel.findById(saveScheduleId).then(function (saveSchedule) {
     saveSchedule.isActive = false;
     saveSchedule.save();
+    return saveSchedule;
   });
 };
