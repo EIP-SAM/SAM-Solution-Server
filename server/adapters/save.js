@@ -21,6 +21,7 @@ module.exports.saveIsStart = function (saveId) {
   return SaveModel.findById(saveId).then(function (save) {
     save.isStart = true;
     save.save();
+    return save;
   });
 };
 
@@ -32,6 +33,7 @@ module.exports.saveIsFinish = function (saveId) {
   return SaveModel.findById(saveId).then(function (save) {
     save.isFinish = true;
     save.save();
+    return save;
   });
 };
 
@@ -43,6 +45,7 @@ module.exports.saveIsSuccess = function (saveId) {
   return SaveModel.findById(saveId).then(function (save) {
     save.isSuccess = true;
     save.save();
+    return save;
   });
 };
 
@@ -50,9 +53,10 @@ module.exports.saveIsSuccess = function (saveId) {
 // Search in the database a save instance with id = saveId
 // Save the hash of the commit
 //
-module.exports.hashSave = function (hash) {
+module.exports.hashSave = function (saveId, hash) {
   return SaveModel.findById(saveId).then(function (save) {
-    save.hash = true;
+    save.hash = hash;
     save.save();
+    return save;
   });
 };
