@@ -36,4 +36,9 @@ module.exports = function initRestoreRoutes(app) {
     req.flash('msg', 'Your restoration has failed');
     res.redirect('/restore');
   });
+
+  app.post('/get_history_restore', function (req, res) {
+    restoreController.getHistoryRestore(req, res);
+    res.redirect('/restore');
+  });
 };
