@@ -30,10 +30,10 @@ module.exports.createSave = function (req, res) {
   const date = new Date(dateProgSave[0], dateProgSave[1] - 1, dateProgSave[2],
     timeProgSave[0], timeProgSave[1]);
 
-  return saveScheduleAdapter.createSaveSchedule(userId, cron, files).then(
+  return saveScheduleAdapter.createSaveScheduled(userId, cron, files).then(
     function (saveSchedule) {
       if (cron === null) {
-        nodeSchedule.listCron[saveSchedule.id] = nodeSchedule.createSaveSchedule(date);
+        nodeSchedule.listCron[saveSchedule.id] = nodeSchedule.createSaveScheduled(date);
       } else {
         nodeSchedule.listCron[saveSchedule.id] = nodeSchedule.createCron(cron);
       }

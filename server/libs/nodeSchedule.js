@@ -8,7 +8,7 @@ cron.createCron = function (cronNotation) {
   });
 };
 
-cron.createSaveSchedule = function (date) {
+cron.createSaveScheduled = function (date) {
   return cron.scheduleJob(date, function () {
     console.log('Save scheduled');
   });
