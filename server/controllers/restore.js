@@ -31,6 +31,9 @@ module.exports.restoreSuccess = function (req, res) {
   return restoreManager.restoreSuccess(req, res);
 };
 
+//
+// Called to get history of restorations
+//
 module.exports.getHistoryRestore = function (req, res) {
   return restoreManager.getHistoryRestore(req, res);
 };

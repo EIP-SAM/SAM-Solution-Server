@@ -47,10 +47,16 @@ module.exports.restoreIsSuccess = function (restoreId) {
   });
 };
 
+//
+// Get all restorations of all users
+//
 module.exports.getAllRestore = function () {
   return RestoreModel.findAll();
 };
 
+//
+// Get all restorations of one/several users
+//
 module.exports.getRestoreByUserId = function (userId) {
   return RestoreModel.findAll({
     where: {
