@@ -15,8 +15,10 @@
 const ensureLoggedIn = require('../libs/connectEnsureLogin').ensureLoggedIn;
 const ensureLoggedOut = require('../libs/connectEnsureLogin').ensureLoggedOut;
 
-var usersManager = require('../managers/users');
-var groupsManager = require('../managers/groups');
+const usersManager = require('../managers/users');
+const groupsManager = require('../managers/groups');
+
+const rightsManager = require('../managers/rights');//
 
 module.exports = function initBaseRoutes(app, conf, passport) {
   //
