@@ -29,6 +29,6 @@ var Groups = sequelize.define('groups', {
   freezeTableName: true,
 });
 
-Groups.sync().then();
+Groups.sync();
 
 module.exports = Groups;
