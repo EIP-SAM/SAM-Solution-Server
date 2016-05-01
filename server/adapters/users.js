@@ -1,6 +1,7 @@
 var Sequelize = require('sequelize');
 var UsersModel = require('../models/users');
 var GroupsModel = require('../models/groups');
+require('../models/usersGroupsRelations');
 
 module.exports.findAll = function () {
   return UsersModel.findAll({

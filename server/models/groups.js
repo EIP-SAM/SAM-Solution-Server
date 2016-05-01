@@ -1,4 +1,3 @@
-
 var Sequelize = require('sequelize');
 var sequelize = require('../libs/sequelize');
 
@@ -11,8 +10,18 @@ var Groups = sequelize.define('groups', {
     allowNull: false,
     unique: true,
   },
-  baseRights: {
-    type: Sequelize.INTEGER,
+  saveAndRestoreMode: {
+    type: Sequelize.CHAR,
+    allowNull: false,
+    unique: false,
+  },
+  migrationMode: {
+    type: Sequelize.CHAR,
+    allowNull: false,
+    unique: false,
+  },
+  softwarePackagesMode: {
+    type: Sequelize.CHAR,
     allowNull: false,
     unique: false,
   },
@@ -20,8 +29,6 @@ var Groups = sequelize.define('groups', {
   freezeTableName: true,
 });
 
-Groups.sync();
+Groups.sync().then();
 
 module.exports = Groups;
-
-var _ = require('./usersGroupsRelations');

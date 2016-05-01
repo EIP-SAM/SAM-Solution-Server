@@ -1,75 +1,72 @@
 //
-// Table of all the possible base rights for each module
-// An object represent a bit contained in the `baseRights` 32 bits integer in
-// the group model, and describe its representation as a right
-const modulesRights = [
-
-  //
-  // Representation example:
-  // { pos: 0, moduleName: 'moduleExample', rightName: 'rightExample', defaultValue: false },
-  // ...
-];
+// Available modes
+// They represent the rights of a user, through its groups
+const enumMode = {
+  SIMPLE: 1,
+  ADVANCED: 2,
+};
+module.exports.enumMode = enumMode;
 
 //
-// Possible modules concerned by the base rights
-const concernedModules = [
-];
+// Available modules where a mode can be applied
+const enumModules = {
+  SAVE_AND_RESTORE: 'saveAndRestore',
+  MIGRATION: 'migration',
+  SOFTWARE_PACKAGES: 'softwarePackages',
+};
+module.exports.enumModules = enumModules;
 
 //
-// Init the table `modulesRights` with 32 empty objects
-for (var i = 0; i != 32; ++i) {
-  modulesRights[i] = { pos: i, moduleName: null, rightName: null, defaultValue: null };
-}
+// Let a developer able to ask for the higher right (mode) available for a given
+// user and a module
+// Returns an `enumMode` if okay, or `null` if there is an error
+// Call example:
+//   usersAdapter.findByName('foobar').then(function (user) {
+//      getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user);
+//    }
+//  });
+module.exports.getModuleRightForUser = function (moduleName, user) {
+  if (moduleName != enumModules.SAVE_AND_RESTORE &&
+    moduleName != enumModules.MIGRATION &&
+    moduleName != enumModules.SOFTWARE_PACKAGES) {
+    return null;
+  }
 
-module.exports.createRight = function (moduleName, rightName, defaultValue) {
-  // Add `moduleName` in `concernedModule`
-  // Segmenter le tableau `modulesRights` en groupes de cases representant le nombre de `concernedModules` ((32 / x) - (32 % x))
-  // Push l'element dans le segment de tableau, apres le dernier element du meme module
-  // Woila
+  var mode = 0;
+  user.groups.forEach(function (group) {
+    const moduleMode = group[moduleName + 'Mode'];
+    mode = moduleMode > mode ? moduleMode : mode;
+  });
+
+  if (mode == enumMode.SIMPLE || mode == enumMode.ADVANCED) {
+    return mode;
+  }
+
+  return null;
 };
 
-module.exports.getRightForUser = function (moduleName, rightName, user) {
-  // Recuperer le groupe lie a l'user (user.groups[0])
-  // Recuperer l'objet concerne dans modulesRights (via moduleName & rightName)
-  // Lire l'objet recupere precedement, lire la position, et retourner le bit a la position donnee dans `baseRights` tel un booleen
-
-  // Dans un second temps, il faudra parcourir tous les groupes du user, et recuperer le droit le plus permissif
-  return (false);
-};
-
+// Will disapear soon
 function test() {
-  getRightForUser = module.exports.getRightForUser;
-  createRight = module.exports.createRight;
+  getModuleRightForUser = module.exports.getModuleRightForUser;
+  usersAdapter = require('../adapters/users');
 
-  createRight('saveAndRestore', 'manualSave', true);
-  createRight('saveAndRestore', 'manualRestore', true);
-  createRight('saveAndRestore', 'automaticSave', true);
-  createRight('saveAndRestore', 'automaticRestore', true);
+  usersAdapter.findByName('admin').then(function (user) {
+    if (user) {
+      console.log('admin');
+      console.log('saveAndRestore = ' + getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user));
+      console.log('migration = ' + getModuleRightForUser(enumModules.MIGRATION, user));
+      console.log('softwarePackages = ' + getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user));
+    }
+  });
 
-  createRight('migration', 'manualMigration', false);
-  createRight('migration', 'automaticMigration', true);
-
-  createRight('softwarePackages', 'manualInstallation', false);
-  createRight('softwarePackages', 'manualUpdate', false);
-  createRight('softwarePackages', 'manualDeletion', false);
-  createRight('softwarePackages', 'automaticInstallation', true);
-  createRight('softwarePackages', 'automaticUpdate', true);
-  createRight('softwarePackages', 'automaticDeletion', true);
-
-  console.log('saveAndRestore->manualSave = ' + getRightForUser('saveAndRestore', 'manualSave', null));
-  console.log('saveAndRestore->manualRestore = ' + getRightForUser('saveAndRestore', 'manualRestore', null));
-  console.log('saveAndRestore->automaticSave = ' + getRightForUser('saveAndRestore', 'automaticSave', null));
-  console.log('saveAndRestore->automaticRestore = ' + getRightForUser('saveAndRestore', 'automaticRestore', null));
-
-  console.log('migration->manualMigration = ' + getRightForUser('migration', 'manualMigration', null));
-  console.log('migration->automaticMigration = ' + getRightForUser('migration', 'automaticMigration', null));
-
-  console.log('softwarePackages->manualInstallation = ' + getRightForUser('softwarePackages', 'manualInstallation', null));
-  console.log('softwarePackages->manualUpdate = ' + getRightForUser('softwarePackages', 'manualUpdate', null));
-  console.log('softwarePackages->manualDeletion = ' + getRightForUser('softwarePackages', 'manualDeletion', null));
-  console.log('softwarePackages->automaticInstallation = ' + getRightForUser('softwarePackages', 'automaticInstallation', null));
-  console.log('softwarePackages->automaticUpdate = ' + getRightForUser('softwarePackages', 'automaticUpdate', null));
-  console.log('softwarePackages->automaticDeletion = ' + getRightForUser('softwarePackages', 'automaticDeletion', null));
+  usersAdapter.findByName('toto').then(function (user) {
+    if (user) {
+      console.log('toto');
+      console.log('saveAndRestore = ' + getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user));
+      console.log('migration = ' + getModuleRightForUser(enumModules.MIGRATION, user));
+      console.log('softwarePackages = ' + getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user));
+    }
+  });
 }
 
 test();
