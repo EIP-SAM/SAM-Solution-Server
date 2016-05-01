@@ -23,8 +23,6 @@ const Users = sequelize.define('users', {
   freezeTableName: true,
 });
 
-Users.sync();
+Users.sync().then();
 
-module.exports =  Users;
-
-var _ = require('./usersGroupsRelations');
+module.exports = Users;

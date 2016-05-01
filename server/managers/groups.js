@@ -1,4 +1,7 @@
-var GroupsAdapter = require('../adapters/groups');
+const GroupsAdapter = require('../adapters/groups');
+const rightsManager = require('./rights');
+
+const enumMode = rightsManager.enumMode;
 
 initUserDefaultGroup();
 initAdminDefaultGroup();
@@ -7,7 +10,7 @@ function initUserDefaultGroup() {
   return GroupsAdapter.findByName('user_default')
   .then(function (group) {
     if (!group) {
-      GroupsAdapter.createGroup('user_default', 0);
+      GroupsAdapter.createGroup('user_default', enumMode.ADVANCED, enumMode.SIMPLE, enumMode.SIMPLE);
     }
   });
 }
@@ -16,7 +19,7 @@ function initAdminDefaultGroup() {
   return GroupsAdapter.findByName('admin_default')
   .then(function (group) {
     if (!group) {
-      GroupsAdapter.createGroup('admin_default', 0);
+      GroupsAdapter.createGroup('admin_default', enumMode.ADVANCED, enumMode.ADVANCED, enumMode.ADVANCED);
     }
   });
 }
