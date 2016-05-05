@@ -1,8 +1,8 @@
 //
 // Libraries used in this manager
-var UsersAdapter = require('../adapters/users');
-var GroupsAdapter = require('../adapters/groups');
-var sha256 = require('../libs/sha256');
+const UsersAdapter = require('../adapters/users');
+const GroupsAdapter = require('../adapters/groups');
+const sha256 = require('../libs/sha256');
 
 initAdminUser();
 

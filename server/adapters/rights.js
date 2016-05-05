@@ -1,4 +1,4 @@
-var RightsModel = require('../models/rights');
+const RightsModel = require('../models/rights');
 
 module.exports.findById = function (id) {
   return RightsModel.findOne({ where: { id: id } });
