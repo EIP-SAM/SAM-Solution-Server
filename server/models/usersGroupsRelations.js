@@ -1,6 +1,6 @@
 const sequelize = require('../libs/sequelize');
-var Groups = require('./groups');
-var Users = require('./users');
+const Groups = require('./groups');
+const Users = require('./users');
 
 //
 // Model UsersGroupsRelations

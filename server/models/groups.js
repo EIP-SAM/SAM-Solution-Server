@@ -1,10 +1,10 @@
-var Sequelize = require('sequelize');
-var sequelize = require('../libs/sequelize');
+const Sequelize = require('sequelize');
+const sequelize = require('../libs/sequelize');
 
 //
 // Model Groups
 //
-var Groups = sequelize.define('groups', {
+const Groups = sequelize.define('groups', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,

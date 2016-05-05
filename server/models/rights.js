@@ -1,5 +1,6 @@
-var Sequelize = require('sequelize');
-var sequelize = require('../libs/sequelize');
+const Sequelize = require('sequelize');
+const sequelize = require('../libs/sequelize');
+const Groups = require('./groups');
 
 //
 // Model rights
@@ -17,6 +18,8 @@ const Rights = sequelize.define('rights', {
 //
 // Setup Relations
 //
-models.Groups.hasMany(Rights);
+Groups.hasMany(Rights);
+
+Rights.sync();
 
 module.exports = Rights;
