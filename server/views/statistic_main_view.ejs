@@ -1,8 +1,348 @@
 <!DOCTYPE html>
 <html>
   <head>
+
+    <!-- CHART.JS Library loaded from internet, @TODO: Load from locale -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.1.1/Chart.js" charset="utf-8"></script>
+
+    <!-- Basic Css code for page skin, @TODO: Create a separate css file -->
+    <style>
+
+      body {
+        font-family: "Impact";
+        text-align: center;
+        background-color: #96C0CE;
+        color: #7C786A;
+      }
+
+      p {
+        font-size: 2em;
+      }
+
+      div {
+        border: 2px solid #7C786A;
+        padding: 20px;
+        margin: 20px;
+        /*background-color: #FEF6EB;*/
+        background-color: white;
+      }
+
+      .graphTitle {
+        font-size: 1.5em;
+        border: 2px solid #7C786A;
+      }
+
+      canvas {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+    </style>
+
   </head>
   <body>
-    test
+    <div>
+      <p>Statistic Homepage</p>
+    </div>
+
+    <div>
+      <p id="myChartTitle" class="graphTitle"></p>
+      <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+
+    <div>
+      <p id="myChart1Title" class="graphTitle"></p>
+      <canvas id="myChart1" width="400" height="400"></canvas>
+    </div>
+
+    <div>
+      <p id="myChart2Title" class="graphTitle"></p>
+      <canvas id="myChart2" width="400" height="400"></canvas>
+    </div>
+
+    <div>
+      <p id="myChart3Title" class="graphTitle"></p>
+      <canvas id="myChart3" width="400" height="400"></canvas>
+    </div>
+
+    <div>
+      <p id="myChart4Title" class="graphTitle"></p>
+      <canvas id="myChart4" width="400" height="400"></canvas>
+    </div>
+
+    <script>
+
+      // COLOR GENERATOR FUNCTIONS
+
+      function generateColorBar(order, type)
+      {
+        typeTable = [];
+        typeTable[0] = [];
+        typeTable[1] = [];
+
+        typeTable[0][0] = "rgba(220,220,220,0.5)";
+        typeTable[1][0] = "rgba(151,187,205,0.5)";
+
+        typeTable[0][1] = "rgba(220,220,220,0.8)";
+        typeTable[1][1] = "rgba(151,187,205,0.8)";
+
+        typeTable[0][2] = "rgba(220,220,220,0.75)";
+        typeTable[1][2] = "rgba(151,187,205,0.75)";
+
+        typeTable[0][3] = "rgba(220,220,220,1)";
+        typeTable[1][3] = "rgba(151,187,205,1)";
+
+        if (order % 2 == 0)
+          return typeTable[1][type];
+        return typeTable[0][type];
+      }
+
+      function generateColorPie(order, type)
+      {
+        typeTable = [];
+        typeTable[0] = [];
+        typeTable[1] = [];
+        typeTable[2] = [];
+
+        typeTable[0][0] = "#F7464A";
+        typeTable[1][0] = "#46BFBD";
+        typeTable[2][0] = "#FDB45C";
+
+        typeTable[0][1] = "#FF5A5E";
+        typeTable[1][1] = "#5AD3D1";
+        typeTable[2][1] = "#FFC870";
+
+        if (order % 3 == 0)
+          return typeTable[2][type];
+        else if (order % 2 == 0)
+          return typeTable[1][type];
+        return typeTable[0][type];
+      }
+
+      function generateColorRadar(order, type)
+      {
+        typeTable = [];
+        typeTable[0] = [];
+        typeTable[1] = [];
+
+        typeTable[0][0] = "rgba(220,220,220,0.2)";
+        typeTable[1][0] = "rgba(151,187,205,0.2)";
+
+        typeTable[0][1] = "rgba(220,220,220,1)";
+        typeTable[1][1] = "rgba(151,187,205,1)";
+
+        typeTable[0][2] = "rgba(220,220,220,1)";
+        typeTable[1][2] = "rgba(151,187,205,1)";
+
+        typeTable[0][3] = "#fff";
+        typeTable[1][3] = "#fff";
+
+        typeTable[0][4] = "#fff";
+        typeTable[1][4] = "#fff";
+
+        typeTable[0][5] = "rgba(220,220,220,1)";
+        typeTable[1][5] = "rgba(151,187,205,1)";
+
+        if (order % 2 == 0)
+          return typeTable[1][type];
+        return typeTable[0][type];
+      }
+
+      function generateColorRadar(order, type)
+      {
+        typeTable = [];
+        typeTable[0] = [];
+        typeTable[1] = [];
+
+        typeTable[0][0] = "rgba(220,220,220,0.2)";
+        typeTable[1][0] = "rgba(151,187,205,0.2)";
+
+        typeTable[0][1] = "rgba(220,220,220,1)";
+        typeTable[1][1] = "rgba(151,187,205,1)";
+
+        typeTable[0][2] = "rgba(220,220,220,1)";
+        typeTable[1][2] = "rgba(151,187,205,1)";
+
+        typeTable[0][3] = "#fff";
+        typeTable[1][3] = "#fff";
+
+        typeTable[0][4] = "#fff";
+        typeTable[1][4] = "#fff";
+
+        typeTable[0][5] = "rgba(220,220,220,1)";
+        typeTable[1][5] = "rgba(151,187,205,1)";
+
+        if (order % 2 == 0)
+          return typeTable[1][type];
+        return typeTable[0][type];
+      }
+
+      function generateColorPolar(order, type)
+      {
+        typeTable = [];
+        typeTable[0] = [];
+        typeTable[1] = [];
+        typeTable[2] = [];
+
+        typeTable[0][0] = "#F7464A";
+        typeTable[1][0] = "#46BFBD";
+        typeTable[2][0] = "#FDB45C";
+
+        typeTable[0][1] = "#FF5A5E";
+        typeTable[1][1] = "#5AD3D1";
+        typeTable[2][1] = "#FFC870";
+
+        if (order % 3 == 0)
+          return typeTable[2][type];
+        else if (order % 2 == 0)
+          return typeTable[1][type];
+        return typeTable[0][type];
+      }
+
+      // DATA CREATION, FILL AND PUSH TO CANVAS FUNCTIONS
+
+      function prepareBarDataForGraph(graphData, ctx) {
+        var datasets = [];
+        for (var i = 0; i < graphData.dataset.length; i++) {
+            datasets.push({
+                label: graphData.dataset[i].title,
+                fillColor: generateColorBar(i, 0),
+                strokeColor: generateColorBar(i, 1),
+                highlightFill: generateColorBar(i, 2),
+                highlightStroke: generateColorBar(i, 3),
+                data: graphData.dataset[i].data,
+            });
+        };
+
+        var dataToChart = {
+            labels: graphData.labels,
+            datasets: datasets
+        };
+
+        new Chart(ctx).Bar(dataToChart);
+        document.getElementById("myChartTitle").innerHTML = graphData.title;
+      }
+
+      function preparePieDataForGraph(graphData, ctx) {
+        var datasets = [];
+
+        for (var i = 0; i < graphData.dataset.length; i++) {
+            datasets.push({
+                color: generateColorPie(i, 0),
+                highlight: generateColorPie(i, 1),
+                value: graphData.dataset[i].value,
+                label: graphData.dataset[i].title,
+            });
+        };
+
+        var dataToChart = datasets;
+
+        new Chart(ctx).Pie(dataToChart);
+        document.getElementById("myChart1Title").innerHTML = graphData.title;
+      }
+
+      function prepareRadarDataForGraph(graphData, ctx) {
+        var datasets = [];
+        for (var i = 0; i < graphData.dataset.length; i++) {
+            datasets.push({
+                label: graphData.dataset[i].title,
+                fillColor: generateColorRadar(i, 0),
+                strokeColor: generateColorRadar(i, 1),
+                pointColor: generateColorRadar(i, 2),
+                pointStrokeColor: generateColorRadar(i, 3),
+                pointHighlightFill: generateColorRadar(i, 4),
+                pointHighlightStroke: generateColorRadar(i, 5),
+                data: graphData.dataset[i].data,
+            });
+        };
+
+        var dataToChart = {
+            labels: graphData.labels,
+            datasets: datasets
+        };
+
+        new Chart(ctx).Radar(dataToChart);
+        document.getElementById("myChart2Title").innerHTML = graphData.title;
+      }
+
+      function prepareLineDataForGraph(graphData, ctx) {
+        var datasets = [];
+        for (var i = 0; i < graphData.dataset.length; i++) {
+            datasets.push({
+                label: graphData.dataset[i].title,
+                fillColor: generateColorRadar(i, 0),
+                strokeColor: generateColorRadar(i, 1),
+                pointColor: generateColorRadar(i, 2),
+                pointStrokeColor: generateColorRadar(i, 3),
+                pointHighlightFill: generateColorRadar(i, 4),
+                pointHighlightStroke: generateColorRadar(i, 5),
+                data: graphData.dataset[i].data,
+            });
+        };
+
+        var dataToChart = {
+            labels: graphData.labels,
+            datasets: datasets
+        };
+
+        new Chart(ctx).Line(dataToChart);
+        document.getElementById("myChart3Title").innerHTML = graphData.title;
+      }
+
+      function preparePolarDataForGraph(graphData, ctx) {
+        var datasets = [];
+
+        for (var i = 0; i < graphData.dataset.length; i++) {
+            datasets.push({
+                color: generateColorPolar(i, 0),
+                highlight: generateColorPolar(i, 1),
+                value: graphData.dataset[i].value,
+                label: graphData.dataset[i].title,
+            });
+        };
+
+        var dataToChart = datasets;
+
+        new Chart(ctx).PolarArea(dataToChart);
+        document.getElementById("myChart4Title").innerHTML = graphData.title;
+      }
+
+      function prepareDataForGraph(graphData, ctx) {
+        if (graphData.type == "bar")
+          prepareBarDataForGraph(graphData, ctx);
+        else if (graphData.type == "pie")
+          preparePieDataForGraph(graphData, ctx);
+        else if (graphData.type == "radar")
+          prepareRadarDataForGraph(graphData, ctx);
+        else if (graphData.type == "line")
+          prepareLineDataForGraph(graphData, ctx);
+        else if (graphData.type == "polar")
+          preparePolarDataForGraph(graphData, ctx);
+      }
+
+      // USAGE OF DATA FROM CALLBACK FUNCTIONS
+
+      var graphData = <%- JSON.stringify(data['UserGraphBarOfAge']) %>;
+      var ctx = document.getElementById("myChart").getContext("2d");
+      prepareDataForGraph(graphData, ctx);
+
+      graphData = <%- JSON.stringify(data['ComputerGraphCircleOfTypeOfComputer']) %>;
+      ctx = document.getElementById("myChart1").getContext("2d");
+      prepareDataForGraph(graphData, ctx);
+
+      graphData = <%- JSON.stringify(data['UserGraphRadarOfAge']) %>;
+      ctx = document.getElementById("myChart2").getContext("2d");
+      prepareDataForGraph(graphData, ctx);
+
+      graphData = <%- JSON.stringify(data['UserGraphLineOfAge']) %>;
+      ctx = document.getElementById("myChart3").getContext("2d");
+      prepareDataForGraph(graphData, ctx);
+
+      graphData = <%- JSON.stringify(data['ComputerGraphPolarOfTypeOfComputer']) %>;
+      ctx = document.getElementById("myChart4").getContext("2d");
+      prepareDataForGraph(graphData, ctx);
+
+    </script>
+
   </body>
 </html>
