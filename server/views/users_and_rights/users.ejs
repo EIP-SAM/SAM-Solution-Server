@@ -41,6 +41,9 @@
           <td><b>Name</b></td>
           <td><b>Email</b></td>
           <td><b>Belongs to group(s)</b></td>
+          <td><b>Higher Save/Restore Mode</b></td>
+          <td><b>Higher Migration Mode</b></td>
+          <td><b>Higher Software manager Mode</b></td>
         </tr>
         <% users.forEach(function (user) { %>
           <tr>
@@ -52,6 +55,9 @@
                 <%= group.name %>,
               <% }); %>
             </td>
+            <td><%= user.saveAndRestoreMode == 2 ? 'Advanced' : 'Simple' %></td>
+            <td><%= user.migrationMode == 2 ? 'Advanced' : 'Simple' %></td>
+            <td><%= user.softwarePackagesMode == 2 ? 'Advanced' : 'Simple' %></td>
           </tr>
         <% }); %>
       </table>

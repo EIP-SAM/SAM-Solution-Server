@@ -8,10 +8,24 @@
     <% if (user) { %>
       <h1>Update your profile</h1>
       <p>
-        Hey <i><%= user.name %></i>, for your information, you're currently belonging to the following groups: <i>
+        Hey <i><%= user.name %></i>, for your information, you're currently belonging to the following group(s): <i>
         <% user.groups.forEach(function (group) { %>
           <%= group.name %>,
         <% }); %></i>
+      </p>
+      <p>
+        Your higher rights (mode) for each modules are:
+        <table border="10" style="width:50%">
+          <tr>
+            <td><b>Save/Restore</b></td>
+            <td><b>Migration</b></td>
+            <td><b>Software Manager</b></td>
+          </tr>
+            <td><%= user.saveAndRestoreMode == 2 ? 'Advanced' : 'Simple' %></td>
+            <td><%= user.migrationMode == 2 ? 'Advanced' : 'Simple' %></td>
+            <td><%= user.softwarePackagesMode == 2 ? 'Advanced' : 'Simple' %></td>
+            </tr>
+        </table>
       </p>
       <form action="/update_user_profile" method="post">
         <div>
