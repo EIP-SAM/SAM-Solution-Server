@@ -6,9 +6,9 @@ SaveModel = require('../models/save');
 //
 // Create new save instance
 //
-module.exports.createSave = function (saveSchedule, date) {
+module.exports.createSave = function (saveScheduledId, date) {
   return SaveModel.create({
-    saveScheduleId: saveSchedule,
+    saveScheduledId: saveScheduledId,
     execDate: date,
   });
 };
@@ -27,7 +27,7 @@ module.exports.saveIsStart = function (saveId) {
 
 //
 // Search in the database a save instance with id = saveId
-// Update boolean isFinish
+// Update boolean isFinish & isActive
 //
 module.exports.saveIsFinish = function (saveId) {
   return SaveModel.findById(saveId).then(function (save) {
