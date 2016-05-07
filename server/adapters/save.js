@@ -60,3 +60,20 @@ module.exports.hashSave = function (saveId, hash) {
     return save;
   });
 };
+
+module.exports.getAllSave = function () {
+  return SaveModel.findAll({
+    order: 'saveScheduledId',
+  });
+};
+
+module.exports.getAllSaveBySaveSchedule = function (saveScheduledIds) {
+  console.log(saveScheduledIds);
+  return SaveModel.findAll({
+    where: {
+      saveScheduledId: {
+        $in: saveScheduledIds,
+      },
+    },
+  });
+};

@@ -99,3 +99,48 @@ module.exports.cancelSave = function (req, res) {
   cronManager.removeCron(saveScheduledId);
   return saveScheduledAdapter.disableSaveScheduled(saveScheduledId);
 };
+
+function displayHistory(savesScheduled, saves) {
+  for (var ss of savesScheduled) {
+    console.log('---------' + ss.id + '---------');
+    console.log(ss.userId);
+    for (var s of saves) {
+      if (ss.id == s.saveScheduledId) {
+        console.log(s.id + '     ' + s.execDate + '      ' + ss.cron);
+      }
+    }
+
+    console.log('---------' + ss.id + '---------');
+  }
+
+  return savesScheduled;
+}
+
+//
+// Get data from request
+// Check to get:
+//   - all saves of all user
+//   - all saves of one/several users
+// Call adapter
+//
+module.exports.getHistorySave = function (req, res) {
+  const userId = []; // init with req.body
+
+  if (userId.length === 0)
+    return saveScheduledAdapter.getAllSaveScheduled().then(function (savesScheduled) {
+      return saveAdapter.getAllSave().then(function (saves) {
+        return displayHistory(savesScheduled, saves);
+      });
+    });
+
+  return saveScheduledAdapter.getAllSaveScheduledByUser(userId).then(function (savesScheduled) {
+    var saveScheduledIds = [];
+    for (var ss of savesScheduled) {
+      saveScheduledIds.push(ss.id);
+    }
+
+    return saveAdapter.getAllSaveBySaveSchedule(saveScheduledIds).then(function (saves) {
+      return displayHistory(savesScheduled, saves);
+    });
+  });
+};

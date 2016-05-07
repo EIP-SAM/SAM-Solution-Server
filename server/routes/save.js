@@ -43,4 +43,9 @@ module.exports = function initSaveRoutes(app) {
     req.flash('msg', 'Your save has failed');
     res.redirect('/save');
   });
+
+  app.post('/get_history_save', function (req, res) {
+    saveController.getHistorySave(req, res);
+    res.redirect('/save');
+  });
 };
