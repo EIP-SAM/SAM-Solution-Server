@@ -60,6 +60,7 @@
     <form action="save_finish" method="post">
       <p>Update is_finish</p>
       <input type="text" name="saveId">
+      <input type="text" name="saveScheduledId">
       <input type="submit"/>
     </form>
     <form action="save_success" method="post">
@@ -67,9 +68,9 @@
       <input type="text" name="saveId">
       <input type="submit"/>
     </form>
-    <form action="remove_save" method="post">
-      <p>Remove save</p>
-      <input type="text" name="saveId">
+    <form action="cancel_save" method="post">
+      <p>Cancel save</p>
+      <input type="text" name="saveScheduledId">
       <input type="submit"/>
     </form>
     <% include ./flash %>

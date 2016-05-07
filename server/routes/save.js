@@ -27,9 +27,9 @@ module.exports = function initSaveRoutes(app) {
     res.redirect('/save');
   });
 
-  app.post('/remove_save', function (req, res) {
-    saveController.removeSave(req, res);
-    req.flash('msg', 'Your auto/program save has been removed');
+  app.post('/cancel_save', function (req, res) {
+    saveController.cancelSave(req, res);
+    req.flash('msg', 'Your auto/program save has been canceled');
     res.redirect('/save');
   });
 
