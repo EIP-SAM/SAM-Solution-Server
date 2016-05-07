@@ -60,7 +60,7 @@ module.exports.getAllRestore = function () {
 //
 // Get all restorations of one/several users
 //
-module.exports.getRestoreByUserId = function (userId) {
+module.exports.getRestoreByUser = function (userId) {
   return RestoreModel.findAll({
     where: {
       userId: {
