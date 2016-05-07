@@ -31,3 +31,25 @@ module.exports.disableSaveScheduled = function (saveScheduledId) {
 module.exports.findSaveScheduledById = function (saveScheduledId) {
   return SaveScheduledModel.findById(saveScheduledId);
 };
+
+//
+// Get all saveScheduled of all users
+//
+module.exports.getAllSaveScheduled = function () {
+  return SaveScheduledModel.findAll({
+    order: 'id',
+  });
+};
+
+//
+// Get all saveScheduled of one/several users
+//
+module.exports.getAllSaveScheduledByUser = function (userId) {
+  return SaveScheduledModel.findAll({
+    where: {
+      userId: {
+        $in: userId,
+      },
+    },
+  });
+};

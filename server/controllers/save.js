@@ -37,3 +37,10 @@ module.exports.saveSuccess = function (req, res) {
 module.exports.cancelSave = function (req, res) {
   return saveManager.cancelSave(req, res);
 };
+
+//
+// Called to get history of saves
+//
+module.exports.getHistorySave = function (req, res) {
+  return saveManager.getHistorySave(req, res);
+};
