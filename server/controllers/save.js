@@ -34,6 +34,6 @@ module.exports.saveSuccess = function (req, res) {
 //
 // Call when a auto or program save is removed
 //
-module.exports.removeSave = function (req, res) {
-  return saveManager.removeSave(req, res);
+module.exports.cancelSave = function (req, res) {
+  return saveManager.cancelSave(req, res);
 };
