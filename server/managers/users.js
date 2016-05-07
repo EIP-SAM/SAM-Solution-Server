@@ -2,7 +2,10 @@
 // Libraries used in this manager
 const UsersAdapter = require('../adapters/users');
 const GroupsAdapter = require('../adapters/groups');
+const rightsManager = require('./rights');
 const sha256 = require('../libs/sha256');
+
+const enumModules = rightsManager.enumModules;
 
 initAdminUser();
 
@@ -125,6 +128,12 @@ module.exports.retrieveAllUsers = function (req, res) {
     UsersAdapter.findAll().then(function (users) {
       const errors = req.session.errors;
 
+      users.forEach(function (user) {
+        user.saveAndRestoreMode = rightsManager.getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user);
+        user.migrationMode = rightsManager.getModuleRightForUser(enumModules.MIGRATION, user);
+        user.softwarePackagesMode = rightsManager.getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user);
+      });
+
       req.session.errors = null;
       req.session.save(function () {
         fulfill({ users: users, errors: errors });
@@ -139,6 +148,12 @@ module.exports.retrieveUserProfile = function (req, res) {
   return new Promise(function (fulfill, reject) {
     UsersAdapter.findById(req.user.id).then(function (user) {
       const errors = req.session.errors;
+
+      if (user) {
+        user.saveAndRestoreMode = rightsManager.getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user);
+        user.migrationMode = rightsManager.getModuleRightForUser(enumModules.MIGRATION, user);
+        user.softwarePackagesMode = rightsManager.getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user);
+      }
 
       req.session.errors = null;
       req.session.save(function () {
