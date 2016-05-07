@@ -51,5 +51,5 @@ module.exports.getHistoryRestore = function (req, res) {
   const userId = []; // init with req.body
   if (userId.length === 0)
     return restoreAdapter.getAllRestore();
-  return restoreAdapter.getRestoreByUserId(userId);
+  return restoreAdapter.getRestoreByUser(userId);
 };
