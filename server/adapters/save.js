@@ -61,12 +61,18 @@ module.exports.hashSave = function (saveId, hash) {
   });
 };
 
+//
+// Get all saves of all users
+//
 module.exports.getAllSave = function () {
   return SaveModel.findAll({
     order: 'saveScheduledId',
   });
 };
 
+//
+// Get all saves of one/several users
+//
 module.exports.getAllSaveBySaveSchedule = function (saveScheduledIds) {
   console.log(saveScheduledIds);
   return SaveModel.findAll({
