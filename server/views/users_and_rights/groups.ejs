@@ -12,16 +12,20 @@
       <% } %>
       <table border="10" style="width:50%">
         <tr>
-          <td>Id</td>
-          <td>Name</td>
-          <td>BaseRights</td>
-          <td>Has (many) user(s)</td>
+          <td><b>Id</b></td>
+          <td><b>Name</b></td>
+          <td><b>Save/Restore Mode</b></td>
+          <td><b>Migration Mode</b></td>
+          <td><b>Software manager Mode</b></td>
+          <td><b>Has user(s)</b></td>
         </tr>
         <% groups.forEach(function (group) { %>
           <tr>
             <td><%= group.id %></td>
             <td><%= group.name %></td>
-            <td><%= group.baseRights %></td>
+            <td><%= group.saveAndRestoreMode == 2 ? 'Advanced' : 'Simple' %></td>
+            <td><%= group.migrationMode == 2 ? 'Advanced' : 'Simple' %></td>
+            <td><%= group.softwarePackagesMode == 2 ? 'Advanced' : 'Simple' %></td>
             <td>
               <% group.users.forEach(function (user) { %>
                 <%= user.name %>,
