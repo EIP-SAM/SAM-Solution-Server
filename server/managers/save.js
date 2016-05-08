@@ -39,7 +39,7 @@ module.exports.createSave = function (req, res) {
         nodeSchedule.listCron[saveScheduled.id] = cronManager.createAutoSave(cron);
       }
 
-      saveAdapter.createSave(saveScheduled.id, date);
+      return saveAdapter.createSave(saveScheduled.id, date);
     });
 };
 
@@ -98,6 +98,9 @@ module.exports.cancelSave = function (req, res) {
   return saveScheduledAdapter.disableSaveScheduled(saveScheduledId);
 };
 
+//
+// Display save order by saveSchedule
+//
 function displayHistory(savesScheduled, saves) {
   for (var ss of savesScheduled) {
     console.log('---------' + ss.id + '---------');
