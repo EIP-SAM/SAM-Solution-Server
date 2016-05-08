@@ -74,7 +74,6 @@ module.exports.getAllSave = function () {
 // Get all saves of one/several users
 //
 module.exports.getAllSaveBySaveSchedule = function (saveScheduledIds) {
-  console.log(saveScheduledIds);
   return SaveModel.findAll({
     where: {
       saveScheduledId: {
