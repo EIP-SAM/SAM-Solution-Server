@@ -53,3 +53,14 @@ module.exports.getAllSaveScheduledByUser = function (userId) {
     },
   });
 };
+
+//
+// Get all active of all users
+//
+module.exports.getAllSaveScheduleActive = function () {
+  return SaveScheduledModel.findAll({
+    where: {
+      isActive: true,
+    },
+  });
+};
