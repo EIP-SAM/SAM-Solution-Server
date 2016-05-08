@@ -36,11 +36,9 @@ module.exports.createSave = function (req, res) {
       if (cron === null) {
         nodeSchedule.listCron[saveScheduled.id] = cronManager.createSaveScheduled(date);
       } else {
-        nodeSchedule.listCron[saveScheduled.id] = cronManager.createAutoSave(cron,
-          saveScheduled.id);
+        nodeSchedule.listCron[saveScheduled.id] = cronManager.createAutoSave(cron);
       }
 
-      console.log(nodeSchedule.listCron);
       saveAdapter.createSave(saveScheduled.id, date);
     });
 };
