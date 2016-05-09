@@ -31,6 +31,12 @@ describe('createRestore', function () {
       expect(asyncRestore.execDate).toEqual(new Date());
     });
   });
+
+  it('should have called create once', function () {
+    spyOn(RestoreModel, 'create');
+    restoreAdapter.createRestore(1, 1);
+    expect(RestoreModel.create).toHaveBeenCalledTimes(1);
+  });
 });
 
 describe('restoreIsStart', function () {
@@ -57,6 +63,15 @@ describe('restoreIsStart', function () {
     restoreAdapter.restoreIsStart(1).then(function (asyncRestore) {
       expect(asyncRestore.isStart).toBe(true);
     });
+  });
+
+  it('should have called findById once', function () {
+    spyOn(RestoreModel, 'findById').and.returnValue(new Promise(function (resolve, reject) {
+      resolve(RestoreModel);
+    }));
+
+    restoreAdapter.restoreIsStart(1);
+    expect(RestoreModel.findById).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -85,6 +100,15 @@ describe('restoreIsFinish', function () {
       expect(asyncRestore.isFinish).toBe(true);
     });
   });
+
+  it('should have called findById once', function () {
+    spyOn(RestoreModel, 'findById').and.returnValue(new Promise(function (resolve, reject) {
+      resolve(RestoreModel);
+    }));
+
+    restoreAdapter.restoreIsFinish(1);
+    expect(RestoreModel.findById).toHaveBeenCalledTimes(1);
+  });
 });
 
 describe('restoreIsSuccess', function () {
@@ -111,6 +135,15 @@ describe('restoreIsSuccess', function () {
     restoreAdapter.restoreIsSuccess(1).then(function (asyncRestore) {
       expect(asyncRestore.isSuccess).toBe(true);
     });
+  });
+
+  it('should have called findById once', function () {
+    spyOn(RestoreModel, 'findById').and.returnValue(new Promise(function (resolve, reject) {
+      resolve(RestoreModel);
+    }));
+
+    restoreAdapter.restoreIsSuccess(1);
+    expect(RestoreModel.findById).toHaveBeenCalledTimes(1);
   });
 });
 
