@@ -150,20 +150,8 @@ describe('getHistoryRestore', function () {
     res = {};
   });
 
-  beforeEach(function () {
-    restore = restoreController.getHistoryRestore(req, res);
-  });
-
-  afterEach(function () {
-    restore = null;
-  });
-
-  it('should not return null or undefined object', function () {
-    expect(restore).not.toBeNull();
-    expect(restore).toBeDefined();
-  });
-
   it('should return a promise', function () {
+    var restore = restoreController.getHistoryRestore(req, res);
     expect(typeof restore.then === 'function').toBeTruthy();
   });
 
