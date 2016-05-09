@@ -5,15 +5,7 @@ var RestoreModel = require('../../models/restore');
 var restoreAdapter = require('../../adapters/restore');
 
 describe('createRestore', function () {
-  beforeAll(function () {
-    var restore;
-
-    var wittnessRestore = RestoreModel.create({
-      userId: 1,
-      saveId: 1,
-      execDate: new Date(),
-    });
-  });
+  var restore;
 
   beforeEach(function () {
     restore = restoreAdapter.createRestore(1, 1);
@@ -42,9 +34,7 @@ describe('createRestore', function () {
 });
 
 describe('restoreIsStart', function () {
-  beforeAll(function () {
-    var restore;
-  });
+  var restore;
 
   beforeEach(function () {
     restore = restoreAdapter.restoreIsStart(1);
@@ -71,9 +61,7 @@ describe('restoreIsStart', function () {
 });
 
 describe('restoreIsFinish', function () {
-  beforeAll(function () {
-    var restore;
-  });
+  var restore;
 
   beforeEach(function () {
     restore = restoreAdapter.restoreIsFinish(1);
@@ -100,9 +88,7 @@ describe('restoreIsFinish', function () {
 });
 
 describe('restoreIsSuccess', function () {
-  beforeAll(function () {
-    var restore;
-  });
+  var restore;
 
   beforeEach(function () {
     restore = restoreAdapter.restoreIsSuccess(1);
