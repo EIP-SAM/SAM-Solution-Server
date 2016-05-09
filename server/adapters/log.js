@@ -30,6 +30,70 @@ module.exports.getAllLogs = function () {
 };
 
 //
+// Get logs by level
+//
+module.exports.getAllLogsByLevel = function (level) {
+  logModel.find({ level: level })
+  .exec(function (err, logs) {
+    if (err) {
+      logger(err);
+      return { error: true, data: err };
+    } else {
+      return { error: false, data: logs };
+    }
+  });
+};
+
+//
+// Get logs below level given (included)
+//
+module.exports.getAllLogsBelowLevel = function (level) {
+  logModel.find({ level: { $lt: level } })
+  .exec(function (err, logs) {
+    if (err) {
+      logger(err);
+      return { error: true, data: err };
+    } else {
+      return { error: false, data: logs };
+    }
+  });
+};
+
+//
+// Get logs above level given (included)
+//
+module.exports.getAllLogsAboveLevel = function (level) {
+  logModel.find({ level: { $gt: level } })
+  .exec(function (err, logs) {
+    if (err) {
+      logger(err);
+      return { error: true, data: err };
+    } else {
+      return { error: false, data: logs };
+    }
+  });
+};
+
+//
+// Get limited amout of logs from database
+// given by limit parameter
+// and return the result
+//
+module.exports.getLimitedLogs = function (limit) {
+  logModel
+  .find({})
+  .limit(limit)
+  .exec(function (err, logs) {
+    if (err) {
+      logger(err);
+      return { error: true, data:err };
+    } else {
+      return { error: false, data: logs };
+    }
+  });
+};
+
+//
 // Get all the log from userId
 //
 module.exports.getLogsById = function (userId) {
