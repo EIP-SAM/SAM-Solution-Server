@@ -126,3 +126,48 @@ module.exports.getLimitedLogsById = function (userId, limit) {
     }
   });
 };
+
+//
+// Get logs by level from user id
+//
+module.exports.getLogsByLevelById = function (userId, level) {
+  logModel.find({ level: level, header: { userId: userId } })
+  .exec(function (err, logs) {
+    if (err) {
+      logger(err);
+      return { error: true, data: err };
+    } else {
+      return { error: false, data: logs };
+    }
+  });
+};
+
+//
+// Get logs below level given (included) from user id
+//
+module.exports.getLogsBelowLevelById = function (userId, level) {
+  logModel.find({ level: { $lt: level }, header: { userId: userId } })
+  .exec(function (err, logs) {
+    if (err) {
+      logger(err);
+      return { error: true, data: err };
+    } else {
+      return { error: false, data: logs };
+    }
+  });
+};
+
+//
+// Get logs above level given (included) from user id
+//
+module.exports.getLogsAboveLevelById = function (userId, level) {
+  logModel.find({ level: { $gt: level }, header: { userId: userId } })
+  .exec(function (err, logs) {
+    if (err) {
+      logger(err);
+      return { error: true, data: err };
+    } else {
+      return { error: false, data: logs };
+    }
+  });
+};

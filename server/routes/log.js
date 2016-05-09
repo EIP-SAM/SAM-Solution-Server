@@ -59,4 +59,25 @@ module.exports.initLogRoutes = function (app) {
   app.post('/:user_id/limited', function (req, res) {
     res.send(logManager.getLimitedLogsById(req.params.user_id, req.body.limit));
   });
+
+  //
+  // Get logs by level and id
+  //
+  app.post('/:user_id/level', function (req, res) {
+    res.send(logManager.getLogsByLevelById(req.params.user_id, req.body.level));
+  });
+
+  //
+  // Get logs below level given
+  //
+  app.post('/:user_id/level/below', function (req, res) {
+    res.send(logManager.getLogsBelowLevelById(req.params.user_id, req.body.level));
+  });
+
+  //
+  // Get logs above level given
+  //
+  app.post('/:user_id/level/above', function (req, res) {
+    res.send(logManager.getLogsAboveLevelById(req.params.user_id, req.body.level));
+  });
 };
