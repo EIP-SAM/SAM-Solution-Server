@@ -29,7 +29,7 @@ describe('createSaveScheduled', function () {
                         .then(function (asyncSaveScheduled) {
       expect(asyncSaveScheduled.userId).toEqual(1);
       expect(asyncSaveScheduled.cron).toEqual('*/1 * * * *');
-      expect(asyncSaveScheduled.execDate).toEqual('test.txt');
+      expect(asyncSaveScheduled.files).toEqual('test.txt');
     });
   });
 
