@@ -13,6 +13,41 @@ module.exports.launchLog = function (header) {
 };
 
 //
+// Launch getLogsfrom adapters and return the result
+//
+module.exports.getLogs = function () {
+  return logAdapter.getLogs();
+};
+
+//
+// Launch getLimitedLogsfrom adapters and return the result
+//
+module.exports.getLimitedLogs = function (limit) {
+  return logAdapter.getLimitedLogs(limit);
+};
+
+//
+// Launch getAllLogsByLevel adapters and return the result
+//
+module.exports.getAllLogsByLevel = function (level) {
+  return logAdapter.getAllLogsByLevel(level);
+};
+
+//
+// Launch getAllLogsBelowLevel adapters and return the result
+//
+module.exports.getAllLogsBelowLevel = function (level) {
+  return logAdapter.getAllLogsBelowLevel(level);
+};
+
+//
+// Launch getAllLogsAboveLevel adapters and return the result
+//
+module.exports.getAllLogsAboveLevel = function (level) {
+  return logAdapter.getAllLogsAboveLevel(level);
+};
+
+//
 // Launch getLogsById from adapters and return the result
 //
 module.exports.getLogsById = function (userId) {
