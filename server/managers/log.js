@@ -27,24 +27,24 @@ module.exports.getLimitedLogs = function (limit) {
 };
 
 //
-// Launch getAllLogsByLevel adapters and return the result
+// Launch getLogsByLevel adapters and return the result
 //
-module.exports.getAllLogsByLevel = function (level) {
-  return logAdapter.getAllLogsByLevel(level);
+module.exports.getLogsByLevel = function (level) {
+  return logAdapter.getLogsByLevel(level);
 };
 
 //
-// Launch getAllLogsBelowLevel adapters and return the result
+// Launch getLogsBelowLevel adapters and return the result
 //
-module.exports.getAllLogsBelowLevel = function (level) {
-  return logAdapter.getAllLogsBelowLevel(level);
+module.exports.getLogsBelowLevel = function (level) {
+  return logAdapter.getLogsBelowLevel(level);
 };
 
 //
-// Launch getAllLogsAboveLevel adapters and return the result
+// Launch getLogsAboveLevel adapters and return the result
 //
-module.exports.getAllLogsAboveLevel = function (level) {
-  return logAdapter.getAllLogsAboveLevel(level);
+module.exports.getLogsAboveLevel = function (level) {
+  return logAdapter.getLogsAboveLevel(level);
 };
 
 //

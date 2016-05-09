@@ -17,7 +17,7 @@ module.exports.createChild = function (header) {
 //
 // Get all the log from database
 //
-module.exports.getAllLogs = function () {
+module.exports.getLogs = function () {
   logModel.find({})
   .exec(function (err, logs) {
     if (err) {
@@ -32,7 +32,7 @@ module.exports.getAllLogs = function () {
 //
 // Get logs by level
 //
-module.exports.getAllLogsByLevel = function (level) {
+module.exports.getLogsByLevel = function (level) {
   logModel.find({ level: level })
   .exec(function (err, logs) {
     if (err) {
@@ -47,7 +47,7 @@ module.exports.getAllLogsByLevel = function (level) {
 //
 // Get logs below level given (included)
 //
-module.exports.getAllLogsBelowLevel = function (level) {
+module.exports.getLogsBelowLevel = function (level) {
   logModel.find({ level: { $lt: level } })
   .exec(function (err, logs) {
     if (err) {
@@ -62,7 +62,7 @@ module.exports.getAllLogsBelowLevel = function (level) {
 //
 // Get logs above level given (included)
 //
-module.exports.getAllLogsAboveLevel = function (level) {
+module.exports.getLogsAboveLevel = function (level) {
   logModel.find({ level: { $gt: level } })
   .exec(function (err, logs) {
     if (err) {
