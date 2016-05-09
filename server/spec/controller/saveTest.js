@@ -163,7 +163,7 @@ describe('cancelSave', function () {
     expect(typeof save.then === 'function').toBeTruthy();
   });
 
-  xit('should have called cancelSave once', function () {
+  it('should have called cancelSave once', function () {
     spyOn(saveManager, 'cancelSave');
     saveController.cancelSave(req, res);
     expect(saveManager.cancelSave).toHaveBeenCalledTimes(1);
