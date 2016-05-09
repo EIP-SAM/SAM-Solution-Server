@@ -71,8 +71,8 @@ module.exports = function initBaseRoutes(app, conf, passport) {
     ensureLoggedIn('/login-signup-poc.html'),
     function (req, res) {
       groupsManager.retrieveAllGroups(req, res)
-      .then(function (groups) {
-        res.render('users_and_rights/groups', { groups: groups });
+      .then(function (data) {
+        res.render('users_and_rights/groups', data);
       });
     }
   );
@@ -142,6 +142,13 @@ module.exports = function initBaseRoutes(app, conf, passport) {
 
   app.post('/users_and_rights/delete_groups',
     groupsManager.deleteGroups({
+      successRedirect: '/users_and_rights/groups.html',
+      failureRedirect: '/index.html',
+    })
+  );
+
+  app.post('/users_and_rights/add_users_to_group',
+    groupsManager.addUsersToGroup({
       successRedirect: '/users_and_rights/groups.html',
       failureRedirect: '/index.html',
     })

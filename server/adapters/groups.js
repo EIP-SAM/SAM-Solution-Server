@@ -4,6 +4,37 @@ const GroupsModel = require('../models/groups');
 require('../models/usersGroupsRelations');
 
 module.exports.findAll = function () {
+  return new Promise(function (fulfill, reject) {
+    GroupsModel.findAll({
+      attributes: ['id', 'name', 'saveAndRestoreMode', 'migrationMode', 'softwarePackagesMode'],
+    }).then(function (allGroups) {
+      module.exports.findAllAssociatedWithUsers()
+      .then(function (groupsWithUsers) {
+        allGroups.forEach(function (group) {
+          groupsWithUsers.forEach(function (groupWithUser) {
+            if (groupWithUser.id == group.id) {
+              group.users = groupWithUser.users;
+            }
+          });
+        });
+
+        fulfill(allGroups);
+      }).catch(function (error) {
+        reject(error);
+      });
+    }).catch(function (error) {
+      reject(error);
+    });
+  });
+};
+
+module.exports.findAllNotAssociatedWithUsers = function () {
+  return GroupsModel.findAll({
+    attributes: ['id', 'name', 'saveAndRestoreMode', 'migrationMode', 'softwarePackagesMode'],
+  });
+};
+
+module.exports.findAllAssociatedWithUsers = function () {
   return GroupsModel.findAll({
     attributes: ['id', 'name', 'saveAndRestoreMode', 'migrationMode', 'softwarePackagesMode'],
     include: [{

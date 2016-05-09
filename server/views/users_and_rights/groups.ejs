@@ -6,7 +6,36 @@
   </head>
   <body>
     <% if (groups) { %>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+      <script>
+        const rawUpdateGroupsRequest = { groups: [
+          { id: 5, name: "ghettoDevelopers", saveAndRestoreMode: 2, migrationMode: 2, softwarePackagesMode: 2 },
+          { id: 6, name: "newbies", softwarePackagesMode: 1 },
+        ]};
+        const rawCreateGroupsRequest = { groups: [
+          { name: "developers", saveAndRestoreMode: 1, migrationMode: 2, softwarePackagesMode: 2 },
+          { name: "noobs", saveAndRestoreMode: 1, migrationMode: 1, softwarePackagesMode: 2 },
+        ]};
+        const rawDeleteGroupsRequest = { groups: [3, 4, 5, 6, 7, 8, 9, 10, 42] };
+        const rawAddUsersToGroupRequest = { group: 5, users: [2, 3, 4, 42] };
+
+        function success(data) {
+          window.location = data;
+        }
+        function post(route, object) {
+          var ret = $.post(route, object, success, "json")
+          .fail(function() {
+            alert("Error");
+          });
+        }
+        function injectUpdateGroups() { post("/users_and_rights/update_groups", rawUpdateGroupsRequest); };
+        function injectCreateGroups() { post("/users_and_rights/create_groups", rawCreateGroupsRequest); };
+        function injectDeleteGroups() { post("/users_and_rights/delete_groups", rawDeleteGroupsRequest); };
+        function injectAddUsersToGroup() { post("/users_and_rights/add_users_to_group", rawAddUsersToGroupRequest); };
+      </script>
       <h1>Groups</h1>
+
+      <h2>Groups list</h2>
       <% if (groups.lastOperation) { %>
         <p>Last operation = <%= groups.lastOperation %></p>
       <% } %>
@@ -27,29 +56,42 @@
             <td><%= group.migrationMode == 2 ? 'Advanced' : 'Simple' %></td>
             <td><%= group.softwarePackagesMode == 2 ? 'Advanced' : 'Simple' %></td>
             <td>
-              <% group.users.forEach(function (user) { %>
-                <%= user.name %>,
-              <% }); %>
+              <% if (group.users) { %>
+                <% group.users.forEach(function (user) { %>
+                  <%= user.name %>,
+                <% }); %>
+              <% } %>
             </td>
           </tr>
         <% }); %>
       </table>
-      <h1>Actions on groups</h1>
-      <form action="/users_and_rights/update_groups" method="post">
-        <div>
-          <button type="submit">POST update_groups</button>
-        </div>
-      </form>
-      <form action="/users_and_rights/create_groups" method="post">
-        <div>
-          <button type="submit">POST create_groups</button>
-        </div>
-      </form>
-      <form action="/users_and_rights/delete_groups" method="post">
-        <div>
-          <button type="submit">POST delete_groups</button>
-        </div>
-      </form>
+
+      <h2>Actions on groups</h2>
+      <% if (errors) { %>
+        <table border="10" style="width:50%">
+          <tr><td><b>Log</b></td></tr>
+          <% errors.forEach(function (error) { %>
+            <tr><td><%= error.reason %></td></tr>
+          <% }); %>
+        </table>
+      <% } %>
+
+      <h3>Update groups</h3>
+      <div>
+        <button onClick="injectUpdateGroups()">POST update_groups</button>
+      </div>
+      <h3>Create groups</h3>
+      <div>
+        <button onClick="injectCreateGroups()">POST create_groups</button>
+      </div>
+      <h3>Delete groups</h3>
+      <div>
+        <button onClick="injectDeleteGroups()">POST delete_groups</button>
+      </div>
+      <h3>Add users to group</h3>
+      <div>
+        <button onClick="injectAddUsersToGroup()">POST add_users_to_group</button>
+      </div>
     <% } else { %>
       <h1>An error occured</h1>
         <p>Go back to the <a href="/login-signup-poc.html">login page</a></p>

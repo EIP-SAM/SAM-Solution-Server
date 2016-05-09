@@ -11,17 +11,17 @@ const Groups = sequelize.define('groups', {
     unique: true,
   },
   saveAndRestoreMode: {
-    type: Sequelize.CHAR,
+    type: Sequelize.INTEGER,
     allowNull: false,
     unique: false,
   },
   migrationMode: {
-    type: Sequelize.CHAR,
+    type: Sequelize.INTEGER,
     allowNull: false,
     unique: false,
   },
   softwarePackagesMode: {
-    type: Sequelize.CHAR,
+    type: Sequelize.INTEGER,
     allowNull: false,
     unique: false,
   },
