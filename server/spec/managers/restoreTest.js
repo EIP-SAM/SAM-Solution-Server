@@ -157,13 +157,13 @@ describe('getHistoryRestore', function () {
 
   it('should have called getAllRestore once', function () {
     spyOn(restoreAdapter, 'getAllRestore');
-    restore = restoreManager.getHistoryRestore(req, res);
+    restoreManager.getHistoryRestore(req, res);
     expect(restoreAdapter.getAllRestore).toHaveBeenCalledTimes(1);
   });
 
   xit('should have called getRestoreByUser once', function () {
     spyOn(restoreAdapter, 'getRestoreByUser');
-    restore = restoreManager.getHistoryRestore(req, res);
+    restoreManager.getHistoryRestore(req, res);
     expect(restoreAdapter.getRestoreByUser).toHaveBeenCalledTimes(1);
   });
 });
