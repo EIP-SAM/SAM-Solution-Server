@@ -60,3 +60,24 @@ module.exports.getLogsById = function (userId) {
 module.exports.getLimitedLogsById = function (userId, limit) {
   return logAdapter.getLimitedLogsById(userId, limit);
 };
+
+//
+// Launch getLogsByLevelById adapters and return the result
+//
+module.exports.getLogsByLevelById = function (userId, level) {
+  return logAdapter.getLogsByLevelById(userId, level);
+};
+
+//
+// Launch getLogsBelowLevelById adapters and return the result
+//
+module.exports.getLogsBelowLevelById = function (userId, level) {
+  return logAdapter.getLogsBelowLevelById(userId, level);
+};
+
+//
+// Launch getLogsAboveLevelById adapters and return the result
+//
+module.exports.getLogsAboveLevelById = function (userId, level) {
+  return logAdapter.getLogsAboveLevelById(userId, level);
+};
