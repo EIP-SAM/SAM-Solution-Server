@@ -120,7 +120,7 @@ describe('getAllRestore', function () {
     expect(typeof restore.then === 'function').toBeTruthy();
   });
 
-  it('should have called findAll one time', function () {
+  it('should have called findAll once', function () {
     spyOn(RestoreModel, 'findAll');
     restoreAdapter.getAllRestore();
     expect(RestoreModel.findAll).toHaveBeenCalledTimes(1);
@@ -133,7 +133,7 @@ describe('getRestoreByUser', function () {
     expect(typeof restore.then === 'function').toBeTruthy();
   });
 
-  it('should have called findAll one time', function () {
+  it('should have called findAll once', function () {
     spyOn(RestoreModel, 'findAll');
     restoreAdapter.getRestoreByUser();
     expect(RestoreModel.findAll).toHaveBeenCalledTimes(1);
