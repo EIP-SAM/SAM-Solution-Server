@@ -1,29 +1,24 @@
-var Groups = require("../../managers/groups");
+var groupsManager = require("../../managers/groups");
 
 describe("initUserDefaultGroup", function() {
-  it("should return a groups adapter", function() {
-    var group = Groups.initUserDefaultGroup();
+  var group = groupsManager.initUserDefaultGroup();
 
+  it("should not return null", function() {
     expect(group).not.toBeNull();
+  })
+
+  it("should return a promise", function() {
     expect('function' === typeof group.then).toBeTruthy();
   })
 });
 
 describe("initAdminDefaultGroup", function() {
-  it("should return a groups adapter", function() {
-    var group = Groups.initAdminDefaultGroup();
+  var group = groupsManager.initUserDefaultGroup();
 
+  it("should not return null", function() {
+    expect(group).not.toBeNull();
   })
-  expect(group).not.toBeNull();
-  expect('function' === typeof group.then).toBeTruthy();
-});
 
-describe("retrieveAllGroups", function() {
-  it("should return a new promise", function() {
-    var req;
-    var res;
-    var groups = Groups.retrieveAllGroups(req, res);
-
-    expect(groups).not.toBeNull();
-    expect('function' === typeof groups.then).toBeTruthy();
-});
+  it("should return a promise", function() {
+    expect('function' === typeof group.then).toBeTruthy();
+  })
