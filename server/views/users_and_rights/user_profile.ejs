@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>SAM Solution | User Profile POC</title>
+    <title>SAM Solution | User Profile</title>
   </head>
   <body>
     <% if (user) { %>
@@ -27,7 +27,7 @@
             </tr>
         </table>
       </p>
-      <form action="/update_user_profile" method="post">
+      <form action="/users_and_rights/update_user_profile" method="post">
         <div>
           <label>Username :</label>
           <input type="text" name="username" placeholder="<%= user.name %>" />
@@ -50,7 +50,7 @@
       </form>
     <% } else { %>
       <h1>An error occured</h1>
-        <p>Go back to the <a href="/login-signup-poc.html">login page</a></p>
+        <p>Go back to the <a href="/users_and_rights/login_signup">login page</a></p>
     <% } %>
   </body>
 </html>

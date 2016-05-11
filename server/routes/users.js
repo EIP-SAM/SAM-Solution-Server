@@ -22,22 +22,22 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   //// GET requests
 
   // Users management
-  app.get('/login-signup-poc.html',
-    ensureLoggedOut('/logged-in-logout-poc.html'),
+  app.get('/users_and_rights/login_signup',
+    ensureLoggedOut('/users_and_rights/logged_in'),
     function (req, res) {
-      res.render('login-signup-poc');
+      res.render('users_and_rights/login_signup');
     }
   );
 
-  app.get('/logged-in-logout-poc.html',
-    ensureLoggedIn('/login-signup-poc.html'),
+  app.get('/users_and_rights/logged_in',
+    ensureLoggedIn('/users_and_rights/login_signup'),
     function (req, res) {
-      res.render('logged-in-logout-poc', { user: req.user });
+      res.render('users_and_rights/logged_in', { user: req.user });
     }
   );
 
-  app.get('/users_and_rights/user_profile.html',
-    ensureLoggedIn('/login-signup-poc.html'),
+  app.get('/users_and_rights/user_profile',
+  ensureLoggedIn('/users_and_rights/login_signup'),
     function (req, res) {
       usersAndRightsController.retrieveUserProfile(req, res)
       .then(function (data) {
@@ -46,32 +46,32 @@ module.exports = function initBaseRoutes(app, conf, passport) {
     }
   );
 
-  app.get('/users_and_rights/users.html',
-    ensureLoggedIn('/login-signup-poc.html'),
+  app.get('/users_and_rights/users_administration',
+  ensureLoggedIn('/users_and_rights/login_signup'),
     function (req, res) {
       usersAndRightsController.retrieveAllUsers(req, res)
       .then(function (data) {
-        res.render('users_and_rights/users', data);
+        res.render('users_and_rights/users_administration', data);
       });
     }
   );
 
-  app.get('/logout',
+  app.get('/users_and_rights/logout',
     function (req, res) {
       req.logout();
       req.session.save(function () {
-        res.redirect('/index.html');
+        res.redirect('/users_and_rights/login_signup');
       });
     }
   );
 
   // Groups management
-  app.get('/users_and_rights/groups.html',
-    ensureLoggedIn('/login-signup-poc.html'),
+  app.get('/users_and_rights/groups_administration',
+  ensureLoggedIn('/users_and_rights/login_signup'),
     function (req, res) {
       usersAndRightsController.retrieveAllGroups(req, res)
       .then(function (data) {
-        res.render('users_and_rights/groups', data);
+        res.render('users_and_rights/groups_administration', data);
       });
     }
   );
@@ -80,76 +80,76 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   //// POST requests
 
   // Users management
-  app.post('/login',
-    passport.authenticate('local', { failureRedirect: '/index.html' }),
+  app.post('/users_and_rights/login',
+    passport.authenticate('local', { failureRedirect: '/users_and_rights/login_signup' }),
     function (req, res) {
       req.session.save(function () {
-        res.redirect('/logged-in-logout-poc.html');
+        res.redirect('/users_and_rights/logged_in');
       });
     }
   );
 
-  app.post('/sign-up',
+  app.post('/users_and_rights/sign-up',
     usersAndRightsController.createUser({
-      successRedirect: '/login-signup-poc.html',
-      failureRedirect: '/index.html',
+      successRedirect: '/users_and_rights/login_signup',
+      failureRedirect: '/users_and_rights/login_signup',
     })
   );
 
-  app.post('/update_user_profile',
+  app.post('/users_and_rights/update_user_profile',
     usersAndRightsController.updateUserProfile({
-      successRedirect: '/users_and_rights/user_profile.html',
-      failureRedirect: '/users_and_rights/user_profile.html',
+      successRedirect: '/users_and_rights/user_profile',
+      failureRedirect: '/users_and_rights/user_profile',
     })
   );
 
   app.post('/users_and_rights/update_users',
     usersAndRightsController.updateUsers({
-      successRedirect: '/users_and_rights/users.html',
-      failureRedirect: '/index.html',
+      successRedirect: '/users_and_rights/users_administration',
+      failureRedirect: '/users_and_rights/users_administration',
     })
   );
 
   app.post('/users_and_rights/create_users',
     usersAndRightsController.createUsers({
-      successRedirect: '/users_and_rights/users.html',
-      failureRedirect: '/index.html',
+      successRedirect: '/users_and_rights/users_administration',
+      failureRedirect: '/users_and_rights/users_administration',
     })
   );
 
   app.post('/users_and_rights/delete_users',
     usersAndRightsController.deleteUsers({
-      successRedirect: '/users_and_rights/users.html',
-      failureRedirect: '/index.html',
+      successRedirect: '/users_and_rights/users_administration',
+      failureRedirect: '/users_and_rights/users_administration',
     })
   );
 
   // Groups management
   app.post('/users_and_rights/update_groups',
     usersAndRightsController.updateGroups({
-      successRedirect: '/users_and_rights/groups.html',
-      failureRedirect: '/index.html',
+      successRedirect: '/users_and_rights/groups_administration',
+      failureRedirect: '/users_and_rights/groups_administration',
     })
   );
 
   app.post('/users_and_rights/create_groups',
     usersAndRightsController.createGroups({
-      successRedirect: '/users_and_rights/groups.html',
-      failureRedirect: '/index.html',
+      successRedirect: '/users_and_rights/groups_administration',
+      failureRedirect: '/users_and_rights/groups_administration',
     })
   );
 
   app.post('/users_and_rights/delete_groups',
     usersAndRightsController.deleteGroups({
-      successRedirect: '/users_and_rights/groups.html',
-      failureRedirect: '/index.html',
+      successRedirect: '/users_and_rights/groups_administration',
+      failureRedirect: '/users_and_rights/groups_administration',
     })
   );
 
   app.post('/users_and_rights/add_users_to_group',
     usersAndRightsController.addUsersToGroup({
-      successRedirect: '/users_and_rights/groups.html',
-      failureRedirect: '/index.html',
+      successRedirect: '/users_and_rights/groups_administration',
+      failureRedirect: '/users_and_rights/groups_administration',
     })
   );
 };
