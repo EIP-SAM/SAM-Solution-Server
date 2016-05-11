@@ -44,29 +44,3 @@ module.exports.getModuleRightForUser = function (moduleName, user) {
 
   return null;
 };
-
-// Will disapear soon
-function test() {
-  getModuleRightForUser = module.exports.getModuleRightForUser;
-  usersAdapter = require('../adapters/users');
-
-  usersAdapter.findByName('admin').then(function (user) {
-    if (user) {
-      console.log('admin');
-      console.log('saveAndRestore = ' + getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user));
-      console.log('migration = ' + getModuleRightForUser(enumModules.MIGRATION, user));
-      console.log('softwarePackages = ' + getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user));
-    }
-  });
-
-  usersAdapter.findByName('toto').then(function (user) {
-    if (user) {
-      console.log('toto');
-      console.log('saveAndRestore = ' + getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user));
-      console.log('migration = ' + getModuleRightForUser(enumModules.MIGRATION, user));
-      console.log('softwarePackages = ' + getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user));
-    }
-  });
-}
-
-test();
