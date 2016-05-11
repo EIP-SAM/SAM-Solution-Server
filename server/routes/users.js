@@ -15,8 +15,7 @@
 const ensureLoggedIn = require('../libs/connectEnsureLogin').ensureLoggedIn;
 const ensureLoggedOut = require('../libs/connectEnsureLogin').ensureLoggedOut;
 
-const usersManager = require('../managers/users');
-const groupsManager = require('../managers/groups');
+const usersAndRightsController = require('../controllers/users');
 
 module.exports = function initBaseRoutes(app, conf, passport) {
   //
@@ -40,7 +39,7 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   app.get('/users_and_rights/user_profile.html',
     ensureLoggedIn('/login-signup-poc.html'),
     function (req, res) {
-      usersManager.retrieveUserProfile(req, res)
+      usersAndRightsController.retrieveUserProfile(req, res)
       .then(function (data) {
         res.render('users_and_rights/user_profile', data);
       });
@@ -50,7 +49,7 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   app.get('/users_and_rights/users.html',
     ensureLoggedIn('/login-signup-poc.html'),
     function (req, res) {
-      usersManager.retrieveAllUsers(req, res)
+      usersAndRightsController.retrieveAllUsers(req, res)
       .then(function (data) {
         res.render('users_and_rights/users', data);
       });
@@ -70,7 +69,7 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   app.get('/users_and_rights/groups.html',
     ensureLoggedIn('/login-signup-poc.html'),
     function (req, res) {
-      groupsManager.retrieveAllGroups(req, res)
+      usersAndRightsController.retrieveAllGroups(req, res)
       .then(function (data) {
         res.render('users_and_rights/groups', data);
       });
@@ -91,35 +90,35 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   );
 
   app.post('/sign-up',
-    usersManager.createUser({
+    usersAndRightsController.createUser({
       successRedirect: '/login-signup-poc.html',
       failureRedirect: '/index.html',
     })
   );
 
   app.post('/update_user_profile',
-    usersManager.updateUserProfile({
+    usersAndRightsController.updateUserProfile({
       successRedirect: '/users_and_rights/user_profile.html',
       failureRedirect: '/users_and_rights/user_profile.html',
     })
   );
 
   app.post('/users_and_rights/update_users',
-    usersManager.updateUsers({
+    usersAndRightsController.updateUsers({
       successRedirect: '/users_and_rights/users.html',
       failureRedirect: '/index.html',
     })
   );
 
   app.post('/users_and_rights/create_users',
-    usersManager.createUsers({
+    usersAndRightsController.createUsers({
       successRedirect: '/users_and_rights/users.html',
       failureRedirect: '/index.html',
     })
   );
 
   app.post('/users_and_rights/delete_users',
-    usersManager.deleteUsers({
+    usersAndRightsController.deleteUsers({
       successRedirect: '/users_and_rights/users.html',
       failureRedirect: '/index.html',
     })
@@ -127,28 +126,28 @@ module.exports = function initBaseRoutes(app, conf, passport) {
 
   // Groups management
   app.post('/users_and_rights/update_groups',
-    groupsManager.updateGroups({
+    usersAndRightsController.updateGroups({
       successRedirect: '/users_and_rights/groups.html',
       failureRedirect: '/index.html',
     })
   );
 
   app.post('/users_and_rights/create_groups',
-    groupsManager.createGroups({
+    usersAndRightsController.createGroups({
       successRedirect: '/users_and_rights/groups.html',
       failureRedirect: '/index.html',
     })
   );
 
   app.post('/users_and_rights/delete_groups',
-    groupsManager.deleteGroups({
+    usersAndRightsController.deleteGroups({
       successRedirect: '/users_and_rights/groups.html',
       failureRedirect: '/index.html',
     })
   );
 
   app.post('/users_and_rights/add_users_to_group',
-    groupsManager.addUsersToGroup({
+    usersAndRightsController.addUsersToGroup({
       successRedirect: '/users_and_rights/groups.html',
       failureRedirect: '/index.html',
     })
