@@ -9,13 +9,6 @@ module.exports = function initBaseRoutes(app, conf, passport) {
 
   // Main page
   app.get('/', function (req, res) {
-    res.redirect('/index.html');
+    res.redirect('/users_and_rights/login_signup');
   });
-
-  app.get('/index.html',
-    function (req, res) {
-      res.render('index');
-    }
-  );
-
 };
