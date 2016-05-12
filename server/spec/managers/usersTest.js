@@ -116,7 +116,17 @@ describe("checkAndCreateUser", function() {
     spyOn(usersAdapter, 'findByEmail');
     usersManager.checkAndCreateUser(name, email, password, confirmation);
     expect(usersAdapter.findByEmail).toHaveBeenCalledTimes(1);
-  });
+  })
+});
+
+describe("createUser", function() {
+  var params;
+
+  it('should have called checkAndCreateUser once', function() {
+    spyOn(usersManagers, "checkAndCreateUser");
+    usersManagers.createUser(params);
+    expect(usersManagers.checkAndCreateUser).toHaveBeenCalledTimes(1);
+  })
 });
 
 describe("identifyUser", function() {
@@ -135,6 +145,48 @@ describe("identifyUser", function() {
     spyOn(usersAdapter, 'findByName');
     usersManager.identifyUser(name, password);
     expect(usersAdapter.findByName).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("retrieveAllUsers", function() {
+  var req;
+  var res;
+  var users = usersManager.retrieveAllUsers(req, res);
+  req.session = {};
+
+  it("should not return null", function() {
+    expect(users).not.toBeNull();
+  })
+
+  it("should return a promise")
+    expect('function' === typeof users.then).toBeTruthy();
+  })
+
+  it('should have called findAll once', function () {
+    spyOn(usersAdapter, 'findAll');
+    usersManager.retrieveAllUsers(req, res);
+    expect(usersAdapter.findAll).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("retrieveUserProfile", function() {
+  var req;
+  var res;
+  var user = usersManager.retrieveUserProfile(req, res);
+  req.session = {};
+
+  it("should not return null", function() {
+    expect(user).not.toBeNull();
+  })
+
+  it("should return a promise")
+    expect('function' === typeof user.then).toBeTruthy();
+  })
+
+  it('should have called findById once', function () {
+    spyOn(usersAdapter, 'findById');
+    usersManager.retrieveUserProfile(req, res);
+    expect(usersAdapter.findById).toHaveBeenCalledTimes(1);
   });
 });
 
