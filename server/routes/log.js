@@ -21,9 +21,6 @@ module.exports = function initLogRoutes(app) {
     promise.then(function (logs) {
 
       res.json(logs);
-    }, function (err) {
-
-      res.json(err);
     });
   });
 
