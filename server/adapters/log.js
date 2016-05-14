@@ -22,7 +22,7 @@ module.exports.getLogs = function () {
     logModel.find({})
     .exec(function (err, logs) {
       if (err) {
-        logger(err);
+        logger.error(err);
         fulfill({ error: true, data: err });
       } else {
         fulfill({ error: false, data: logs });
@@ -35,14 +35,16 @@ module.exports.getLogs = function () {
 // Get logs by level
 //
 module.exports.getLogsByLevel = function (level) {
-  logModel.find({ level: level })
-  .exec(function (err, logs) {
-    if (err) {
-      logger(err);
-      return { error: true, data: err };
-    } else {
-      return { error: false, data: logs };
-    }
+  return new Promise(function (fulfill) {
+    logModel.find({ level: level })
+    .exec(function (err, logs) {
+      if (err) {
+        logger.error(err);
+        fulfill({ error: true, data: err });
+      } else {
+        fulfill({ error: false, data: logs });
+      }
+    });
   });
 };
 
@@ -50,14 +52,16 @@ module.exports.getLogsByLevel = function (level) {
 // Get logs below level given (included)
 //
 module.exports.getLogsBelowLevel = function (level) {
-  logModel.find({ level: { $lt: level } })
-  .exec(function (err, logs) {
-    if (err) {
-      logger(err);
-      return { error: true, data: err };
-    } else {
-      return { error: false, data: logs };
-    }
+  return new Promise(function (fulfill) {
+    logModel.find({ level: { $lt: level } })
+    .exec(function (err, logs) {
+      if (err) {
+        logger.error(err);
+        fulfill({ error: true, data: err });
+      } else {
+        fulfill({ error: false, data: logs });
+      }
+    });
   });
 };
 
@@ -65,14 +69,16 @@ module.exports.getLogsBelowLevel = function (level) {
 // Get logs above level given (included)
 //
 module.exports.getLogsAboveLevel = function (level) {
-  logModel.find({ level: { $gt: level } })
-  .exec(function (err, logs) {
-    if (err) {
-      logger(err);
-      return { error: true, data: err };
-    } else {
-      return { error: false, data: logs };
-    }
+  return new Promise(function (fulfill) {
+    logModel.find({ level: { $gt: level } })
+    .exec(function (err, logs) {
+      if (err) {
+        logger.error(err);
+        fulfill({ error: true, data: err });
+      } else {
+        fulfill({ error: false, data: logs });
+      }
+    });
   });
 };
 
@@ -82,16 +88,17 @@ module.exports.getLogsAboveLevel = function (level) {
 // and return the result
 //
 module.exports.getLimitedLogs = function (limit) {
-  logModel
-  .find({})
-  .limit(limit)
-  .exec(function (err, logs) {
-    if (err) {
-      logger(err);
-      return { error: true, data:err };
-    } else {
-      return { error: false, data: logs };
-    }
+  return new Promise(function (fulfill) {
+    logModel.find({})
+    .limit(limit)
+    .exec(function (err, logs) {
+      if (err) {
+        logger.error(err);
+        fulfill({ error: true, data: err });
+      } else {
+        fulfill({ error: false, data: logs });
+      }
+    });
   });
 };
 
@@ -99,14 +106,16 @@ module.exports.getLimitedLogs = function (limit) {
 // Get all the log from userId
 //
 module.exports.getLogsById = function (userId) {
-  logModel.find({ header: { userId: userId } })
-  .exec(function (err, logs) {
-    if (err) {
-      logger(err);
-      return { error: true, data: err };
-    } else {
-      return { error: false, data: logs };
-    }
+  return new Promise(function (fulfill) {
+    logModel.find({ header: { userId: userId } })
+    .exec(function (err, logs) {
+      if (err) {
+        logger.error(err);
+        fulfill({ error: true, data: err });
+      } else {
+        fulfill({ error: false, data: logs });
+      }
+    });
   });
 };
 
@@ -116,16 +125,17 @@ module.exports.getLogsById = function (userId) {
 // and return the result
 //
 module.exports.getLimitedLogsById = function (userId, limit) {
-  logModel
-  .find({ header: { userId: userId } })
-  .limit(limit)
-  .exec(function (err, logs) {
-    if (err) {
-      logger(err);
-      return { error: true, data:err };
-    } else {
-      return { error: false, data: logs };
-    }
+  return new Promise(function (fulfill) {
+    logModel.find({ header: { userId: userId } })
+    .limit(limit)
+    .exec(function (err, logs) {
+      if (err) {
+        logger.error(err);
+        fulfill({ error: true, data: err });
+      } else {
+        fulfill({ error: false, data: logs });
+      }
+    });
   });
 };
 
@@ -133,14 +143,16 @@ module.exports.getLimitedLogsById = function (userId, limit) {
 // Get logs by level from user id
 //
 module.exports.getLogsByLevelById = function (userId, level) {
-  logModel.find({ level: level, header: { userId: userId } })
-  .exec(function (err, logs) {
-    if (err) {
-      logger(err);
-      return { error: true, data: err };
-    } else {
-      return { error: false, data: logs };
-    }
+  return new Promise(function (fulfill) {
+    logModel.find({ level: level, header: { userId: userId } })
+    .exec(function (err, logs) {
+      if (err) {
+        logger.error(err);
+        fulfill({ error: true, data: err });
+      } else {
+        fulfill({ error: false, data: logs });
+      }
+    });
   });
 };
 
@@ -148,14 +160,16 @@ module.exports.getLogsByLevelById = function (userId, level) {
 // Get logs below level given (included) from user id
 //
 module.exports.getLogsBelowLevelById = function (userId, level) {
-  logModel.find({ level: { $lt: level }, header: { userId: userId } })
-  .exec(function (err, logs) {
-    if (err) {
-      logger(err);
-      return { error: true, data: err };
-    } else {
-      return { error: false, data: logs };
-    }
+  return new Promise(function (fulfill) {
+    logModel.find({ level: { $lt: level }, header: { userId: userId } })
+    .exec(function (err, logs) {
+      if (err) {
+        logger.error(err);
+        fulfill({ error: true, data: err });
+      } else {
+        fulfill({ error: false, data: logs });
+      }
+    });
   });
 };
 
@@ -163,13 +177,15 @@ module.exports.getLogsBelowLevelById = function (userId, level) {
 // Get logs above level given (included) from user id
 //
 module.exports.getLogsAboveLevelById = function (userId, level) {
-  logModel.find({ level: { $gt: level }, header: { userId: userId } })
-  .exec(function (err, logs) {
-    if (err) {
-      logger(err);
-      return { error: true, data: err };
-    } else {
-      return { error: false, data: logs };
-    }
+  return new Promise(function (fulfill) {
+    logModel.find({ level: { $gt: level }, header: { userId: userId } })
+    .exec(function (err, logs) {
+      if (err) {
+        logger.error(err);
+        fulfill({ error: true, data: err });
+      } else {
+        fulfill({ error: false, data: logs });
+      }
+    });
   });
 };

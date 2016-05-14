@@ -18,7 +18,7 @@ describe('It should test logManager method getLogs: ', function () {
     });
   });
 
-  it('Should have all he log', function () {
+  it('Should not have an undefined object', function () {
     expect(allLogs).not.toBe(undefined);
   });
 });
