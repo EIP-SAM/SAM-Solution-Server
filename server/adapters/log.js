@@ -19,7 +19,7 @@ module.exports.createChild = function (header) {
 //
 module.exports.getLogs = function () {
 
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (fulfill) {
 
     logModel.find({})
     .exec(function (err, logs) {
@@ -27,7 +27,7 @@ module.exports.getLogs = function () {
       if (err) {
 
         logger(err);
-        reject({ error: true, data: err });
+        fulfill({ error: true, data: err });
       } else {
 
         fulfill({ error: false, data: logs });

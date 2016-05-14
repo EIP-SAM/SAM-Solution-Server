@@ -17,16 +17,13 @@ module.exports.launchLog = function (header) {
 //
 module.exports.getLogs = function () {
 
-  return new Promise(function (fulfill, reject) {
+  return new Promise(function (fulfill) {
 
     var promise = logAdapter.getLogs();
 
     promise.then(function (logs) {
 
       fulfill(logs);
-    }, function (err) {
-
-      reject(err);
     });
   });
 };
