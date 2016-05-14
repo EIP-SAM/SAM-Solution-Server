@@ -5,8 +5,8 @@
 const logManager = require('../managers/log');
 
 //
-// Here we will create all the routes that will send back the log to
-// the client
+// Here we will create all the routes that will
+// send back the log to the client
 //
 module.exports = function initLogRoutes(app) {
 
@@ -15,7 +15,16 @@ module.exports = function initLogRoutes(app) {
   // Do not use this in prod !
   //
   app.get('/log', function (req, res) {
-    res.send(logManager.getLogs());
+
+    var promise = logManager.getLogs();
+
+    promise.then(function (logs) {
+
+      res.json(logs);
+    }, function (err) {
+
+      res.json(err);
+    });
   });
 
   //

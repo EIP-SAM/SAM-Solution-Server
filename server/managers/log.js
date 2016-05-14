@@ -1,7 +1,7 @@
 //
 // Manager Log
 //
-var logAdapter = require('../adapters/log');
+const logAdapter = require('../adapters/log');
 
 //
 // Get libs and header in parameter,
@@ -16,7 +16,19 @@ module.exports.launchLog = function (header) {
 // Launch getLogsfrom adapters and return the result
 //
 module.exports.getLogs = function () {
-  return logAdapter.getLogs();
+
+  return new Promise(function (fulfill, reject) {
+
+    var promise = logAdapter.getLogs();
+
+    promise.then(function (logs) {
+
+      fulfill(logs);
+    }, function (err) {
+
+      reject(err);
+    });
+  });
 };
 
 //
