@@ -18,18 +18,13 @@ module.exports.createChild = function (header) {
 // Get all the log from database
 //
 module.exports.getLogs = function () {
-
   return new Promise(function (fulfill) {
-
     logModel.find({})
     .exec(function (err, logs) {
-
       if (err) {
-
         logger(err);
         fulfill({ error: true, data: err });
       } else {
-
         fulfill({ error: false, data: logs });
       }
     });

@@ -19,7 +19,6 @@ module.exports = function initLogRoutes(app) {
     var promise = logManager.getLogs();
 
     promise.then(function (logs) {
-
       res.json(logs);
     });
   });
