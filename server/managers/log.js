@@ -31,61 +31,134 @@ module.exports.getLogs = function () {
 // Launch getLimitedLogsfrom adapters and return the result
 //
 module.exports.getLimitedLogs = function (limit) {
-  return logAdapter.getLimitedLogs(limit);
+
+  return new Promise(function (fulfill) {
+
+    var promise = logAdapter.getLimitedLogs(limit);
+
+    promise.then(function (logs) {
+      fulfill(logs);
+    });
+  });
 };
 
 //
 // Launch getLogsByLevel adapters and return the result
 //
 module.exports.getLogsByLevel = function (level) {
-  return logAdapter.getLogsByLevel(level);
+
+  return new Promise(function (fulfill) {
+
+    var promise = logAdapter.getLogsByLevel(level);
+
+    promise.then(function (logs) {
+      fulfill(logs);
+    });
+  });
+
 };
 
 //
 // Launch getLogsBelowLevel adapters and return the result
 //
 module.exports.getLogsBelowLevel = function (level) {
-  return logAdapter.getLogsBelowLevel(level);
+
+  return new Promise(function (fulfill) {
+
+    var promise = logAdapter.getLogsBelowLevel(level);
+
+    promise.then(function (logs) {
+      fulfill(logs);
+    });
+  });
 };
 
 //
 // Launch getLogsAboveLevel adapters and return the result
 //
 module.exports.getLogsAboveLevel = function (level) {
-  return logAdapter.getLogsAboveLevel(level);
+
+  return new Promise(function (fulfill) {
+
+    var promise = logAdapter.getLogsAboveLevel(level);
+
+    promise.then(function (logs) {
+      fulfill(logs);
+    });
+  });
 };
 
 //
 // Launch getLogsById from adapters and return the result
 //
 module.exports.getLogsById = function (userId) {
-  return logAdapter.getLogsById(userId);
+
+  return new Promise(function (fulfill) {
+
+    var promise = logAdapter.getLogsById(userId);
+
+    promise.then(function (logs) {
+      fulfill(logs);
+    });
+  });
 };
 
 //
 // Launch getLimitedLogsById from adapters and return the result
 //
 module.exports.getLimitedLogsById = function (userId, limit) {
-  return logAdapter.getLimitedLogsById(userId, limit);
+
+  return new Promise(function (fulfill) {
+
+    var promise = logAdapter.getLimitedLogsById(userId, limit);
+
+    promise.then(function (logs) {
+      fulfill(logs);
+    });
+  });
 };
 
 //
 // Launch getLogsByLevelById adapters and return the result
 //
 module.exports.getLogsByLevelById = function (userId, level) {
-  return logAdapter.getLogsByLevelById(userId, level);
+
+  return new Promise(function (fulfill) {
+
+    var promise = logAdapter.getLogsByLevelById(userId, level);
+
+    promise.then(function (logs) {
+      fulfill(logs);
+    });
+  });
 };
 
 //
 // Launch getLogsBelowLevelById adapters and return the result
 //
 module.exports.getLogsBelowLevelById = function (userId, level) {
-  return logAdapter.getLogsBelowLevelById(userId, level);
+
+  return new Promise(function (fulfill) {
+
+    var promise = logAdapter.getLogsBelowLevelById(userId, level);
+
+    promise.then(function (logs) {
+      fulfill(logs);
+    });
+  });
 };
 
 //
 // Launch getLogsAboveLevelById adapters and return the result
 //
 module.exports.getLogsAboveLevelById = function (userId, level) {
-  return logAdapter.getLogsAboveLevelById(userId, level);
+
+  return new Promise(function (fulfill) {
+
+    var promise = logAdapter.getLogsAboveLevelById(userId, level);
+
+    promise.then(function (logs) {
+      fulfill(logs);
+    });
+  });
 };
