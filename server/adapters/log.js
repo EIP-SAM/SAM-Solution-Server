@@ -18,14 +18,21 @@ module.exports.createChild = function (header) {
 // Get all the log from database
 //
 module.exports.getLogs = function () {
-  logModel.find({})
-  .exec(function (err, logs) {
-    if (err) {
-      logger(err);
-      return { error: true, data: err };
-    } else {
-      return { error: false, data: logs };
-    }
+
+  return new Promise(function (fulfill, reject) {
+
+    logModel.find({})
+    .exec(function (err, logs) {
+
+      if (err) {
+
+        logger(err);
+        reject({ error: true, data: err });
+      } else {
+
+        fulfill({ error: false, data: logs });
+      }
+    });
   });
 };
 
