@@ -22,7 +22,6 @@ module.exports.getLogs = function () {
     var promise = logAdapter.getLogs();
 
     promise.then(function (logs) {
-
       fulfill(logs);
     });
   });

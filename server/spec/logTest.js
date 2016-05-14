@@ -16,10 +16,6 @@ describe('It should test logManager methods: ', function () {
 
       allLogs = resolve;
       done();
-    }, function (err) {
-
-      allLogs = err;
-      done();
     });
   });
 
