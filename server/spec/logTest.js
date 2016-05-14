@@ -4,7 +4,7 @@
 
 const logManager = require('../managers/log');
 
-describe('It should test logManager methods: ', function () {
+describe('It should test logManager method getLogs: ', function () {
 
   var allLogs;
 
@@ -13,7 +13,6 @@ describe('It should test logManager methods: ', function () {
     var promise = logManager.getLogs();
 
     promise.then(function (resolve) {
-
       allLogs = resolve;
       done();
     });
