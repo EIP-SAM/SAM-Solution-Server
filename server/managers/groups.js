@@ -67,6 +67,7 @@ function createGroup(newGroup) {
 
 //
 // Redirect the browser from an ajax request
+//
 function ajaxRedirect(res, url) {
   const data = JSON.stringify(url);
 
@@ -77,6 +78,7 @@ function ajaxRedirect(res, url) {
 
 //
 // Save user session data (like errors) then redirect
+//
 function saveSessionAndRedirect(req, res, redirect) {
   req.session.save(function () {
     ajaxRedirect(res, redirect);

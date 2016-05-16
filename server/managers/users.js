@@ -1,5 +1,6 @@
 //
 // Libraries used in this manager
+//
 const UsersAdapter = require('../adapters/users');
 const GroupsAdapter = require('../adapters/groups');
 const rightsManager = require('./rights');
@@ -11,6 +12,7 @@ initAdminUser();
 
 //
 // Create admin if not exists
+//
 function initAdminUser() {
   return UsersAdapter.findByName('admin')
   .then(function (user) {
@@ -88,6 +90,7 @@ function checkAndCreateUser(name, email, password, confirmation) {
 
 //
 // Create user entry point from its POST route
+//
 module.exports.createUser = function (params) {
   return function (req, res) {
     checkAndCreateUser(req.body.username, req.body.email, req.body.password, req.body.confirmation)
@@ -104,6 +107,7 @@ module.exports.createUser = function (params) {
 
 //
 // User identification for passport library
+//
 module.exports.identifyUser = function (name, password) {
   return new Promise(function (fulfill, reject) {
     UsersAdapter.findByName(name)
@@ -123,6 +127,7 @@ module.exports.identifyUser = function (name, password) {
 
 //
 // Retrieve all users for its GET route
+//
 module.exports.retrieveAllUsers = function (req, res) {
   return new Promise(function (fulfill, reject) {
     UsersAdapter.findAll().then(function (users) {
@@ -144,6 +149,7 @@ module.exports.retrieveAllUsers = function (req, res) {
 
 //
 // Retrieve user profile for its GET route
+//
 module.exports.retrieveUserProfile = function (req, res) {
   return new Promise(function (fulfill, reject) {
     UsersAdapter.findById(req.user.id).then(function (user) {
@@ -165,6 +171,7 @@ module.exports.retrieveUserProfile = function (req, res) {
 
 //
 // Redirect the browser from an ajax request
+//
 function ajaxRedirect(res, url) {
   const data = JSON.stringify(url);
 
@@ -175,6 +182,7 @@ function ajaxRedirect(res, url) {
 
 //
 // Save user session data (like errors) then redirect
+//
 function saveSessionAndRedirect(req, res, redirect) {
   req.session.save(function () {
     ajaxRedirect(res, redirect);
@@ -186,7 +194,9 @@ function pushErrorInUserSession(req, request, reason) {
   req.session.errors.push({ request: request, reason: reason });
 }
 
+//
 // Check new user name, set model field to update, or reject with error
+//
 function prepareUserNameUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject) {
   var error = null;
 
@@ -200,7 +210,9 @@ function prepareUserNameUpdate(userModel, userUpdateRequest, fieldsToUpdate, rej
   }
 }
 
+//
 // Check new user email, set model field to update, or reject with error
+//
 function prepareUserEmailUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject) {
   var error = null;
 
@@ -214,7 +226,9 @@ function prepareUserEmailUpdate(userModel, userUpdateRequest, fieldsToUpdate, re
   }
 }
 
+//
 // Check new user password, set model field to update, or reject with error
+//
 function prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject) {
   var error = null;
 
@@ -228,7 +242,9 @@ function prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate,
   }
 }
 
+//
 // Update user profile, if possible, or reject with error
+//
 function updateUserProfile(userModel, userUpdateRequest) {
   return new Promise(function (fulfill, reject) {
     const fieldsToUpdate = [];
@@ -247,6 +263,7 @@ function updateUserProfile(userModel, userUpdateRequest) {
 
 //
 // Update user profile entry point from its POST route
+//
 module.exports.updateUserProfile = function (params) {
   return function (req, res) {
     const userUpdate = {};
@@ -268,6 +285,7 @@ module.exports.updateUserProfile = function (params) {
 
 //
 // Update users entry point from its POST route
+//
 module.exports.updateUsers = function (params) {
   return function (req, res) {
     if (req.body.users && req.body.users.constructor == Array) {
@@ -297,6 +315,7 @@ module.exports.updateUsers = function (params) {
 
 //
 // Create users entry point from its POST route
+//
 module.exports.createUsers = function (params) {
   return function (req, res) {
     if (req.body.users && req.body.users.constructor == Array) {
@@ -319,6 +338,7 @@ module.exports.createUsers = function (params) {
 
 //
 // Delete users entry point from its POST route
+//
 module.exports.deleteUsers = function (params) {
   return function (req, res) {
     if (req.body.users && req.body.users.constructor == Array) {
