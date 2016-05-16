@@ -11,6 +11,7 @@
 //   Please be careful with that if any new bug occurs here! Mainly if an
 //   `$> npm update --save` is made to this repository.
 //   Author: Grenadingue
+//
 
 const ensureLoggedIn = require('../libs/connectEnsureLogin').ensureLoggedIn;
 const ensureLoggedOut = require('../libs/connectEnsureLogin').ensureLoggedOut;
@@ -21,7 +22,9 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   //
   //// GET requests
 
+  //
   // Users management
+  //
   app.get('/users_and_rights/login_signup',
     ensureLoggedOut('/users_and_rights/logged_in'),
     function (req, res) {
@@ -65,7 +68,9 @@ module.exports = function initBaseRoutes(app, conf, passport) {
     }
   );
 
+  //
   // Groups management
+  //
   app.get('/users_and_rights/groups_administration',
   ensureLoggedIn('/users_and_rights/login_signup'),
     function (req, res) {
@@ -79,7 +84,9 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   //
   //// POST requests
 
+  //
   // Users management
+  //
   app.post('/users_and_rights/login',
     passport.authenticate('local', { failureRedirect: '/users_and_rights/login_signup' }),
     function (req, res) {
@@ -124,7 +131,9 @@ module.exports = function initBaseRoutes(app, conf, passport) {
     })
   );
 
+  //
   // Groups management
+  //
   app.post('/users_and_rights/update_groups',
     usersAndRightsController.updateGroups({
       successRedirect: '/users_and_rights/groups_administration',

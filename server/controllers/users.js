@@ -1,7 +1,9 @@
 const usersManager = require('../managers/users');
 const groupsManager = require('../managers/groups');
 
+//
 // Users
+//
 module.exports.retrieveUserProfile = function (req, res) {
   return usersManager.retrieveUserProfile(req, res);
 };
@@ -30,7 +32,9 @@ module.exports.deleteUsers = function (param) {
   return usersManager.deleteUsers(param);
 };
 
+//
 // Groups
+//
 module.exports.retrieveAllGroups = function (req, res) {
   return groupsManager.retrieveAllGroups(req, res);
 };

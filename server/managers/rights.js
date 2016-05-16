@@ -1,6 +1,7 @@
 //
 // Available modes
 // They represent the rights of a user, through its groups
+//
 const enumMode = {
   SIMPLE: 1,
   ADVANCED: 2,
@@ -9,6 +10,7 @@ module.exports.enumMode = enumMode;
 
 //
 // Available modules where a mode can be applied
+//
 const enumModules = {
   SAVE_AND_RESTORE: 'saveAndRestore',
   MIGRATION: 'migration',
@@ -25,6 +27,7 @@ module.exports.enumModules = enumModules;
 //      getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user);
 //    }
 //  });
+//
 module.exports.getModuleRightForUser = function (moduleName, user) {
   if (moduleName != enumModules.SAVE_AND_RESTORE &&
     moduleName != enumModules.MIGRATION &&
