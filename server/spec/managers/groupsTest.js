@@ -81,6 +81,15 @@ describe("retrieveAllGroups", function() {
   });
 });
 
+describe("updateGroups", function() {
+  var params;
+  var group = groupsManager.updateGroups(params);
+
+  it("should return a function", function() {
+    expect('function' === typeof group).toBeTruthy();
+  });
+});
+
 describe("createGroups", function() {
   var params;
   var group = groupsManager.createGroups(params);

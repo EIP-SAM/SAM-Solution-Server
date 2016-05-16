@@ -127,17 +127,14 @@ describe("checkAndCreateUser", function() {
 });
 */
 
-/*
 describe("createUser", function() {
   var params;
+  var user = usersManager.createUser(params);
 
-  it("should have called checkAndCreateUser once", function() {
-    spyOn(usersManager, 'checkAndCreateUser');
-    usersManager.createUser(params);
-    expect(usersManager.checkAndCreateUser).toHaveBeenCalledTimes(1);
+  it("should return a function", function() {
+    expect('function' === typeof user).toBeTruthy();
   });
 });
-*/
 
 describe("identifyUser", function() {
   var name = "admin";
