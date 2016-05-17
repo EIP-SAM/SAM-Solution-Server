@@ -1,6 +1,6 @@
-var StatManagers = require('../managers/statistic');
+var statManagers = require('../managers/statistic');
 
 module.exports.getAllStatistics = function (req, res) {
-  StatManagers.initSampleStatistics();
-  return StatManagers.getAllStatistics();
+  statManagers.initSampleStatistics();
+  return statManagers.getAllStatistics();
 };

@@ -1,9 +1,9 @@
-var StatManager = require('../../managers/statistic');
+var statManager = require('../../managers/statistic');
 
 describe("Register/Get method for Entity", function() {
   it("should add a method to the methods array and get the method result", function(){
 
-    StatManager.statisticRegisterMethodForEntity('UserTest', 'GraphBarOfAgeTest', function() {
+    statManager.statisticRegisterMethodForEntity('UserTest', 'GraphBarOfAgeTest', function() {
 
       var returnData = {
         type: 'bar',
@@ -24,7 +24,7 @@ describe("Register/Get method for Entity", function() {
       return (returnData);
     });
 
-    var result = StatManager.statisticGetMethodForEntity('UserTest', 'GraphBarOfAgeTest');
+    var result = statManager.statisticGetMethodForEntity('UserTest', 'GraphBarOfAgeTest');
 
     expect(result).not.toBeNull();
     expect('object' === typeof result).toBeTruthy();
@@ -34,9 +34,9 @@ describe("Register/Get method for Entity", function() {
 describe("init/getAll test method for Entity", function() {
   it("should return an array of data", function(){
 
-    StatManager.initSampleStatistics();
+    statManager.initSampleStatistics();
 
-    var result = StatManager.getAllStatistics();
+    var result = statManager.getAllStatistics();
 
     expect(result).not.toBeNull();
   })
