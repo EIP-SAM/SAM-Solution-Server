@@ -1,4 +1,4 @@
-var StatAdapters = require('../adapters/statistic');
+var statAdapters = require('../adapters/statistic');
 
 module.exports.statisticFunctions = [];
 
