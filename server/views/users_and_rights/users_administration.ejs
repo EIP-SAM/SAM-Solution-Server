@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>SAM Solution | Users</title>
+    <title>SAM Solution | Users administration</title>
   </head>
   <body>
     <% if (users) { %>
@@ -41,6 +41,9 @@
           <td><b>Name</b></td>
           <td><b>Email</b></td>
           <td><b>Belongs to group(s)</b></td>
+          <td><b>Higher Save/Restore Mode</b></td>
+          <td><b>Higher Migration Mode</b></td>
+          <td><b>Higher Software manager Mode</b></td>
         </tr>
         <% users.forEach(function (user) { %>
           <tr>
@@ -52,6 +55,9 @@
                 <%= group.name %>,
               <% }); %>
             </td>
+            <td><%= user.saveAndRestoreMode == 2 ? 'Advanced' : 'Simple' %></td>
+            <td><%= user.migrationMode == 2 ? 'Advanced' : 'Simple' %></td>
+            <td><%= user.softwarePackagesMode == 2 ? 'Advanced' : 'Simple' %></td>
           </tr>
         <% }); %>
       </table>
@@ -80,7 +86,7 @@
       </div>
     <% } else { %>
       <h1>An error occured</h1>
-        <p>Go back to the <a href="/login-signup-poc.html">login page</a></p>
+        <p>Go back to the <a href="/users_and_rights/login_signup">login page</a></p>
     <% } %>
   </body>
 </html>

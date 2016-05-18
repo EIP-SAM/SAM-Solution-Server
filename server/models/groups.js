@@ -1,17 +1,26 @@
-
-var Sequelize = require('sequelize');
-var sequelize = require('../libs/sequelize');
+const Sequelize = require('sequelize');
+const sequelize = require('../libs/sequelize');
 
 //
 // Model Groups
 //
-var Groups = sequelize.define('groups', {
+const Groups = sequelize.define('groups', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true,
   },
-  baseRights: {
+  saveAndRestoreMode: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    unique: false,
+  },
+  migrationMode: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    unique: false,
+  },
+  softwarePackagesMode: {
     type: Sequelize.INTEGER,
     allowNull: false,
     unique: false,
@@ -23,5 +32,3 @@ var Groups = sequelize.define('groups', {
 Groups.sync();
 
 module.exports = Groups;
-
-var _ = require('./usersGroupsRelations');
