@@ -1,19 +1,19 @@
 const sequelize = require('../libs/sequelize');
-var Groups = require('./groups');
-var Users = require('./users');
+const Groups = require('./groups');
+const Users = require('./users');
 
 //
 // Model UsersGroupsRelations
 //
-const UsersGroupsRelations = sequelize.define('UsersGroupsRelations', {}, {
-    freezeTableName: true,
-  });
+const UsersGroupsRelations = sequelize.define('usersGroupsRelations', {}, {
+  freezeTableName: true,
+});
 
 //
 // Setup Relations
 //
-Groups.belongsToMany(Users, { through: 'UsersGroupsRelations', foreignKey: 'userId' });
-Users.belongsToMany(Groups, { through: 'UsersGroupsRelations', foreignKey: 'groupId' });
+Groups.belongsToMany(Users, { through: 'usersGroupsRelations', foreignKey: 'userId' });
+Users.belongsToMany(Groups, { through: 'usersGroupsRelations', foreignKey: 'groupId' });
 
 UsersGroupsRelations.sync();
 

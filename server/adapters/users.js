@@ -1,6 +1,7 @@
-var Sequelize = require('sequelize');
-var UsersModel = require('../models/users');
-var GroupsModel = require('../models/groups');
+const Sequelize = require('sequelize');
+const UsersModel = require('../models/users');
+const GroupsModel = require('../models/groups');
+require('../models/usersGroupsRelations');
 
 module.exports.findAll = function () {
   return UsersModel.findAll({

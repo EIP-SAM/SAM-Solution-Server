@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>SAM Solution | Logged-in</title>
+  </head>
+  <body>
+    <% if (user) { %>
+      <h1>Yeah you're logged in!</h1>
+        <p>Hey <%= user.name %>, click on the link to <a href="/users_and_rights/logout">log out</a></p>
+        <p>You can also go to your <a href="/users_and_rights/user_profile">user profile</a></p>
+        <p>You can also go to the <a href="/users_and_rights/users_administration">users manager</a></p>
+        <p>You can also go to the <a href="/users_and_rights/groups_administration">groups manager</a></p>
+    <% } else { %>
+      <h1>An error occured</h1>
+        <p>Go back to the <a href="/users_and_rights/login_signup">login page</a></p>
+    <% } %>
+  </body>
+</html>

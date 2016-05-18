@@ -1,5 +1,5 @@
-var Sequelize = require('sequelize');
-var sequelize = require('../libs/sequelize');
+const Sequelize = require('sequelize');
+const sequelize = require('../libs/sequelize');
 
 //
 // Model User
@@ -25,6 +25,4 @@ const Users = sequelize.define('users', {
 
 Users.sync();
 
-module.exports =  Users;
-
-var _ = require('./usersGroupsRelations');
+module.exports = Users;
