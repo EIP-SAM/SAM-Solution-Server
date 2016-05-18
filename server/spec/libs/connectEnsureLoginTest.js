@@ -1,6 +1,3 @@
-//
-// Unit test for bunyan lib
-//
 var libEnsureLogin = require('../../libs/connectEnsureLogin');
 var EnsureLogin = require('connect-ensure-login');
 
