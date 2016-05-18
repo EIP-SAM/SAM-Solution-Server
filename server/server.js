@@ -3,9 +3,13 @@ const config = require('./config/base.config.json');
 config.rootFolder = __dirname;
 
 var app = require('./libs/express')(config);
+var logger = require('./managers/log');
 
 require('./routes')(app, config);
 
 var server = app.listen(config.port, function () {
-  console.log('Listening on port ' + config.port);
+
+  var log = logger.launchLog();
+
+  log.info('Listening on port ' + config.port);
 });
