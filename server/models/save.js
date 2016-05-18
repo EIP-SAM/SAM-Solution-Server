@@ -4,7 +4,7 @@
 var Sequelize = require('sequelize');
 var sequelize = require('../libs/sequelize');
 
-var saveSchedule = require('./saveSchedule');
+var saveScheduled = require('./saveScheduled');
 
 var save = sequelize.define('save', {
   execDate: {
@@ -34,7 +34,7 @@ var save = sequelize.define('save', {
 //
 // Setup ForeignKeys
 //
-save.belongsTo(saveSchedule, { foreignKey: 'saveScheduleId' });
+save.belongsTo(saveScheduled, { foreignKey: 'saveScheduledId' });
 
 //
 // Sync model SaveSchedule

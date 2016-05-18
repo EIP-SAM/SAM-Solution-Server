@@ -1,12 +1,12 @@
 //
-// Model SaveSchedule
+// Model SaveScheduled
 //
 var Sequelize = require('sequelize');
 var sequelize = require('../libs/sequelize');
 
 var user = require('./users');
 
-var saveSchedule = sequelize.define('save_schedule', {
+var saveScheduled = sequelize.define('save_scheduled', {
   cron: {
     type: Sequelize.STRING,
     allowNull: true,
@@ -28,11 +28,11 @@ var saveSchedule = sequelize.define('save_schedule', {
 //
 // Setup ForeignKeys
 //
-saveSchedule.belongsTo(user, { foreignKey: 'userId' });
+saveScheduled.belongsTo(user, { foreignKey: 'userId' });
 
 //
-// Sync model SaveSchedule
+// Sync model SaveScheduled
 //
-saveSchedule.sync();
+saveScheduled.sync();
 
-module.exports = saveSchedule;
+module.exports = saveScheduled;

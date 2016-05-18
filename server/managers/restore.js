@@ -39,3 +39,17 @@ module.exports.restoreSuccess = function (req, res) {
   const restoreId = req.body.restoreId;
   return restoreAdapter.restoreIsSuccess(restoreId);
 };
+
+//
+// Get data from request
+// Check to get:
+//   - all restorations of all user
+//   - all restorations of one/several users
+// Call adapter
+//
+module.exports.getHistoryRestore = function (req, res) {
+  const userId = []; // init with req.body
+  if (userId.length === 0)
+    return restoreAdapter.getAllRestore();
+  return restoreAdapter.getRestoreByUser(userId);
+};
