@@ -22,6 +22,7 @@ module.exports.restoreIsStart = function (restoreId) {
   return RestoreModel.findById(restoreId).then(function (restore) {
     restore.isStart = true;
     restore.save();
+    return restore;
   });
 };
 
@@ -33,6 +34,7 @@ module.exports.restoreIsFinish = function (restoreId) {
   return RestoreModel.findById(restoreId).then(function (restore) {
     restore.isFinish = true;
     restore.save();
+    return restore;
   });
 };
 
@@ -44,5 +46,26 @@ module.exports.restoreIsSuccess = function (restoreId) {
   return RestoreModel.findById(restoreId).then(function (restore) {
     restore.isSuccess = true;
     restore.save();
+    return restore;
+  });
+};
+
+//
+// Get all restorations of all users
+//
+module.exports.getAllRestore = function () {
+  return RestoreModel.findAll();
+};
+
+//
+// Get all restorations of one/several users
+//
+module.exports.getRestoreByUser = function (userId) {
+  return RestoreModel.findAll({
+    where: {
+      userId: {
+        $in: userId,
+      },
+    },
   });
 };
