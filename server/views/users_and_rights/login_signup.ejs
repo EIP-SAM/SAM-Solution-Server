@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>SAM Solution | Login/Sign-up</title>
+  </head>
+  <body>
+    <h1>Already have an account?</h1>
+      Log into the system by filling the following form:
+      <form action="/users_and_rights/login" method="post">
+        <div>
+          <label>Username :</label>
+          <input type="text" name="username" />
+        </div>
+        <div>
+          <label>Password :</label>
+          <input type="password" name="password" />
+        </div>
+        <div>
+          <button type="submit">Login</button>
+        </div>
+      </form>
+      <h1>Nope? Do you want to create one?</h1>
+        Create an account in our system by filling the following form:
+        <form action="/users_and_rights/sign-up" method="post">
+          <div>
+            <label>Username :</label>
+            <input type="text" name="username" />
+          </div>
+          <div>
+            <label>Email :</label>
+            <input type="email" name="email" />
+          </div>
+          <div>
+            <label>Password :</label>
+            <input type="password" name="password" />
+          </div>
+          <div>
+            <label>Confirmation :</label>
+            <input type="password" name="confirmation" />
+          </div>
+          <div>
+            <button type="submit">Sign-up</button>
+          </div>
+        </form>
+  </body>
+</html>

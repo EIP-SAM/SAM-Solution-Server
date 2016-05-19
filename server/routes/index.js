@@ -1,12 +1,10 @@
-const ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
-const ensureLoggedOut = require('connect-ensure-login').ensureLoggedOut;
+module.exports = function initRoutes(app, conf) {
+  const passport = require('../libs/passport')(app);
 
-module.exports = function initRoutes(libs, conf) {
-  const routes = {};
-
-  libs.app.use(libs.express.static(conf.rootFolder + '/public'));
-
-  require('./routes')(libs.app, ensureLoggedIn, ensureLoggedOut);
-
-  return routes;
+  require('./routes')(app, conf, passport);
+  require('./users')(app, conf, passport);
+  require('./statistic')(app, conf);
+  require('./restore')(app);
+  require('./save')(app);
+  require('./log')(app);
 };

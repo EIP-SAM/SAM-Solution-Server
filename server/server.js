@@ -2,28 +2,14 @@
 const config = require('./config/base.config.json');
 config.rootFolder = __dirname;
 
-// retrieve libs
-const libs = require('./libs')(config);
+var app = require('./libs/express')(config);
+var logger = require('./managers/log');
 
-// retrieve models
-const models = require('./models')(libs, config);
+require('./routes')(app, config);
 
-// retrieve workers
-const workers = require('./workers')(libs, config);
+var server = app.listen(config.port, function () {
 
-// retrieve adapters
-const adapters = require('./adapters')(libs, config, models, workers);
+  var log = logger.launchLog();
 
-// retrieve managers
-const managers = require('./managers')(libs, config, adapters);
-
-// retrieve controllers
-const controllers = require('./controllers')(libs, config, managers);
-
-// init routes
-require('./routes')(libs, config);
-
-// start server
-var server = libs.app.listen(config.port, function () {
-  console.log('Listening on port ' + config.port);
+  log.info('Listening on port ' + config.port);
 });

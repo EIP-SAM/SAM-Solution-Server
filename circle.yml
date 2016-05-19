@@ -19,7 +19,7 @@ dependencies:
 ## Customize test commands
 test:
   pre:
-    - for f in *config.json.exemple; do cp "$f" "`echo $f | sed s/json.exemple/json/`"; done:
+    - for f in *config.json.example; do cp "$f" "`echo $f | sed s/json.example/json/`"; done:
         pwd:
           server/config/
 
