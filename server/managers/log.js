@@ -89,6 +89,36 @@ module.exports.getLogsAboveLevel = function (level) {
 };
 
 //
+// Launch getLogByModuleName adapters and return the result
+//
+module.exports.getLogByModuleName = function (moduleName) {
+
+  return new Promise(function (fulfill) {
+
+    var promise = logAdapter.getLogByModuleName(moduleName);
+
+    promise.then(function (logs) {
+      fulfill(logs);
+    });
+  });
+};
+
+//
+// Launch getLimitedLogByModuleName adapters and return the result
+//
+module.exports.getLimitedLogByModuleName = function (moduleName, limit) {
+
+  return new Promise(function (fulfill) {
+
+    var promise = logAdapter.getLimitedLogByModuleName(moduleName, limit);
+
+    promise.then(function (logs) {
+      fulfill(logs);
+    });
+  });
+};
+
+//
 // Launch getLogsById from adapters and return the result
 //
 module.exports.getLogsById = function (userId) {
@@ -156,6 +186,36 @@ module.exports.getLogsAboveLevelById = function (userId, level) {
   return new Promise(function (fulfill) {
 
     var promise = logAdapter.getLogsAboveLevelById(userId, level);
+
+    promise.then(function (logs) {
+      fulfill(logs);
+    });
+  });
+};
+
+//
+// Launch getLogByModuleNameById adapters and return the result
+//
+module.exports.getLogByModuleNameById = function (moduleName) {
+
+  return new Promise(function (fulfill) {
+
+    var promise = logAdapter.getLogByModuleNameById(moduleName, userId);
+
+    promise.then(function (logs) {
+      fulfill(logs);
+    });
+  });
+};
+
+//
+// Launch getLimitedLogByModuleName adapters and return the result
+//
+module.exports.getLimitedLogByModuleNameById = function (moduleName, limit) {
+
+  return new Promise(function (fulfill) {
+
+    var promise = logAdapter.getLimitedLogByModuleNameById(moduleName, limit, userId);
 
     promise.then(function (logs) {
       fulfill(logs);
