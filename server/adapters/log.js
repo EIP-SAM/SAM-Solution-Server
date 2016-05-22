@@ -228,7 +228,7 @@ module.exports.getLogsAboveLevelById = function (userId, level) {
 //
 // Get all logs by module name from user id
 //
-module.exports.getLogByModuleNameById = function (moduleName, userId) {
+module.exports.getLogByModuleNameById = function (userId, moduleName) {
   return new Promise(function (fulfill) {
     logModel.find({ header: { module: moduleName, userId: userId } })
     .exec(function (err, logs) {
@@ -245,7 +245,7 @@ module.exports.getLogByModuleNameById = function (moduleName, userId) {
 //
 // Get limited logs by module name from user id
 //
-module.exports.getLimitedLogByModuleNameById = function (moduleName, limit, userId) {
+module.exports.getLimitedLogByModuleNameById = function (userId, moduleName, limit) {
   return new Promise(function (fulfill) {
     logModel.find({ header: { module: moduleName, userId: userId } })
     .limit(limit)
