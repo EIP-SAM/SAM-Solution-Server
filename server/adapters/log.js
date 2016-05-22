@@ -103,6 +103,41 @@ module.exports.getLimitedLogs = function (limit) {
 };
 
 //
+// Get all logs by module name
+//
+module.exports.getLogByModuleName = function (module) {
+  return new Promise(function (fulfill) {
+    logModel.find({ header: { module: module } })
+    .exec(function (err, logs) {
+      if (err) {
+        logger.error(err);
+        fulfill({ error: true, data: err });
+      } else {
+        fulfill({ error: false, data: logs });
+      }
+    });
+  });
+};
+
+//
+// Get limited logs by module name
+//
+module.exports.getLogByModuleName = function (module, limit) {
+  return new Promise(function (fulfill) {
+    logModel.find({ header: { module: module } })
+    .limit(limit)
+    .exec(function (err, logs) {
+      if (err) {
+        logger.error(err);
+        fulfill({ error: true, data: err });
+      } else {
+        fulfill({ error: false, data: logs });
+      }
+    });
+  });
+};
+
+//
 // Get all the log from userId
 //
 module.exports.getLogsById = function (userId) {
@@ -179,6 +214,41 @@ module.exports.getLogsBelowLevelById = function (userId, level) {
 module.exports.getLogsAboveLevelById = function (userId, level) {
   return new Promise(function (fulfill) {
     logModel.find({ level: { $gt: level }, header: { userId: userId } })
+    .exec(function (err, logs) {
+      if (err) {
+        logger.error(err);
+        fulfill({ error: true, data: err });
+      } else {
+        fulfill({ error: false, data: logs });
+      }
+    });
+  });
+};
+
+//
+// Get all logs by module name from user id
+//
+module.exports.getLogByModuleName = function (module, userId) {
+  return new Promise(function (fulfill) {
+    logModel.find({ header: { module: module, userId: userId } })
+    .exec(function (err, logs) {
+      if (err) {
+        logger.error(err);
+        fulfill({ error: true, data: err });
+      } else {
+        fulfill({ error: false, data: logs });
+      }
+    });
+  });
+};
+
+//
+// Get limited logs by module name from user id
+//
+module.exports.getLogByModuleName = function (module, limit, userId) {
+  return new Promise(function (fulfill) {
+    logModel.find({ header: { module: module, userId: userId } })
+    .limit(limit)
     .exec(function (err, logs) {
       if (err) {
         logger.error(err);
