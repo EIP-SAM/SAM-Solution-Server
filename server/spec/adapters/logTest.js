@@ -169,18 +169,18 @@ describe('getLimitedLogs', function () {
   });
 });
 
-describe('getLogByModuleName', function () {
+describe('getLogsByModuleName', function () {
   var moduleName = 'log';
 
   it('should return a promise', function () {
-    var logs = logAdapter.getLogByModuleName(moduleName);
+    var logs = logAdapter.getLogsByModuleName(moduleName);
 
     expect(typeof logs.then === 'function').toBeTruthy();
   });
 
   it('should have called find once', function () {
     spyOn(logModel, 'find');
-    logAdapter.getLogByModuleName(moduleName);
+    logAdapter.getLogsByModuleName(moduleName);
     expect(logModel.find).toHaveBeenCalledTimes(1);
   });
 
@@ -192,24 +192,24 @@ describe('getLogByModuleName', function () {
 
     spyOn(logModel, 'find').and.returnValue(objectExec);
     spyOn(objectExec, 'exec');
-    logAdapter.getLogByModuleName(moduleName);
+    logAdapter.getLogsByModuleName(moduleName);
     expect(objectExec.exec).toHaveBeenCalledTimes(1);
   });
 });
 
-describe('getLimitedLogByModuleName', function () {
+describe('getLimitedLogsByModuleName', function () {
   var moduleName = 'log';
   var limit = 1;
 
   it('should return a promise', function () {
-    var logs = logAdapter.getLimitedLogByModuleName(moduleName, limit);
+    var logs = logAdapter.getLimitedLogsByModuleName(moduleName, limit);
 
     expect(typeof logs.then === 'function').toBeTruthy();
   });
 
   it('should have called find once', function () {
     spyOn(logModel, 'find');
-    logAdapter.getLogByModuleName(moduleName);
+    logAdapter.getLogsByModuleName(moduleName);
     expect(logModel.find).toHaveBeenCalledTimes(1);
   });
 
@@ -220,7 +220,7 @@ describe('getLimitedLogByModuleName', function () {
 
     spyOn(logModel, 'find').and.returnValue(object);
     spyOn(object, 'limit');
-    logAdapter.getLimitedLogByModuleName(moduleName, limit);
+    logAdapter.getLimitedLogsByModuleName(moduleName, limit);
     expect(object.limit).toHaveBeenCalledTimes(1);
   });
 
@@ -237,7 +237,7 @@ describe('getLimitedLogByModuleName', function () {
     spyOn(logModel, 'find').and.returnValue(objectLimit);
     spyOn(objectLimit, 'limit').and.returnValue(objectExec);
     spyOn(objectExec, 'exec');
-    logAdapter.getLimitedLogByModuleName(moduleName, limit);
+    logAdapter.getLimitedLogsByModuleName(moduleName, limit);
     expect(objectLimit.limit).toHaveBeenCalledTimes(1);
     expect(objectExec.exec).toHaveBeenCalledTimes(1);
   });
@@ -269,7 +269,7 @@ describe('getLogsById', function () {
   });
 });
 
-describe('getLimitedLogsById', function () {
+describe('getLimitedLogsById Adapters', function () {
   var userId = 1;
   var limit = 1;
 
@@ -392,19 +392,19 @@ describe('getLogsAboveLevelById', function () {
     expect(object.exec).toHaveBeenCalledTimes(1);
   });
 
-  describe('getLogByModuleNameById', function () {
+  describe('getLogsByModuleNameById', function () {
     var userId = 1;
     var moduleName = 'log';
 
     it('should return a promise', function () {
-      var logs = logAdapter.getLogByModuleNameById(userId, moduleName);
+      var logs = logAdapter.getLogsByModuleNameById(userId, moduleName);
 
       expect(typeof logs.then === 'function').toBeTruthy();
     });
 
     it('should have called find once', function () {
       spyOn(logModel, 'find');
-      logAdapter.getLogByModuleNameById(userId, moduleName);
+      logAdapter.getLogsByModuleNameById(userId, moduleName);
       expect(logModel.find).toHaveBeenCalledTimes(1);
     });
 
@@ -416,25 +416,25 @@ describe('getLogsAboveLevelById', function () {
 
       spyOn(logModel, 'find').and.returnValue(objectExec);
       spyOn(objectExec, 'exec');
-      logAdapter.getLogByModuleNameById(userId, moduleName);
+      logAdapter.getLogsByModuleNameById(userId, moduleName);
       expect(objectExec.exec).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('getLimitedLogByModuleNameById', function () {
+  describe('getLimitedLogsByModuleNameById', function () {
     var userId = 1;
     var moduleName = 'log';
     var limit = 1;
 
     it('should return a promise', function () {
-      var logs = logAdapter.getLimitedLogByModuleNameById(userId, moduleName, limit);
+      var logs = logAdapter.getLimitedLogsByModuleNameById(userId, moduleName, limit);
 
       expect(typeof logs.then === 'function').toBeTruthy();
     });
 
     it('should have called find once', function () {
       spyOn(logModel, 'find');
-      logAdapter.getLimitedLogByModuleNameById(userId, moduleName);
+      logAdapter.getLimitedLogsByModuleNameById(userId, moduleName);
       expect(logModel.find).toHaveBeenCalledTimes(1);
     });
 
@@ -445,7 +445,7 @@ describe('getLogsAboveLevelById', function () {
 
       spyOn(logModel, 'find').and.returnValue(object);
       spyOn(object, 'limit');
-      logAdapter.getLimitedLogByModuleNameById(userId, moduleName, limit);
+      logAdapter.getLimitedLogsByModuleNameById(userId, moduleName, limit);
       expect(object.limit).toHaveBeenCalledTimes(1);
     });
 
@@ -462,7 +462,7 @@ describe('getLogsAboveLevelById', function () {
       spyOn(logModel, 'find').and.returnValue(objectLimit);
       spyOn(objectLimit, 'limit').and.returnValue(objectExec);
       spyOn(objectExec, 'exec');
-      logAdapter.getLimitedLogByModuleNameById(userId, moduleName, limit);
+      logAdapter.getLimitedLogsByModuleNameById(userId, moduleName, limit);
       expect(objectLimit.limit).toHaveBeenCalledTimes(1);
       expect(objectExec.exec).toHaveBeenCalledTimes(1);
     });
