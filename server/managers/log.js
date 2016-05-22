@@ -91,11 +91,11 @@ module.exports.getLogsAboveLevel = function (level) {
 //
 // Launch getLogByModuleName adapters and return the result
 //
-module.exports.getLogByModuleName = function (moduleName) {
+module.exports.getLogsByModuleName = function (moduleName) {
 
   return new Promise(function (fulfill) {
 
-    var promise = logAdapter.getLogByModuleName(moduleName);
+    var promise = logAdapter.getLogsByModuleName(moduleName);
 
     promise.then(function (logs) {
       fulfill(logs);
@@ -106,11 +106,11 @@ module.exports.getLogByModuleName = function (moduleName) {
 //
 // Launch getLimitedLogByModuleName adapters and return the result
 //
-module.exports.getLimitedLogByModuleName = function (moduleName, limit) {
+module.exports.getLimitedLogsByModuleName = function (moduleName, limit) {
 
   return new Promise(function (fulfill) {
 
-    var promise = logAdapter.getLimitedLogByModuleName(moduleName, limit);
+    var promise = logAdapter.getLimitedLogsByModuleName(moduleName, limit);
 
     promise.then(function (logs) {
       fulfill(logs);
@@ -196,11 +196,11 @@ module.exports.getLogsAboveLevelById = function (userId, level) {
 //
 // Launch getLogByModuleNameById adapters and return the result
 //
-module.exports.getLogByModuleNameById = function (moduleName) {
+module.exports.getLogsByModuleNameById = function (moduleName) {
 
   return new Promise(function (fulfill) {
 
-    var promise = logAdapter.getLogByModuleNameById(userId, moduleName);
+    var promise = logAdapter.getLogsByModuleNameById(userId, moduleName);
 
     promise.then(function (logs) {
       fulfill(logs);
@@ -211,11 +211,11 @@ module.exports.getLogByModuleNameById = function (moduleName) {
 //
 // Launch getLimitedLogByModuleName adapters and return the result
 //
-module.exports.getLimitedLogByModuleNameById = function (moduleName, limit) {
+module.exports.getLimitedLogsByModuleNameById = function (moduleName, limit) {
 
   return new Promise(function (fulfill) {
 
-    var promise = logAdapter.getLimitedLogByModuleNameById(userId, moduleName, limit);
+    var promise = logAdapter.getLimitedLogsByModuleNameById(userId, moduleName, limit);
 
     promise.then(function (logs) {
       fulfill(logs);
