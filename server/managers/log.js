@@ -200,7 +200,7 @@ module.exports.getLogByModuleNameById = function (moduleName) {
 
   return new Promise(function (fulfill) {
 
-    var promise = logAdapter.getLogByModuleNameById(moduleName, userId);
+    var promise = logAdapter.getLogByModuleNameById(userId, moduleName);
 
     promise.then(function (logs) {
       fulfill(logs);
@@ -215,7 +215,7 @@ module.exports.getLimitedLogByModuleNameById = function (moduleName, limit) {
 
   return new Promise(function (fulfill) {
 
-    var promise = logAdapter.getLimitedLogByModuleNameById(moduleName, limit, userId);
+    var promise = logAdapter.getLimitedLogByModuleNameById(userId, moduleName, limit);
 
     promise.then(function (logs) {
       fulfill(logs);

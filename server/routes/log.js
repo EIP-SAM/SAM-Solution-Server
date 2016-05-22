@@ -72,6 +72,30 @@ module.exports = function initLogRoutes(app) {
   });
 
   //
+  // Get logs by module name
+  //
+  app.post('/log/module/:module_name', function (req, res) {
+
+    var promise = logManager.getLogByModuleName(req.params.module_name);
+
+    promise.then(function (logs) {
+      res.json(logs);
+    });
+  });
+
+  //
+  // Get limited logs by module name
+  //
+  app.post('/log/module/:module_name', function (req, res) {
+
+    var promise = logManager.getLogByModuleName(req.params.module_name, parseInt(req.body.limit));
+
+    promise.then(function (logs) {
+      res.json(logs);
+    });
+  });
+
+  //
   // Get all the log from a client by his id
   //
   app.post('/log/:user_id', function (req, res) {
@@ -131,3 +155,31 @@ module.exports = function initLogRoutes(app) {
     });
   });
 };
+
+//
+// Get logs by module name from user id
+//
+app.post('/log/:user_id/module/:module_name', function (req, res) {
+
+  var promise = logManager.getLogByModuleName(req.params.user_id, req.params.module_name);
+
+  promise.then(function (logs) {
+    res.json(logs);
+  });
+});
+
+//
+// Get limited logs by module name from user id
+//
+app.post('/log/:user_id/module/:module_name', function (req, res) {
+
+  var promise = logManager.getLogByModuleName(
+    req.params.user_id,
+    req.params.module_name,
+    parseInt(req.body.limit)
+  );
+
+  promise.then(function (logs) {
+    res.json(logs);
+  });
+});
