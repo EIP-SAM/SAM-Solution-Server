@@ -10,13 +10,21 @@
  */
 
 import React from 'react';
+import Button from 'components/Button';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class HomePage extends React.Component {
 
+  clickMe() {
+    alert('test');
+  }
+
   render() {
     return (
-      <h1>This is the Homepage!</h1>
+      <div>
+        <h1>This is the Homepage!</h1>
+        <Button handleRoute={this.clickMe} className="btn-primary" >titi</Button>
+      </div>
     );
   }
 }
