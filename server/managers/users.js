@@ -1,23 +1,32 @@
 //
-// Libraries used in this manager
+// Load librarie(s) used in this manager
+//
+const crypto = require('../libs/crypto');
+
+//
+// Load config variable(s) from config file
+//
+const salt = require('../config/base.config.json').salt;
+
+//
+// Load other manager(s)
 //
 const UsersAdapter = require('../adapters/users');
 const GroupsAdapter = require('../adapters/groups');
 const rightsManager = require('./rights');
-const sha256 = require('../libs/sha256');
-
 const enumModules = rightsManager.enumModules;
-
-initAdminUser();
 
 //
 // Create admin if not exists
 //
+initAdminUser();
+
 function initAdminUser() {
   return UsersAdapter.findByName('admin')
   .then(function (user) {
     if (!user) {
-      UsersAdapter.createUser('admin', 'admin@example.com', sha256('admin'))
+      UsersAdapter.createUser('admin', 'admin@example.com',
+                              crypto.createHmac('sha256', salt).update('admin').digest('hex'))
       .then(function (user) {
         GroupsAdapter.findByName('admin_default')
         .then(function (group) {
@@ -67,7 +76,8 @@ function checkAndCreateUser(name, email, password, confirmation) {
         UsersAdapter.findByName(name)
         .then(function (user) {
           if (!user) {
-            UsersAdapter.createUser(name, email, sha256(password))
+            UsersAdapter.createUser(name, email,
+                                    crypto.createHmac('sha256', salt).update(password).digest('hex'))
             .then(function (user) {
               GroupsAdapter.findByName('user_default')
               .then(function (group) {
@@ -113,7 +123,7 @@ module.exports.identifyUser = function (name, password) {
     UsersAdapter.findByName(name)
     .then(function (user) {
       if (user) {
-        if (password && user.password == sha256(password)) {
+        if (password && user.password == crypto.createHmac('sha256', salt).update(password).digest('hex')) {
           fulfill(user);
         } else {
           reject('Invalid password');
@@ -234,7 +244,7 @@ function prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate,
 
   if (userUpdateRequest.password) {
     if (!(error = checkNewUserPassword(userUpdateRequest.password, userUpdateRequest.confirmation))) {
-      userModel.password = sha256(userUpdateRequest.password);
+      userModel.password = crypto.createHmac('sha256', salt).update(userUpdateRequest.password).digest('hex');
       fieldsToUpdate.push('password');
     } else {
       reject(error + 'for user id ' + userUpdateRequest.id);
