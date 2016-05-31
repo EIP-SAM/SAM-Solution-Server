@@ -22,7 +22,6 @@
     "flash": "^1.1.0",
     "istanbul": "^0.4.2",
     "jasmine": "^2.4.1",
-    "js-sha256": "^0.3.0",
     "mongoose": "^4.4.10",
     "mysql": "^2.10.2",
     "node-schedule": "^1.1.0",

@@ -11,5 +11,6 @@
     }
   },
   "debug": false,
-  "secret": "mysupersecretkeyihavetochange"
+  "secret": "mySuperCookieSecretKeyIMustUpdate",
+  "salt": "anotherAwsomeKeyIMustUpdate"
 }
