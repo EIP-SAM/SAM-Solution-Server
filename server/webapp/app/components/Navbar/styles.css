@@ -16,7 +16,8 @@
 
 .logo {
   display: block;
-  margin: auto!important;
+  height: 100%;
+  width: 100%;
 }
 
 .collapse {
