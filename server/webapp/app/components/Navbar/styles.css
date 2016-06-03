@@ -1,0 +1,36 @@
+.position {
+  border-radius: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 250px;
+}
+
+.position > div {
+  width: auto!important;
+}
+
+.noFloat {
+  float: none;
+}
+
+.logo {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.collapse {
+  padding: 0;
+}
+
+.menu {
+  margin-top: 20%;
+  width: 100%;
+}
+
+.menuItem {
+  border-bottom: 1px solid black;
+  font-size: 1.3em;
+  float: none!important;
+}
