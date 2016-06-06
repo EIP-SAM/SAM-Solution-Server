@@ -1,5 +1,9 @@
+body, html {
+  overflow: hidden;
+}
+
 @media (min-width: 768px) {
   .padding {
-    padding-left: 255px;
+    padding-left: 270px;
   }
 }
