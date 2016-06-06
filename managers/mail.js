@@ -11,7 +11,6 @@ const mailConfig = require('../config/mail.config.json');
 //
 // Create reusable transporter object using SMTP transport
 //
-// const transporter = nodeMailer.createTransport('smtps://sam-solution-dev@chauv.in:samEIP2017@smtp.mailgun.org');
 const transporter = nodeMailer.createTransport(mailConfig);
 
 //
