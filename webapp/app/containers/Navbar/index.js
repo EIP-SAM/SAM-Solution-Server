@@ -12,7 +12,7 @@ export default class NavbarContainer extends React.Component {
 
   render() {
     return (
-      <Navbar pullLeft inverse className={styles.position}>
+      <Navbar inverse className={styles.position}>
         <Navbar.Header className={styles.noFloat}>
           <Navbar.Brand className={styles.noFloat}>
             <Image src={Logo} responsive className={styles.logo} />

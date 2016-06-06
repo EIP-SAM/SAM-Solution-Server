@@ -1,36 +1,46 @@
 .position {
   border-radius: 0;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  width: 250px;
+  height: auto;
 }
 
-.position > div {
-  width: auto!important;
+button {
+  margin-top: 20px!important;
 }
 
-.noFloat {
-  float: none;
-}
+@media (min-width: 768px) {
+  .position {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 250px;
+  }
 
-.logo {
-  display: block;
-  height: 100%;
-  width: 100%;
-}
+  .position > div {
+    width: auto!important;
+  }
 
-.collapse {
-  padding: 0;
-}
+  .noFloat {
+    float: none;
+  }
 
-.menu {
-  margin-top: 20%;
-  width: 100%;
-}
+  .logo {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
 
-.menuItem {
-  border-bottom: 1px solid black;
-  font-size: 1.3em;
-  float: none!important;
+  .collapse {
+    padding: 0;
+  }
+
+  .menu {
+    margin-top: 20%;
+    width: 100%;
+  }
+
+  .menuItem {
+    border-bottom: 1px solid black;
+    font-size: 1.3em;
+    float: none!important;
+  }
 }
