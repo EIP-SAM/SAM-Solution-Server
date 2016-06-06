@@ -12,6 +12,7 @@
  */
 
 import React from 'react';
+import { Grid, Row, Col } from 'react-bootstrap';
 import Navbar from 'containers/Navbar';
 import styles from 'components/App/styles.css';
 
@@ -27,7 +28,13 @@ export default class App extends React.Component {
       <div>
         <Navbar />
         <div className={styles.padding}>
-          {this.props.children}
+          <Grid>
+            <Row className="show-grid">
+              <Col xs={10} sm={7} md={8} lg={9}>
+                {this.props.children}
+              </Col>
+            </Row>
+          </Grid>
         </div>
       </div>
     );
