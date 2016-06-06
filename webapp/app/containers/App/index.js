@@ -13,6 +13,7 @@
 
 import React from 'react';
 import Navbar from 'containers/Navbar';
+import styles from 'components/App/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class App extends React.Component {
@@ -25,7 +26,9 @@ export default class App extends React.Component {
     return (
       <div>
         <Navbar />
-        {this.props.children}
+        <div className={styles.padding}>
+          {this.props.children}
+        </div>
       </div>
     );
   }
