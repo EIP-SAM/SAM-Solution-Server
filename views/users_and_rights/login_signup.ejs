@@ -43,5 +43,16 @@
             <button type="submit">Sign-up</button>
           </div>
         </form>
+      <h1>Forgotten password?</h1>
+        This will generate a new password and send it to your email address:
+        <form action="/users_and_rights/recover_user_password" method="post">
+          <div>
+            <label>Email :</label>
+            <input type="email" name="email" />
+          </div>
+          <div>
+            <button type="submit">Send a new password</button>
+          </div>
+        </form>
   </body>
 </html>

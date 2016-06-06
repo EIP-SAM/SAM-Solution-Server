@@ -2,6 +2,7 @@
 // Load librarie(s) used in this manager
 //
 const crypto = require('../libs/crypto');
+const passwordGenerator = require('password-generator');
 
 //
 // Load config variable(s) from config file
@@ -14,6 +15,7 @@ const salt = require('../config/base.config.json').salt;
 const UsersAdapter = require('../adapters/users');
 const GroupsAdapter = require('../adapters/groups');
 const rightsManager = require('./rights');
+const mailManager = require('./mail');
 const enumModules = rightsManager.enumModules;
 
 //
@@ -288,6 +290,80 @@ module.exports.updateUserProfile = function (params) {
     })
     .catch(function (error) {
       pushErrorInUserSession(req, userUpdate, error);
+      res.redirect(params.failureRedirect);
+    });
+  };
+};
+
+//
+// Email template for the user password recovery
+//
+const passwordRecoveryMailTemplate = {
+  header: 'Hello,\n\nHere is your new generated password ',
+  footer: '\nYou can use it to log in right now.\n\nNote: This is an automatic message, please do not respond to this mail.',
+};
+
+//
+// Generate a new password of lenght 12, with non-memorable characters
+// Generate a message for the user, containing the new password
+// Fill this in a valid structure to able to call `updateUserProfile()`
+//
+function generatePasswordAndMessageBody() {
+  const generatedPassword = passwordGenerator(12, false);
+
+  return {
+    password: generatedPassword,
+    confirmation: generatedPassword,
+    messageBody: passwordRecoveryMailTemplate.header + generatedPassword + passwordRecoveryMailTemplate.footer,
+  };
+}
+
+//
+// Generate a new password for the user associated with the given email address,
+// send the new password to the user by email, and then assign the new password
+// to the user. Reject with an error message if there is something not valid or
+// not normal.
+//
+function recoverUserPassword(userEmail) {
+  return new Promise(function (fulfill, reject) {
+    if (!userEmail) {
+      reject('Empty field', 'email');
+    } else {
+      UsersAdapter.findByEmail(userEmail).then(function (user) {
+        if (user) {
+          const passwordAndMessageBody = generatePasswordAndMessageBody();
+
+          mailManager.send(userEmail, '[SAM-Solution] Password recovery', passwordAndMessageBody.messageBody)
+          .then(function (mailInfo) {
+            updateUserProfile(user, passwordAndMessageBody).then(function (user) {
+              fulfill(user);
+            }).catch(function (error) {
+              reject('Cannot update user profile', error);
+            });
+          }).catch(function (error) {
+            reject('Unable to send email', error);
+          });
+        } else {
+          reject('User not found', 'no user associated with this email address');
+        }
+      });
+    }
+  });
+}
+
+//
+// Recover user password entry point from its POST route
+//
+module.exports.recoverUserPassword = function (params) {
+  return function (req, res) {
+    const userEmail = req.body.email;
+
+    recoverUserPassword(userEmail)
+    .then(function (user) {
+      res.redirect(params.successRedirect);
+    })
+    .catch(function (errorName, errorReason) {
+      pushErrorInUserSession(req, errorName, errorReason);
       res.redirect(params.failureRedirect);
     });
   };

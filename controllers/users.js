@@ -28,6 +28,10 @@ module.exports.updateUsers = function (param) {
   return usersManager.updateUsers(param);
 };
 
+module.exports.recoverUserPassword = function (param) {
+  return usersManager.recoverUserPassword(param);
+};
+
 module.exports.deleteUsers = function (param) {
   return usersManager.deleteUsers(param);
 };
