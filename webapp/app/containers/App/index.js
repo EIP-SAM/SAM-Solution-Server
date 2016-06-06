@@ -27,15 +27,13 @@ export default class App extends React.Component {
     return (
       <div>
         <Navbar />
-        <div className={styles.padding}>
-          <Grid>
-            <Row className="show-grid">
-              <Col xs={10} sm={7} md={8} lg={9}>
-                {this.props.children}
-              </Col>
-            </Row>
-          </Grid>
-        </div>
+        <Grid className={styles.padding}>
+          <Row className="show-grid">
+            <Col xs={10} sm={7} md={8} lg={9}>
+              {this.props.children}
+            </Col>
+          </Row>
+        </Grid>
       </div>
     );
   }
