@@ -10,9 +10,6 @@ export default class Tr extends React.Component {
     const ComponentToRender = this.props.component;
     let content = null;
 
-    console.log(this.props.component);
-    console.log(this.props.items);
-
     content = this.props.items.map((item, index) => (
       <ComponentToRender key={`item-${index}`} object={item} />
     ));
