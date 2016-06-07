@@ -14,9 +14,9 @@ import styles from 'components/SaveHistory/styles.css';
 export default class SaveHistory extends React.Component {
 
   render() {
-    const names = [{ isLink: 'true', link: '#', value: '#' }, { isLink: 'false', value: 'State' },
-     { isLink: 'false', value: 'Date' }, { isLink: 'false', value: 'Files' },
-      { isLink: 'false', value: 'Actions' }];
+    const names = [{ isLink: false, link: '#', value: '#' }, { isLink: false, value: 'State' },
+     { isLink: false, value: 'Date' }, { isLink: false, value: 'Files' },
+      { isLink: false, value: 'Actions' }];
 
     return (
       <div>
