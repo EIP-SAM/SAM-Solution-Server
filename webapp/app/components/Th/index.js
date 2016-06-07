@@ -14,5 +14,5 @@ export default class Th extends React.Component {
 }
 
 Th.propTypes = {
-  object: React.PropTypes.object,
+  object: React.PropTypes.object.isRequired,
 };
