@@ -15,7 +15,7 @@ export default class Td extends React.Component {
     if (item) {
       content = item.value;
 
-      if (item.isLink === 'true') {
+      if (item.isLink === true) {
         content = (<Button className={styles.padding} bsStyle="link" href={item.link}>{item.value}</Button>);
       }
 
@@ -28,5 +28,5 @@ export default class Td extends React.Component {
 }
 
 Td.propTypes = {
-  object: React.PropTypes.object,
+  object: React.PropTypes.object.isRequired,
 };

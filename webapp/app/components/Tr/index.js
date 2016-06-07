@@ -22,5 +22,5 @@ export default class Tr extends React.Component {
 
 Tr.propTypes = {
   component: React.PropTypes.func.isRequired,
-  items: React.PropTypes.array,
+  items: React.PropTypes.array.isRequired,
 };
