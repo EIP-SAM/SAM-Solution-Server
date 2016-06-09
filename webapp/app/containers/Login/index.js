@@ -8,6 +8,29 @@ import Logo from '../App/logo_sam_solution.png';
 import styles from 'components/Login/styles.css';
 
 export default class LoginContainer extends React.Component {
+  getInitialState() {
+    return {username: '', password: ''};
+  }
+
+  handleUsernameChange(e) {
+    this.setState({username: e.target.value});
+  }
+
+  handlePasswordChange(e) {
+    this.setState({password: e.target.value});
+  }
+
+  handleSubmit(e) {
+    e.preventDefault;
+    var username = this.state.username;
+    var password = this.state.password;
+    if (!username || !password) {
+      return;
+    }
+    // call function to log in
+    this.setState({username: '', password: ''});
+  }
+
   render() {
     return (
         <div container className={styles.login}>
