@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { Navbar, Nav, NavItem, Image } from 'react-bootstrap';
-import Logo from './logo_sam_solution.png';
+import Logo from '../App/logo_sam_solution.png';
 import styles from 'components/Navbar/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
