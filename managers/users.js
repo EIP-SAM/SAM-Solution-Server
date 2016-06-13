@@ -27,8 +27,7 @@ function initAdminUser() {
   return UsersAdapter.findByName('admin')
   .then(function (user) {
     if (!user) {
-      UsersAdapter.createUser('admin', 'admin@example.com',
-                              crypto.createHmac('sha256', salt).update('admin').digest('hex'))
+      UsersAdapter.createUser('admin', 'admin@example.com', crypto.createHmac('sha256', salt).update('admin').digest('hex'))
       .then(function (user) {
         GroupsAdapter.findByName('admin_default')
         .then(function (group) {
@@ -50,14 +49,13 @@ function checkNewUserEmail(email) {
 }
 
 function checkNewUserPassword(password, confirmation) {
-  return (!password || !confirmation || !password.length ? 'Invalid user password/confirmation' : null);
+  return (!password || !confirmation || !password.length || password != confirmation ? 'Invalid user password/confirmation' : null);
 }
 
 function checkNewUserValues(name, email, password, confirmation) {
   var error = null;
 
-  if ((error = checkNewUserName(name)) || (error = checkNewUserEmail(email)) ||
-  (error = checkNewUserPassword(password, confirmation))) {
+  if ((error = checkNewUserName(name)) || (error = checkNewUserEmail(email)) || (error = checkNewUserPassword(password, confirmation))) {
     return error;
   }
 
@@ -69,51 +67,56 @@ function checkAndCreateUser(name, email, password, confirmation) {
     const error = checkNewUserValues(name, email, password, confirmation);
 
     if (error) {
-      reject(error);
-    }
-
-    UsersAdapter.findByEmail(email)
-    .then(function (user) {
-      if (!user) {
-        UsersAdapter.findByName(name)
-        .then(function (user) {
-          if (!user) {
-            UsersAdapter.createUser(name, email,
-                                    crypto.createHmac('sha256', salt).update(password).digest('hex'))
-            .then(function (user) {
-              GroupsAdapter.findByName('user_default')
-              .then(function (group) {
-                user.addGroups([group])
-                .then(function () {
-                  fulfill(user);
+      reject(error, null);
+    } else {
+      UsersAdapter.findByEmail(email)
+      .then(function (user) {
+        if (!user) {
+          UsersAdapter.findByName(name)
+          .then(function (user) {
+            if (!user) {
+              UsersAdapter.createUser(name, email, crypto.createHmac('sha256', salt).update(password).digest('hex'))
+              .then(function (user) {
+                GroupsAdapter.findByName('user_default')
+                .then(function (group) {
+                  user.addGroups([group])
+                  .then(function () {
+                    fulfill(user);
+                  });
                 });
               });
-            });
-          } else {
-            reject('A user already exists with this name ' + name);
-          }
-        });
-      } else {
-        reject('A user already exists with this email ' + email);
-      }
-    });
+            } else {
+              reject('A user already exists with this name', null);
+            }
+          });
+        } else {
+          reject('A user already exists with this email', null);
+        }
+      });
+    }
   });
 }
 
 //
 // Create user entry point from its POST route
 //
-module.exports.createUser = function (params) {
+module.exports.createUser = function () {
   return function (req, res) {
-    checkAndCreateUser(req.body.username, req.body.email, req.body.password, req.body.confirmation)
-      .then(function (user) {
-        req.session.save(function () {
-          res.redirect(params.successRedirect);
-        });
-      }).catch(function (error) {
-        res.redirect(params.failureRedirect);
-      }
-    );
+    if (req.user) {
+      return res.status(401).json({ error: 'Already logged-in' });
+    } else {
+      checkAndCreateUser(req.body.username, req.body.email, req.body.password, req.body.confirmation)
+        .then(function (user) {
+          return res.status(200).json({ success: 'User successfully created' });
+        }).catch(function (userCreationError, internalError) {
+          if (internalError) {
+            return res.status(500).json({ error: 'Internal server error' });
+          } else {
+            return res.status(405).json({ error: userCreationError });
+          }
+        }
+      );
+    }
   };
 };
 
@@ -122,19 +125,196 @@ module.exports.createUser = function (params) {
 //
 module.exports.identifyUser = function (name, password) {
   return new Promise(function (fulfill, reject) {
-    UsersAdapter.findByName(name)
-    .then(function (user) {
+    UsersAdapter.findByName(name).then(function (user) {
       if (user) {
         if (password && user.password == crypto.createHmac('sha256', salt).update(password).digest('hex')) {
           fulfill(user);
         } else {
-          reject('Invalid password');
+          reject('Invalid password', null);
         }
       } else {
-        reject('Unknown user name');
+        reject('Unknown user', null);
+      }
+    }).catch(function (error) {
+      reject(null, error);
+    });
+  });
+};
+
+//
+// Construct a safe and showable user profile from a user (for client side)
+//
+function constructUserProfile(user) {
+  return new Promise(function (fulfill, reject) {
+    const userProfile = {
+      name: user.name,
+      email: user.email,
+      saveAndRestoreMode: rightsManager.getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user),
+      migrationMode: rightsManager.getModuleRightForUser(enumModules.MIGRATION, user),
+      softwarePackagesMode: rightsManager.getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user),
+      groups: [],
+    };
+
+    user.groups.forEach(function (group) {
+      userProfile.groups.push({
+        name: group.name,
+        saveAndRestoreMode: group.saveAndRestoreMode,
+        migrationMode: group.migrationMode,
+        softwarePackagesMode: group.softwarePackagesMode,
+      });
+    });
+
+    fulfill(userProfile);
+  });
+}
+
+//
+// Log the user in the system and create a session for him
+// Entry point from the login POST route
+//
+module.exports.login = function (passport) {
+  return function (req, res, next) {
+    passport.authenticate('local', function (err, user, info) {
+      if (err) {
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+
+      if (!user) {
+        return res.status(401).json({ error: info.message });
+      }
+
+      req.logIn(user, function (err) {
+        if (err) {
+          return res.status(500).json({ error: 'Internal server error' });
+        } else {
+          constructUserProfile(user).then(function (userProfile) {
+            return res.status(200).json(userProfile);
+          });
+        }
+      });
+
+    })(req, res, next);
+  };
+};
+
+//
+// Logout the user and destroy his current session
+// Entry point from the logout POST route
+//
+module.exports.logout = function () {
+  return function (req, res) {
+    if (req.user) {
+      req.logout();
+      req.session.save(function () {
+        res.status(200).end();
+      });
+    } else {
+      res.status(405).end();
+    }
+  };
+};
+
+//
+// Retrieve user profile for its GET route
+//
+module.exports.retrieveUserProfile = function () {
+  return function (req, res) {
+    if (req.user) {
+      UsersAdapter.findById(req.user.id).then(function (user) {
+        if (user) {
+          constructUserProfile(user).then(function (userProfile) {
+            res.status(200).json(userProfile);
+          });
+        } else {
+          res.status(500).json({ error: 'Internal server error' });
+        }
+      }).catch(function (error) {
+        res.status(500).json({ error: 'Internal server error' });
+      });
+    } else {
+      res.status(401).json({ error: 'Not logged in' });
+    }
+  };
+};
+
+//
+// Email template for the user password recovery
+//
+const passwordRecoveryMailTemplate = {
+  header: 'Hello,\n\nHere is your new generated password ',
+  footer: '\nYou can use it to log in right now.\n\nNote: This is an automatic message, please do not respond to this mail.',
+};
+
+//
+// Generate a new password of lenght 12, with non-memorable characters
+// Generate a message for the user, containing the new password
+// Fill this in a valid structure to able to call `updateUserProfile()`
+//
+function generatePasswordAndMessageBody() {
+  const generatedPassword = passwordGenerator(12, false);
+
+  return {
+    password: generatedPassword,
+    confirmation: generatedPassword,
+    messageBody: passwordRecoveryMailTemplate.header + generatedPassword + passwordRecoveryMailTemplate.footer,
+  };
+}
+
+//
+// Generate a new password for the user associated with the given email address,
+// send the new password to the user by email, and then assign the new password
+// to the user. Reject with an error message if there is something not valid or
+// not normal.
+//
+function recoverUserPassword(userEmail) {
+  return new Promise(function (fulfill, reject) {
+    UsersAdapter.findByEmail(userEmail).then(function (user) {
+      if (user) {
+        const passwordAndMessageBody = generatePasswordAndMessageBody();
+
+        mailManager.send(userEmail, '[SAM-Solution] Password recovery', passwordAndMessageBody.messageBody)
+        .then(function (mailInfo) {
+          updateUserProfile(user, passwordAndMessageBody).then(function (user) {
+            fulfill(user);
+          }).catch(function (error) {
+            reject(null, 'Internal server error');
+          });
+        }).catch(function (error) {
+          reject('Unable to send an email to this email', null);
+        });
+      } else {
+        reject('No user associated to this email', null);
       }
     });
   });
+}
+
+//
+// Recover user password entry point from its POST route
+//
+module.exports.recoverUserPassword = function () {
+  return function (req, res) {
+    const userEmail = req.body.email;
+
+    if (req.user) {
+      return res.status(401).json({ error: 'Already logged-in' });
+    } else {
+      if (userEmail) {
+        recoverUserPassword(userEmail).then(function (user) {
+          res.status(200).json({ success: 'An email has been successfully sent to ' + userEmail });
+        })
+        .catch(function (usualError, internalError) {
+          if (internalError) {
+            return res.status(500).json({ error: 'Internal server error' });
+          } else {
+            return res.status(405).json({ error: usualError });
+          }
+        });
+      } else {
+        return res.status(405).json({ error: 'Empty email field' });
+      }
+    }
+  };
 };
 
 //
@@ -154,28 +334,6 @@ module.exports.retrieveAllUsers = function (req, res) {
       req.session.errors = null;
       req.session.save(function () {
         fulfill({ users: users, errors: errors });
-      });
-    });
-  });
-};
-
-//
-// Retrieve user profile for its GET route
-//
-module.exports.retrieveUserProfile = function (req, res) {
-  return new Promise(function (fulfill, reject) {
-    UsersAdapter.findById(req.user.id).then(function (user) {
-      const errors = req.session.errors;
-
-      if (user) {
-        user.saveAndRestoreMode = rightsManager.getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user);
-        user.migrationMode = rightsManager.getModuleRightForUser(enumModules.MIGRATION, user);
-        user.softwarePackagesMode = rightsManager.getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user);
-      }
-
-      req.session.errors = null;
-      req.session.save(function () {
-        fulfill({ user: user, errors: errors });
       });
     });
   });
@@ -266,7 +424,7 @@ function updateUserProfile(userModel, userUpdateRequest) {
     prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
 
     if (!fieldsToUpdate.length) {
-      reject('No update needed for user id ' + userUpdateRequest.id);
+      reject('No update needed');
     }
 
     fulfill(userModel.save({ fields: fieldsToUpdate }));
@@ -276,96 +434,25 @@ function updateUserProfile(userModel, userUpdateRequest) {
 //
 // Update user profile entry point from its POST route
 //
-module.exports.updateUserProfile = function (params) {
+module.exports.updateUserProfile = function () {
   return function (req, res) {
     const userUpdate = {};
 
-    userUpdate.name = req.body.username ? req.body.username : null;
-    userUpdate.email = req.body.email ? req.body.email : null;
-    userUpdate.password = req.body.password ? req.body.password : null;
-    userUpdate.confirmation = req.body.confirmation ? req.body.confirmation : null;
-    updateUserProfile(req.user, userUpdate)
-    .then(function (user) {
-      res.redirect(params.successRedirect);
-    })
-    .catch(function (error) {
-      pushErrorInUserSession(req, userUpdate, error);
-      res.redirect(params.failureRedirect);
-    });
-  };
-};
+    if (req.user) {
+      userUpdate.name = req.body.username ? req.body.username : null;
+      userUpdate.email = req.body.email ? req.body.email : null;
+      userUpdate.password = req.body.password ? req.body.password : null;
+      userUpdate.confirmation = req.body.confirmation ? req.body.confirmation : null;
 
-//
-// Email template for the user password recovery
-//
-const passwordRecoveryMailTemplate = {
-  header: 'Hello,\n\nHere is your new generated password ',
-  footer: '\nYou can use it to log in right now.\n\nNote: This is an automatic message, please do not respond to this mail.',
-};
-
-//
-// Generate a new password of lenght 12, with non-memorable characters
-// Generate a message for the user, containing the new password
-// Fill this in a valid structure to able to call `updateUserProfile()`
-//
-function generatePasswordAndMessageBody() {
-  const generatedPassword = passwordGenerator(12, false);
-
-  return {
-    password: generatedPassword,
-    confirmation: generatedPassword,
-    messageBody: passwordRecoveryMailTemplate.header + generatedPassword + passwordRecoveryMailTemplate.footer,
-  };
-}
-
-//
-// Generate a new password for the user associated with the given email address,
-// send the new password to the user by email, and then assign the new password
-// to the user. Reject with an error message if there is something not valid or
-// not normal.
-//
-function recoverUserPassword(userEmail) {
-  return new Promise(function (fulfill, reject) {
-    if (!userEmail) {
-      reject('Empty field', 'email');
-    } else {
-      UsersAdapter.findByEmail(userEmail).then(function (user) {
-        if (user) {
-          const passwordAndMessageBody = generatePasswordAndMessageBody();
-
-          mailManager.send(userEmail, '[SAM-Solution] Password recovery', passwordAndMessageBody.messageBody)
-          .then(function (mailInfo) {
-            updateUserProfile(user, passwordAndMessageBody).then(function (user) {
-              fulfill(user);
-            }).catch(function (error) {
-              reject('Cannot update user profile', error);
-            });
-          }).catch(function (error) {
-            reject('Unable to send email', error);
-          });
-        } else {
-          reject('User not found', 'no user associated with this email address');
-        }
+      updateUserProfile(req.user, userUpdate).then(function (user) {
+        return res.status(200).json({ success: 'Your profile has been successfully updated' });
+      })
+      .catch(function (error) {
+        return res.status(405).json({ error: error });
       });
+    } else {
+      return res.status(401).json({ error: 'Not logged-in' });
     }
-  });
-}
-
-//
-// Recover user password entry point from its POST route
-//
-module.exports.recoverUserPassword = function (params) {
-  return function (req, res) {
-    const userEmail = req.body.email;
-
-    recoverUserPassword(userEmail)
-    .then(function (user) {
-      res.redirect(params.successRedirect);
-    })
-    .catch(function (errorName, errorReason) {
-      pushErrorInUserSession(req, errorName, errorReason);
-      res.redirect(params.failureRedirect);
-    });
   };
 };
 

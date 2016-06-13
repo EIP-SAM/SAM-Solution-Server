@@ -4,32 +4,41 @@ const groupsManager = require('../managers/groups');
 //
 // Users
 //
-module.exports.retrieveUserProfile = function (req, res) {
-  return usersManager.retrieveUserProfile(req, res);
+
+module.exports.login = function (passport) {
+  return usersManager.login(passport);
+};
+
+module.exports.logout = function () {
+  return usersManager.logout();
+};
+
+module.exports.retrieveUserProfile = function () {
+  return usersManager.retrieveUserProfile();
 };
 
 module.exports.retrieveAllUsers = function (req, res) {
   return usersManager.retrieveAllUsers(req, res);
 };
 
-module.exports.createUser = function (param) {
-  return usersManager.createUser(param);
+module.exports.createUser = function () {
+  return usersManager.createUser();
 };
 
 module.exports.createUsers = function (param) {
   return usersManager.createUsers(param);
 };
 
-module.exports.updateUserProfile = function (param) {
-  return usersManager.updateUserProfile(param);
+module.exports.updateUserProfile = function () {
+  return usersManager.updateUserProfile();
 };
 
 module.exports.updateUsers = function (param) {
   return usersManager.updateUsers(param);
 };
 
-module.exports.recoverUserPassword = function (param) {
-  return usersManager.recoverUserPassword(param);
+module.exports.recoverUserPassword = function () {
+  return usersManager.recoverUserPassword();
 };
 
 module.exports.deleteUsers = function (param) {

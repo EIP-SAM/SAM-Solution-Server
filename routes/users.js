@@ -25,28 +25,24 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   //
   // Users management
   //
-  app.get('/users_and_rights/login_signup',
-    ensureLoggedOut('/users_and_rights/logged_in'),
-    function (req, res) {
-      res.render('users_and_rights/login_signup');
-    }
-  );
 
-  app.get('/users_and_rights/logged_in',
-    ensureLoggedIn('/users_and_rights/login_signup'),
-    function (req, res) {
-      res.render('users_and_rights/logged_in', { user: req.user });
-    }
-  );
-
+  //
+  // Possible HTTP return codes:
+  //  - 200 OK
+  //  - 401 Unauthorized
+  //  - 500 Internal server error
+  // Possible JSON responses:
+  //  - 200: { username: 'noel_flantier', email: 'e@ma.il',
+  //           saveAndRestoreMode: 1, migrationMode: 1, softwarePackagesMode: 2,
+  //           groups: [
+  //             { name: 'group1', saveAndRestoreMode: 1, migrationMode: 1, softwarePackagesMode: 1 },
+  //             { name: 'group2', saveAndRestoreMode: 1, migrationMode: 1, softwarePackagesMode: 2 },
+  //           ]
+  //         }
+  //  - 401/500: { error: 'error message' }
+  //
   app.get('/users_and_rights/user_profile',
-  ensureLoggedIn('/users_and_rights/login_signup'),
-    function (req, res) {
-      usersAndRightsController.retrieveUserProfile(req, res)
-      .then(function (data) {
-        res.render('users_and_rights/user_profile', data);
-      });
-    }
+    usersAndRightsController.retrieveUserProfile()
   );
 
   app.get('/users_and_rights/users_administration',
@@ -59,18 +55,10 @@ module.exports = function initBaseRoutes(app, conf, passport) {
     }
   );
 
-  app.get('/users_and_rights/logout',
-    function (req, res) {
-      req.logout();
-      req.session.save(function () {
-        res.redirect('/users_and_rights/login_signup');
-      });
-    }
-  );
-
   //
   // Groups management
   //
+
   app.get('/users_and_rights/groups_administration',
   ensureLoggedIn('/users_and_rights/login_signup'),
     function (req, res) {
@@ -87,34 +75,86 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   //
   // Users management
   //
+
+  //
+  // POST request form:
+  //  - { username: 'username', password: 'password' }
+  // Possible HTTP return codes:
+  //  - 200 OK
+  //  - 401 Unauthorized
+  //  - 500 Internal server error
+  // Possible JSON responses:
+  //  - 200: { username: 'noel_flantier', email: 'e@ma.il',
+  //           saveAndRestoreMode: 1, migrationMode: 1, softwarePackagesMode: 2,
+  //           groups: [
+  //             { name: 'group1', saveAndRestoreMode: 1, migrationMode: 1, softwarePackagesMode: 1 },
+  //             { name: 'group2', saveAndRestoreMode: 1, migrationMode: 1, softwarePackagesMode: 2 },
+  //           ]
+  //         }
+  //  - 401/500: { error: 'error message' }
+  //
   app.post('/users_and_rights/login',
-    passport.authenticate('local', { failureRedirect: '/users_and_rights/login_signup' }),
-    function (req, res) {
-      req.session.save(function () {
-        res.redirect('/users_and_rights/logged_in');
-      });
-    }
+    usersAndRightsController.login(passport)
   );
 
+  //
+  // POST request form:
+  //  - Empty
+  // Possible HTTP return codes:
+  //  - 200 OK
+  //  - 405 Method not allowed
+  // JSON response:
+  //  - Empty
+  //
+  app.post('/users_and_rights/logout',
+    usersAndRightsController.logout()
+  );
+
+  //
+  // POST request form:
+  //  - { username: 'noel_flantier', email: 'e@ma.il', password: 'password', confirmation: 'password' }
+  // Possible HTTP return codes:
+  //  - 200 OK
+  //  - 401 Unauthorized
+  //  - 405 Method not allowed
+  //  - 500 Internal server error
+  // Possible JSON responses:
+  //  - 200: { success: 'success message' }
+  //  - 401/405/500: { error: 'error message' }
+  //
   app.post('/users_and_rights/sign-up',
-    usersAndRightsController.createUser({
-      successRedirect: '/users_and_rights/login_signup',
-      failureRedirect: '/users_and_rights/login_signup',
-    })
+    usersAndRightsController.createUser()
   );
 
+  //
+  // POST request form:
+  //  - { email: 'e@ma.il' }
+  // Possible HTTP return codes:
+  //  - 200 OK
+  //  - 401 Unauthorized
+  //  - 405 Method not allowed
+  //  - 500 Internal server error
+  // Possible JSON responses:
+  //  - 200: { success: 'success message' }
+  //  - 401/405/500: { error: 'error message' }
+  //
   app.post('/users_and_rights/recover_user_password',
-    usersAndRightsController.recoverUserPassword({
-      successRedirect: '/users_and_rights/login_signup',
-      failureRedirect: '/users_and_rights/login_signup',
-    })
+    usersAndRightsController.recoverUserPassword()
   );
 
+  //
+  // POST request form:
+  //  - { username: 'noel_flantier', email: 'e@ma.il', password: 'password', confirmation: 'password' }
+  // Possible HTTP return codes:
+  //  - 200 OK
+  //  - 401 Unauthorized
+  //  - 405 Method not allowed
+  // Possible JSON responses:
+  //  - 200: { success: 'success message' }
+  //  - 401/405: { error: 'error message' }
+  //
   app.post('/users_and_rights/update_user_profile',
-    usersAndRightsController.updateUserProfile({
-      successRedirect: '/users_and_rights/user_profile',
-      failureRedirect: '/users_and_rights/user_profile',
-    })
+    usersAndRightsController.updateUserProfile()
   );
 
   app.post('/users_and_rights/update_users',
