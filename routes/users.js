@@ -103,6 +103,13 @@ module.exports = function initBaseRoutes(app, conf, passport) {
     })
   );
 
+  app.post('/users_and_rights/recover_user_password',
+    usersAndRightsController.recoverUserPassword({
+      successRedirect: '/users_and_rights/login_signup',
+      failureRedirect: '/users_and_rights/login_signup',
+    })
+  );
+
   app.post('/users_and_rights/update_user_profile',
     usersAndRightsController.updateUserProfile({
       successRedirect: '/users_and_rights/user_profile',
