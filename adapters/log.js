@@ -4,6 +4,7 @@
 
 var logModel = require('../models/log');
 var logger  = require('../libs/bunyan');
+var moment = require('../libs/moment');
 
 //
 // Create a child for logger module and return it to managers
@@ -12,6 +13,73 @@ var logger  = require('../libs/bunyan');
 //
 module.exports.createChild = function (header) {
   return logger.child(header);
+};
+
+//
+// Get the logs from multiple options.
+// It is a method that will allow you to get logs from several criterions
+// instead of using several method to get all the critetions you need.
+//
+module.exports.getLogsWithMultipleCriterions = function (criterions) {
+  return new Promise(function (fulfill) {
+
+    var findOpts = {};
+
+    if (criterions.findOpts !== undefined) {
+      if (criterions.findOpts.header !== undefined) {
+        findOpts.header = criterions.findOpts.header;
+      }
+
+      if (criterions.findOpts._id !== undefined) {
+        findOpts._id = criterions.findOpts._id;
+      }
+
+      if (criterions.findOpts.level !== undefined) {
+        findOpts.level = criterions.findOpts.level;
+      } else if (criterions.findOpts.levelAbove !== undefined) {
+        findOpts.level = {
+          $gte: criterions.findOpts.levelAbove,
+        };
+      } else if (criterions.findOpts.levelBelow !== undefined) {
+        findOpts.level = {
+          $lt: criterions.findOpts.levelBelow,
+        };
+      }
+
+      if (criterions.findOpts.day !== undefined) {
+        var day = moment.makeDayFromString(criterions.findOpts.day);
+
+        findOpts.time = {
+          $gte: moment.getMomentToDate(day.startDate),
+          $lte: moment.getMomentToDate(day.endDate),
+        };
+      } else if (criterions.findOpts.afterDate !== undefined) {
+        findOpts.time = {
+          $gte: moment.getMomentToDate(criterions.findOpts.afterDate),
+        };
+      } else if (criterions.findOpts.beforeDate !== undefined) {
+        findOpts.time = {
+          $lte: moment.getMomentToDate(criterions.findOpts.beforeDate),
+        };
+      }
+    }
+
+    var query = logModel.find(findOpts);
+
+    if (criterions.limit !== undefined) {
+      query.limit(criterions.limit);
+    }
+
+    query.exec(function (err, logs) {
+
+      if (err) {
+        logger.error(err);
+        fulfill({ error: true, data: err });
+      } else {
+        fulfill({ error: false, data: logs });
+      }
+    });
+  });
 };
 
 //
@@ -126,6 +194,71 @@ module.exports.getLimitedLogsByModuleName = function (moduleName, limit) {
   return new Promise(function (fulfill) {
     logModel.find({ header: { module: moduleName } })
     .limit(limit)
+    .exec(function (err, logs) {
+      if (err) {
+        logger.error(err);
+        fulfill({ error: true, data: err });
+      } else {
+        fulfill({ error: false, data: logs });
+      }
+    });
+  });
+};
+
+//
+// Get all logs by day
+//
+module.exports.getLogsByDay = function (date) {
+
+  var newDay = moment.makeDayFromString(date);
+
+  return new Promise(function (fulfill) {
+    logModel.find({
+      time: {
+        $gte: newDay.startDate.toDate(),
+        $lte: newDay.endDate.toDate(),
+      },
+    })
+    .exec(function (err, logs) {
+      if (err) {
+        logger.error(err);
+        fulfill({ error: true, data: err });
+      } else {
+        fulfill({ error: false, data: logs });
+      }
+    });
+  });
+};
+
+//
+// Get all logs after date
+//
+module.exports.getLogsAfterDate = function (date) {
+
+  var newDate = moment.getMomentToDate(date);
+
+  return new Promise(function (fulfill) {
+    logModel.find({ time: { $gte: newDate } })
+    .exec(function (err, logs) {
+      if (err) {
+        logger.error(err);
+        fulfill({ error: true, data: err });
+      } else {
+        fulfill({ error: false, data: logs });
+      }
+    });
+  });
+};
+
+//
+// Get all logs before date
+//
+module.exports.getLogsBeforeDate = function (date) {
+
+  var newDate = moment.getMomentToDate(date);
+
+  return new Promise(function (fulfill) {
+    logModel.find({ time: { $lte: newDate } })
     .exec(function (err, logs) {
       if (err) {
         logger.error(err);
