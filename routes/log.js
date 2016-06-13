@@ -11,6 +11,20 @@ const logManager = require('../managers/log');
 module.exports = function initLogRoutes(app) {
 
   //
+  // Get logs from multiple criterions
+  //
+  app.post('/log/multiple_criterions', function (req, res) {
+
+    var criterions = JSON.parse(req.body.criterions);
+
+    var promise = logManager.getLogsWithMultipleCriterions(criterions);
+
+    promise.then(function (logs) {
+      res.json(logs);
+    });
+  });
+
+  //
   // Get all logs from database
   // Do not use this in prod !
   //
@@ -19,6 +33,7 @@ module.exports = function initLogRoutes(app) {
     var promise = logManager.getLogs();
 
     promise.then(function (logs) {
+      console.log(logs.data[0].time);
       res.json(logs);
     });
   });
@@ -91,6 +106,42 @@ module.exports = function initLogRoutes(app) {
     var promise = logManager.getLimitedLogsByModuleName(
       req.params.module_name,
       parseInt(req.body.limit));
+
+    promise.then(function (logs) {
+      res.json(logs);
+    });
+  });
+
+  //
+  // Get logs by day
+  //
+  app.post('/log/date', function (req, res) {
+
+    var promise = logManager.getLogsByDay(req.body.date);
+
+    promise.then(function (logs) {
+      res.json(logs);
+    });
+  });
+
+  //
+  // Get logs after date
+  //
+  app.post('/log/date/after', function (req, res) {
+
+    var promise = logManager.getLogsAfterDate(req.body.date);
+
+    promise.then(function (logs) {
+      res.json(logs);
+    });
+  });
+
+  //
+  // Get logs after date
+  //
+  app.post('/log/date/before', function (req, res) {
+
+    var promise = logManager.getLogsBeforeDate(req.body.date);
 
     promise.then(function (logs) {
       res.json(logs);
