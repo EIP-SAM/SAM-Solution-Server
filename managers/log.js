@@ -13,13 +13,13 @@ module.exports.launchLog = function (header) {
 };
 
 //
-// Launch getLogsWithMultipleCriterions from adapters and return the result
+// Launch getLogsWithMultipleCriteria from adapters and return the result
 //
-module.exports.getLogsWithMultipleCriterions = function (criterions) {
+module.exports.getLogsWithMultipleCriteria = function (criteria) {
 
   return new Promise(function (fulfill) {
 
-    var promise = logAdapter.getLogsWithMultipleCriterions(criterions);
+    var promise = logAdapter.getLogsWithMultipleCriteria(criteria);
 
     promise.then(function (logs) {
       fulfill(logs);

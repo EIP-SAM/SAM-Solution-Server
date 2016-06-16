@@ -17,57 +17,57 @@ module.exports.createChild = function (header) {
 
 //
 // Get the logs from multiple options.
-// It is a method that will allow you to get logs from several criterions
-// instead of using several method to get all the critetions you need.
+// It is a method that will allow you to get logs from several criteria
+// instead of using several method to get all the critetia you need.
 //
-module.exports.getLogsWithMultipleCriterions = function (criterions) {
+module.exports.getLogsWithMultipleCriteria = function (criteria) {
   return new Promise(function (fulfill) {
 
     var findOpts = {};
 
-    if (criterions.findOpts !== undefined) {
-      if (criterions.findOpts.header !== undefined) {
-        findOpts.header = criterions.findOpts.header;
+    if (criteria.findOpts !== undefined) {
+      if (criteria.findOpts.header !== undefined) {
+        findOpts.header = criteria.findOpts.header;
       }
 
-      if (criterions.findOpts._id !== undefined) {
-        findOpts._id = criterions.findOpts._id;
+      if (criteria.findOpts._id !== undefined) {
+        findOpts._id = criteria.findOpts._id;
       }
 
-      if (criterions.findOpts.level !== undefined) {
-        findOpts.level = criterions.findOpts.level;
+      if (criteria.findOpts.level !== undefined) {
+        findOpts.level = criteria.findOpts.level;
       } else if (criterions.findOpts.levelAbove !== undefined) {
         findOpts.level = {
-          $gte: criterions.findOpts.levelAbove,
+          $gte: criteria.findOpts.levelAbove,
         };
-      } else if (criterions.findOpts.levelBelow !== undefined) {
+      } else if (criteria.findOpts.levelBelow !== undefined) {
         findOpts.level = {
-          $lt: criterions.findOpts.levelBelow,
+          $lt: criteria.findOpts.levelBelow,
         };
       }
 
-      if (criterions.findOpts.day !== undefined) {
-        var day = moment.makeDayFromString(criterions.findOpts.day);
+      if (criteria.findOpts.day !== undefined) {
+        var day = moment.makeDayFromString(criteria.findOpts.day);
 
         findOpts.time = {
           $gte: moment.getMomentToDate(day.startDate),
           $lte: moment.getMomentToDate(day.endDate),
         };
-      } else if (criterions.findOpts.afterDate !== undefined) {
+      } else if (criteria.findOpts.afterDate !== undefined) {
         findOpts.time = {
-          $gte: moment.getMomentToDate(criterions.findOpts.afterDate),
+          $gte: moment.getMomentToDate(criteria.findOpts.afterDate),
         };
-      } else if (criterions.findOpts.beforeDate !== undefined) {
+      } else if (criteria.findOpts.beforeDate !== undefined) {
         findOpts.time = {
-          $lte: moment.getMomentToDate(criterions.findOpts.beforeDate),
+          $lte: moment.getMomentToDate(criteria.findOpts.beforeDate),
         };
       }
     }
 
     var query = logModel.find(findOpts);
 
-    if (criterions.limit !== undefined) {
-      query.limit(criterions.limit);
+    if (criteria.limit !== undefined) {
+      query.limit(criteria.limit);
     }
 
     query.exec(function (err, logs) {
