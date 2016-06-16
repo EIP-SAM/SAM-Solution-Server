@@ -2,6 +2,25 @@
 // Adapter SaveScheduled
 //
 SaveScheduledModel = require('../models/saveScheduled');
+UserModel = require('../models/users');
+SaveModel = require('../models/save');
+
+//
+//
+//
+module.exports.lastUsersSaves = function () {
+  return UserModel.findAll({
+    include: [{
+      model: SaveScheduledModel,
+      where: { isActive: false },
+      include: [{
+          model: SaveModel,
+          order: [['execDate', 'DESC']],
+          limit: 1,
+      }]
+    }],
+  });
+}
 
 //
 // Create new SaveScheduled instance

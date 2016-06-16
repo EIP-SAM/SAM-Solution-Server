@@ -3,6 +3,14 @@
 //
 var saveManager = require('../managers/save');
 
+
+//
+// Call to get all users with their last save
+//
+module.exports.lastUsersSaves = function(req, res) {
+  return saveManager.lastUsersSaves(req, res);
+}
+
 //
 // Call when a save is created
 //

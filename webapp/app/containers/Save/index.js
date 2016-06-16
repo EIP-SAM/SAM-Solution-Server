@@ -3,57 +3,54 @@
 //
 
 import React from 'react';
-import { PageHeader, ButtonToolbar, Button, Table } from 'react-bootstrap';
-import Tr from 'components/Tr';
-import Th from 'components/Th';
-import Td from 'components/Td';
-import styles from 'components/Save/styles.css';
-
+import { connect } from 'react-redux';
+import { PageHeader } from 'react-bootstrap';
+import { getSavesRequest } from './actions';
+import { SaveTable } from 'components/Save/Table/index';
+import { SaveButtons } from 'components/Save/Buttons/index';
 
 /* eslint-disable react/prefer-stateless-function */
-export default class Save extends React.Component {
+export class Save extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      saves: [],
+    };
+  }
+  componentDidMount() {
+    this.props.getSavesRequest();
+  }
 
   render() {
-    const names = [{ isLink: 'true', link: '#', value: '#' }, { isLink: 'false', value: 'Username' },
-     { isLink: 'false', value: 'Last save date' }, { isLink: 'false', value: 'Files' },
-      { isLink: 'false', value: 'Actions' }];
-
     return (
       <div>
         <PageHeader>Save</PageHeader>
-        <ButtonToolbar className={styles.toolbar}>
-          <Button bsStyle="info" className={styles.button}>Launch save for all</Button>
-          <Button bsStyle="info" className={styles.button}>Program save for all</Button>
-        </ButtonToolbar>
-        <Table responsive hover striped>
-          <thead>
-            <Tr items={names} component={Th} />
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-            </tr>
-          </tbody>
-        </Table>
+        <SaveButtons />
+        <SaveTable data={this.props.saves.saves} />
       </div>
     );
   }
 }
+
+Save.propTypes = {
+  saves: React.PropTypes.object,
+  getSavesRequest: React.PropTypes.func,
+};
+
+function mapStateToProps(state) {
+  return {
+    saves: state.get('saves'),
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getSavesRequest: () => dispatch(getSavesRequest()),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Save);
