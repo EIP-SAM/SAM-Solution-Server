@@ -12,12 +12,6 @@ import { SaveButtons } from 'components/Save/Buttons/index';
 /* eslint-disable react/prefer-stateless-function */
 export class Save extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      saves: [],
-    };
-  }
   componentDidMount() {
     this.props.getSavesRequest();
   }
