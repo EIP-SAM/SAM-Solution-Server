@@ -11,13 +11,13 @@ const logManager = require('../managers/log');
 module.exports = function initLogRoutes(app) {
 
   //
-  // Get logs from multiple criterions
+  // Get logs from multiple criteria
   //
-  app.post('/log/multiple_criterions', function (req, res) {
+  app.post('/log/multiple_criteria', function (req, res) {
 
-    var criterions = JSON.parse(req.body.criterions);
+    var criteria = JSON.parse(req.body.criteria);
 
-    var promise = logManager.getLogsWithMultipleCriterions(criterions);
+    var promise = logManager.getLogsWithMultipleCriteria(criteria);
 
     promise.then(function (logs) {
       res.json(logs);
