@@ -23,7 +23,7 @@ export default function createRoutes() {
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           // System.import('components/HomePage'),
-          System.import('containers/Login'),
+          System.import('containers/EditProfile'),
         ]);
 
         const renderRoute = loadModule(cb);
