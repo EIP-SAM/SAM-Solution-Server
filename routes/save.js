@@ -7,7 +7,9 @@ var saveController = require('../controllers/save');
 module.exports = function initSaveRoutes(app) {
 
   app.get('/save', function (req, res) {
-    res.render('program_save_restore_test.ejs');
+    saveController.lastUsersSaves().then(function(saves) {
+      res.json(saves);
+    })
   });
 
   app.post('/create_save', function (req, res) {

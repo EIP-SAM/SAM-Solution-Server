@@ -35,6 +35,7 @@ var save = sequelize.define('save', {
 // Setup ForeignKeys
 //
 save.belongsTo(saveScheduled, { foreignKey: 'saveScheduledId' });
+saveScheduled.hasMany(save);
 
 //
 // Sync model SaveSchedule

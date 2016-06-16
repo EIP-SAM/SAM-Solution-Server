@@ -22,7 +22,7 @@ export default function createRoutes() {
       name: 'home',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          // System.import('components/HomePage'),
+          // System.import('components/Navbar'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -33,7 +33,32 @@ export default function createRoutes() {
 
         importModules.catch(errorLoading);
       },
-    }, /* {
+    }, {
+      path: '/save',
+      name: 'save',
+      getComponent(nextState, cb) {
+        System.import('containers/Save')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    }, {
+      path: '/history-save',
+      name: 'save',
+      getComponent(nextState, cb) {
+        System.import('containers/SaveHistory')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    }, {
+      path: '/create-save',
+      name: 'save',
+      getComponent(nextState, cb) {
+        System.import('containers/SaveCreation')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    },
+     /* {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

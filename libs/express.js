@@ -3,6 +3,7 @@ module.exports = function initExpress(conf) {
   var cookieParser = require('cookie-parser');
   var bodyParser = require('body-parser');
   var flash = require('connect-flash');
+  var cors = require('cors');
 
   // init express
   var app = express();
@@ -11,7 +12,8 @@ module.exports = function initExpress(conf) {
   app.use(cookieParser(conf.secret));
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(flash());
-  
+  app.use(cors());
+
   require('./sequelizeSession')(app, conf);
   require('./connectFlash')(app);
   return app;

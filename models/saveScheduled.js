@@ -29,6 +29,7 @@ var saveScheduled = sequelize.define('save_scheduled', {
 // Setup ForeignKeys
 //
 saveScheduled.belongsTo(user, { foreignKey: 'userId' });
+user.hasMany(saveScheduled);
 
 //
 // Sync model SaveScheduled

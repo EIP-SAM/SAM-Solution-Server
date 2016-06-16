@@ -6,6 +6,24 @@ var saveScheduledAdapter = require('../adapters/saveScheduled');
 var cronManager = require('./cronSave');
 var nodeSchedule = require('../libs/nodeSchedule');
 
+//
+// Get all user with their last save
+//
+module.exports.lastUsersSaves = function (req, res) {
+  return saveScheduledAdapter.lastUsersSaves().then(function(results) {
+    for (var user of results) {
+      var lastSaveScheduled = user.dataValues.save_scheduleds[0];
+      for (var saveScheduled of user.dataValues.save_scheduleds) {
+        if (lastSaveScheduled.dataValues.saves[0].execDate < saveScheduled.dataValues.saves[0].execDate) {
+          lastSaveScheduled = saveScheduled;
+        }
+      }
+      user.dataValues.save_scheduleds = lastSaveScheduled;
+    }
+    return results;
+  });
+}
+
 module.exports.createSave = function (req, res) {
   // Get data from form
   // Format date
