@@ -6,7 +6,9 @@ var restoreController = require('../controllers/restore');
 module.exports = function initRestoreRoutes(app) {
 
   app.get('/restore', function (req, res) {
-    res.render('program_save_restore_test.ejs');
+    restoreController.lastUsersRestores().then(function(restores) {
+      res.json(restores);
+    })
   });
 
   app.post('/create_restore', function (req, res) {
