@@ -4,6 +4,13 @@
 var restoreAdapter = require('../adapters/restore');
 
 //
+// Get all users with their last restoration
+//
+module.exports.lastUsersRestores = function (req, res) {
+  return restoreAdapter.lastUsersRestores();
+}
+
+//
 // Get data from resquest
 // Call adapter
 //

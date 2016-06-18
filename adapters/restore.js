@@ -2,6 +2,26 @@
 // Adapter Restore
 //
 RestoreModel = require('../models/restore');
+UserModel = require('../models/users');
+SaveScheduledModel = require('../models/saveScheduled');
+
+//
+// Get all users with their last restoration
+//
+module.exports.lastUsersRestores = function () {
+  return UserModel.findAll({
+    include: [{
+      model: RestoreModel,
+      where: { isFinish : true},
+      order: [['execDate', 'DESC']],
+      limit: 1,
+      include: [{
+        model: SaveScheduledModel,
+        where: id = RestoreModel.saveScheduledId,
+      }]
+    }]
+  });
+}
 
 //
 // Create new restore instance
