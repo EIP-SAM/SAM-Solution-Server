@@ -7,7 +7,7 @@ var cronManager = require('./cronSave');
 var nodeSchedule = require('../libs/nodeSchedule');
 
 //
-// Get all user with their last save
+// Get all users with their last save
 //
 module.exports.lastUsersSaves = function (req, res) {
   return saveScheduledAdapter.lastUsersSaves().then(function(results) {
