@@ -6,7 +6,7 @@ UserModel = require('../models/users');
 SaveModel = require('../models/save');
 
 //
-//
+// Get all users with their last saves (savesScheduleds & saves)
 //
 module.exports.lastUsersSaves = function () {
   return UserModel.findAll({
