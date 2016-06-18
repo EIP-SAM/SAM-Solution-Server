@@ -16,7 +16,7 @@ export default class Td extends React.Component {
       content = item.value;
 
       if (item.isLink === true) {
-        content = (<Button className={styles.padding} bsStyle="link" href={item.link}>{item.value}</Button>);
+  	 content = (<Button onClick={item.onClick} className={styles.padding} bsStyle="link" href={item.link}>{item.value}</Button>);
       }
 
       return (
