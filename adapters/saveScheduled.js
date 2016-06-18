@@ -12,9 +12,9 @@ module.exports.lastUsersSaves = function () {
   return UserModel.findAll({
     include: [{
       model: SaveScheduledModel,
-      where: { isActive: false },
       include: [{
           model: SaveModel,
+          where: { isFinish: true },
           order: [['execDate', 'DESC']],
           limit: 1,
       }]
