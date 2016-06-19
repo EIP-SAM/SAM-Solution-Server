@@ -22,7 +22,7 @@ export default function createRoutes() {
       name: 'home',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Logs'),
+          // System.import('containers/Logs'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -32,6 +32,14 @@ export default function createRoutes() {
         });
 
         importModules.catch(errorLoading);
+      },
+    }, {
+      path: '/logs',
+      name: 'logs',
+      getComponent(nextState, cb) {
+        System.import('containers/Logs')
+          .then(loadModule(cb))
+          .catch(errorLoading);
       },
     }, /* {
       path: '*',

@@ -3,25 +3,24 @@
 //
 
 import React from 'react';
-import PageHeader from 'react-bootstrap';
-import LogFilter from './LogFilter';
-import LogResult from './LogResult';
+import { PageHeader } from 'react-bootstrap';
+import { LogFilter } from 'components/Logs/LogFilter';
+import { LogResult } from 'components/Logs/LogResult';
 
 /* eslint-disable react/prefer-stateless-function */
-export default class LogPage extends React.Component {
+export class Log extends React.Component {
   render() {
-    console.log(this.props.logs);
     return (
       <div>
         <PageHeader>Logs</PageHeader>
-        <LogFilter loadLog={() => console.log('TODO')} />
-        <LogResult />
+        <LogFilter getAllLogs={this.props.getAllLogsRequest} />
+        <LogResult logs={this.props.logs.logs} />
       </div>
     );
   }
 }
 
-LogPage.propTypes = {
+Log.propTypes = {
   logs: React.PropTypes.object.isRequired,
   getAllLogsRequest: React.PropTypes.func.isRequired,
 };
