@@ -4,7 +4,7 @@
 
 import { connect } from 'react-redux';
 import { getAllLogsRequest } from './actions';
-import { LogResult } from '../../components/Logs';
+import { Log } from 'components/Logs';
 
 function mapStateToProps(state) {
   return {
@@ -21,4 +21,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(LogResult);
+)(Log);

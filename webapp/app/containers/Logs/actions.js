@@ -23,7 +23,7 @@ export function getLogs(logs) {
 }
 
 export function getAllLogsRequest() {
-  return function returnGetAllLogsRequest(dispatch) {
+  return function (dispatch) {
     return fetch('http://localhost:8080/log')
         .then(response => response.json())
         .then(json =>
