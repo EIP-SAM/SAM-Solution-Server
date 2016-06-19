@@ -19,13 +19,13 @@ export class Save extends React.Component {
       <div>
         <PageHeader>Save</PageHeader>
         <SaveButtons />
-        <SaveTable data={this.props.saves.saves} />
+        <SaveTable data={this.props.state.saves} />
       </div>
     );
   }
 }
 
 Save.propTypes = {
-  saves: React.PropTypes.object,
+  state: React.PropTypes.object,
   getSavesRequest: React.PropTypes.func,
 };
