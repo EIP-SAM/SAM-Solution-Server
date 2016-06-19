@@ -11,6 +11,10 @@ import Td from 'components/Td';
 /* eslint-disable react/prefer-stateless-function */
 export class SaveTable extends React.Component {
 
+  onClickUser(index) {
+    this.props.onClickUser(this.props.data[index].name);
+  }
+
   render() {
     const names = [{ isLink: 'true', link: '#', value: '#' }, { isLink: 'false', value: 'Username' },
      { isLink: 'false', value: 'Last save date' }, { isLink: 'false', value: 'Files' },
@@ -31,7 +35,7 @@ export class SaveTable extends React.Component {
             return (
               <Tr
                 key={`item-${index}`} items={[{ isLink: false, value: save.id },
-                { isLink: true, link: '#', value: save.name },
+                { isLink: true, link: `/save/${save.name}`, value: save.name },
                 { isLink: false, value: save.save_scheduleds.saves[0].execDate },
                 { isLink: false, value: save.save_scheduleds.files }]} component={Td}
               />
@@ -45,4 +49,5 @@ export class SaveTable extends React.Component {
 
 SaveTable.propTypes = {
   data: React.PropTypes.array,
+  onClickUser: React.PropTypes.func,
 };
