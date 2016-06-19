@@ -42,8 +42,8 @@ export default function createRoutes() {
           .catch(errorLoading);
       },
     }, {
-      path: '/history-save',
-      name: 'save',
+      path: '/save/:username',
+      name: 'history save',
       getComponent(nextState, cb) {
         System.import('containers/SaveHistory')
           .then(loadModule(cb))
