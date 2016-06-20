@@ -12,9 +12,16 @@ import Td from 'components/Td';
 export class SaveHistoryTable extends React.Component {
 
   render() {
-    const names = [{ isLink: false, link: '#', value: '#' }, { isLink: false, value: 'State' },
-     { isLink: false, value: 'Date' }, { isLink: false, value: 'Files' },
-      { isLink: false, value: 'Actions' }];
+    const names = [{ isLink: false, value: 'Date' },
+                  { isLink: false, value: 'State' },
+                  { isLink: false, value: 'Files' },
+                  { isLink: false, value: 'Actions' }];
+
+
+    let data = this.props.data;
+    if (typeof data === 'undefined') {
+      data = [];
+    }
 
     return (
       <Table responsive hover striped>
@@ -22,27 +29,16 @@ export class SaveHistoryTable extends React.Component {
           <Tr items={names} component={Th} />
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-          </tr>
+        {data.map((save, index) => {
+          return (
+            <Tr
+              key={`item-${index}`} items={[
+              { isLink: false, value: save.execDate },
+              { isLink: false, value: (save.isStart) ? ((save.isFinish) ? ((save.isSuccess) ? 'Succeeded' : 'Failed') : 'In progress') : 'Scheluded' },
+              { isLink: false, value: save.save_scheduled.files }]} component={Td}
+            />
+          );
+        })}
         </tbody>
       </Table>
     );
@@ -51,5 +47,4 @@ export class SaveHistoryTable extends React.Component {
 
 SaveHistoryTable.propTypes = {
   data: React.PropTypes.array,
-  onClickUser: React.PropTypes.func,
 };
