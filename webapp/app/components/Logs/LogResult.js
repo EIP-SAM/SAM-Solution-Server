@@ -13,7 +13,6 @@ export class LogResult extends React.Component {
     if (typeof(logs) === 'undefined') {
       logs = { error: false, data: [] };
     }
-    console.log(logs);
     return (
       <Jumbotron>
         {logs.data.map((log, i) => <p key={i}>{log.msg}</p>)}
