@@ -98,25 +98,55 @@ function checkAndCreateUser(name, email, password, confirmation) {
 }
 
 //
+// Security check for each url of this kind : /api/public/*
+//
+module.exports.ensureLoggedOut = function (req, res, next) {
+  if (req.user) {
+    res.status(401).json({ error: 'Already logged-in' });
+  } else {
+    next();
+  }
+};
+
+//
+// Security check for each url of this kind : /api/logged-in/*
+//
+module.exports.ensureLoggedIn = function (req, res, next) {
+  if (req.user) {
+    next();
+  } else {
+    res.status(401).json({ error: 'Not logged-in' });
+  }
+};
+
+//
+// Security check for each url of this kind : /api/logged-in/admin/*
+//
+module.exports.ensureAdminLoggedIn = function (req, res, next) {
+  if (req.user && req.user) { // req.user.isAdmin
+    console.log('WARNING: User is admin is not really checked');
+    next();
+  } else {
+    res.status(401).json({ error: 'Access denied' });
+  }
+};
+
+//
 // Create user entry point from its POST route
 //
 module.exports.createUser = function () {
   return function (req, res) {
-    if (req.user) {
-      return res.status(401).json({ error: 'Already logged-in' });
-    } else {
-      checkAndCreateUser(req.body.username, req.body.email, req.body.password, req.body.confirmation)
-        .then(function (user) {
-          return res.status(200).json({ success: 'User successfully created' });
-        }).catch(function (userCreationError, internalError) {
-          if (internalError) {
-            return res.status(500).json({ error: 'Internal server error' });
-          } else {
-            return res.status(405).json({ error: userCreationError });
-          }
+    checkAndCreateUser(req.body.username, req.body.email, req.body.password, req.body.confirmation)
+      .then(function (user) {
+        return res.status(200).json({ success: 'User successfully created' });
+      }).catch(function (userCreationError, internalError) {
+        if (internalError) {
+          return res.status(500).json({ error: 'Internal server error' });
+        } else {
+          return res.status(405).json({ error: userCreationError });
         }
-      );
-    }
+      }
+    );
   };
 };
 
@@ -203,14 +233,10 @@ module.exports.login = function (passport) {
 //
 module.exports.logout = function () {
   return function (req, res) {
-    if (req.user) {
-      req.logout();
-      req.session.save(function () {
-        res.status(200).end();
-      });
-    } else {
-      res.status(405).end();
-    }
+    req.logout();
+    req.session.save(function () {
+      res.status(200).end();
+    });
   };
 };
 
@@ -219,21 +245,17 @@ module.exports.logout = function () {
 //
 module.exports.retrieveUserProfile = function () {
   return function (req, res) {
-    if (req.user) {
-      UsersAdapter.findById(req.user.id).then(function (user) {
-        if (user) {
-          constructUserProfile(user).then(function (userProfile) {
-            res.status(200).json(userProfile);
-          });
-        } else {
-          res.status(500).json({ error: 'Internal server error' });
-        }
-      }).catch(function (error) {
+    UsersAdapter.findById(req.user.id).then(function (user) {
+      if (user) {
+        constructUserProfile(user).then(function (userProfile) {
+          res.status(200).json(userProfile);
+        });
+      } else {
         res.status(500).json({ error: 'Internal server error' });
-      });
-    } else {
-      res.status(401).json({ error: 'Not logged in' });
-    }
+      }
+    }).catch(function (error) {
+      res.status(500).json({ error: 'Internal server error' });
+    });
   };
 };
 
@@ -296,23 +318,19 @@ module.exports.recoverUserPassword = function () {
   return function (req, res) {
     const userEmail = req.body.email;
 
-    if (req.user) {
-      return res.status(401).json({ error: 'Already logged-in' });
+    if (userEmail) {
+      recoverUserPassword(userEmail).then(function (user) {
+        res.status(200).json({ success: 'An email has been successfully sent to ' + userEmail });
+      })
+      .catch(function (usualError, internalError) {
+        if (internalError) {
+          return res.status(500).json({ error: 'Internal server error' });
+        } else {
+          return res.status(405).json({ error: usualError });
+        }
+      });
     } else {
-      if (userEmail) {
-        recoverUserPassword(userEmail).then(function (user) {
-          res.status(200).json({ success: 'An email has been successfully sent to ' + userEmail });
-        })
-        .catch(function (usualError, internalError) {
-          if (internalError) {
-            return res.status(500).json({ error: 'Internal server error' });
-          } else {
-            return res.status(405).json({ error: usualError });
-          }
-        });
-      } else {
-        return res.status(405).json({ error: 'Empty email field' });
-      }
+      return res.status(405).json({ error: 'Empty email field' });
     }
   };
 };
@@ -438,21 +456,17 @@ module.exports.updateUserProfile = function () {
   return function (req, res) {
     const userUpdate = {};
 
-    if (req.user) {
-      userUpdate.name = req.body.username ? req.body.username : null;
-      userUpdate.email = req.body.email ? req.body.email : null;
-      userUpdate.password = req.body.password ? req.body.password : null;
-      userUpdate.confirmation = req.body.confirmation ? req.body.confirmation : null;
+    userUpdate.name = req.body.username ? req.body.username : null;
+    userUpdate.email = req.body.email ? req.body.email : null;
+    userUpdate.password = req.body.password ? req.body.password : null;
+    userUpdate.confirmation = req.body.confirmation ? req.body.confirmation : null;
 
-      updateUserProfile(req.user, userUpdate).then(function (user) {
-        return res.status(200).json({ success: 'Your profile has been successfully updated' });
-      })
-      .catch(function (error) {
-        return res.status(405).json({ error: error });
-      });
-    } else {
-      return res.status(401).json({ error: 'Not logged-in' });
-    }
+    updateUserProfile(req.user, userUpdate).then(function (user) {
+      return res.status(200).json({ success: 'Your profile has been successfully updated' });
+    })
+    .catch(function (error) {
+      return res.status(405).json({ error: error });
+    });
   };
 };
 

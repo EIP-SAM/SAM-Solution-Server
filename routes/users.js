@@ -19,58 +19,26 @@ const ensureLoggedOut = require('../libs/connectEnsureLogin').ensureLoggedOut;
 const usersAndRightsController = require('../controllers/users');
 
 module.exports = function initBaseRoutes(app, conf, passport) {
-  //
-  //// GET requests
 
   //
-  // Users management
+  // Security gate
+  //
+  // Check if a user is not logged-in, or logged-in, or logged-in and
+  // is an administrator then allow or deny the access to the following routes
   //
 
   //
-  // Possible HTTP return codes:
-  //  - 200 OK
-  //  - 401 Unauthorized
-  //  - 500 Internal server error
-  // Possible JSON responses:
-  //  - 200: { username: 'noel_flantier', email: 'e@ma.il',
-  //           saveAndRestoreMode: 1, migrationMode: 1, softwarePackagesMode: 2,
-  //           groups: [
-  //             { name: 'group1', saveAndRestoreMode: 1, migrationMode: 1, softwarePackagesMode: 1 },
-  //             { name: 'group2', saveAndRestoreMode: 1, migrationMode: 1, softwarePackagesMode: 2 },
-  //           ]
-  //         }
-  //  - 401/500: { error: 'error message' }
+  // Middleware for every HTTP request
+  // Possible HTTP return code
+  //  - 401
+  // If the 401 error status is thrown, the JSON response format will be:
+  //  - { error: 'error message' }
+  // If there is no error
+  //  - Nothing happen
   //
-  app.get('/users_and_rights/user_profile',
-    usersAndRightsController.retrieveUserProfile()
-  );
-
-  app.get('/users_and_rights/users_administration',
-  ensureLoggedIn('/users_and_rights/login_signup'),
-    function (req, res) {
-      usersAndRightsController.retrieveAllUsers(req, res)
-      .then(function (data) {
-        res.render('users_and_rights/users_administration', data);
-      });
-    }
-  );
-
-  //
-  // Groups management
-  //
-
-  app.get('/users_and_rights/groups_administration',
-  ensureLoggedIn('/users_and_rights/login_signup'),
-    function (req, res) {
-      usersAndRightsController.retrieveAllGroups(req, res)
-      .then(function (data) {
-        res.render('users_and_rights/groups_administration', data);
-      });
-    }
-  );
-
-  //
-  //// POST requests
+  app.all('/api/public/*', usersAndRightsController.ensureLoggedOut);
+  app.all('/api/logged-in/*', usersAndRightsController.ensureLoggedIn);
+  app.all('/api/logged-in/admin/*', usersAndRightsController.ensureAdminLoggedIn);
 
   //
   // Users management
@@ -93,7 +61,7 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   //         }
   //  - 401/500: { error: 'error message' }
   //
-  app.post('/users_and_rights/login',
+  app.post('/api/public/user/login',
     usersAndRightsController.login(passport)
   );
 
@@ -102,11 +70,11 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   //  - Empty
   // Possible HTTP return codes:
   //  - 200 OK
-  //  - 405 Method not allowed
+  //  - 401 Unauthorized
   // JSON response:
   //  - Empty
   //
-  app.post('/users_and_rights/logout',
+  app.post('/api/logged-in/user/logout',
     usersAndRightsController.logout()
   );
 
@@ -122,7 +90,7 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   //  - 200: { success: 'success message' }
   //  - 401/405/500: { error: 'error message' }
   //
-  app.post('/users_and_rights/sign-up',
+  app.post('/api/public/user/sign-up',
     usersAndRightsController.createUser()
   );
 
@@ -138,8 +106,28 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   //  - 200: { success: 'success message' }
   //  - 401/405/500: { error: 'error message' }
   //
-  app.post('/users_and_rights/recover_user_password',
+  app.post('/api/public/user/recover_password',
     usersAndRightsController.recoverUserPassword()
+  );
+
+  //
+  // GET request
+  // Possible HTTP return codes:
+  //  - 200 OK
+  //  - 401 Unauthorized
+  //  - 500 Internal server error
+  // Possible JSON responses:
+  //  - 200: { username: 'noel_flantier', email: 'e@ma.il',
+  //           saveAndRestoreMode: 1, migrationMode: 1, softwarePackagesMode: 2,
+  //           groups: [
+  //             { name: 'group1', saveAndRestoreMode: 1, migrationMode: 1, softwarePackagesMode: 1 },
+  //             { name: 'group2', saveAndRestoreMode: 1, migrationMode: 1, softwarePackagesMode: 2 },
+  //           ]
+  //         }
+  //  - 401/500: { error: 'error message' }
+  //
+  app.get('/api/logged-in/user/profile',
+    usersAndRightsController.retrieveUserProfile()
   );
 
   //
@@ -153,56 +141,77 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   //  - 200: { success: 'success message' }
   //  - 401/405: { error: 'error message' }
   //
-  app.post('/users_and_rights/update_user_profile',
+  app.post('/api/logged-in/user/profile/update',
     usersAndRightsController.updateUserProfile()
   );
 
-  app.post('/users_and_rights/update_users',
-    usersAndRightsController.updateUsers({
-      successRedirect: '/users_and_rights/users_administration',
-      failureRedirect: '/users_and_rights/users_administration',
-    })
+  //
+  // Administration management
+  //
+
+  app.get('/api/logged-in/admin/users',
+  ensureLoggedIn('/users_and_rights/login_signup'),
+    function (req, res) {
+      usersAndRightsController.retrieveAllUsers(req, res)
+      .then(function (data) {
+        res.render('users_and_rights/users_administration', data);
+      });
+    }
   );
 
-  app.post('/users_and_rights/create_users',
+  app.get('/api/logged-in/admin/groups',
+  ensureLoggedIn('/users_and_rights/login_signup'),
+    function (req, res) {
+      usersAndRightsController.retrieveAllGroups(req, res)
+      .then(function (data) {
+        res.render('users_and_rights/groups_administration', data);
+      });
+    }
+  );
+
+  app.post('/api/logged-in/admin/users/create',
     usersAndRightsController.createUsers({
       successRedirect: '/users_and_rights/users_administration',
       failureRedirect: '/users_and_rights/users_administration',
     })
   );
 
-  app.post('/users_and_rights/delete_users',
+  app.post('/api/logged-in/admin/users/update',
+    usersAndRightsController.updateUsers({
+      successRedirect: '/users_and_rights/users_administration',
+      failureRedirect: '/users_and_rights/users_administration',
+    })
+  );
+
+  app.post('/api/logged-in/admin/users/delete',
     usersAndRightsController.deleteUsers({
       successRedirect: '/users_and_rights/users_administration',
       failureRedirect: '/users_and_rights/users_administration',
     })
   );
 
-  //
-  // Groups management
-  //
-  app.post('/users_and_rights/update_groups',
-    usersAndRightsController.updateGroups({
-      successRedirect: '/users_and_rights/groups_administration',
-      failureRedirect: '/users_and_rights/groups_administration',
-    })
-  );
-
-  app.post('/users_and_rights/create_groups',
+  app.post('/api/logged-in/admin/groups/create',
     usersAndRightsController.createGroups({
       successRedirect: '/users_and_rights/groups_administration',
       failureRedirect: '/users_and_rights/groups_administration',
     })
   );
 
-  app.post('/users_and_rights/delete_groups',
+  app.post('/api/logged-in/admin/groups/update',
+    usersAndRightsController.updateGroups({
+      successRedirect: '/users_and_rights/groups_administration',
+      failureRedirect: '/users_and_rights/groups_administration',
+    })
+  );
+
+  app.post('/api/logged-in/admin/groups/delete',
     usersAndRightsController.deleteGroups({
       successRedirect: '/users_and_rights/groups_administration',
       failureRedirect: '/users_and_rights/groups_administration',
     })
   );
 
-  app.post('/users_and_rights/add_users_to_group',
+  app.post('/api/logged-in/admin/groups/add_users',
     usersAndRightsController.addUsersToGroup({
       successRedirect: '/users_and_rights/groups_administration',
       failureRedirect: '/users_and_rights/groups_administration',
