@@ -4,19 +4,61 @@
 //
 
 import React from 'react';
-import { Jumbotron } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
+import Tr from 'components/Tr';
+import Th from 'components/Th';
+import Td from 'components/Td';
 
 /* eslint-disable react/prefer-stateless-function */
 export class LogResult extends React.Component {
-  render() {
+  getDefaultLog() {
     let logs = this.props.logs;
     if (typeof(logs) === 'undefined') {
       logs = { error: false, data: [] };
     }
+    return logs;
+  }
+
+  getRowValues(log) {
+    return [
+      { isLink: false, value: this.formatDate(log.time) },
+      { isLink: false, value: log.name },
+      { isLink: false, value: log.hostname },
+      { isLink: false, value: log.msg },
+    ];
+  }
+
+  formatDate(ISODate) {
+    const date = new Date(ISODate);
+    return date.toString();
+  }
+
+  render() {
+    const logs = this.getDefaultLog();
+    const columns = [
+      { isLink: false, value: 'Date' },
+      { isLink: false, value: 'Module' },
+      { isLink: false, value: 'Host' },
+      { isLink: false, value: 'Message' },
+    ];
+
     return (
-      <Jumbotron>
-        {logs.data.map((log, i) => <p key={i}>{log.msg}</p>)}
-      </Jumbotron>
+      <Table responsive hover striped>
+        <thead>
+          <Tr items={columns} component={Th} />
+        </thead>
+        <tbody>
+          {
+            logs.data.map((log, index) => (
+              <Tr
+                key={`item-${index}`}
+                items={this.getRowValues(log)}
+                component={Td}
+              />
+            ))
+          }
+        </tbody>
+      </Table>
     );
   }
 }
