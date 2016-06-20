@@ -4,6 +4,7 @@
 
 import { connect } from 'react-redux';
 import { SaveHistory } from 'components/SaveHistory';
+import { getHistorySavesByUserRequest } from './actions';
 
 function mapStateToProps(state) {
   return {
@@ -13,6 +14,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    getHistorySavesByUserRequest: (username) => dispatch(getHistorySavesByUserRequest(username)),
   };
 }
 

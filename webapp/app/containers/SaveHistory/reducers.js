@@ -16,7 +16,7 @@ function SaveHistoryReducer(state = {}, action) {
   switch (action.type) {
     case GET_HISTORY_SAVES_BY_USER:
       return Object.assign({}, state, {
-        username: action.username,
+        saves: action.saves,
       });
     default:
       return state;

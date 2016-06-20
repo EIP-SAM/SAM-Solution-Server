@@ -11,22 +11,24 @@ import styles from 'components/SaveHistory/styles.css';
 /* eslint-disable react/prefer-stateless-function */
 export class SaveHistory extends React.Component {
 
-  constructor(props) {
-    super(props);
-    console.log(this.props.location.pathname);
-  }
-
   componentDidMount() {
+    const username = this.props.location.pathname.split('/')[2];
+    this.props.getHistorySavesByUserRequest(username);
   }
 
   render() {
     return (
       <div>
         <PageHeader>Save</PageHeader>
-        <PageHeader className={styles.title}><small>Username</small></PageHeader>
+        <PageHeader className={styles.title}><small>{this.props.location.pathname.split('/')[2]}</small></PageHeader>
         <SaveHistoryButtons />
-        <SaveHistoryTable />
+        <SaveHistoryTable data={this.props.state.saves} />
       </div>
     );
   }
 }
+
+SaveHistory.propTypes = {
+  state: React.PropTypes.object,
+  getHistorySavesByUserRequest: React.PropTypes.func,
+};
