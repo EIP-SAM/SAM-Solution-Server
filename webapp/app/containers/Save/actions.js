@@ -9,7 +9,7 @@
 //      }
 //
 
-import fetch from 'isomorphic-fetch';
+const request = require('superagent');
 
 import {
   GET_SAVES,
@@ -24,10 +24,10 @@ export function getSaves(saves) {
 
 export function getSavesRequest() {
   return function returnGetSavesRequest(dispatch) {
-    return fetch('http://localhost:8080/save')
-        .then(response => response.json())
-        .then(json =>
-          dispatch(getSaves(json))
-        );
+    return request
+      .get('http://localhost:8080/save')
+      .end((err, res) => {
+        dispatch(getSaves(res.body));
+      });
   };
 }
