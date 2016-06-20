@@ -156,7 +156,6 @@
     "fontfaceobserver": "^1.7.1",
     "history": "^2.1.0",
     "immutable": "^3.8.1",
-    "isomorphic-fetch": "^2.2.1",
     "react": "^15.0.1",
     "react-bootstrap": "^0.29.4",
     "react-dom": "^15.0.1",

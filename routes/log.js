@@ -33,7 +33,6 @@ module.exports = function initLogRoutes(app) {
     var promise = logManager.getLogs();
 
     promise.then(function (logs) {
-      console.log(logs.data[0].time);
       res.json(logs);
     });
   });
