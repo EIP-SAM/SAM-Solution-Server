@@ -11,14 +11,12 @@ import Td from 'components/Td';
 /* eslint-disable react/prefer-stateless-function */
 export class SaveTable extends React.Component {
 
-  onClickUser(index) {
-    this.props.onClickUser(this.props.data[index].name);
-  }
-
   render() {
-    const names = [{ isLink: 'true', link: '#', value: '#' }, { isLink: 'false', value: 'Username' },
-     { isLink: 'false', value: 'Last save date' }, { isLink: 'false', value: 'Files' },
-      { isLink: 'false', value: 'Actions' }];
+    const names = [{ isLink: 'true', link: '#', value: '#' },
+                  { isLink: 'false', value: 'Username' },
+                  { isLink: 'false', value: 'Last save date' },
+                  { isLink: 'false', value: 'Files' },
+                  { isLink: 'false', value: 'Actions' }];
 
     let data = this.props.data;
     if (typeof data === 'undefined') {
@@ -49,5 +47,4 @@ export class SaveTable extends React.Component {
 
 SaveTable.propTypes = {
   data: React.PropTypes.array,
-  onClickUser: React.PropTypes.func,
 };
