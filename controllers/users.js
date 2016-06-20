@@ -2,6 +2,22 @@ const usersManager = require('../managers/users');
 const groupsManager = require('../managers/groups');
 
 //
+// Users and admin security gate
+//
+
+module.exports.ensureLoggedOut = function (req, res, next) {
+  return usersManager.ensureLoggedOut(req, res, next);
+};
+
+module.exports.ensureLoggedIn = function (req, res, next) {
+  return usersManager.ensureLoggedIn(req, res, next);
+};
+
+module.exports.ensureAdminLoggedIn = function (req, res, next) {
+  return usersManager.ensureAdminLoggedIn(req, res, next);
+};
+
+//
 // Users
 //
 
