@@ -437,20 +437,23 @@ function updateUserProfile(userModel, userUpdateRequest) {
   return new Promise(function (fulfill, reject) {
     const fieldsToUpdate = [];
 
-    if (userUpdateRequest.oldPassword &&
-        userModel.password == crypto.createHmac('sha256', salt).update(userUpdateRequest.oldPassword).digest('hex')) {
-      prepareUserNameUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
-      prepareUserEmailUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
-      prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
+    // if (userUpdateRequest.oldPassword &&
+    //     userModel.password == crypto.createHmac('sha256', salt).update(userUpdateRequest.oldPassword).digest('hex')) {
 
-      if (!fieldsToUpdate.length) {
-        reject('No update needed');
-      }
+    prepareUserNameUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
+    prepareUserEmailUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
+    prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
 
-      fulfill(userModel.save({ fields: fieldsToUpdate }));
-    } else {
-      reject('Current password verification failed');
+    if (!fieldsToUpdate.length) {
+      reject('No update needed');
     }
+
+    fulfill(userModel.save({ fields: fieldsToUpdate }));
+
+    // } else {
+    //   reject('Current password verification failed');
+    // }
+
   });
 }
 
@@ -467,12 +470,20 @@ module.exports.updateUserProfile = function () {
     userUpdate.password = req.body.password ? req.body.password : null;
     userUpdate.confirmation = req.body.confirmation ? req.body.confirmation : null;
 
-    updateUserProfile(req.user, userUpdate).then(function (user) {
-      return res.status(200).json({ success: 'Your profile has been successfully updated' });
-    })
-    .catch(function (error) {
-      return res.status(405).json({ error: error });
-    });
+    if (userUpdate.oldPassword &&
+        req.user.password == crypto.createHmac('sha256', salt).update(userUpdate.oldPassword).digest('hex')) {
+
+      updateUserProfile(req.user, userUpdate).then(function (user) {
+        return res.status(200).json({ success: 'Your profile has been successfully updated' });
+      })
+      .catch(function (error) {
+        return res.status(405).json({ error: error });
+      });
+
+    } else {
+      return res.status(405).json({ error: 'Current password verification failed' });
+    }
+
   };
 };
 
