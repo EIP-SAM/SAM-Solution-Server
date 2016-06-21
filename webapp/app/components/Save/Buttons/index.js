@@ -12,8 +12,8 @@ export class SaveButtons extends React.Component {
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <Button bsStyle="info" className={styles.button}>Launch save for all</Button>
-        <Button bsStyle="info" className={styles.button}>Program save for all</Button>
+        <Button bsStyle="info" className={styles.button} href="/create-save">Launch save for all</Button>
+        <Button bsStyle="info" className={styles.button} href="/create-save">Program save for all</Button>
       </ButtonToolbar>
     );
   }
