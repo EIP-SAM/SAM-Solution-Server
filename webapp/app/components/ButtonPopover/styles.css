@@ -1,0 +1,14 @@
+.button {
+  color: #616161;
+  margin: 0!important;
+}
+
+.button:hover {
+  color: black;
+}
+
+.button:focus,
+.button:active {
+  border: none;
+  outline: 0;
+}
