@@ -1,0 +1,65 @@
+{
+  "name": "sam-solution-server",
+  "version": "1.0.0",
+  "description": "System Administration Manager - Web Server",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js | ./node_modules/bunyan/bin/bunyan",
+    "test": "node_modules/.bin/istanbul cover -x server.js -x **/webapp/** -x **/routes/** -x **/spec/** --include-all-sources node_modules/jasmine/bin/jasmine.js",
+    "log_file": "cat ./log/error.log | ./node_modules/bunyan/bin/bunyan"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EIP-SAM/SAM-Solution-Server.git"
+  },
+  "keywords": [
+    "sam",
+    "solution",
+    "system",
+    "administration",
+    "manager",
+    "web",
+    "server",
+    "node",
+    "js",
+    "javascript",
+    "node.js",
+    "linux"
+  ],
+  "author": "SAM-Solution team",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/EIP-SAM/SAM-Solution-Server/issues"
+  },
+  "homepage": "https://github.com/EIP-SAM/SAM-Solution-Server#readme",
+  "engines": {
+    "node": ">=5.4.X",
+    "npm": ">=1.2.x"
+  },
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "bunyan": "^1.8.0",
+    "bunyan-mongodb-stream": "0.0.3",
+    "connect-ensure-login": "^0.1.1",
+    "connect-flash": "^0.1.1",
+    "connect-session-sequelize": "^3.0.0",
+    "cookie-parser": "^1.4.1",
+    "cron-parser": "^2.0.3",
+    "express": "^4.12.4",
+    "express-session": "^1.13.0",
+    "flash": "^1.1.0",
+    "istanbul": "^0.4.2",
+    "jasmine": "^2.4.1",
+    "mongoose": "^4.4.10",
+    "mysql": "^2.10.2",
+    "node-schedule": "^1.1.0",
+    "nodegit": "^0.13.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "sequelize": "^3.17.3"
+  },
+  "jshintConfig": {
+    "esversion": 6
+  }
+}

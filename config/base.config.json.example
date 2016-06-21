@@ -1,0 +1,16 @@
+{
+  "port": 8080,
+  "dbConfig" : {
+    "database": "sam",
+    "username": "dev",
+    "password": "dev1",
+    "options": {
+      "host": "localhost",
+      "dialect": "mysql",
+      "logging": false
+    }
+  },
+  "debug": false,
+  "secret": "mySuperCookieSecretKeyIMustUpdate",
+  "salt": "anotherAwsomeKeyIMustUpdate"
+}
