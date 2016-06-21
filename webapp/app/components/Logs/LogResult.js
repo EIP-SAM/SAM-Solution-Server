@@ -42,15 +42,22 @@ export class LogResult extends React.Component {
       { isLink: false, value: 'Message' },
     ];
 
+    const bodyStyle = {
+      backgroundColor: '#333333',
+      color: 'white',
+      borderColor: 'black',
+    };
+
     return (
-      <Table responsive hover striped>
+      <Table responsive>
         <thead>
           <Tr items={columns} component={Th} />
         </thead>
-        <tbody>
+        <tbody style={bodyStyle}>
           {
             logs.data.map((log, index) => (
               <Tr
+                style={bodyStyle}
                 key={`item-${index}`}
                 items={this.getRowValues(log)}
                 component={Td}

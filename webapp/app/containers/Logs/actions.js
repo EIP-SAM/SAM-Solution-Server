@@ -13,24 +13,48 @@ import request from 'superagent';
 
 import {
   GET_ALL_LOGS,
+  GET_LIMIT_LOGS,
+  CLEAR_LOGS,
 } from './constants';
 
-export function getLogs(logs) {
+export function getLogs(type, logs) {
   return {
-    type: GET_ALL_LOGS,
+    type,
     logs,
+  };
+}
+
+export function clearLogs() {
+  return {
+    type: CLEAR_LOGS,
+    logs: { error: false, data: [] },
   };
 }
 
 export function getAllLogsRequest() {
   return function startAction(dispatch) {
     return request
-      .get('http://localhost:8080/log')
+      .get('http://localhost:8080/log/')
       .end((err, res) => {
         if (err || res.body.error) {
           console.log('Error occured');
         } else {
-          dispatch(getLogs(res.body));
+          dispatch(getLogs(GET_ALL_LOGS, res.body));
+        }
+      });
+  };
+}
+
+export function getLimitLogsRequest() {
+  return function startAction(dispatch) {
+    return request
+      .post('http://localhost:8080/log/limited')
+      .send('limit=5')
+      .end((err, res) => {
+        if (err || res.body.error) {
+          console.log('Error occured');
+        } else {
+          dispatch(getLogs(GET_LIMIT_LOGS, res.body));
         }
       });
   };
