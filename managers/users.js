@@ -432,23 +432,20 @@ module.exports.updateUserProfile = function () {
 //
 // Retrieve all users for its GET route
 //
-module.exports.retrieveAllUsers = function (req, res) {
-  return new Promise(function (fulfill, reject) {
+module.exports.retrieveAllUsers = function () {
+  return function (req, res) {
     UsersAdapter.findAll().then(function (users) {
-      const errors = req.session.errors;
-
       users.forEach(function (user) {
         user.saveAndRestoreMode = rightsManager.getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user);
         user.migrationMode = rightsManager.getModuleRightForUser(enumModules.MIGRATION, user);
         user.softwarePackagesMode = rightsManager.getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user);
       });
 
-      req.session.errors = null;
-      req.session.save(function () {
-        fulfill({ users: users, errors: errors });
-      });
+      return res.status(200).json({ users: users });
+    }).catch(function (error) {
+      return res.status(500).json({ error: 'Internal server error' });
     });
-  });
+  };
 };
 
 //
