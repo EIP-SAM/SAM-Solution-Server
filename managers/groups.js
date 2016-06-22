@@ -25,18 +25,14 @@ function initAdminDefaultGroup() {
   });
 }
 
-module.exports.retrieveAllGroups = function (req, res) {
-  return new Promise(function (fulfill, reject) {
+module.exports.retrieveAllGroups = function () {
+  return function (req, res) {
     GroupsAdapter.findAll().then(function (groups) {
-      const errors = req.session.errors;
-
-      req.session.errors = null;
-      req.session.save(function () {
-        fulfill({ groups: groups, errors: errors });
-      });
-
+      return res.status(200).json({ groups: groups });
+    }).catch(function (error) {
+      return res.status(500).json({ error: 'Internal server error' });
     });
-  });
+  };
 };
 
 function newGroupIsInvalid(group) {

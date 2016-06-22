@@ -150,23 +150,11 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   //
 
   app.get('/api/logged-in/admin/users',
-  ensureLoggedIn('/users_and_rights/login_signup'),
-    function (req, res) {
-      usersAndRightsController.retrieveAllUsers(req, res)
-      .then(function (data) {
-        res.render('users_and_rights/users_administration', data);
-      });
-    }
+    usersAndRightsController.retrieveAllUsers()
   );
 
   app.get('/api/logged-in/admin/groups',
-  ensureLoggedIn('/users_and_rights/login_signup'),
-    function (req, res) {
-      usersAndRightsController.retrieveAllGroups(req, res)
-      .then(function (data) {
-        res.render('users_and_rights/groups_administration', data);
-      });
-    }
+    usersAndRightsController.retrieveAllGroups()
   );
 
   app.post('/api/logged-in/admin/users/create',

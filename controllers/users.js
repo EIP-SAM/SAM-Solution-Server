@@ -49,12 +49,12 @@ module.exports.updateUserProfile = function () {
 // Users/Groups administration
 //
 
-module.exports.retrieveAllUsers = function (req, res) {
-  return usersManager.retrieveAllUsers(req, res);
+module.exports.retrieveAllUsers = function () {
+  return usersManager.retrieveAllUsers();
 };
 
-module.exports.retrieveAllGroups = function (req, res) {
-  return groupsManager.retrieveAllGroups(req, res);
+module.exports.retrieveAllGroups = function () {
+  return groupsManager.retrieveAllGroups();
 };
 
 module.exports.createUsers = function (param) {
