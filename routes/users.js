@@ -146,7 +146,7 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   );
 
   //
-  // Administration management
+  // Users/Groups administration
   //
 
   app.get('/api/logged-in/admin/users',

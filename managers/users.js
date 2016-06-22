@@ -132,25 +132,6 @@ module.exports.ensureAdminLoggedIn = function (req, res, next) {
 };
 
 //
-// Create user entry point from its POST route
-//
-module.exports.createUser = function () {
-  return function (req, res) {
-    checkAndCreateUser(req.body.username, req.body.email, req.body.password, req.body.confirmation)
-      .then(function (user) {
-        return res.status(200).json({ success: 'User successfully created' });
-      }).catch(function (userCreationError, internalError) {
-        if (internalError) {
-          return res.status(500).json({ error: 'Internal server error' });
-        } else {
-          return res.status(405).json({ error: userCreationError });
-        }
-      }
-    );
-  };
-};
-
-//
 // User identification for passport library
 //
 module.exports.identifyUser = function (name, password) {
@@ -170,33 +151,6 @@ module.exports.identifyUser = function (name, password) {
     });
   });
 };
-
-//
-// Construct a safe and showable user profile from a user (for client side)
-//
-function constructUserProfile(user) {
-  return new Promise(function (fulfill, reject) {
-    const userProfile = {
-      name: user.name,
-      email: user.email,
-      saveAndRestoreMode: rightsManager.getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user),
-      migrationMode: rightsManager.getModuleRightForUser(enumModules.MIGRATION, user),
-      softwarePackagesMode: rightsManager.getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user),
-      groups: [],
-    };
-
-    user.groups.forEach(function (group) {
-      userProfile.groups.push({
-        name: group.name,
-        saveAndRestoreMode: group.saveAndRestoreMode,
-        migrationMode: group.migrationMode,
-        softwarePackagesMode: group.softwarePackagesMode,
-      });
-    });
-
-    fulfill(userProfile);
-  });
-}
 
 //
 // Log the user in the system and create a session for him
@@ -241,23 +195,50 @@ module.exports.logout = function () {
 };
 
 //
-// Retrieve user profile for its GET route
+// Create user entry point from its POST route
 //
-module.exports.retrieveUserProfile = function () {
+module.exports.createUser = function () {
   return function (req, res) {
-    UsersAdapter.findById(req.user.id).then(function (user) {
-      if (user) {
-        constructUserProfile(user).then(function (userProfile) {
-          res.status(200).json(userProfile);
-        });
-      } else {
-        res.status(500).json({ error: 'Internal server error' });
+    checkAndCreateUser(req.body.username, req.body.email, req.body.password, req.body.confirmation)
+      .then(function (user) {
+        return res.status(200).json({ success: 'User successfully created' });
+      }).catch(function (userCreationError, internalError) {
+        if (internalError) {
+          return res.status(500).json({ error: 'Internal server error' });
+        } else {
+          return res.status(405).json({ error: userCreationError });
+        }
       }
-    }).catch(function (error) {
-      res.status(500).json({ error: 'Internal server error' });
-    });
+    );
   };
 };
+
+//
+// Construct a safe and showable user profile from a user (for client side)
+//
+function constructUserProfile(user) {
+  return new Promise(function (fulfill, reject) {
+    const userProfile = {
+      name: user.name,
+      email: user.email,
+      saveAndRestoreMode: rightsManager.getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user),
+      migrationMode: rightsManager.getModuleRightForUser(enumModules.MIGRATION, user),
+      softwarePackagesMode: rightsManager.getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user),
+      groups: [],
+    };
+
+    user.groups.forEach(function (group) {
+      userProfile.groups.push({
+        name: group.name,
+        saveAndRestoreMode: group.saveAndRestoreMode,
+        migrationMode: group.migrationMode,
+        softwarePackagesMode: group.softwarePackagesMode,
+      });
+    });
+
+    fulfill(userProfile);
+  });
+}
 
 //
 // Email template for the user password recovery
@@ -336,51 +317,23 @@ module.exports.recoverUserPassword = function () {
 };
 
 //
-// Retrieve all users for its GET route
+// Retrieve user profile for its GET route
 //
-module.exports.retrieveAllUsers = function (req, res) {
-  return new Promise(function (fulfill, reject) {
-    UsersAdapter.findAll().then(function (users) {
-      const errors = req.session.errors;
-
-      users.forEach(function (user) {
-        user.saveAndRestoreMode = rightsManager.getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user);
-        user.migrationMode = rightsManager.getModuleRightForUser(enumModules.MIGRATION, user);
-        user.softwarePackagesMode = rightsManager.getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user);
-      });
-
-      req.session.errors = null;
-      req.session.save(function () {
-        fulfill({ users: users, errors: errors });
-      });
+module.exports.retrieveUserProfile = function () {
+  return function (req, res) {
+    UsersAdapter.findById(req.user.id).then(function (user) {
+      if (user) {
+        constructUserProfile(user).then(function (userProfile) {
+          res.status(200).json(userProfile);
+        });
+      } else {
+        res.status(500).json({ error: 'Internal server error' });
+      }
+    }).catch(function (error) {
+      res.status(500).json({ error: 'Internal server error' });
     });
-  });
+  };
 };
-
-//
-// Redirect the browser from an ajax request
-//
-function ajaxRedirect(res, url) {
-  const data = JSON.stringify(url);
-
-  res.contentType('application/json');
-  res.header('Content-Length', data.length);
-  res.end(data);
-}
-
-//
-// Save user session data (like errors) then redirect
-//
-function saveSessionAndRedirect(req, res, redirect) {
-  req.session.save(function () {
-    ajaxRedirect(res, redirect);
-  });
-}
-
-function pushErrorInUserSession(req, request, reason) {
-  req.session.errors = (req.session.errors ? req.session.errors : []);
-  req.session.errors.push({ request: request, reason: reason });
-}
 
 //
 // Check new user name, set model field to update, or reject with error
@@ -488,6 +441,51 @@ module.exports.updateUserProfile = function () {
 };
 
 //
+// Retrieve all users for its GET route
+//
+module.exports.retrieveAllUsers = function (req, res) {
+  return new Promise(function (fulfill, reject) {
+    UsersAdapter.findAll().then(function (users) {
+      const errors = req.session.errors;
+
+      users.forEach(function (user) {
+        user.saveAndRestoreMode = rightsManager.getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user);
+        user.migrationMode = rightsManager.getModuleRightForUser(enumModules.MIGRATION, user);
+        user.softwarePackagesMode = rightsManager.getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user);
+      });
+
+      req.session.errors = null;
+      req.session.save(function () {
+        fulfill({ users: users, errors: errors });
+      });
+    });
+  });
+};
+
+//
+// Create users entry point from its POST route
+//
+module.exports.createUsers = function (params) {
+  return function (req, res) {
+    if (req.body.users && req.body.users.constructor == Array) {
+      req.body.users.forEach(function (user) {
+        checkAndCreateUser(user.name, user.email, user.password, user.confirmation)
+          .then(function (user) {
+          }).catch(function (error) {
+            pushErrorInUserSession(req, user, error);
+          }
+        );
+      });
+
+      saveSessionAndRedirect(req, res, params.successRedirect);
+    } else {
+      pushErrorInUserSession(req, req.body, 'Invalid request');
+      saveSessionAndRedirect(req, res, params.failureRedirect);
+    }
+  };
+};
+
+//
 // Update users entry point from its POST route
 //
 module.exports.updateUsers = function (params) {
@@ -507,29 +505,6 @@ module.exports.updateUsers = function (params) {
         } else {
           pushErrorInUserSession(req, user, 'Malformed user object');
         }
-      });
-
-      saveSessionAndRedirect(req, res, params.successRedirect);
-    } else {
-      pushErrorInUserSession(req, req.body, 'Invalid request');
-      saveSessionAndRedirect(req, res, params.failureRedirect);
-    }
-  };
-};
-
-//
-// Create users entry point from its POST route
-//
-module.exports.createUsers = function (params) {
-  return function (req, res) {
-    if (req.body.users && req.body.users.constructor == Array) {
-      req.body.users.forEach(function (user) {
-        checkAndCreateUser(user.name, user.email, user.password, user.confirmation)
-          .then(function (user) {
-          }).catch(function (error) {
-            pushErrorInUserSession(req, user, error);
-          }
-        );
       });
 
       saveSessionAndRedirect(req, res, params.successRedirect);
@@ -563,3 +538,28 @@ module.exports.deleteUsers = function (params) {
     }
   };
 };
+
+//
+// Redirect the browser from an ajax request
+//
+function ajaxRedirect(res, url) {
+  const data = JSON.stringify(url);
+
+  res.contentType('application/json');
+  res.header('Content-Length', data.length);
+  res.end(data);
+}
+
+//
+// Save user session data (like errors) then redirect
+//
+function saveSessionAndRedirect(req, res, redirect) {
+  req.session.save(function () {
+    ajaxRedirect(res, redirect);
+  });
+}
+
+function pushErrorInUserSession(req, request, reason) {
+  req.session.errors = (req.session.errors ? req.session.errors : []);
+  req.session.errors.push({ request: request, reason: reason });
+}
