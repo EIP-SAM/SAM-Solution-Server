@@ -25,6 +25,20 @@ function initAdminDefaultGroup() {
   });
 }
 
+module.exports.retrieveAllGroups = function (req, res) {
+  return new Promise(function (fulfill, reject) {
+    GroupsAdapter.findAll().then(function (groups) {
+      const errors = req.session.errors;
+
+      req.session.errors = null;
+      req.session.save(function () {
+        fulfill({ groups: groups, errors: errors });
+      });
+
+    });
+  });
+};
+
 function newGroupIsInvalid(group) {
   const name = group.name ? group.name : '';
   const rights = [group.saveAndRestoreMode, group.migrationMode, group.softwarePackagesMode];
@@ -65,43 +79,23 @@ function createGroup(newGroup) {
   });
 }
 
-//
-// Redirect the browser from an ajax request
-//
-function ajaxRedirect(res, url) {
-  const data = JSON.stringify(url);
-
-  res.contentType('application/json');
-  res.header('Content-Length', data.length);
-  res.end(data);
-}
-
-//
-// Save user session data (like errors) then redirect
-//
-function saveSessionAndRedirect(req, res, redirect) {
-  req.session.save(function () {
-    ajaxRedirect(res, redirect);
-  });
-}
-
-function pushErrorInUserSession(req, request, reason) {
-  req.session.errors = (req.session.errors ? req.session.errors : []);
-  req.session.errors.push({ request: request, reason: reason });
-}
-
-module.exports.retrieveAllGroups = function (req, res) {
-  return new Promise(function (fulfill, reject) {
-    GroupsAdapter.findAll().then(function (groups) {
-      const errors = req.session.errors;
-
-      req.session.errors = null;
-      req.session.save(function () {
-        fulfill({ groups: groups, errors: errors });
+module.exports.createGroups = function (params) {
+  return function (req, res) {
+    if (req.body.groups && req.body.groups.constructor == Array) {
+      req.body.groups.forEach(function (group) {
+        createGroup(group)
+        .then(function (group) {
+        }).catch(function (error) {
+          pushErrorInUserSession(req, group, error);
+        });
       });
 
-    });
-  });
+      saveSessionAndRedirect(req, res, params.successRedirect);
+    } else {
+      pushErrorInUserSession(req, req.body, 'Invalid request');
+      saveSessionAndRedirect(req, res, params.failureRedirect);
+    }
+  };
 };
 
 module.exports.updateGroups = function (params) {
@@ -119,25 +113,6 @@ module.exports.updateGroups = function (params) {
           } else {
             pushErrorInUserSession(req, groupId, 'Group id ' + groupId + ' not found');
           }
-        });
-      });
-
-      saveSessionAndRedirect(req, res, params.successRedirect);
-    } else {
-      pushErrorInUserSession(req, req.body, 'Invalid request');
-      saveSessionAndRedirect(req, res, params.failureRedirect);
-    }
-  };
-};
-
-module.exports.createGroups = function (params) {
-  return function (req, res) {
-    if (req.body.groups && req.body.groups.constructor == Array) {
-      req.body.groups.forEach(function (group) {
-        createGroup(group)
-        .then(function (group) {
-        }).catch(function (error) {
-          pushErrorInUserSession(req, group, error);
         });
       });
 
@@ -202,3 +177,28 @@ module.exports.addUsersToGroup = function (params) {
     }
   };
 };
+
+//
+// Redirect the browser from an ajax request
+//
+function ajaxRedirect(res, url) {
+  const data = JSON.stringify(url);
+
+  res.contentType('application/json');
+  res.header('Content-Length', data.length);
+  res.end(data);
+}
+
+//
+// Save user session data (like errors) then redirect
+//
+function saveSessionAndRedirect(req, res, redirect) {
+  req.session.save(function () {
+    ajaxRedirect(res, redirect);
+  });
+}
+
+function pushErrorInUserSession(req, request, reason) {
+  req.session.errors = (req.session.errors ? req.session.errors : []);
+  req.session.errors.push({ request: request, reason: reason });
+}
