@@ -3,24 +3,6 @@ var groupsManager = require('../../managers/groups');
 var usersController = require('../../controllers/users');
 
 describe('retrieveUserProfile', function () {
-  // var req = { session: {} };
-  // var res = {};
-  // var user = usersController.retrieveUserProfile(req, res);
-  //
-  // it('should not return null', function () {
-  //   expect(user).not.toBeNull();
-  // });
-  //
-  // it('should return a promise', function () {
-  //   expect(typeof user.then === 'function').toBeTruthy();
-  // });
-  //
-  // it('should have called retrieveUserProfile once', function () {
-  //   spyOn(usersManager, 'retrieveUserProfile');
-  //   usersController.retrieveUserProfile(req, res);
-  //   expect(usersManager.retrieveUserProfile).toHaveBeenCalledTimes(1);
-  // });
-
   var req = { session: {}, user: { id: 1 } };
   var res = {};
   var user = usersManager.retrieveUserProfile();
