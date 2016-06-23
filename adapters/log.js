@@ -25,27 +25,40 @@ module.exports.getLogsWithMultipleCriteria = function (criteria) {
 
     var findOpts = {};
 
+    console.log('criteria ', criteria);
+
     if (criteria.findOpts !== undefined) {
+
+      console.log('findOpts =>', criteria.findOpts.header);
       if (criteria.findOpts.header !== undefined) {
         findOpts.header = criteria.findOpts.header;
       }
 
+      console.log('_id =>', criteria.findOpts._id);
       if (criteria.findOpts._id !== undefined) {
         findOpts._id = criteria.findOpts._id;
       }
 
+      console.log('level =>', criteria.findOpts.level);
       if (criteria.findOpts.level !== undefined) {
         findOpts.level = criteria.findOpts.level;
-      } else if (criterions.findOpts.levelAbove !== undefined) {
+      }
+
+      console.log('levelAbove =>', criteria.findOpts.levelAbove);
+      if (criteria.findOpts.levelAbove !== undefined) {
         findOpts.level = {
           $gte: criteria.findOpts.levelAbove,
         };
-      } else if (criteria.findOpts.levelBelow !== undefined) {
+      }
+
+      console.log('levelBelow =>', criteria.findOpts.levelBelow);
+      if (criteria.findOpts.levelBelow !== undefined) {
         findOpts.level = {
           $lt: criteria.findOpts.levelBelow,
         };
       }
 
+      console.log('day =>', criteria.findOpts.day);
       if (criteria.findOpts.day !== undefined) {
         var day = moment.makeDayFromString(criteria.findOpts.day);
 
@@ -53,11 +66,15 @@ module.exports.getLogsWithMultipleCriteria = function (criteria) {
           $gte: moment.getMomentToDate(day.startDate),
           $lte: moment.getMomentToDate(day.endDate),
         };
-      } else if (criteria.findOpts.afterDate !== undefined) {
+      }
+
+      if (criteria.findOpts.afterDate !== undefined) {
         findOpts.time = {
           $gte: moment.getMomentToDate(criteria.findOpts.afterDate),
         };
-      } else if (criteria.findOpts.beforeDate !== undefined) {
+      }
+
+      if (criteria.findOpts.beforeDate !== undefined) {
         findOpts.time = {
           $lte: moment.getMomentToDate(criteria.findOpts.beforeDate),
         };
