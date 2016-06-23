@@ -3,7 +3,9 @@
 //
 
 import React from 'react';
+import { Link } from 'react-router';
 import { Button } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import styles from 'components/Td/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -16,7 +18,7 @@ export default class Td extends React.Component {
       content = item.value;
 
       if (item.isLink === true) {
-        content = (<Button onClick={item.onClick} className={styles.padding} bsStyle="link" href={item.link}>{item.value}</Button>);
+        content = (<LinkContainer to={{ pathname: item.link }}><Button onClick={item.onClick} className={styles.padding} bsStyle="link" href="#">{item.value}</Button></LinkContainer>);
       }
 
       return (
