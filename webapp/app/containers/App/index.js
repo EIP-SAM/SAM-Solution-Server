@@ -13,7 +13,7 @@
 
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
-import Navbar from 'containers/Navbar';
+import Navbar from 'components/Navbar';
 import styles from 'components/App/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
