@@ -432,120 +432,139 @@ module.exports.updateUserProfile = function () {
 //
 // Retrieve all users for its GET route
 //
-module.exports.retrieveAllUsers = function () {
+module.exports.retrieveAllUsers = function (errors) {
   return function (req, res) {
     UsersAdapter.findAll().then(function (users) {
+      const output = { users: users };
+
       users.forEach(function (user) {
         user.saveAndRestoreMode = rightsManager.getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user);
         user.migrationMode = rightsManager.getModuleRightForUser(enumModules.MIGRATION, user);
         user.softwarePackagesMode = rightsManager.getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user);
       });
 
-      return res.status(200).json({ users: users });
+      if (errors) {
+        output.errors = errors;
+      }
+
+      return res.status(200).json(output);
     }).catch(function (error) {
       return res.status(500).json({ error: 'Internal server error' });
     });
   };
 };
 
+function stopForEachPromise(obj, newError, fulfill) {
+  if (newError) {
+    obj.errors.push({ error: newError });
+  }
+
+  if (++obj.i == obj.array.length) {
+    fulfill(obj.errors.length ? obj.errors : null);
+  }
+}
+
+function createUsers(users) {
+  return new Promise(function (fulfill, reject) {
+    const obj = { errors: [], i: 0, array: users };
+
+    users.forEach(function (user) {
+      checkAndCreateUser(user.name, user.email, user.password, user.confirmation)
+      .then(function (user) {
+        stopForEachPromise(obj, null, fulfill);
+      })
+      .catch(function (error) {
+        stopForEachPromise(obj, error, fulfill);
+      });
+    });
+  });
+}
+
 //
 // Create users entry point from its POST route
 //
-module.exports.createUsers = function (params) {
+module.exports.createUsers = function () {
   return function (req, res) {
     if (req.body.users && req.body.users.constructor == Array) {
-      req.body.users.forEach(function (user) {
-        checkAndCreateUser(user.name, user.email, user.password, user.confirmation)
-          .then(function (user) {
-          }).catch(function (error) {
-            pushErrorInUserSession(req, user, error);
-          }
-        );
+      createUsers(req.body.users).then(function (errors) {
+        return module.exports.retrieveAllUsers(errors)(req, res);
       });
-
-      saveSessionAndRedirect(req, res, params.successRedirect);
     } else {
-      pushErrorInUserSession(req, req.body, 'Invalid request');
-      saveSessionAndRedirect(req, res, params.failureRedirect);
+      return res.status(405).json({ error: 'Invalid request' });
     }
   };
 };
+
+function updateUsers(users) {
+  return new Promise(function (fulfill, reject) {
+    const obj = { errors: [], i: 0, array: users };
+
+    users.forEach(function (user) {
+      if (user.id) {
+        UsersAdapter.findById(user.id).then(function (foundUser) {
+          if (foundUser) {
+            updateUserProfile(foundUser, user)
+            .then(function (user) {
+              stopForEachPromise(obj, null, fulfill);
+            })
+            .catch(function (error) {
+              stopForEachPromise(obj, error, fulfill);
+            });
+          } else {
+            stopForEachPromise(obj, 'User id ' + user.id + ' not found', fulfill);
+          }
+        });
+      } else {
+        stopForEachPromise(obj, 'Malformed user object', fulfill);
+      }
+    });
+  });
+}
 
 //
 // Update users entry point from its POST route
 //
-module.exports.updateUsers = function (params) {
+module.exports.updateUsers = function () {
   return function (req, res) {
     if (req.body.users && req.body.users.constructor == Array) {
-      req.body.users.forEach(function (user) {
-        if (user.id) {
-          UsersAdapter.findById(user.id).then(function (foundUser) {
-            if (foundUser) {
-              updateUserProfile(foundUser, user).catch(function (error) {
-                pushErrorInUserSession(req, user, error);
-              });
-            } else {
-              pushErrorInUserSession(req, user, 'User id ' + user.id + ' not found');
-            }
-          });
-        } else {
-          pushErrorInUserSession(req, user, 'Malformed user object');
-        }
+      updateUsers(req.body.users).then(function (errors) {
+        return module.exports.retrieveAllUsers(errors)(req, res);
       });
-
-      saveSessionAndRedirect(req, res, params.successRedirect);
     } else {
-      pushErrorInUserSession(req, req.body, 'Invalid request');
-      saveSessionAndRedirect(req, res, params.failureRedirect);
+      return res.status(405).json({ error: 'Invalid request' });
     }
   };
 };
+
+function deleteUsers(users) {
+  return new Promise(function (fulfill, reject) {
+    const obj = { errors: [], i: 0, array: users };
+
+    users.forEach(function (userId) {
+      UsersAdapter.findById(userId).then(function (user) {
+        if (user) {
+          user.destroy().then(function () {
+            stopForEachPromise(obj, null, fulfill);
+          });
+        } else {
+          stopForEachPromise(obj, 'User id ' + userId + ' not found', fulfill);
+        }
+      });
+    });
+  });
+}
 
 //
 // Delete users entry point from its POST route
 //
-module.exports.deleteUsers = function (params) {
+module.exports.deleteUsers = function () {
   return function (req, res) {
     if (req.body.users && req.body.users.constructor == Array) {
-      req.body.users.forEach(function (userId) {
-        UsersAdapter.findById(userId).then(function (user) {
-          if (user) {
-            user.destroy();
-          } else {
-            pushErrorInUserSession(req, userId, 'User id ' + userId + ' not found');
-          }
-        });
+      deleteUsers(req.body.users).then(function (errors) {
+        return module.exports.retrieveAllUsers(errors)(req, res);
       });
-
-      saveSessionAndRedirect(req, res, params.successRedirect);
     } else {
-      pushErrorInUserSession(req, req.body, 'Invalid request');
-      saveSessionAndRedirect(req, res, params.failureRedirect);
+      return res.status(405).json({ error: 'Invalid request' });
     }
   };
 };
-
-//
-// Redirect the browser from an ajax request
-//
-function ajaxRedirect(res, url) {
-  const data = JSON.stringify(url);
-
-  res.contentType('application/json');
-  res.header('Content-Length', data.length);
-  res.end(data);
-}
-
-//
-// Save user session data (like errors) then redirect
-//
-function saveSessionAndRedirect(req, res, redirect) {
-  req.session.save(function () {
-    ajaxRedirect(res, redirect);
-  });
-}
-
-function pushErrorInUserSession(req, request, reason) {
-  req.session.errors = (req.session.errors ? req.session.errors : []);
-  req.session.errors.push({ request: request, reason: reason });
-}

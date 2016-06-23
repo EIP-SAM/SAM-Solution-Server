@@ -158,24 +158,15 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   );
 
   app.post('/api/logged-in/admin/users/create',
-    usersAndRightsController.createUsers({
-      successRedirect: '/users_and_rights/users_administration',
-      failureRedirect: '/users_and_rights/users_administration',
-    })
+    usersAndRightsController.createUsers()
   );
 
   app.post('/api/logged-in/admin/users/update',
-    usersAndRightsController.updateUsers({
-      successRedirect: '/users_and_rights/users_administration',
-      failureRedirect: '/users_and_rights/users_administration',
-    })
+    usersAndRightsController.updateUsers()
   );
 
   app.post('/api/logged-in/admin/users/delete',
-    usersAndRightsController.deleteUsers({
-      successRedirect: '/users_and_rights/users_administration',
-      failureRedirect: '/users_and_rights/users_administration',
-    })
+    usersAndRightsController.deleteUsers()
   );
 
   app.post('/api/logged-in/admin/groups/create',
