@@ -51,7 +51,7 @@ export default function createRoutes() {
       },
     }, {
       path: '/create-save',
-      name: 'save',
+      name: 'creation save',
       getComponent(nextState, cb) {
         System.import('containers/SaveCreation')
           .then(loadModule(cb))
