@@ -13,7 +13,11 @@ export class Log extends React.Component {
     return (
       <div>
         <PageHeader>Logs</PageHeader>
-        <LogFilter getAllLogs={this.props.getAllLogsRequest} />
+        <LogFilter
+          getAllLogs={this.props.getAllLogsRequest}
+          getLimitLogs={this.props.getLimitLogsRequest}
+          clearLogs={this.props.clearLogs}
+        />
         <LogResult logs={this.props.logs.logs} />
       </div>
     );
@@ -23,4 +27,6 @@ export class Log extends React.Component {
 Log.propTypes = {
   logs: React.PropTypes.object.isRequired,
   getAllLogsRequest: React.PropTypes.func.isRequired,
+  getLimitLogsRequest: React.PropTypes.func.isRequired,
+  clearLogs: React.PropTypes.func.isRequired,
 };
