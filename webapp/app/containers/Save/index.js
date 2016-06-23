@@ -8,7 +8,7 @@ import { Save } from 'components/Save';
 
 function mapStateToProps(state) {
   return {
-    saves: state.get('saves'),
+    state: state.get('save'),
   };
 }
 

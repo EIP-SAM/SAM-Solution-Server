@@ -12,6 +12,13 @@ module.exports.lastUsersSaves = function (req, res) {
 }
 
 //
+// Call to get all saves of a user (past & scheduled)
+//
+module.exports.historySavesByUser = function (req, res) {
+  return saveManager.historySavesByUser(req, res);
+}
+
+//
 // Call when a save is created
 //
 module.exports.createSave = function (req, res) {
