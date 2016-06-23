@@ -24,6 +24,15 @@ module.exports.lastUsersSaves = function (req, res) {
   });
 }
 
+//
+// Get username from request
+// Get all saves (savesScheduleds & saves) of a user (past & scheduled)
+//
+module.exports.historySavesByUser = function (req, res) {
+  const username = req.body.username;
+  return saveScheduledAdapter.historySavesByUser(username);
+}
+
 module.exports.createSave = function (req, res) {
   // Get data from form
   // Format date
