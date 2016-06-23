@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { Navbar, Nav, NavItem, Image } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import Logo from 'components/Navbar/logo_sam_solution.png';
 import styles from 'components/Navbar/styles.css';
 
@@ -21,11 +22,21 @@ export default class NavbarContainer extends React.Component {
         </Navbar.Header>
         <Navbar.Collapse className={styles.collapse}>
           <Nav className={styles.menu}>
-            <NavItem eventKey={1} href="#" className={styles.menuItem}>Users</NavItem>
-            <NavItem eventKey={2} href="/save" className={styles.menuItem}>Save</NavItem>
-            <NavItem eventKey={3} href="#" className={styles.menuItem}>Restore</NavItem>
-            <NavItem eventKey={4} href="#" className={styles.menuItem}>Logs</NavItem>
-            <NavItem eventKey={5} href="#" className={styles.menuItem}>Statistics</NavItem>
+            <LinkContainer to={{ pathname: '#' }}>
+              <NavItem eventKey={1} className={styles.menuItem}>Users</NavItem>
+            </LinkContainer>
+            <LinkContainer to={{ pathname: '/save' }}>
+              <NavItem eventKey={2} className={styles.menuItem}>Save</NavItem>
+            </LinkContainer>
+            <LinkContainer to={{ pathname: '#' }}>
+              <NavItem eventKey={3} className={styles.menuItem}>Restore</NavItem>
+            </LinkContainer>
+            <LinkContainer to={{ pathname: '#' }}>
+              <NavItem eventKey={4} className={styles.menuItem}>Logs</NavItem>
+            </LinkContainer>
+            <LinkContainer to={{ pathname: '#' }}>
+              <NavItem eventKey={5} className={styles.menuItem}>Statistics</NavItem>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
