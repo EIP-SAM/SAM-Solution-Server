@@ -69,18 +69,18 @@ module.exports.deleteUsers = function () {
   return usersManager.deleteUsers();
 };
 
-module.exports.createGroups = function (param) {
-  return groupsManager.createGroups(param);
+module.exports.createGroups = function () {
+  return groupsManager.createGroups();
 };
 
-module.exports.updateGroups = function (param) {
-  return groupsManager.updateGroups(param);
+module.exports.updateGroups = function () {
+  return groupsManager.updateGroups();
 };
 
-module.exports.deleteGroups = function (param) {
-  return groupsManager.deleteGroups(param);
+module.exports.deleteGroups = function () {
+  return groupsManager.deleteGroups();
 };
 
-module.exports.addUsersToGroup = function (param) {
-  return groupsManager.addUsersToGroup(param);
+module.exports.addUsersToGroup = function () {
+  return groupsManager.addUsersToGroup();
 };

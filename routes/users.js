@@ -170,30 +170,18 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   );
 
   app.post('/api/logged-in/admin/groups/create',
-    usersAndRightsController.createGroups({
-      successRedirect: '/users_and_rights/groups_administration',
-      failureRedirect: '/users_and_rights/groups_administration',
-    })
+    usersAndRightsController.createGroups()
   );
 
   app.post('/api/logged-in/admin/groups/update',
-    usersAndRightsController.updateGroups({
-      successRedirect: '/users_and_rights/groups_administration',
-      failureRedirect: '/users_and_rights/groups_administration',
-    })
+    usersAndRightsController.updateGroups()
   );
 
   app.post('/api/logged-in/admin/groups/delete',
-    usersAndRightsController.deleteGroups({
-      successRedirect: '/users_and_rights/groups_administration',
-      failureRedirect: '/users_and_rights/groups_administration',
-    })
+    usersAndRightsController.deleteGroups()
   );
 
   app.post('/api/logged-in/admin/groups/add_users',
-    usersAndRightsController.addUsersToGroup({
-      successRedirect: '/users_and_rights/groups_administration',
-      failureRedirect: '/users_and_rights/groups_administration',
-    })
+    usersAndRightsController.addUsersToGroup()
   );
 };

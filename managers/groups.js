@@ -25,10 +25,16 @@ function initAdminDefaultGroup() {
   });
 }
 
-module.exports.retrieveAllGroups = function () {
+module.exports.retrieveAllGroups = function (errors) {
   return function (req, res) {
     GroupsAdapter.findAll().then(function (groups) {
-      return res.status(200).json({ groups: groups });
+      const output = { groups: groups };
+
+      if (errors) {
+        output.errors = errors;
+      }
+
+      return res.status(200).json(output);
     }).catch(function (error) {
       return res.status(500).json({ error: 'Internal server error' });
     });
@@ -75,126 +81,146 @@ function createGroup(newGroup) {
   });
 }
 
-module.exports.createGroups = function (params) {
-  return function (req, res) {
-    if (req.body.groups && req.body.groups.constructor == Array) {
-      req.body.groups.forEach(function (group) {
-        createGroup(group)
-        .then(function (group) {
-        }).catch(function (error) {
-          pushErrorInUserSession(req, group, error);
-        });
-      });
+function stopForEachPromise(obj, newError, fulfill) {
+  if (newError) {
+    obj.errors.push({ error: newError });
+  }
 
-      saveSessionAndRedirect(req, res, params.successRedirect);
-    } else {
-      pushErrorInUserSession(req, req.body, 'Invalid request');
-      saveSessionAndRedirect(req, res, params.failureRedirect);
-    }
-  };
-};
-
-module.exports.updateGroups = function (params) {
-  return function (req, res) {
-    if (req.body.groups && req.body.groups.constructor == Array) {
-      req.body.groups.forEach(function (groupUpdate) {
-
-        GroupsAdapter.findById(groupUpdate.id).then(function (group) {
-          if (group) {
-            group.name = groupUpdate.name ? groupUpdate.name : group.name;
-            group.saveAndRestoreMode = groupUpdate.saveAndRestoreMode ? groupUpdate.saveAndRestoreMode : group.saveAndRestoreMode;
-            group.migrationMode = groupUpdate.migrationMode ? groupUpdate.migrationMode : group.migrationMode;
-            group.softwarePackagesMode = groupUpdate.softwarePackagesMode ? groupUpdate.softwarePackagesMode : group.softwarePackagesMode;
-            group.save();
-          } else {
-            pushErrorInUserSession(req, groupId, 'Group id ' + groupId + ' not found');
-          }
-        });
-      });
-
-      saveSessionAndRedirect(req, res, params.successRedirect);
-    } else {
-      pushErrorInUserSession(req, req.body, 'Invalid request');
-      saveSessionAndRedirect(req, res, params.failureRedirect);
-    }
-  };
-};
-
-module.exports.deleteGroups = function (params) {
-  return function (req, res) {
-    if (req.body.groups && req.body.groups.constructor == Array) {
-      req.body.groups.forEach(function (groupId) {
-        GroupsAdapter.findById(groupId).then(function (group) {
-          if (group) {
-            group.destroy();
-          } else {
-            pushErrorInUserSession(req, groupId, 'Group id ' + groupId + ' not found');
-          }
-        }).catch(function (error) {
-          pushErrorInUserSession(req, groupId, 'Group id ' + groupId + ' not found');
-        });
-      });
-
-      saveSessionAndRedirect(req, res, params.successRedirect);
-    } else {
-      pushErrorInUserSession(req, req.body, 'Invalid request');
-      saveSessionAndRedirect(req, res, params.failureRedirect);
-    }
-  };
-};
-
-module.exports.addUsersToGroup = function (params) {
-  return function (req, res) {
-    if (req.body.group && req.body.users && req.body.users.constructor == Array) {
-      GroupsAdapter.findById(req.body.group).then(function (group) {
-        if (group) {
-          req.body.users.forEach(function (userId) {
-            UsersAdapter.findById(userId).then(function (user) {
-              if (user) {
-                user.addGroups([group]);
-              } else {
-                pushErrorInUserSession(req, userId, 'User id ' + userId + ' not found');
-              }
-            }).catch(function (error) {
-              pushErrorInUserSession(req, userId, error);
-            });
-          });
-        } else {
-          pushErrorInUserSession(req, req.body.group, 'Group id ' + req.body.group + ' not found');
-        }
-      }).catch(function (error) {
-        pushErrorInUserSession(req, req.body.group, error);
-      });
-
-      saveSessionAndRedirect(req, res, params.successRedirect);
-    } else {
-      pushErrorInUserSession(req, req.body, 'Invalid request');
-      saveSessionAndRedirect(req, res, params.failureRedirect);
-    }
-  };
-};
-
-//
-// Redirect the browser from an ajax request
-//
-function ajaxRedirect(res, url) {
-  const data = JSON.stringify(url);
-
-  res.contentType('application/json');
-  res.header('Content-Length', data.length);
-  res.end(data);
+  if (++obj.i == obj.array.length) {
+    fulfill(obj.errors.length ? obj.errors : null);
+  }
 }
 
-//
-// Save user session data (like errors) then redirect
-//
-function saveSessionAndRedirect(req, res, redirect) {
-  req.session.save(function () {
-    ajaxRedirect(res, redirect);
+function createGroups(groups) {
+  return new Promise(function (fulfill, reject) {
+    const obj = { errors: [], i: 0, array: groups };
+
+    groups.forEach(function (group) {
+      createGroup(group).then(function (group) {
+        stopForEachPromise(obj, null, fulfill);
+      }).catch(function (error) {
+        stopForEachPromise(obj, error, fulfill);
+      });
+    });
   });
 }
 
-function pushErrorInUserSession(req, request, reason) {
-  req.session.errors = (req.session.errors ? req.session.errors : []);
-  req.session.errors.push({ request: request, reason: reason });
+module.exports.createGroups = function () {
+  return function (req, res) {
+    if (req.body.groups && req.body.groups.constructor == Array) {
+      createGroups(req.body.groups).then(function (errors) {
+        return module.exports.retrieveAllGroups(errors)(req, res);
+      });
+    } else {
+      return res.status(405).json({ error: 'Invalid request' });
+    }
+  };
+};
+
+function updateGroups(groups) {
+  return new Promise(function (fulfill, reject) {
+    const obj = { errors: [], i: 0, array: groups };
+
+    groups.forEach(function (groupUpdate) {
+      GroupsAdapter.findById(groupUpdate.id).then(function (group) {
+        if (group) {
+          group.name = groupUpdate.name ? groupUpdate.name : group.name;
+          group.saveAndRestoreMode = groupUpdate.saveAndRestoreMode ? groupUpdate.saveAndRestoreMode : group.saveAndRestoreMode;
+          group.migrationMode = groupUpdate.migrationMode ? groupUpdate.migrationMode : group.migrationMode;
+          group.softwarePackagesMode = groupUpdate.softwarePackagesMode ? groupUpdate.softwarePackagesMode : group.softwarePackagesMode;
+          group.save().then(function () {
+            stopForEachPromise(obj, null, fulfill);
+          });
+        } else {
+          stopForEachPromise(obj, 'Group id ' + groupId + ' not found', fulfill);
+        }
+      });
+    });
+  });
 }
+
+module.exports.updateGroups = function () {
+  return function (req, res) {
+    if (req.body.groups && req.body.groups.constructor == Array) {
+      updateGroups(req.body.groups).then(function (errors) {
+        return module.exports.retrieveAllGroups(errors)(req, res);
+      });
+    } else {
+      return res.status(405).json({ error: 'Invalid request' });
+    }
+  };
+};
+
+function deleteGroups(groups) {
+  return new Promise(function (fulfill, reject) {
+    const obj = { errors: [], i: 0, array: groups };
+
+    groups.forEach(function (groupId) {
+      GroupsAdapter.findById(groupId).then(function (group) {
+        if (group) {
+          group.destroy().then(function () {
+            stopForEachPromise(obj, null, fulfill);
+          });
+        } else {
+          stopForEachPromise(obj, 'Group id ' + groupId + ' not found', fulfill);
+        }
+      }).catch(function (error) {
+        stopForEachPromise(obj, 'Group id ' + groupId + ' not found', fulfill);
+      });
+    });
+  });
+}
+
+module.exports.deleteGroups = function () {
+  return function (req, res) {
+    if (req.body.groups && req.body.groups.constructor == Array) {
+      deleteGroups(req.body.groups).then(function (errors) {
+        return module.exports.retrieveAllGroups(errors)(req, res);
+      });
+    } else {
+      return res.status(405).json({ error: 'Invalid request' });
+    }
+  };
+};
+
+function addUsersToGroup(groupId, users) {
+  return new Promise(function (fulfill, reject) {
+    const obj = { errors: [], i: 0, array: users };
+
+    GroupsAdapter.findById(groupId).then(function (group) {
+      if (group) {
+        users.forEach(function (userId) {
+          UsersAdapter.findById(userId).then(function (user) {
+            if (user) {
+              user.addGroups([group]).then(function () {
+                stopForEachPromise(obj, null, fulfill);
+              });
+            } else {
+              stopForEachPromise(obj, 'User id ' + userId + ' not found', fulfill);
+            }
+          }).catch(function (error) {
+            stopForEachPromise(obj, error, fulfill);
+          });
+        });
+      } else {
+        reject('Group id ' + groupId + ' not found');
+      }
+    }).catch(function (error) {
+      reject(error);
+    });
+  });
+}
+
+module.exports.addUsersToGroup = function () {
+  return function (req, res) {
+    if (req.body.group && req.body.users && req.body.users.constructor == Array) {
+      addUsersToGroup(req.body.group, req.body.users).then(function (errors) {
+        return module.exports.retrieveAllGroups(errors)(req, res);
+      }).catch(function (error) {
+        return res.status(405).json({ error: error });
+      });
+    } else {
+      return res.status(405).json({ error: 'Invalid request' });
+    }
+  };
+};
