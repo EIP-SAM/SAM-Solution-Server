@@ -13,9 +13,9 @@ module.exports = function initLogRoutes(app) {
   //
   // Get logs from multiple criteria
   //
-  app.post('/log/multiple_criteria', function (req, res) {
+  app.get('/log/multiple_criteria', function (req, res) {
 
-    var criteria = JSON.parse(req.body.criteria);
+    var criteria = JSON.parse(req.query.criteria);
 
     var promise = logManager.getLogsWithMultipleCriteria(criteria);
 
@@ -40,9 +40,9 @@ module.exports = function initLogRoutes(app) {
   //
   // Get limited logs from all logs
   //
-  app.post('/log/limited', function (req, res) {
+  app.get('/log/limited', function (req, res) {
 
-    var promise = logManager.getLimitedLogs(parseInt(req.body.limit));
+    var promise = logManager.getLimitedLogs(parseInt(req.query.limit));
 
     promise.then(function (logs) {
       res.json(logs);
@@ -52,9 +52,9 @@ module.exports = function initLogRoutes(app) {
   //
   // Get logs by level
   //
-  app.post('/log/level', function (req, res) {
+  app.get('/log/level', function (req, res) {
 
-    var promise = logManager.getLogsByLevel(parseInt(req.body.level));
+    var promise = logManager.getLogsByLevel(parseInt(req.query.level));
 
     promise.then(function (logs) {
       res.json(logs);
@@ -64,9 +64,9 @@ module.exports = function initLogRoutes(app) {
   //
   // Get logs below level given
   //
-  app.post('/log/level/below', function (req, res) {
+  app.get('/log/level/below', function (req, res) {
 
-    var promise = logManager.getLogsBelowLevel(parseInt(req.body.level));
+    var promise = logManager.getLogsBelowLevel(parseInt(req.query.level));
 
     promise.then(function (logs) {
       res.json(logs);
@@ -76,9 +76,9 @@ module.exports = function initLogRoutes(app) {
   //
   // Get logs above level given
   //
-  app.post('/log/level/above', function (req, res) {
+  app.get('/log/level/above', function (req, res) {
 
-    var promise = logManager.getLogsAboveLevel(parseInt(req.body.level));
+    var promise = logManager.getLogsAboveLevel(parseInt(req.query.level));
 
     promise.then(function (logs) {
       res.json(logs);
@@ -88,7 +88,7 @@ module.exports = function initLogRoutes(app) {
   //
   // Get logs by module name
   //
-  app.post('/log/module/:module_name', function (req, res) {
+  app.get('/log/module/:module_name', function (req, res) {
 
     var promise = logManager.getLogsByModuleName(req.params.module_name);
 
@@ -100,11 +100,11 @@ module.exports = function initLogRoutes(app) {
   //
   // Get limited logs by module name
   //
-  app.post('/log/module/:module_name/limited', function (req, res) {
+  app.get('/log/module/:module_name/limited', function (req, res) {
 
     var promise = logManager.getLimitedLogsByModuleName(
       req.params.module_name,
-      parseInt(req.body.limit));
+      parseInt(req.query.limit));
 
     promise.then(function (logs) {
       res.json(logs);
@@ -114,21 +114,9 @@ module.exports = function initLogRoutes(app) {
   //
   // Get logs by day
   //
-  app.post('/log/date', function (req, res) {
+  app.get('/log/date', function (req, res) {
 
-    var promise = logManager.getLogsByDay(req.body.date);
-
-    promise.then(function (logs) {
-      res.json(logs);
-    });
-  });
-
-  //
-  // Get logs after date
-  //
-  app.post('/log/date/after', function (req, res) {
-
-    var promise = logManager.getLogsAfterDate(req.body.date);
+    var promise = logManager.getLogsByDay(req.query.date);
 
     promise.then(function (logs) {
       res.json(logs);
@@ -138,9 +126,21 @@ module.exports = function initLogRoutes(app) {
   //
   // Get logs after date
   //
-  app.post('/log/date/before', function (req, res) {
+  app.get('/log/date/after', function (req, res) {
 
-    var promise = logManager.getLogsBeforeDate(req.body.date);
+    var promise = logManager.getLogsAfterDate(req.query.date);
+
+    promise.then(function (logs) {
+      res.json(logs);
+    });
+  });
+
+  //
+  // Get logs after date
+  //
+  app.get('/log/date/before', function (req, res) {
+
+    var promise = logManager.getLogsBeforeDate(req.query.date);
 
     promise.then(function (logs) {
       res.json(logs);
@@ -150,7 +150,7 @@ module.exports = function initLogRoutes(app) {
   //
   // Get all the log from a client by his id
   //
-  app.post('/log/:user_id', function (req, res) {
+  app.get('/log/:user_id', function (req, res) {
 
     var promise = logManager.getLogsById(req.params.user_id);
 
@@ -162,9 +162,9 @@ module.exports = function initLogRoutes(app) {
   //
   // Get a limited logs from a client by his id
   //
-  app.post('/log/:user_id/limited', function (req, res) {
+  app.get('/log/:user_id/limited', function (req, res) {
 
-    var promise = logManager.getLimitedLogsById(req.params.user_id, parseInt(req.body.limit));
+    var promise = logManager.getLimitedLogsById(req.params.user_id, parseInt(req.query.limit));
 
     promise.then(function (logs) {
       res.json(logs);
@@ -174,9 +174,9 @@ module.exports = function initLogRoutes(app) {
   //
   // Get logs by level and id
   //
-  app.post('/log/:user_id/level', function (req, res) {
+  app.get('/log/:user_id/level', function (req, res) {
 
-    var promise = logManager.getLogsByLevelById(req.params.user_id, parseInt(req.body.level));
+    var promise = logManager.getLogsByLevelById(req.params.user_id, parseInt(req.query.level));
 
     promise.then(function (logs) {
       res.json(logs);
@@ -186,9 +186,9 @@ module.exports = function initLogRoutes(app) {
   //
   // Get logs below level given
   //
-  app.post('/log/:user_id/level/below', function (req, res) {
+  app.get('/log/:user_id/level/below', function (req, res) {
 
-    var promise = logManager.getLogsBelowLevelById(req.params.user_id, parseInt(req.body.level));
+    var promise = logManager.getLogsBelowLevelById(req.params.user_id, parseInt(req.query.level));
 
     promise.then(function (logs) {
       res.json(logs);
@@ -198,9 +198,9 @@ module.exports = function initLogRoutes(app) {
   //
   // Get logs above level given
   //
-  app.post('/log/:user_id/level/above', function (req, res) {
+  app.get('/log/:user_id/level/above', function (req, res) {
 
-    var promise = logManager.getLogsAboveLevelById(req.params.user_id, parseInt(req.body.level));
+    var promise = logManager.getLogsAboveLevelById(req.params.user_id, parseInt(req.query.level));
 
     promise.then(function (logs) {
       res.json(logs);
@@ -210,7 +210,7 @@ module.exports = function initLogRoutes(app) {
   //
   // Get logs by module name from user id
   //
-  app.post('/log/:user_id/module/:module_name', function (req, res) {
+  app.get('/log/:user_id/module/:module_name', function (req, res) {
 
     var promise = logManager.getLogsByModuleNameById(req.params.user_id, req.params.module_name);
 
@@ -222,12 +222,12 @@ module.exports = function initLogRoutes(app) {
   //
   // Get limited logs by module name from user id
   //
-  app.post('/log/:user_id/module/:module_name/limited', function (req, res) {
+  app.get('/log/:user_id/module/:module_name/limited', function (req, res) {
 
     var promise = logManager.getLimitedLogsByModuleNameById(
       req.params.user_id,
       req.params.module_name,
-      parseInt(req.body.limit)
+      parseInt(req.query.limit)
     );
 
     promise.then(function (logs) {
