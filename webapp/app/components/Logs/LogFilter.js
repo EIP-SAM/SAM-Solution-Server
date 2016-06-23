@@ -11,6 +11,8 @@ export class LogFilter extends React.Component {
     return (
       <ButtonToolbar>
         <Button bsStyle="primary" onClick={this.props.getAllLogs}>Get Logs</Button>
+        <Button bsStyle="primary" onClick={this.props.getLimitLogs}>Get 5 last logs</Button>
+        <Button bsStyle="success" onClick={this.props.clearLogs}>Clear</Button>
       </ButtonToolbar>
     );
   }
@@ -18,4 +20,6 @@ export class LogFilter extends React.Component {
 
 LogFilter.propTypes = {
   getAllLogs: React.PropTypes.func.isRequired,
+  getLimitLogs: React.PropTypes.func.isRequired,
+  clearLogs: React.PropTypes.func.isRequired,
 };
