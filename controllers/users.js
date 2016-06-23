@@ -57,16 +57,16 @@ module.exports.retrieveAllGroups = function () {
   return groupsManager.retrieveAllGroups();
 };
 
-module.exports.createUsers = function (param) {
-  return usersManager.createUsers(param);
+module.exports.createUsers = function () {
+  return usersManager.createUsers();
 };
 
-module.exports.updateUsers = function (param) {
-  return usersManager.updateUsers(param);
+module.exports.updateUsers = function () {
+  return usersManager.updateUsers();
 };
 
-module.exports.deleteUsers = function (param) {
-  return usersManager.deleteUsers(param);
+module.exports.deleteUsers = function () {
+  return usersManager.deleteUsers();
 };
 
 module.exports.createGroups = function (param) {
