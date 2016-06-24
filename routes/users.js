@@ -150,71 +150,38 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   //
 
   app.get('/api/logged-in/admin/users',
-  ensureLoggedIn('/users_and_rights/login_signup'),
-    function (req, res) {
-      usersAndRightsController.retrieveAllUsers(req, res)
-      .then(function (data) {
-        res.render('users_and_rights/users_administration', data);
-      });
-    }
+    usersAndRightsController.retrieveAllUsers()
   );
 
   app.get('/api/logged-in/admin/groups',
-  ensureLoggedIn('/users_and_rights/login_signup'),
-    function (req, res) {
-      usersAndRightsController.retrieveAllGroups(req, res)
-      .then(function (data) {
-        res.render('users_and_rights/groups_administration', data);
-      });
-    }
+    usersAndRightsController.retrieveAllGroups()
   );
 
   app.post('/api/logged-in/admin/users/create',
-    usersAndRightsController.createUsers({
-      successRedirect: '/users_and_rights/users_administration',
-      failureRedirect: '/users_and_rights/users_administration',
-    })
+    usersAndRightsController.createUsers()
   );
 
   app.post('/api/logged-in/admin/users/update',
-    usersAndRightsController.updateUsers({
-      successRedirect: '/users_and_rights/users_administration',
-      failureRedirect: '/users_and_rights/users_administration',
-    })
+    usersAndRightsController.updateUsers()
   );
 
   app.post('/api/logged-in/admin/users/delete',
-    usersAndRightsController.deleteUsers({
-      successRedirect: '/users_and_rights/users_administration',
-      failureRedirect: '/users_and_rights/users_administration',
-    })
+    usersAndRightsController.deleteUsers()
   );
 
   app.post('/api/logged-in/admin/groups/create',
-    usersAndRightsController.createGroups({
-      successRedirect: '/users_and_rights/groups_administration',
-      failureRedirect: '/users_and_rights/groups_administration',
-    })
+    usersAndRightsController.createGroups()
   );
 
   app.post('/api/logged-in/admin/groups/update',
-    usersAndRightsController.updateGroups({
-      successRedirect: '/users_and_rights/groups_administration',
-      failureRedirect: '/users_and_rights/groups_administration',
-    })
+    usersAndRightsController.updateGroups()
   );
 
   app.post('/api/logged-in/admin/groups/delete',
-    usersAndRightsController.deleteGroups({
-      successRedirect: '/users_and_rights/groups_administration',
-      failureRedirect: '/users_and_rights/groups_administration',
-    })
+    usersAndRightsController.deleteGroups()
   );
 
   app.post('/api/logged-in/admin/groups/add_users',
-    usersAndRightsController.addUsersToGroup({
-      successRedirect: '/users_and_rights/groups_administration',
-      failureRedirect: '/users_and_rights/groups_administration',
-    })
+    usersAndRightsController.addUsersToGroup()
   );
 };

@@ -49,38 +49,38 @@ module.exports.updateUserProfile = function () {
 // Users/Groups administration
 //
 
-module.exports.retrieveAllUsers = function (req, res) {
-  return usersManager.retrieveAllUsers(req, res);
+module.exports.retrieveAllUsers = function () {
+  return usersManager.retrieveAllUsers();
 };
 
-module.exports.retrieveAllGroups = function (req, res) {
-  return groupsManager.retrieveAllGroups(req, res);
+module.exports.retrieveAllGroups = function () {
+  return groupsManager.retrieveAllGroups();
 };
 
-module.exports.createUsers = function (param) {
-  return usersManager.createUsers(param);
+module.exports.createUsers = function () {
+  return usersManager.createUsers();
 };
 
-module.exports.updateUsers = function (param) {
-  return usersManager.updateUsers(param);
+module.exports.updateUsers = function () {
+  return usersManager.updateUsers();
 };
 
-module.exports.deleteUsers = function (param) {
-  return usersManager.deleteUsers(param);
+module.exports.deleteUsers = function () {
+  return usersManager.deleteUsers();
 };
 
-module.exports.createGroups = function (param) {
-  return groupsManager.createGroups(param);
+module.exports.createGroups = function () {
+  return groupsManager.createGroups();
 };
 
-module.exports.updateGroups = function (param) {
-  return groupsManager.updateGroups(param);
+module.exports.updateGroups = function () {
+  return groupsManager.updateGroups();
 };
 
-module.exports.deleteGroups = function (param) {
-  return groupsManager.deleteGroups(param);
+module.exports.deleteGroups = function () {
+  return groupsManager.deleteGroups();
 };
 
-module.exports.addUsersToGroup = function (param) {
-  return groupsManager.addUsersToGroup(param);
+module.exports.addUsersToGroup = function () {
+  return groupsManager.addUsersToGroup();
 };

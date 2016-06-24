@@ -26,8 +26,8 @@ describe('retrieveAllUsers', function () {
     expect(users).not.toBeNull();
   });
 
-  it('should return a promise', function () {
-    expect(typeof users.then === 'function').toBeTruthy();
+  it('should return a function', function () {
+    expect(typeof users === 'function').toBeTruthy();
   });
 
   it('should have called retrieveAllUsers once', function () {
@@ -91,14 +91,8 @@ describe('retrieveAllGroups', function () {
     expect(groups).not.toBeNull();
   });
 
-  it('should return a promise', function () {
-    expect(typeof groups.then === 'function').toBeTruthy();
-  });
-
-  it('should have called retrieveAllGroups once', function () {
-    spyOn(groupsManager, 'retrieveAllGroups');
-    usersController.retrieveAllGroups(req, res);
-    expect(groupsManager.retrieveAllGroups).toHaveBeenCalledTimes(1);
+  it('should return a function', function () {
+    expect(typeof groups === 'function').toBeTruthy();
   });
 });
 

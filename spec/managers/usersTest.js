@@ -38,14 +38,8 @@ describe('retrieveAllUsers', function () {
     expect(users).not.toBeNull();
   });
 
-  it('should return a promise', function () {
-    expect(typeof users.then === 'function').toBeTruthy();
-  });
-
-  it('should have called findAll once', function () {
-    spyOn(usersAdapter, 'findAll');
-    usersManager.retrieveAllUsers(req, res);
-    expect(usersAdapter.findAll).toHaveBeenCalledTimes(1);
+  it('should return a function', function () {
+    expect(typeof users === 'function').toBeTruthy();
   });
 });
 
