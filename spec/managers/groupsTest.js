@@ -10,14 +10,8 @@ describe('retrieveAllGroups', function () {
     expect(groups).not.toBeNull();
   });
 
-  it('should return a promise', function () {
-    expect(typeof groups.then === 'function').toBeTruthy();
-  });
-
-  it('should have called findAll once', function () {
-    spyOn(groupsAdapter, 'findAll');
-    groupsManager.retrieveAllGroups(req, res);
-    expect(groupsAdapter.findAll).toHaveBeenCalledTimes(1);
+  it('should return a function', function () {
+    expect(typeof groups === 'function').toBeTruthy();
   });
 });
 
