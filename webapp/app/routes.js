@@ -23,18 +23,38 @@ export default function createRoutes() {
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           // System.import('components/HomePage'),
-          System.import('containers/EditProfile'),
+          // System.import('components/Login'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([component]) => {
+          importModules.then(([component]) => {
           renderRoute(component);
         });
 
         importModules.catch(errorLoading);
       },
-    }, /* {
+    }, {
+      path: '/login',
+      name: 'login',
+      getComponent(nextState, cb) {
+        System.import('containers/Login')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      }
+    },/* {
+      path: 'forgotten-password',
+      name: 'forgotten password',
+      System.import('containers/Save')
+      .then(loadModule(cb))
+      .catch(errorLoading);
+    }, {
+      path: 'edit-profile',
+      name: 'edit profile',
+      System.import('containers/Save')
+      .then(loadModule(cb))
+      .catch(errorLoading);
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
