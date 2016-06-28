@@ -59,57 +59,65 @@ $ npm install
 #### Configure the server
 ##### Copy the default configuration files
 ```
-$ ls config/
 $ for f in config/*config.json.example; do cp "$f" "`echo $f | sed s/json.example/json/`"; done;
-$ ls config/
 ```
 
 ##### Configure server base
 Configuration file: `config/base.config.json`
-* In the config file, update the server `port` if needed
-* In your SQL database, create a new database
-* In your SQL database, create a new user if needed
-* In the config file, update the `database` field with the name of the wanted database
-* In the config file, update the database `username` and its `password`
-* In the config file, update the sql server `host` address if needed
-* In the config file, update the SQL `dialect` used
-  * For a mariadb database, fill with `mysql`
-  * For a MySQL database, fill with `mysql`
-  * For a sqlite database, fill with `sqlite`
-  * For a PostgreSQL database, fill with `postgres`
-  * For a MSSQL database, fill with `mssql`
-* Install your database driver
-  * For a mariadb database, `npm install --save mysql`
-  * For a MySQL database, `npm install --save mysql`
-  * For a sqlite database, `npm install --save sqlite3`
-  * For a PostgreSQL database, `npm install --save pg pg-hstore`
-  * For a MSSQL database, `npm install --save tedious`
-* Update the `secret` value with a secret key >= 8 characters
-* Update the `salt` value with a different secret key >= 8 characters
+* In the config file, update the server `port` (if needed)
+* In your SQL database, create:
+  * A new database
+  * A new user
+* In the config file, update:
+  * The `database` field with the name of the wanted database
+  * The database `username` and its `password`
+  * The SQL server `host` address (if needed)
+  * The SQL `dialect` used (using the following sheet)
+
+| __Database__ | mariadb | MySQL   | sqlite   | PostgreSQL | MSSQL   |
+|--------------|---------|---------|----------|------------|---------|
+| __dialect__  | `mysql` | `mysql` | `sqlite` | `postgres` | `mssql` |
+
+* In the config file, install:
+  * Your database driver (using the following sheet)
+
+| __Database__ | __Installation command__          |
+|--------------|-----------------------------------|
+| mariadb      | `npm install --save mysql`        |
+| MySQL        | `npm install --save mysql`        |
+| sqlite       | `npm install --save sqlite3`      |
+| PostgreSQL   | `npm install --save pg pg-hstore` |
+| MSSQL        | `npm install --save tedious`      |
+
+* In the config file, update:
+  * The `secret` value with a secret key >= 8 characters
+  * The `salt` value with a different secret key >= 8 characters
 
 ##### Configure MongoDB
 Configuration file: `config/mongoose.config.json`
-* In the config file, update the server `port` if needed
-* In your MongoDB database, create a new database
-* In your MongoDB database, create a new user if needed
-* In the config file, update the `database` field with the name of the wanted database
-* In the config file, update the database `username` and its `password`
-* In the config file, update the server `host` address if needed
+* In the config file, update the server `port` (if needed)
+* In your MongoDB database, create:
+  * A new database
+  * A new user
+* In the config file, update:
+  * The `database` field with the name of the wanted database
+  * The database `username` and its `password`
+  * The server `host` address (if needed)
 
 ##### Configure git server
 Configuration file: `config/git.config.json`
-* Update the git server `baseDir` (base directory) if needed
+* Update the git server `baseDir` base directory (recommended)
 * Check the directory permissions to be sure that the server will be able to read/write in this folder
 
 ##### Configure mail server
 Configuration file: `config/mail.config.json`
-* Update the mail server `host` address
-* Update the mail server `port` if needed
-* Update the `secure` field to `false` if your mail server is not able to use SSL/TLS (not recommended)
-* Update the mail user authenfication fields `user` and `pass`
+* Update:
+  * The mail server `host` address
+  * The mail server `port` if needed
+  * The `secure` field to `false` if your mail server is not able to use SSL/TLS (not recommended)
+  * The mail user authenfication fields `user` and `pass`
 
-*"I don't have a mail server! What should I do?"*  
-You should be able to setup and use a gmail account as a mail server. You can find the setup and use instructions here http://nodemailer.com/using-gmail/ .
+*"I don't have a mail server! What should I do?"* You should be able to setup and use a gmail account as a mail server. You can find the setup and use instructions here http://nodemailer.com/using-gmail/
 
 ### Run
 #### Launch the server
