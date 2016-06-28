@@ -33,7 +33,7 @@ This project fits into the ["Epitech Innovative Project"](http://www.epitech.eu/
 * __git__ must be available through the command line
 
 ## Usage
-### Installation (development version)
+### Installation (from source)
 #### Clone this repository
 ```
 $ git clone https://github.com/EIP-SAM/SAM-Solution-Server.git
@@ -65,28 +65,63 @@ $ ls config/
 ```
 
 ##### Configure server base
-*Base server configuration (in construction)*
+Configuration file: `config/base.config.json`
+* In the config file, update the server `port` if needed
+* In your SQL database, create a new database
+* In your SQL database, create a new user if needed
+* In the config file, update the `database` field with the name of the wanted database
+* In the config file, update the database `username` and its `password`
+* In the config file, update the sql server `host` address if needed
+* In the config file, update the SQL `dialect` used
+  * For a mariadb database, fill with `mysql`
+  * For a MySQL database, fill with `mysql`
+  * For a sqlite database, fill with `sqlite`
+  * For a PostgreSQL database, fill with `postgres`
+  * For a MSSQL database, fill with `mssql`
+* Install your database driver
+  * For a mariadb database, `npm install --save mysql`
+  * For a MySQL database, `npm install --save mysql`
+  * For a sqlite database, `npm install --save sqlite3`
+  * For a PostgreSQL database, `npm install --save pg pg-hstore`
+  * For a MSSQL database, `npm install --save tedious`
+* Update the `secret` value with a secret key >= 8 characters
+* Update the `salt` value with a different secret key >= 8 characters
 
 ##### Configure MongoDB
-*MongoDB configuration (in construction)*
+Configuration file: `config/mongoose.config.json`
+* In the config file, update the server `port` if needed
+* In your MongoDB database, create a new database
+* In your MongoDB database, create a new user if needed
+* In the config file, update the `database` field with the name of the wanted database
+* In the config file, update the database `username` and its `password`
+* In the config file, update the server `host` address if needed
 
 ##### Configure git server
-*Git server configuration (in construction)*
+Configuration file: `config/git.config.json`
+* Update the git server `baseDir` (base directory) if needed
+* Check the directory permissions to be sure that the server will be able to read/write in this folder
 
 ##### Configure mail server
-*Mail server configuration (in construction)*
+Configuration file: `config/mail.config.json`
+* Update the mail server `host` address
+* Update the mail server `port` if needed
+* Update the `secure` field to `false` if your mail server is not able to use SSL/TLS (not recommended)
+* Update the mail user authenfication fields `user` and `pass`
+
+*"I don't have a mail server! What should I do?"*  
+You should be able to setup and use a gmail account as a mail server. You can find the setup and use instructions here http://nodemailer.com/using-gmail/ .
 
 ### Run
 #### Launch the server
 ```
-$ npm run
+$ npm start
 ```
 
 #### Access the web interface
 Check that the web interface is successfully running. For that go with your favorite web browser at the address the server is listening on. For example `http://localhost:8080`, depending of the configuration you previously set.
 
 #### Install the client service
-*Client service installation (in construction)*
+Please refer to the README instructions inside [SAM-Solution-Daemon-Client](https://github.com/EIP-SAM/SAM-Solution-Daemon-Client) repository.
 
 ## Contribution
 ### Code
