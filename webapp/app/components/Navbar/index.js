@@ -23,7 +23,7 @@ export default class NavbarContainer extends React.Component {
           <Nav className={styles.menu}>
             <NavItem eventKey={1} href="#" className={styles.menuItem}>Users</NavItem>
             <NavItem eventKey={2} href="/save" className={styles.menuItem}>Save</NavItem>
-            <NavItem eventKey={3} href="#" className={styles.menuItem}>Restore</NavItem>
+            <NavItem eventKey={3} href="/restore" className={styles.menuItem}>Restore</NavItem>
             <NavItem eventKey={4} href="#" className={styles.menuItem}>Logs</NavItem>
             <NavItem eventKey={5} href="#" className={styles.menuItem}>Statistics</NavItem>
           </Nav>
