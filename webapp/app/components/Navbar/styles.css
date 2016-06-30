@@ -3,10 +3,6 @@
   height: auto;
 }
 
-button {
-  margin-top: 20px!important;
-}
-
 li > a {
   background-color: transparent!important;
   background-image: none!important;
