@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>SAM Solution | Login/Sign-up</title>
+  </head>
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script>
+      const rawUpdateUsersRequest = { users: [
+        { id: 2, password: "newPassword", groups: ["user_default", "new_group_on_the_fly"] },
+        { id: 21, name: "boba fett" },
+      ]};
+      const rawCreateUsersRequest = { users: [
+        { name: "hubert", email: "hubert.bonisseur.de.la.bath@oss.com", password: "hello42", confirmation: "hello42", groups: ["user_default", "new_group_on_the_fly_2"] },
+        { name: "deray_o", email: "odile.deray@null.fr", password: "hello42", confirmation: "hello42" },
+        { name: "foo", email: "new.foo@gmail.com", password: "hello42", confirmation: "hello42", groups: ["user_default"] },
+      ]};
+      const rawDeleteUsersRequest = { users: [11, 12] };
+
+      const rawUpdateGroupsRequest = { groups: [
+        { id: 3, name: "ghettoDevelopers", saveAndRestoreMode: 2, migrationMode: 2, softwarePackagesMode: 2 },
+        { id: 4, name: "newbies", softwarePackagesMode: 1 },
+      ]};
+      const rawCreateGroupsRequest = { groups: [
+        { name: "developers", saveAndRestoreMode: 1, migrationMode: 2, softwarePackagesMode: 2 },
+        { name: "noobs", saveAndRestoreMode: 1, migrationMode: 1, softwarePackagesMode: 2 },
+      ]};
+      const rawDeleteGroupsRequest = { groups: [3, 4, 5, 6, 7, 8, 9, 10, 42] };
+      const rawAddUsersToGroupRequest = { group: 7, users: [2, 3, 13, 42] };
+
+      function success(data) {
+        console.log(data);
+      }
+      function post(route, object) {
+        var ret = $.post(route, object, success, "json").fail(function() {
+          alert("Error");
+        });
+      }
+
+      function injectUpdateUsers() { post("/api/logged-in/admin/users/update", rawUpdateUsersRequest); };
+      function injectCreateUsers() { post("/api/logged-in/admin/users/create", rawCreateUsersRequest); };
+      function injectDeleteUsers() { post("/api/logged-in/admin/users/delete", rawDeleteUsersRequest); };
+
+      function injectUpdateGroups() { post("/api/logged-in/admin/groups/update", rawUpdateGroupsRequest); };
+      function injectCreateGroups() { post("/api/logged-in/admin/groups/create", rawCreateGroupsRequest); };
+      function injectDeleteGroups() { post("/api/logged-in/admin/groups/delete", rawDeleteGroupsRequest); };
+      function injectAddUsersToGroup() { post("/api/logged-in/admin/groups/add_users", rawAddUsersToGroupRequest); };
+    </script>
+
+    <h1>Already have an account?</h1>
+    Log into the system by filling the following form:
+    <form action="/api/public/user/login" method="post">
+      <div>
+	<label>Username :</label>
+	<input type="text" name="username" />
+      </div>
+      <div>
+	<label>Password :</label>
+	<input type="password" name="password" />
+      </div>
+      <div>
+	<button type="submit">Login</button>
+      </div>
+    </form>
+    <h1>Nope? Do you want to create one?</h1>
+    Create an account in our system by filling the following form:
+    <form action="/api/public/user/sign-up" method="post">
+      <div>
+	<label>Username :</label>
+	<input type="text" name="username" />
+      </div>
+      <div>
+	<label>Email :</label>
+	<input type="email" name="email" />
+      </div>
+      <div>
+	<label>Password :</label>
+	<input type="password" name="password" />
+      </div>
+      <div>
+	<label>Confirmation :</label>
+	<input type="password" name="confirmation" />
+      </div>
+      <div>
+	<button type="submit">Sign-up</button>
+      </div>
+    </form>
+    <h1>Forgotten password?</h1>
+    This will generate a new password and send it to your email address:
+    <form action="/api/public/user/recover_password" method="post">
+      <div>
+	<label>Email :</label>
+	<input type="email" name="email" />
+      </div>
+      <div>
+	<button type="submit">Send a new password</button>
+      </div>
+    </form>
+
+    <h1>Logged in!</h1>
+
+    <form action="/api/logged-in/user/logout" method="post">
+      <div>
+	<button type="submit">Logout</button>
+      </div>
+    </form>
+
+    <h2>Update profile</h2>
+    <form action="/api/logged-in/user/profile/update" method="post">
+      <div>
+	<label>Username :</label>
+	<input type="text" name="username" placeholder="<%= user.name %>" />
+      </div>
+      <div>
+	<label>Email :</label>
+	<input type="email" name="email" placeholder="<%= user.email %>" />
+      </div>
+      <div>
+	<label>Old password :</label>
+	<input type="password" name="oldPassword" placeholder="●●●●●●●●" />
+      </div>
+      <div>
+	<label>New password :</label>
+	<input type="password" name="password" placeholder="●●●●●●●●" />
+      </div>
+      <div>
+	<label>Confirmation :</label>
+	<input type="password" name="confirmation" placeholder="●●●●●●●●" />
+      </div>
+      <div>
+	<button type="submit">Update your profile</button>
+      </div>
+    </form>
+
+  <h1>Admin</h1>
+    <p>Get all <a href="/api/logged-in/admin/users">users</a></p>
+    <p>Get all <a href="/api/logged-in/admin/groups">groups</a></p>
+
+    <h3>Create users</h3>
+    <div>
+      <button onClick="injectCreateUsers()">POST create_users</button>
+    </div>
+    <h3>Update users</h3>
+    <div>
+      <button onClick="injectUpdateUsers()">POST update_users</button>
+    </div>
+    <h3>Delete users</h3>
+    <div>
+      <button onClick="injectDeleteUsers()">POST delete_users</button>
+    </div>
+
+    <h3>Create groups</h3>
+    <div>
+      <button onClick="injectCreateGroups()">POST create_groups</button>
+    </div>
+    <h3>Update groups</h3>
+    <div>
+      <button onClick="injectUpdateGroups()">POST update_groups</button>
+    </div>
+    <h3>Delete groups</h3>
+    <div>
+      <button onClick="injectDeleteGroups()">POST delete_groups</button>
+    </div>
+    <h3>Add users to group</h3>
+    <div>
+      <button onClick="injectAddUsersToGroup()">POST add_users_to_group</button>
+    </div>
+
+  </body>
+</html>
