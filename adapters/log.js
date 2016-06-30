@@ -20,8 +20,16 @@ module.exports.createChild = function (header) {
 // It is a method that will allow you to get logs from several criteria
 // instead of using several method to get all the critetia you need.
 //
-module.exports.getLogsWithMultipleCriteria = function (criteria) {
+module.exports.getLogsWithMultipleCriteria = function (queryCriteria) {
   return new Promise(function (fulfill) {
+
+    var criteria = queryCriteria;
+
+    if (typeof criteria === 'string') {
+      criteria = JSON.parse(queryCriteria);
+    } else {
+      criteria = queryCriteria;
+    }
 
     var findOpts = {};
 
@@ -39,10 +47,12 @@ module.exports.getLogsWithMultipleCriteria = function (criteria) {
       }
 
       if (criteria.findOpts.levelAbove !== undefined) {
+        findOpts.level = findOpts.level || {};
         findOpts.level.$gte = criteria.findOpts.levelAbove;
       }
 
       if (criteria.findOpts.levelBelow !== undefined) {
+        findOpts.level = findOpts.level || {};
         findOpts.level.$lte = criteria.findOpts.levelBelow;
       }
 
@@ -56,10 +66,12 @@ module.exports.getLogsWithMultipleCriteria = function (criteria) {
       }
 
       if (criteria.findOpts.afterDate !== undefined) {
+        findOpts.time = findOpts.time || {};
         findOpts.time.$gte = moment.getMomentToDate(criteria.findOpts.afterDate);
       }
 
       if (criteria.findOpts.beforeDate !== undefined) {
+        findOpts.time = findOpts.time || {};
         findOpts.time.$lte = moment.getMomentToDate(criteria.findOpts.beforeDate);
       }
     }
