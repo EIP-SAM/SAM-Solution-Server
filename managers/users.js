@@ -27,7 +27,7 @@ function initAdminUser() {
   return UsersAdapter.findByName('admin')
   .then(function (user) {
     if (!user) {
-      UsersAdapter.createUser('admin', 'admin@example.com', crypto.createHmac('sha256', salt).update('admin').digest('hex'))
+      UsersAdapter.createAdminUser('admin', 'admin@example.com', crypto.createHmac('sha256', salt).update('admin').digest('hex'))
       .then(function (user) {
         GroupsAdapter.findByName('admin_default')
         .then(function (group) {

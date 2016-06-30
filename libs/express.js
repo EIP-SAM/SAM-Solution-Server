@@ -5,7 +5,6 @@ module.exports = function initExpress(conf) {
   var flash = require('connect-flash');
   var cors = require('cors');
 
-
   // init express
   var app = express();
 
