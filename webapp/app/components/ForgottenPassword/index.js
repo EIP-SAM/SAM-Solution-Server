@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { FormGroup, FormControl, ControlLabel, PageHeader } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button'
+import { LinkContainerButton } from 'components/Button';
 import styles from './styles.css';
 
 export class ForgottenPassword extends React.Component {

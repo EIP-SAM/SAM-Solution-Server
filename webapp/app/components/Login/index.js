@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { FormGroup, FormControl, ControlLabel, Image } from 'react-bootstrap';
-import { LinkContainerButton } from '../Button'
+import { LinkContainerButton } from '../Button';
 import Logo from '../App/logo_sam_solution.png';
 import styles from './styles.css';
 
