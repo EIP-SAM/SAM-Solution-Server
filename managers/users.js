@@ -221,6 +221,7 @@ function constructUserProfile(user) {
     const userProfile = {
       name: user.name,
       email: user.email,
+      isAdmin: user.isAdmin,
       saveAndRestoreMode: rightsManager.getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user),
       migrationMode: rightsManager.getModuleRightForUser(enumModules.MIGRATION, user),
       softwarePackagesMode: rightsManager.getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user),
