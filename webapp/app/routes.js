@@ -42,16 +42,18 @@ export default function createRoutes() {
         .then(loadModule(cb))
         .catch(errorLoading);
       }
-    },/* {
-      path: 'forgotten-password',
-      name: 'forgotten password',
-      System.import('containers/Save')
-      .then(loadModule(cb))
-      .catch(errorLoading);
     }, {
+      path: '/forgotten-password',
+      name: 'forgotten password',
+      getComponent(nextState, cb) {
+        System.import('containers/ForgottenPassword')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      }
+    }, /* {
       path: 'edit-profile',
       name: 'edit profile',
-      System.import('containers/Save')
+      System.import('containers/')
       .then(loadModule(cb))
       .catch(errorLoading);
     }, {
