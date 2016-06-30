@@ -14,6 +14,7 @@ import request from 'superagent';
 import {
   GET_ALL_LOGS,
   GET_LIMIT_LOGS,
+  GET_FILTERED_LOGS,
   CLEAR_LOGS,
 } from './constants';
 
@@ -48,13 +49,28 @@ export function getAllLogsRequest() {
 export function getLimitLogsRequest() {
   return function startAction(dispatch) {
     return request
-      .post('http://localhost:8080/log/limited')
-      .send('limit=5')
+      .get('http://localhost:8080/log/limited')
+      .query({ limit: 5 })
       .end((err, res) => {
         if (err || res.body.error) {
           console.log('Error occured');
         } else {
           dispatch(getLogs(GET_LIMIT_LOGS, res.body));
+        }
+      });
+  };
+}
+
+export function getFilteredLogs(filters) {
+  return function startAction(dispatch) {
+    return request
+      .get('http://localhost:8080/log/multiple_criteria')
+      .query({ criteria: filters })
+      .end((err, res) => {
+        if (err || res.body.error) {
+          console.log('Error occured');
+        } else {
+          dispatch(getLogs(GET_FILTERED_LOGS, res.body));
         }
       });
   };
