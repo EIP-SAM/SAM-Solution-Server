@@ -7,6 +7,7 @@ import { combineReducers } from 'redux-immutable';
 import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import loginReducer from 'containers/Login/reducers';
+import forgottenPasswordReducer from 'containers/ForgottenPassword/reducers'
 /*
  * routeReducer
  *
@@ -42,6 +43,7 @@ export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
     login: loginReducer,
+    forgottenPassword: forgottenPasswordReducer,
     ...asyncReducers,
   });
 }

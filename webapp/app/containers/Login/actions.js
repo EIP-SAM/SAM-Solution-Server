@@ -10,6 +10,7 @@
 //
 
 const request = require('superagent');
+//import { push } from 'redux-router-redux';
 
 import {
   LOGIN,
@@ -40,6 +41,8 @@ export function loginRequest(username, password) {
       .end((err, res) => {
         console.log(res.body);
         dispatch(login(res.body));
+//        console.log("TTTTTT");
+        //dispatch(push('/forgotten-password'));
       });
   };
 }
