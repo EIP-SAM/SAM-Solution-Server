@@ -2,9 +2,8 @@ module.exports = function initExpress(conf) {
   var express = require('express');
   var cookieParser = require('cookie-parser');
   var bodyParser = require('body-parser');
-  var flash = require('connect-flash');var cors = require('cors');
+  var flash = require('connect-flash');
   var cors = require('cors');
-
 
   // init express
   var app = express();
