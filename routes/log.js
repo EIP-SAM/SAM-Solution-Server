@@ -15,7 +15,7 @@ module.exports = function initLogRoutes(app) {
   //
   app.get('/log/multiple_criteria', function (req, res) {
 
-    var criteria = JSON.parse(req.query.criteria);
+    var criteria = req.query.criteria;
 
     var promise = logManager.getLogsWithMultipleCriteria(criteria);
 

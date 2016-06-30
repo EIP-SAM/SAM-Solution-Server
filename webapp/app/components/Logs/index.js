@@ -16,6 +16,7 @@ export class Log extends React.Component {
         <LogFilter
           getAllLogs={this.props.getAllLogsRequest}
           getLimitLogs={this.props.getLimitLogsRequest}
+          getFilteredLogs={this.props.getFilteredLogs}
           clearLogs={this.props.clearLogs}
         />
         <LogResult logs={this.props.logs.logs} />
@@ -28,5 +29,6 @@ Log.propTypes = {
   logs: React.PropTypes.object.isRequired,
   getAllLogsRequest: React.PropTypes.func.isRequired,
   getLimitLogsRequest: React.PropTypes.func.isRequired,
+  getFilteredLogs: React.PropTypes.func.isRequired,
   clearLogs: React.PropTypes.func.isRequired,
 };
