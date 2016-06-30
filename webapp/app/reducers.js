@@ -8,6 +8,8 @@ import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import SaveReducer from 'containers/Save/reducers';
 import SaveHistoryReducer from 'containers/SaveHistory/reducers';
+import RestoreReducer from 'containers/Restore/reducers';
+import RestoreHistoryReducer from 'containers/RestoreHistory/reducers';
 
 /*
  * routeReducer
@@ -45,6 +47,8 @@ export default function createReducer(asyncReducers) {
     route: routeReducer,
     save: SaveReducer,
     saveHistory: SaveHistoryReducer,
+    restore: RestoreReducer,
+    restoreHistory: RestoreHistoryReducer,
     ...asyncReducers,
   });
 }

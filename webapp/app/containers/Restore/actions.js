@@ -12,24 +12,22 @@
 const request = require('superagent');
 
 import {
-  GET_SAVES,
+  GET_RESTORES,
 } from './constants';
 
-export function getSaves(saves) {
+export function getRestores(restores) {
   return {
-    type: GET_SAVES,
-    saves,
+    type: GET_RESTORES,
+    restores,
   };
 }
 
-export function getSavesRequest() {
-  return function returnGetSavesRequest(dispatch) {
+export function getRestoresRequest() {
+  return function returnGetRestoresRequest(dispatch) {
     return request
-    .post('http://localhost:8080/historySave')
-    .type('form')
-    .send({ username })
-    .end((err, res) => {
-      dispatch(getHistorySavesByUser(res.body));
+      .get('http://localhost:8080/restore')
+      .end((err, res) => {
+        dispatch(getRestores(res.body));
       });
   };
 }

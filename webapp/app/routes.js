@@ -57,7 +57,23 @@ export default function createRoutes() {
           .then(loadModule(cb))
           .catch(errorLoading);
       },
+    }, {
+     path: '/restore',
+     name: 'restore',
+     getComponent(nextState, cb) {
+       System.import('containers/Restore')
+         .then(loadModule(cb))
+         .catch(errorLoading);
+     },
+   }, {
+    path: '/restore/:username',
+    name: 'history restore',
+    getComponent(nextState, cb) {
+      System.import('containers/RestoreHistory')
+        .then(loadModule(cb))
+        .catch(errorLoading);
     },
+  },
      /* {
       path: '*',
       name: 'notfound',
@@ -66,6 +82,6 @@ export default function createRoutes() {
           .then(loadModule(cb))
           .catch(errorLoading);
       },
-    },*/
+    }, */
   ];
 }
