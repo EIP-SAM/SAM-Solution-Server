@@ -3,7 +3,14 @@
 //
 
 import React from 'react';
-import { Panel, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
+import {
+  Panel,
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  Button,
+  ButtonToolbar,
+} from 'react-bootstrap';
 
 /* eslint-disable react/prefer-stateless-function */
 export class LogFilter extends React.Component {
@@ -14,6 +21,7 @@ export class LogFilter extends React.Component {
         findOpts: {
           levelAbove: 10,
         },
+        limit: undefined,
       },
     };
   }
@@ -25,16 +33,22 @@ export class LogFilter extends React.Component {
   handleChange(name) {
     return event => {
       const newFilters = this.state.filters;
-      if (name === 'levelAbove') {
-        newFilters.findOpts.levelAbove = event.target.value;
-        this.setState({ filters: newFilters });
+      switch (name) {
+        case 'levelAbove':
+          newFilters.findOpts.levelAbove = event.target.value;
+          break;
+        case 'limit':
+          newFilters.limit = event.target.value;
+          break;
+        default:
       }
+      this.setState({ filters: newFilters });
     };
   }
 
   render() {
     return (
-      <Panel header={<h3>Filters</h3>} bsStyle="primary">
+      <Panel collapsible header={<h3>[+] Filters</h3>} bsStyle="primary">
         <FormGroup controlId="levelAboveLogsSelect">
           <ControlLabel>Level min:</ControlLabel>
           <FormControl componentClass="select" onChange={this.handleChange('levelAbove')} placeholder="all">
@@ -46,7 +60,20 @@ export class LogFilter extends React.Component {
             <option value="60">fatal</option>
           </FormControl>
         </FormGroup>
-        <Button bsStyle="primary" onClick={() => this.getLogs()}>Get Logs</Button>
+        <FormGroup controlId="limitLogsSelect">
+          <ControlLabel>Number of logs:</ControlLabel>
+          <FormControl componentClass="select" onChange={this.handleChange('limit')} placeholder="all">
+            <option value="all">all</option>
+            <option value="10">10</option>
+            <option value="100">100</option>
+            <option value="1000">1000</option>
+            <option value="10000">10000</option>
+          </FormControl>
+        </FormGroup>
+        <ButtonToolbar>
+          <Button bsStyle="primary" onClick={() => this.getLogs()}>Get Logs</Button>
+          <Button bsStyle="success" onClick={this.props.clearLogs}>Clear</Button>
+        </ButtonToolbar>
       </Panel>
     );
   }
