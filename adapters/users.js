@@ -5,7 +5,7 @@ require('../models/usersGroupsRelations');
 
 module.exports.findAll = function () {
   return UsersModel.findAll({
-    attributes: ['id', 'name', 'email'],
+    attributes: ['id', 'name', 'email', 'isAdmin'],
     include: [{
         model: GroupsModel,
         where: { userId: Sequelize.col('users.id') },
@@ -45,6 +45,10 @@ module.exports.findByEmail = function (email) {
       },
     ],
   });
+};
+
+module.exports.createAdminUser = function (name, email, password) {
+  return UsersModel.create({ name: name, email: email, password: password, isAdmin: true });
 };
 
 module.exports.createUser = function (name, email, password) {
