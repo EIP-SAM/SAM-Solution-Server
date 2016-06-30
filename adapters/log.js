@@ -39,15 +39,11 @@ module.exports.getLogsWithMultipleCriteria = function (criteria) {
       }
 
       if (criteria.findOpts.levelAbove !== undefined) {
-        findOpts.level = {
-          $gte: criteria.findOpts.levelAbove,
-        };
+        findOpts.level.$gte = criteria.findOpts.levelAbove;
       }
 
       if (criteria.findOpts.levelBelow !== undefined) {
-        findOpts.level = {
-          $lt: criteria.findOpts.levelBelow,
-        };
+        findOpts.level.$lte = criteria.findOpts.levelBelow;
       }
 
       if (criteria.findOpts.day !== undefined) {
@@ -60,15 +56,11 @@ module.exports.getLogsWithMultipleCriteria = function (criteria) {
       }
 
       if (criteria.findOpts.afterDate !== undefined) {
-        findOpts.time = {
-          $gte: moment.getMomentToDate(criteria.findOpts.afterDate),
-        };
+        findOpts.time.$gte = moment.getMomentToDate(criteria.findOpts.afterDate);
       }
 
       if (criteria.findOpts.beforeDate !== undefined) {
-        findOpts.time = {
-          $lte: moment.getMomentToDate(criteria.findOpts.beforeDate),
-        };
+        findOpts.time.$lte = moment.getMomentToDate(criteria.findOpts.beforeDate);
       }
     }
 
