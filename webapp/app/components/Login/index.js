@@ -1,12 +1,12 @@
 //
-// Login
+// Component Login
 //
 
 import React from 'react';
 import { FormGroup, FormControl, ControlLabel, Image } from 'react-bootstrap';
 import { LinkContainerButton } from '../Button'
 import Logo from '../App/logo_sam_solution.png';
-import styles from 'components/Login/styles.css';
+import styles from './styles.css';
 
 export class Login extends React.Component {
   constructor(props) {
@@ -24,8 +24,7 @@ export class Login extends React.Component {
     this.props.onChangeData(this.props.state.username, event.target.value);
   }
 
-  handleClick(e) {
-    e.preventDefault();
+  handleClick(event) {
     this.props.loginRequest(this.props.state.username, this.props.state.password);
   }
 
