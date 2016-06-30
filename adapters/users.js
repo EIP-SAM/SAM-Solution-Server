@@ -52,5 +52,5 @@ module.exports.createAdminUser = function (name, email, password) {
 };
 
 module.exports.createUser = function (name, email, password) {
-  return UsersModel.create({ name: name, email: email, password: password });
+  return UsersModel.create({ name: name, email: email, password: password, isAdmin: false });
 };
