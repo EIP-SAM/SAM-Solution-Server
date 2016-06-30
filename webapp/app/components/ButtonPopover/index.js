@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { Glyphicon, Button, OverlayTrigger, Popover } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -22,15 +23,12 @@ export class ButtonPopover extends React.Component {
           </Popover>
         }
       >
-        <Button
-          className={buttonStyle}
-          bsStyle={this.props.buttonType}
-          href={this.props.link}
-          onClick={this.props.onClick}
-        >
-          <Glyphicon glyph={this.props.icon} />
-          {this.props.buttonText}
-        </Button>
+        <LinkContainer to={{ pathname: this.props.link }}>
+          <Button className={buttonStyle} bsStyle={this.props.buttonType} onClick={this.props.onClick}>
+            <Glyphicon glyph={this.props.icon} />
+            {this.props.buttonText}
+          </Button>
+        </LinkContainer>
       </OverlayTrigger>
     );
   }
