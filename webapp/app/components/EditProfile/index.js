@@ -3,37 +3,11 @@
 //
 
 import React from 'react';
-import { FormGroup, FormControl, Button, ControlLabel, PageHeader } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, PageHeader } from 'react-bootstrap';
+import { LinkContainerButton } from '../Button';
 import styles from 'components/EditProfile/styles.css';
 
 export default class LoginContainer extends React.Component {
-  getInitialState() {
-    return { oldPassword: '', password: '', passwordConfirm: '' };
-  }
-
-  handleOldPasswordChange(e) {
-    this.setState({ oldPassword: e.target.value });
-  }
-
-  handlePasswordChange(e) {
-    this.setState({ password: e.target.value });
-  }
-
-  handlePasswordConfirmChange(e) {
-    this.setState({ passwordConfirm: e.target.value });
-  }
-
-  handleSubmit(e) {
-    const oldPassword = this.state.oldPassword;
-    const password = this.state.password;
-    const passwordConfirm = this.state.passwordConfirm;
-    e.preventDefault();
-    if (!oldPassword || !password || !passwordConfirm) {
-      return;
-    }
-    // call function to edit profile
-    this.setState({ oldPassword: '', password: '', passwordConfirm: '' });
-  }
 
   render() {
     return (
@@ -51,7 +25,7 @@ export default class LoginContainer extends React.Component {
             <FormControl type="password" placeholder="Enter text" />
             <ControlLabel>New password confirmation</ControlLabel>
             <FormControl type="password" placeholder="Enter text" />
-            <Button type="submit">Submit</Button>
+            <LinkContainerButton buttonType='default' buttonText='Submit' onClick={this.handleClick} />
           </FormGroup>
         </form>
       </div>

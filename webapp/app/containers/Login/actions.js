@@ -43,6 +43,6 @@ export function loginRequest(username, password) {
         dispatch(login(res.body));
 //        console.log("TTTTTT");
         //dispatch(push('/forgotten-password'));
-      });
+    });
   };
 }

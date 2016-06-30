@@ -50,6 +50,14 @@ export default function createRoutes() {
         .then(loadModule(cb))
         .catch(errorLoading);
       }
+    }, {
+      path: '/register',
+      name: 'register',
+      getComponent(nextState, cb) {
+        System.import('containers/Register')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      }
     }, /* {
       path: 'edit-profile',
       name: 'edit profile',
