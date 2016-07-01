@@ -13,4 +13,9 @@ module.exports = function initStatisticRoutes(app, conf) {
     res.render('statistic_main_view.ejs', { data: data });
   });
 
+  app.get('/statistic_data', function (req, res) {
+    var data = statController.getStatisticData();
+    res.json(data);
+  });
+
 };
