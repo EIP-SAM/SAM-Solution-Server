@@ -1,25 +1,24 @@
-
 //
-// Stats
+// Container page Stats
 //
 
-import React from 'react';
-import { PageHeader, Nav, NavItem } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { getStatsFromServer } from './actions';
+import { StatsComponent } from 'components/Stats';
 
-export default class StatsContainer extends React.Component {
-  render() {
-    return (
-      <div>
-        <PageHeader>Stats</PageHeader>
-        <Nav bsStyle="pills" activeKey={1}>
-          <NavItem>General</NavItem>
-          <NavItem>Save</NavItem>
-          <NavItem>Restore</NavItem>
-          <NavItem>Migration</NavItem>
-          <NavItem>Software</NavItem>
-          <NavItem>Users</NavItem>
-        </Nav>
-      </div>
-    );
-  }
+function mapStateToProps(state) {
+  return {
+    state: state.get('stats'),
+  };
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getStatsFromServer: () => dispatch(getStatsFromServer()),
+  };
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(StatsComponent);
