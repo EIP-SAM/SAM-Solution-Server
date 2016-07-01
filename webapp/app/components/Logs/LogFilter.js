@@ -3,6 +3,8 @@
 //
 
 import React from 'react';
+import moment from 'moment';
+import DatePicker from 'react-bootstrap-date-picker';
 import {
   Panel,
   FormGroup,
@@ -17,9 +19,11 @@ export class LogFilter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      startDate: moment(),
       filters: {
         findOpts: {
           levelAbove: 10,
+          levelBelow: 10,
         },
         limit: undefined,
       },
@@ -37,6 +41,9 @@ export class LogFilter extends React.Component {
         case 'levelAbove':
           newFilters.findOpts.levelAbove = event.target.value;
           break;
+        case 'levelBelow':
+          newFilters.findOpts.levelBelow = event.target.value;
+          break;
         case 'limit':
           newFilters.limit = event.target.value;
           break;
@@ -49,6 +56,7 @@ export class LogFilter extends React.Component {
   render() {
     return (
       <Panel collapsible header={<h3>[+] Filters</h3>} bsStyle="primary">
+
         <FormGroup controlId="levelAboveLogsSelect">
           <ControlLabel>Level min:</ControlLabel>
           <FormControl componentClass="select" onChange={this.handleChange('levelAbove')} placeholder="all">
@@ -60,6 +68,29 @@ export class LogFilter extends React.Component {
             <option value="60">fatal</option>
           </FormControl>
         </FormGroup>
+
+        <FormGroup controlId="levelBelowLogsSelect">
+          <ControlLabel>Level max:</ControlLabel>
+          <FormControl componentClass="select" onChange={this.handleChange('levelBelow')} placeholder="all">
+            <option value="10">all</option>
+            <option value="20">debug</option>
+            <option value="30">info</option>
+            <option value="40">warn</option>
+            <option value="50">error</option>
+            <option value="60">fatal</option>
+          </FormControl>
+        </FormGroup>
+
+        <FormGroup>
+          <ControlLabel>From:</ControlLabel>
+          <DatePicker calendarPlacement="right" />
+        </FormGroup>
+
+        <FormGroup>
+          <ControlLabel>To:</ControlLabel>
+          <DatePicker calendarPlacement="right" />
+        </FormGroup>
+
         <FormGroup controlId="limitLogsSelect">
           <ControlLabel>Number of logs:</ControlLabel>
           <FormControl componentClass="select" onChange={this.handleChange('limit')} placeholder="all">
@@ -70,10 +101,12 @@ export class LogFilter extends React.Component {
             <option value="10000">10000</option>
           </FormControl>
         </FormGroup>
+
         <ButtonToolbar>
           <Button bsStyle="primary" onClick={() => this.getLogs()}>Get Logs</Button>
           <Button bsStyle="success" onClick={this.props.clearLogs}>Clear</Button>
         </ButtonToolbar>
+
       </Panel>
     );
   }
