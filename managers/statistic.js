@@ -298,9 +298,13 @@ module.exports.initSampleStatistics = function() {
         });
     };
 
+    var dataSets = {
+      labels: graphData.labels,
+      datasets: datasets,
+    }
+
     var dataToChart = {
-        labels: graphData.labels,
-        datasets: datasets,
+        datasets: dataSets,
         type: graphData.type
     };
 
@@ -342,9 +346,13 @@ module.exports.initSampleStatistics = function() {
         });
     };
 
+    var dataSets = {
+      labels: graphData.labels,
+      datasets: datasets,
+    }
+
     var dataToChart = {
-        labels: graphData.labels,
-        datasets: datasets,
+        datasets: dataSets,
         type: graphData.type
     };
 
@@ -366,9 +374,13 @@ module.exports.initSampleStatistics = function() {
         });
     };
 
+    var dataSets = {
+      labels: graphData.labels,
+      datasets: datasets,
+    }
+
     var dataToChart = {
-        labels: graphData.labels,
-        datasets: datasets,
+        datasets: dataSets,
         type: graphData.type
     };
 
@@ -387,10 +399,15 @@ module.exports.initSampleStatistics = function() {
         });
     };
 
+    var dataSets = {
+      labels: graphData.labels,
+      datasets: datasets,
+    }
+
     var dataToChart = {
-       datasets: datasets,
-       type: graphData.type
-   };
+        datasets: dataSets,
+        type: graphData.type
+    };
 
     return dataToChart;
   }
