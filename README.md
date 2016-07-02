@@ -12,7 +12,7 @@ This tool design goal is to __help the system adminstrator__ of a company in his
 This project fits into the [Epitech Innovative Projects](http://www.epitech.eu/epitech-innovative-projects.aspx) program *(link in french)*. You can find our showcase website [here](http://eip.epitech.eu/2017/samsolution).
 
 ### Repository
-*Repository description (in construction)*
+This repository contains the web server part of the SAM-Solution project. It includes the serve of the back and front end.
 
 ## Install and run
 See [INSTALLATION.md](/INSTALLATION.md)
