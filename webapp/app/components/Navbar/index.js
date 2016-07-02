@@ -32,10 +32,19 @@ export default class NavbarContainer extends React.Component {
               <NavItem eventKey={3} className={styles.menuItem}>Restore</NavItem>
             </LinkContainer>
             <LinkContainer to={{ pathname: '#' }}>
-              <NavItem eventKey={4} className={styles.menuItem}>Logs</NavItem>
+              <NavItem eventKey={4} className={styles.menuItem}>Migration</NavItem>
             </LinkContainer>
             <LinkContainer to={{ pathname: '#' }}>
-              <NavItem eventKey={5} className={styles.menuItem}>Statistics</NavItem>
+              <NavItem eventKey={5} className={styles.menuItem}>Software</NavItem>
+            </LinkContainer>
+            <LinkContainer to={{ pathname: '#' }}>
+              <NavItem eventKey={6} className={styles.menuItem}>Logs</NavItem>
+            </LinkContainer>
+            <LinkContainer to={{ pathname: '#' }}>
+              <NavItem eventKey={7} className={styles.menuItem}>Statistics</NavItem>
+            </LinkContainer>
+            <LinkContainer to={{ pathname: '#' }}>
+              <NavItem eventKey={8} className={styles.menuItem}>Help</NavItem>
             </LinkContainer>
           </Nav>
         </Navbar.Collapse>
