@@ -13,10 +13,9 @@ import Td from 'components/Td';
 export class LogResult extends React.Component {
   getDefaultLog() {
     let logs = this.props.logs;
-    if (typeof (logs) === 'undefined') {
+    if (typeof(logs) === 'undefined') {
       logs = { error: false, data: [] };
     }
-
     return logs;
   }
 

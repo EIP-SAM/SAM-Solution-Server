@@ -4,8 +4,8 @@
 
 import React from 'react';
 import { PageHeader } from 'react-bootstrap';
-import { LogFilter } from 'components/Logs/LogFilter';
-import { LogResult } from 'components/Logs/LogResult';
+import { LogFilter } from 'components/Logs/Filters';
+import { LogResult } from 'components/Logs/Results';
 import styles from 'components/Logs/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -15,8 +15,6 @@ export class Log extends React.Component {
       <div className={styles.inheritWith}>
         <PageHeader>Logs</PageHeader>
         <LogFilter
-          getAllLogs={this.props.getAllLogsRequest}
-          getLimitLogs={this.props.getLimitLogsRequest}
           getFilteredLogs={this.props.getFilteredLogs}
           clearLogs={this.props.clearLogs}
         />
@@ -28,8 +26,6 @@ export class Log extends React.Component {
 
 Log.propTypes = {
   logs: React.PropTypes.object.isRequired,
-  getAllLogsRequest: React.PropTypes.func.isRequired,
-  getLimitLogsRequest: React.PropTypes.func.isRequired,
   getFilteredLogs: React.PropTypes.func.isRequired,
   clearLogs: React.PropTypes.func.isRequired,
 };
