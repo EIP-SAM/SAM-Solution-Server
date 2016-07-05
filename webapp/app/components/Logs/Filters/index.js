@@ -4,6 +4,7 @@
 
 import React from 'react';
 import DatePicker from 'react-bootstrap-datetimepicker';
+import style from './style.css';
 import {
   Panel,
   FormGroup,
@@ -54,7 +55,7 @@ export class LogFilter extends React.Component {
   render() {
     return (
       <div>
-        <Panel collapsible header={<h3>[+] Filters</h3>} bsStyle="primary">
+        <Panel className={style.panelFilter} collapsible header={<h3>[+] Filters</h3>} bsStyle="primary">
 
           <FormGroup controlId="levelAboveLogsSelect">
             <ControlLabel>Level min:</ControlLabel>
@@ -103,8 +104,8 @@ export class LogFilter extends React.Component {
 
         </Panel>
         <ButtonToolbar>
-          <Button bsStyle="primary" onClick={() => this.getLogs()}>Get Logs</Button>
-          <Button bsStyle="success" onClick={this.props.clearLogs}>Clear</Button>
+          <Button className={style.getLogsToolbarButton} bsStyle="primary" onClick={() => this.getLogs()}>Get Logs</Button>
+          <Button className={style.getLogsToolbarButton} bsStyle="success" onClick={this.props.clearLogs}>Clear</Button>
         </ButtonToolbar>
       </div>
     );
