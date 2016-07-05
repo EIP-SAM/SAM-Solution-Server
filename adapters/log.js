@@ -79,7 +79,13 @@ module.exports.getLogsWithMultipleCriteria = function (queryCriteria) {
     var query = logModel.find(findOpts);
 
     if (criteria.limit !== undefined) {
-      query.limit(criteria.limit);
+      if (typeof criteria.limit == 'string') {
+        var limit = parseInt(criteria.limit);
+      } else {
+        var limit = criteria.limit;
+      }
+
+      query.limit(limit);
     }
 
     query.exec(function (err, logs) {
