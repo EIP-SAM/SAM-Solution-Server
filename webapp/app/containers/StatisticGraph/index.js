@@ -1,14 +1,14 @@
 //
-// Container page Stats
+// Container page StatisticGraph
 //
 
 import { connect } from 'react-redux';
 import { getStatsFromServer } from './actions';
-import { StatsComponent } from 'components/Stats';
+import { StatisticGraphComponent } from 'components/StatisticGraph';
 
 function mapStateToProps(state) {
   return {
-    state: state.get('stats'),
+    stats: state.get('stats'),
   };
 }
 
@@ -21,4 +21,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(StatsComponent);
+)(StatisticGraphComponent);

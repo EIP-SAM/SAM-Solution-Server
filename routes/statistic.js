@@ -18,4 +18,9 @@ module.exports = function initStatisticRoutes(app, conf) {
     res.json(data);
   });
 
+  app.get('/statistic_filters', function (req, res) {
+    var data = statController.getStatisticFilters();
+    res.json(data);
+  });
+
 };

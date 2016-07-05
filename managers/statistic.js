@@ -1,6 +1,7 @@
 var statAdapters = require('../adapters/statistic');
 
 module.exports.statisticFunctions = [];
+module.exports.statisticFilters = [];
 
 module.exports.statisticRegisterMethodForEntity = function (entity, functionName, functionData) {
   if (module.exports.statisticFunctions[entity] == null) {
@@ -8,6 +9,7 @@ module.exports.statisticRegisterMethodForEntity = function (entity, functionName
   }
 
   module.exports.statisticFunctions[entity][functionName] = functionData;
+  module.exports.addFilter(entity);
 };
 
 module.exports.statisticGetMethodForEntity = function (entity, functionName) {
@@ -18,13 +20,19 @@ module.exports.statisticGetMethodForEntity = function (entity, functionName) {
   }
 }
 
+module.exports.addFilter = function (entity)
+{
+  if (module.exports.statisticFilters.indexOf(entity) == -1)
+    module.exports.statisticFilters.push(entity);
+}
+
 module.exports.getStatisticData = function () {
   return module.exports.prepareDataForGraph(module.exports.statisticGetMethodForEntity('Computer', 'GraphCircleOfTypeOfComputer'));
 }
 
 // TESTING FUNCTIONS / DEMO FUNCTIONS
 
-module.exports.getAllStatistics = function() {
+module.exports.getAllStatistics = function () {
   var data = [];
   data.push(module.exports.prepareDataForGraph(module.exports.statisticGetMethodForEntity('User', 'GraphBarOfAge')));
   data.push(module.exports.prepareDataForGraph(module.exports.statisticGetMethodForEntity('Computer', 'GraphCircleOfTypeOfComputer')));
@@ -35,7 +43,11 @@ module.exports.getAllStatistics = function() {
   return data;
 }
 
-module.exports.initSampleStatistics = function() {
+module.exports.getStatisticFilters = function () {
+  return module.exports.statisticFilters;
+}
+
+module.exports.initSampleStatistics = function () {
 
   module.exports.statisticRegisterMethodForEntity('User', 'GraphBarOfAge', function() {
 
