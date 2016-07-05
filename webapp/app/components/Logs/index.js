@@ -6,12 +6,13 @@ import React from 'react';
 import { PageHeader } from 'react-bootstrap';
 import { LogFilter } from 'components/Logs/Filters';
 import { LogResult } from 'components/Logs/Results';
+import styles from 'components/Logs/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Log extends React.Component {
   render() {
     return (
-      <div>
+      <div className={styles.inheritWith}>
         <PageHeader>Logs</PageHeader>
         <LogFilter
           getFilteredLogs={this.props.getFilteredLogs}
