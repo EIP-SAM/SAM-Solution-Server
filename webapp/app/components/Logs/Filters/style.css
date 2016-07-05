@@ -6,3 +6,8 @@
   margin-top: 0 !important;
   margin-bottom: 10px !important;
 }
+
+input {
+  border-bottom-left-radius: 4px !important;
+  border-top-left-radius: 4px !important;
+}

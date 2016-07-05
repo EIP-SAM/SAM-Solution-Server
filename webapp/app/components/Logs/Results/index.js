@@ -4,6 +4,7 @@
 //
 
 import React from 'react';
+import moment from 'moment';
 import { Table } from 'react-bootstrap';
 import Tr from 'components/Tr';
 import Th from 'components/Th';
@@ -29,8 +30,7 @@ export class LogResult extends React.Component {
   }
 
   formatDate(ISODate) {
-    const date = new Date(ISODate);
-    return date.toString();
+    return moment(ISODate).format('YYYY MMMM Do HH:mm:ss');
   }
 
   render() {

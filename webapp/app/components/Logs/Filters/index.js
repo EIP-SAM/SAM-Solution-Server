@@ -3,7 +3,7 @@
 //
 
 import React from 'react';
-import DatePicker from 'react-bootstrap-datetimepicker';
+import DateTimePicker from 'react-bootstrap-date-picker';
 import style from './style.css';
 import {
   Panel,
@@ -26,6 +26,7 @@ export class LogFilter extends React.Component {
         },
         limit: undefined,
       },
+      date: undefined,
     };
   }
 
@@ -46,6 +47,15 @@ export class LogFilter extends React.Component {
         case 'limit':
           newFilters.limit = event.target.value;
           break;
+        case 'day':
+          console.log(event);
+          this.setState({ date: event });
+          if (event !== null) {
+            newFilters.findOpts.day = event;
+          } else {
+            delete newFilters.findOpts.day;
+          }
+          break;
         default:
       }
       this.setState({ filters: newFilters });
@@ -56,7 +66,6 @@ export class LogFilter extends React.Component {
     return (
       <div>
         <Panel className={style.panelFilter} collapsible header={<h3>[+] Filters</h3>} bsStyle="primary">
-
           <FormGroup controlId="levelAboveLogsSelect">
             <ControlLabel>Level min:</ControlLabel>
             <FormControl componentClass="select" onChange={this.handleChange('levelAbove')} placeholder="all">
@@ -81,14 +90,9 @@ export class LogFilter extends React.Component {
             </FormControl>
           </FormGroup>
 
-          <FormGroup>
-            <ControlLabel>From:</ControlLabel>
-            <DatePicker />
-          </FormGroup>
-
-          <FormGroup>
-            <ControlLabel>To:</ControlLabel>
-            <DatePicker />
+          <FormGroup className={style.test}>
+            <ControlLabel>Date:</ControlLabel>
+            <DateTimePicker value={this.state.date} dateFormat="YYYY/MM/DD" className={style.test} onChange={this.handleChange('day')} />
           </FormGroup>
 
           <FormGroup controlId="limitLogsSelect">
@@ -101,7 +105,6 @@ export class LogFilter extends React.Component {
               <option value="10000">10000</option>
             </FormControl>
           </FormGroup>
-
         </Panel>
         <ButtonToolbar>
           <Button className={style.getLogsToolbarButton} bsStyle="primary" onClick={() => this.getLogs()}>Get Logs</Button>
