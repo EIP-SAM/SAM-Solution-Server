@@ -1,3 +1,7 @@
+body {
+  overflow: visible;
+}
+
 .form {
   margin: auto!important;
 }
@@ -9,4 +13,9 @@
 
 .button {
   font-weight: bold;
+}
+
+.label + span >  span {
+  position: relative;
+  left: 26px;
 }
