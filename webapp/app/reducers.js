@@ -6,8 +6,8 @@
 import { combineReducers } from 'redux-immutable';
 import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import SaveReducer from 'containers/Save/reducers';
-import SaveHistoryReducer from 'containers/SaveHistory/reducers';
+import SaveReducer from 'containers/Save/reducer';
+import SaveHistoryReducer from 'containers/SaveHistory/reducer';
 
 /*
  * routeReducer
