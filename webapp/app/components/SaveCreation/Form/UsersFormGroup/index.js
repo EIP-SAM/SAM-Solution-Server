@@ -10,11 +10,23 @@ import styles from 'components/SaveCreation/styles.css';
 /* eslint-disable react/prefer-stateless-function */
 export class SaveCreationUsersFormGroup extends React.Component {
   render() {
-    const users = [{ isActive: true, value: '0', text: 'User1' },
-                   { isActive: true, value: '1', text: 'User2' },
-                   { isActive: true, value: '2', text: 'User3' },
-                   { isActive: true, value: '3', text: 'User4' },
-                   { isActive: true, value: '4', text: 'User5' }];
+    const usersSave = this.props.data.map((save) => {
+      return { isActive: true, value: save.save_scheduled.user.name, text: save.save_scheduled.user.name };
+    });
+
+    const users = [];
+    for (let i = 0; i < usersSave.length; i++) {
+      const current = usersSave[i];
+      for (let j = 0; j < users.length; j++) {
+        if (users[j].value !== current.value) {
+          users.push(current);
+          break;
+        }
+      }
+      if (users.length === 0) {
+        users.push(current);
+      }
+    }
 
     const usersOptions = users.map((item, index) => (
       <Option object={item} key={`item-${index}`} />
@@ -30,3 +42,7 @@ export class SaveCreationUsersFormGroup extends React.Component {
     );
   }
 }
+
+SaveCreationUsersFormGroup.propTypes = {
+  data: React.PropTypes.array,
+};
