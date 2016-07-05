@@ -17,14 +17,14 @@ export class Log extends React.Component {
           getFilteredLogs={this.props.getFilteredLogs}
           clearLogs={this.props.clearLogs}
         />
-        <LogResult logs={this.props.logs.logs} />
+        <LogResult logs={this.props.logs} />
       </div>
     );
   }
 }
 
 Log.propTypes = {
-  logs: React.PropTypes.object.isRequired,
+  logs: React.PropTypes.object,
   getFilteredLogs: React.PropTypes.func.isRequired,
   clearLogs: React.PropTypes.func.isRequired,
 };
