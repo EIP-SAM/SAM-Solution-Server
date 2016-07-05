@@ -7,6 +7,10 @@ module.exports.getAllStatistics = function (req, res) {
 
 module.exports.getStatisticData = function () {
   statManagers.initSampleStatistics();
-  //return statManagers.getStatisticData();
   return statManagers.getAllStatistics();
+}
+
+module.exports.getStatisticFilters = function () {
+  statManagers.initSampleStatistics();
+  return statManagers.getStatisticFilters();
 }

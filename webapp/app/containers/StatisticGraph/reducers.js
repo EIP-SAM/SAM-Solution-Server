@@ -1,18 +1,12 @@
 //
-// Stats Reducer
-//
-// To add a new action:
-//
-// Example:
-//  case YOUR_ACTION_CONSTANT:
-//    return state.set('yourStateVariable', true);
+// StatisticGraph Reducer
 //
 
 import {
   GET_STATS,
 } from './constants';
 
-function StatsReducer(state = {}, action) {
+function StatisticGraphReducer (state = {}, action) {
   switch (action.type) {
     case GET_STATS:
       return Object.assign({}, state, {
@@ -23,4 +17,4 @@ function StatsReducer(state = {}, action) {
   }
 }
 
-export default StatsReducer;
+export default StatisticGraphReducer;

@@ -1,12 +1,5 @@
 //
-// Stats Actions
-//
-// To add a new Action:
-//  1) Import your constant
-//  2) Add a function like this:
-//      export function yourAction(var) {
-//          return { type: YOUR_ACTION_CONSTANT, var: var }
-//      }
+// StatisticGraph Actions
 //
 
 import request from 'superagent';
@@ -28,7 +21,7 @@ export function getStatsFromServer() {
       .get('http://localhost:8080/statistic_data/')
       .end((err, res) => {
         if (err || res.body.error) {
-          console.log('Error occured');
+          console.log('Error occured in request to server for statistic data');
         } else {
           dispatch(getStats(GET_STATS, res.body));
         }

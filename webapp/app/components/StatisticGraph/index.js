@@ -5,11 +5,12 @@
 
 import React from 'react';
 import { PageHeader, Nav, NavItem } from 'react-bootstrap';
+import StatisticFilterComponent from 'components/StatisticFilter';
+import LinkContainerButton from 'components/Button';
 
-export class StatsComponent extends React.Component {
+export class StatisticGraphComponent extends React.Component {
 
   componentDidMount() {
-      this.props.getFiltersFromServer()
       this.props.getStatsFromServer()
     }
 
@@ -22,7 +23,7 @@ export class StatsComponent extends React.Component {
     var graphOptions = {
               animatable: true,
     };
-    console.log(this.props.filters);
+
     for (var i = 0; i < graphNumber; i++)
     {
       switch (allGraph[i].type) {
@@ -53,6 +54,7 @@ export class StatsComponent extends React.Component {
 
     return (
       <div>
+        <LinkContainerButton />
         <PageHeader>Stats</PageHeader>
         <Nav bsStyle="pills" activeKey={1}>
           <NavItem>General</NavItem>
@@ -70,9 +72,7 @@ export class StatsComponent extends React.Component {
   }
 }
 
-StatsComponent.propTypes = {
+StatisticGraphComponent.propTypes = {
   getStatsFromServer: React.PropTypes.func.isRequired,
-  getFiltersFromServer: React.PropTypes.func.isRequired,
-  statis: React.PropTypes.object.isRequired,
-//  filters: React.PropTypes.object.isRequired,
+  stats: React.PropTypes.object.isRequired,
 }
