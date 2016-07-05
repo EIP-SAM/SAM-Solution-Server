@@ -8,7 +8,7 @@ import { Log } from 'components/Logs';
 
 function mapStateToProps(state) {
   return {
-    logs: state.get('logs'),
+    logs: state.get('logs').logs,
   };
 }
 
