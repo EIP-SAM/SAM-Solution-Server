@@ -5,8 +5,7 @@
 
 import React from 'react';
 import { PageHeader, Nav, NavItem } from 'react-bootstrap';
-import StatisticFilterComponent from 'components/StatisticFilter';
-import LinkContainerButton from 'components/Button';
+import  StatisticFilterComponent  from 'containers/StatisticFilter';
 
 export class StatisticGraphComponent extends React.Component {
 
@@ -54,18 +53,9 @@ export class StatisticGraphComponent extends React.Component {
 
     return (
       <div>
-        <LinkContainerButton />
-        <PageHeader>Stats</PageHeader>
-        <Nav bsStyle="pills" activeKey={1}>
-          <NavItem>General</NavItem>
-          <NavItem>Save</NavItem>
-          <NavItem>Restore</NavItem>
-          <NavItem>Migration</NavItem>
-          <NavItem>Software</NavItem>
-          <NavItem>Users</NavItem>
-        </Nav>
+        <StatisticFilterComponent />
         <div>
-        { data1 } { data2 } { data3 } { data4 } { data5 }
+          { data1 } { data2 } { data3 } { data4 } { data5 }
         </div>
       </div>
     );
