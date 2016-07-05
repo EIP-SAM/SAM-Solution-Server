@@ -1,0 +1,6 @@
+.inheritWith {
+  width: inherit;
+  right: 0;
+  padding-right: 80px;
+  position: fixed;
+}
