@@ -12,7 +12,7 @@
 const request = require('superagent');
 
 import {
-  GET_HISTORY_RESTORES_BY_USERS,
+  GET_HISTORY_RESTORES_BY_USER,
 } from './constants';
 
 export function getHistoryRestoresByUser(restores) {
@@ -25,7 +25,7 @@ export function getHistoryRestoresByUser(restores) {
 export function getHistoryRestoresByUserRequest(username) {
   return function returnGetHistoryRestoresByUserRequest(dispatch) {
     return request
-      .post('http://localhost:8080/restore')
+      .post('http://localhost:8080/historyRestore')
       .type('form')
       .send({ username })
       .end((err, res) => {

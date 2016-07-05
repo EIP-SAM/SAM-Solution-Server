@@ -4,26 +4,25 @@
 
 import React from 'react';
 import { PageHeader } from 'react-bootstrap';
-import { RestoreTable } from 'components/Restore/Table';
+import { RestoreCreationForm } from 'components/RestoreCreation/Form';
 
 /* eslint-disable react/prefer-stateless-function */
-export class Restore extends React.Component {
+export class RestoreCreation extends React.Component {
 
   componentDidMount() {
     this.props.getRestoresRequest();
   }
-
   render() {
     return (
       <div>
-        <PageHeader>Restore</PageHeader>
-        <RestoreTable data={this.props.state.restores} />
+        <PageHeader>Launch Restore</PageHeader>
+        <RestoreCreationForm data={this.props.state.restores} />
       </div>
     );
   }
 }
 
-Restore.propTypes = {
+RestoreCreation.propTypes = {
   state: React.PropTypes.object,
   getRestoresRequest: React.PropTypes.func,
 };

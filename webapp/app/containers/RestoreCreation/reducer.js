@@ -9,12 +9,12 @@
 //
 
 import {
-  GET_HISTORY_RESTORES_BY_USER,
+  GET_RESTORES,
 } from './constants';
 
-function RestoreHistoryReducer(state = {}, action) {
+function RestoreReducer(state = {}, action) {
   switch (action.type) {
-    case GET_HISTORY_RESTORES_BY_USER:
+    case GET_RESTORES:
       return Object.assign({}, state, {
         restores: action.restores,
       });
@@ -23,4 +23,4 @@ function RestoreHistoryReducer(state = {}, action) {
   }
 }
 
-export default RestoreHistoryReducer;
+export default RestoreReducer;

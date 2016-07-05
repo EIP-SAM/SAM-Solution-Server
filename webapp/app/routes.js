@@ -73,6 +73,14 @@ export default function createRoutes() {
         .then(loadModule(cb))
         .catch(errorLoading);
     },
+  }, {
+    path: '/create-restore',
+    name: 'createRestore',
+    getComponent(nextState, cb) {
+      System.import('containers/RestoreCreation')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+    },
   },
      /* {
       path: '*',

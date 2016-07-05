@@ -12,7 +12,7 @@ export class RestoreHistoryButtons extends React.Component {
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <Button bsStyle="info" className={styles.button} href="/create-save">Launch restore</Button>
+        <Button bsStyle="info" className={styles.button} href="/create-restore">Launch restore</Button>
       </ButtonToolbar>
     );
   }
