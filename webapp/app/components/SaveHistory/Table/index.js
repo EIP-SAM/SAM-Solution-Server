@@ -38,11 +38,13 @@ export class SaveHistoryTable extends React.Component {
           actions.push(<ButtonPopover key={`action-${2}`} trigger="hover" placement="bottom" popoverContent="Restore" buttonType="link" icon="repeat" />);
           actions.push(<ButtonPopover key={`action-${3}`} trigger="hover" placement="bottom" popoverContent="Remove scheduled save" buttonType="link" icon="remove" buttonStyle={displayButton} />);
 
+          const status = (save.isStart) ? ((save.isFinish) ? ((save.isSuccess) ? 'Succeeded' : 'Failed') : 'In progress') : 'Scheluded';
+
           return (
             <Tr
               key={`row-${index}`} items={[
                 { isLink: false, value: save.execDate },
-                { isLink: false, value: (save.isStart) ? ((save.isFinish) ? ((save.isSuccess) ? 'Succeeded' : 'Failed') : 'In progress') : 'Scheluded' },
+                { isLink: false, value: status },
                 { isLink: false, value: save.save_scheduled.files },
                 { isLink: false, value: actions }]} component={Td}
             />

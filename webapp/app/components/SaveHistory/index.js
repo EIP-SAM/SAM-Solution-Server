@@ -12,8 +12,7 @@ import styles from 'components/SaveHistory/styles.css';
 export class SaveHistory extends React.Component {
 
   componentDidMount() {
-    console.log(this.props);
-    const username = this.props.location.pathname.split('/')[2];
+    const username = window.location.pathname.split('/')[2];
     this.props.getHistorySavesByUserRequest(username);
   }
 
@@ -21,7 +20,7 @@ export class SaveHistory extends React.Component {
     return (
       <div>
         <PageHeader>Save</PageHeader>
-        <PageHeader className={styles.title}><small>{this.props.location.pathname.split('/')[2]}</small></PageHeader>
+        <PageHeader className={styles.title}><small>{window.location.pathname.split('/')[2]}</small></PageHeader>
         <SaveHistoryButtons />
         <SaveHistoryTable data={this.props.state.saves} />
       </div>
@@ -30,7 +29,6 @@ export class SaveHistory extends React.Component {
 }
 
 SaveHistory.propTypes = {
-  children: React.PropTypes.object,
   state: React.PropTypes.object,
   getHistorySavesByUserRequest: React.PropTypes.func,
 };
