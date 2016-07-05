@@ -24,6 +24,22 @@ module.exports.lastUsersRestores = function () {
 }
 
 //
+// Get all restorations of a user
+//
+module.exports.historyRestoreByUser = function(username) {
+  return RestoreModel.findAll({
+    order: [['execDate', 'DESC']],
+    include: [{
+      model: UserModel,
+      where: { name: username },
+    }, {
+      model: SaveScheduledModel,
+    }]
+  })
+}
+
+
+//
 // Create new restore instance
 //
 module.exports.createRestore = function (userId, saveId) {

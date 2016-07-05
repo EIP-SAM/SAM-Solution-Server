@@ -12,7 +12,7 @@ import styles from 'components/RestoreHistory/styles.css';
 export class RestoreHistory extends React.Component {
 
   componentDidMount() {
-    const username = this.props.location.pathname.split('/')[2];
+    const username = window.location.pathname.split('/')[2];
     this.props.getHistoryRestoresByUserRequest(username);
   }
 
