@@ -516,6 +516,7 @@ module.exports.createUsers = function () {
         return module.exports.retrieveAllUsers(errors)(req, res);
       });
     } else {
+      logger.error({ error: 'Invalid request' }, 'Error during new user creation (by an administrator)');
       return res.status(405).json({ error: 'Invalid request' });
     }
   };
@@ -561,6 +562,7 @@ module.exports.updateUsers = function () {
         return module.exports.retrieveAllUsers(errors)(req, res);
       });
     } else {
+      logger.error({ error: 'Invalid request' }, 'Error during user update (by an administrator)');
       return res.status(405).json({ error: 'Invalid request' });
     }
   };
@@ -596,6 +598,7 @@ module.exports.deleteUsers = function () {
         return module.exports.retrieveAllUsers(errors)(req, res);
       });
     } else {
+      logger.error({ error: 'Invalid request' }, 'Error during user deletion (by an administrator)');
       return res.status(405).json({ error: 'Invalid request' });
     }
   };
