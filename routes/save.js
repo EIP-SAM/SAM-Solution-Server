@@ -12,7 +12,7 @@ module.exports = function initSaveRoutes(app) {
     })
   });
 
-  app.post('/historySave', function (req, res) {
+  app.get('/historySave', function (req, res) {
     saveController.historySavesByUser(req, res).then(function(historySaves) {
       res.json(historySaves)
     })

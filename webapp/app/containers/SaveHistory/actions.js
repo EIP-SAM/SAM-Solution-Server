@@ -25,9 +25,8 @@ export function getHistorySavesByUser(saves) {
 export function getHistorySavesByUserRequest(username) {
   return function returnGetHistorySavesRequest(dispatch) {
     return request
-      .post('http://localhost:8080/historySave')
-      .type('form')
-      .send({ username })
+      .get('http://localhost:8080/historySave')
+      .set({ username })
       .end((err, res) => {
         dispatch(getHistorySavesByUser(res.body));
       });
