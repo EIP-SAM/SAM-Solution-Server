@@ -14,3 +14,8 @@ module.exports.getStatisticFilters = function () {
   statManagers.initSampleStatistics();
   return statManagers.getStatisticFilters();
 }
+
+module.exports.getStatisticDataByType = function (type) {
+  statManagers.initSampleStatistics();
+  return statManagers.getAllStatisticsByType(type);
+}

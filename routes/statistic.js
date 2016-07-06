@@ -23,4 +23,9 @@ module.exports = function initStatisticRoutes(app, conf) {
     res.json(data);
   });
 
+  app.get('/statistic_select_graph', function (req, res) {
+    console.log(req.get('type'));
+    var data = statController.getStatisticDataByType(req.get('type'));
+    res.json(data);
+  });
 };

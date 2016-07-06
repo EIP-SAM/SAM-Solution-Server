@@ -3,18 +3,18 @@
 //
 
 import { connect } from 'react-redux';
-import { getStatsFromServer } from './actions';
+import { getAllGraphFromServer } from './actions';
 import { StatisticGraphComponent } from 'components/Stats/StatisticGraph';
 
 function mapStateToProps(state) {
   return {
-    stats: state.get('stats'),
+    stats: state.get('stats').get('statGraphs'),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getStatsFromServer: () => dispatch(getStatsFromServer()),
+    getAllGraphFromServer: () => dispatch(getAllGraphFromServer()),
   };
 }
 

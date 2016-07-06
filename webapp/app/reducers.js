@@ -6,8 +6,7 @@
 import { combineReducers } from 'redux-immutable';
 import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import StatisticGraphReducer from 'containers/Stats/StatisticGraph/reducers'
-import StatisticFilterReducer from 'containers/Stats/StatisticFilter/reducers'
+import StatsReducer from 'containers/Stats/reducers';
 
 /*
  * routeReducer
@@ -43,8 +42,7 @@ function routeReducer(state = routeInitialState, action) {
 export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
-    stats: StatisticGraphReducer,
-    filters: StatisticFilterReducer,
+    stats: StatsReducer,
     ...asyncReducers,
   });
 }

@@ -4,7 +4,7 @@ import { PageHeader, Nav, NavItem } from 'react-bootstrap';
 export class StatisticGraphComponent extends React.Component {
 
   componentDidMount() {
-      this.props.getStatsFromServer()
+      this.props.getAllGraphFromServer()
     }
 
   render() {
@@ -64,6 +64,6 @@ export class StatisticGraphComponent extends React.Component {
 }
 
 StatisticGraphComponent.propTypes = {
-  getStatsFromServer: React.PropTypes.func.isRequired,
+  getAllGraphFromServer: React.PropTypes.func.isRequired,
   stats: React.PropTypes.object.isRequired,
 }
