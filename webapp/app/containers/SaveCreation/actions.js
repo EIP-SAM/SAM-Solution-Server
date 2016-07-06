@@ -11,6 +11,7 @@
 
 import {
   SHOW_ADD_FILE_MODAL,
+  ADD_FILE,
 } from './constants';
 
 export function showModal() {
@@ -24,5 +25,12 @@ export function hideModal() {
   return {
     type: SHOW_ADD_FILE_MODAL,
     showModal: false,
+  };
+}
+
+export function addFile(file) {
+  return {
+    type: ADD_FILE,
+    file,
   };
 }

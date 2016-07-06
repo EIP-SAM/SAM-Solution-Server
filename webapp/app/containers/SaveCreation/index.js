@@ -4,7 +4,7 @@
 
 import { connect } from 'react-redux';
 import { SaveCreation } from 'components/SaveCreation';
-import { showModal, hideModal } from './actions';
+import { showModal, hideModal, addFile } from './actions';
 
 function mapStateToProps(state) {
   return {
@@ -15,8 +15,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addFile: () => dispatch(showModal()),
+    showAddFileModal: () => dispatch(showModal()),
     cancelAddingFile: () => dispatch(hideModal()),
+    addFile: (file) => dispatch(addFile(file)),
   };
 }
 
