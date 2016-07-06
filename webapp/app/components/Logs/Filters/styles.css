@@ -7,7 +7,10 @@
   margin-bottom: 10px !important;
 }
 
-input {
-  border-bottom-left-radius: 4px !important;
-  border-top-left-radius: 4px !important;
+.radio {
+  margin-left: 10px !important;
+}
+
+.maxDate {
+  margin-top: 10px !important;
 }

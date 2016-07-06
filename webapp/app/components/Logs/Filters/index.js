@@ -3,8 +3,9 @@
 //
 
 import React from 'react';
-import DateTimePicker from 'react-bootstrap-date-picker';
-import style from './style.css';
+import DateInput from 'components/DatePicker';
+import styles from './styles.css';
+import RadioGroup from 'components/RadioGroup';
 import {
   Panel,
   FormGroup,
@@ -26,7 +27,9 @@ export class LogFilter extends React.Component {
         },
         limit: undefined,
       },
-      date: undefined,
+      dateMin: undefined,
+      dateMax: undefined,
+      specificDate: true,
     };
   }
 
@@ -48,12 +51,27 @@ export class LogFilter extends React.Component {
           newFilters.limit = event.target.value;
           break;
         case 'day':
-          console.log(event);
           this.setState({ date: event });
           if (event !== null) {
             newFilters.findOpts.day = event;
           } else {
             delete newFilters.findOpts.day;
+          }
+          break;
+        case 'dayMin':
+          this.setState({ dateMin: event });
+          if (event !== null) {
+            newFilters.findOpts.afterDate = event;
+          } else {
+            delete newFilters.findOpts.afterDate;
+          }
+          break;
+        case 'dayMax':
+          this.setState({ dateMax: event });
+          if (event !== null) {
+            newFilters.findOpts.beforeDate = event;
+          } else {
+            delete newFilters.findOpts.beforeDate;
           }
           break;
         default:
@@ -65,7 +83,7 @@ export class LogFilter extends React.Component {
   render() {
     return (
       <div>
-        <Panel className={style.panelFilter} collapsible header={<h3>[+] Filters</h3>} bsStyle="primary">
+        <Panel className={styles.panelFilter} collapsible header={<h3>[+] Filters</h3>} bsStyle="primary">
           <FormGroup controlId="levelAboveLogsSelect">
             <ControlLabel>Level min:</ControlLabel>
             <FormControl componentClass="select" onChange={this.handleChange('levelAbove')} placeholder="all">
@@ -81,7 +99,7 @@ export class LogFilter extends React.Component {
           <FormGroup controlId="levelBelowLogsSelect">
             <ControlLabel>Level max:</ControlLabel>
             <FormControl componentClass="select" onChange={this.handleChange('levelBelow')} placeholder="all">
-              <option value="10">all</option>
+              <option value="60">all</option>
               <option value="20">debug</option>
               <option value="30">info</option>
               <option value="40">warn</option>
@@ -90,9 +108,13 @@ export class LogFilter extends React.Component {
             </FormControl>
           </FormGroup>
 
-          <FormGroup className={style.test}>
+          <FormGroup>
             <ControlLabel>Date:</ControlLabel>
-            <DateTimePicker value={this.state.date} dateFormat="YYYY/MM/DD" className={style.test} onChange={this.handleChange('day')} />
+            <RadioGroup className={styles.radio} inline values={['Specific', 'Range']} placeholder="Specific" onChange={(e) => console.log(e)} />
+            <DateInput value={this.state.dateMin} onChange={this.handleChange('dayMin')} />
+            <div className={styles.maxDate}>
+              <DateInput value={this.state.dateMax} onChange={this.handleChange('dayMax')} />
+            </div>
           </FormGroup>
 
           <FormGroup controlId="limitLogsSelect">
@@ -107,8 +129,8 @@ export class LogFilter extends React.Component {
           </FormGroup>
         </Panel>
         <ButtonToolbar>
-          <Button className={style.getLogsToolbarButton} bsStyle="primary" onClick={() => this.getLogs()}>Get Logs</Button>
-          <Button className={style.getLogsToolbarButton} bsStyle="success" onClick={this.props.clearLogs}>Clear</Button>
+          <Button className={styles.getLogsToolbarButton} bsStyle="primary" onClick={() => this.getLogs()}>Get Logs</Button>
+          <Button className={styles.getLogsToolbarButton} bsStyle="success" onClick={this.props.clearLogs}>Clear</Button>
         </ButtonToolbar>
       </div>
     );
