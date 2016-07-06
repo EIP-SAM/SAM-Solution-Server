@@ -5,7 +5,7 @@
 import React from 'react';
 import { Glyphicon } from 'react-bootstrap';
 const Datepicker = require('react-bootstrap-date-picker');
-import styles from 'components/DatePicker/styles.css';
+import 'components/DatePicker/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class DatePicker extends React.Component {
