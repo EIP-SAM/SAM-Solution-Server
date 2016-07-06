@@ -29,7 +29,7 @@ module.exports.lastUsersSaves = function (req, res) {
 // Get all saves (savesScheduleds & saves) of a user (past & scheduled)
 //
 module.exports.historySavesByUser = function (req, res) {
-  const username = req.body.username;
+  const username = req.get('username');
   return saveScheduledAdapter.historySavesByUser(username);
 }
 
