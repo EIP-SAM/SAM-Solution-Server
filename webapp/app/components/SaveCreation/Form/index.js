@@ -19,7 +19,12 @@ export class SaveCreationForm extends React.Component {
         <SaveCreationDateFormGroup />
         <SaveCreationTimeFormGroup />
         <SaveCreationFrequencyFormGroup />
-        <SaveCreationFilesFormGroup state={this.props.state} addFile={this.props.addFile} cancelAddingFile={this.props.cancelAddingFile} />
+        <SaveCreationFilesFormGroup
+          state={this.props.state}
+          addFile={this.props.addFile}
+          showAddFileModal={this.props.showAddFileModal}
+          cancelAddingFile={this.props.cancelAddingFile}
+        />
         <SaveCreationButtons />
       </form>
     );
@@ -30,5 +35,6 @@ SaveCreationForm.propTypes = {
   data: React.PropTypes.array,
   state: React.PropTypes.object,
   addFile: React.PropTypes.func,
+  showAddFileModal: React.PropTypes.func,
   cancelAddingFile: React.PropTypes.func,
 };

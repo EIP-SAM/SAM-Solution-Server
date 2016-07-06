@@ -14,7 +14,13 @@ export class SaveCreation extends React.Component {
     return (
       <div>
         <PageHeader>Scheduled Save</PageHeader>
-        <SaveCreationForm data={this.props.data.saves} state={this.props.state} addFile={this.props.addFile} cancelAddingFile={this.props.cancelAddingFile} />
+        <SaveCreationForm
+          data={this.props.data.saves}
+          state={this.props.state}
+          addFile={this.props.addFile}
+          showAddFileModal={this.props.showAddFileModal}
+          cancelAddingFile={this.props.cancelAddingFile}
+        />
       </div>
     );
   }
@@ -24,5 +30,6 @@ SaveCreation.propTypes = {
   data: React.PropTypes.object,
   state: React.PropTypes.object,
   addFile: React.PropTypes.func,
+  showAddFileModal: React.PropTypes.func,
   cancelAddingFile: React.PropTypes.func,
 };

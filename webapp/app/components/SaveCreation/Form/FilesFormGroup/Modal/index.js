@@ -9,9 +9,28 @@ import styles from 'components/SaveCreation/Form/FilesFormGroup/Modal/styles.css
 
 /* eslint-disable react/prefer-stateless-function */
 export class SaveCreationAddFileModal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleFileChange = this.handleFileChange.bind(this);
+    this.handleFileClick = this.handleFileClick.bind(this);
+    this.state = {
+      nameFile: '',
+    };
+  }
+
+  handleFileChange(e) {
+    this.setState({ nameFile: e.target.value });
+  }
+
+  handleFileClick() {
+    this.props.addFile(this.state.nameFile);
+    this.props.cancelAddingFile();
+    this.setState({ nameFile: '' });
+  }
+
   render() {
     return (
-      <Modal show={this.props.stateShowModal} onHide={this.props.cancelAddingFile}>
+      <Modal show={this.props.state.showModal} onHide={this.props.cancelAddingFile}>
         <Modal.Header closeButton>
           <Modal.Title>Add a file to save</Modal.Title>
         </Modal.Header>
@@ -20,11 +39,13 @@ export class SaveCreationAddFileModal extends React.Component {
             className={styles.input}
             type="text"
             placeholder="Ex: C:/user/username/Desktop/file.txt"
+            value={this.state.nameFile}
+            onChange={this.handleFileChange}
           />
         </Modal.Body>
         <Modal.Footer>
           <ButtonToolbar>
-            <LinkContainerButton buttonType="info" buttonText="Add" />
+            <LinkContainerButton buttonType="info" buttonText="Add" onClick={this.handleFileClick} />
             <LinkContainerButton buttonText="Cancel" onClick={this.props.cancelAddingFile} />
           </ButtonToolbar>
         </Modal.Footer>
@@ -34,6 +55,7 @@ export class SaveCreationAddFileModal extends React.Component {
 }
 
 SaveCreationAddFileModal.propTypes = {
-  stateShowModal: React.PropTypes.boolean,
+  state: React.PropTypes.object,
+  addFile: React.PropTypes.func,
   cancelAddingFile: React.PropTypes.func,
 };
