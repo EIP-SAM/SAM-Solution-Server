@@ -6,8 +6,8 @@
 import { combineReducers } from 'redux-immutable';
 import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import StatisticGraphReducer from 'containers/StatisticGraph/reducers'
-import StatisticFilterReducer from 'containers/StatisticFilter/reducers'
+import StatisticGraphReducer from 'containers/Stats/StatisticGraph/reducers'
+import StatisticFilterReducer from 'containers/Stats/StatisticFilter/reducers'
 
 /*
  * routeReducer

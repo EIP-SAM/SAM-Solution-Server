@@ -4,7 +4,7 @@
 
 import { connect } from 'react-redux';
 import { getStatsFromServer } from './actions';
-import { StatisticGraphComponent } from 'components/StatisticGraph';
+import { StatisticGraphComponent } from 'components/Stats/StatisticGraph';
 
 function mapStateToProps(state) {
   return {

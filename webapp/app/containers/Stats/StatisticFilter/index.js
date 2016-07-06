@@ -4,7 +4,7 @@
 
 import { connect } from 'react-redux';
 import { getFiltersFromServer } from './actions';
-import { StatisticFilterComponent } from 'components/StatisticFilter';
+import { StatisticFilterComponent } from 'components/Stats/StatisticFilter';
 
 function mapStateToProps(state) {
   return {
@@ -22,3 +22,4 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps,
 )(StatisticFilterComponent);
+  
