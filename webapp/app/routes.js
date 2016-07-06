@@ -22,8 +22,8 @@ export default function createRoutes() {
       name: 'home',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-           System.import('containers/StatisticGraph'),
-           System.import('containers/StatisticFilter'),
+           System.import('containers/Stats/StatisticGraph'),
+           System.import('containers/Stats/StatisticFilter'),
         ]);
 
         const renderRoute = loadModule(cb);
