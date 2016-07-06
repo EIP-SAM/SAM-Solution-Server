@@ -26,25 +26,41 @@ module.exports.addFilter = function (entity)
     module.exports.statisticFilters.push(entity);
 }
 
-module.exports.getStatisticData = function () {
-  return module.exports.prepareDataForGraph(module.exports.statisticGetMethodForEntity('Computer', 'GraphCircleOfTypeOfComputer'));
+module.exports.getStatisticFilters = function () {
+  return module.exports.statisticFilters;
 }
-
-// TESTING FUNCTIONS / DEMO FUNCTIONS
 
 module.exports.getAllStatistics = function () {
   var data = [];
-  data.push(module.exports.prepareDataForGraph(module.exports.statisticGetMethodForEntity('User', 'GraphBarOfAge')));
-  data.push(module.exports.prepareDataForGraph(module.exports.statisticGetMethodForEntity('Computer', 'GraphCircleOfTypeOfComputer')));
-  data.push(module.exports.prepareDataForGraph(module.exports.statisticGetMethodForEntity('User', 'GraphRadarOfAge')));
-  data.push(module.exports.prepareDataForGraph(module.exports.statisticGetMethodForEntity('User', 'GraphLineOfAge')));
-  data.push(module.exports.prepareDataForGraph(module.exports.statisticGetMethodForEntity('Computer', 'GraphPolarOfTypeOfComputer')));
+
+  var functions = module.exports.statisticFunctions;
+
+  for (var i in functions) {
+    for (var j in functions[i]) {
+      data.push(module.exports.prepareDataForGraph(functions[i][j]()));
+    }
+  }
 
   return data;
 }
 
-module.exports.getStatisticFilters = function () {
-  return module.exports.statisticFilters;
+module.exports.getAllStatisticsByType = function (type) {
+  if (!module.exports.statisticFunctions[type])
+    return module.exports.getAllStatistics();
+  var functions = module.exports.statisticFunctions[type];
+  var data = [];
+
+  for (var i in functions) {
+    data.push(module.exports.prepareDataForGraph(functions[i]()));
+  }
+
+  return data;
+}
+
+// TESTING FUNCTIONS / DEMO FUNCTIONS
+
+module.exports.getStatisticData = function () {
+  return module.exports.prepareDataForGraph(module.exports.statisticGetMethodForEntity('Computer', 'GraphCircleOfTypeOfComputer'));
 }
 
 module.exports.initSampleStatistics = function () {

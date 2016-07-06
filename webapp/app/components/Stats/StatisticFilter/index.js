@@ -1,5 +1,6 @@
 import React from 'react';
-import { Nav, NavItem } from 'react-bootstrap';
+import { Nav, NavItem, ButtonToolbar } from 'react-bootstrap';
+import { LinkContainerButton } from 'components/Button'
 
 export class StatisticFilterComponent extends React.Component {
 
@@ -7,26 +8,35 @@ export class StatisticFilterComponent extends React.Component {
       this.props.getFiltersFromServer()
     }
 
+
   render() {
 
-    var filters = this.props.filters.filters;
+    var handleClick = function(type) {
+      this.props.getGraphFromServer(type.value)
+    }
 
+    var filters = this.props.filters.filters;
     if (!filters)
       return null;
 
     return (
-      <Nav bsStyle="pills" activeKey={1}>
+      <ButtonToolbar>
+        <LinkContainerButton buttonText='All' buttonType="link"
+          onClick={ handleClick.bind(this, {value: 'All'}) } key='All'/>
         {
-          filters.map((data, index) => (
-            <NavItem key={ index }>{ data }</NavItem>
+          filters.map((value, index) => (
+            <LinkContainerButton buttonText={ value } buttonType="link"
+              onClick={ handleClick.bind(this, { value }) } key={ index } />
           ))
         }
-      </Nav>
+      </ButtonToolbar>
     );
   }
 }
 
 StatisticFilterComponent.propTypes = {
   getFiltersFromServer: React.PropTypes.func.isRequired,
+  getGraphFromServer: React.PropTypes.func.isRequired,
+  getAllGraphFromServer: React.PropTypes.func.isRequired,
   filters: React.PropTypes.object.isRequired,
 }
