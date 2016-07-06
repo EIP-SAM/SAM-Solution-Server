@@ -1,6 +1,7 @@
 import React from 'react';
-import { StatisticFilterComponent } from 'containers/Stats/StatisticFilter'
-import { StatisticGraphComponent } from 'containers/Stats/StatisticGraph'
+import { PageHeader } from 'react-bootstrap';
+import StatisticFilterComponent from 'containers/Stats/StatisticFilter'
+import StatisticGraphComponent from 'containers/Stats/StatisticGraph'
 
 export class StatsComponent extends React.Component {
 

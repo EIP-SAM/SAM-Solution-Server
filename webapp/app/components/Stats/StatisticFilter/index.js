@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageHeader, Nav, NavItem } from 'react-bootstrap';
+import { Nav, NavItem } from 'react-bootstrap';
 
 export class StatisticFilterComponent extends React.Component {
 
@@ -10,6 +10,9 @@ export class StatisticFilterComponent extends React.Component {
   render() {
 
     var filters = this.props.filters.filters;
+
+    if (!filters)
+      return null;
 
     return (
       <Nav bsStyle="pills" activeKey={1}>
