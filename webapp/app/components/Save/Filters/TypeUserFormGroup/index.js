@@ -4,13 +4,12 @@
 
 import React from 'react';
 import { FormGroup, Radio, ControlLabel, Col } from 'react-bootstrap';
-import styles from 'components/Save/Filters/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class TypeUserFormGroup extends React.Component {
   render() {
     return (
-      <FormGroup controlId="type_user" bsSize="small" className={styles.radioButtons}>
+      <FormGroup controlId="type_user" bsSize="small">
         <Col componentClass={ControlLabel} sm={1}>
           Type of user :
         </Col>
