@@ -16,7 +16,10 @@ const UsersAdapter = require('../adapters/users');
 const GroupsAdapter = require('../adapters/groups');
 const rightsManager = require('./rights');
 const mailManager = require('./mail');
+const loggerManager = require('./log');
 const enumModules = rightsManager.enumModules;
+
+const logger = loggerManager.launchLog({ moduleName: 'Users & Rights' });
 
 //
 // Create admin if not exists
@@ -29,6 +32,7 @@ function initAdminUser() {
     if (!user) {
       UsersAdapter.createAdminUser('admin', 'admin@example.com', crypto.createHmac('sha256', salt).update('admin').digest('hex'))
       .then(function (user) {
+        logger.info('Default administrator account created');
         GroupsAdapter.findByName('admin_default')
         .then(function (group) {
           if (group) {
@@ -102,6 +106,7 @@ function checkAndCreateUser(name, email, password, confirmation) {
 //
 module.exports.ensureLoggedOut = function (req, res, next) {
   if (req.user) {
+    logger.warn({ user: { id: req.user.id, name: req.user.name } }, 'Logged user is trying to access a public (logged-out) ressource');
     res.status(401).json({ error: 'Already logged-in' });
   } else {
     next();
@@ -115,6 +120,7 @@ module.exports.ensureLoggedIn = function (req, res, next) {
   if (req.user) {
     next();
   } else {
+    logger.warn('Non logged user is trying to access a protected ressource');
     res.status(401).json({ error: 'Not logged-in' });
   }
 };
@@ -123,10 +129,10 @@ module.exports.ensureLoggedIn = function (req, res, next) {
 // Security check for each url of this kind : /api/logged-in/admin/*
 //
 module.exports.ensureAdminLoggedIn = function (req, res, next) {
-  if (req.user && req.user) { // req.user.isAdmin
-    console.log('WARNING: User is admin is not really checked');
+  if (req.user.isAdmin) {
     next();
   } else {
+    logger.warn({ user: { id: req.user.id, name: req.user.name } }, 'Non admin user is trying to access a protected ressource');
     res.status(401).json({ error: 'Access denied' });
   }
 };
@@ -160,18 +166,22 @@ module.exports.login = function (passport) {
   return function (req, res, next) {
     passport.authenticate('local', function (err, user, info) {
       if (err) {
+        logger.error({ error: err, user: user }, 'User login failure, internal server error');
         return res.status(500).json({ error: 'Internal server error' });
       }
 
       if (!user) {
+        logger.warn({ error: info.message }, 'User login failure');
         return res.status(401).json({ error: info.message });
       }
 
       req.logIn(user, function (err) {
         if (err) {
+          logger.error({ user: user, error: err }, 'User login failure, internal server error');
           return res.status(500).json({ error: 'Internal server error' });
         } else {
           constructUserProfile(user).then(function (userProfile) {
+            logger.info({ user: { id: req.user.id, name: req.user.name } }, 'User successfully logged in');
             return res.status(200).json(userProfile);
           });
         }
@@ -187,8 +197,11 @@ module.exports.login = function (passport) {
 //
 module.exports.logout = function () {
   return function (req, res) {
+    const user = req.user;
+
     req.logout();
     req.session.save(function () {
+      logger.info({ user: { id: user.id, name: user.name } }, 'User successfully logged out');
       res.status(200).end();
     });
   };
@@ -201,11 +214,14 @@ module.exports.createUser = function () {
   return function (req, res) {
     checkAndCreateUser(req.body.username, req.body.email, req.body.password, req.body.confirmation)
       .then(function (user) {
+        logger.info({ user: { id: user.id, name: user.name } }, 'New user created');
         return res.status(200).json({ success: 'User successfully created' });
       }).catch(function (userCreationError, internalError) {
         if (internalError) {
+          logger.error({ error: internalError }, 'Internal error during user creation');
           return res.status(500).json({ error: 'Internal server error' });
         } else {
+          logger.warn({ error: userCreationError }, 'Error during user creation');
           return res.status(405).json({ error: userCreationError });
         }
       }
@@ -302,16 +318,20 @@ module.exports.recoverUserPassword = function () {
 
     if (userEmail) {
       recoverUserPassword(userEmail).then(function (user) {
+        logger.info({ user: { id: user.id, name: user.name } }, 'Password recovery message successfully sent to the user email');
         res.status(200).json({ success: 'An email has been successfully sent to ' + userEmail });
       })
       .catch(function (usualError, internalError) {
         if (internalError) {
+          logger.error({ error: internalError }, 'Internal error during user password recovery');
           return res.status(500).json({ error: 'Internal server error' });
         } else {
+          logger.warn({ error: usualError }, 'Error during user password recovery');
           return res.status(405).json({ error: usualError });
         }
       });
     } else {
+      logger.warn({ error: 'Empty email field' }, 'Error during user password recovery');
       return res.status(405).json({ error: 'Empty email field' });
     }
   };
@@ -419,12 +439,15 @@ module.exports.updateUserProfile = function () {
     if (userUpdate.oldPassword &&
         req.user.password == crypto.createHmac('sha256', salt).update(userUpdate.oldPassword).digest('hex')) {
       updateUserProfile(req.user, userUpdate).then(function (user) {
+        logger.info({ user: { id: req.user.id, name: req.user.name } }, 'Successfull user profile update');
         return res.status(200).json({ success: 'Your profile has been successfully updated' });
       })
       .catch(function (error) {
+        logger.warn({ user: { id: req.user.id, name: req.user.name }, error: error }, 'User profile update error');
         return res.status(405).json({ error: error });
       });
     } else {
+      logger.warn({ user: { id: req.user.id, name: req.user.name }, error: 'Current password verification failed' }, 'User profile update error');
       return res.status(405).json({ error: 'Current password verification failed' });
     }
   };
@@ -472,9 +495,11 @@ function createUsers(users) {
     users.forEach(function (user) {
       checkAndCreateUser(user.name, user.email, user.password, user.confirmation)
       .then(function (user) {
+        logger.info({ user: { id: user.id, name: user.name } }, 'New user created (by an administrator)');
         stopForEachPromise(obj, null, fulfill);
       })
       .catch(function (error) {
+        logger.warn({ error: error }, 'Error during new user creation (by an administrator)');
         stopForEachPromise(obj, error, fulfill);
       });
     });
@@ -506,16 +531,20 @@ function updateUsers(users) {
           if (foundUser) {
             updateUserProfile(foundUser, user)
             .then(function (user) {
+              logger.info({ user: { id: user.id, name: user.name } }, 'User updated (by an administrator)');
               stopForEachPromise(obj, null, fulfill);
             })
             .catch(function (error) {
+              logger.warn({ error: error }, 'Error during user update (by an administrator)');
               stopForEachPromise(obj, error, fulfill);
             });
           } else {
+            logger.warn({ error: 'User id ' + user.id + ' not found' }, 'Error during user update (by an administrator)');
             stopForEachPromise(obj, 'User id ' + user.id + ' not found', fulfill);
           }
         });
       } else {
+        logger.warn({ error: 'Malformed user object' }, 'Error during user update (by an administrator)');
         stopForEachPromise(obj, 'Malformed user object', fulfill);
       }
     });
@@ -545,9 +574,11 @@ function deleteUsers(users) {
       UsersAdapter.findById(userId).then(function (user) {
         if (user) {
           user.destroy().then(function () {
+            logger.info({ user: { id: userId } }, 'User deleted (by an administrator)');
             stopForEachPromise(obj, null, fulfill);
           });
         } else {
+          logger.warn({ error: 'User id ' + userId + ' not found' }, 'Error during user deletion (by an administrator)');
           stopForEachPromise(obj, 'User id ' + userId + ' not found', fulfill);
         }
       });
