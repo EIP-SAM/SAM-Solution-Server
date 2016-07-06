@@ -12,8 +12,11 @@ export class StatisticGraphComponent extends React.Component {
     var graphs = [];
     var chartJs = require("react-chartjs");
     var allGraph = this.props.stats.stats;
-    if (allGraph)
-      var graphNumber = allGraph.length;
+
+    if (!allGraph)
+      return null;
+
+    var graphNumber = allGraph.length;
     var graphOptions = {
               animatable: true,
     };
