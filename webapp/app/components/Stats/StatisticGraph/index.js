@@ -52,7 +52,7 @@ export class StatisticGraphComponent extends React.Component {
         }
         if (Chart)
         {
-          graphs.push({graph: <Chart width="250" height="200" data={allGraph[i].datasets} options={graphOptions} />, title: allGraph[i].title, type: allGraph[i].type});
+          graphs.push({graph: <Chart width="500" height="100" data={allGraph[i].datasets} options={graphOptions} />, title: allGraph[i].title, type: allGraph[i].type});
         }
       }
     }
