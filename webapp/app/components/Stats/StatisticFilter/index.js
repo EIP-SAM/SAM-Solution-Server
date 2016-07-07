@@ -25,7 +25,7 @@ export class StatisticFilterComponent extends React.Component {
         {
           filters.map((value, index) => (
             <LinkContainerButton buttonText={ value } buttonType="link"
-              onClick={ handleClick.bind(this, { value }) } key={ index } />
+              onClick={ handleClick.bind(this, { value }) } key={ index } link="#" />
           ))
         }
       </ButtonToolbar>
