@@ -1,17 +1,40 @@
 var statManager = require('../managers/statistic');
+var dataAdapters = require('../adapters/statistic_temporary_fake_data');
 
 module.exports.registerGraphs = function () {
-  statManager.statisticRegisterMethodForEntity('User', 'GraphRadarOfSave', TESTDEFONCTION);
-  statManager.statisticRegisterMethodForEntity('User', 'GraphBarOfAge', TESTDEFONCTION2);
-  statManager.statisticRegisterMethodForEntity('Computer', 'GraphCircleOfTypeOfComputer', TESTDEFONCTION3);
-  statManager.statisticRegisterMethodForEntity('User', 'GraphRadarOfAge', TESTDEFONCTION4);
-  statManager.statisticRegisterMethodForEntity('User', 'GraphLineOfAge', TESTDEFONCTION5);
-  statManager.statisticRegisterMethodForEntity('Computer', 'GraphPolarOfTypeOfComputer', TESTDEFONCTION6);
-  statManager.statisticRegisterMethodForEntity('Save', 'GraphDoughnutOfTypeOfSave', TESTDEFONCTION7);
-  statManager.statisticRegisterMethodForEntity('Save', 'GraphRadarOfSave', TESTDEFONCTION8);
+  statManager.statisticRegisterMethodForEntity('User', 'GraphRadarOfSave', dataAdapters.TESTDEFONCTION);
+  statManager.statisticRegisterMethodForEntity('User', 'GraphBarOfAge', dataAdapters.TESTDEFONCTION2);
+  statManager.statisticRegisterMethodForEntity('Computer', 'GraphCircleOfTypeOfComputer', dataAdapters.TESTDEFONCTION3);
+  statManager.statisticRegisterMethodForEntity('User', 'GraphRadarOfAge', dataAdapters.TESTDEFONCTION4);
+  statManager.statisticRegisterMethodForEntity('User', 'GraphLineOfAge', dataAdapters.TESTDEFONCTION5);
+  statManager.statisticRegisterMethodForEntity('Save', 'GraphDoughnutOfTypeOfSave', dataAdapters.TESTDEFONCTION7);
+  statManager.statisticRegisterMethodForEntity('Save', 'GraphRadarOfSave', dataAdapters.TESTDEFONCTION8);
 };
 
-function TESTDEFONCTION () {
+/*
+
+Pour pouvoir créer un graphique il faut tout d’abord aller dans l’adapter statistic
+SAM-Solution-Server/adapters/statistic.js
+
+Comme on peut le voir au-dessus, il faut appeler la méthode « statisticRegisterMethodForEntity »
+dans la méthode « registerGraphs » afin de déclarer votre graphe.
+
+Le PREMIER PARAMETRE est le nom de la « catégorie » du graphe, ce nom-là est utilisé comme « filtre »
+sur la page de statistique.
+
+Le DEUXIEME PARAMETRE est le nom associé à votre graph, pour l’instant il n’a pas d’impact
+mais il pourrait servir dans le cas où nous voudrions afficher que certain graphes d’une « catégorie ».
+
+Le TROISIEME PARAMETRE est la « callback », c’est la fonction qui renverra les données liées au graphe.
+
+Dans mon exemple j’ai créé un adapter d’exemple et y est placé mes callbacks.
+SAM-Solution-Server/adapters/statistic_temporary_fake_data.js
+
+************************
+***** CODE EXEMPLE *****
+************************
+
+module.exports.TESTDEFONCTION = function () {
 
   var returnData = {
     type: 'radar',
@@ -32,156 +55,132 @@ function TESTDEFONCTION () {
   return (returnData);
 }
 
-function TESTDEFONCTION2 () {
+************************
+************************
+************************
 
-  var returnData = {
-    type: 'bar',
-    labels: ['janvier', 'fevrier', 'mars'],
-    title: 'Graphique barre age',
-    dataset: [
-      {
-        title: 'Age des utilisateurs',
-        data: [65, 50, 79]
-      },
-      {
-        title: 'Age des enfants',
-        data: [35, 20, 49]
-      },
-      // {
-      //   title: 'Age des papa',
-      //   data: [25, 10, 19]
-      // },
-    ]
-  };
+Le nom de mon callback ici est TESTDEFONCTION. Le rôle de cette fonction est de simplement récupérer
+les données de les formater selon le graphe voulu et ensuite de retourner cet objet.
 
-  return (returnData);
+L'objet est composé de plusieurs attributs qui lui sont essentiels.
+/!\ EN FONCTION DU TYPE DE GRAPHE VOULU, LES ATTRIBUTS SONT DIFFERENTS /!\
+
+- type : le type de graphe que vous voulez, valeurs possible : radar, bar, pie, line, doughnut.
+- titre : Le nom du graphique qui sera affiché juste en dessous du graphe.
+- label : correspond au label, attention, en fonction du type de graphe il peut etre necessaire ou non.
+- dataset : les données qui seront présente dans le graphe, qui seront différente en fonction du graphe voulu
+
+Vous pouvez consulter les exemples visuels sur http://localhost:3000/statistics
+
+********************************
+***** RADAR DATA STRUCTURE *****
+********************************
+
+{
+  type: 'radar',
+  labels: ['janvier', 'fevrier', 'mars'],
+  title: 'radar : Graphique radar sauvegarde',
+  dataset: [
+    {
+      title: 'Sauvegarde des utilisateurs',
+      data: [25, 10, 29, ...]
+    },
+    {
+      title: 'Sauvegarde des enfants',
+      data: [25, 10, 29, ...]
+    },
+    ...
+  ]
 }
 
-function TESTDEFONCTION3 () {
-  var returnData = {
-    type: 'pie',
-    title: 'Graphique type des ordinateurs',
-    dataset: [
-      {
-        title: "portable",
-        value: 200,
-      },
-      {
-        title: "fixe",
-        value: 210,
-      },
-      {
-        title: "ultrabook",
-        value: 50,
-      },
-    ]
-  };
+******************************
+***** BAR DATA STRUCTURE *****
+******************************
 
-  return (returnData);
+{
+  type: 'bar',
+  labels: ['janvier', 'fevrier', 'mars', ...],
+  title: 'bar : Graphique barre age',
+  dataset: [
+    {
+      title: 'Age des utilisateurs',
+      data: [65, 50, 79, ...]
+    },
+    {
+      title: 'Age des enfants',
+      data: [35, 20, 49, ...]
+    },
+    ...
+  ]
 }
 
-function TESTDEFONCTION4 () {
-  var returnData = {
-    type: 'radar',
-    labels: ['janvier', 'fevrier', 'mars'],
-    title: 'Graphique radar age',
-    dataset: [
-      {
-        title: 'Age des utilisateurs',
-        data: [65, 50, 79]
-      },
-      {
-        title: 'Age des enfants',
-        data: [35, 20, 49]
-      }
-    ]
-  };
+******************************
+***** PIE DATA STRUCTURE *****
+******************************
 
-  return (returnData);
+{
+  type: 'pie',
+  title: 'pie : Graphique type des ordinateurs',
+  dataset: [
+    {
+      title: "portable",
+      value: 200,
+    },
+    {
+      title: "fixe",
+      value: 210,
+    },
+    {
+      title: "ultrabook",
+      value: 50,
+    },
+    ...
+  ]
 }
 
-function TESTDEFONCTION5 () {
-  var returnData = {
-    type: 'line',
-    labels: ['janvier', 'fevrier', 'mars'],
-    title: 'Graphique ligne age',
-    dataset: [
-      {
-        title: 'Age des utilisateurs',
-        data: [65, 50, 79]
-      },
-      {
-        title: 'Age des enfants',
-        data: [35, 20, 49]
-      }
-    ]
-  };
+*******************************
+***** LINE DATA STRUCTURE *****
+*******************************
 
-  return (returnData);
+{
+  type: 'line',
+  labels: ['janvier', 'fevrier', 'mars', ...],
+  title: 'line : Graphique ligne age',
+  dataset: [
+    {
+      title: 'Age des utilisateurs',
+      data: [65, 50, 79]
+    },
+    {
+      title: 'Age des enfants',
+      data: [35, 20, 49]
+    },
+    ...
+  ]
+};
+
+***********************************
+***** DOUGHNUT DATA STRUCTURE *****
+***********************************
+
+{
+  type: 'doughnut',
+  title: 'Graphique type des Sauvegarde',
+  dataset: [
+    {
+      title: "portable",
+      value: 200,
+    },
+    {
+      title: "fixe",
+      value: 210,
+    },
+    {
+      title: "ultrabook",
+      value: 50,
+    },
+    ...
+  ]
 }
 
-function TESTDEFONCTION6 () {
-  var returnData = {
-    type: 'polar',
-    title: 'Graphique polaire type des ordinateurs',
-    dataset: [
-      {
-        title: "portable",
-        value: 200,
-      },
-      {
-        title: "fixe",
-        value: 210,
-      },
-      {
-        title: "ultrabook",
-        value: 50,
-      },
-    ]
-  };
-
-  return (returnData);
-}
-
-function TESTDEFONCTION7 () {
-  var returnData = {
-    type: 'doughnut',
-    title: 'Graphique type des Sauvegarde',
-    dataset: [
-      {
-        title: "portable",
-        value: 200,
-      },
-      {
-        title: "fixe",
-        value: 210,
-      },
-      {
-        title: "ultrabook",
-        value: 50,
-      },
-    ]
-  };
-
-  return (returnData);
-}
-
-function TESTDEFONCTION8 () {
-  var returnData = {
-    type: 'radar',
-    labels: ['janvier', 'test', 'mars'],
-    title: 'Graphique radar sauvegarde',
-    dataset: [
-      {
-        title: 'Sauvegarde des utilisateurs',
-        data: [25, 10, 29]
-      },
-      {
-        title: 'Sauvegarde des enfants',
-        data: [25, 10, 29]
-      }
-    ]
-  };
-
-  return (returnData);
-}
+*/
