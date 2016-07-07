@@ -1,6 +1,7 @@
 import React from 'react';
 import { Nav, NavItem, ButtonToolbar } from 'react-bootstrap';
 import { LinkContainerButton } from 'components/Button'
+import styles from 'components/Stats/StatisticFilter/styles.css';
 
 export class StatisticFilterComponent extends React.Component {
 
@@ -20,7 +21,7 @@ export class StatisticFilterComponent extends React.Component {
       return null;
 
     return (
-      <ButtonToolbar>
+      <ButtonToolbar className={ styles.buttonBar } >
         {
           filters.map((value, index) => (
             <LinkContainerButton buttonText={ value } buttonType="link"

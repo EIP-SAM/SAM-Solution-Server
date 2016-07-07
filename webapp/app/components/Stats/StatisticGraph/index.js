@@ -1,5 +1,6 @@
 import React from 'react';
 import { PageHeader, Nav, NavItem } from 'react-bootstrap';
+import styles from 'components/Stats/StatisticGraph/styles.css';
 const chartJs = require("react-chartjs");
 
 export class StatisticGraphComponent extends React.Component {
@@ -20,51 +21,52 @@ export class StatisticGraphComponent extends React.Component {
     var graphOptions = {
               animatable: true,
     };
+    var Chart = null;
 
     for (var i = 0; i < graphNumber; i++)
     {
       if (allGraph[i])
       {
+        Chart = null;
         switch (allGraph[i].type) {
           case "bar":
-            var BarChart = chartJs.Bar;
-            graphs.push(<BarChart data={allGraph[i].datasets} options={graphOptions} />);
+            Chart = chartJs.Bar;
             break;
           case "pie":
-            var PieChart = chartJs.Pie;
-            graphs.push(<PieChart data={allGraph[i].datasets} options={graphOptions} />);
+            Chart = chartJs.Pie;
             break;
           case "radar":
-            var RadarChart = chartJs.Radar;
-            graphs.push(<RadarChart data={allGraph[i].datasets} options={graphOptions} />);
+            Chart = chartJs.Radar;
             break;
           case "line":
-            var LineChart = chartJs.Line;
-            graphs.push(<LineChart data={allGraph[i].datasets} options={graphOptions} />);
+            Chart = chartJs.Line;
             break;
           // case "polar":
-          //   var PolarChart = chartJs.PolarArea;
-          //   graphs.push(<PolarChart data={allGraph[i].datasets} options={graphOptions} />);
+          //   Chart = chartJs.PolarArea;
           //   break;
           case "doughnut":
-            var DoughnutChart = chartJs.Doughnut;
-            graphs.push(<DoughnutChart data={allGraph[i].datasets} options={graphOptions} />);
+            Chart = chartJs.Doughnut;
             break;
           default:
             break;
+        }
+        if (Chart)
+        {
+          graphs.push({graph: <Chart width="250" height="200" data={allGraph[i].datasets} options={graphOptions} />, title: allGraph[i].title, type: allGraph[i].type});
         }
       }
     }
 
     return (
       <div>
-        <div>
         {
           graphs.map((data, index) => (
-           <div key={ index }>{ data }</div>
+            <div className={ styles.divGraph } key={ data.title + index + data.type }>
+              <div className={ styles.divCanvas } >{ data.graph }</div>
+              <span className={ styles.spanTitle } >{ data.title }</span>
+            </div>
           ))
         }
-        </div>
       </div>
     );
   }

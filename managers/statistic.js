@@ -228,7 +228,8 @@ function prepareBarDataForGraph(graphData) {
 
   var dataToChart = {
       datasets: dataSets,
-      type: graphData.type
+      type: graphData.type,
+      title: graphData.title,
   };
 
   return dataToChart;
@@ -248,7 +249,8 @@ function preparePieDataForGraph(graphData) {
 
   var dataToChart = {
      datasets: datasets,
-     type: graphData.type
+     type: graphData.type,
+     title: graphData.title,
  };
 
   return dataToChart;
@@ -268,7 +270,8 @@ function prepareDoughnutDataForGraph(graphData) {
 
   var dataToChart = {
      datasets: datasets,
-     type: graphData.type
+     type: graphData.type,
+     title: graphData.title,
  };
 
   return dataToChart;
@@ -296,7 +299,8 @@ function prepareRadarDataForGraph(graphData, ctx) {
 
   var dataToChart = {
       datasets: dataSets,
-      type: graphData.type
+      type: graphData.type,
+      title: graphData.title,
   };
 
   return dataToChart;
@@ -324,7 +328,8 @@ function prepareLineDataForGraph(graphData, ctx) {
 
   var dataToChart = {
       datasets: dataSets,
-      type: graphData.type
+      type: graphData.type,
+      title: graphData.title,
   };
 
   return dataToChart;
@@ -523,16 +528,16 @@ module.exports.initSampleStatistics = function () {
 
     var returnData = {
       type: 'radar',
-      labels: ['janvier', 'fevrier', 'mars'],
+      labels: ['janvier', 'test', 'mars'],
       title: 'Graphique radar sauvegarde',
       dataset: [
         {
-          title: 'Age des utilisateurs',
-          data: [65, 50, 79]
+          title: 'Sauvegarde des utilisateurs',
+          data: [25, 10, 29]
         },
         {
-          title: 'Age des enfants',
-          data: [35, 20, 49]
+          title: 'Sauvegarde des enfants',
+          data: [25, 10, 29]
         }
       ]
     };
