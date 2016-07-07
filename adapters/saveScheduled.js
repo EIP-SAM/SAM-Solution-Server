@@ -50,6 +50,16 @@ module.exports.createSaveScheduled = function (userId, cron, files) {
 };
 
 //
+// Create new save instance
+//
+module.exports.createSave = function (saveScheduledId, date) {
+  return SaveModel.create({
+    saveScheduledId: saveScheduledId,
+    execDate: date,
+  });
+};
+
+//
 // Disable saveScheduled instance
 //
 module.exports.disableSaveScheduled = function (saveScheduledId) {

@@ -8,17 +8,35 @@ import styles from 'components/SaveCreation/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SaveCreationFrequencyFormGroup extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleFrequencyChange = this.handleFrequencyChange.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.frequencySave('No Repeat');
+  }
+
+  handleFrequencyChange(e) {
+    this.props.frequencySave(e.target.value);
+  }
+
   render() {
     return (
       <FormGroup controlId="frequency" className={styles.form}>
         <ControlLabel>Repeat</ControlLabel>
-        <FormControl componentClass="select">
-          <option value="0">No Repeat</option>
-          <option value="1">Daily</option>
-          <option value="2">Weekly</option>
-          <option value="3">Monthy</option>
+        <FormControl componentClass="select" onChange={this.handleFrequencyChange}>
+          <option value="No Repeat" defaultValue>No Repeat</option>
+          <option value="Daily">Daily</option>
+          <option value="Weekly">Weekly</option>
+          <option value="Monthly">Monthy</option>
         </FormControl>
       </FormGroup>
     );
   }
 }
+
+SaveCreationFrequencyFormGroup.propTypes = {
+  state: React.PropTypes.object,
+  frequencySave: React.PropTypes.func,
+};

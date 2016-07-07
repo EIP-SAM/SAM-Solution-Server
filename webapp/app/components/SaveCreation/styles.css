@@ -11,11 +11,12 @@ body {
   top: 7px;
 }
 
-.button {
-  font-weight: bold;
-}
-
 .label + span >  span {
   position: relative;
   left: 26px;
+}
+
+.toolbar {
+  margin-top: 20px;
+  text-align: right;
 }

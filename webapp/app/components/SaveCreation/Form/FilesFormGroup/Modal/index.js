@@ -46,7 +46,7 @@ export class SaveCreationAddFileModal extends React.Component {
         <Modal.Footer>
           <ButtonToolbar>
             <LinkContainerButton buttonType="info" buttonText="Add" onClick={this.handleFileClick} />
-            <LinkContainerButton buttonText="Cancel" onClick={this.props.cancelAddingFile} />
+            <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={this.props.cancelAddingFile} />
           </ButtonToolbar>
         </Modal.Footer>
       </Modal>

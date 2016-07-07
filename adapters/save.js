@@ -4,16 +4,6 @@
 SaveModel = require('../models/save');
 
 //
-// Create new save instance
-//
-module.exports.createSave = function (saveScheduledId, date) {
-  return SaveModel.create({
-    saveScheduledId: saveScheduledId,
-    execDate: date,
-  });
-};
-
-//
 // Search in the database a save instance with id = saveId
 // Update boolean isStart
 //
