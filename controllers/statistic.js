@@ -1,7 +1,7 @@
 var statManagers = require('../managers/statistic');
 
 module.exports.getStatisticFilters = function () {
-  statManagers.initSampleStatistics();
+  statManagers.initiateGraphs();
   return statManagers.getStatisticFilters();
 }
 
