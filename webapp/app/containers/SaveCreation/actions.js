@@ -9,8 +9,14 @@
 //      }
 //
 
+const request = require('superagent');
+
 import {
   SHOW_ADD_FILE_MODAL,
+  LIST_USERS,
+  DATE,
+  TIME,
+  FREQUENCY,
   ADD_FILE,
 } from './constants';
 
@@ -28,9 +34,67 @@ export function hideModal() {
   };
 }
 
+export function listUsers(users) {
+  return {
+    type: LIST_USERS,
+    users,
+  };
+}
+
+export function dateSave(date) {
+  return {
+    type: DATE,
+    date,
+  };
+}
+
+export function timeSave(time) {
+  return {
+    type: TIME,
+    time,
+  };
+}
+
+export function frequencySave(frequency) {
+  return {
+    type: FREQUENCY,
+    frequency,
+  };
+}
+
 export function addFile(file) {
   return {
     type: ADD_FILE,
     file,
+  };
+}
+
+//
+// Get username of users list in state.
+//
+import { browserHistory } from 'react-router';
+
+export function createSave(state) {
+  const usernames = [];
+  for (const user of state.users) {
+    usernames.push(user.value);
+  }
+
+  return function createSaveRequest() {
+    return request
+      .post('http://localhost:8080/createSave')
+      .type('form')
+      .send({
+        users: usernames,
+        date: state.date,
+        time: state.time,
+        frequency: state.frequency,
+        files: state.files,
+      })
+      .end((err, res) => {
+        console.log(res.body);
+        window.history.go(-1);
+        browserHistory.goBack();
+      });
   };
 }

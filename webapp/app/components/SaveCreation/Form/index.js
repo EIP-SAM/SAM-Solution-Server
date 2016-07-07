@@ -15,17 +15,33 @@ export class SaveCreationForm extends React.Component {
   render() {
     return (
       <form>
-        <SaveCreationUsersFormGroup data={this.props.data} />
-        <SaveCreationDateFormGroup />
-        <SaveCreationTimeFormGroup />
-        <SaveCreationFrequencyFormGroup />
+        <SaveCreationUsersFormGroup
+          data={this.props.data}
+          state={this.props.state}
+          listUsers={this.props.listUsers}
+        />
+        <SaveCreationDateFormGroup
+          state={this.props.state}
+          dateSave={this.props.dateSave}
+        />
+        <SaveCreationTimeFormGroup
+          state={this.props.state}
+          timeSave={this.props.timeSave}
+        />
+        <SaveCreationFrequencyFormGroup
+          state={this.props.state}
+          frequencySave={this.props.frequencySave}
+        />
         <SaveCreationFilesFormGroup
           state={this.props.state}
           addFile={this.props.addFile}
           showAddFileModal={this.props.showAddFileModal}
           cancelAddingFile={this.props.cancelAddingFile}
         />
-        <SaveCreationButtons />
+        <SaveCreationButtons
+          state={this.props.state}
+          createSave={this.props.createSave}
+        />
       </form>
     );
   }
@@ -34,7 +50,12 @@ export class SaveCreationForm extends React.Component {
 SaveCreationForm.propTypes = {
   data: React.PropTypes.array,
   state: React.PropTypes.object,
+  listUsers: React.PropTypes.func,
+  dateSave: React.PropTypes.func,
+  timeSave: React.PropTypes.func,
+  frequencySave: React.PropTypes.func,
   addFile: React.PropTypes.func,
   showAddFileModal: React.PropTypes.func,
   cancelAddingFile: React.PropTypes.func,
+  createSave: React.PropTypes.func,
 };
