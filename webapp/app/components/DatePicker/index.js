@@ -5,10 +5,28 @@
 import React from 'react';
 import { Glyphicon } from 'react-bootstrap';
 const Datepicker = require('react-bootstrap-date-picker');
-import styles from 'components/DatePicker/styles.css';
+import 'components/DatePicker/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class DatePicker extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      date: '',
+    };
+  }
+
+  handleChange(e) {
+    const newDate = e.target.value;
+    if (this.state.date !== newDate) {
+      this.setState({ date: newDate });
+    }
+    if (this.props.onChange) {
+      this.props.onChange(newDate);
+    }
+  }
+
   render() {
     const dateFormat = (this.props.dateFormat) ? this.props.dateFormat : 'DD/MM/YYYY';
     return (
@@ -20,7 +38,7 @@ export class DatePicker extends React.Component {
         dateFormat={dateFormat}
         onBlur={this.props.onBlur}
         onFocus={this.props.onFocus}
-        onChange={this.props.onChange}
+        onChange={this.handleChange}
         dayLabels={this.props.dayLabels}
         monthLabels={this.props.monthLabels}
         calendarPlacement={this.props.calendarPlacement}
