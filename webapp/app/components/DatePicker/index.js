@@ -5,20 +5,32 @@
 import React from 'react';
 import { Glyphicon } from 'react-bootstrap';
 const Datepicker = require('react-bootstrap-date-picker');
+const moment = require('moment');
 import 'components/DatePicker/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class DatePicker extends React.Component {
+export default class DatePicker extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       date: '',
     };
+    this.dateFormat = '';
+  }
+
+  componentWillMount() {
+    this.dateFormat = (this.props.dateFormat) ? this.props.dateFormat : 'DD/MM/YYYY';
+
+    if (typeof this.props.value !== 'undefined') {
+      this.setState({ date: this.props.value });
+    } else {
+      this.setState({ date: moment().format(this.dateFormat) });
+    }
   }
 
   handleChange(e) {
-    const newDate = e.target.value;
+    const newDate = e;
     if (this.state.date !== newDate) {
       this.setState({ date: newDate });
     }
@@ -28,14 +40,13 @@ export class DatePicker extends React.Component {
   }
 
   render() {
-    const dateFormat = (this.props.dateFormat) ? this.props.dateFormat : 'DD/MM/YYYY';
     return (
       <Datepicker
         clearButtonElement={<Glyphicon glyph="remove" />}
         previousButtonElement={<Glyphicon glyph="chevron-left" />}
         nextButtonElement={<Glyphicon glyph="chevron-right" />}
-        value={this.props.value}
-        dateFormat={dateFormat}
+        value={this.state.date}
+        dateFormat={this.dateFormat}
         onBlur={this.props.onBlur}
         onFocus={this.props.onFocus}
         onChange={this.handleChange}
