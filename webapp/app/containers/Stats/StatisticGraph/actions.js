@@ -5,7 +5,7 @@
 import request from 'superagent';
 
 import {
-  GET_STATS,
+  GET_STATS_BY_TYPE,
 } from './constants';
 
 export function getStats(type, stats) {
@@ -14,6 +14,8 @@ export function getStats(type, stats) {
     stats,
   };
 }
+
+// ----- TO DELETE ONCE ALL FINISHED
 
 export function getAllGraphFromServer() {
   return function startAction(dispatch) {
@@ -29,6 +31,8 @@ export function getAllGraphFromServer() {
   };
 }
 
+// --------------------------------------------
+
 export function getGraphFromServer(type) {
   return function startAction(dispatch) {
     return request
@@ -36,9 +40,9 @@ export function getGraphFromServer(type) {
       .set('type', type)
       .end((err, res) => {
         if (err || res.body.error) {
-          console.log('Error occured in request to server for statistic type data');
+          //console.log('Error occured in request to server for statistic type data : ', res);
         } else {
-          dispatch(getStats(GET_STATS, res.body));
+          dispatch(getStats(GET_STATS_BY_TYPE, res.body));
         }
       });
   };

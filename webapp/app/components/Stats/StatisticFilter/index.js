@@ -21,8 +21,6 @@ export class StatisticFilterComponent extends React.Component {
 
     return (
       <ButtonToolbar>
-        <LinkContainerButton buttonText='All' buttonType="link"
-          onClick={ handleClick.bind(this, {value: 'All'}) } key='All'/>
         {
           filters.map((value, index) => (
             <LinkContainerButton buttonText={ value } buttonType="link"
@@ -37,6 +35,5 @@ export class StatisticFilterComponent extends React.Component {
 StatisticFilterComponent.propTypes = {
   getFiltersFromServer: React.PropTypes.func.isRequired,
   getGraphFromServer: React.PropTypes.func.isRequired,
-  getAllGraphFromServer: React.PropTypes.func.isRequired,
   filters: React.PropTypes.object.isRequired,
 }
