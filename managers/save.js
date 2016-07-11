@@ -12,12 +12,8 @@ var nodeSchedule = require('../libs/nodeSchedule');
 module.exports.lastUsersSaves = function (req, res) {
   return saveScheduledAdapter.lastUsersSaves().then(function(results) {
     for (var user of results) {
-//      console.log(user.save_scheduleds[0].saves[0].execDate);
       var lastSaveScheduled = user.save_scheduleds[0];
       for (var saveScheduled of user.save_scheduleds) {
-        console.log(lastSaveScheduled);
-        console.log(saveScheduled);
-        console.log('-----');
         if (saveScheduled.saves[0] && lastSaveScheduled.saves[0].execDate < saveScheduled.saves[0].execDate) {
           lastSaveScheduled = saveScheduled;
         }
@@ -38,7 +34,6 @@ module.exports.historySavesByUser = function (req, res) {
 }
 
 module.exports.createSave = function (req, res) {
-  console.log(req.body);
   const users = req.body.users;
   const date = req.body.date;
   const time = req.body.time;
@@ -49,9 +44,11 @@ module.exports.createSave = function (req, res) {
   const splitTime = time.split(':');
   // In JavaScript - 0 - January, 11 - December
   // YYYY-MM-DD hh:mm
-  const dateFormat = new Date(splitDate[2], splitDate[1], splitDate[0],
+  let dateFormat = new Date(splitDate[2], splitDate[1] - 1, splitDate[0],
     splitTime[0], splitTime[1]);
-  console.log(dateFormat);
+  if (dateFormat < new Date()) {
+    dateFormat = new Date(new Date().getTime() + 60000);
+  }
 
   var cron = null;
   if (frequency !== 'No Repeat') {
@@ -67,41 +64,6 @@ module.exports.createSave = function (req, res) {
       saveScheduledAdapter.createSave(saveScheduled.id, dateFormat);
     }
   )
-
-  // Get data from form
-  // Format date
-  // Launch save
-  //const userId = req.body.userId;
-
-  // Cron management
-  /*const repeatFrequenceSave = req.body.repeatFrequenceSave;
-  var cron = req.body.cron; // to modify -> will need a parser
-  if (repeatFrequenceSave == 'no') {
-    cron = null;
-  }
-
-  const files = req.body.files; // will probably need a parser
-
-  // Exec Date management
-  var dateProgSave = req.body.dateProgSave;
-  var timeProgSave = req.body.timeProgSave;
-  dateProgSave = dateProgSave.split('-');
-  timeProgSave = timeProgSave.split(':');
-
-  // In JavaScript - 0 - January, 11 - December
-  const date = new Date(dateProgSave[0], dateProgSave[1] - 1, dateProgSave[2],
-    timeProgSave[0], timeProgSave[1]);
-
-  return saveScheduledAdapter.createSaveScheduled(userId, cron, files).then(
-    function (saveScheduled) {
-      if (cron === null) {
-        nodeSchedule.listCron[saveScheduled.id] = cronManager.createSaveScheduled(date);
-      } else {
-        nodeSchedule.listCron[saveScheduled.id] = cronManager.createAutoSave(cron);
-      }
-
-      return saveAdapter.createSave(saveScheduled.id, date);
-    });*/
 };
 
 //

@@ -3,6 +3,7 @@
 //
 
 import React from 'react';
+import { browserHistory } from 'react-router';
 import { ButtonToolbar } from 'react-bootstrap';
 import { LinkContainerButton } from 'components/Button';
 import styles from 'components/SaveCreation/styles.css';
@@ -18,11 +19,15 @@ export class SaveCreationButtons extends React.Component {
     this.props.createSave(this.props.state);
   }
 
+  handleCancelClick() {
+    browserHistory.goBack();
+  }
+
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
         <LinkContainerButton buttonType="info" buttonText="Create" onClick={this.handleFormClick} />
-        <LinkContainerButton buttonType="default" buttonText="Cancel" />
+        <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={this.handleCancelClick} />
       </ButtonToolbar>
     );
   }
