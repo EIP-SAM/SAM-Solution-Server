@@ -13,12 +13,19 @@ export class LinkContainerButton extends React.Component {
   render() {
     const buttonStyle = ((this.props.buttonStyle) ? this.props.buttonStyle : styles.button);
 
+    if (this.props.link) {
+      return (
+        <LinkContainer to={{ pathname: this.props.link }}>
+          <Button className={buttonStyle} bsStyle={this.props.buttonType} onClick={this.props.onClick}>
+            {this.props.buttonText}
+          </Button>
+        </LinkContainer>
+      );
+    }
     return (
-      <LinkContainer to={{ pathname: this.props.link }}>
-        <Button className={buttonStyle} bsStyle={this.props.buttonType} onClick={this.props.onClick}>
-          {this.props.buttonText}
-        </Button>
-      </LinkContainer>
+      <Button className={buttonStyle} bsStyle={this.props.buttonType} onClick={this.props.onClick}>
+        {this.props.buttonText}
+      </Button>
     );
   }
 }
