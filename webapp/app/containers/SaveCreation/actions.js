@@ -9,6 +9,7 @@
 //      }
 //
 
+import { browserHistory } from 'react-router';
 const request = require('superagent');
 
 import {
@@ -71,9 +72,8 @@ export function addFile(file) {
 
 //
 // Get username of users list in state.
+// Create save
 //
-import { browserHistory } from 'react-router';
-
 export function createSave(state) {
   const usernames = [];
   for (const user of state.users) {
@@ -91,9 +91,7 @@ export function createSave(state) {
         frequency: state.frequency,
         files: state.files,
       })
-      .end((err, res) => {
-        console.log(res.body);
-        window.history.go(-1);
+      .end(() => {
         browserHistory.goBack();
       });
   };
