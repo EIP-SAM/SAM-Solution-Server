@@ -12,16 +12,15 @@ module.exports = function initSaveRoutes(app) {
     })
   });
 
-  app.post('/historySave', function (req, res) {
+  app.get('/historySave', function (req, res) {
     saveController.historySavesByUser(req, res).then(function(historySaves) {
       res.json(historySaves)
     })
   });
 
-  app.post('/create_save', function (req, res) {
+  app.post('/createSave', function (req, res) {
     saveController.createSave(req, res);
-    req.flash('msg', 'Your save has been created');
-    res.redirect('/save');
+    res.json('Your save has been created');
   });
 
   app.post('/save_start', function (req, res) {

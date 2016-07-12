@@ -1,5 +1,5 @@
 //
-// Save Reducer
+// Save History Reducer
 //
 // To add a new action:
 //
