@@ -1,14 +1,29 @@
 //
 // DateFormGroup in form for page SaveCreation
 //
-
 import React from 'react';
 import { Glyphicon } from 'react-bootstrap';
-import Datepicker from 'react-bootstrap-date-picker';
+const Datepicker = require('react-bootstrap-date-picker');
 import 'components/DatePicker/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class DatePicker extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      date: this.props.value,
+    };
+  }
+  handleChange(e) {
+    const newDate = e;
+    if (this.state.date !== newDate) {
+      this.setState({ date: newDate });
+    }
+    if (this.props.onChange) {
+      this.props.onChange(newDate);
+    }
+  }
   render() {
     const dateFormat = (this.props.dateFormat) ? this.props.dateFormat : 'DD/MM/YYYY';
     return (
@@ -16,11 +31,11 @@ export default class DatePicker extends React.Component {
         clearButtonElement={<Glyphicon glyph="remove" />}
         previousButtonElement={<Glyphicon glyph="chevron-left" />}
         nextButtonElement={<Glyphicon glyph="chevron-right" />}
-        value={this.props.value}
+        value={this.state.date}
         dateFormat={dateFormat}
         onBlur={this.props.onBlur}
         onFocus={this.props.onFocus}
-        onChange={this.props.onChange}
+        onChange={this.handleChange}
         dayLabels={this.props.dayLabels}
         monthLabels={this.props.monthLabels}
         calendarPlacement={this.props.calendarPlacement}
@@ -28,7 +43,6 @@ export default class DatePicker extends React.Component {
     );
   }
 }
-
 DatePicker.propTypes = {
   value: React.PropTypes.string,
   dateFormat: React.PropTypes.string,

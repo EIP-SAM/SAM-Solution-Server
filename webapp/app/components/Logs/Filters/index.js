@@ -3,9 +3,8 @@
 //
 
 import React from 'react';
-import DateInput from 'components/DatePicker';
 import styles from './styles.css';
-import RadioGroup from 'components/RadioGroup';
+import DateRange from './DateRange';
 import {
   Panel,
   FormGroup,
@@ -74,6 +73,9 @@ export class LogFilter extends React.Component {
             delete newFilters.findOpts.beforeDate;
           }
           break;
+        case 'date':
+          console.log(event);
+          break;
         default:
       }
       this.setState({ filters: newFilters });
@@ -108,14 +110,7 @@ export class LogFilter extends React.Component {
             </FormControl>
           </FormGroup>
 
-          <FormGroup>
-            <ControlLabel>Date:</ControlLabel>
-            <RadioGroup className={styles.radio} inline values={['Specific', 'Range']} placeholder="Specific" onChange={(e) => console.log(e)} />
-            <DateInput value={this.state.dateMin} onChange={this.handleChange('dayMin')} />
-            <div className={styles.maxDate}>
-              <DateInput value={this.state.dateMax} onChange={this.handleChange('dayMax')} />
-            </div>
-          </FormGroup>
+          <DateRange onChange={this.handleChange('date')} />
 
           <FormGroup controlId="limitLogsSelect">
             <ControlLabel>Number of logs:</ControlLabel>
