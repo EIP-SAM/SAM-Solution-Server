@@ -26,9 +26,6 @@ export class LogFilter extends React.Component {
         },
         limit: undefined,
       },
-      dateMin: undefined,
-      dateMax: undefined,
-      specificDate: true,
     };
   }
 
@@ -65,7 +62,9 @@ export class LogFilter extends React.Component {
               delete newFilters.findOpts.afterDate;
             }
             if (event.dateTwo !== null) {
-              newFilters.findOpts.beforeDate = event.dateTwo;
+              const nextDay = new Date(event.dateTwo);
+              nextDay.setDate(nextDay.getDate() + 1);
+              newFilters.findOpts.beforeDate = nextDay.toISOString();
             } else {
               delete newFilters.findOpts.beforeDate;
             }
