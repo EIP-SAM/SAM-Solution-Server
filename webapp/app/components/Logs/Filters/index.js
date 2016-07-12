@@ -5,11 +5,10 @@
 import React from 'react';
 import styles from './styles.css';
 import DateRange from './DateRange';
+import LevelRange from './LevelRange';
+import NumberLogs from './NumberLogs';
 import {
   Panel,
-  FormGroup,
-  ControlLabel,
-  FormControl,
   Button,
   ButtonToolbar,
 } from 'react-bootstrap';
@@ -20,11 +19,7 @@ export class LogFilter extends React.Component {
     super(props);
     this.state = {
       filters: {
-        findOpts: {
-          levelAbove: 10,
-          levelBelow: 60,
-        },
-        limit: undefined,
+        findOpts: { forceObject: true },
       },
     };
   }
@@ -37,14 +32,35 @@ export class LogFilter extends React.Component {
     return event => {
       const newFilters = this.state.filters;
       switch (name) {
-        case 'levelAbove':
-          newFilters.findOpts.levelAbove = event.target.value;
+        case 'number':
+          if (event !== 'all') {
+            newFilters.limit = event;
+          } else {
+            delete newFilters.limit;
+          }
           break;
-        case 'levelBelow':
-          newFilters.findOpts.levelBelow = event.target.value;
-          break;
-        case 'limit':
-          newFilters.limit = event.target.value;
+        case 'level':
+          if (event.specific) {
+            if (event.levelOne !== 'all') {
+              newFilters.findOpts.level = event.levelOne;
+            } else {
+              delete newFilters.findOpts.level;
+            }
+            delete newFilters.findOpts.levelAbove;
+            delete newFilters.findOpts.levelBelow;
+          } else {
+            if (event.levelOne !== 'all') {
+              newFilters.findOpts.levelAbove = event.levelOne;
+            } else {
+              delete newFilters.findOpts.levelAbove;
+            }
+            if (event.levelTwo !== 'all') {
+              newFilters.findOpts.levelBelow = event.levelTwo;
+            } else {
+              delete newFilters.findOpts.levelBelow;
+            }
+            delete newFilters.findOpts.level;
+          }
           break;
         case 'date':
           if (event.specific) {
@@ -80,43 +96,10 @@ export class LogFilter extends React.Component {
   render() {
     return (
       <div>
-        <Panel className={styles.panelFilter} collapsible header={<h3>[+] Filters</h3>} bsStyle="primary">
-          <FormGroup controlId="levelAboveLogsSelect">
-            <ControlLabel>Level min:</ControlLabel>
-            <FormControl componentClass="select" onChange={this.handleChange('levelAbove')} placeholder="all">
-              <option value="10">all</option>
-              <option value="20">debug</option>
-              <option value="30">info</option>
-              <option value="40">warn</option>
-              <option value="50">error</option>
-              <option value="60">fatal</option>
-            </FormControl>
-          </FormGroup>
-
-          <FormGroup controlId="levelBelowLogsSelect">
-            <ControlLabel>Level max:</ControlLabel>
-            <FormControl componentClass="select" onChange={this.handleChange('levelBelow')} placeholder="all">
-              <option value="60">all</option>
-              <option value="20">debug</option>
-              <option value="30">info</option>
-              <option value="40">warn</option>
-              <option value="50">error</option>
-              <option value="60">fatal</option>
-            </FormControl>
-          </FormGroup>
-
+        <Panel className={styles.panelFilterLogs} collapsible header={<h3>[+] Filters</h3>} bsStyle="primary">
+          <LevelRange onChange={this.handleChange('level')} />
           <DateRange onChange={this.handleChange('date')} />
-
-          <FormGroup controlId="limitLogsSelect">
-            <ControlLabel>Number of logs:</ControlLabel>
-            <FormControl componentClass="select" onChange={this.handleChange('limit')} placeholder="all">
-              <option value="undefined">all</option>
-              <option value="2">2</option>
-              <option value="100">100</option>
-              <option value="1000">1000</option>
-              <option value="10000">10000</option>
-            </FormControl>
-          </FormGroup>
+          <NumberLogs onChange={this.handleChange('number')} />
         </Panel>
         <ButtonToolbar>
           <Button className={styles.getLogsToolbarButton} bsStyle="primary" onClick={() => this.getLogs()}>Get Logs</Button>

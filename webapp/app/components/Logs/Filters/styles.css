@@ -1,4 +1,4 @@
-.panelFilter {
+.panelFilterLogs {
   margin-bottom: 5px !important;
 }
 
@@ -7,10 +7,10 @@
   margin-bottom: 10px !important;
 }
 
-.radio {
+.radioLogs {
   margin-left: 10px !important;
 }
 
-.maxDate {
+.rangeMaxLogs {
   margin-top: 5px !important;
 }
