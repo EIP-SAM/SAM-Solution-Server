@@ -17,10 +17,10 @@ module.exports = function initRestoreRoutes(app) {
     })
   });
 
-  app.post('/create_restore', function (req, res) {
-    restoreController.createRestore(req, res);
-    req.flash('msg', 'Your restoration has been created');
-    res.redirect('/restore');
+  app.post('/createRestore', function (req, res) {
+    restoreController.createRestore(req, res).then(function(newRestore) {
+      res.json('Your restoration has been created');
+    });
   });
 
   app.post('/restore_start', function (req, res) {

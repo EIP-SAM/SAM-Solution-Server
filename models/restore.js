@@ -5,11 +5,14 @@ var Sequelize = require('sequelize');
 var sequelize = require('../libs/sequelize');
 
 var UserModel = require('./users');
-var SaveScheduledModel = require('./saveScheduled');
 
 var restore = sequelize.define('restore', {
     execDate: {
       type: Sequelize.DATE,
+    },
+    files: {
+      type: Sequelize.TEXT,
+      allowNull: false,
     },
     isStart: {
       type: Sequelize.BOOLEAN,
@@ -31,7 +34,6 @@ var restore = sequelize.define('restore', {
 // Setup ForeignKeys
 //
 restore.belongsTo(UserModel, { foreignKey: 'userId' });
-restore.belongsTo(SaveScheduledModel, { foreignKey: 'saveScheduledId' });
 UserModel.hasMany(restore);
 
 //

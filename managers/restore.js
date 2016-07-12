@@ -25,8 +25,8 @@ module.exports.historyRestoreByUser = function (req, res) {
 //
 module.exports.createRestore = function (req, res) {
   const userId = req.body.userId;
-  const saveId = req.body.saveId;
-  return restoreAdapter.createRestore(userId, saveId);
+  const files = req.body.files;
+  return restoreAdapter.createRestore(userId, files);
 };
 
 //
