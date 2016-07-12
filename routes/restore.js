@@ -11,7 +11,7 @@ module.exports = function initRestoreRoutes(app) {
     })
   });
 
-  app.post('/historyRestore', function (req, res) {
+  app.get('/historyRestore', function (req, res) {
     restoreController.historyRestoreByUser(req, res).then(function(historyRestores) {
       res.json(historyRestores)
     })
