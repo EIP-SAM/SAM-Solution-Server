@@ -22,7 +22,7 @@ export default class DatePicker extends React.Component {
   componentWillMount() {
     this.dateFormat = (this.props.dateFormat) ? this.props.dateFormat : 'DD/MM/YYYY';
 
-    if (typeof this.props.value !== 'undefined') {
+    if (this.props.value) {
       this.setState({ date: this.props.value });
     } else {
       this.setState({ date: moment().format(this.dateFormat) });
