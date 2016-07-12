@@ -3,7 +3,7 @@
 //
 
 import React from 'react';
-import DateInput from 'components/DatePicker';
+import DatePicker from 'components/DatePicker';
 import RadioGroup from 'components/RadioGroup';
 import styles from './styles.css';
 import {
@@ -22,28 +22,28 @@ export default class DateRange extends React.Component {
     };
   }
 
-  getDateFields() {
+  getDatePickers() {
     if (this.state.specific) {
       return (
-        <DateInput
+        <DatePicker
           value={this.state.dateOne}
           onChange={this.handleChange('specific')}
         />
       );
     }
     return (
-      <span>
-        <DateInput
+      <div>
+        <DatePicker
           value={this.state.dateOne}
           onChange={this.handleChange('rangeMin')}
         />
-        <div className={styles.maxDate}>
-          <DateInput
+        <div className={styles.rangeMaxLogs}>
+          <DatePicker
             value={this.state.dateTwo}
             onChange={this.handleChange('rangeMax')}
           />
         </div>
-      </span>
+      </div>
     );
   }
 
@@ -76,19 +76,19 @@ export default class DateRange extends React.Component {
   }
 
   render() {
-    const dateFields = this.getDateFields();
+    const datePickers = this.getDatePickers();
 
     return (
       <FormGroup>
         <ControlLabel>Date:</ControlLabel>
         <RadioGroup
-          className={styles.radio}
+          className={styles.radioLogs}
           inline
           values={['Specific', 'Range']}
           placeholder="Specific"
           onChange={this.handleChange('mode')}
         />
-        {dateFields}
+        {datePickers}
       </FormGroup>
     );
   }
