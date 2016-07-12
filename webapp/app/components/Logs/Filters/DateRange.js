@@ -17,7 +17,8 @@ export default class DateRange extends React.Component {
     super(props);
     this.state = {
       specific: true,
-      day: '',
+      dateOne: null,
+      dateTwo: null,
     };
   }
 
@@ -25,7 +26,7 @@ export default class DateRange extends React.Component {
     if (this.state.specific) {
       return (
         <DateInput
-          value={this.state.day}
+          value={this.state.dateOne}
           onChange={this.handleChange('specific')}
         />
       );
@@ -33,27 +34,41 @@ export default class DateRange extends React.Component {
     return (
       <span>
         <DateInput
-          value={this.state.day}
-          onChange={(value) => this.props.onChange({ mode: 'dayMin', value })}
+          value={this.state.dateOne}
+          onChange={this.handleChange('rangeMin')}
         />
         <div className={styles.maxDate}>
           <DateInput
-            onChange={(value) => this.props.onChange({ mode: 'dayMax', value })}
+            value={this.state.dateTwo}
+            onChange={this.handleChange('rangeMax')}
           />
         </div>
       </span>
     );
   }
 
+  setStateAndNotify(state) {
+    this.setState(state, () => this.props.onChange({
+      specific: this.state.specific,
+      dateOne: this.state.dateOne,
+      dateTwo: this.state.dateTwo,
+    }));
+  }
+
   handleChange(name) {
     return event => {
       switch (name) {
         case 'mode':
-          this.setState({ specific: event === 'Specific' });
+          this.setStateAndNotify({ specific: event === 'Specific' });
           break;
         case 'specific':
-          this.setState({ day: event });
-          this.props.onChange({ mode: 'day', event });
+          this.setStateAndNotify({ dateOne: event });
+          break;
+        case 'rangeMin':
+          this.setStateAndNotify({ dateOne: event });
+          break;
+        case 'rangeMax':
+          this.setStateAndNotify({ dateTwo: event });
           break;
         default:
       }

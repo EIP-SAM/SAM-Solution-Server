@@ -49,32 +49,28 @@ export class LogFilter extends React.Component {
         case 'limit':
           newFilters.limit = event.target.value;
           break;
-        case 'day':
-          this.setState({ date: event });
-          if (event !== null) {
-            newFilters.findOpts.day = event;
+        case 'date':
+          if (event.specific) {
+            if (event.dateOne !== null) {
+              newFilters.findOpts.day = event.dateOne;
+            } else {
+              delete newFilters.findOpts.day;
+            }
+            delete newFilters.findOpts.afterDate;
+            delete newFilters.findOpts.beforeDate;
           } else {
+            if (event.dateOne !== null) {
+              newFilters.findOpts.afterDate = event.dateOne;
+            } else {
+              delete newFilters.findOpts.afterDate;
+            }
+            if (event.dateTwo !== null) {
+              newFilters.findOpts.beforeDate = event.dateTwo;
+            } else {
+              delete newFilters.findOpts.beforeDate;
+            }
             delete newFilters.findOpts.day;
           }
-          break;
-        case 'dayMin':
-          this.setState({ dateMin: event });
-          if (event !== null) {
-            newFilters.findOpts.afterDate = event;
-          } else {
-            delete newFilters.findOpts.afterDate;
-          }
-          break;
-        case 'dayMax':
-          this.setState({ dateMax: event });
-          if (event !== null) {
-            newFilters.findOpts.beforeDate = event;
-          } else {
-            delete newFilters.findOpts.beforeDate;
-          }
-          break;
-        case 'date':
-          console.log(event);
           break;
         default:
       }
