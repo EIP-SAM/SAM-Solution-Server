@@ -1,9 +1,11 @@
 //
 // DateFormGroup in form for page SaveCreation
 //
+
 import React from 'react';
 import { Glyphicon } from 'react-bootstrap';
 const Datepicker = require('react-bootstrap-date-picker');
+const moment = require('moment');
 import 'components/DatePicker/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -12,9 +14,21 @@ export default class DatePicker extends React.Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      date: this.props.value,
+      date: '',
     };
+    this.dateFormat = '';
   }
+
+  componentWillMount() {
+    this.dateFormat = (this.props.dateFormat) ? this.props.dateFormat : 'DD/MM/YYYY';
+
+    if (typeof this.props.value !== 'undefined') {
+      this.setState({ date: this.props.value });
+    } else {
+      this.setState({ date: moment().format(this.dateFormat) });
+    }
+  }
+
   handleChange(e) {
     const newDate = e;
     if (this.state.date !== newDate) {
@@ -24,15 +38,15 @@ export default class DatePicker extends React.Component {
       this.props.onChange(newDate);
     }
   }
+
   render() {
-    const dateFormat = (this.props.dateFormat) ? this.props.dateFormat : 'DD/MM/YYYY';
     return (
       <Datepicker
         clearButtonElement={<Glyphicon glyph="remove" />}
         previousButtonElement={<Glyphicon glyph="chevron-left" />}
         nextButtonElement={<Glyphicon glyph="chevron-right" />}
         value={this.state.date}
-        dateFormat={dateFormat}
+        dateFormat={this.dateFormat}
         onBlur={this.props.onBlur}
         onFocus={this.props.onFocus}
         onChange={this.handleChange}
@@ -43,6 +57,7 @@ export default class DatePicker extends React.Component {
     );
   }
 }
+
 DatePicker.propTypes = {
   value: React.PropTypes.string,
   dateFormat: React.PropTypes.string,
