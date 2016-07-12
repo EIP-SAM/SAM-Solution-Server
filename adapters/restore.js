@@ -3,7 +3,6 @@
 //
 RestoreModel = require('../models/restore');
 UserModel = require('../models/users');
-SaveScheduledModel = require('../models/saveScheduled');
 
 //
 // Get all users with their last restoration
@@ -15,10 +14,6 @@ module.exports.lastUsersRestores = function () {
       where: { isFinish : true},
       order: [['execDate', 'DESC']],
       limit: 1,
-      include: [{
-        model: SaveScheduledModel,
-        where: id = RestoreModel.saveScheduledId,
-      }]
     }]
   });
 }
@@ -32,8 +27,6 @@ module.exports.historyRestoreByUser = function(username) {
     include: [{
       model: UserModel,
       where: { name: username },
-    }, {
-      model: SaveScheduledModel,
     }]
   })
 }
@@ -42,10 +35,10 @@ module.exports.historyRestoreByUser = function(username) {
 //
 // Create new restore instance
 //
-module.exports.createRestore = function (userId, saveId) {
+module.exports.createRestore = function (userId, files) {
   return RestoreModel.create({
     userId: userId,
-    saveId: saveId,
+    files: files,
     execDate: new Date(),
   });
 };
