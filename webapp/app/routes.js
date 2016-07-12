@@ -74,7 +74,7 @@ export default function createRoutes() {
         .catch(errorLoading);
     },
   }, {
-    path: '/create-restore',
+    path: '/create-restore/:username',
     name: 'createRestore',
     getComponent(nextState, cb) {
       System.import('containers/RestoreCreation')

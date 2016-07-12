@@ -10,6 +10,7 @@ import SaveReducer from 'containers/Save/reducers';
 import SaveHistoryReducer from 'containers/SaveHistory/reducers';
 import RestoreReducer from 'containers/Restore/reducers';
 import RestoreHistoryReducer from 'containers/RestoreHistory/reducers';
+import RestoreCreationReducer from 'containers/RestoreCreation/reducers';
 
 /*
  * routeReducer
@@ -49,6 +50,7 @@ export default function createReducer(asyncReducers) {
     saveHistory: SaveHistoryReducer,
     restore: RestoreReducer,
     restoreHistory: RestoreHistoryReducer,
+    restoreCreation: RestoreCreationReducer,
     ...asyncReducers,
   });
 }

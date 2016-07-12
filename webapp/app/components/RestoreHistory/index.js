@@ -21,7 +21,7 @@ export class RestoreHistory extends React.Component {
       <div>
         <PageHeader>Restore</PageHeader>
         <PageHeader className={styles.title}><small>{this.props.location.pathname.split('/')[2]}</small></PageHeader>
-        <RestoreHistoryButtons />
+        <RestoreHistoryButtons data={this.props.state.restores} />
         <RestoreHistoryTable data={this.props.state.restores} />
       </div>
     );

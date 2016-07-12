@@ -1,0 +1,110 @@
+import React from 'react';
+import { Form, FormGroup, ControlLabel, FormControl, ButtonToolbar, Button } from 'react-bootstrap';
+import { Option } from 'components/Option';
+import 'components/RestoreCreation/styles.css';
+
+export default class RestoreCreationForm extends React.Component {
+  constructor(props) {
+    super(props);
+    // this.onChangeSave = this.onChangeSave.bind(this);
+    // this.getFilesOption = this.getFilesOption.bind(this);
+    this.state = {
+      filesOption: "LOOOL",
+    };
+  }
+
+  // onChangeSave(event){
+  //   let data = this.props.data;
+  //   var files = [];
+  //   var j = event.target.value;
+  //   console.log(j);
+  //   console.log("1111");
+  //   console.log(data);
+  //   console.log("2222");
+  //   files.push({value: data[j].save_scheduled.files, text: data[j].save_scheduled.files});
+  //
+  //   const filesOption = files.map((item, index) => (
+  //     <Option object={item} key={`item-${index}`} />
+  //   ));
+  // }
+  //
+  // getFilesOption(){
+  //   console.log("ICIIIIIIIIIIIIIII");
+  //
+  //   return (<Option value="2" text="test"/>);
+  // }
+
+  render () {
+    // let data = this.props.data;
+    // if (typeof data === 'undefined') {
+    //   data = [];
+    // }
+    //
+    // console.log(data);
+    // var saves = [];
+    // data.forEach(function() {
+    //   saves.push({})
+    // });
+    //
+    // var saves = data.map((item, index) => (
+    //   <Option object={item} key={`item-${index}`} />
+    // ));
+    //
+    // var allsaves = [];
+    // var i = 0;
+    // data.forEach(function() {
+    //     allsaves.push({value: i, text: "save " + " " + data[i].id});
+    //     i++;
+    // });
+    // console.log(allsaves);
+    // // console.log(saves[0].props.object.saveScheduledId);
+    //
+    // const savesOption = allsaves.map((item, index) => (
+    //   <Option object={item} key={`item-${index}`} />
+    // ));
+    //
+    // var files = [];
+    // var j = 0;
+    // data.forEach(function() {
+    //     files.push({value: data[j].save_scheduled.files, text: data[j].save_scheduled.files});
+    //     j++;
+    // });
+    // // const filesOption = files.map((item, index) => (
+    // //   <Option object={item} key={`item-${index}`} />
+    // // ));
+    // console.log(files);
+    // console.log("1");
+    // console.log(this.state);
+    // console.log("2");
+
+    return (
+      <Form horizontal>
+        <FormGroup controlId="users" className={styles.form}>
+          <ControlLabel>Users</ControlLabel>
+          <FormControl componentClass="input" value={this.props.data[0].user.name} disabled/>
+        </FormGroup>
+        <FormGroup controlId="saves" className={styles.form}>
+          <ControlLabel>Select a save</ControlLabel>
+          <FormControl componentClass="select">
+            {  }
+          </FormControl>
+        </FormGroup>
+        <FormGroup controlId="files" className={styles.form}>
+          <ControlLabel>Files</ControlLabel>
+          <FormControl componentClass="select" multiple>
+            { "test" }
+          </FormControl>
+        </FormGroup>
+
+        <ButtonToolbar>
+          <Button type="submit" bsStyle="info" className={styles.button}>Restore</Button>
+          <Button type="submit" className={styles.button}>Cancel</Button>
+        </ButtonToolbar>
+      </Form>
+    );
+  }
+};
+
+RestoreCreationForm.propTypes = {
+  data: React.PropTypes.array,
+};
