@@ -75,9 +75,9 @@ export function addFile(file) {
 // Create save
 //
 export function createSave(state) {
-  const usernames = [];
+  const usersId = [];
   for (const user of state.users) {
-    usernames.push(user.value);
+    usersId.push(user.value);
   }
 
   return function createSaveRequest() {
@@ -85,7 +85,7 @@ export function createSave(state) {
       .post('http://localhost:8080/createSave')
       .type('form')
       .send({
-        users: usernames,
+        usersId,
         date: state.date,
         time: state.time,
         frequency: state.frequency,
