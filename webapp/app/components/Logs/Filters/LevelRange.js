@@ -10,6 +10,7 @@ import {
   ControlLabel,
   FormControl,
   Label,
+  Collapse,
 } from 'react-bootstrap';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -21,43 +22,6 @@ export default class DateRange extends React.Component {
       levelOne: 'all',
       levelTwo: 'all',
     };
-  }
-
-  getLevelSelects() {
-    if (this.state.specific) {
-      return (
-        <FormControl componentClass="select" onChange={this.handleChange('specific')} placeholder={this.state.levelOne}>
-          <option value="all">all</option>
-          <option value="20">debug</option>
-          <option value="30">info</option>
-          <option value="40">warn</option>
-          <option value="50">error</option>
-          <option value="60">fatal</option>
-        </FormControl>
-      );
-    }
-    return (
-      <div>
-        <FormControl componentClass="select" onChange={this.handleChange('rangeMin')} placeholder={this.state.levelOne}>
-          <option value="all">all</option>
-          <option value="20">debug</option>
-          <option value="30">info</option>
-          <option value="40">warn</option>
-          <option value="50">error</option>
-          <option value="60">fatal</option>
-        </FormControl>
-        <div className={styles.rangeMaxLogs}>
-          <FormControl componentClass="select" onChange={this.handleChange('rangeMax')} placeholder={this.state.levelTwo}>
-            <option value="all">all</option>
-            <option value="20">debug</option>
-            <option value="30">info</option>
-            <option value="40">warn</option>
-            <option value="50">error</option>
-            <option value="60">fatal</option>
-          </FormControl>
-        </div>
-      </div>
-    );
   }
 
   setStateAndNotify(state) {
@@ -74,9 +38,6 @@ export default class DateRange extends React.Component {
         case 'mode':
           this.setStateAndNotify({ specific: event === 'Specific' });
           break;
-        case 'specific':
-          this.setStateAndNotify({ levelOne: event.target.value });
-          break;
         case 'rangeMin':
           this.setStateAndNotify({ levelOne: event.target.value });
           break;
@@ -89,8 +50,6 @@ export default class DateRange extends React.Component {
   }
 
   render() {
-    const levelSelects = this.getLevelSelects();
-
     return (
       <FormGroup>
         <ControlLabel>
@@ -103,7 +62,26 @@ export default class DateRange extends React.Component {
           placeholder="Specific"
           onChange={this.handleChange('mode')}
         />
-        {levelSelects}
+        <FormControl componentClass="select" onChange={this.handleChange('rangeMin')} placeholder={this.state.levelOne}>
+          <option value="all">all</option>
+          <option value="20">debug</option>
+          <option value="30">info</option>
+          <option value="40">warn</option>
+          <option value="50">error</option>
+          <option value="60">fatal</option>
+        </FormControl>
+        <Collapse className={styles.rangeMaxLogs} in={!this.state.specific} timeout={500}>
+          <div>
+            <FormControl componentClass="select" onChange={this.handleChange('rangeMax')} placeholder={this.state.levelTwo}>
+              <option value="all">all</option>
+              <option value="20">debug</option>
+              <option value="30">info</option>
+              <option value="40">warn</option>
+              <option value="50">error</option>
+              <option value="60">fatal</option>
+            </FormControl>
+          </div>
+        </Collapse>
       </FormGroup>
     );
   }

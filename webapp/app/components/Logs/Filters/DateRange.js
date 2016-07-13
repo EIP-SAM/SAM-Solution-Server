@@ -10,6 +10,7 @@ import {
   FormGroup,
   ControlLabel,
   Label,
+  Collapse,
 } from 'react-bootstrap';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -21,31 +22,6 @@ export default class DateRange extends React.Component {
       dateOne: null,
       dateTwo: null,
     };
-  }
-
-  getDatePickers() {
-    if (this.state.specific) {
-      return (
-        <DatePicker
-          value={this.state.dateOne}
-          onChange={this.handleChange('specific')}
-        />
-      );
-    }
-    return (
-      <div>
-        <DatePicker
-          value={this.state.dateOne}
-          onChange={this.handleChange('rangeMin')}
-        />
-        <div className={styles.rangeMaxLogs}>
-          <DatePicker
-            value={this.state.dateTwo}
-            onChange={this.handleChange('rangeMax')}
-          />
-        </div>
-      </div>
-    );
   }
 
   setStateAndNotify(state) {
@@ -62,9 +38,6 @@ export default class DateRange extends React.Component {
         case 'mode':
           this.setStateAndNotify({ specific: event === 'Specific' });
           break;
-        case 'specific':
-          this.setStateAndNotify({ dateOne: event });
-          break;
         case 'rangeMin':
           this.setStateAndNotify({ dateOne: event });
           break;
@@ -77,8 +50,6 @@ export default class DateRange extends React.Component {
   }
 
   render() {
-    const datePickers = this.getDatePickers();
-
     return (
       <FormGroup>
         <ControlLabel>
@@ -91,7 +62,18 @@ export default class DateRange extends React.Component {
           placeholder="Specific"
           onChange={this.handleChange('mode')}
         />
-        {datePickers}
+        <DatePicker
+          value={this.state.dateOne}
+          onChange={this.handleChange('rangeMin')}
+        />
+        <Collapse className={styles.rangeMaxLogs} in={!this.state.specific} timeout={500}>
+          <div>
+            <DatePicker
+              value={this.state.dateTwo}
+              onChange={this.handleChange('rangeMax')}
+            />
+          </div>
+        </Collapse>
       </FormGroup>
     );
   }
