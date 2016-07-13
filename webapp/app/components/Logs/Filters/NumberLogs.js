@@ -7,6 +7,7 @@ import {
   FormGroup,
   ControlLabel,
   FormControl,
+  Label,
 } from 'react-bootstrap';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -27,7 +28,9 @@ export default class NumberLogs extends React.Component {
   render() {
     return (
       <FormGroup>
-        <ControlLabel>Number of logs:</ControlLabel>
+        <ControlLabel>
+          <h4><Label bsStyle="primary">Number of logs</Label></h4>
+        </ControlLabel>
         <FormControl componentClass="select" onChange={this.handleChange} placeholder={this.state.number}>
           <option value="all">all</option>
           <option value="10">10</option>
