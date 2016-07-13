@@ -11,16 +11,24 @@ import {
   Panel,
   Button,
   ButtonToolbar,
+  Glyphicon,
+  Grid,
+  Row,
+  Col,
 } from 'react-bootstrap';
 
 /* eslint-disable react/prefer-stateless-function */
 export class LogFilter extends React.Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
     this.state = {
       filters: {
         findOpts: { forceObject: true },
       },
+      panelTitleIcon: 'plus-sign',
+      panelIsCollapsed: true,
+      panelTitleHelp: '(click to show)',
     };
   }
 
@@ -93,13 +101,47 @@ export class LogFilter extends React.Component {
     };
   }
 
+  handleClick() {
+    if (!this.state.panelIsCollapsed) {
+      this.setState({
+        panelIsCollapsed: true,
+        panelTitleIcon: 'plus-sign',
+        panelTitleHelp: '(click to show)',
+      });
+    } else {
+      this.setState({
+        panelIsCollapsed: false,
+        panelTitleIcon: 'minus-sign',
+        panelTitleHelp: '(click to hide)',
+      });
+    }
+  }
+
   render() {
+    const headerPanel = (
+      <h5 onClick={this.handleClick}>
+        <Glyphicon glyph={this.state.panelTitleIcon} />
+        {' Filters '}
+        <span className={styles.panelTitleHelpLogs}>
+          {this.state.panelTitleHelp}
+        </span>
+      </h5>
+    );
+
     return (
       <div>
-        <Panel className={styles.panelFilterLogs} collapsible header={<h3>[+] Filters</h3>} bsStyle="primary">
-          <LevelRange onChange={this.handleChange('level')} />
-          <DateRange onChange={this.handleChange('date')} />
-          <NumberLogs onChange={this.handleChange('number')} />
+        <Panel className={styles.panelFilterLogs} collapsible header={headerPanel} bsStyle="primary">
+          <Grid fluid>
+            <Row>
+              <Col xs={9} md={6}>
+                <LevelRange onChange={this.handleChange('level')} />
+              </Col>
+              <Col xs={9} md={6}>
+                <DateRange onChange={this.handleChange('date')} />
+              </Col>
+            </Row>
+            <NumberLogs onChange={this.handleChange('number')} />
+          </Grid>
         </Panel>
         <ButtonToolbar>
           <Button className={styles.getLogsToolbarButton} bsStyle="primary" onClick={() => this.getLogs()}>Get Logs</Button>

@@ -9,6 +9,7 @@ import styles from './styles.css';
 import {
   FormGroup,
   ControlLabel,
+  Label,
 } from 'react-bootstrap';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -80,7 +81,9 @@ export default class DateRange extends React.Component {
 
     return (
       <FormGroup>
-        <ControlLabel>Date:</ControlLabel>
+        <ControlLabel>
+          <h4><Label bsStyle="primary">Date</Label></h4>
+        </ControlLabel>
         <RadioGroup
           className={styles.radioLogs}
           inline

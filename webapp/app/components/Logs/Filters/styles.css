@@ -14,3 +14,7 @@
 .rangeMaxLogs {
   margin-top: 5px !important;
 }
+
+.panelTitleHelpLogs {
+  font-style: italic;
+}
