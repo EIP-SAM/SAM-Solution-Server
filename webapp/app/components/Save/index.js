@@ -20,8 +20,15 @@ export class Save extends React.Component {
       <div>
         <PageHeader>Save</PageHeader>
         <SaveFilters />
-        <SaveButtons />
-        <SaveTable data={this.props.state.saves} />
+        <SaveButtons
+          dateSave={this.props.dateSave}
+          timeSave={this.props.timeSave}
+          frequencySave={this.props.frequencySave}
+        />
+        <SaveTable
+          data={this.props.state.saves}
+          addAllFiles={this.props.addAllFiles}
+        />
       </div>
     );
   }
@@ -30,4 +37,8 @@ export class Save extends React.Component {
 Save.propTypes = {
   state: React.PropTypes.object,
   getSavesRequest: React.PropTypes.func,
+  dateSave: React.PropTypes.func,
+  timeSave: React.PropTypes.func,
+  frequencySave: React.PropTypes.func,
+  addAllFiles: React.PropTypes.func,
 };

@@ -13,6 +13,13 @@ export class SaveCreationDateFormGroup extends React.Component {
   constructor(props) {
     super(props);
     this.handleDateChange = this.handleDateChange.bind(this);
+    this.disabled = false;
+  }
+
+  componentWillMount() {
+    if (this.props.state.date) {
+      this.disabled = true;
+    }
   }
 
   handleDateChange(date) {
@@ -23,7 +30,7 @@ export class SaveCreationDateFormGroup extends React.Component {
     return (
       <FormGroup controlId="date" className={styles.form}>
         <ControlLabel className={styles.label}>Date</ControlLabel>
-        <DatePicker value={moment().format('DD/MM/YYYY')} onChange={this.handleDateChange} />
+        <DatePicker onChange={this.handleDateChange} disabled={this.disabled} />
       </FormGroup>
     );
   }

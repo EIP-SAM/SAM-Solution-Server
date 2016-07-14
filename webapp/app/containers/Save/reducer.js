@@ -10,6 +10,7 @@
 
 import {
   GET_SAVES,
+  GET_USERS,
 } from './constants';
 
 function SaveReducer(state = {}, action) {
@@ -17,6 +18,10 @@ function SaveReducer(state = {}, action) {
     case GET_SAVES:
       return Object.assign({}, state, {
         saves: action.saves,
+      });
+    case GET_USERS:
+      return Object.assign({}, state, {
+        users: action.users,
       });
     default:
       return state;

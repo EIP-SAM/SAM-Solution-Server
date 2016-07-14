@@ -19,9 +19,8 @@ module.exports = function initSaveRoutes(app) {
   });
 
   app.post('/createSave', function (req, res) {
-    saveController.createSave(req, res).then(function(newSave) {
-      res.json('Your save has been created');
-    });
+    saveController.createSave(req, res)
+    res.json('Your save has been created');
   });
 
   app.post('/save_start', function (req, res) {

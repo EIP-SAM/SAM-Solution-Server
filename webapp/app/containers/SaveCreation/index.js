@@ -8,7 +8,7 @@ import { listUsers, dateSave, timeSave, frequencySave, addFile, showModal, hideM
 
 function mapStateToProps(state) {
   return {
-    data: state.get('saveHistory'),
+    listUsersState: state.get('save'),
     state: state.get('saveCreation'),
   };
 }

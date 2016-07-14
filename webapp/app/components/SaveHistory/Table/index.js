@@ -13,6 +13,10 @@ import styles from './styles.css';
 /* eslint-disable react/prefer-stateless-function */
 export class SaveHistoryTable extends React.Component {
 
+  handleScheduledSaveClick(save) {
+    this.props.addAllFiles(save.save_scheduled.files);
+  }
+
   render() {
     const names = [{ isLink: false, value: 'Date' },
                   { isLink: false, value: 'State' },
@@ -34,7 +38,7 @@ export class SaveHistoryTable extends React.Component {
           const displayButton = (save.isStart) ? styles.undisplay : styles.button;
           const actions = [];
           actions.push(<ButtonPopover key={`action-${0}`} trigger="hover" placement="bottom" popoverContent="Relaunch Save" buttonType="link" icon="floppy-disk" />);
-          actions.push(<ButtonPopover key={`action-${1}`} trigger="hover" placement="bottom" popoverContent="Relaunch save at a specific time" buttonType="link" icon="calendar" />);
+          actions.push(<ButtonPopover key={`action-${1}`} trigger="hover" placement="bottom" popoverContent="Relaunch save at a specific time" buttonType="link" icon="calendar" onClick={() => this.handleScheduledSaveClick(save)} link="/create-save" />);
           actions.push(<ButtonPopover key={`action-${2}`} trigger="hover" placement="bottom" popoverContent="Restore" buttonType="link" icon="repeat" />);
           actions.push(<ButtonPopover key={`action-${3}`} trigger="hover" placement="bottom" popoverContent="Remove scheduled save" buttonType="link" icon="remove" buttonStyle={displayButton} />);
 
@@ -50,9 +54,7 @@ export class SaveHistoryTable extends React.Component {
             />
 
           );
-        }
-
-        )}
+        })}
         </tbody>
       </Table>
     );
@@ -61,4 +63,5 @@ export class SaveHistoryTable extends React.Component {
 
 SaveHistoryTable.propTypes = {
   data: React.PropTypes.array,
+  addAllFiles: React.PropTypes.func,
 };

@@ -4,17 +4,24 @@
 
 import { connect } from 'react-redux';
 import { SaveHistory } from 'components/SaveHistory';
+import { dateSave, timeSave, frequencySave, addAllFiles } from 'containers/SaveCreation/actions';
 import { getHistorySavesByUserRequest } from './actions';
+
 
 function mapStateToProps(state) {
   return {
     state: state.get('saveHistory'),
+    createSave: state.get('saveCreation'),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     getHistorySavesByUserRequest: (username) => dispatch(getHistorySavesByUserRequest(username)),
+    dateSave: (date) => dispatch(dateSave(date)),
+    timeSave: (time) => dispatch(timeSave(time)),
+    frequencySave: (frequency) => dispatch(frequencySave(frequency)),
+    addAllFiles: (files) => dispatch(addAllFiles(files)),
   };
 }
 

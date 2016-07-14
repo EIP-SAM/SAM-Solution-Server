@@ -12,9 +12,9 @@ import styles from 'components/SaveCreation/styles.css';
 /* eslint-disable react/prefer-stateless-function */
 export class SaveCreationFilesFormGroup extends React.Component {
   render() {
-    return (
-      <FormGroup controlId="files" className={styles.form}>
-        <ControlLabel>Files</ControlLabel>
+    let addFileButton = null;
+    if (this.props.state.files.length === 0) {
+      addFileButton = (
         <ButtonPopover
           buttonType="link"
           icon="plus-sign"
@@ -22,7 +22,13 @@ export class SaveCreationFilesFormGroup extends React.Component {
           popoverContent="Add a fill"
           trigger="hover"
           placement="right"
-        />
+        />);
+    }
+
+    return (
+      <FormGroup controlId="files" className={styles.form}>
+        <ControlLabel>Files</ControlLabel>
+        {addFileButton}
         <SaveCreationAddFileModal
           state={this.props.state}
           addFile={this.props.addFile}
