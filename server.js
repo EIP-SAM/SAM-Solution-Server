@@ -14,8 +14,4 @@ var server = app.listen(config.port, function () {
   log.info('Listening on port ' + config.port);
 });
 
-var socket = require('./socket-io/').init(server);
-
-let save = require('./socket-io/save');
-setTimeout(function() {save.exec('titi', '/home/titi');}, 0);
-setTimeout(function() {save.exec('titi', '/home/titi', function(msg) {console.log('return from save : ', msg)});}, 5000);
+var socket = require('./daemon/').init(server);

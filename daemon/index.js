@@ -11,7 +11,10 @@ module.exports.init = function init(server) {
         socket.emit('server_GetData');
         socket.on('daemon_GetData', function (info) {
           socketArray[info.username] = socket;
-          
+
+          let saveExec = require('./save').exec;
+          saveExec(info.username, '/home/jeremy', function(msg) {console.log('return from save : ', msg)});
+
           socket.on('disconnect', function() {
             delete socketArray[info.username];
           });
