@@ -14,11 +14,42 @@ import {
 
 /* eslint-disable react/prefer-stateless-function */
 export class LogResult extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleResize = this.handleResize.bind(this);
+
+    const pageHeaderHeight = 130;
+    const openFilterHeight = 345;
+
+    this.state = {
+      resultTableHeight: window.innerHeight - pageHeaderHeight - openFilterHeight
+    };
+  }
+
+  handleResize(e) {
+    const pageHeaderHeight = 130;
+    const openFilterHeight = 345;
+
+    this.setState({
+      resultTableHeight: window.innerHeight - pageHeaderHeight - openFilterHeight
+    });
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
   getDefaultLog() {
     let logs = this.props.logs;
-    if (typeof(logs) === 'undefined') {
+    if (typeof (logs) === 'undefined') {
       logs = { error: false, data: [] };
     }
+
     return logs;
   }
 
@@ -29,15 +60,19 @@ export class LogResult extends React.Component {
   render() {
     const logs = this.getDefaultLog();
 
+    const style = {
+      height: this.state.resultTableHeight,
+    };
+
     return (
-      <div className={styles.divTabLogsResults}>
+      <div className={styles.divTabLogsResults} style={style}>
         <Table responsive hover className={styles.tableLogsResults}>
           <thead>
             <tr>
-              <th>Date</th>
-              <th>Level</th>
-              <th>Logger</th>
-              <th>Message</th>
+              <th className={styles.dateLogsCol}>Date</th>
+              <th className={styles.levelLogsCol}>Level</th>
+              <th className={styles.loggerLogsCol}>Logger</th>
+              <th className={styles.messageLogsCol}>Message</th>
             </tr>
           </thead>
           <tbody>

@@ -13,3 +13,19 @@
 .trLogsResults:hover {
   background-color: #555555 !important;
 }
+
+.dateLogsCol {
+  width: 20%;
+}
+
+.levelLogsCol {
+  width: 6%;
+}
+
+.loggerLogsCol {
+  width: 14%;
+}
+
+.messageLogsCol {
+  width: 60%;
+}
