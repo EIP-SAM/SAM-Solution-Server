@@ -10,7 +10,7 @@
  export class GroupsFormGroup extends React.Component {
    render() {
      return (
-       <FormGroup controlId="groups" bsSize="small">
+       <FormGroup controlId="groups" bsSize="small" >
          <Col componentClass={ControlLabel} sm={1}>
            Groups :
          </Col>

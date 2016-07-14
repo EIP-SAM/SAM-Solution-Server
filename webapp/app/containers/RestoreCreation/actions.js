@@ -13,6 +13,9 @@ const request = require('superagent');
 
 import {
   GET_RESTORES,
+  USER,
+  LIST_FILES,
+  LIST_SAVES,
 } from './constants';
 
 export function getRestores(restores) {
@@ -22,12 +25,34 @@ export function getRestores(restores) {
   };
 }
 
-export function getRestoresRequest() {
-  return function returnGetRestoresRequest(dispatch) {
-    return request
-      .get('http://localhost:8080/restore')
-      .end((err, res) => {
-        dispatch(getRestores(res.body));
-      });
+export function nameUser(user){
+  return {
+    type: USER,
+    user,
   };
 }
+
+export function listFiles(files) {
+  return {
+    type: LIST_FILES,
+    files,
+  };
+}
+
+export function listSaves(saves) {
+  return {
+    type: LIST_SAVES,
+    saves,
+  };
+}
+
+// export function createRestoresRequest(username) {
+//   return function getCreateRestoresRequest(dispatch){
+//   return request
+//     .get('http://localhost:8080/historyRestore')
+//     .set({ username })
+//     .end((err, res) => {
+//       dispatch(getRestores(res.body));
+//     });
+//   };
+// }
