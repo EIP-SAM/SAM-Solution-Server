@@ -7,20 +7,9 @@ var logger = require('./managers/log');
 
 require('./models/init')().then(function () {
   require('./routes')(app, config);
-
   var server = app.listen(config.port, function () {
-
     var log = logger.launchLog();
 
     log.info('Listening on port ' + config.port);
   });
 });
-
-// require('./routes')(app, config);
-//
-// var server = app.listen(config.port, function () {
-//
-//   var log = logger.launchLog();
-//
-//   log.info('Listening on port ' + config.port);
-// });
