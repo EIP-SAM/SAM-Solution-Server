@@ -34,7 +34,7 @@ module.exports.historySavesByUser = function (req, res) {
 }
 
 module.exports.createSave = function (req, res) {
-  const users = req.body.users;
+  const users = req.body.usersId;
   const date = req.body.date;
   const time = req.body.time;
   const frequency = req.body.frequency;
@@ -54,14 +54,14 @@ module.exports.createSave = function (req, res) {
   if (frequency !== 'No Repeat') {
     cron = cronManager.parseDateFrequencyToCron(dateFormat, frequency);
   }
-  saveScheduledAdapter.createSaveScheduled(users, cron, files.toString()).then(
+  return saveScheduledAdapter.createSaveScheduled(users, cron, files.toString()).then(
     function (saveScheduled) {
       if (cron === null) {
         nodeSchedule.listCron[saveScheduled.id] = cronManager.createSaveScheduled(dateFormat);
       } else {
         nodeSchedule.listCron[saveScheduled.id] = cronManager.createAutoSave(cron);
       }
-      saveScheduledAdapter.createSave(saveScheduled.id, dateFormat);
+      return saveScheduledAdapter.createSave(saveScheduled.id, dateFormat);
     }
   )
 };
