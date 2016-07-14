@@ -60,7 +60,6 @@ module.exports.createSave = function (req, res) {
     usersId = usersId.split();
   }
   for (const user of usersId) {
-    console.log(user);
     saveScheduledAdapter.createSaveScheduled(user, cron, files.toString()).then(
       function (saveScheduled) {
         if (cron === null) {
@@ -107,6 +106,21 @@ module.exports.saveFinish = function (req, res) {
 
 //
 // Get data from resquest
+// Remove cron from list
+// Disabled saveScheduled
+// Cancel save
+// Call adapter
+//
+module.exports.cancelSave = function (req, res) {
+  const saveScheduledId = req.body.saveScheduledId;
+  const saveId = req.body.saveId;
+  cronManager.removeCron(saveScheduledId);
+  saveScheduledAdapter.disableSaveScheduled(saveScheduledId);
+  saveScheduledAdapter.cancelSave(saveId);
+};
+
+//
+// Get data from resquest
 // Update Success boolean
 // Save hash of commit
 // Call adapter
@@ -116,17 +130,6 @@ module.exports.saveSuccess = function (req, res) {
   const hash = '#45487';
   saveAdapter.saveIsSuccess(saveId);
   return saveAdapter.hashSave(saveId, hash);
-};
-
-//
-// Get data from resquest
-// Remove cron from list
-// Call adapter
-//
-module.exports.cancelSave = function (req, res) {
-  const saveScheduledId = req.body.saveScheduledId;
-  cronManager.removeCron(saveScheduledId);
-  return saveScheduledAdapter.disableSaveScheduled(saveScheduledId);
 };
 
 //
