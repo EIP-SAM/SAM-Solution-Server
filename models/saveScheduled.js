@@ -14,8 +14,7 @@ var saveScheduled = sequelize.define('save_scheduled', {
   },
   files: {
     type: Sequelize.TEXT,
-    allowNull: true,
-    defaultValue: null,
+    allowNull: false,
   },
   isActive: {
     type: Sequelize.BOOLEAN,
