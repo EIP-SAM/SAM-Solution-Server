@@ -14,18 +14,42 @@
   background-color: #555555 !important;
 }
 
+.floatRight {
+  float: right;
+}
+
 .dateLogsCol {
   width: 20%;
 }
 
+.dateLogsCol span {
+  float: right !important;
+  line-height: 1.4em;
+}
+
 .levelLogsCol {
-  width: 6%;
+  width: 15%;
+}
+
+.levelLogsCol span {
+  float: right !important;
+  line-height: 1.4em;
 }
 
 .loggerLogsCol {
-  width: 14%;
+  width: 15%;
+}
+
+.loggerLogsCol span {
+  float: right !important;
+  line-height: 1.4em;
 }
 
 .messageLogsCol {
-  width: 60%;
+  width: 50%;
+}
+
+.messageLogsCol span {
+  float: right !important;
+  line-height: 1.4em;
 }
