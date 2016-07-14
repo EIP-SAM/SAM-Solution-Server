@@ -182,7 +182,12 @@ module.exports.login = function (passport) {
         } else {
           constructUserProfile(user).then(function (userProfile) {
             logger.info({ user: { id: req.user.id, name: req.user.name } }, 'User successfully logged in');
-            return res.status(200).json(userProfile);
+
+            req.session.save(function () {
+              return res.status(200).json(userProfile);
+            });
+
+            // return res.status(200).json(userProfile);
           });
         }
       });
