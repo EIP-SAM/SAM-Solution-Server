@@ -11,7 +11,8 @@ export class RestoreCreationButtons extends React.Component {
   }
 
   handleFormClick() {
-    this.props.createSave(this.props.state);
+    console.log(this.props.state);
+    this.props.createRestoresRequest(this.props.state);
   }
 
   handleCancelClick() {
@@ -26,4 +27,9 @@ export class RestoreCreationButtons extends React.Component {
       </ButtonToolbar>
     );
   }
+}
+
+RestoreCreationButtons.propTypes = {
+  state: React.PropTypes.object,
+  createRestoresRequest: React.PropTypes.func,
 }

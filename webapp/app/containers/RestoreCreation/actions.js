@@ -10,18 +10,20 @@
 //
 
 const request = require('superagent');
+import { browserHistory } from 'react-router';
 
 import {
-  GET_RESTORES,
+  GET_HISTORY_SAVES_BY_USER,
   USER,
+  USER_ID,
   LIST_FILES,
   LIST_SAVES,
 } from './constants';
 
-export function getRestores(restores) {
+export function getHistorySavesByUser(allsaves) {
   return {
-    type: GET_RESTORES,
-    restores,
+    type: GET_HISTORY_SAVES_BY_USER,
+    allsaves,
   };
 }
 
@@ -29,6 +31,13 @@ export function nameUser(user){
   return {
     type: USER,
     user,
+  };
+}
+
+export function setUserId(userId){
+  return {
+    type: USER_ID,
+    userId,
   };
 }
 
@@ -46,13 +55,26 @@ export function listSaves(saves) {
   };
 }
 
-// export function createRestoresRequest(username) {
-//   return function getCreateRestoresRequest(dispatch){
-//   return request
-//     .get('http://localhost:8080/historyRestore')
-//     .set({ username })
-//     .end((err, res) => {
-//       dispatch(getRestores(res.body));
-//     });
-//   };
-// }
+export function getHistorySavesByUserRequest(username) {
+  return function returnGetHistorySavesRequest(dispatch) {
+    return request
+      .get('http://localhost:8080/historySave')
+      .set({ username })
+      .end((err, res) => {
+        dispatch(getHistorySavesByUser(res.body));
+      });
+  };
+}
+
+export function createRestoresRequest(state) {
+  return request
+    .post('http://localhost:8080/createRestore')
+    .type('form')
+    .send({
+      userId: state.userId,
+      files: state.files,
+    })
+    .end(() => {
+      browserHistory.goBack();
+  });
+}

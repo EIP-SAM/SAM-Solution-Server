@@ -37,7 +37,7 @@ export class RestoreTable extends React.Component {
               key={`item-${index}`} items={[{ isLink: false, value: restore.id },
               { isLink: true, link: `/restore/${restore.name}`, value: restore.name },
               { isLink: false, value: restore.restores[0].execDate },
-              { isLink: false, value: restore.restores[0].save_scheduled.files },
+              { isLink: false, value: restore.restores[0].files },
               { isLink: false, value: actions }]} component={Td}
             />
           )}
