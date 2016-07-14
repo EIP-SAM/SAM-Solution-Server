@@ -25,7 +25,8 @@ export function getHistoryRestoresByUser(restores) {
 export function getHistoryRestoresByUserRequest(username) {
   return function returnGetHistoryRestoresByUserRequest(dispatch) {
     return request
-      .post('http://localhost:8080/historyRestore')
+      .get('http://localhost:8080/historyRestore')
+      .set({ username })
       .type('form')
       .send({ username })
       .end((err, res) => {

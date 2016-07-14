@@ -27,7 +27,6 @@ export class RestoreHistoryTable extends React.Component {
     if (typeof data === 'undefined') {
       data = [];
     }
-    console.log(data);
 
     return (
       <Table responsive hover striped>
