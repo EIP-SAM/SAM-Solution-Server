@@ -22,6 +22,7 @@ export class LogFilter extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.getLogs = this.getLogs.bind(this);
     this.state = {
       filters: {
         findOpts: { forceObject: true },
@@ -29,6 +30,7 @@ export class LogFilter extends React.Component {
       panelTitleIcon: 'plus-sign',
       panelIsCollapsed: true,
       panelTitleHelp: '(click to show)',
+      key: 1,
     };
   }
 
@@ -134,18 +136,19 @@ export class LogFilter extends React.Component {
           <Grid fluid>
             <Row>
               <Col xs={9} md={6}>
-                <LevelRange onChange={this.handleChange('level')} />
+                <LevelRange key={this.state.key} onChange={this.handleChange('level')} />
               </Col>
               <Col xs={9} md={6}>
-                <DateRange onChange={this.handleChange('date')} />
+                <DateRange key={this.state.key} onChange={this.handleChange('date')} />
               </Col>
             </Row>
-            <NumberLogs onChange={this.handleChange('number')} />
+            <NumberLogs key={this.state.key} onChange={this.handleChange('number')} />
           </Grid>
         </Panel>
         <ButtonToolbar>
-          <Button className={styles.getLogsToolbarButton} bsStyle="primary" onClick={() => this.getLogs()}>Get Logs</Button>
-          <Button className={styles.getLogsToolbarButton} bsStyle="success" onClick={this.props.clearLogs}>Clear</Button>
+          <Button className={styles.getLogsToolbarButton} bsStyle="primary" onClick={this.getLogs}>Get Logs</Button>
+          <Button className={styles.getLogsToolbarButton} bsStyle="success" onClick={this.props.clearLogs}>Clear Logs</Button>
+          <Button className={styles.getLogsToolbarButton} bsStyle="warning" onClick={() => this.setState({ key: this.state.key + 1 })}>Reset Filters</Button>
         </ButtonToolbar>
       </div>
     );
