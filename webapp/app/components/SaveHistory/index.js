@@ -21,8 +21,15 @@ export class SaveHistory extends React.Component {
       <div>
         <PageHeader>Save</PageHeader>
         <PageHeader className={styles.title}><small>{window.location.pathname.split('/')[2]}</small></PageHeader>
-        <SaveHistoryButtons />
-        <SaveHistoryTable data={this.props.state.saves} />
+        <SaveHistoryButtons
+          dateSave={this.props.dateSave}
+          timeSave={this.props.timeSave}
+          frequencySave={this.props.frequencySave}
+        />
+        <SaveHistoryTable
+          data={this.props.state.saves}
+          addAllFiles={this.props.addAllFiles}
+        />
       </div>
     );
   }
@@ -31,4 +38,8 @@ export class SaveHistory extends React.Component {
 SaveHistory.propTypes = {
   state: React.PropTypes.object,
   getHistorySavesByUserRequest: React.PropTypes.func,
+  dateSave: React.PropTypes.func,
+  timeSave: React.PropTypes.func,
+  frequencySave: React.PropTypes.func,
+  addAllFiles: React.PropTypes.func,
 };

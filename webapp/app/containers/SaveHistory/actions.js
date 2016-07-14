@@ -9,6 +9,7 @@
 //      }
 //
 
+import { getUsers } from 'containers/Save/actions';
 const request = require('superagent');
 
 import {
@@ -29,6 +30,8 @@ export function getHistorySavesByUserRequest(username) {
       .set({ username })
       .end((err, res) => {
         dispatch(getHistorySavesByUser(res.body));
+        const users = [{ id: res.body[0].save_scheduled.user.id, name: res.body[0].save_scheduled.user.name }];
+        dispatch(getUsers(users));
       });
   };
 }

@@ -11,3 +11,4 @@ export const DATE = 'SAM/SaveCreation/DATE';
 export const TIME = 'SAM/SaveCreation/TIME';
 export const FREQUENCY = 'SAM/SaveCreation/FREQUENCY';
 export const ADD_FILE = 'SAM/SaveCreation/ADD_FILE';
+export const ADD_ALL_FILES = 'SAM/SaveCreation/ADD_ALL_FILES';

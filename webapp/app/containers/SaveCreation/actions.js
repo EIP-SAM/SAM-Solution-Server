@@ -19,6 +19,7 @@ import {
   TIME,
   FREQUENCY,
   ADD_FILE,
+  ADD_ALL_FILES,
 } from './constants';
 
 export function showModal() {
@@ -67,6 +68,13 @@ export function addFile(file) {
   return {
     type: ADD_FILE,
     file,
+  };
+}
+
+export function addAllFiles(files) {
+  return {
+    type: ADD_ALL_FILES,
+    files,
   };
 }
 
