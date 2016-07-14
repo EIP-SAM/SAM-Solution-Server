@@ -1,0 +1,8 @@
+{
+  "10": {"name": "trace", "style": "default"},
+  "20": {"name": "debug", "style": "success"},
+  "30": {"name": "info", "style": "info"},
+  "40": {"name": "warn", "style": "primary"},
+  "50": {"name": "error", "style": "warning"},
+  "60": {"name": "fatal", "style": "danger"}
+}
