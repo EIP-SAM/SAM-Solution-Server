@@ -9,12 +9,28 @@
 //      }
 //
 
+import { browserHistory } from 'react-router';
 import { getUsers } from 'containers/Save/actions';
 const request = require('superagent');
 
 import {
   GET_HISTORY_SAVES_BY_USER,
+  SHOW_DELETION_SCHEDULED_SAVE_MODAL,
 } from './constants';
+
+export function showDeletionScheduledSaveModal() {
+  return {
+    type: SHOW_DELETION_SCHEDULED_SAVE_MODAL,
+    showDeletionModal: true,
+  };
+}
+
+export function hideDeletionScheduledSaveModal() {
+  return {
+    type: SHOW_DELETION_SCHEDULED_SAVE_MODAL,
+    showDeletionModal: false,
+  };
+}
 
 export function getHistorySavesByUser(saves) {
   return {
@@ -26,12 +42,27 @@ export function getHistorySavesByUser(saves) {
 export function getHistorySavesByUserRequest(username) {
   return function returnGetHistorySavesRequest(dispatch) {
     return request
-      .get('http://localhost:8080/historySave')
+      .get('http://localhost:8080/history_save')
       .set({ username })
       .end((err, res) => {
         dispatch(getHistorySavesByUser(res.body));
         const users = [{ id: res.body[0].save_scheduled.user.id, name: res.body[0].save_scheduled.user.name }];
         dispatch(getUsers(users));
       });
+  };
+}
+
+export function cancelSave(saveId, saveScheduledId, username) {
+  return function returnCancelSave(dispatch) {
+    return request
+    .post('http://localhost:8080/cancel_save')
+    .type('form')
+    .send({
+      saveScheduledId,
+      saveId,
+    })
+    .end(() => {
+      // dispatch(getHistorySavesByUser(username));
+    });
   };
 }

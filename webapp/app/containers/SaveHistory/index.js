@@ -5,7 +5,7 @@
 import { connect } from 'react-redux';
 import { SaveHistory } from 'components/SaveHistory';
 import { dateSave, timeSave, frequencySave, addAllFiles } from 'containers/SaveCreation/actions';
-import { getHistorySavesByUserRequest } from './actions';
+import { getHistorySavesByUserRequest, showDeletionScheduledSaveModal, hideDeletionScheduledSaveModal, cancelSave } from './actions';
 
 
 function mapStateToProps(state) {
@@ -22,6 +22,9 @@ function mapDispatchToProps(dispatch) {
     timeSave: (time) => dispatch(timeSave(time)),
     frequencySave: (frequency) => dispatch(frequencySave(frequency)),
     addAllFiles: (files) => dispatch(addAllFiles(files)),
+    showDeletionScheduledSaveModal: () => dispatch(showDeletionScheduledSaveModal()),
+    hideDeletionScheduledSaveModal: () => dispatch(hideDeletionScheduledSaveModal()),
+    cancelSave: (saveId, saveScheduledId) => dispatch(cancelSave(saveId, saveScheduledId)),
   };
 }
 

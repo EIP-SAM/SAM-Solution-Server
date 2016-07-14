@@ -90,7 +90,7 @@ export function createSave(state) {
 
   return function createSaveRequest() {
     return request
-      .post('http://localhost:8080/createSave')
+      .post('http://localhost:8080/create_save')
       .type('form')
       .send({
         usersId,
