@@ -30,14 +30,3 @@ describe("Register/Get method for Entity", function() {
     expect('object' === typeof result).toBeTruthy();
   })
 });
-
-describe("init/getAll test method for Entity", function() {
-  it("should return an array of data", function(){
-
-    statManager.initSampleStatistics();
-
-    var result = statManager.getAllStatistics();
-
-    expect(result).not.toBeNull();
-  })
-});
