@@ -1,0 +1,15 @@
+.tableLogsResults {
+  background-color: #333333 !important;
+  color: white !important;
+}
+
+.divTabLogsResults {
+  margin-bottom: 100px !important;
+  height: 700px;
+  overflow-y: auto;
+  border-radius: 4px !important;
+}
+
+.trLogsResults:hover {
+  background-color: #555555 !important;
+}

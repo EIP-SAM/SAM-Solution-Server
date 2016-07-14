@@ -88,7 +88,7 @@ module.exports.getLogsWithMultipleCriteria = function (queryCriteria) {
       query.limit(limit);
     }
 
-    query.exec(function (err, logs) {
+    query.sort('-time').exec(function (err, logs) {
 
       if (err) {
         logger.error(err);

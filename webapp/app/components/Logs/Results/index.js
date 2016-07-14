@@ -5,10 +5,12 @@
 
 import React from 'react';
 import moment from 'moment';
-import { Table } from 'react-bootstrap';
-import Tr from 'components/Tr';
-import Th from 'components/Th';
-import Td from 'components/Td';
+import styles from './styles.css';
+import levels from './levels.json';
+import {
+  Table,
+  Label,
+} from 'react-bootstrap';
 
 /* eslint-disable react/prefer-stateless-function */
 export class LogResult extends React.Component {
@@ -20,52 +22,44 @@ export class LogResult extends React.Component {
     return logs;
   }
 
-  getRowValues(log) {
-    return [
-      { isLink: false, value: this.formatDate(log.time) },
-      { isLink: false, value: log.name },
-      { isLink: false, value: log.hostname },
-      { isLink: false, value: log.msg },
-    ];
-  }
-
   formatDate(ISODate) {
     return moment(ISODate).format('YYYY MMMM Do HH:mm:ss');
   }
 
   render() {
     const logs = this.getDefaultLog();
-    const columns = [
-      { isLink: false, value: 'Date' },
-      { isLink: false, value: 'Module' },
-      { isLink: false, value: 'Host' },
-      { isLink: false, value: 'Message' },
-    ];
-
-    const bodyStyle = {
-      backgroundColor: '#333333',
-      color: 'white',
-      borderColor: 'black',
-    };
 
     return (
-      <Table responsive>
-        <thead>
-          <Tr items={columns} component={Th} />
-        </thead>
-        <tbody style={bodyStyle}>
-          {
-            logs.data.map((log, index) => (
-              <Tr
-                style={bodyStyle}
-                key={`item-${index}`}
-                items={this.getRowValues(log)}
-                component={Td}
-              />
-            ))
-          }
-        </tbody>
-      </Table>
+      <div className={styles.divTabLogsResults}>
+        <Table responsive hover className={styles.tableLogsResults}>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Level</th>
+              <th>Logger</th>
+              <th>Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            {logs.data.map((log, index) => (
+              <tr className={styles.trLogsResults} key={index}>
+                <td>
+                  {this.formatDate(log.time)}
+                </td>
+                <td>
+                  <Label bsStyle={levels[log.level].style}>{levels[log.level].name}</Label>
+                </td>
+                <td>
+                  {log.name}
+                </td>
+                <td>
+                  {log.msg}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
     );
   }
 }

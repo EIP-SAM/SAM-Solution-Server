@@ -23,6 +23,7 @@ export class LogFilter extends React.Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.getLogs = this.getLogs.bind(this);
+    this.resetFilters = this.resetFilters.bind(this);
     this.state = {
       filters: {
         findOpts: { forceObject: true },
@@ -36,6 +37,11 @@ export class LogFilter extends React.Component {
 
   getLogs() {
     this.props.getFilteredLogs(this.state.filters);
+  }
+
+  resetFilters() {
+    this.setState({ key: this.state.key + 1 });
+    this.setState({ filters: { findOpts: { forceObject: true } } });
   }
 
   handleChange(name) {
@@ -148,7 +154,7 @@ export class LogFilter extends React.Component {
         <ButtonToolbar>
           <Button className={styles.getLogsToolbarButton} bsStyle="primary" onClick={this.getLogs}>Get Logs</Button>
           <Button className={styles.getLogsToolbarButton} bsStyle="success" onClick={this.props.clearLogs}>Clear Logs</Button>
-          <Button className={styles.getLogsToolbarButton} bsStyle="warning" onClick={() => this.setState({ key: this.state.key + 1 })}>Reset Filters</Button>
+          <Button className={styles.getLogsToolbarButton} bsStyle="warning" onClick={this.resetFilters}>Reset Filters</Button>
         </ButtonToolbar>
       </div>
     );
