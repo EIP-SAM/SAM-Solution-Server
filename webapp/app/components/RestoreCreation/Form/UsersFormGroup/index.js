@@ -5,6 +5,7 @@ import styles from 'components/RestoreCreation/styles.css';
 export class RestoreCreationUserFormGroup extends React.Component {
   componentDidMount() {
     const username = window.location.pathname.split('/')[2];
+    this.props.getHistorySavesByUserRequest(username);
     this.props.nameUser(username);
   }
 
@@ -22,4 +23,6 @@ export class RestoreCreationUserFormGroup extends React.Component {
 RestoreCreationUserFormGroup.propTypes = {
   state: React.PropTypes.object,
   nameUser: React.PropTypes.func,
+  setUserId: React.PropTypes.func,
+  getHistorySavesByUserRequest: React.PropTypes.func,
 }

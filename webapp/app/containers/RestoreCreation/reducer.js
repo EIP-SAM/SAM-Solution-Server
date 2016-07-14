@@ -9,28 +9,34 @@
 //
 
 import {
-  GET_RESTORES,
+  GET_HISTORY_SAVES_BY_USER,
   USER,
+  USER_ID,
   LIST_FILES,
   LIST_SAVES,
 } from './constants';
 
 const initialState = {
   user: '',
+  userId: '',
   files: [],
   saves: [],
-  restores: [],
+  allsaves: [],
 }
 
 function RestoreCreationReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_RESTORES:
+    case GET_HISTORY_SAVES_BY_USER:
       return Object.assign({}, state, {
-        restores: action.restores,
+        allsaves: action.allsaves,
       });
     case USER:
       return Object.assign({}, state, {
         user: action.user,
+      });
+    case USER_ID:
+      return Object.assign({}, state, {
+        userId: action.userId,
       });
     case LIST_FILES:
       return Object.assign({}, state, {
