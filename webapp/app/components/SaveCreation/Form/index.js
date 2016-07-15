@@ -43,6 +43,7 @@ export class SaveCreationForm extends React.Component {
         <SaveCreationButtons
           state={this.props.state}
           createSave={this.props.createSave}
+          resetState={this.props.resetState}
         />
       </form>
     );
@@ -52,6 +53,7 @@ export class SaveCreationForm extends React.Component {
 SaveCreationForm.propTypes = {
   listUsersState: React.PropTypes.object,
   state: React.PropTypes.object,
+  resetState: React.PropTypes.func,
   listUsers: React.PropTypes.func,
   dateSave: React.PropTypes.func,
   timeSave: React.PropTypes.func,

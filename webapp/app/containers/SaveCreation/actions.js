@@ -13,6 +13,7 @@ import { browserHistory } from 'react-router';
 const request = require('superagent');
 
 import {
+  RESET_STATE,
   SHOW_ADD_FILE_MODAL,
   LIST_USERS,
   DATE,
@@ -23,6 +24,12 @@ import {
   CAN_ADD_FILE,
   INPUT_FILE_CHANGE,
 } from './constants';
+
+export function resetState() {
+  return {
+    type: RESET_STATE,
+  };
+}
 
 export function showModal() {
   return {

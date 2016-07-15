@@ -13,6 +13,7 @@ export class SaveCreationButtons extends React.Component {
   constructor(props) {
     super(props);
     this.handleFormClick = this.handleFormClick.bind(this);
+    this.handleCancelClick = this.handleCancelClick.bind(this);
   }
 
   handleFormClick() {
@@ -20,6 +21,7 @@ export class SaveCreationButtons extends React.Component {
   }
 
   handleCancelClick() {
+    this.props.resetState();
     browserHistory.goBack();
   }
 
@@ -36,4 +38,5 @@ export class SaveCreationButtons extends React.Component {
 SaveCreationButtons.propTypes = {
   state: React.PropTypes.object,
   createSave: React.PropTypes.func,
+  resetState: React.PropTypes.func,
 };

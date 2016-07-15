@@ -9,6 +9,7 @@
 //
 
 import {
+  RESET_STATE,
   SHOW_ADD_FILE_MODAL,
   LIST_USERS,
   DATE,
@@ -32,6 +33,10 @@ const initialState = {
 
 function SaveHistoryReducer(state = initialState, action) {
   switch (action.type) {
+    case RESET_STATE:
+      return Object.assign({}, initialState, {
+        files: [],
+      });
     case SHOW_ADD_FILE_MODAL:
       return Object.assign({}, state, {
         showModal: action.showModal,
