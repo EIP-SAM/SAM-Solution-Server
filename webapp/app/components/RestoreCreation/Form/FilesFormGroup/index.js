@@ -3,57 +3,57 @@ import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import Option from 'components/Option';
 import styles from 'components/RestoreCreation/styles.css';
 
+/* eslint-disable react/prefer-stateless-function */
 export class RestoreCreationFilesFormGroup extends React.Component {
-  render() {
-    var files = '';
-    if (this.props.state.allsaves.length > 0 && this.props.state.files == ''){
-      files = this.props.state.allsaves[0].save_scheduled.files;
+  constructor(props) {
+    super(props);
+    this.handleSelectedFiles = this.handleSelectedFiles.bind(this);
+  }
+
+  handleSelectedFiles(e) {
+    const options = e.target.options;
+    const value = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
     }
-    else
-      files = this.props.state.files;
+    this.props.selectFiles(value);
+  }
 
-      // savesOption = saves.map((item, index) => (
-      //   <Option object={item} key={`item-${index}`} />
-      // ));
+  render() {
+    let options = [];
+    let listFiles = [];
 
-//       let options = [];
-//
-//       if (typeof this.props.state.files !== 'undefined') {
-//         const filesa = this.props.state.files.map((file) => (
-//           { isActive: false, value: file, text: file }
-//         ));
-//
-//         const cleanFiles = [];
-//         for (let i = 0; i < filesa.length; i++) {
-//           const current = files[i];
-//           for (let j = 0; j < cleanFiles.length; j++) {
-//             if (cleanFiles[j].value !== current.value) {
-//               cleanFiles.push(current);
-//               break;
-//             }
-//           }
-//           if (cleanFiles.length === 0) {
-//             cleanFiles.push(current);
-//           }
-//         }
-//
-// \        console.log(cleanFiles);
-//
-//         options = cleanFiles.map((item, index) => (
-//           <Option object={item} key={`item-${index}`} />
-//         ));
-//       }
+    if (this.props.state.allsaves.length > 0) {
+      if (this.props.state.files.length > 0) {
+        listFiles = this.props.state.files[0].split(',').map((file) => (
+            { value: file, text: file }
+        ));
+      }
+      else {
+        listFiles = this.props.state.allsaves[0].save_scheduled.files.split(',').map((file) => (
+            { value: file, text: file }
+        ));
+      }
+      options = listFiles.map((item, index) => (
+        <Option object={item} key={`item-${index}`} />
+      ));
+    }
 
     return (
       <FormGroup controlId="files" className={styles.form}>
         <ControlLabel>Files</ControlLabel>
-        <FormControl multiple value={ files } />
+        <FormControl componentClass="select" multiple onChange={this.handleSelectedFiles}>
+          {options}
+        </FormControl>
       </FormGroup>
-    )
+    );
   }
 }
 
 RestoreCreationFilesFormGroup.propTypes = {
   state: React.PropTypes.object,
   listFiles: React.PropTypes.func,
-}
+  selectFiles: React.PropTypes.func,
+};

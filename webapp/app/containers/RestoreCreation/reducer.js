@@ -14,6 +14,7 @@ import {
   USER_ID,
   LIST_FILES,
   LIST_SAVES,
+  SELECTED_FILES,
 } from './constants';
 
 const initialState = {
@@ -22,7 +23,8 @@ const initialState = {
   files: [],
   saves: [],
   allsaves: [],
-}
+  selectedFiles: [],
+};
 
 function RestoreCreationReducer(state = initialState, action) {
   switch (action.type) {
@@ -41,6 +43,10 @@ function RestoreCreationReducer(state = initialState, action) {
     case LIST_FILES:
       return Object.assign({}, state, {
         files: action.files,
+      });
+    case SELECTED_FILES:
+      return Object.assign({}, state, {
+        selectedFiles: action.selectedFiles,
       });
     case LIST_SAVES:
       return Object.assign({}, state, {

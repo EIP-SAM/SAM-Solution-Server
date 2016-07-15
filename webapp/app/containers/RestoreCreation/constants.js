@@ -10,3 +10,4 @@ export const USER = 'SAM/RestoreCreation/USER';
 export const USER_ID = 'SAM/RestoreCreation/USER_ID';
 export const LIST_FILES = 'SAM/RestoreCreation/LIST_FILES';
 export const LIST_SAVES = 'SAM/RestoreCreation/LIST_SAVES';
+export const SELECTED_FILES = 'SAM/RestoreCreation/SELECTED_FILES';
