@@ -12,13 +12,22 @@ var nodeSchedule = require('../libs/nodeSchedule');
 module.exports.lastUsersSaves = function (req, res) {
   return saveScheduledAdapter.lastUsersSaves().then(function(results) {
     for (var user of results) {
-      var lastSaveScheduled = user.save_scheduleds[0];
+      console.log(user.dataValues.save_scheduleds);
+      var lastSaveScheduled = [];
+      if (user.save_scheduleds.length === 0) {
+        continue;
+      }
+      lastSaveScheduled = user.save_scheduleds[0];
       for (var saveScheduled of user.save_scheduleds) {
+        if (lastSaveScheduled.saves.length === 0) {
+          lastSaveScheduled = saveScheduled;
+          continue;
+        }
         if (saveScheduled.saves[0] && lastSaveScheduled.saves[0].execDate < saveScheduled.saves[0].execDate) {
           lastSaveScheduled = saveScheduled;
         }
       }
-      user.dataValues.save_scheduleds = lastSaveScheduled;
+      user.dataValues.save_scheduleds = (lastSaveScheduled.saves.length) ? lastSaveScheduled : [];
     }
     return results;
   });

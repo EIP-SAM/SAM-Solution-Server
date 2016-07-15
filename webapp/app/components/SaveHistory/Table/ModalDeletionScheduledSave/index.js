@@ -41,9 +41,8 @@ export class SaveHistoryDeletionScheduledSaveModal extends React.Component {
 }
 
 SaveHistoryDeletionScheduledSaveModal.propTypes = {
-  ids: React.PropTypes.array,
-  state: React.PropTypes.object,
-  showDeletionScheduledSaveModal: React.PropTypes.func,
-  hideDeletionScheduledSaveModal: React.PropTypes.func,
-  cancelSave: React.PropTypes.func,
+  ids: React.PropTypes.array.isRequired,
+  state: React.PropTypes.object.isRequired,
+  hideDeletionScheduledSaveModal: React.PropTypes.func.isRequired,
+  cancelSave: React.PropTypes.func.isRequired,
 };

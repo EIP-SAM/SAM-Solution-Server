@@ -27,11 +27,19 @@ export class SaveHistory extends React.Component {
           frequencySave={this.props.frequencySave}
         />
         <SaveHistoryTable
+          createSaveState={this.props.createSaveState}
           state={this.props.state}
+          listUsers={this.props.listUsers}
+          dateSave={this.props.dateSave}
+          timeSave={this.props.timeSave}
+          frequencySave={this.props.frequencySave}
           addAllFiles={this.props.addAllFiles}
           showDeletionScheduledSaveModal={this.props.showDeletionScheduledSaveModal}
           hideDeletionScheduledSaveModal={this.props.hideDeletionScheduledSaveModal}
           cancelSave={this.props.cancelSave}
+          showInstantSaveModal={this.props.showInstantSaveModal}
+          hideInstantSaveModal={this.props.hideInstantSaveModal}
+          createSave={this.props.createSave}
         />
       </div>
     );
@@ -39,8 +47,10 @@ export class SaveHistory extends React.Component {
 }
 
 SaveHistory.propTypes = {
+  createSaveState: React.PropTypes.object,
   state: React.PropTypes.object,
   getHistorySavesByUserRequest: React.PropTypes.func,
+  listUsers: React.PropTypes.func,
   dateSave: React.PropTypes.func,
   timeSave: React.PropTypes.func,
   frequencySave: React.PropTypes.func,
@@ -48,4 +58,7 @@ SaveHistory.propTypes = {
   showDeletionScheduledSaveModal: React.PropTypes.func,
   hideDeletionScheduledSaveModal: React.PropTypes.func,
   cancelSave: React.PropTypes.func,
+  showInstantSaveModal: React.PropTypes.func,
+  hideInstantSaveModal: React.PropTypes.func,
+  createSave: React.PropTypes.func,
 };
