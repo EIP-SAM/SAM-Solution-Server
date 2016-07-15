@@ -16,7 +16,7 @@ export class SaveCreationButtons extends React.Component {
   }
 
   handleFormClick() {
-    this.props.createSave(this.props.state);
+    this.props.createSave(this.props.state, true);
   }
 
   handleCancelClick() {

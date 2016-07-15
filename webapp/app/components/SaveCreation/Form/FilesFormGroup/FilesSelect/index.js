@@ -11,7 +11,7 @@ export class SaveCreationFilesSelect extends React.Component {
   render() {
     let options = [];
 
-    if (typeof this.props.state.files !== 'undefined') {
+    if (this.props.state.files) {
       const files = this.props.state.files.map((file) => (
         { isActive: false, value: file, text: file }
       ));

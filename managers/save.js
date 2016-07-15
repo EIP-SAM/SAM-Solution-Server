@@ -12,13 +12,22 @@ var nodeSchedule = require('../libs/nodeSchedule');
 module.exports.lastUsersSaves = function (req, res) {
   return saveScheduledAdapter.lastUsersSaves().then(function(results) {
     for (var user of results) {
-      var lastSaveScheduled = user.save_scheduleds[0];
+      console.log(user.dataValues.save_scheduleds);
+      var lastSaveScheduled = [];
+      if (user.save_scheduleds.length === 0) {
+        continue;
+      }
+      lastSaveScheduled = user.save_scheduleds[0];
       for (var saveScheduled of user.save_scheduleds) {
+        if (lastSaveScheduled.saves.length === 0) {
+          lastSaveScheduled = saveScheduled;
+          continue;
+        }
         if (saveScheduled.saves[0] && lastSaveScheduled.saves[0].execDate < saveScheduled.saves[0].execDate) {
           lastSaveScheduled = saveScheduled;
         }
       }
-      user.dataValues.save_scheduleds = lastSaveScheduled;
+      user.dataValues.save_scheduleds = (lastSaveScheduled.saves.length) ? lastSaveScheduled : [];
     }
     return results;
   });
@@ -34,7 +43,7 @@ module.exports.historySavesByUser = function (req, res) {
 }
 
 module.exports.createSave = function (req, res) {
-  const users = req.body.usersId;
+  let usersId = req.body.usersId;
   const date = req.body.date;
   const time = req.body.time;
   const frequency = req.body.frequency;
@@ -54,16 +63,23 @@ module.exports.createSave = function (req, res) {
   if (frequency !== 'No Repeat') {
     cron = cronManager.parseDateFrequencyToCron(dateFormat, frequency);
   }
-  return saveScheduledAdapter.createSaveScheduled(users, cron, files.toString()).then(
-    function (saveScheduled) {
-      if (cron === null) {
-        nodeSchedule.listCron[saveScheduled.id] = cronManager.createSaveScheduled(dateFormat);
-      } else {
-        nodeSchedule.listCron[saveScheduled.id] = cronManager.createAutoSave(cron);
+
+  let users = [];
+  if (typeof usersId === 'string' ) {
+    usersId = usersId.split();
+  }
+  for (const user of usersId) {
+    saveScheduledAdapter.createSaveScheduled(user, cron, files.toString()).then(
+      function (saveScheduled) {
+        if (cron === null) {
+          nodeSchedule.listCron[saveScheduled.id] = cronManager.createSaveScheduled(dateFormat);
+        } else {
+          nodeSchedule.listCron[saveScheduled.id] = cronManager.createAutoSave(cron);
+        }
+        saveScheduledAdapter.createSave(saveScheduled.id, dateFormat);
       }
-      return saveScheduledAdapter.createSave(saveScheduled.id, dateFormat);
-    }
-  )
+    )
+  }
 };
 
 //
@@ -99,6 +115,21 @@ module.exports.saveFinish = function (req, res) {
 
 //
 // Get data from resquest
+// Remove cron from list
+// Disabled saveScheduled
+// Cancel save
+// Call adapter
+//
+module.exports.cancelSave = function (req, res) {
+  const saveScheduledId = req.body.saveScheduledId;
+  const saveId = req.body.saveId;
+  cronManager.removeCron(saveScheduledId);
+  saveScheduledAdapter.disableSaveScheduled(saveScheduledId);
+  saveScheduledAdapter.cancelSave(saveId);
+};
+
+//
+// Get data from resquest
 // Update Success boolean
 // Save hash of commit
 // Call adapter
@@ -108,17 +139,6 @@ module.exports.saveSuccess = function (req, res) {
   const hash = '#45487';
   saveAdapter.saveIsSuccess(saveId);
   return saveAdapter.hashSave(saveId, hash);
-};
-
-//
-// Get data from resquest
-// Remove cron from list
-// Call adapter
-//
-module.exports.cancelSave = function (req, res) {
-  const saveScheduledId = req.body.saveScheduledId;
-  cronManager.removeCron(saveScheduledId);
-  return saveScheduledAdapter.disableSaveScheduled(saveScheduledId);
 };
 
 //

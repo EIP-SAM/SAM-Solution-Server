@@ -8,7 +8,6 @@ import { ButtonPopover } from 'components/ButtonPopover';
 import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Td from 'components/Td';
-import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class RestoreHistoryTable extends React.Component {

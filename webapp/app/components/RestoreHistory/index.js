@@ -20,7 +20,7 @@ export class RestoreHistory extends React.Component {
     return (
       <div>
         <PageHeader>Restore</PageHeader>
-        <PageHeader className={styles.title}><small>{this.props.location.pathname.split('/')[2]}</small></PageHeader>
+        <PageHeader className={styles.title}><small>{window.location.pathname.split('/')[2]}</small></PageHeader>
         <RestoreHistoryButtons username={window.location.pathname.split('/')[2]} />
         <RestoreHistoryTable data={this.props.state.restores} />
       </div>
@@ -30,5 +30,5 @@ export class RestoreHistory extends React.Component {
 
 RestoreHistory.propTypes = {
   state: React.PropTypes.object,
-  getHistoryRestoreByUserRequest: React.PropTypes.func,
+  getHistoryRestoresByUserRequest: React.PropTypes.func,
 };

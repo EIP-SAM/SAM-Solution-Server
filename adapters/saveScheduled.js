@@ -71,6 +71,17 @@ module.exports.disableSaveScheduled = function (saveScheduledId) {
 };
 
 //
+// Cancel a save
+//
+module.exports.cancelSave = function (saveId) {
+  return SaveModel.findById(saveId).then(function (save) {
+    save.canceled = true;
+    save.save();
+    return save;
+  });
+};
+
+//
 // Find saveScheduled by find
 //
 module.exports.findSaveScheduledById = function (saveScheduledId) {

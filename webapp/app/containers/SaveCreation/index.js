@@ -8,7 +8,7 @@ import { listUsers, dateSave, timeSave, frequencySave, addFile, showModal, hideM
 
 function mapStateToProps(state) {
   return {
-    data: state.get('saveHistory'),
+    listUsersState: state.get('save'),
     state: state.get('saveCreation'),
   };
 }
@@ -22,7 +22,7 @@ function mapDispatchToProps(dispatch) {
     addFile: (file) => dispatch(addFile(file)),
     showAddFileModal: () => dispatch(showModal()),
     cancelAddingFile: () => dispatch(hideModal()),
-    createSave: (state) => dispatch(createSave(state)),
+    createSave: (state, redirect) => dispatch(createSave(state, redirect)),
   };
 }
 
