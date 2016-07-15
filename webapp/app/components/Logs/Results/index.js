@@ -15,7 +15,7 @@ import {
 } from 'react-bootstrap';
 
 /* eslint-disable react/prefer-stateless-function */
-export class LogResult extends React.Component {
+export default class LogResult extends React.Component {
   constructor(props) {
     super(props);
 
@@ -141,7 +141,6 @@ export class LogResult extends React.Component {
 
   render() {
     const logs = this.getDefaultLog();
-
     const style = {
       height: this.state.resultTableHeight,
     };

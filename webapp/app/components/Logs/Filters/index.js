@@ -18,7 +18,7 @@ import {
 } from 'react-bootstrap';
 
 /* eslint-disable react/prefer-stateless-function */
-export class LogFilter extends React.Component {
+export default class LogFilter extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);

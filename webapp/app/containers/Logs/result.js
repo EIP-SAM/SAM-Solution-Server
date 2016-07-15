@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { LogResult } from 'components/Logs/Results';
+import LogResult from 'components/Logs/Results';
 
 function mapStateToProps(state) {
   return {

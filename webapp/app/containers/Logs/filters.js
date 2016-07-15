@@ -5,7 +5,7 @@
 import { connect } from 'react-redux';
 import { setFilters, resetFilters } from './actions/filters';
 import { getFilteredLogs, clearLogs } from './actions/result';
-import { LogFilter } from 'components/Logs/Filters/';
+import LogFilters from 'components/Logs/Filters/';
 
 function mapStateToProps(state) {
   const storeFilters = state.get('logs').get('filters').filters;
@@ -26,4 +26,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(LogFilter);
+)(LogFilters);
