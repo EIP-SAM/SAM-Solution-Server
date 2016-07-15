@@ -11,9 +11,16 @@ import styles from 'components/SaveCreation/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SaveCreationFilesFormGroup extends React.Component {
+
+  componentDidMount() {
+    if (this.props.state.files.length > 0) {
+      this.props.displayAddFile(false);
+    }
+  }
+
   render() {
     let addFileButton = null;
-    if (this.props.state.files.length === 0) {
+    if (this.props.state.canAddFile) {
       addFileButton = (
         <ButtonPopover
           buttonType="link"
@@ -44,6 +51,7 @@ export class SaveCreationFilesFormGroup extends React.Component {
 SaveCreationFilesFormGroup.propTypes = {
   state: React.PropTypes.object,
   addFile: React.PropTypes.func,
+  displayAddFile: React.PropTypes.func,
   inputFileChange: React.PropTypes.func,
   showAddFileModal: React.PropTypes.func,
   cancelAddingFile: React.PropTypes.func,

@@ -20,6 +20,7 @@ import {
   FREQUENCY,
   ADD_FILE,
   ADD_ALL_FILES,
+  CAN_ADD_FILE,
   INPUT_FILE_CHANGE,
 } from './constants';
 
@@ -76,6 +77,13 @@ export function addAllFiles(files) {
   return {
     type: ADD_ALL_FILES,
     files,
+  };
+}
+
+export function displayAddFile(canAddFile) {
+  return {
+    type: CAN_ADD_FILE,
+    canAddFile,
   };
 }
 
