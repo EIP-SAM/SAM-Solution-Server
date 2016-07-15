@@ -13,6 +13,7 @@ export class SaveCreationAddFileModal extends React.Component {
     super(props);
     this.handleFileChange = this.handleFileChange.bind(this);
     this.handleFileClick = this.handleFileClick.bind(this);
+    this.handleCancelClick = this.handleCancelClick.bind(this);
   }
 
   handleFileChange(e) {
@@ -25,9 +26,14 @@ export class SaveCreationAddFileModal extends React.Component {
     this.props.inputFileChange('');
   }
 
+  handleCancelClick() {
+    this.props.cancelAddingFile();
+    this.props.inputFileChange('');
+  }
+
   render() {
     return (
-      <Modal show={this.props.state.showModal} onHide={this.props.cancelAddingFile}>
+      <Modal show={this.props.state.showModal} onHide={this.handleCancelClick}>
         <Modal.Header closeButton>
           <Modal.Title>Add a file to save</Modal.Title>
         </Modal.Header>
@@ -43,7 +49,7 @@ export class SaveCreationAddFileModal extends React.Component {
         <Modal.Footer>
           <ButtonToolbar>
             <LinkContainerButton buttonType="info" buttonText="Add" onClick={this.handleFileClick} />
-            <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={this.props.cancelAddingFile} />
+            <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={this.handleCancelClick} />
           </ButtonToolbar>
         </Modal.Footer>
       </Modal>
