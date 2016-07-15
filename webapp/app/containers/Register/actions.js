@@ -10,6 +10,7 @@
 //
 
 const request = require('superagent');
+import { push } from 'react-router-redux';
 
 import {
   REGISTER,
@@ -43,6 +44,12 @@ export function registerRequest(username, email, password, confirmation) {
       .end((err, res) => {
         console.log(res.body);
         dispatch(register(res.body));
+        if (res.body.success) {
+          dispatch(push('/login'));
+        }
+        else {
+          console.log('Error: register failed');
+        }
     });
   };
 }

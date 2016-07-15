@@ -1,5 +1,5 @@
 //
-// Component Register
+// Component EditUser
 //
 
 import React from 'react';
@@ -7,7 +7,7 @@ import { FormGroup, FormControl, ControlLabel, PageHeader } from 'react-bootstra
 import { LinkContainerButton } from '../Button';
 import styles from './styles.css';
 
-export class Register extends React.Component {
+export class EditUser extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeUsername = this.onChangeUsername.bind(this);
@@ -15,6 +15,12 @@ export class Register extends React.Component {
     this.onChangePassword = this.onChangePassword.bind(this);
     this.onChangeConfirmation = this.onChangeConfirmation.bind(this);
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentWillMount() {
+    const username = window.location.pathname.split('/')[2];
+    this.props.getUserRequest(username);
+    // this.props.getCurrentUserRequest();
   }
 
   onChangeUsername(event) {
@@ -34,23 +40,23 @@ export class Register extends React.Component {
   }
 
   handleClick(event) {
-    this.props.registerRequest(this.props.state.username, this.props.state.email, this.props.state.password, this.props.state.confirmation);
+    this.props.editUserRequest(this.props.state.username, this.props.state.email, this.props.state.password, this.props.state.confirmation);
   }
 
   render() {
     return (
-      <div container className={styles.register}>
+      <div container className={styles.editUser}>
         <form>
-          <PageHeader>Register</PageHeader>
+          <PageHeader>Edit user</PageHeader>
           <FormGroup controlId="formBasicText">
             <ControlLabel>Username</ControlLabel>
-            <FormControl type="email" value={this.props.state.username} onChange={this.onChangeUsername} />
+            <FormControl type="text" value={this.props.state.displayedUsername} onChange={this.onChangeUsername} />
             <ControlLabel>Email</ControlLabel>
-            <FormControl type="text" value={this.props.state.email} onChange={this.onChangeEmail} />
+            <FormControl type="email" value={this.props.state.displayedEmail} onChange={this.onChangeEmail} />
             <ControlLabel>Password</ControlLabel>
-            <FormControl type="password" value={this.props.state.password} onChange={this.onChangePassword} />
+            <FormControl type="password" value='Password' onChange={this.onChangePassword} />
             <ControlLabel>Password confirmation</ControlLabel>
-            <FormControl type="password" value={this.props.state.confirmation} onChange={this.onChangeConfirmation} />
+            <FormControl type="password" value='Password' onChange={this.onChangeConfirmation} />
             <LinkContainerButton buttonType='default' buttonText='Submit' onClick={this.handleClick} />
           </FormGroup>
         </form>
@@ -59,12 +65,19 @@ export class Register extends React.Component {
   }
 }
 
-Register.propTypes = {
+EditUser.propTypes = {
   state: React.PropTypes.object,
-  registerRequest: React.PropTypes.func,
   onChangeData: React.PropTypes.func,
+  getUserRequest: React.PropTypes.func,
+  getCurrentUserRequest: React.PropTypes.func,
+  editUserRequest: React.PropTypes.func,
 };
 
-/*componentWillMount() {
-      this.props.getProfileRequest();
-  }*/
+// let adminField;
+// if (this.props.state.isAdmin == true) {
+//   adminField = (
+//     <p>Si pas admin ce texte est invisible</p>
+//   )
+// }
+
+// { adminField  }
