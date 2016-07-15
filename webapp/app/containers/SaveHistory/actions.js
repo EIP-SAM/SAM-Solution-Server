@@ -16,6 +16,7 @@ import {
   GET_HISTORY_SAVES_BY_USER,
   SHOW_DELETION_SCHEDULED_SAVE_MODAL,
   SHOW_INSTANT_SAVE_MODAL,
+  DELETE_SCHEDULED_SAVE_INFO,
 } from './constants';
 
 export function showDeletionScheduledSaveModal() {
@@ -50,6 +51,15 @@ export function getHistorySavesByUser(saves) {
   return {
     type: GET_HISTORY_SAVES_BY_USER,
     saves,
+  };
+}
+
+export function deleteScheduledSaveInfo(saveId, saveScheduledId, username) {
+  return {
+    type: DELETE_SCHEDULED_SAVE_INFO,
+    saveId,
+    saveScheduledId,
+    username,
   };
 }
 

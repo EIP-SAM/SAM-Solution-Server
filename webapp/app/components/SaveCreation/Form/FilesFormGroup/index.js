@@ -32,6 +32,7 @@ export class SaveCreationFilesFormGroup extends React.Component {
         <SaveCreationAddFileModal
           state={this.props.state}
           addFile={this.props.addFile}
+          inputFileChange={this.props.inputFileChange}
           cancelAddingFile={this.props.cancelAddingFile}
         />
         <SaveCreationFilesSelect state={this.props.state} />
@@ -43,6 +44,7 @@ export class SaveCreationFilesFormGroup extends React.Component {
 SaveCreationFilesFormGroup.propTypes = {
   state: React.PropTypes.object,
   addFile: React.PropTypes.func,
+  inputFileChange: React.PropTypes.func,
   showAddFileModal: React.PropTypes.func,
   cancelAddingFile: React.PropTypes.func,
 };

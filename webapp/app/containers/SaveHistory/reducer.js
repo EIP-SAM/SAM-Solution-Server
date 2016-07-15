@@ -12,6 +12,7 @@ import {
   GET_HISTORY_SAVES_BY_USER,
   SHOW_DELETION_SCHEDULED_SAVE_MODAL,
   SHOW_INSTANT_SAVE_MODAL,
+  DELETE_SCHEDULED_SAVE_INFO,
 } from './constants';
 
 function SaveHistoryReducer(state = {}, action) {
@@ -27,6 +28,12 @@ function SaveHistoryReducer(state = {}, action) {
     case SHOW_INSTANT_SAVE_MODAL:
       return Object.assign({}, state, {
         showInstantSaveModal: action.showInstantSaveModal,
+      });
+    case DELETE_SCHEDULED_SAVE_INFO:
+      return Object.assign({}, state, {
+        saveId: action.saveId,
+        saveScheduledId: action.saveScheduledId,
+        username: action.username,
       });
     default:
       return state;

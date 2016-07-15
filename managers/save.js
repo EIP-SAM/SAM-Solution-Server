@@ -12,7 +12,6 @@ var nodeSchedule = require('../libs/nodeSchedule');
 module.exports.lastUsersSaves = function (req, res) {
   return saveScheduledAdapter.lastUsersSaves().then(function(results) {
     for (var user of results) {
-      console.log(user.dataValues.save_scheduleds);
       var lastSaveScheduled = [];
       if (user.save_scheduleds.length === 0) {
         continue;

@@ -13,19 +13,16 @@ export class SaveCreationAddFileModal extends React.Component {
     super(props);
     this.handleFileChange = this.handleFileChange.bind(this);
     this.handleFileClick = this.handleFileClick.bind(this);
-    this.state = {
-      nameFile: '',
-    };
   }
 
   handleFileChange(e) {
-    this.setState({ nameFile: e.target.value });
+    this.props.inputFileChange(e.target.value);
   }
 
   handleFileClick() {
-    this.props.addFile(this.state.nameFile);
+    this.props.addFile(this.props.state.inputFileChange);
     this.props.cancelAddingFile();
-    this.setState({ nameFile: '' });
+    this.props.inputFileChange('');
   }
 
   render() {
@@ -39,7 +36,7 @@ export class SaveCreationAddFileModal extends React.Component {
             className={styles.input}
             type="text"
             placeholder="Ex: C:/user/username/Desktop/file.txt"
-            value={this.state.nameFile}
+            value={this.props.state.inputFileChange}
             onChange={this.handleFileChange}
           />
         </Modal.Body>
@@ -57,5 +54,6 @@ export class SaveCreationAddFileModal extends React.Component {
 SaveCreationAddFileModal.propTypes = {
   state: React.PropTypes.object,
   addFile: React.PropTypes.func,
+  inputFileChange: React.PropTypes.func,
   cancelAddingFile: React.PropTypes.func,
 };
