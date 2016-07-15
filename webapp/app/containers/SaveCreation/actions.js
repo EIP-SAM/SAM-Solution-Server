@@ -81,8 +81,9 @@ export function addAllFiles(files) {
 //
 // Get username of users list in state.
 // Create save
+// Syntaxe state.users : { value: user.id }
 //
-export function createSave(state) {
+export function createSave(state, redirect) {
   const usersId = [];
   for (const user of state.users) {
     usersId.push(user.value);
@@ -100,7 +101,9 @@ export function createSave(state) {
         files: state.files,
       })
       .end(() => {
-        browserHistory.goBack();
+        if (redirect) {
+          browserHistory.goBack();
+        }
       });
   };
 }
