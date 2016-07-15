@@ -9,6 +9,10 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import loginReducer from 'containers/Login/reducers';
 import forgottenPasswordReducer from 'containers/ForgottenPassword/reducers';
 import registerReducer from 'containers/Register/reducers';
+import editUserReducer from 'containers/EditUser/reducers';
+import editGroupReducer from 'containers/EditGroup/reducers';
+import usersReducer from 'containers/Users/reducers';
+import groupsReducer from 'containers/Groups/reducers';
 
 /*
  * routeReducer
@@ -47,6 +51,10 @@ export default function createReducer(asyncReducers) {
     login: loginReducer,
     forgottenPassword: forgottenPasswordReducer,
     register: registerReducer,
+    editUser: editUserReducer,
+    editGroup: editGroupReducer,
+    users: usersReducer,
+    groups: groupsReducer,
     ...asyncReducers,
   });
 }

@@ -9,8 +9,9 @@
 //    }
 //
 
-const request = require('superagent');
-//import { push } from 'redux-router-redux';
+const request = require('../../agent');
+// import { push } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 
 import {
   LOGIN,
@@ -41,8 +42,13 @@ export function loginRequest(username, password) {
       .end((err, res) => {
         console.log(res.body);
         dispatch(login(res.body));
-//        console.log("TTTTTT");
-        //dispatch(push('/forgotten-password'));
+        if (res.body.name) {
+          // dispatch(push('/edit-profile'));
+          browserHistory.push('/edit-profile');
+        }
+        else {
+          console.log("Error: invalid username or password");
+        }
     });
   };
 }

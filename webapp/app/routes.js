@@ -28,7 +28,7 @@ export default function createRoutes() {
 
         const renderRoute = loadModule(cb);
 
-          importModules.then(([component]) => {
+        importModules.then(([component]) => {
           renderRoute(component);
         });
 
@@ -58,13 +58,39 @@ export default function createRoutes() {
         .then(loadModule(cb))
         .catch(errorLoading);
       }
-    }, /* {
-      path: 'edit-profile',
-      name: 'edit profile',
-      System.import('containers/')
-      .then(loadModule(cb))
-      .catch(errorLoading);
     }, {
+      path: '/edit-user/:username',
+      name: 'edit user',
+      getComponent(nextState, cb) {
+        System.import('containers/EditUser')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      }
+    }, {
+      path: '/edit-group/:groupname',
+      name: 'edit group',
+      getComponent(nextState, cb) {
+        System.import('containers/EditGroup')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      }
+    }, {
+      path: '/users',
+      name: 'users',
+      getComponent(nextState, cb) {
+        System.import('containers/Users')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      }
+    }, {
+        path: '/groups',
+        name: 'groups',
+        getComponent(nextState, cb) {
+          System.import('containers/Groups')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+        }
+      }, /* {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

@@ -41,7 +41,8 @@ export class Login extends React.Component {
             <LinkContainerButton buttonType='default' buttonText='Submit' onClick={this.handleClick} />
           </FormGroup>
         </form>
-        <a href="">Forget password</a>
+        <a href="/register">Register</a><br />
+        <a href="/forgotten-password">Forget password</a>
       </div>
     );
   }

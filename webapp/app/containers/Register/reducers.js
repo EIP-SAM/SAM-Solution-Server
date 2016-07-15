@@ -1,5 +1,5 @@
 //
-// Login reducer
+// Register reducer
 //
 // To add a new action:
 //
@@ -13,7 +13,7 @@ import {
   SAVE_DATA,
 } from './constants';
 
-const initialState = {username: 'Hubert', email: 'hu@bert.com', password: 'toto', confirmation: 'toto'};
+const initialState = {username: 'Username', email: 'Email', password: 'Password', confirmation: 'Password'};
 
 function registerReducer(state = initialState, action) {
   switch (action.type) {
@@ -32,3 +32,11 @@ function registerReducer(state = initialState, action) {
 }
 
 export default registerReducer;
+
+/*    case GET_PROFILE:
+      return Object.assign({}, state, {
+        username: action.username,
+        email: action.email,
+        password: action.password,
+        confirmation: action.confirmation,
+      }); */

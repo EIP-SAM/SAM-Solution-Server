@@ -10,6 +10,7 @@
 //
 
 const request = require('superagent');
+import { push } from 'react-router-redux';
 
 import {
   FORGOTTEN_PASSWORD,
@@ -39,6 +40,12 @@ export function forgottenPasswordRequest(email) {
       .end((err, res) => {
         console.log(res.body);
         dispatch(forgottenPassword(res.body));
+        if (res.body.success) {
+          dispatch(push('/login'));
+        }
+        else {
+          console.log('Error: invalid or unknown email');
+        }
     });
   };
 }

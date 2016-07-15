@@ -2,5 +2,5 @@
 // Register constants
 //
 
-export const REGISTER = 'SAM/Login/REGISTER';
-export const SAVE_DATA = 'SAM/Login/SAVE_DATA';
+export const REGISTER = 'SAM/Register/REGISTER';
+export const SAVE_DATA = 'SAM/Register/SAVE_DATA';

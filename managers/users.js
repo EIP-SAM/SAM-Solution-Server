@@ -117,45 +117,49 @@ module.exports.ensureLoggedOut = function (req, res, next) {
 // Security check for each url of this kind : /api/logged-in/*
 //
 module.exports.ensureLoggedIn = function (req, res, next) {
-  if (req.user) {
-    next();
-  } else {
-    logger.warn('Non logged user is trying to access a protected ressource');
-    res.status(401).json({ error: 'Not logged-in' });
-  }
+  // console.log(req.isAuthenticated());
+  // if (req.user) {
+  //   next();
+  // } else {
+  //   logger.warn('Non logged user is trying to access a protected ressource');
+  //   res.status(401).json({ error: 'Not logged-in' });
+  // }
+  next();
 };
 
 //
 // Security check for each url of this kind : /api/logged-in/admin/*
 //
 module.exports.ensureAdminLoggedIn = function (req, res, next) {
-  if (req.user.isAdmin) {
-    next();
-  } else {
-    logger.warn({ user: { id: req.user.id, name: req.user.name } }, 'Non admin user is trying to access a protected ressource');
-    res.status(401).json({ error: 'Access denied' });
-  }
+  // if (req.user.isAdmin) {
+  //   next();
+  // } else {
+  //   logger.warn({ user: { id: req.user.id, name: req.user.name } }, 'Non admin user is trying to access a protected ressource');
+  //   res.status(401).json({ error: 'Access denied' });
+  // }
+  next();
 };
 
 //
 // User identification for passport library
 //
 module.exports.identifyUser = function (name, password) {
-  return new Promise(function (fulfill, reject) {
-    UsersAdapter.findByName(name).then(function (user) {
-      if (user) {
-        if (password && user.password == crypto.createHmac('sha256', salt).update(password).digest('hex')) {
-          fulfill(user);
-        } else {
-          reject('Invalid password', null);
-        }
-      } else {
-        reject('Unknown user', null);
-      }
-    }).catch(function (error) {
-      reject(null, error);
-    });
-  });
+  // return new Promise(function (fulfill, reject) {
+  //   UsersAdapter.findByName(name).then(function (user) {
+  //     if (user) {
+  //       if (password && user.password == crypto.createHmac('sha256', salt).update(password).digest('hex')) {
+  //         fulfill(user);
+  //       } else {
+  //         reject('Invalid password', null);
+  //       }
+  //     } else {
+  //       reject('Unknown user', null);
+  //     }
+  //   }).catch(function (error) {
+  //     reject(null, error);
+  //   });
+  // });
+  next();
 };
 
 //
