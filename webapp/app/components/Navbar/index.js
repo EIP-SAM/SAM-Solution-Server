@@ -1,16 +1,13 @@
 //
 // Navbar
 //
-
 import React from 'react';
 import { Navbar, Nav, NavItem, Image } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import Logo from 'components/Navbar/logo_sam_solution.png';
 import styles from 'components/Navbar/styles.css';
-
 /* eslint-disable react/prefer-stateless-function */
 export default class NavbarContainer extends React.Component {
-
   render() {
     return (
       <Navbar inverse className={styles.position}>
