@@ -25,14 +25,14 @@ export function onChangeData(username, email, password, confirmation) {
     email: email,
     password: password,
     confirmation: confirmation,
-  }
+  };
 }
 export function getUser(user) {
   return {
     type: GET_USER,
     displayedUsername: user.name,
     displayedEmail: user.email,
-  }
+  };
 }
 
 export function getUserRequest(username) {
@@ -46,7 +46,7 @@ export function getUserRequest(username) {
         }
         console.log('User displayed : ' + res.body.users[i].name + ', ' + res.body.users[i].email);
         dispatch(getUser(res.body.users[i]));
-    });
+      });
   };
 }
 
@@ -57,17 +57,18 @@ export function getCurrentUser(user) {
     email: user.email,
     password: user.password,
     confirmation: user.confirmation,
-  }
+  };
 }
 
 export function getCurrentUserRequest() {
   return function returngetCurrentUserRequest(dispatch) {
     return request
       .get('http://localhost:8080/api/logged-in/user/profile')
+      .withCredentials()
       .end((err, res) => {
         console.log(res.body);
         dispatch(getCurrentUser(res.body));
-    });
+      });
   };
 }
 
@@ -88,6 +89,6 @@ export function editUserRequest(username, email, password, confirmation) {
       .end((err, res) => {
         console.log(res.body);
         dispatch(editUser(res.body));
-    });
+      });
   };
 }
