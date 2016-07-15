@@ -26,30 +26,36 @@ export class LogResult extends React.Component {
 
     const pageHeaderHeight = 130;
     const openFilterHeight = 345;
+    const defaultTabHeader = {
+      style: 'chevron-down',
+      order: 'DESC',
+    };
 
     this.state = {
       resultTableHeight: window.innerHeight - pageHeaderHeight - openFilterHeight,
-      dateStatus: {
-        style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-down',
-        order: 'DESC',
-      },
-      levelStatus: {
-        style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-down',
-        order: 'DESC',
-      },
-      loggerStatus: {
-        style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-down',
-        order: 'DESC',
-      },
-      messageStatus: {
-        style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-down',
-        order: 'DESC',
-      },
+      dateStatus: defaultTabHeader,
+      levelStatus: defaultTabHeader,
+      loggerStatus: defaultTabHeader,
+      messageStatus: defaultTabHeader,
     };
   }
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
+  }
+
+  componentWillReceiveProps() {
+    const defaultTabHeader = {
+      style: 'chevron-down',
+      order: 'DESC',
+    };
+
+    this.setState({
+      dateStatus: defaultTabHeader,
+      levelStatus: defaultTabHeader,
+      loggerStatus: defaultTabHeader,
+      messageStatus: defaultTabHeader,
+    });
   }
 
   componentWillUnmount() {
@@ -71,7 +77,7 @@ export class LogResult extends React.Component {
     if (this.state.dateStatus.order === 'DESC') {
       this.setState({
         dateStatus: {
-          style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-up',
+          style: 'chevron-up',
           order: 'ASC',
         },
       });
@@ -81,7 +87,7 @@ export class LogResult extends React.Component {
     } else {
       this.setState({
         dateStatus: {
-          style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-down',
+          style: 'chevron-down',
           order: 'DESC',
         },
       });
@@ -94,29 +100,25 @@ export class LogResult extends React.Component {
   sortByLevel() {
     const logs = this.getDefaultLog();
 
-    logs.data.sort((a, b) => (
-      new Date(b.time) - new Date(a.time)
-    ));
-
     if (this.state.levelStatus.order === 'DESC') {
       this.setState({
         levelStatus: {
-          style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-up',
+          style: 'chevron-up',
           order: 'ASC',
         },
       });
       logs.data.sort((a, b) => (
-        new Date(a.level) - new Date(b.level)
+        a.level > b.level
       ));
     } else {
       this.setState({
         levelStatus: {
-          style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-down',
+          style: 'chevron-down',
           order: 'DESC',
         },
       });
       logs.data.sort((a, b) => (
-        new Date(b.level) - new Date(a.level)
+        b.level > a.level
       ));
     }
   }
@@ -124,29 +126,25 @@ export class LogResult extends React.Component {
   sortByLogger() {
     const logs = this.getDefaultLog();
 
-    logs.data.sort((a, b) => (
-      new Date(b.time) - new Date(a.time)
-    ));
-
     if (this.state.loggerStatus.order === 'DESC') {
       this.setState({
         loggerStatus: {
-          style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-up',
+          style: 'chevron-up',
           order: 'ASC',
         },
       });
       logs.data.sort((a, b) => (
-        new Date(a.name) - new Date(b.name)
+        a.name > b.name
       ));
     } else {
       this.setState({
         loggerStatus: {
-          style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-down',
+          style: 'chevron-down',
           order: 'DESC',
         },
       });
       logs.data.sort((a, b) => (
-        new Date(b.name) - new Date(a.name)
+        b.name > a.name
       ));
     }
   }
@@ -154,29 +152,25 @@ export class LogResult extends React.Component {
   sortByMessage() {
     const logs = this.getDefaultLog();
 
-    logs.data.sort((a, b) => (
-      new Date(b.time) - new Date(a.time)
-    ));
-
     if (this.state.messageStatus.order === 'DESC') {
       this.setState({
         messageStatus: {
-          style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-up',
+          style: 'chevron-up',
           order: 'ASC',
         },
       });
       logs.data.sort((a, b) => (
-        new Date(a.msg) - new Date(b.msg)
+        a.msg > b.msg
       ));
     } else {
       this.setState({
         messageStatus: {
-          style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-down',
+          style: 'chevron-down',
           order: 'DESC',
         },
       });
       logs.data.sort((a, b) => (
-        new Date(b.name) - new Date(a.name)
+        b.msg > a.msg
       ));
     }
   }
