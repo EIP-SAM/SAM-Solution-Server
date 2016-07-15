@@ -24,7 +24,6 @@ export class LogResult extends React.Component {
     this.sortByLevel = this.sortByLevel.bind(this);
     this.sortByLogger = this.sortByLogger.bind(this);
     this.sortByMessage = this.sortByMessage.bind(this);
-
     const pageHeaderHeight = 130;
     const openFilterHeight = 345;
 
@@ -42,16 +41,11 @@ export class LogResult extends React.Component {
   }
 
   componentWillReceiveProps() {
-    const defaultTabHeader = {
-      style: 'chevron-down',
-      order: 'DESC',
-    };
-
     this.setState({
-      dateStatus: defaultTabHeader,
-      levelStatus: defaultTabHeader,
-      loggerStatus: defaultTabHeader,
-      messageStatus: defaultTabHeader,
+      dateStatus: styleSort.desc,
+      levelStatus: styleSort.desc,
+      loggerStatus: styleSort.desc,
+      messageStatus: styleSort.desc,
     });
   }
 
