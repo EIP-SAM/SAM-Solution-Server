@@ -76,7 +76,7 @@ export function cancelSave(saveId, saveScheduledId, username) {
       saveId,
     })
     .end(() => {
-      // dispatch(getHistorySavesByUser(username));
+      dispatch(getHistorySavesByUserRequest(username));
     });
   };
 }

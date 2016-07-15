@@ -25,7 +25,7 @@ function mapDispatchToProps(dispatch) {
     addAllFiles: (files) => dispatch(addAllFiles(files)),
     showDeletionScheduledSaveModal: () => dispatch(showDeletionScheduledSaveModal()),
     hideDeletionScheduledSaveModal: () => dispatch(hideDeletionScheduledSaveModal()),
-    cancelSave: (saveId, saveScheduledId) => dispatch(cancelSave(saveId, saveScheduledId)),
+    cancelSave: (saveId, saveScheduledId, username) => dispatch(cancelSave(saveId, saveScheduledId, username)),
     showInstantSaveModal: () => dispatch(showInstantSaveModal()),
     hideInstantSaveModal: () => dispatch(hideInstantSaveModal()),
     createSave: (createSaveState, redirect) => dispatch(createSave(createSaveState, redirect)),
