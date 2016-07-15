@@ -13,7 +13,22 @@ const request = require('superagent');
 
 import {
   GET_HISTORY_RESTORES_BY_USER,
+  SHOW_INSTANT_RESTORE_MODAL,
 } from './constants';
+
+export function showInstantRestoreModal() {
+  return {
+    type: SHOW_INSTANT_RESTORE_MODAL,
+    showModal: true,
+  };
+}
+
+export function hideInstantRestoreModal() {
+  return {
+    type: SHOW_INSTANT_RESTORE_MODAL,
+    showModal: false,
+  };
+}
 
 export function getHistoryRestoresByUser(restores) {
   return {
@@ -31,6 +46,6 @@ export function getHistoryRestoresByUserRequest(username) {
       .send({ username })
       .end((err, res) => {
         dispatch(getHistoryRestoresByUser(res.body));
-    });
+      });
   };
 }

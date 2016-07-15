@@ -22,7 +22,16 @@ export class RestoreHistory extends React.Component {
         <PageHeader>Restore</PageHeader>
         <PageHeader className={styles.title}><small>{window.location.pathname.split('/')[2]}</small></PageHeader>
         <RestoreHistoryButtons username={window.location.pathname.split('/')[2]} />
-        <RestoreHistoryTable data={this.props.state.restores} />
+        <RestoreHistoryTable
+          state={this.props.state}
+          hideInstantRestoreModal={this.props.hideInstantRestoreModal}
+          showInstantRestoreModal={this.props.showInstantRestoreModal}
+          stateRestore={this.props.stateRestore}
+          createRestoresRequest={this.props.createRestoresRequest}
+          selectFiles={this.props.selectFiles}
+          setUserId={this.props.setUserId}
+          getHistoryRestoresByUserRequest={this.props.getHistoryRestoresByUserRequest}
+        />
       </div>
     );
   }
@@ -30,5 +39,11 @@ export class RestoreHistory extends React.Component {
 
 RestoreHistory.propTypes = {
   state: React.PropTypes.object,
+  stateRestore: React.PropTypes.object,
   getHistoryRestoresByUserRequest: React.PropTypes.func,
+  createRestoresRequest: React.PropTypes.func,
+  setUserId: React.PropTypes.func,
+  selectFiles: React.PropTypes.func,
+  hideInstantRestoreModal: React.PropTypes.func,
+  showInstantRestoreModal: React.PropTypes.func,
 };

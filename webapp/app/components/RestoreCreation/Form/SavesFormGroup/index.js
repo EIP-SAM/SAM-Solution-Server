@@ -10,6 +10,14 @@ export class RestoreCreationSavesFormGroup extends React.Component {
     this.handleFilesChange = this.handleFilesChange.bind(this);
   }
 
+  componentDidMount() {
+    let files = [];
+    if (this.props.state.allsaves.length > 0) {
+      files = this.props.state[0].save_scheduled.files;
+      this.props.listFiles(files);
+    }
+  }
+
   // event on click to dynamically change files depending on save selected
   handleFilesChange(e) {
     const files = [];
