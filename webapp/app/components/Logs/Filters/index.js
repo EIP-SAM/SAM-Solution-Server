@@ -25,9 +25,6 @@ export class LogFilter extends React.Component {
     this.getLogs = this.getLogs.bind(this);
     this.resetFilters = this.resetFilters.bind(this);
     this.state = {
-      filters: {
-        findOpts: { forceObject: true },
-      },
       panelTitleIcon: 'plus-sign',
       panelIsCollapsed: true,
       panelTitleHelp: '(click to show)',
@@ -36,17 +33,17 @@ export class LogFilter extends React.Component {
   }
 
   getLogs() {
-    this.props.getFilteredLogs(this.state.filters);
+    this.props.getFilteredLogs(this.props.filters);
   }
 
   resetFilters() {
     this.setState({ key: this.state.key + 1 });
-    this.setState({ filters: { findOpts: { forceObject: true } } });
+    this.props.resetFilters();
   }
 
   handleChange(name) {
     return event => {
-      const newFilters = this.state.filters;
+      const newFilters = this.props.filters;
       switch (name) {
         case 'number':
           if (event !== 'all') {
@@ -105,7 +102,7 @@ export class LogFilter extends React.Component {
           break;
         default:
       }
-      this.setState({ filters: newFilters });
+      this.props.setFilters(newFilters);
     };
   }
 
@@ -162,6 +159,9 @@ export class LogFilter extends React.Component {
 }
 
 LogFilter.propTypes = {
+  filters: React.PropTypes.object.isRequired,
+  setFilters: React.PropTypes.func.isRequired,
+  resetFilters: React.PropTypes.func.isRequired,
   getFilteredLogs: React.PropTypes.func.isRequired,
   clearLogs: React.PropTypes.func.isRequired,
 };

@@ -14,7 +14,7 @@ import request from 'superagent';
 import {
   GET_FILTERED_LOGS,
   CLEAR_LOGS,
-} from './constants';
+} from '../constants/result';
 
 export function getLogs(type, logs) {
   return {
