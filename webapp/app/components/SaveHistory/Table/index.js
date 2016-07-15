@@ -14,14 +14,6 @@ import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SaveHistoryTable extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      saveId: '',
-      saveScheduledId: '',
-      username: '',
-    };
-  }
 
   handleSaveClick(save) {
     this.props.showInstantSaveModal();
@@ -34,7 +26,7 @@ export class SaveHistoryTable extends React.Component {
   }
 
   handleDeleteClick(saveId, saveScheduledId, username) {
-    this.setState({ saveId, saveScheduledId, username });
+    this.props.deleteScheduledSaveInfo(saveId, saveScheduledId, username);
     this.props.showDeletionScheduledSaveModal();
   }
 
@@ -80,7 +72,6 @@ export class SaveHistoryTable extends React.Component {
           </tbody>
         </Table>
         <SaveHistoryDeletionScheduledSaveModal
-          ids={this.state}
           state={this.props.state}
           hideDeletionScheduledSaveModal={this.props.hideDeletionScheduledSaveModal}
           cancelSave={this.props.cancelSave}
@@ -107,6 +98,7 @@ SaveHistoryTable.propTypes = {
   timeSave: React.PropTypes.func,
   frequencySave: React.PropTypes.func,
   addAllFiles: React.PropTypes.func,
+  deleteScheduledSaveInfo: React.PropTypes.func,
   showDeletionScheduledSaveModal: React.PropTypes.func,
   hideDeletionScheduledSaveModal: React.PropTypes.func,
   cancelSave: React.PropTypes.func,

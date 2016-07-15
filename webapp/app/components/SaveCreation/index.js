@@ -22,6 +22,7 @@ export class SaveCreation extends React.Component {
           timeSave={this.props.timeSave}
           frequencySave={this.props.frequencySave}
           addFile={this.props.addFile}
+          inputFileChange={this.props.inputFileChange}
           showAddFileModal={this.props.showAddFileModal}
           cancelAddingFile={this.props.cancelAddingFile}
           createSave={this.props.createSave}
@@ -39,6 +40,7 @@ SaveCreation.propTypes = {
   timeSave: React.PropTypes.func,
   frequencySave: React.PropTypes.func,
   addFile: React.PropTypes.func,
+  inputFileChange: React.PropTypes.func,
   showAddFileModal: React.PropTypes.func,
   cancelAddingFile: React.PropTypes.func,
   createSave: React.PropTypes.func,

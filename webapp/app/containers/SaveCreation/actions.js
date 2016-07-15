@@ -20,6 +20,7 @@ import {
   FREQUENCY,
   ADD_FILE,
   ADD_ALL_FILES,
+  INPUT_FILE_CHANGE,
 } from './constants';
 
 export function showModal() {
@@ -75,6 +76,13 @@ export function addAllFiles(files) {
   return {
     type: ADD_ALL_FILES,
     files,
+  };
+}
+
+export function inputFileChange(file) {
+  return {
+    type: INPUT_FILE_CHANGE,
+    inputFileChange: file,
   };
 }
 

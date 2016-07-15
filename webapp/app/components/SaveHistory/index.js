@@ -34,6 +34,7 @@ export class SaveHistory extends React.Component {
           timeSave={this.props.timeSave}
           frequencySave={this.props.frequencySave}
           addAllFiles={this.props.addAllFiles}
+          deleteScheduledSaveInfo={this.props.deleteScheduledSaveInfo}
           showDeletionScheduledSaveModal={this.props.showDeletionScheduledSaveModal}
           hideDeletionScheduledSaveModal={this.props.hideDeletionScheduledSaveModal}
           cancelSave={this.props.cancelSave}
@@ -55,6 +56,7 @@ SaveHistory.propTypes = {
   timeSave: React.PropTypes.func,
   frequencySave: React.PropTypes.func,
   addAllFiles: React.PropTypes.func,
+  deleteScheduledSaveInfo: React.PropTypes.func,
   showDeletionScheduledSaveModal: React.PropTypes.func,
   hideDeletionScheduledSaveModal: React.PropTypes.func,
   cancelSave: React.PropTypes.func,
