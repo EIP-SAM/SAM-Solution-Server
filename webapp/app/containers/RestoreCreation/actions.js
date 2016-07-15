@@ -66,7 +66,7 @@ export function listSaves(saves) {
 export function getHistorySavesByUserRequest(username) {
   return function returnGetHistorySavesRequest(dispatch) {
     return request
-      .get('http://localhost:8080/historySave')
+      .get('http://localhost:8080/history_save')
       .set({ username })
       .end((err, res) => {
         dispatch(getHistorySavesByUser(res.body));
@@ -75,7 +75,7 @@ export function getHistorySavesByUserRequest(username) {
   };
 }
 
-export function createRestoresRequest(state) {
+export function createRestoresRequest(state, redirect) {
   return function startAction() {
     return request
       .post('http://localhost:8080/createRestore')
@@ -85,7 +85,9 @@ export function createRestoresRequest(state) {
         files: state.selectedFiles.toString(),
       })
       .end(() => {
-        browserHistory.goBack();
+        if (redirect) {
+          browserHistory.goBack();
+        }
       });
   };
 }

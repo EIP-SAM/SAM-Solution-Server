@@ -20,7 +20,7 @@ function mapDispatchToProps(dispatch) {
     listFiles: (files) => dispatch(listFiles(files)),
     selectFiles: (selectedFiles) => dispatch(selectFiles(selectedFiles)),
     listSaves: (saves) => dispatch(listSaves(saves)),
-    createRestoresRequest: (state) => dispatch(createRestoresRequest(state)),
+    createRestoresRequest: (state, redirect) => dispatch(createRestoresRequest(state, redirect)),
     getHistorySavesByUserRequest: (username) => dispatch(getHistorySavesByUserRequest(username)),
   };
 }
