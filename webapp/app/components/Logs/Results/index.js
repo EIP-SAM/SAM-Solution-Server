@@ -44,17 +44,8 @@ export class LogResult extends React.Component {
       messageStatus: {
         style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-down',
         order: 'DESC',
-      }
+      },
     };
-  }
-
-  handleResize(e) {
-    const pageHeaderHeight = 130;
-    const openFilterHeight = 345;
-
-    this.setState({
-      resultTableHeight: window.innerHeight - pageHeaderHeight - openFilterHeight
-    });
   }
 
   componentDidMount() {
@@ -77,121 +68,130 @@ export class LogResult extends React.Component {
   sortByDate() {
     const logs = this.getDefaultLog();
 
-    if (this.state.dateStatus.order == 'DESC') {
+    if (this.state.dateStatus.order === 'DESC') {
       this.setState({
         dateStatus: {
           style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-up',
           order: 'ASC',
-        }
+        },
       });
-      logs.data.sort(function (a, b) {
-        return new Date(a.time) - new Date(b.time);
-      });
+      logs.data.sort((a, b) => (
+        new Date(a.time) - new Date(b.time)
+      ));
     } else {
       this.setState({
         dateStatus: {
           style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-down',
           order: 'DESC',
-        }
+        },
       });
-      logs.data.sort(function (a, b) {
-        return new Date(b.time) - new Date(a.time);
-      });
+      logs.data.sort((a, b) => (
+        new Date(b.time) - new Date(a.time)
+      ));
     }
   }
 
   sortByLevel() {
     const logs = this.getDefaultLog();
 
-    logs.data.sort(function (a, b) {
-      return new Date(b.time) - new Date(a.time);
-    });
+    logs.data.sort((a, b) => (
+      new Date(b.time) - new Date(a.time)
+    ));
 
-    if (this.state.levelStatus.order == 'DESC') {
+    if (this.state.levelStatus.order === 'DESC') {
       this.setState({
         levelStatus: {
           style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-up',
           order: 'ASC',
-        }
+        },
       });
-      logs.data.sort(function (a, b) {
-        return new Date(a.level) - new Date(b.level);
-      });
+      logs.data.sort((a, b) => (
+        new Date(a.level) - new Date(b.level)
+      ));
     } else {
       this.setState({
         levelStatus: {
           style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-down',
           order: 'DESC',
-        }
+        },
       });
-      logs.data.sort(function (a, b) {
-        return new Date(b.level) - new Date(a.level);
-      });
+      logs.data.sort((a, b) => (
+        new Date(b.level) - new Date(a.level)
+      ));
     }
   }
 
   sortByLogger() {
     const logs = this.getDefaultLog();
 
-    logs.data.sort(function (a, b) {
-      return new Date(b.time) - new Date(a.time);
-    });
+    logs.data.sort((a, b) => (
+      new Date(b.time) - new Date(a.time)
+    ));
 
-    if (this.state.loggerStatus.order == 'DESC') {
+    if (this.state.loggerStatus.order === 'DESC') {
       this.setState({
         loggerStatus: {
           style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-up',
           order: 'ASC',
-        }
+        },
       });
-      logs.data.sort(function (a, b) {
-        return new Date(a.name) - new Date(b.name);
-      });
+      logs.data.sort((a, b) => (
+        new Date(a.name) - new Date(b.name)
+      ));
     } else {
       this.setState({
         loggerStatus: {
           style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-down',
           order: 'DESC',
-        }
+        },
       });
-      logs.data.sort(function (a, b) {
-        return new Date(b.name) - new Date(a.name);
-      });
+      logs.data.sort((a, b) => (
+        new Date(b.name) - new Date(a.name)
+      ));
     }
   }
 
   sortByMessage() {
     const logs = this.getDefaultLog();
 
-    logs.data.sort(function (a, b) {
-      return new Date(b.time) - new Date(a.time);
-    });
+    logs.data.sort((a, b) => (
+      new Date(b.time) - new Date(a.time)
+    ));
 
-    if (this.state.messageStatus.order == 'DESC') {
+    if (this.state.messageStatus.order === 'DESC') {
       this.setState({
         messageStatus: {
           style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-up',
           order: 'ASC',
-        }
+        },
       });
-      logs.data.sort(function (a, b) {
-        return new Date(a.msg) - new Date(b.msg);
-      });
+      logs.data.sort((a, b) => (
+        new Date(a.msg) - new Date(b.msg)
+      ));
     } else {
       this.setState({
         messageStatus: {
           style: 'glyphicon glyphicon-glyphicon glyphicon-chevron-down',
           order: 'DESC',
-        }
+        },
       });
-      logs.data.sort(function (a, b) {
-        return new Date(b.name) - new Date(a.name);
-      });
+      logs.data.sort((a, b) => (
+        new Date(b.name) - new Date(a.name)
+      ));
     }
   }
 
   formatDate(ISODate) {
     return moment(ISODate).format('YYYY MMMM Do HH:mm:ss');
+  }
+
+  handleResize() {
+    const pageHeaderHeight = 130;
+    const openFilterHeight = 345;
+
+    this.setState({
+      resultTableHeight: window.innerHeight - pageHeaderHeight - openFilterHeight,
+    });
   }
 
   render() {
