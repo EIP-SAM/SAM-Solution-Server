@@ -106,12 +106,13 @@ function checkAndCreateUser(name, email, password, confirmation) {
 // Security check for each url of this kind : /api/public/*
 //
 module.exports.ensureLoggedOut = function (req, res, next) {
-  if (req.user) {
-    logger.warn({ user: { id: req.user.id, name: req.user.name } }, 'Logged user is trying to access a public (logged-out) ressource');
-    res.status(401).json({ error: 'Already logged-in' });
-  } else {
-    next();
-  }
+  // if (req.user) {
+  //   logger.warn({ user: { id: req.user.id, name: req.user.name } }, 'Logged user is trying to access a public (logged-out) ressource');
+  //   res.status(401).json({ error: 'Already logged-in' });
+  // } else {
+  //   next();
+  // }
+  next();
 };
 
 //
@@ -145,22 +146,21 @@ module.exports.ensureAdminLoggedIn = function (req, res, next) {
 // User identification for passport library
 //
 module.exports.identifyUser = function (name, password) {
-  // return new Promise(function (fulfill, reject) {
-  //   UsersAdapter.findByName(name).then(function (user) {
-  //     if (user) {
-  //       if (password && user.password == crypto.createHmac('sha256', salt).update(password).digest('hex')) {
-  //         fulfill(user);
-  //       } else {
-  //         reject('Invalid password', null);
-  //       }
-  //     } else {
-  //       reject('Unknown user', null);
-  //     }
-  //   }).catch(function (error) {
-  //     reject(null, error);
-  //   });
-  // });
-  next();
+  return new Promise(function (fulfill, reject) {
+    UsersAdapter.findByName(name).then(function (user) {
+      if (user) {
+        if (password && user.password == crypto.createHmac('sha256', salt).update(password).digest('hex')) {
+          fulfill(user);
+        } else {
+          reject('Invalid password', null);
+        }
+      } else {
+        reject('Unknown user', null);
+      }
+    }).catch(function (error) {
+      reject(null, error);
+    });
+  });
 };
 
 //
