@@ -14,9 +14,9 @@ export class RestoreCreationUserFormGroup extends React.Component {
     return (
       <FormGroup controlId="users" className={styles.form}>
         <ControlLabel>User</ControlLabel>
-        <FormControl type="text" placeholder={ user } disabled />
+        <FormControl type="text" placeholder={user} disabled />
       </FormGroup>
-    )
+    );
   }
 }
 
@@ -25,4 +25,4 @@ RestoreCreationUserFormGroup.propTypes = {
   nameUser: React.PropTypes.func,
   setUserId: React.PropTypes.func,
   getHistorySavesByUserRequest: React.PropTypes.func,
-}
+};

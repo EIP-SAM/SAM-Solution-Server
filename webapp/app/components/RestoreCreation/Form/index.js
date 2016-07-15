@@ -3,19 +3,18 @@ import { RestoreCreationUserFormGroup } from 'components/RestoreCreation/Form/Us
 import { RestoreCreationSavesFormGroup } from 'components/RestoreCreation/Form/SavesFormGroup';
 import { RestoreCreationFilesFormGroup } from 'components/RestoreCreation/Form/FilesFormGroup';
 import { RestoreCreationButtons } from 'components/RestoreCreation/Form/Buttons';
-import Option from 'components/Option';
-import styles from 'components/RestoreCreation/styles.css';
 
+/* eslint-disable react/prefer-stateless-function */
 export class RestoreCreationForm extends React.Component {
-  render () {
+  render() {
     return (
       <form>
         <RestoreCreationUserFormGroup
           state={this.props.state}
           nameUser={this.props.nameUser}
-          setUserId={this.props.setUserId}
           getHistorySavesByUserRequest={this.props.getHistorySavesByUserRequest}
         />
+
         <RestoreCreationSavesFormGroup
           state={this.props.state}
           listSaves={this.props.listSaves}
@@ -25,6 +24,7 @@ export class RestoreCreationForm extends React.Component {
         <RestoreCreationFilesFormGroup
           state={this.props.state}
           listFiles={this.props.listFiles}
+          selectFiles={this.props.selectFiles}
         />
         <RestoreCreationButtons
           state={this.props.state}
@@ -33,13 +33,15 @@ export class RestoreCreationForm extends React.Component {
       </form>
     );
   }
-};
+}
 
 RestoreCreationForm.propTypes = {
   state: React.PropTypes.object,
   getHistorySavesByUserRequest: React.PropTypes.func,
   nameUser: React.PropTypes.func,
   listFiles: React.PropTypes.func,
+  selectFiles: React.PropTypes.func,
   listSaves: React.PropTypes.func,
   createRestoresRequest: React.PropTypes.func,
+  setUserId: React.PropTypes.func,
 };

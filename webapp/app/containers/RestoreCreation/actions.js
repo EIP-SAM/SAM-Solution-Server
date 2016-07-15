@@ -17,6 +17,7 @@ import {
   USER,
   USER_ID,
   LIST_FILES,
+  SELECTED_FILES,
   LIST_SAVES,
 } from './constants';
 
@@ -27,14 +28,14 @@ export function getHistorySavesByUser(allsaves) {
   };
 }
 
-export function nameUser(user){
+export function nameUser(user) {
   return {
     type: USER,
     user,
   };
 }
 
-export function setUserId(userId){
+export function setUserId(userId) {
   return {
     type: USER_ID,
     userId,
@@ -45,6 +46,13 @@ export function listFiles(files) {
   return {
     type: LIST_FILES,
     files,
+  };
+}
+
+export function selectFiles(selectedFiles) {
+  return {
+    type: SELECTED_FILES,
+    selectedFiles,
   };
 }
 
@@ -62,19 +70,22 @@ export function getHistorySavesByUserRequest(username) {
       .set({ username })
       .end((err, res) => {
         dispatch(getHistorySavesByUser(res.body));
+        dispatch(setUserId(res.body[0].save_scheduled.userId));
       });
   };
 }
 
 export function createRestoresRequest(state) {
-  return request
-    .post('http://localhost:8080/createRestore')
-    .type('form')
-    .send({
-      userId: state.userId,
-      files: state.files,
-    })
-    .end(() => {
-      browserHistory.goBack();
-  });
+  return function startAction() {
+    return request
+      .post('http://localhost:8080/createRestore')
+      .type('form')
+      .send({
+        userId: state.userId,
+        files: state.selectedFiles.toString(),
+      })
+      .end(() => {
+        browserHistory.goBack();
+      });
+  };
 }
