@@ -3,6 +3,7 @@
 //
 const crypto = require('../libs/crypto');
 const passwordGenerator = require('password-generator');
+const emailValidator = require('email-validator');
 
 //
 // Load config variable(s) from config file
@@ -49,7 +50,7 @@ function checkNewUserName(name) {
 }
 
 function checkNewUserEmail(email) {
-  return (!email || !email.length ? 'Invalid user email' : null);
+  return (!email || !email.length || !emailValidator.validate(email) ? 'Invalid user email' : null);
 }
 
 function checkNewUserPassword(password, confirmation) {
