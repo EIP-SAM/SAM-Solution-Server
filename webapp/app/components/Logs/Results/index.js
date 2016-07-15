@@ -7,6 +7,7 @@ import React from 'react';
 import moment from 'moment';
 import styles from './styles.css';
 import levels from './levels.json';
+import styleSort from './styleSort.json';
 import {
   Table,
   Label,
@@ -26,17 +27,13 @@ export class LogResult extends React.Component {
 
     const pageHeaderHeight = 130;
     const openFilterHeight = 345;
-    const defaultTabHeader = {
-      style: 'chevron-down',
-      order: 'DESC',
-    };
 
     this.state = {
       resultTableHeight: window.innerHeight - pageHeaderHeight - openFilterHeight,
-      dateStatus: defaultTabHeader,
-      levelStatus: defaultTabHeader,
-      loggerStatus: defaultTabHeader,
-      messageStatus: defaultTabHeader,
+      dateStatus: styleSort.desc,
+      levelStatus: styleSort.desc,
+      loggerStatus: styleSort.desc,
+      messageStatus: styleSort.desc,
     };
   }
 
@@ -75,22 +72,12 @@ export class LogResult extends React.Component {
     const logs = this.getDefaultLog();
 
     if (this.state.dateStatus.order === 'DESC') {
-      this.setState({
-        dateStatus: {
-          style: 'chevron-up',
-          order: 'ASC',
-        },
-      });
+      this.setState({ dateStatus: styleSort.asc });
       logs.data.sort((a, b) => (
         new Date(a.time) - new Date(b.time)
       ));
     } else {
-      this.setState({
-        dateStatus: {
-          style: 'chevron-down',
-          order: 'DESC',
-        },
-      });
+      this.setState({ dateStatus: styleSort.desc });
       logs.data.sort((a, b) => (
         new Date(b.time) - new Date(a.time)
       ));
@@ -101,22 +88,12 @@ export class LogResult extends React.Component {
     const logs = this.getDefaultLog();
 
     if (this.state.levelStatus.order === 'DESC') {
-      this.setState({
-        levelStatus: {
-          style: 'chevron-up',
-          order: 'ASC',
-        },
-      });
+      this.setState({ levelStatus: styleSort.asc });
       logs.data.sort((a, b) => (
         a.level > b.level
       ));
     } else {
-      this.setState({
-        levelStatus: {
-          style: 'chevron-down',
-          order: 'DESC',
-        },
-      });
+      this.setState({ levelStatus: styleSort.desc });
       logs.data.sort((a, b) => (
         b.level > a.level
       ));
@@ -127,22 +104,12 @@ export class LogResult extends React.Component {
     const logs = this.getDefaultLog();
 
     if (this.state.loggerStatus.order === 'DESC') {
-      this.setState({
-        loggerStatus: {
-          style: 'chevron-up',
-          order: 'ASC',
-        },
-      });
+      this.setState({ loggerStatus: styleSort.asc });
       logs.data.sort((a, b) => (
         a.name > b.name
       ));
     } else {
-      this.setState({
-        loggerStatus: {
-          style: 'chevron-down',
-          order: 'DESC',
-        },
-      });
+      this.setState({ loggerStatus: styleSort.desc });
       logs.data.sort((a, b) => (
         b.name > a.name
       ));
@@ -153,22 +120,12 @@ export class LogResult extends React.Component {
     const logs = this.getDefaultLog();
 
     if (this.state.messageStatus.order === 'DESC') {
-      this.setState({
-        messageStatus: {
-          style: 'chevron-up',
-          order: 'ASC',
-        },
-      });
+      this.setState({ messageStatus: styleSort.asc });
       logs.data.sort((a, b) => (
         a.msg > b.msg
       ));
     } else {
-      this.setState({
-        messageStatus: {
-          style: 'chevron-down',
-          order: 'DESC',
-        },
-      });
+      this.setState({ messageStatus: styleSort.desc });
       logs.data.sort((a, b) => (
         b.msg > a.msg
       ));
