@@ -15,6 +15,7 @@ import {
   TIME,
   FREQUENCY,
   ADD_FILE,
+  ADD_ALL_FILES,
 } from './constants';
 
 const initialState = {
@@ -22,7 +23,7 @@ const initialState = {
   users: [],
   date: '',
   time: '',
-  file: [],
+  files: [],
 };
 
 function SaveHistoryReducer(state = initialState, action) {
@@ -48,9 +49,14 @@ function SaveHistoryReducer(state = initialState, action) {
         frequency: action.frequency,
       });
     case ADD_FILE:
-      state.file.push(action.file);
+      state.files.push(action.file);
       return Object.assign({}, state, {
-        files: state.file,
+        files: state.files,
+      });
+    case ADD_ALL_FILES:
+      const files = action.files.split(',');
+      return Object.assign({}, state, {
+        files,
       });
     default:
       return state;

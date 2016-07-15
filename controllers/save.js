@@ -26,6 +26,13 @@ module.exports.createSave = function (req, res) {
 };
 
 //
+// Call when a auto or program save is removed
+//
+module.exports.cancelSave = function (req, res) {
+  saveManager.cancelSave(req, res);
+};
+
+//
 // Call when a save is started
 //
 module.exports.startSave = function (req, res) {
@@ -44,13 +51,6 @@ module.exports.saveFinish = function (req, res) {
 //
 module.exports.saveSuccess = function (req, res) {
   return saveManager.saveSuccess(req, res);
-};
-
-//
-// Call when a auto or program save is removed
-//
-module.exports.cancelSave = function (req, res) {
-  return saveManager.cancelSave(req, res);
 };
 
 //

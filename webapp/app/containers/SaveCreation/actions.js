@@ -19,6 +19,7 @@ import {
   TIME,
   FREQUENCY,
   ADD_FILE,
+  ADD_ALL_FILES,
 } from './constants';
 
 export function showModal() {
@@ -70,11 +71,19 @@ export function addFile(file) {
   };
 }
 
+export function addAllFiles(files) {
+  return {
+    type: ADD_ALL_FILES,
+    files,
+  };
+}
+
 //
 // Get username of users list in state.
 // Create save
+// Syntaxe state.users : { value: user.id }
 //
-export function createSave(state) {
+export function createSave(state, redirect) {
   const usersId = [];
   for (const user of state.users) {
     usersId.push(user.value);
@@ -82,7 +91,7 @@ export function createSave(state) {
 
   return function createSaveRequest() {
     return request
-      .post('http://localhost:8080/createSave')
+      .post('http://localhost:8080/create_save')
       .type('form')
       .send({
         usersId,
@@ -92,7 +101,9 @@ export function createSave(state) {
         files: state.files,
       })
       .end(() => {
-        browserHistory.goBack();
+        if (redirect) {
+          browserHistory.goBack();
+        }
       });
   };
 }

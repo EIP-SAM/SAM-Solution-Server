@@ -16,26 +16,38 @@ export default class DatePicker extends React.Component {
     this.state = {
       date: '',
     };
+    this.disabled = false;
     this.dateFormat = '';
   }
 
   componentWillMount() {
     this.dateFormat = (this.props.dateFormat) ? this.props.dateFormat : 'DD/MM/YYYY';
+    this.disabled = (this.props.disabled) ? (this.props.disabled) : false;
 
     if (this.props.value) {
       this.setState({ date: this.props.value });
+      if (this.props.onChange) {
+        this.props.onChange(this.props.value);
+      }
     } else {
-      this.setState({ date: moment().format(this.dateFormat) });
+      this.setState({ date: moment() });
+      if (this.props.onChange) {
+        this.props.onChange(moment());
+      }
     }
   }
 
   handleChange(e) {
-    const newDate = e;
-    if (this.state.date !== newDate) {
-      this.setState({ date: newDate });
-    }
-    if (this.props.onChange) {
-      this.props.onChange(newDate);
+    if (!this.disabled) {
+      const newDate = e;
+      if (this.state.date !== newDate) {
+        this.setState({ date: newDate });
+      }
+      if (this.props.onChange) {
+        this.props.onChange(newDate);
+      }
+    } else {
+      this.setState({ date: this.state.date });
     }
   }
 
@@ -67,4 +79,5 @@ DatePicker.propTypes = {
   dayLabels: React.PropTypes.string,
   monthLabels: React.PropTypes.string,
   calendarPlacement: React.PropTypes.string,
+  disabled: React.PropTypes.bool,
 };

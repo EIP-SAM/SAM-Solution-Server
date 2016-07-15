@@ -16,7 +16,7 @@ export class SaveCreationForm extends React.Component {
     return (
       <form>
         <SaveCreationUsersFormGroup
-          data={this.props.data}
+          listUsersState={this.props.listUsersState}
           state={this.props.state}
           listUsers={this.props.listUsers}
         />
@@ -48,7 +48,7 @@ export class SaveCreationForm extends React.Component {
 }
 
 SaveCreationForm.propTypes = {
-  data: React.PropTypes.array,
+  listUsersState: React.PropTypes.object,
   state: React.PropTypes.object,
   listUsers: React.PropTypes.func,
   dateSave: React.PropTypes.func,

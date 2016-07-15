@@ -22,6 +22,10 @@ var save = sequelize.define('save', {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
+  canceled: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
   hash: {
     type: Sequelize.STRING,
     allowNull: true,

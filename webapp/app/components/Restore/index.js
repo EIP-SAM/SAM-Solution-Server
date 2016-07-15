@@ -18,7 +18,7 @@ export class Restore extends React.Component {
     return (
       <div>
         <PageHeader>Restore</PageHeader>
-        <RestoreFilters/>
+        <RestoreFilters />
         <RestoreTable data={this.props.state.restores} />
       </div>
     );

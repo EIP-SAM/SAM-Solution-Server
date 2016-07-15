@@ -10,6 +10,8 @@
 
 import {
   GET_SAVES,
+  GET_USERS,
+  SHOW_INSTANT_SAVE_MODAL,
 } from './constants';
 
 function SaveReducer(state = {}, action) {
@@ -17,6 +19,14 @@ function SaveReducer(state = {}, action) {
     case GET_SAVES:
       return Object.assign({}, state, {
         saves: action.saves,
+      });
+    case GET_USERS:
+      return Object.assign({}, state, {
+        users: action.users,
+      });
+    case SHOW_INSTANT_SAVE_MODAL:
+      return Object.assign({}, state, {
+        showInstantSaveModal: action.showInstantSaveModal,
       });
     default:
       return state;
