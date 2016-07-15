@@ -1,5 +1,5 @@
 var statManager = require('../managers/statistic');
-var dataAdapters = require('../adapters/statistic_temporary_fake_data');
+var dataAdapters = require('../adapters/statistics/statistic_temporary_fake_data');
 
 module.exports.registerGraphs = function () {
   statManager.statisticRegisterMethodForEntity('User', 'GraphRadarOfSave', dataAdapters.TESTDEFONCTION);
@@ -28,7 +28,7 @@ mais il pourrait servir dans le cas où nous voudrions afficher que certain grap
 Le TROISIEME PARAMETRE est la « callback », c’est la fonction qui renverra les données liées au graphe.
 
 Dans mon exemple j’ai créé un adapter d’exemple et y est placé mes callbacks.
-SAM-Solution-Server/adapters/statistic_temporary_fake_data.js
+SAM-Solution-Server/adapters/statistics/statistic_temporary_fake_data.js
 
 ************************
 ***** CODE EXEMPLE *****
