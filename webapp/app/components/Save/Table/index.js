@@ -15,7 +15,6 @@ export class SaveTable extends React.Component {
 
   handleSaveClick(save) {
     this.props.showInstantSaveModal();
-    console.log(save);
     this.props.listUsers([{ value: save.id }]);
     this.props.addAllFiles(save.save_scheduleds.files);
   }
