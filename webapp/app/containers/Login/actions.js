@@ -36,15 +36,15 @@ export function login(user) {
 export function loginRequest(username, password) {
   return function returnLoginRequest(dispatch) {
     return request
-      .post('http://localhost:8080/api/public/user/login')
+      .post('http://localhost:8080/api/public/user/login/')
       .type('form')
       .send({ username, password })
       .end((err, res) => {
         console.log(res.body);
         dispatch(login(res.body));
         if (res.body.name) {
-          // dispatch(push('/edit-profile'));
-          browserHistory.push('/edit-profile');
+          // dispatch(push('/edit-user'));
+          browserHistory.push('/edit-user/' + username);
         }
         else {
           console.log("Error: invalid username or password");
