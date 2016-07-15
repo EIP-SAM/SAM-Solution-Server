@@ -6,7 +6,7 @@
 import { combineReducers } from 'redux-immutable';
 import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import logsReducer from 'containers/Logs/reducer';
+import logsReducer from 'containers/Logs/reducers';
 
 /*
  * routeReducer

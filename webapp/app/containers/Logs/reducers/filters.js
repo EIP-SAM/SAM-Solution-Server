@@ -1,5 +1,5 @@
 //
-// Logs Reducer
+// Logs Filter Reducer
 //
 // To add a new action:
 //
@@ -9,23 +9,23 @@
 //
 
 import {
-  GET_FILTERED_LOGS,
-  CLEAR_LOGS,
-} from './constants';
+  SET_FILTERS,
+  RESET_FILTERS,
+} from '../constants/filters';
 
-function LogsReducer(state = {}, action) {
+function reducer(state = {}, action) {
   switch (action.type) {
-    case GET_FILTERED_LOGS:
+    case SET_FILTERS:
       return Object.assign({}, state, {
-        logs: action.logs,
+        filters: action.filters,
       });
-    case CLEAR_LOGS:
+    case RESET_FILTERS:
       return Object.assign({}, state, {
-        logs: action.logs,
+        filters: action.filters,
       });
     default:
       return state;
   }
 }
 
-export default LogsReducer;
+export default reducer;

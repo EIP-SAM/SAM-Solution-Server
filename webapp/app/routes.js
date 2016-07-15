@@ -37,7 +37,7 @@ export default function createRoutes() {
       path: '/logs',
       name: 'logs',
       getComponent(nextState, cb) {
-        System.import('containers/Logs')
+        System.import('components/Logs')
           .then(loadModule(cb))
           .catch(errorLoading);
       },
