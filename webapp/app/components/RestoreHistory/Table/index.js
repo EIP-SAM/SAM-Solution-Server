@@ -49,7 +49,7 @@ export class RestoreHistoryTable extends React.Component {
               <Tr
                 key={`row-${index}`} items={[
                   { isLink: false, value: moment(restore.execDate).format('DD/MM/YYYY HH:mm') },
-                  { isLink: false, value: (restore.isStart) ? ((restore.isFinish) ? ((restore.isSuccess) ? 'Succeeded' : 'Failed') : 'In progress') : 'Scheluded' },
+                  { isLink: false, value: (restore.isStart) ? ((restore.isFinish) ? ((restore.isSuccess) ? 'Succeeded' : 'Failed') : 'In progress') : 'In progress' },
                   { isLink: false, value: restore.files },
                   { isLink: false, value: actions }]} component={Td}
               />

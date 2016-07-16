@@ -21,10 +21,10 @@ import {
   LIST_SAVES,
 } from './constants';
 
-export function getHistorySavesByUser(allsaves) {
+export function getHistorySavesByUser(allSaves) {
   return {
     type: GET_HISTORY_SAVES_BY_USER,
-    allsaves,
+    allSaves,
   };
 }
 

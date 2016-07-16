@@ -15,7 +15,7 @@ export class TypeUserFormGroup extends React.Component {
            Type of user :
         </Col>
         <Col sm={3}>
-          <Radio checked>
+          <Radio inline checked>
              All
           </Radio>
           <Radio inline>
