@@ -9,6 +9,7 @@ import { RestoreHistoryInstantRestoreModal } from 'components/RestoreHistory/Tab
 import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Td from 'components/Td';
+const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
 export class RestoreHistoryTable extends React.Component {
@@ -47,7 +48,7 @@ export class RestoreHistoryTable extends React.Component {
             return (
               <Tr
                 key={`row-${index}`} items={[
-                  { isLink: false, value: restore.execDate },
+                  { isLink: false, value: moment(restore.execDate).format('DD/MM/YYYY HH:mm') },
                   { isLink: false, value: (restore.isStart) ? ((restore.isFinish) ? ((restore.isSuccess) ? 'Succeeded' : 'Failed') : 'In progress') : 'Scheluded' },
                   { isLink: false, value: restore.files },
                   { isLink: false, value: actions }]} component={Td}
