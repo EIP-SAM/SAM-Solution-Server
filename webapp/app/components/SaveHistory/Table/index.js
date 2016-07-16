@@ -11,6 +11,7 @@ import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Td from 'components/Td';
 import styles from './styles.css';
+const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
 export class SaveHistoryTable extends React.Component {
@@ -61,7 +62,7 @@ export class SaveHistoryTable extends React.Component {
             return (
               <Tr
                 key={`row-${index}`} items={[
-                  { isLink: false, value: save.execDate },
+                  { isLink: false, value: moment(save.execDate).format('DD/MM/YYYY HH:mm') },
                   { isLink: false, value: status },
                   { isLink: false, value: save.save_scheduled.files },
                   { isLink: false, value: actions }]} component={Td}
