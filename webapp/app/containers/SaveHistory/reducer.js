@@ -15,7 +15,16 @@ import {
   DELETE_SCHEDULED_SAVE_INFO,
 } from './constants';
 
-function SaveHistoryReducer(state = {}, action) {
+const initialState = {
+  saves: [],
+  showDeletionModal: false,
+  showInstantSaveModal: false,
+  saveId: '',
+  saveScheduledId: '',
+  username: '',
+};
+
+function SaveHistoryReducer(state = initialState, action) {
   switch (action.type) {
     case GET_HISTORY_SAVES_BY_USER:
       return Object.assign({}, state, {

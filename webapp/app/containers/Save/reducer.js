@@ -14,7 +14,13 @@ import {
   SHOW_INSTANT_SAVE_MODAL,
 } from './constants';
 
-function SaveReducer(state = {}, action) {
+const initialState = {
+  saves: [],
+  users: [],
+  showInstantSaveModal: false,
+};
+
+function SaveReducer(state = initialState, action) {
   switch (action.type) {
     case GET_SAVES:
       return Object.assign({}, state, {
