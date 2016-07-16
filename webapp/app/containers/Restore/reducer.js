@@ -12,7 +12,11 @@ import {
   GET_RESTORES,
 } from './constants';
 
-function RestoreReducer(state = {}, action) {
+const initialState = {
+  restores: [],
+};
+
+function RestoreReducer(state = initialState, action) {
   switch (action.type) {
     case GET_RESTORES:
       return Object.assign({}, state, {
