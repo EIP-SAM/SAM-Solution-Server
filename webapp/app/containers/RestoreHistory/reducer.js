@@ -13,7 +13,12 @@ import {
   SHOW_INSTANT_RESTORE_MODAL,
 } from './constants';
 
-function RestoreHistoryReducer(state = {}, action) {
+const initialState = {
+  restores: [],
+  showModal: false,
+};
+
+function RestoreHistoryReducer(state = initialState, action) {
   switch (action.type) {
     case GET_HISTORY_RESTORES_BY_USER:
       return Object.assign({}, state, {
