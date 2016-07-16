@@ -8,6 +8,7 @@ import { ButtonPopover } from 'components/ButtonPopover';
 import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Td from 'components/Td';
+const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
 export class RestoreTable extends React.Component {
@@ -36,7 +37,7 @@ export class RestoreTable extends React.Component {
             <Tr
               key={`item-${index}`} items={[{ isLink: false, value: restore.id },
               { isLink: true, link: `/restore/${restore.name}`, value: restore.name },
-              { isLink: false, value: restore.restores[0].execDate },
+              { isLink: false, value: moment(restore.restores[0].execDate).format('DD/MM/YYYY HH:mm') },
               { isLink: false, value: restore.restores[0].files },
               { isLink: false, value: actions }]} component={Td}
             />

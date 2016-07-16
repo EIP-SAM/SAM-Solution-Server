@@ -25,7 +25,7 @@ export default class NavbarContainer extends React.Component {
             <LinkContainer to={{ pathname: '/save' }}>
               <NavItem eventKey={2} className={styles.menuItem}>Save</NavItem>
             </LinkContainer>
-            <LinkContainer to={{ pathname: '#' }}>
+            <LinkContainer to={{ pathname: '/restore' }}>
               <NavItem eventKey={3} className={styles.menuItem}>Restore</NavItem>
             </LinkContainer>
             <LinkContainer to={{ pathname: '#' }}>
