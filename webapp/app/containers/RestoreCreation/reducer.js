@@ -22,7 +22,7 @@ const initialState = {
   userId: '',
   files: [],
   saves: [],
-  allsaves: [],
+  allSaves: [],
   selectedFiles: [],
 };
 
@@ -30,7 +30,7 @@ function RestoreCreationReducer(state = initialState, action) {
   switch (action.type) {
     case GET_HISTORY_SAVES_BY_USER:
       return Object.assign({}, state, {
-        allsaves: action.allsaves,
+        allSaves: action.allSaves,
       });
     case USER:
       return Object.assign({}, state, {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { ButtonPopover } from 'components/ButtonPopover';
 import Option from 'components/Option';
 import styles from 'components/RestoreCreation/styles.css';
 
@@ -25,14 +26,13 @@ export class RestoreCreationFilesFormGroup extends React.Component {
     let options = [];
     let listFiles = [];
 
-    if (this.props.state.allsaves.length > 0) {
+    if (this.props.state.allSaves.length > 0) {
       if (this.props.state.files.length > 0) {
         listFiles = this.props.state.files[0].split(',').map((file) => (
             { value: file, text: file }
         ));
-      }
-      else {
-        listFiles = this.props.state.allsaves[0].save_scheduled.files.split(',').map((file) => (
+      } else {
+        listFiles = this.props.state.allSaves[0].save_scheduled.files.split(',').map((file) => (
             { value: file, text: file }
         ));
       }
@@ -44,6 +44,13 @@ export class RestoreCreationFilesFormGroup extends React.Component {
     return (
       <FormGroup controlId="files" className={styles.form}>
         <ControlLabel>Files</ControlLabel>
+        <ButtonPopover
+          buttonType="link"
+          icon="question-sign"
+          popoverContent="Select the files you want to restore"
+          trigger="hover"
+          placement="right"
+        />
         <FormControl componentClass="select" multiple onChange={this.handleSelectedFiles}>
           {options}
         </FormControl>
