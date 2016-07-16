@@ -26,6 +26,7 @@ const initialState = {
   users: [],
   date: '',
   time: '',
+  frequency: '',
   files: [],
   canAddFile: true,
   inputFileChange: '',
