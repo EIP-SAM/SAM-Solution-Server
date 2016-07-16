@@ -53,30 +53,30 @@ export class SaveTable extends React.Component {
               if (typeof save.save_scheduleds.length === 'undefined') {
                 return (
                   <Tr
-                    key={`item-${index}`} items={[{ isLink: false, value: save.id },
-                  { isLink: true, link: `/save/${save.name}`, value: save.name },
-                  { isLink: false, value: moment(save.save_scheduleds.saves[0].execDate).format('DD/MM/YYYY HH:mm') },
-                  { isLink: false, value: (save.save_scheduleds.saves[0].isSuccess) ? 'Succeeded' : 'Failed' },
-                  { isLink: false, value: save.save_scheduleds.files },
-                  { isLink: false, value: actions }]}
+                    key={`item-${index}`} items={[
+                      { isLink: false, value: save.id },
+                      { isLink: true, link: `/save/${save.name}`, value: save.name },
+                      { isLink: false, value: moment(save.save_scheduleds.saves[0].execDate).format('DD/MM/YYYY HH:mm') },
+                      { isLink: false, value: (save.save_scheduleds.saves[0].isSuccess) ? 'Succeeded' : 'Failed' },
+                      { isLink: false, value: save.save_scheduleds.files },
+                      { isLink: false, value: actions }]}
                     component={Td}
                   />
                 );
-              } else {
-                return (
-                  <Tr
-                    key={`item-${index}`} items={[{ isLink: false, value: save.id },
-                      { isLink: true, link: `/save/${save.name}`, value: save.name },
-                      { isLink: false, value: '' },
-                      { isLink: false, value: '' },
-                      { isLink: false, value: '' },
-                      { isLink: false, value: '' },
-                    ]}
-                    component={Td}
-                  />
-
-              );
               }
+              return (
+                <Tr
+                  key={`item-${index}`} items={[
+                    { isLink: false, value: save.id },
+                    { isLink: true, link: `/save/${save.name}`, value: save.name },
+                    { isLink: false, value: '' },
+                    { isLink: false, value: '' },
+                    { isLink: false, value: '' },
+                    { isLink: false, value: '' },
+                  ]}
+                  component={Td}
+                />
+              );
             })}
           </tbody>
         </Table>

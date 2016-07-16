@@ -29,7 +29,8 @@ export class SaveCreationFilesFormGroup extends React.Component {
           popoverContent="Add a fill"
           trigger="hover"
           placement="right"
-        />);
+        />
+      );
     }
 
     return (
