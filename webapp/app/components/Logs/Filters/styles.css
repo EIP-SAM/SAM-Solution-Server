@@ -1,0 +1,20 @@
+.panelFilterLogs {
+  margin-bottom: 5px !important;
+}
+
+.getLogsToolbarButton {
+  margin-top: 0 !important;
+  margin-bottom: 10px !important;
+}
+
+.radioLogs {
+  margin-left: 10px !important;
+}
+
+.rangeMaxLogs {
+  margin-top: 5px !important;
+}
+
+.panelTitleHelpLogs {
+  font-style: italic;
+}

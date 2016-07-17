@@ -22,6 +22,7 @@ export default function createRoutes() {
       name: 'home',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
+          // System.import('containers/Logs'),
           // System.import('components/HomePage'),
           // System.import('components/Login'),
           // System.import('components/Navbar'),
@@ -34,6 +35,14 @@ export default function createRoutes() {
         });
 
         importModules.catch(errorLoading);
+      },
+    }, {
+      path: '/logs',
+      name: 'logs',
+      getComponent(nextState, cb) {
+        System.import('components/Logs')
+          .then(loadModule(cb))
+          .catch(errorLoading);
       },
     }, {
       path: '/statistics',
@@ -157,7 +166,6 @@ export default function createRoutes() {
       },
     },
      /* {
->>>>>>> origin/develop
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

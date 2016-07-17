@@ -163,7 +163,6 @@
     "react-chartjs": "^0.7.3",
     "react-bootstrap-date-picker": "^3.1.0",
     "react-dom": "^15.0.1",
-
     "react-pure-render": "^1.0.2",
     "react-redux": "^4.4.5",
     "react-router": "^2.3.0",
