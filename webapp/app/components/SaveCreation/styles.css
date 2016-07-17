@@ -1,0 +1,22 @@
+body {
+  overflow: visible;
+}
+
+.form {
+  margin: auto!important;
+}
+
+::-webkit-inner-spin-button {
+  position: relative;
+  top: 7px;
+}
+
+.label + span >  span {
+  position: relative;
+  left: 26px;
+}
+
+.toolbar {
+  margin-top: 20px;
+  text-align: right;
+}

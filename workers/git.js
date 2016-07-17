@@ -33,8 +33,8 @@ module.exports.getLastCommitInfo = function (userId, userName) {
 //
 // Create new repo for a user
 //
-module.exports.initNewGitRepo = function (userId, userName) {
-  var pathToRepo =  conf.baseDir + userName + '_' + userId + '/';
+module.exports.initNewGitRepo = function (userName) {
+  var pathToRepo =  conf.baseDir + userName + '/';
   var isBare = 1; // lets make it bare, aka a .git folder
 
   Git.Repository.init(pathToRepo, isBare).then(function (repo) {

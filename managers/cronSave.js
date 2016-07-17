@@ -69,3 +69,25 @@ module.exports.removeCron = function (key) {
 module.exports.parserCronToDate = function (cron) {
   return cronParser.parseExpression(cron).next().toString();
 };
+
+//
+// Parse date & frequency to have a cron expression
+// Day of week => cron: Sun = 1, Date: Sun = 0
+//
+module.exports.parseDateFrequencyToCron = function (date, frequency) {
+  let cron;
+  switch (frequency) {
+    case 'Daily':
+      cron = date.getMinutes() + ' ' + date.getHours() + ' 1/1 * ? *';
+      break;
+    case 'Weekly':
+      cron = date.getMinutes() + ' ' + date.getHours() + ' ? * ' + (date.getDay() + 1) + ' *';
+      break;
+    case 'Monthly':
+      cron = date.getMinutes() + ' ' + date.getHours() + ' ' + date.getDate() + ' 1/1 ? *';
+      break;
+    default:
+      cron = null;
+  }
+  return cron;
+}
