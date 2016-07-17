@@ -6,13 +6,21 @@ var restoreController = require('../controllers/restore');
 module.exports = function initRestoreRoutes(app) {
 
   app.get('/restore', function (req, res) {
-    res.render('program_save_restore_test.ejs');
+    restoreController.lastUsersRestores().then(function(restores) {
+      res.json(restores);
+    })
   });
 
-  app.post('/create_restore', function (req, res) {
-    restoreController.createRestore(req, res);
-    req.flash('msg', 'Your restoration has been created');
-    res.redirect('/restore');
+  app.get('/historyRestore', function (req, res) {
+    restoreController.historyRestoreByUser(req, res).then(function(historyRestores) {
+      res.json(historyRestores)
+    })
+  });
+
+  app.post('/createRestore', function (req, res) {
+    restoreController.createRestore(req, res).then(function(newRestore) {
+      res.json('Your restoration has been created');
+    });
   });
 
   app.post('/restore_start', function (req, res) {

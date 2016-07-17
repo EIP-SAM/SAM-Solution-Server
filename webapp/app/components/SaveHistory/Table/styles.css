@@ -1,0 +1,11 @@
+.button {
+  color: #d9534f;
+}
+
+.button:hover {
+  color: #c9302c;
+}
+
+.undisplay {
+  display: none;
+}

@@ -4,13 +4,57 @@
 var restoreManager = require('../../managers/restore');
 var restoreAdapter = require('../../adapters/restore');
 
+describe('lastUsersRestores', function () {
+  var req;
+  var res;
+
+  beforeAll(function () {
+    req = {};
+    res = {};
+  });
+
+  it('should return a promise', function () {
+    var restore = restoreManager.lastUsersRestores(req, res);
+    expect(typeof restore.then === 'function').toBeTruthy();
+  });
+
+  it('should have called lastUsersRestores once', function () {
+    spyOn(restoreAdapter, 'lastUsersRestores');
+    restoreManager.lastUsersRestores();
+    expect(restoreAdapter.lastUsersRestores).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('historyRestoreByUser', function () {
+  var req;
+  var res;
+
+  beforeAll(function () {
+    req = { get: function() {
+      return 'admin';
+    }};
+    res = {};
+  });
+
+  it('should return a promise', function () {
+    var restore = restoreManager.historyRestoreByUser(req, res);
+    expect(typeof restore.then === 'function').toBeTruthy();
+  });
+
+  it('should have called historyRestoreByUser once', function () {
+    spyOn(restoreAdapter, 'historyRestoreByUser');
+    restoreManager.historyRestoreByUser(req, res);
+    expect(restoreAdapter.historyRestoreByUser).toHaveBeenCalledTimes(1);
+  });
+});
+
 describe('createRestore', function () {
   var restore;
   var req;
   var res;
 
   beforeAll(function () {
-    req = { body: { userId: 1, saveId: 1 } };
+    req = { body: { userId: 1, files: "test.txt" } };
     res = {};
   });
 

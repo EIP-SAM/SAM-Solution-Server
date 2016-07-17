@@ -2,6 +2,41 @@
 // Adapter SaveScheduled
 //
 SaveScheduledModel = require('../models/saveScheduled');
+UserModel = require('../models/users');
+SaveModel = require('../models/save');
+
+//
+// Get all users with their last saves (savesScheduleds & saves)
+//
+module.exports.lastUsersSaves = function () {
+  return UserModel.findAll({
+    include: [{
+      model: SaveScheduledModel,
+      include: [{
+          model: SaveModel,
+          where: { isFinish: true },
+          order: [['execDate', 'DESC']],
+          limit: 1,
+      }]
+    }],
+  });
+}
+
+//
+// Get all saves (savesScheduleds & saves) of a user (past & scheduled)
+//
+module.exports.historySavesByUser = function (username) {
+  return SaveModel.findAll({
+    order: [['execDate', 'DESC']],
+    include: [{
+      model: SaveScheduledModel,
+      include: [{
+        model: UserModel,
+        where: { name: username },
+      }]
+    }]
+  })
+}
 
 //
 // Create new SaveScheduled instance
@@ -15,6 +50,16 @@ module.exports.createSaveScheduled = function (userId, cron, files) {
 };
 
 //
+// Create new save instance
+//
+module.exports.createSave = function (saveScheduledId, date) {
+  return SaveModel.create({
+    saveScheduledId: saveScheduledId,
+    execDate: date,
+  });
+};
+
+//
 // Disable saveScheduled instance
 //
 module.exports.disableSaveScheduled = function (saveScheduledId) {
@@ -22,6 +67,17 @@ module.exports.disableSaveScheduled = function (saveScheduledId) {
     saveScheduled.isActive = false;
     saveScheduled.save();
     return saveScheduled;
+  });
+};
+
+//
+// Cancel a save
+//
+module.exports.cancelSave = function (saveId) {
+  return SaveModel.findById(saveId).then(function (save) {
+    save.canceled = true;
+    save.save();
+    return save;
   });
 };
 
