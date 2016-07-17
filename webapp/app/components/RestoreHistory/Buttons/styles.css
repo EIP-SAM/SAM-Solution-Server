@@ -1,0 +1,9 @@
+.button {
+  font-weight: bold;
+  float: none!important;
+}
+
+.toolbar {
+  margin-bottom: 30px;
+  text-align: right;
+}

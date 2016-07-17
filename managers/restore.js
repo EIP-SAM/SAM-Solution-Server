@@ -4,13 +4,29 @@
 var restoreAdapter = require('../adapters/restore');
 
 //
+// Get all users with their last restoration
+//
+module.exports.lastUsersRestores = function (req, res) {
+  return restoreAdapter.lastUsersRestores();
+}
+
+//
+// Get username from request
+// Get all restorations of a user
+//
+module.exports.historyRestoreByUser = function (req, res) {
+  const username = req.get('username');
+  return restoreAdapter.historyRestoreByUser(username);
+}
+
+//
 // Get data from resquest
 // Call adapter
 //
 module.exports.createRestore = function (req, res) {
   const userId = req.body.userId;
-  const saveId = req.body.saveId;
-  return restoreAdapter.createRestore(userId, saveId);
+  const files = req.body.files;
+  return restoreAdapter.createRestore(userId, files);
 };
 
 //

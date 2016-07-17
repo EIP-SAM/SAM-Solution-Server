@@ -14,6 +14,12 @@ module.exports = function initExpress(conf) {
   app.use(flash());
   app.use(cors());
 
+  app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', req.get('origin'));
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+  });
+  
   require('./sequelizeSession')(app, conf);
   require('./connectFlash')(app);
   return app;

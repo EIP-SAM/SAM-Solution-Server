@@ -1,0 +1,18 @@
+.form {
+  /*margin: auto!important;*/
+  margin-top: 10px;
+}
+
+::-webkit-inner-spin-button {
+  position: relative;
+  top: 7px;
+}
+
+.button {
+  font-weight: bold;
+}
+
+.toolbar {
+  margin-top: 20px;
+  text-align: right;
+}
