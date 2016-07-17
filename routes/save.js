@@ -7,13 +7,25 @@ var saveController = require('../controllers/save');
 module.exports = function initSaveRoutes(app) {
 
   app.get('/save', function (req, res) {
-    res.render('program_save_restore_test.ejs');
+    saveController.lastUsersSaves().then(function(saves) {
+      res.json(saves);
+    })
+  });
+
+  app.get('/history_save', function (req, res) {
+    saveController.historySavesByUser(req, res).then(function(historySaves) {
+      res.json(historySaves);
+    })
   });
 
   app.post('/create_save', function (req, res) {
-    saveController.createSave(req, res);
-    req.flash('msg', 'Your save has been created');
-    res.redirect('/save');
+    saveController.createSave(req, res)
+    res.json('Your save has been created');
+  });
+
+  app.post('/cancel_save', function (req, res) {
+    saveController.cancelSave(req, res);
+    res.json('Your auto/programmed save has been canceled');
   });
 
   app.post('/save_start', function (req, res) {
@@ -24,12 +36,6 @@ module.exports = function initSaveRoutes(app) {
 
   app.post('/save_finish', function (req, res) {
     saveController.saveFinish(req, res);
-    res.redirect('/save');
-  });
-
-  app.post('/cancel_save', function (req, res) {
-    saveController.cancelSave(req, res);
-    req.flash('msg', 'Your auto/program save has been canceled');
     res.redirect('/save');
   });
 

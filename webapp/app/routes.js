@@ -22,7 +22,7 @@ export default function createRoutes() {
       name: 'home',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          // System.import('components/HomePage'),
+          // System.import('components/Navbar'),
         ]);
 
         const renderRoute = loadModule(cb);
@@ -33,7 +33,56 @@ export default function createRoutes() {
 
         importModules.catch(errorLoading);
       },
-    }, /* {
+    }, {
+      path: '/save',
+      name: 'save',
+      getComponent(nextState, cb) {
+        System.import('containers/Save')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    }, {
+      path: '/save/:username',
+      name: 'history save',
+      getComponent(nextState, cb) {
+        System.import('containers/SaveHistory')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    }, {
+      path: '/create-save',
+      name: 'creation save',
+      getComponent(nextState, cb) {
+        System.import('containers/SaveCreation')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    }, {
+     path: '/restore',
+     name: 'restore',
+     getComponent(nextState, cb) {
+       System.import('containers/Restore')
+         .then(loadModule(cb))
+         .catch(errorLoading);
+     },
+   }, {
+    path: '/restore/:username',
+    name: 'history restore',
+    getComponent(nextState, cb) {
+      System.import('containers/RestoreHistory')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+    },
+  }, {
+    path: '/create-restore/:username',
+    name: 'createRestore',
+    getComponent(nextState, cb) {
+      System.import('containers/RestoreCreation')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+    },
+  },
+     /* {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
@@ -41,6 +90,6 @@ export default function createRoutes() {
           .then(loadModule(cb))
           .catch(errorLoading);
       },
-    },*/
+    }, */
   ];
 }
