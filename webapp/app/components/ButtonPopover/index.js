@@ -13,6 +13,25 @@ export class ButtonPopover extends React.Component {
   render() {
     const buttonStyle = ((this.props.buttonStyle) ? this.props.buttonStyle : styles.button);
 
+    let content;
+    if (this.props.link) {
+      content = (
+        <LinkContainer to={{ pathname: this.props.link }}>
+          <Button className={buttonStyle} bsStyle={this.props.buttonType} onClick={this.props.onClick}>
+            <Glyphicon glyph={this.props.icon} />
+            {this.props.buttonText}
+          </Button>
+        </LinkContainer>
+      );
+    } else {
+      content = (
+        <Button className={buttonStyle} bsStyle={this.props.buttonType} onClick={this.props.onClick}>
+          <Glyphicon glyph={this.props.icon} />
+          {this.props.buttonText}
+        </Button>
+      );
+    }
+
     return (
       <OverlayTrigger
         trigger={this.props.trigger}
@@ -23,12 +42,7 @@ export class ButtonPopover extends React.Component {
           </Popover>
         }
       >
-        <LinkContainer to={{ pathname: this.props.link }}>
-          <Button className={buttonStyle} bsStyle={this.props.buttonType} onClick={this.props.onClick}>
-            <Glyphicon glyph={this.props.icon} />
-            {this.props.buttonText}
-          </Button>
-        </LinkContainer>
+        {content}
       </OverlayTrigger>
     );
   }

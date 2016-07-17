@@ -3,12 +3,37 @@
 //
 var RestoreModel = require('../../models/restore');
 var restoreAdapter = require('../../adapters/restore');
+var UserModel = require('../../models/users');
+
+describe('lastUsersRestores', function () {
+  it('should return a promise', function () {
+    var restore = restoreAdapter.lastUsersRestores();
+    expect(typeof restore.then === 'function').toBeTruthy();
+  });
+  it('should have called findAll once', function () {
+    spyOn(UserModel, 'findAll');
+    restoreAdapter.lastUsersRestores();
+    expect(UserModel.findAll).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('historyRestoreByUser', function () {
+  it('should return a promise', function () {
+    var restore = restoreAdapter.historyRestoreByUser('admin');
+    expect(typeof restore.then === 'function').toBeTruthy();
+  });
+  it('should have called findAll once', function () {
+    spyOn(RestoreModel, 'findAll');
+    restoreAdapter.historyRestoreByUser('admin');
+    expect(RestoreModel.findAll).toHaveBeenCalledTimes(1);
+  });
+});
 
 describe('createRestore', function () {
   var restore;
 
   beforeEach(function () {
-    restore = restoreAdapter.createRestore(1, 1);
+    restore = restoreAdapter.createRestore(1, 'test.txt');
   });
 
   afterEach(function () {
@@ -25,16 +50,16 @@ describe('createRestore', function () {
   });
 
   it('should return a RestoreModel object with right values', function () {
-    restoreAdapter.createRestore(1, 1).then(function (asyncRestore) {
+    restoreAdapter.createRestore(1, 'test.txt').then(function (asyncRestore) {
       expect(asyncRestore.userId).toEqual(1);
-      expect(asyncRestore.saveId).toEqual(1);
+      expect(asyncRestore.files).toEqual('test.txt');
       expect(asyncRestore.execDate).toEqual(new Date());
     });
   });
 
   it('should have called create once', function () {
     spyOn(RestoreModel, 'create');
-    restoreAdapter.createRestore(1, 1);
+    restoreAdapter.createRestore(1, 'test.txt');
     expect(RestoreModel.create).toHaveBeenCalledTimes(1);
   });
 });
