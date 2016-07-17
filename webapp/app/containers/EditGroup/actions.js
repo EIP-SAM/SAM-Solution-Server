@@ -42,12 +42,10 @@ export function getGroupRequest(groupname) {
     return request
       .get('http://localhost:8080/api/logged-in/admin/groups')
       .end((err, res) => {
-        console.log(res.body.groups[1].saveAndRestoreMode);
         var i = 0;
         while (i < res.body.groups.length && res.body.groups[i].name != groupname) {
           ++i;
         }
-        console.log('Group displayed : ' + res.body.groups[i].name);
         dispatch(getGroup(res.body.groups[i]));
     });
   };
@@ -61,14 +59,12 @@ export function editGroup(group) {
 }
 
 export function editGroupRequest(groupname, saveAndRestoreMode, migrationMode, softwarePackages) {
-  console.log('groupname: ' + groupname + ', saveAndRestoreMode: ' + saveAndRestoreMode + ', migrationMode: ' + migrationMode + ', softwarePackages: ' + softwarePackages);
   return function returnEditGroupRequest(dispatch) {
     return request
       .post('http://localhost:8080/api/logged-in/groups/update')
       .type('form')
       .send({ groupname, saveAndRestoreMode, migrationMode, softwarePackages })
       .end((err, res) => {
-        console.log(res.body);
         dispatch(editGroup(res.body));
     });
   };

@@ -35,20 +35,15 @@ export function register(user) {
 }
 
 export function registerRequest(username, email, password, confirmation) {
-  console.log('username: ' + username + ', email: ' + email + ', password: ' + password + ', confirmation: ' + confirmation);
   return function returnRegisterRequest(dispatch) {
     return request
       .post('http://localhost:8080/api/public/user/sign-up')
       .type('form')
       .send({ username, email, password, confirmation })
       .end((err, res) => {
-        console.log(res.body);
         dispatch(register(res.body));
         if (res.body.success) {
           dispatch(push('/login'));
-        }
-        else {
-          console.log('Error: register failed');
         }
     });
   };

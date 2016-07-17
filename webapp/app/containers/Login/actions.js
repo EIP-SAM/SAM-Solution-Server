@@ -40,14 +40,10 @@ export function loginRequest(username, password) {
       .type('form')
       .send({ username, password })
       .end((err, res) => {
-        console.log(res.body);
         dispatch(login(res.body));
         if (res.body.name) {
           // dispatch(push('/edit-user'));
           browserHistory.push('/edit-user/' + username);
-        }
-        else {
-          console.log("Error: invalid username or password");
         }
     });
   };

@@ -38,13 +38,9 @@ export function forgottenPasswordRequest(email) {
       .type('form')
       .send({ email })
       .end((err, res) => {
-        console.log(res.body);
         dispatch(forgottenPassword(res.body));
         if (res.body.success) {
           dispatch(push('/login'));
-        }
-        else {
-          console.log('Error: invalid or unknown email');
         }
     });
   };

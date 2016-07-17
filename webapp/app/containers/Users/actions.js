@@ -27,7 +27,6 @@ export function getUsersRequest() {
     return request
       .get('http://localhost:8080/api/logged-in/admin/users')
       .end((err, res) => {
-        console.log(res.body);
         dispatch(getUsers(res.body));
     });
   };
