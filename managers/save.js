@@ -6,41 +6,79 @@ var saveScheduledAdapter = require('../adapters/saveScheduled');
 var cronManager = require('./cronSave');
 var nodeSchedule = require('../libs/nodeSchedule');
 
-module.exports.createSave = function (req, res) {
-  // Get data from form
-  // Format date
-  // Launch save
-  const userId = req.body.userId;
+//
+// Get all users with their last save
+//
+module.exports.lastUsersSaves = function (req, res) {
+  return saveScheduledAdapter.lastUsersSaves().then(function(results) {
+    for (var user of results) {
+      var lastSaveScheduled = [];
+      if (user.save_scheduleds.length === 0) {
+        continue;
+      }
+      lastSaveScheduled = user.save_scheduleds[0];
+      for (var saveScheduled of user.save_scheduleds) {
+        if (lastSaveScheduled.saves.length === 0) {
+          lastSaveScheduled = saveScheduled;
+          continue;
+        }
+        if (saveScheduled.saves[0] && lastSaveScheduled.saves[0].execDate < saveScheduled.saves[0].execDate) {
+          lastSaveScheduled = saveScheduled;
+        }
+      }
+      user.dataValues.save_scheduleds = (lastSaveScheduled.saves.length) ? lastSaveScheduled : [];
+    }
+    return results;
+  });
+}
 
-  // Cron management
-  const repeatFrequenceSave = req.body.repeatFrequenceSave;
-  var cron = req.body.cron; // to modify -> will need a parser
-  if (repeatFrequenceSave == 'no') {
-    cron = null;
+//
+// Get username from request
+// Get all saves (savesScheduleds & saves) of a user (past & scheduled)
+//
+module.exports.historySavesByUser = function (req, res) {
+  const username = req.get('username');
+  return saveScheduledAdapter.historySavesByUser(username);
+}
+
+module.exports.createSave = function (req, res) {
+  let usersId = req.body.usersId;
+  const date = req.body.date;
+  const time = req.body.time;
+  const frequency = req.body.frequency;
+  const files = req.body.files;
+
+  const splitDate = date.split('/');
+  const splitTime = time.split(':');
+  // In JavaScript - 0 - January, 11 - December
+  // YYYY-MM-DD hh:mm
+  let dateFormat = new Date(splitDate[2], splitDate[1] - 1, splitDate[0],
+    splitTime[0], splitTime[1]);
+  if (dateFormat < new Date()) {
+    dateFormat = new Date(new Date().getTime() + 60000);
   }
 
-  const files = req.body.files; // will probably need a parser
+  var cron = null;
+  if (frequency !== 'No Repeat') {
+    cron = cronManager.parseDateFrequencyToCron(dateFormat, frequency);
+  }
 
-  // Exec Date management
-  var dateProgSave = req.body.dateProgSave;
-  var timeProgSave = req.body.timeProgSave;
-  dateProgSave = dateProgSave.split('-');
-  timeProgSave = timeProgSave.split(':');
-
-  // In JavaScript - 0 - January, 11 - December
-  const date = new Date(dateProgSave[0], dateProgSave[1] - 1, dateProgSave[2],
-    timeProgSave[0], timeProgSave[1]);
-
-  return saveScheduledAdapter.createSaveScheduled(userId, cron, files).then(
-    function (saveScheduled) {
-      if (cron === null) {
-        nodeSchedule.listCron[saveScheduled.id] = cronManager.createSaveScheduled(date);
-      } else {
-        nodeSchedule.listCron[saveScheduled.id] = cronManager.createAutoSave(cron);
+  let users = [];
+  if (typeof usersId === 'string' ) {
+    usersId = usersId.split();
+  }
+  for (const user of usersId) {
+    saveScheduledAdapter.createSaveScheduled(user, cron, files.toString()).then(
+      function (saveScheduled) {
+        if (cron === null) {
+          nodeSchedule.listCron[saveScheduled.id] = cronManager.createSaveScheduled(dateFormat);
+        } else {
+          nodeSchedule.listCron[saveScheduled.id] = cronManager.createAutoSave(cron);
+        }
+        saveScheduledAdapter.createSave(saveScheduled.id, dateFormat);
       }
-
-      return saveAdapter.createSave(saveScheduled.id, date);
-    });
+    )
+  }
 };
 
 //
@@ -76,6 +114,21 @@ module.exports.saveFinish = function (req, res) {
 
 //
 // Get data from resquest
+// Remove cron from list
+// Disabled saveScheduled
+// Cancel save
+// Call adapter
+//
+module.exports.cancelSave = function (req, res) {
+  const saveScheduledId = req.body.saveScheduledId;
+  const saveId = req.body.saveId;
+  cronManager.removeCron(saveScheduledId);
+  saveScheduledAdapter.disableSaveScheduled(saveScheduledId);
+  saveScheduledAdapter.cancelSave(saveId);
+};
+
+//
+// Get data from resquest
 // Update Success boolean
 // Save hash of commit
 // Call adapter
@@ -85,17 +138,6 @@ module.exports.saveSuccess = function (req, res) {
   const hash = '#45487';
   saveAdapter.saveIsSuccess(saveId);
   return saveAdapter.hashSave(saveId, hash);
-};
-
-//
-// Get data from resquest
-// Remove cron from list
-// Call adapter
-//
-module.exports.cancelSave = function (req, res) {
-  const saveScheduledId = req.body.saveScheduledId;
-  cronManager.removeCron(saveScheduledId);
-  return saveScheduledAdapter.disableSaveScheduled(saveScheduledId);
 };
 
 //

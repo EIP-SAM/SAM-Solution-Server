@@ -2,55 +2,85 @@ const usersManager = require('../managers/users');
 const groupsManager = require('../managers/groups');
 
 //
+// Users/Admin security gate
+//
+
+module.exports.ensureLoggedOut = function (req, res, next) {
+  return usersManager.ensureLoggedOut(req, res, next);
+};
+
+module.exports.ensureLoggedIn = function (req, res, next) {
+  return usersManager.ensureLoggedIn(req, res, next);
+};
+
+module.exports.ensureAdminLoggedIn = function (req, res, next) {
+  return usersManager.ensureAdminLoggedIn(req, res, next);
+};
+
+//
 // Users
 //
-module.exports.retrieveUserProfile = function (req, res) {
-  return usersManager.retrieveUserProfile(req, res);
+
+module.exports.login = function (passport) {
+  return usersManager.login(passport);
 };
 
-module.exports.retrieveAllUsers = function (req, res) {
-  return usersManager.retrieveAllUsers(req, res);
+module.exports.logout = function () {
+  return usersManager.logout();
 };
 
-module.exports.createUser = function (param) {
-  return usersManager.createUser(param);
+module.exports.createUser = function () {
+  return usersManager.createUser();
 };
 
-module.exports.createUsers = function (param) {
-  return usersManager.createUsers(param);
+module.exports.recoverUserPassword = function () {
+  return usersManager.recoverUserPassword();
 };
 
-module.exports.updateUserProfile = function (param) {
-  return usersManager.updateUserProfile(param);
+module.exports.retrieveUserProfile = function () {
+  return usersManager.retrieveUserProfile();
 };
 
-module.exports.updateUsers = function (param) {
-  return usersManager.updateUsers(param);
-};
-
-module.exports.deleteUsers = function (param) {
-  return usersManager.deleteUsers(param);
+module.exports.updateUserProfile = function () {
+  return usersManager.updateUserProfile();
 };
 
 //
-// Groups
+// Users/Groups administration
 //
-module.exports.retrieveAllGroups = function (req, res) {
-  return groupsManager.retrieveAllGroups(req, res);
+
+module.exports.retrieveAllUsers = function () {
+  return usersManager.retrieveAllUsers();
 };
 
-module.exports.updateGroups = function (param) {
-  return groupsManager.updateGroups(param);
+module.exports.retrieveAllGroups = function () {
+  return groupsManager.retrieveAllGroups();
 };
 
-module.exports.createGroups = function (param) {
-  return groupsManager.createGroups(param);
+module.exports.createUsers = function () {
+  return usersManager.createUsers();
 };
 
-module.exports.deleteGroups = function (param) {
-  return groupsManager.deleteGroups(param);
+module.exports.updateUsers = function () {
+  return usersManager.updateUsers();
 };
 
-module.exports.addUsersToGroup = function (param) {
-  return groupsManager.addUsersToGroup(param);
+module.exports.deleteUsers = function () {
+  return usersManager.deleteUsers();
+};
+
+module.exports.createGroups = function () {
+  return groupsManager.createGroups();
+};
+
+module.exports.updateGroups = function () {
+  return groupsManager.updateGroups();
+};
+
+module.exports.deleteGroups = function () {
+  return groupsManager.deleteGroups();
+};
+
+module.exports.addUsersToGroup = function () {
+  return groupsManager.addUsersToGroup();
 };

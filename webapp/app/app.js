@@ -52,8 +52,6 @@ ReactDOM.render(
       history={history}
       routes={rootRoute}
       render={
-        // Scroll to top when going to a new page, imitating default browser
-        // behaviour
         applyRouterMiddleware(
           useScroll(
             (prevProps, props) => {
