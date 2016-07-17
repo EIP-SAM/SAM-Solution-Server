@@ -22,6 +22,8 @@ export default function createRoutes() {
       name: 'home',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
+          // System.import('components/HomePage'),
+          // System.import('components/Login'),
           // System.import('components/Navbar'),
         ]);
 
@@ -34,6 +36,62 @@ export default function createRoutes() {
         importModules.catch(errorLoading);
       },
     }, {
+      path: '/login',
+      name: 'login',
+      getComponent(nextState, cb) {
+        System.import('containers/Login')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      }
+    }, {
+      path: '/forgotten-password',
+      name: 'forgotten password',
+      getComponent(nextState, cb) {
+        System.import('containers/ForgottenPassword')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      }
+    }, {
+      path: '/register',
+      name: 'register',
+      getComponent(nextState, cb) {
+        System.import('containers/Register')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      }
+    }, {
+      path: '/edit-user/:username',
+      name: 'edit user',
+      getComponent(nextState, cb) {
+        System.import('containers/EditUser')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      }
+    }, {
+      path: '/edit-group/:groupname',
+      name: 'edit group',
+      getComponent(nextState, cb) {
+        System.import('containers/EditGroup')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      }
+    }, {
+      path: '/users',
+      name: 'users',
+      getComponent(nextState, cb) {
+        System.import('containers/Users')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      }
+    }, {
+        path: '/groups',
+        name: 'groups',
+        getComponent(nextState, cb) {
+          System.import('containers/Groups')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+        }
+      }, {
       path: '/save',
       name: 'save',
       getComponent(nextState, cb) {

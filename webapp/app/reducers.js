@@ -6,6 +6,13 @@
 import { combineReducers } from 'redux-immutable';
 import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
+import loginReducer from 'containers/Login/reducers';
+import forgottenPasswordReducer from 'containers/ForgottenPassword/reducers';
+import registerReducer from 'containers/Register/reducers';
+import editUserReducer from 'containers/EditUser/reducers';
+import editGroupReducer from 'containers/EditGroup/reducers';
+import usersReducer from 'containers/Users/reducers';
+import groupsReducer from 'containers/Groups/reducers';
 
 import SaveReducer from 'containers/Save/reducer';
 import SaveHistoryReducer from 'containers/SaveHistory/reducer';
@@ -48,6 +55,13 @@ function routeReducer(state = routeInitialState, action) {
 export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
+    login: loginReducer,
+    forgottenPassword: forgottenPasswordReducer,
+    register: registerReducer,
+    editUser: editUserReducer,
+    editGroup: editGroupReducer,
+    users: usersReducer,
+    groups: groupsReducer,
     save: SaveReducer,
     saveHistory: SaveHistoryReducer,
     restore: RestoreReducer,
