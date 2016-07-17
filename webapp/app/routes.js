@@ -36,13 +36,29 @@ export default function createRoutes() {
         importModules.catch(errorLoading);
       },
     }, {
+      path: '/statistics',
+      name: 'statistics',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/Stats'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component]) => {
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
       path: '/login',
       name: 'login',
       getComponent(nextState, cb) {
         System.import('containers/Login')
         .then(loadModule(cb))
         .catch(errorLoading);
-      }
+      },
     }, {
       path: '/forgotten-password',
       name: 'forgotten password',
@@ -50,7 +66,7 @@ export default function createRoutes() {
         System.import('containers/ForgottenPassword')
         .then(loadModule(cb))
         .catch(errorLoading);
-      }
+      },
     }, {
       path: '/register',
       name: 'register',
@@ -58,7 +74,7 @@ export default function createRoutes() {
         System.import('containers/Register')
         .then(loadModule(cb))
         .catch(errorLoading);
-      }
+      },
     }, {
       path: '/edit-user/:username',
       name: 'edit user',
@@ -66,7 +82,7 @@ export default function createRoutes() {
         System.import('containers/EditUser')
         .then(loadModule(cb))
         .catch(errorLoading);
-      }
+      },
     }, {
       path: '/edit-group/:groupname',
       name: 'edit group',
@@ -74,7 +90,7 @@ export default function createRoutes() {
         System.import('containers/EditGroup')
         .then(loadModule(cb))
         .catch(errorLoading);
-      }
+      },
     }, {
       path: '/users',
       name: 'users',
@@ -82,16 +98,16 @@ export default function createRoutes() {
         System.import('containers/Users')
         .then(loadModule(cb))
         .catch(errorLoading);
-      }
+      },
     }, {
-        path: '/groups',
-        name: 'groups',
-        getComponent(nextState, cb) {
-          System.import('containers/Groups')
+      path: '/groups',
+      name: 'groups',
+      getComponent(nextState, cb) {
+        System.import('containers/Groups')
           .then(loadModule(cb))
           .catch(errorLoading);
-        }
-      }, {
+      },
+    }, {
       path: '/save',
       name: 'save',
       getComponent(nextState, cb) {
@@ -116,31 +132,32 @@ export default function createRoutes() {
           .catch(errorLoading);
       },
     }, {
-     path: '/restore',
-     name: 'restore',
-     getComponent(nextState, cb) {
-       System.import('containers/Restore')
+      path: '/restore',
+      name: 'restore',
+      getComponent(nextState, cb) {
+        System.import('containers/Restore')
          .then(loadModule(cb))
          .catch(errorLoading);
-     },
-   }, {
-    path: '/restore/:username',
-    name: 'history restore',
-    getComponent(nextState, cb) {
-      System.import('containers/RestoreHistory')
+      },
+    }, {
+      path: '/restore/:username',
+      name: 'history restore',
+      getComponent(nextState, cb) {
+        System.import('containers/RestoreHistory')
         .then(loadModule(cb))
         .catch(errorLoading);
-    },
-  }, {
-    path: '/create-restore/:username',
-    name: 'createRestore',
-    getComponent(nextState, cb) {
-      System.import('containers/RestoreCreation')
+      },
+    }, {
+      path: '/create-restore/:username',
+      name: 'createRestore',
+      getComponent(nextState, cb) {
+        System.import('containers/RestoreCreation')
         .then(loadModule(cb))
         .catch(errorLoading);
+      },
     },
-  },
      /* {
+>>>>>>> origin/develop
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
