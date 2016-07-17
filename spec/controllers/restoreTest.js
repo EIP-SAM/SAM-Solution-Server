@@ -1,8 +1,8 @@
 //
-// Unit test for restore manager
+// Unit test for restore controller
 //
+var restoreController = require('../../controllers/restore');
 var restoreManager = require('../../managers/restore');
-var restoreAdapter = require('../../adapters/restore');
 
 describe('lastUsersRestores', function () {
   var req;
@@ -14,14 +14,14 @@ describe('lastUsersRestores', function () {
   });
 
   it('should return a promise', function () {
-    var restore = restoreManager.lastUsersRestores(req, res);
+    var restore = restoreController.lastUsersRestores(req, res);
     expect(typeof restore.then === 'function').toBeTruthy();
   });
 
   it('should have called lastUsersRestores once', function () {
-    spyOn(restoreAdapter, 'lastUsersRestores');
-    restoreManager.lastUsersRestores();
-    expect(restoreAdapter.lastUsersRestores).toHaveBeenCalledTimes(1);
+    spyOn(restoreManager, 'lastUsersRestores');
+    restoreController.lastUsersRestores();
+    expect(restoreManager.lastUsersRestores).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -37,14 +37,14 @@ describe('historyRestoreByUser', function () {
   });
 
   it('should return a promise', function () {
-    var restore = restoreManager.historyRestoreByUser(req, res);
+    var restore = restoreController.historyRestoreByUser(req, res);
     expect(typeof restore.then === 'function').toBeTruthy();
   });
 
   it('should have called historyRestoreByUser once', function () {
-    spyOn(restoreAdapter, 'historyRestoreByUser');
-    restoreManager.historyRestoreByUser(req, res);
-    expect(restoreAdapter.historyRestoreByUser).toHaveBeenCalledTimes(1);
+    spyOn(restoreManager, 'historyRestoreByUser');
+    restoreController.historyRestoreByUser(req, res);
+    expect(restoreManager.historyRestoreByUser).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -54,12 +54,12 @@ describe('createRestore', function () {
   var res;
 
   beforeAll(function () {
-    req = { body: { userId: 1, files: "test.txt" } };
+    req = { body: { userId: 1, files: 'test.txt'} };
     res = {};
   });
 
   beforeEach(function () {
-    restore = restoreManager.createRestore(req, res);
+    restore = restoreController.createRestore(req, res);
   });
 
   afterEach(function () {
@@ -76,9 +76,9 @@ describe('createRestore', function () {
   });
 
   it('should have called createRestore once', function () {
-    spyOn(restoreAdapter, 'createRestore');
-    restoreManager.createRestore(req, res);
-    expect(restoreAdapter.createRestore).toHaveBeenCalledTimes(1);
+    spyOn(restoreManager, 'createRestore');
+    restoreController.createRestore(req, res);
+    expect(restoreManager.createRestore).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -93,7 +93,7 @@ describe('startRestore', function () {
   });
 
   beforeEach(function () {
-    restore = restoreManager.startRestore(req, res);
+    restore = restoreController.startRestore(req, res);
   });
 
   afterEach(function () {
@@ -109,10 +109,10 @@ describe('startRestore', function () {
     expect(typeof restore.then === 'function').toBeTruthy();
   });
 
-  it('should have called restoreIsStart once', function () {
-    spyOn(restoreAdapter, 'restoreIsStart');
-    restoreManager.startRestore(req, res);
-    expect(restoreAdapter.restoreIsStart).toHaveBeenCalledTimes(1);
+  it('should have called startRestore once', function () {
+    spyOn(restoreManager, 'startRestore');
+    restoreController.startRestore(req, res);
+    expect(restoreManager.startRestore).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -127,7 +127,7 @@ describe('restoreFinish', function () {
   });
 
   beforeEach(function () {
-    restore = restoreManager.restoreFinish(req, res);
+    restore = restoreController.restoreFinish(req, res);
   });
 
   afterEach(function () {
@@ -143,10 +143,10 @@ describe('restoreFinish', function () {
     expect(typeof restore.then === 'function').toBeTruthy();
   });
 
-  it('should have called restoreIsFinish once', function () {
-    spyOn(restoreAdapter, 'restoreIsFinish');
-    restoreManager.restoreFinish(req, res);
-    expect(restoreAdapter.restoreIsFinish).toHaveBeenCalledTimes(1);
+  it('should have called restoreFinish once', function () {
+    spyOn(restoreManager, 'restoreFinish');
+    restoreController.restoreFinish(req, res);
+    expect(restoreManager.restoreFinish).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -161,7 +161,7 @@ describe('restoreSuccess', function () {
   });
 
   beforeEach(function () {
-    restore = restoreManager.restoreSuccess(req, res);
+    restore = restoreController.restoreSuccess(req, res);
   });
 
   afterEach(function () {
@@ -177,10 +177,10 @@ describe('restoreSuccess', function () {
     expect(typeof restore.then === 'function').toBeTruthy();
   });
 
-  it('should have called restoreIsSuccess once', function () {
-    spyOn(restoreAdapter, 'restoreIsSuccess');
-    restoreManager.restoreSuccess(req, res);
-    expect(restoreAdapter.restoreIsSuccess).toHaveBeenCalledTimes(1);
+  it('should have called restoreSuccess once', function () {
+    spyOn(restoreManager, 'restoreSuccess');
+    restoreController.restoreSuccess(req, res);
+    expect(restoreManager.restoreSuccess).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -190,24 +190,18 @@ describe('getHistoryRestore', function () {
   var res;
 
   beforeAll(function () {
-    req = {};
+    req = { body: { restoreId: 1 } };
     res = {};
   });
 
   it('should return a promise', function () {
-    restore = restoreManager.getHistoryRestore(req, res);
+    var restore = restoreController.getHistoryRestore(req, res);
     expect(typeof restore.then === 'function').toBeTruthy();
   });
 
-  it('should have called getAllRestore once', function () {
-    spyOn(restoreAdapter, 'getAllRestore');
-    restoreManager.getHistoryRestore(req, res);
-    expect(restoreAdapter.getAllRestore).toHaveBeenCalledTimes(1);
-  });
-
-  xit('should have called getRestoreByUser once', function () {
-    spyOn(restoreAdapter, 'getRestoreByUser');
-    restoreManager.getHistoryRestore(req, res);
-    expect(restoreAdapter.getRestoreByUser).toHaveBeenCalledTimes(1);
+  it('should have called getHistoryRestore once', function () {
+    spyOn(restoreManager, 'getHistoryRestore');
+    restoreController.getHistoryRestore(req, res);
+    expect(restoreManager.getHistoryRestore).toHaveBeenCalledTimes(1);
   });
 });
