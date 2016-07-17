@@ -118,7 +118,6 @@ module.exports.ensureLoggedOut = function (req, res, next) {
 // Security check for each url of this kind : /api/logged-in/*
 //
 module.exports.ensureLoggedIn = function (req, res, next) {
-  console.log(req.isAuthenticated());
   if (req.user) {
     next();
   } else {
