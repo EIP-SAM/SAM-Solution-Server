@@ -22,7 +22,7 @@ module.exports.historySavesByUser = function (req, res) {
 // Call when a save is created
 //
 module.exports.createSave = function (req, res) {
-  return saveManager.createSave(req, res);
+  saveManager.createSave(req, res);
 };
 
 //
