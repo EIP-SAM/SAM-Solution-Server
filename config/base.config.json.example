@@ -1,9 +1,9 @@
 {
   "port": 8080,
   "dbConfig" : {
-    "database": "sam",
-    "username": "dev",
-    "password": "dev1",
+    "database": "circle_test",
+    "username": "ubuntu",
+    "password": "",
     "options": {
       "host": "localhost",
       "dialect": "mysql",

@@ -19,6 +19,11 @@ const Users = sequelize.define('users', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    default: false,
+  },
 }, {
   freezeTableName: true,
 });

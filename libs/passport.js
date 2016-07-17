@@ -10,13 +10,15 @@ module.exports = function initPassport(app) {
 
   passport.use(new LocalStrategy(
     function (username, password, done) {
-      UsersManager.identifyUser(username, password)
-      .then(function (user) {
-        done(null, user);
-      },
 
-      function (error) {
-        done(null, false, { message: error });
+      UsersManager.identifyUser(username, password).then(function (user) {
+        done(null, user);
+      }).catch(function (identificationError, internalError) {
+        if (internalError) {
+          done(internalError);
+        } else {
+          done(null, false, { message: identificationError });
+        }
       });
     }
   ));

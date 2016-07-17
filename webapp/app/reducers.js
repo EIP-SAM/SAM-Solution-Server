@@ -6,7 +6,25 @@
 import { combineReducers } from 'redux-immutable';
 import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
+
 import logsReducer from 'containers/Logs/reducers';
+
+import StatsReducer from 'containers/Stats/reducers';
+
+import loginReducer from 'containers/Login/reducers';
+import forgottenPasswordReducer from 'containers/ForgottenPassword/reducers';
+import registerReducer from 'containers/Register/reducers';
+import editUserReducer from 'containers/EditUser/reducers';
+import editGroupReducer from 'containers/EditGroup/reducers';
+import usersReducer from 'containers/Users/reducers';
+import groupsReducer from 'containers/Groups/reducers';
+
+import SaveReducer from 'containers/Save/reducer';
+import SaveHistoryReducer from 'containers/SaveHistory/reducer';
+import SaveCreationReducer from 'containers/SaveCreation/reducer';
+import RestoreReducer from 'containers/Restore/reducer';
+import RestoreHistoryReducer from 'containers/RestoreHistory/reducer';
+import RestoreCreationReducer from 'containers/RestoreCreation/reducer';
 
 /*
  * routeReducer
@@ -43,6 +61,20 @@ export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
     logs: logsReducer,
+    stats: StatsReducer,
+    login: loginReducer,
+    forgottenPassword: forgottenPasswordReducer,
+    register: registerReducer,
+    editUser: editUserReducer,
+    editGroup: editGroupReducer,
+    users: usersReducer,
+    groups: groupsReducer,
+    save: SaveReducer,
+    saveHistory: SaveHistoryReducer,
+    restore: RestoreReducer,
+    restoreHistory: RestoreHistoryReducer,
+    restoreCreation: RestoreCreationReducer,
+    saveCreation: SaveCreationReducer,
     ...asyncReducers,
   });
 }

@@ -3,7 +3,6 @@
 //
 
 import React from 'react';
-import { Link } from 'react-router';
 import { Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import styles from 'components/Td/styles.css';
