@@ -1,0 +1,4 @@
+{
+  "asc": { "style": "chevron-up", "order": "ASC"},
+  "desc": { "style": "chevron-down", "order": "DESC" }
+}

@@ -13,6 +13,21 @@ module.exports.launchLog = function (header) {
 };
 
 //
+// Launch getLogsWithMultipleCriteria from adapters and return the result
+//
+module.exports.getLogsWithMultipleCriteria = function (criteria) {
+
+  return new Promise(function (fulfill) {
+
+    var promise = logAdapter.getLogsWithMultipleCriteria(criteria);
+
+    promise.then(function (logs) {
+      fulfill(logs);
+    });
+  });
+};
+
+//
 // Launch getLogsfrom adapters and return the result
 //
 module.exports.getLogs = function () {
@@ -111,6 +126,51 @@ module.exports.getLimitedLogsByModuleName = function (moduleName, limit) {
   return new Promise(function (fulfill) {
 
     var promise = logAdapter.getLimitedLogsByModuleName(moduleName, limit);
+
+    promise.then(function (logs) {
+      fulfill(logs);
+    });
+  });
+};
+
+//
+// Launch getLogsByDay from adapters and return the result
+//
+module.exports.getLogsByDay = function (date) {
+
+  return new Promise(function (fulfill) {
+
+    var promise = logAdapter.getLogsByDay(date);
+
+    promise.then(function (logs) {
+      fulfill(logs);
+    });
+  });
+};
+
+//
+// Launch getLogsBeforeDate from adapters and return the result
+//
+module.exports.getLogsBeforeDate = function (date) {
+
+  return new Promise(function (fulfill) {
+
+    var promise = logAdapter.getLogsBeforeDate(date);
+
+    promise.then(function (logs) {
+      fulfill(logs);
+    });
+  });
+};
+
+//
+// Launch getLogsAfterDate from adapters and return the result
+//
+module.exports.getLogsAfterDate = function (date) {
+
+  return new Promise(function (fulfill) {
+
+    var promise = logAdapter.getLogsAfterDate(date);
 
     promise.then(function (logs) {
       fulfill(logs);
