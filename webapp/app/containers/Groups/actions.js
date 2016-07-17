@@ -27,7 +27,6 @@ export function getGroupsRequest() {
     return request
       .get('http://localhost:8080/api/logged-in/admin/groups')
       .end((err, res) => {
-        console.log(res.body);
         dispatch(getGroups(res.body));
     });
   };

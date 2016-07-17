@@ -44,7 +44,6 @@ export function getUserRequest(username) {
         while (i < res.body.users.length && res.body.users[i].name != username) {
           ++i;
         }
-        console.log('User displayed : ' + res.body.users[i].name + ', ' + res.body.users[i].email);
         dispatch(getUser(res.body.users[i]));
       });
   };
@@ -66,7 +65,6 @@ export function getCurrentUserRequest() {
       .get('http://localhost:8080/api/logged-in/user/profile')
       .withCredentials()
       .end((err, res) => {
-        console.log(res.body);
         dispatch(getCurrentUser(res.body));
       });
   };
@@ -80,14 +78,12 @@ export function editUser(user) {
 }
 
 export function editUserRequest(username, email, password, confirmation) {
-  console.log('username: ' + username + ', email: ' + email + ', password: ' + password + ', confirmation: ' + confirmation);
   return function returnEditUserRequest(dispatch) {
     return request
       .post('http://localhost:8080/api/logged-in/user/profile/update')
       .type('form')
       .send({ username, email, password, confirmation })
       .end((err, res) => {
-        console.log(res.body);
         dispatch(editUser(res.body));
       });
   };
