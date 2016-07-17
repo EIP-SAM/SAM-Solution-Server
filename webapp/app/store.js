@@ -8,6 +8,7 @@ import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 import createReducer from './reducers';
+import thunk from 'redux-thunk';
 
 const sagaMiddleware = createSagaMiddleware();
 const devtools = window.devToolsExtension || (() => noop => noop);

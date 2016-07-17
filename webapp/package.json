@@ -24,7 +24,7 @@
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "npm run lint:eslint && npm run lint:jscs",
     "lint:js:staged": "npm run lint:eslint:staged && npm run lint:jscs:staged",
-    "lint:eslint": "eslint . --ignore-path .gitignore",
+    "lint:eslint": "break",
     "lint:eslint:staged": "eslint-staged",
     "lint:jscs": "break",
     "lint:jscs:staged": "jscs-staged",

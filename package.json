@@ -47,6 +47,7 @@
     "cookie-parser": "^1.4.1",
     "cors": "^2.7.1",
     "cron-parser": "^2.0.3",
+    "email-validator": "^1.0.4",
     "express": "^4.12.4",
     "express-session": "^1.13.0",
     "flash": "^1.1.0",
@@ -56,8 +57,10 @@
     "mysql": "^2.10.2",
     "node-schedule": "^1.1.0",
     "nodegit": "^0.13.0",
+    "nodemailer": "^2.4.2",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "password-generator": "^2.0.2",
     "sequelize": "^3.17.3",
     "socket.io": "^1.4.6"
   },
