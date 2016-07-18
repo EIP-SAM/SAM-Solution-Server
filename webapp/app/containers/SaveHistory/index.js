@@ -4,7 +4,7 @@
 
 import { connect } from 'react-redux';
 import { SaveHistory } from 'components/SaveHistory';
-import { listUsers, dateSave, timeSave, frequencySave, addAllFiles, createSave, createInstantSave } from 'containers/SaveCreation/actions';
+import { listUsers, dateSave, timeSave, frequencySave, addAllFiles, createSave } from 'containers/SaveCreation/actions';
 import { getHistorySavesByUserRequest, showDeletionScheduledSaveModal, hideDeletionScheduledSaveModal, cancelSave, showInstantSaveModal, hideInstantSaveModal, deleteScheduledSaveInfo } from './actions';
 
 
