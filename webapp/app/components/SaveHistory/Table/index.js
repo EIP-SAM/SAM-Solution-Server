@@ -19,6 +19,9 @@ export class SaveHistoryTable extends React.Component {
   handleSaveClick(save) {
     this.props.showInstantSaveModal();
     this.props.listUsers([{ value: save.save_scheduled.user.id }]);
+    this.props.dateSave(moment().format('DD/MM/YYYY'));
+    this.props.timeSave(moment().format('HH:mm'));
+    this.props.frequencySave('No Repeat');
     this.props.addAllFiles(save.save_scheduled.files);
   }
 
@@ -80,9 +83,6 @@ export class SaveHistoryTable extends React.Component {
         <SaveHistoryInstantSaveModal
           createSaveState={this.props.createSaveState}
           state={this.props.state}
-          dateSave={this.props.dateSave}
-          timeSave={this.props.timeSave}
-          frequencySave={this.props.frequencySave}
           hideInstantSaveModal={this.props.hideInstantSaveModal}
           createSave={this.props.createSave}
         />
