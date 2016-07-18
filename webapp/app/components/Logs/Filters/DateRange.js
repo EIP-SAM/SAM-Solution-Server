@@ -3,6 +3,7 @@
 //
 
 import React from 'react';
+import moment from 'moment';
 import DatePicker from 'components/DatePicker';
 import RadioGroup from 'components/RadioGroup';
 import styles from './styles.css';
@@ -19,8 +20,8 @@ export default class DateRange extends React.Component {
     super(props);
     this.state = {
       specific: true,
-      dateOne: null,
-      dateTwo: null,
+      dateOne: moment().startOf('day').toString(),
+      dateTwo: moment().startOf('day').toString(),
     };
   }
 
