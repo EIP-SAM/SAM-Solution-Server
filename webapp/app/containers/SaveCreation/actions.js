@@ -112,7 +112,7 @@ export function createSave(state, redirect) {
     usersId.push(user.value);
   }
 
-  return function createSaveRequest() {
+  return function createSaveRequest(dispatch) {
     return request
       .post('http://localhost:8080/create_save')
       .type('form')
@@ -126,6 +126,7 @@ export function createSave(state, redirect) {
       .end(() => {
         if (redirect) {
           browserHistory.goBack();
+          dispatch(resetState());
         }
       });
   };

@@ -6,19 +6,12 @@ import React from 'react';
 import { Modal, ButtonToolbar, Glyphicon } from 'react-bootstrap';
 import { LinkContainerButton } from 'components/Button';
 import styles from 'components/Save/Table/ModalInstantSave/styles.css';
-const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
 export class SaveInstantSaveModal extends React.Component {
   constructor(props) {
     super(props);
     this.handleLaunchClick = this.handleLaunchClick.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.dateSave(moment().format('DD/MM/YYYY'));
-    this.props.timeSave(moment().format('HH:mm'));
-    this.props.frequencySave('No Repeat');
   }
 
   handleLaunchClick() {
@@ -51,8 +44,5 @@ SaveInstantSaveModal.propTypes = {
   createSaveState: React.PropTypes.object,
   state: React.PropTypes.object.isRequired,
   hideInstantSaveModal: React.PropTypes.func.isRequired,
-  dateSave: React.PropTypes.func.isRequired,
-  timeSave: React.PropTypes.func.isRequired,
-  frequencySave: React.PropTypes.func.isRequired,
   createSave: React.PropTypes.func.isRequired,
 };
