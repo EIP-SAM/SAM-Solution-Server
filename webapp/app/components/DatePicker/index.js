@@ -24,7 +24,7 @@ export default class DatePicker extends React.Component {
     this.dateFormat = (this.props.dateFormat) ? this.props.dateFormat : 'DD/MM/YYYY';
     this.disabled = (this.props.disabled) ? (this.props.disabled) : false;
 
-    if (this.props.value) {
+    if (typeof this.props.value === 'undefined') {
       this.setState({ date: this.props.value });
       if (this.props.onChange) {
         this.props.onChange(this.props.value);
