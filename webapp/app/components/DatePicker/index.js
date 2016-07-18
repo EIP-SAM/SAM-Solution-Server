@@ -30,9 +30,9 @@ export default class DatePicker extends React.Component {
         this.props.onChange(this.props.value);
       }
     } else {
-      this.setState({ date: moment() });
+      this.setState({ date: moment().toString() });
       if (this.props.onChange) {
-        this.props.onChange(moment());
+        this.props.onChange(moment().toString());
       }
     }
   }
