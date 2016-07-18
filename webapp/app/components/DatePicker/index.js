@@ -14,7 +14,7 @@ export default class DatePicker extends React.Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      date: '',
+      date: null,
     };
     this.disabled = false;
     this.dateFormat = '';
@@ -30,16 +30,22 @@ export default class DatePicker extends React.Component {
         this.props.onChange(this.props.value);
       }
     } else {
-      this.setState({ date: moment().toString() });
+      this.setState({ date: moment().toDate().toString() });
       if (this.props.onChange) {
-        this.props.onChange(moment().toString());
+        this.props.onChange(moment().toDate().toString());
       }
     }
   }
 
   handleChange(e) {
     if (!this.disabled) {
-      const newDate = e;
+      let newDate = e;
+
+      if (newDate != null) {
+        newDate = moment(e).set({ hour: 0, minute: 0, seconde: 0 });
+        newDate = newDate.utcOffset(newDate.utcOffset()).toDate().toString();
+      }
+
       if (this.state.date !== newDate) {
         this.setState({ date: newDate });
       }

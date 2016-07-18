@@ -23,6 +23,10 @@ module.exports.createChild = function (header) {
 module.exports.getLogsWithMultipleCriteria = function (queryCriteria) {
   return new Promise(function (fulfill) {
 
+    if (queryCriteria === undefined) {
+      fulfill({ error: false, data: {} });
+    }
+
     var criteria = queryCriteria;
 
     if (typeof criteria === 'string') {
@@ -32,6 +36,15 @@ module.exports.getLogsWithMultipleCriteria = function (queryCriteria) {
     }
 
     var findOpts = {};
+    var key;
+
+    for (key in criteria) {
+      if (criteria.hasOwnProperty(key)) {
+        if (criteria[key].length == 0) {
+          delete criteria[key];
+        }
+      }
+    }
 
     if (criteria.findOpts !== undefined) {
       if (criteria.findOpts.header !== undefined) {
