@@ -15,3 +15,4 @@ export const ADD_ALL_FILES = 'SAM/SaveCreation/ADD_ALL_FILES';
 export const CAN_ADD_FILE = 'SAM/SaveCreation/CAN_ADD_FILE';
 export const INPUT_FILE_CHANGE = 'SAM/SaveCreation/INPUT_FILE_CHANGE';
 export const RESET_STATE = 'SAM/SaveCreation/RESET_STATE';
+export const INSTANT_SAVE = 'SAM/SaveCreation/INSTANT_SAVE';
