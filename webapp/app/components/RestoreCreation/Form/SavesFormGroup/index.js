@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 import { ButtonPopover } from 'components/ButtonPopover';
 import Option from 'components/Option';
 import styles from 'components/RestoreCreation/styles.css';
@@ -10,14 +10,6 @@ export class RestoreCreationSavesFormGroup extends React.Component {
   constructor(props) {
     super(props);
     this.handleFilesChange = this.handleFilesChange.bind(this);
-  }
-
-  componentDidMount() {
-    let files = [];
-    if (this.props.state.allSaves.length > 0) {
-      files = this.props.state[0].save_scheduled.files;
-      this.props.listFiles(files);
-    }
   }
 
   // event on click to dynamically change files depending on save selected
@@ -35,7 +27,10 @@ export class RestoreCreationSavesFormGroup extends React.Component {
   render() {
     let saves = [];
     let savesOption = [];
+    let validationState = '';
+    let errorMessage = '';
     if (this.props.state.allSaves.length > 0) {
+      console.log(this.props.state);
       saves = this.props.state.allSaves.map((save) => (
         { value: save.id, text: moment(save.execDate).format('DD/MM/YYYY HH:mm') }
       ));
@@ -43,8 +38,13 @@ export class RestoreCreationSavesFormGroup extends React.Component {
         <Option object={item} key={`item-${index}`} />
       ));
     }
+
+    if (this.props.state.saveError !== '') {
+      validationState = 'error';
+      errorMessage = this.props.state.saveError;
+    }
     return (
-      <FormGroup controlId="saves" className={styles.form}>
+      <FormGroup controlId="saves" className={styles.form} validationState={validationState}>
         <ControlLabel>Saves</ControlLabel>
         <ButtonPopover
           buttonType="link"
@@ -56,6 +56,7 @@ export class RestoreCreationSavesFormGroup extends React.Component {
         <FormControl componentClass="select" onChange={this.handleFilesChange}>
           {savesOption}
         </FormControl>
+        <HelpBlock>{errorMessage}</HelpBlock>
       </FormGroup>
     );
   }
@@ -63,7 +64,7 @@ export class RestoreCreationSavesFormGroup extends React.Component {
 
 RestoreCreationSavesFormGroup.propTypes = {
   state: React.PropTypes.object,
-  listSaves: React.PropTypes.func,
+  selectSave: React.PropTypes.func,
   listFiles: React.PropTypes.func,
   setUserId: React.PropTypes.func,
 };

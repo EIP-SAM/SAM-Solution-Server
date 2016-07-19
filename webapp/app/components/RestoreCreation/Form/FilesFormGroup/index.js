@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 import { ButtonPopover } from 'components/ButtonPopover';
 import Option from 'components/Option';
 import styles from 'components/RestoreCreation/styles.css';
@@ -25,6 +25,8 @@ export class RestoreCreationFilesFormGroup extends React.Component {
   render() {
     let options = [];
     let listFiles = [];
+    let validationState = '';
+    let errorMessage = '';
 
     if (this.props.state.allSaves.length > 0) {
       if (this.props.state.files.length > 0) {
@@ -41,8 +43,13 @@ export class RestoreCreationFilesFormGroup extends React.Component {
       ));
     }
 
+    if (this.props.state.filesError !== '') {
+      validationState = 'error';
+      errorMessage = this.props.state.filesError;
+    }
+
     return (
-      <FormGroup controlId="files" className={styles.form}>
+      <FormGroup controlId="files" className={styles.form} validationState={validationState}>
         <ControlLabel>Files</ControlLabel>
         <ButtonPopover
           buttonType="link"
@@ -54,6 +61,7 @@ export class RestoreCreationFilesFormGroup extends React.Component {
         <FormControl componentClass="select" multiple onChange={this.handleSelectedFiles}>
           {options}
         </FormControl>
+        <HelpBlock>{errorMessage}</HelpBlock>
       </FormGroup>
     );
   }

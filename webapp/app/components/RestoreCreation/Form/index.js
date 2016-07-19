@@ -17,7 +17,7 @@ export class RestoreCreationForm extends React.Component {
 
         <RestoreCreationSavesFormGroup
           state={this.props.state}
-          listSaves={this.props.listSaves}
+          selectSave={this.props.selectSave}
           listFiles={this.props.listFiles}
           setUserId={this.props.setUserId}
         />
@@ -29,6 +29,8 @@ export class RestoreCreationForm extends React.Component {
         <RestoreCreationButtons
           state={this.props.state}
           createRestoresRequest={this.props.createRestoresRequest}
+          saveErrorMsg={this.props.saveErrorMsg}
+          filesErrorMsg={this.props.filesErrorMsg}
         />
       </form>
     );
@@ -44,4 +46,6 @@ RestoreCreationForm.propTypes = {
   listSaves: React.PropTypes.func,
   createRestoresRequest: React.PropTypes.func,
   setUserId: React.PropTypes.func,
+  saveErrorMsg: React.PropTypes.func,
+  filesErrorMsg: React.PropTypes.func,
 };
