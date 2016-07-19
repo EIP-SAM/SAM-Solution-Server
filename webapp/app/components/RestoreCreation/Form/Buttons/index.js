@@ -12,7 +12,6 @@ export class RestoreCreationButtons extends React.Component {
   }
 
   handleFormClick() {
-    this.props.resetState();
     this.props.createRestoresRequest(this.props.state, true);
   }
 

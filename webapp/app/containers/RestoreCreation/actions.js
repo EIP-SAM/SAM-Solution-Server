@@ -83,7 +83,7 @@ export function getHistorySavesByUserRequest(username) {
 }
 
 export function createRestoresRequest(state, redirect) {
-  return function startAction() {
+  return function startAction(dispatch) {
     return request
       .post('http://localhost:8080/createRestore')
       .type('form')
@@ -94,6 +94,7 @@ export function createRestoresRequest(state, redirect) {
       .end(() => {
         if (redirect) {
           browserHistory.goBack();
+          dispatch(resetState());
         }
       });
   };
