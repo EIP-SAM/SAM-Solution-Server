@@ -34,7 +34,7 @@ export default class NavbarContainer extends React.Component {
             <LinkContainer to={{ pathname: '#' }}>
               <NavItem eventKey={5} className={styles.menuItem}>Software</NavItem>
             </LinkContainer>
-            <LinkContainer to={{ pathname: '#' }}>
+            <LinkContainer to={{ pathname: '/logs' }}>
               <NavItem eventKey={6} className={styles.menuItem}>Logs</NavItem>
             </LinkContainer>
             <LinkContainer to={{ pathname: '/statistics' }}>
