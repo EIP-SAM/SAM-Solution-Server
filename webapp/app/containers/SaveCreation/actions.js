@@ -126,8 +126,8 @@ export function createSave(state, redirect) {
       .end(() => {
         if (redirect) {
           browserHistory.goBack();
-          dispatch(resetState());
         }
+        dispatch(resetState());
       });
   };
 }
