@@ -4,7 +4,24 @@
 
 import { connect } from 'react-redux';
 import { SaveCreation } from 'components/SaveCreation';
-import { resetState, listUsers, dateSave, timeSave, frequencySave, addFile, displayAddFile, inputFileChange, showModal, hideModal, createSave } from './actions';
+import {
+  resetState,
+  listUsers,
+  dateSave,
+  timeSave,
+  frequencySave,
+  addFile,
+  displayAddFile,
+  inputFileChange,
+  showModal,
+  hideModal,
+  createSave,
+  userErrorMsg,
+  dateErrorMsg,
+  timeErrorMsg,
+  frequencyErrorMsg,
+  fileErrorMsg,
+ } from './actions';
 
 function mapStateToProps(state) {
   return {
@@ -26,6 +43,11 @@ function mapDispatchToProps(dispatch) {
     showAddFileModal: () => dispatch(showModal()),
     cancelAddingFile: () => dispatch(hideModal()),
     createSave: (state, redirect) => dispatch(createSave(state, redirect)),
+    userErrorMsg: (userError) => dispatch(userErrorMsg(userError)),
+    dateErrorMsg: (dateError) => dispatch(dateErrorMsg(dateError)),
+    timeErrorMsg: (timeError) => dispatch(timeErrorMsg(timeError)),
+    frequencyErrorMsg: (frequencyError) => dispatch(frequencyErrorMsg(frequencyError)),
+    fileErrorMsg: (fileError) => dispatch(fileErrorMsg(fileError)),
   };
 }
 
