@@ -66,7 +66,7 @@ export function deleteScheduledSaveInfo(saveId, saveScheduledId, username) {
 export function getHistorySavesByUserRequest(username) {
   return function returnGetHistorySavesRequest(dispatch) {
     return request
-      .get('http://localhost:8080/history_save')
+      .get('http://localhost:8080/api/logged-in/history_save')
       .set({ username })
       .end((err, res) => {
         dispatch(getHistorySavesByUser(res.body));
@@ -79,7 +79,7 @@ export function getHistorySavesByUserRequest(username) {
 export function cancelSave(saveId, saveScheduledId, username) {
   return function returnCancelSave(dispatch) {
     return request
-    .post('http://localhost:8080/cancel_save')
+    .post('http://localhost:8080/api/logged-in/cancel_save')
     .type('form')
     .send({
       saveScheduledId,

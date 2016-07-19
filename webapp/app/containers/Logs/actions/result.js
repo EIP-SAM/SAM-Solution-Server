@@ -33,7 +33,7 @@ export function clearLogs() {
 export function getFilteredLogs(filters) {
   return function startAction(dispatch) {
     return request
-      .get('http://localhost:8080/log/multiple_criteria')
+      .get('http://localhost:8080/api/logged-in/admin/log/multiple_criteria')
       .query({ criteria: filters })
       .end((err, res) => {
         if (err || res.body.error) {

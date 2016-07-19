@@ -18,7 +18,7 @@ export function getFilters(type, filters) {
 export function getFiltersFromServer() {
   return function startAction(dispatch) {
     return request
-      .get('http://localhost:8080/statistic_filters/')
+      .get('http://localhost:8080/api/logged-in/admin/statistic_filters')
       .end((err, res) => {
         if (err || res.body.error) {
           console.log('Error occured in request to server for statistic filters');

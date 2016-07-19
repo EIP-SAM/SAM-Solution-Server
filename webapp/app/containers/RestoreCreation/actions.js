@@ -66,7 +66,7 @@ export function listSaves(saves) {
 export function getHistorySavesByUserRequest(username) {
   return function returnGetHistorySavesRequest(dispatch) {
     return request
-      .get('http://localhost:8080/history_save')
+      .get('http://localhost:8080/api/logged-in/history_save')
       .set({ username })
       .end((err, res) => {
         dispatch(getHistorySavesByUser(res.body));
@@ -78,7 +78,7 @@ export function getHistorySavesByUserRequest(username) {
 export function createRestoresRequest(state, redirect) {
   return function startAction() {
     return request
-      .post('http://localhost:8080/createRestore')
+      .post('http://localhost:8080/api/logged-in/createRestore')
       .type('form')
       .send({
         userId: state.userId,

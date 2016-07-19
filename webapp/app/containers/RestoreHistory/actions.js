@@ -40,7 +40,7 @@ export function getHistoryRestoresByUser(restores) {
 export function getHistoryRestoresByUserRequest(username) {
   return function returnGetHistoryRestoresByUserRequest(dispatch) {
     return request
-      .get('http://localhost:8080/historyRestore')
+      .get('http://localhost:8080/api/logged-in/historyRestore')
       .set({ username })
       .type('form')
       .send({ username })

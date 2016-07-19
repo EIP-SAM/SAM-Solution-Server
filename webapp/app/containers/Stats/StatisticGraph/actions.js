@@ -36,11 +36,11 @@ export function getAllGraphFromServer() {
 export function getGraphFromServer(type) {
   return function startAction(dispatch) {
     return request
-      .get('http://localhost:8080/statistic_select_graph/')
+      .get('http://localhost:8080/api/logged-in/admin/statistic_select_graph')
       .set('type', type)
       .end((err, res) => {
         if (err || res.body.error) {
-          //console.log('Error occured in request to server for statistic type data : ', res);
+          // console.log('Error occured in request to server for statistic type data : ', res);
         } else {
           dispatch(getStats(GET_STATS_BY_TYPE, res.body));
         }
