@@ -4,15 +4,6 @@
 const logAdapter = require('../adapters/log');
 
 //
-// Get libs and header in parameter,
-// launch function createLog from adapters
-// and return it to controllers
-//
-module.exports.launchLog = function (header) {
-  return logAdapter.createChild(header);
-};
-
-//
 // Launch getLogsWithMultipleCriteria from adapters and return the result
 //
 module.exports.getLogsWithMultipleCriteria = function (criteria) {

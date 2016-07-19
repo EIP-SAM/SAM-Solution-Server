@@ -30,4 +30,22 @@ const logger = new bunyan.createLogger({
   serializers: bunyan.stdSerializers,
 });
 
+const setLogger = function(logger) {
+  logger.setModuleName = function(moduleName) {
+    return logger.child({moduleName});
+  }
+  logger.setUser = function(user) {
+    return logger.child({user});
+  }
+  return logger;
+}
+
+logger.setModuleName = function(moduleName) {
+  return setLogger(logger.child({moduleName}));
+}
+
+logger.setUser = function(user) {
+  return setLogger(logger.child({user}));
+}
+
 module.exports = logger;

@@ -7,15 +7,6 @@ var logger  = require('../libs/bunyan');
 var moment = require('../libs/moment');
 
 //
-// Create a child for logger module and return it to managers
-// A logger child is just a logger with an header
-// The stream is the same as the parent's
-//
-module.exports.createChild = function (header) {
-  return logger.child(header);
-};
-
-//
 // Get the logs from multiple options.
 // It is a method that will allow you to get logs from several criteria
 // instead of using several method to get all the critetia you need.
