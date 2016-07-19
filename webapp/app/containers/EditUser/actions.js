@@ -12,39 +12,35 @@
 const request = require('../../agent');
 
 import {
-  SAVE_DATA,
   GET_USER,
   GET_CURRENT_USER,
   EDIT_USER,
+  GET_GROUPS,
 } from './constants';
 
-export function onChangeData(username, email, password, confirmation) {
-  return {
-    type: SAVE_DATA,
-    username: username,
-    email: email,
-    password: password,
-    confirmation: confirmation,
-  };
-}
 export function getUser(user) {
   return {
     type: GET_USER,
-    displayedUsername: user.name,
-    displayedEmail: user.email,
-  };
+    user: user,
+  }
 }
 
-export function getUserRequest(username) {
+export function getUserRequest(username, callback) {
+  console.log('get : /api/logged-in/admin/users :');
   return function returnGetUserRequest(dispatch) {
     return request
       .get('http://localhost:8080/api/logged-in/admin/users')
       .end((err, res) => {
+        console.log('reponse a /api/logged-in/admin/users :');
+        console.log(res.body);
         var i = 0;
         while (i < res.body.users.length && res.body.users[i].name != username) {
           ++i;
         }
+        console.log('user affiche sur la page : ');
+        console.log(res.body.users[i]);
         dispatch(getUser(res.body.users[i]));
+        callback(res.body.users[i].groups);
       });
   };
 }
@@ -52,19 +48,21 @@ export function getUserRequest(username) {
 export function getCurrentUser(user) {
   return {
     type: GET_CURRENT_USER,
-    username: user.username,
-    email: user.email,
-    password: user.password,
-    confirmation: user.confirmation,
-  };
+    currentUsername: user.username,
+    currentEmail: user.email,
+    isAdmin: user.isAdmin,
+  }
 }
 
 export function getCurrentUserRequest() {
-  return function returngetCurrentUserRequest(dispatch) {
+  console.log('get : /api/logged-in/user/profile :');
+  return function returnGetCurrentUserRequest(dispatch) {
     return request
       .get('http://localhost:8080/api/logged-in/user/profile')
       .withCredentials()
       .end((err, res) => {
+        console.log('reponse a /api/logged-in/user/profile :');
+        console.log(res.body);
         dispatch(getCurrentUser(res.body));
       });
   };
@@ -77,14 +75,72 @@ export function editUser(user) {
   };
 }
 
-export function editUserRequest(username, email, password, confirmation) {
+export function editUserAdminRequest(users) {
+  console.log('requete envoyee a /api/logged-in/admin/users/update :');
+  console.log(users);
+  console.log(JSON.stringify(users));
+  return function returnEditUserRequest(dispatch) {
+    return request
+      .post('http://localhost:8080/api/logged-in/admin/users/update')
+      .type('form')
+      .send(users)
+      .end((err, res) => {
+        console.log('reponse a /api/logged-in/admin/users/update :');
+        console.log(res.body);
+        dispatch(editUser(res.body));
+      });
+  };
+}
+
+export function editUserRequest(user) {
+  console.log('requete envoyee a /api/logged-in/user/profile/update :');
+  console.log(user);
   return function returnEditUserRequest(dispatch) {
     return request
       .post('http://localhost:8080/api/logged-in/user/profile/update')
       .type('form')
-      .send({ username, email, password, confirmation })
+      .send({ user })
       .end((err, res) => {
+        console.log('reponse a /api/logged-in/user/profile/update :');
+        console.log(res.body);
         dispatch(editUser(res.body));
       });
+  };
+}
+
+export function getGroups(groups, user) {
+  var usersGroups = [];
+  var i = 0;
+  while (i < groups.length) {
+    var j = 0;
+    while (j < user.length) {
+      if (user[j].id == groups[i].id) {
+        usersGroups.push(true);
+        break;
+      }
+      ++j;
+      if (j == user.length)
+        usersGroups.push(false);
+    }
+    i++;
+  }
+
+  return {
+    type: GET_GROUPS,
+    groups: groups,
+    usersGroups: usersGroups,
+  }
+}
+
+export function getGroupsRequest(groups) {
+  console.log('get : /api/logged-in/admin/groups :');
+  return function returnGetGroupsRequest(dispatch) {
+    return request
+      .get('http://localhost:8080/api/logged-in/admin/groups')
+      .end((err, res) => {
+        console.log('reponse a /api/logged-in/admin/groups :');
+        console.log(res.body);
+        dispatch(getGroups(res.body.groups, groups));
+    });
   };
 }
