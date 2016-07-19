@@ -13,6 +13,7 @@ const request = require('superagent');
 import { browserHistory } from 'react-router';
 
 import {
+  RESET_STATE,
   GET_HISTORY_SAVES_BY_USER,
   USER,
   USER_ID,
@@ -20,6 +21,12 @@ import {
   SELECTED_FILES,
   LIST_SAVES,
 } from './constants';
+
+export function resetState() {
+  return {
+    type: RESET_STATE,
+  };
+}
 
 export function getHistorySavesByUser(allSaves) {
   return {

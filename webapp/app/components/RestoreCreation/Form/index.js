@@ -28,6 +28,7 @@ export class RestoreCreationForm extends React.Component {
         />
         <RestoreCreationButtons
           state={this.props.state}
+          resetState={this.props.resetState}
           createRestoresRequest={this.props.createRestoresRequest}
         />
       </form>
@@ -37,6 +38,7 @@ export class RestoreCreationForm extends React.Component {
 
 RestoreCreationForm.propTypes = {
   state: React.PropTypes.object,
+  resetState: React.PropTypes.func,
   getHistorySavesByUserRequest: React.PropTypes.func,
   nameUser: React.PropTypes.func,
   listFiles: React.PropTypes.func,

@@ -8,13 +8,16 @@ export class RestoreCreationButtons extends React.Component {
   constructor(props) {
     super(props);
     this.handleFormClick = this.handleFormClick.bind(this);
+    this.handleCancelClick = this.handleCancelClick.bind(this);
   }
 
   handleFormClick() {
+    this.props.resetState();
     this.props.createRestoresRequest(this.props.state, true);
   }
 
   handleCancelClick() {
+    this.props.resetState();
     browserHistory.goBack();
   }
 
@@ -30,5 +33,6 @@ export class RestoreCreationButtons extends React.Component {
 
 RestoreCreationButtons.propTypes = {
   state: React.PropTypes.object,
+  resetState: React.PropTypes.func,
   createRestoresRequest: React.PropTypes.func,
 };

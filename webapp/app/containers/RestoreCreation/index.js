@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { getRestores, nameUser, setUserId, listFiles, selectFiles, listSaves, createRestoresRequest, getHistorySavesByUserRequest } from './actions';
+import { resetState, getRestores, nameUser, setUserId, listFiles, selectFiles, listSaves, createRestoresRequest, getHistorySavesByUserRequest } from './actions';
 import { RestoreCreation } from 'components/RestoreCreation';
 
 function mapStateToProps(state) {
@@ -14,6 +14,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    resetState: () => dispatch(resetState()),
     getRestores: (restores) => dispatch(getRestores(restores)),
     nameUser: (user) => dispatch(nameUser(user)),
     setUserId: (userId) => dispatch(setUserId(userId)),
