@@ -15,7 +15,7 @@ export class RestoreCreation extends React.Component {
           state={this.props.state}
           getHistorySavesByUserRequest={this.props.getHistorySavesByUserRequest}
           nameUser={this.props.nameUser}
-          listFiles={this.props.selectSave}
+          listFiles={this.props.listFiles}
           selectFiles={this.props.selectFiles}
           selectSave={this.props.selectSave}
           createRestoresRequest={this.props.createRestoresRequest}
@@ -34,7 +34,7 @@ RestoreCreation.propTypes = {
   setUserId: React.PropTypes.func,
   selectSave: React.PropTypes.func,
   selectFiles: React.PropTypes.func,
-  listSaves: React.PropTypes.func,
+  listFiles: React.PropTypes.func,
   createRestoresRequest: React.PropTypes.func,
   getHistorySavesByUserRequest: React.PropTypes.func,
   saveErrorMsg: React.PropTypes.func,

@@ -18,6 +18,7 @@ export class RestoreCreationSavesFormGroup extends React.Component {
     const data = this.props.state.allSaves;
     for (let i = 0; i < data.length; i++) {
       if (data[i].id.toString() === e.target.value) {
+        this.props.selectSave(data[i].id);
         files.push(data[i].save_scheduled.files);
       }
     }
@@ -30,7 +31,6 @@ export class RestoreCreationSavesFormGroup extends React.Component {
     let validationState = '';
     let errorMessage = '';
     if (this.props.state.allSaves.length > 0) {
-      console.log(this.props.state);
       saves = this.props.state.allSaves.map((save) => (
         { value: save.id, text: moment(save.execDate).format('DD/MM/YYYY HH:mm') }
       ));

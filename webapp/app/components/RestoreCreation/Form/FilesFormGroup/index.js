@@ -69,6 +69,5 @@ export class RestoreCreationFilesFormGroup extends React.Component {
 
 RestoreCreationFilesFormGroup.propTypes = {
   state: React.PropTypes.object,
-  listFiles: React.PropTypes.func,
   selectFiles: React.PropTypes.func,
 };
