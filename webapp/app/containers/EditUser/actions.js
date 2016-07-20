@@ -11,6 +11,7 @@
 
 const request = require('../../agent');
 
+import { browserHistory } from 'react-router';
 import {
   GET_USER,
   GET_CURRENT_USER,
@@ -78,7 +79,6 @@ export function editUser(user) {
 export function editUserAdminRequest(users) {
   console.log('requete envoyee a /api/logged-in/admin/users/update :');
   console.log(users);
-  console.log(JSON.stringify(users));
   return function returnEditUserRequest(dispatch) {
     return request
       .post('http://localhost:8080/api/logged-in/admin/users/update')
@@ -88,6 +88,9 @@ export function editUserAdminRequest(users) {
         console.log('reponse a /api/logged-in/admin/users/update :');
         console.log(res.body);
         dispatch(editUser(res.body));
+        if (res.body.users) {
+          browserHistory.push('/edit-user/' + users[0].name);
+        }
       });
   };
 }
@@ -104,6 +107,9 @@ export function editUserRequest(user) {
         console.log('reponse a /api/logged-in/user/profile/update :');
         console.log(res.body);
         dispatch(editUser(res.body));
+        if (res.body.name) {
+          browserHistory.push('/edit-user/' + users[0].name);
+        }
       });
   };
 }
