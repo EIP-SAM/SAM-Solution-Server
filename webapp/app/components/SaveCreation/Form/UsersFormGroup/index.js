@@ -5,6 +5,7 @@
 import React from 'react';
 import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 import Option from 'components/Option';
+import { isAdmin } from 'utils/user';
 import styles from 'components/SaveCreation/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -17,6 +18,10 @@ export class SaveCreationUsersFormGroup extends React.Component {
   }
 
   render() {
+    if (!isAdmin()) {
+      return (<div></div>);
+    }
+
     let validationState = '';
     let errorMessage = '';
 
