@@ -12,6 +12,7 @@ export class SaveInstantSaveModal extends React.Component {
   constructor(props) {
     super(props);
     this.handleLaunchClick = this.handleLaunchClick.bind(this);
+    this.handleCancelClick = this.handleCancelClick.bind(this);
   }
 
   handleLaunchClick() {
@@ -19,9 +20,14 @@ export class SaveInstantSaveModal extends React.Component {
     this.props.hideInstantSaveModal();
   }
 
+  handleCancelClick() {
+    this.props.resetStateSaveCreation();
+    this.props.hideInstantSaveModal();
+  }
+
   render() {
     return (
-      <Modal show={this.props.state.showInstantSaveModal} onHide={this.props.hideInstantSaveModal}>
+      <Modal show={this.props.state.showInstantSaveModal} onHide={this.handleCancelClick}>
         <Modal.Header closeButton>
           <Modal.Title><Glyphicon glyph="floppy-open" className={styles.icon} />Instant save</Modal.Title>
         </Modal.Header>
@@ -32,7 +38,7 @@ export class SaveInstantSaveModal extends React.Component {
         <Modal.Footer>
           <ButtonToolbar>
             <LinkContainerButton buttonType="info" buttonText="Launch" onClick={this.handleLaunchClick} />
-            <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={this.props.hideInstantSaveModal} />
+            <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={this.handleCancelClick} />
           </ButtonToolbar>
         </Modal.Footer>
       </Modal>
@@ -45,4 +51,5 @@ SaveInstantSaveModal.propTypes = {
   state: React.PropTypes.object.isRequired,
   hideInstantSaveModal: React.PropTypes.func.isRequired,
   createSave: React.PropTypes.func.isRequired,
+  resetStateSaveCreation: React.PropTypes.func,
 };
