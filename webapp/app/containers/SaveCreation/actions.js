@@ -155,20 +155,20 @@ export function createSave(state, redirect) {
 
   return function createSaveRequest(dispatch) {
     return request
-        .post('http://localhost:8080/create_save')
-        .type('form')
-        .send({
-          usersId,
-          date: state.date,
-          time: state.time,
-          frequency: state.frequency,
-          files: state.files,
-        })
-        .end(() => {
-          if (redirect) {
-            browserHistory.goBack();
-            dispatch(resetState());
-          }
-        });
+      .post('http://localhost:8080/create_save')
+      .type('form')
+      .send({
+        usersId,
+        date: state.date,
+        time: state.time,
+        frequency: state.frequency,
+        files: state.files,
+      })
+      .end(() => {
+        if (redirect) {
+          browserHistory.goBack();
+        }
+        dispatch(resetState());
+      });
   };
 }
