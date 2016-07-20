@@ -41,9 +41,7 @@ export function getHistoryRestoresByUserRequest(username) {
   return function returnGetHistoryRestoresByUserRequest(dispatch) {
     return request
       .get('/historyRestore')
-      .set({ username })
-      .type('form')
-      .send({ username })
+      .query({ username })
       .end((err, res) => {
         dispatch(getHistoryRestoresByUser(res.body));
       });

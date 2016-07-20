@@ -17,7 +17,7 @@ module.exports.lastUsersRestores = function (req, res) {
 // Get all restorations of a user
 //
 module.exports.historyRestoreByUser = function (req, res) {
-  const username = req.get('username');
+  const username = req.query.username;
   return restoreAdapter.historyRestoreByUser(username);
 }
 
