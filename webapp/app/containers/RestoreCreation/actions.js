@@ -91,7 +91,7 @@ export function getHistorySavesByUserRequest(username) {
   return function returnGetHistorySavesRequest(dispatch) {
     return request
       .get('/history_save')
-      .set({ username })
+      .query({ username })
       .end((err, res) => {
         if (res.body.length > 0) {
           dispatch(getHistorySavesByUser(res.body));

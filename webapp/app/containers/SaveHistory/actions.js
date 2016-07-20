@@ -67,7 +67,7 @@ export function getHistorySavesByUserRequest(username) {
   return function returnGetHistorySavesRequest(dispatch) {
     return request
       .get('/history_save')
-      .set({ username })
+      .query({ username })
       .end((err, res) => {
         dispatch(getHistorySavesByUser(res.body));
         const users = [{ id: res.body[0].save_scheduled.user.id, name: res.body[0].save_scheduled.user.name }];
