@@ -9,7 +9,7 @@
 //    }
 //
 
-const request = require('../../agent');
+import request from 'utils/request';
 
 import {
   EDIT_GROUP,
@@ -24,7 +24,7 @@ export function onChangeData(groupname, saveAndRestoreMode, migrationMode, softw
     saveAndRestoreMode: saveAndRestoreMode,
     migrationMode: migrationMode,
     softwarePackages: softwarePackages,
-  }
+  };
 }
 
 export function getGroup(group) {
@@ -34,20 +34,20 @@ export function getGroup(group) {
     displayedSaveAndRestoreMode: group.saveAndRestoreMode,
     displayedMigrationMode: group.migrationMode,
     displayedSoftwarePackagesMode: group.softwarePackagesMode,
-  }
+  };
 }
 
 export function getGroupRequest(groupname) {
   return function returnGetGroupRequest(dispatch) {
     return request
-      .get('http://localhost:8080/api/logged-in/admin/groups')
+      .get('/api/logged-in/admin/groups')
       .end((err, res) => {
         var i = 0;
         while (i < res.body.groups.length && res.body.groups[i].name != groupname) {
           ++i;
         }
         dispatch(getGroup(res.body.groups[i]));
-    });
+      });
   };
 }
 
@@ -61,11 +61,11 @@ export function editGroup(group) {
 export function editGroupRequest(groupname, saveAndRestoreMode, migrationMode, softwarePackages) {
   return function returnEditGroupRequest(dispatch) {
     return request
-      .post('http://localhost:8080/api/logged-in/groups/update')
+      .post('/api/logged-in/groups/update')
       .type('form')
       .send({ groupname, saveAndRestoreMode, migrationMode, softwarePackages })
       .end((err, res) => {
         dispatch(editGroup(res.body));
-    });
+      });
   };
 }

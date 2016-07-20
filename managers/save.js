@@ -5,6 +5,7 @@ var saveAdapter = require('../adapters/save');
 var saveScheduledAdapter = require('../adapters/saveScheduled');
 var cronManager = require('./cronSave');
 var nodeSchedule = require('../libs/nodeSchedule');
+var logger = require('../libs/bunyan');
 
 //
 // Get all users with their last save
@@ -70,6 +71,9 @@ module.exports.createSave = function (req, res) {
   for (const user of usersId) {
     saveScheduledAdapter.createSaveScheduled(user, cron, files.toString()).then(
       function (saveScheduled) {
+        saveScheduledAdapter.findUserBySaveScheduledId(saveScheduled.id).then(function (user) {
+          logger.setModuleName('Save').setUser({ id: user[0].dataValues.id, name: user[0].dataValues.name }).info(`${user[0].dataValues.name} has create a save`);
+        })
         if (cron === null) {
           nodeSchedule.listCron[saveScheduled.id] = cronManager.createSaveScheduled(dateFormat);
         } else {
@@ -125,6 +129,9 @@ module.exports.cancelSave = function (req, res) {
   cronManager.removeCron(saveScheduledId);
   saveScheduledAdapter.disableSaveScheduled(saveScheduledId);
   saveScheduledAdapter.cancelSave(saveId);
+  saveScheduledAdapter.findUserBySaveScheduledId(saveScheduledId).then(function (user) {
+    logger.setModuleName('Save').setUser({ id: user[0].dataValues.id, name: user[0].dataValues.name }).info(`${user[0].dataValues.name} has cancel a scheduled save`);
+  })
 };
 
 //

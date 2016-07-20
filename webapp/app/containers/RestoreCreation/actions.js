@@ -9,7 +9,7 @@
 //      }
 //
 
-const request = require('superagent');
+import request from 'utils/request';
 import { browserHistory } from 'react-router';
 const moment = require('moment');
 
@@ -90,7 +90,7 @@ export function filesErrorMsg(filesError) {
 export function getHistorySavesByUserRequest(username) {
   return function returnGetHistorySavesRequest(dispatch) {
     return request
-      .get('http://localhost:8080/history_save')
+      .get('/history_save')
       .set({ username })
       .end((err, res) => {
         if (res.body.length > 0) {
@@ -106,7 +106,7 @@ export function getHistorySavesByUserRequest(username) {
 export function createRestoresRequest(state, redirect) {
   return function startAction(dispatch) {
     return request
-      .post('http://localhost:8080/createRestore')
+      .post('/createRestore')
       .type('form')
       .send({
         userId: state.userId,

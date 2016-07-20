@@ -9,7 +9,7 @@
 //      }
 //
 
-const request = require('superagent');
+import request from 'utils/request';
 
 import {
   GET_HISTORY_RESTORES_BY_USER,
@@ -40,7 +40,7 @@ export function getHistoryRestoresByUser(restores) {
 export function getHistoryRestoresByUserRequest(username) {
   return function returnGetHistoryRestoresByUserRequest(dispatch) {
     return request
-      .get('http://localhost:8080/historyRestore')
+      .get('/historyRestore')
       .set({ username })
       .type('form')
       .send({ username })
