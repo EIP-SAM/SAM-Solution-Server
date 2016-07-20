@@ -17,7 +17,24 @@ export class SaveCreationButtons extends React.Component {
   }
 
   handleFormClick() {
-    this.props.createSave(this.props.state, true);
+    if (this.props.state.users.length > 0 &&
+        this.props.state.date !== 'Invalid date' &&
+        this.props.state.time !== 'Invalid date' &&
+        this.props.state.files.length > 0) {
+      this.props.createSave(this.props.state, true);
+    }
+    if (this.props.state.users.length === 0) {
+      this.props.userErrorMsg('You can\'t create a save without a user');
+    }
+    if (this.props.state.date === 'Invalid date') {
+      this.props.dateErrorMsg('Invalid date');
+    }
+    if (this.props.state.time === 'Invalid date') {
+      this.props.timeErrorMsg('Invalid time');
+    }
+    if (this.props.state.files.length === 0) {
+      this.props.fileErrorMsg('Select a file to save');
+    }
   }
 
   handleCancelClick() {
@@ -39,4 +56,9 @@ SaveCreationButtons.propTypes = {
   state: React.PropTypes.object,
   createSave: React.PropTypes.func,
   resetState: React.PropTypes.func,
+  userErrorMsg: React.PropTypes.func,
+  dateErrorMsg: React.PropTypes.func,
+  timeErrorMsg: React.PropTypes.func,
+  frequencyErrorMsg: React.PropTypes.func,
+  fileErrorMsg: React.PropTypes.func,
 };

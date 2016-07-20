@@ -3,7 +3,7 @@
 //
 
 import React from 'react';
-import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 import Option from 'components/Option';
 import styles from 'components/SaveCreation/styles.css';
 
@@ -17,16 +17,25 @@ export class SaveCreationUsersFormGroup extends React.Component {
   }
 
   render() {
+    let validationState = '';
+    let errorMessage = '';
+
+    if (this.props.state.userError !== '') {
+      validationState = 'error';
+      errorMessage = this.props.state.userError;
+    }
+
     const usersOptions = this.props.state.users.map((item, index) => (
       <Option object={item} key={`item-${index}`} />
     ));
 
     return (
-      <FormGroup controlId="users" className={styles.form}>
+      <FormGroup controlId="users" className={styles.form} validationState={validationState}>
         <ControlLabel>Users</ControlLabel>
         <FormControl componentClass="select" multiple>
           {usersOptions}
         </FormControl>
+        <HelpBlock>{errorMessage}</HelpBlock>
       </FormGroup>
     );
   }
