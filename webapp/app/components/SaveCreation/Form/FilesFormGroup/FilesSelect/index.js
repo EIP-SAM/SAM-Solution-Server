@@ -3,12 +3,20 @@
 //
 
 import React from 'react';
-import { FormControl } from 'react-bootstrap';
+import { FormGroup, FormControl, HelpBlock } from 'react-bootstrap';
 import Option from 'components/Option';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SaveCreationFilesSelect extends React.Component {
   render() {
+    let validationState = '';
+    let errorMessage = '';
+
+    if (this.props.state.fileError !== '') {
+      validationState = 'error';
+      errorMessage = this.props.state.fileError;
+    }
+
     let options = [];
 
     if (this.props.state.files) {
@@ -36,9 +44,12 @@ export class SaveCreationFilesSelect extends React.Component {
     }
 
     return (
-      <FormControl componentClass="select" multiple>
-        {options}
-      </FormControl>
+      <FormGroup controlId="files" validationState={validationState}>
+        <FormControl componentClass="select" multiple>
+          {options}
+        </FormControl>
+        <HelpBlock>{errorMessage}</HelpBlock>
+      </FormGroup>
     );
   }
 }
