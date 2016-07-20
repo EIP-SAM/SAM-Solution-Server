@@ -4,7 +4,7 @@
 
 import { connect } from 'react-redux';
 import { getHistoryRestoresByUserRequest, showInstantRestoreModal, hideInstantRestoreModal } from './actions';
-import { createRestoresRequest, setUserId, selectFiles } from 'containers/RestoreCreation/actions';
+import { createRestoresRequest, setUserId, selectFiles, resetState } from 'containers/RestoreCreation/actions';
 import { RestoreHistory } from 'components/RestoreHistory';
 
 function mapStateToProps(state) {
@@ -22,6 +22,7 @@ function mapDispatchToProps(dispatch) {
     createRestoresRequest: (state, redirect) => dispatch(createRestoresRequest(state, redirect)),
     selectFiles: (selectedFiles) => dispatch(selectFiles(selectedFiles)),
     setUserId: (userId) => dispatch(setUserId(userId)),
+    resetStateCreationRestore: () => dispatch(resetState()),
   };
 }
 
