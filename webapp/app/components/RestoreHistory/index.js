@@ -31,6 +31,7 @@ export class RestoreHistory extends React.Component {
           selectFiles={this.props.selectFiles}
           setUserId={this.props.setUserId}
           getHistoryRestoresByUserRequest={this.props.getHistoryRestoresByUserRequest}
+          resetStateCreationRestore={this.props.resetStateCreationRestore}
         />
       </div>
     );
@@ -46,4 +47,5 @@ RestoreHistory.propTypes = {
   selectFiles: React.PropTypes.func,
   hideInstantRestoreModal: React.PropTypes.func,
   showInstantRestoreModal: React.PropTypes.func,
+  resetStateCreationRestore: React.PropTypes.func,
 };

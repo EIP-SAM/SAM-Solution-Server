@@ -1,5 +1,5 @@
 //
-// Save Actions
+// Restore Actions
 //
 // To add a new Action:
 //  1) Import your constant
@@ -115,8 +115,8 @@ export function createRestoresRequest(state, redirect) {
       .end(() => {
         if (redirect) {
           browserHistory.goBack();
-          dispatch(resetState());
         }
+        dispatch(resetState());
       });
   };
 }
