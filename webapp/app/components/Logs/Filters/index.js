@@ -24,21 +24,22 @@ export default class LogFilter extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.getLogs = this.getLogs.bind(this);
     this.resetFilters = this.resetFilters.bind(this);
-    this.state = {
-      panelTitleIcon: 'plus-sign',
-      panelIsCollapsed: true,
-      panelTitleHelp: '(click to show)',
-      key: 1,
-    };
   }
 
   getLogs() {
     this.props.getFilteredLogs(this.props.filters);
   }
 
-  resetFilters() {
-    this.setState({ key: this.state.key + 1 });
-    this.props.resetFilters();
+  getHeaderPanel() {
+    return (
+      <h5 onClick={() => this.props.collapsePanel(this.props.panel.isCollapsed)}>
+        <Glyphicon glyph={this.props.panel.titleIcon} />
+        {' Filters '}
+        <span className={styles.panelTitleHelpLogs}>
+          {this.props.panel.titleHelp}
+        </span>
+      </h5>
+    );
   }
 
   handleChange(name) {
@@ -106,46 +107,25 @@ export default class LogFilter extends React.Component {
     };
   }
 
-  handleClick() {
-    if (!this.state.panelIsCollapsed) {
-      this.setState({
-        panelIsCollapsed: true,
-        panelTitleIcon: 'plus-sign',
-        panelTitleHelp: '(click to show)',
-      });
-    } else {
-      this.setState({
-        panelIsCollapsed: false,
-        panelTitleIcon: 'minus-sign',
-        panelTitleHelp: '(click to hide)',
-      });
-    }
+  resetFilters() {
+    this.props.incKeyRerender();
+    this.props.resetFilters();
   }
 
   render() {
-    const headerPanel = (
-      <h5 onClick={this.handleClick}>
-        <Glyphicon glyph={this.state.panelTitleIcon} />
-        {' Filters '}
-        <span className={styles.panelTitleHelpLogs}>
-          {this.state.panelTitleHelp}
-        </span>
-      </h5>
-    );
-
     return (
       <div>
-        <Panel className={styles.panelFilterLogs} collapsible header={headerPanel} bsStyle="primary">
+        <Panel className={styles.panelFilterLogs} collapsible header={this.getHeaderPanel()} bsStyle="primary">
           <Grid fluid>
             <Row>
               <Col xs={9} md={6}>
-                <LevelRange key={this.state.key} onChange={this.handleChange('level')} />
+                <LevelRange key={this.props.keyRerender} onChange={this.handleChange('level')} />
               </Col>
               <Col xs={9} md={6}>
-                <DateRange key={this.state.key} onChange={this.handleChange('date')} />
+                <DateRange key={this.props.keyRerender} onChange={this.handleChange('date')} />
               </Col>
             </Row>
-            <NumberLogs key={this.state.key} onChange={this.handleChange('number')} />
+            <NumberLogs key={this.props.keyRerender} onChange={this.handleChange('number')} />
           </Grid>
         </Panel>
         <ButtonToolbar>
@@ -159,7 +139,11 @@ export default class LogFilter extends React.Component {
 }
 
 LogFilter.propTypes = {
+  keyRerender: React.PropTypes.number.isRequired,
+  incKeyRerender: React.PropTypes.func.isRequired,
   filters: React.PropTypes.object.isRequired,
+  panel: React.PropTypes.object.isRequired,
+  collapsePanel: React.PropTypes.func.isRequired,
   setFilters: React.PropTypes.func.isRequired,
   resetFilters: React.PropTypes.func.isRequired,
   getFilteredLogs: React.PropTypes.func.isRequired,
