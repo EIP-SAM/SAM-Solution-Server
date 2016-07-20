@@ -9,7 +9,7 @@
 //    }
 //
 
-const request = require('../../agent');
+import request from 'utils/request';
 
 import {
   GET_USERS,
@@ -25,7 +25,7 @@ export function getUsers(users) {
 export function getUsersRequest() {
   return function returnGetUsersRequest(dispatch) {
     return request
-      .get('http://localhost:8080/api/logged-in/admin/users')
+      .get('/api/logged-in/admin/users')
       .end((err, res) => {
         dispatch(getUsers(res.body));
     });

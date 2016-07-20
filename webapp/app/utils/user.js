@@ -1,5 +1,5 @@
 //
-// This util is use to retieve the connected user information
+// This util is use to retrieve the connected user information
 //
 
 export function getUser() {

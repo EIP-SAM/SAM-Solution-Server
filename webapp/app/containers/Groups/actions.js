@@ -9,7 +9,7 @@
 //    }
 //
 
-const request = require('../../agent');
+import request from 'utils/request';
 
 import {
   GET_GROUPS,
@@ -25,7 +25,7 @@ export function getGroups(groups) {
 export function getGroupsRequest() {
   return function returnGetGroupsRequest(dispatch) {
     return request
-      .get('http://localhost:8080/api/logged-in/admin/groups')
+      .get('/api/logged-in/admin/groups')
       .end((err, res) => {
         dispatch(getGroups(res.body));
     });

@@ -9,7 +9,7 @@
 //    }
 //
 
-const request = require('../../agent');
+import request from 'utils/request';
 // import { push } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 
@@ -36,7 +36,7 @@ export function login(user) {
 export function loginRequest(username, password) {
   return function returnLoginRequest(dispatch) {
     return request
-      .post('http://localhost:8080/api/public/user/login/')
+      .post('/api/public/user/login/')
       .type('form')
       .send({ username, password })
       .end((err, res) => {
