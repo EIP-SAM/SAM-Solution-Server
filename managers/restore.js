@@ -2,6 +2,8 @@
 // Manager Restore
 //
 var restoreAdapter = require('../adapters/restore');
+var usersAdapter = require('../adapters/users');
+var logger = require('../libs/bunyan');
 
 //
 // Get all users with their last restoration
@@ -26,6 +28,9 @@ module.exports.historyRestoreByUser = function (req, res) {
 module.exports.createRestore = function (req, res) {
   const userId = req.body.userId;
   const files = req.body.files;
+  usersAdapter.findById(userId).then(function (user) {
+    logger.setModuleName('Restore').setUser({ id: user.id, name: user.name }).info(`${user.name} has create a restore`)
+  });
   return restoreAdapter.createRestore(userId, files);
 };
 
