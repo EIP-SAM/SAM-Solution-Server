@@ -39,9 +39,15 @@ export function getUserRequest(username, callback) {
           ++i;
         }
         console.log('user affiche sur la page : ');
-        console.log(res.body.users[i]);
-        dispatch(getUser(res.body.users[i]));
-        callback(res.body.users[i].groups);
+        if (!res.body.users[i]) {
+          var user = {error: 'User not found'};
+          console.log(user);
+          dispatch(getUser(user));
+        } else {
+          console.log(res.body.users[i]);
+          dispatch(getUser(res.body.users[i]));
+          callback(res.body.users[i].groups);
+        }
       });
   };
 }
