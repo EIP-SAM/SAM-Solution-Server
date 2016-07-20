@@ -5,26 +5,6 @@ var logAdapter = require('../../adapters/log');
 var logModel = require('../../models/log');
 var logger  = require('../../libs/bunyan');
 
-describe('createChild', function () {
-  var header;
-
-  beforeAll(function () {
-    header = { moduleName: 'restore', userID: 15 };
-  });
-
-  it('should not return null or undefined object', function () {
-    var child = logAdapter.createChild(header);
-    expect(child).not.toBeNull();
-    expect(child).toBeDefined();
-  });
-
-  it('should have called child once', function () {
-    spyOn(logger, 'child');
-    logAdapter.createChild(header);
-    expect(logger.child).toHaveBeenCalledTimes(1);
-  });
-});
-
 describe('getLogs', function () {
   it('should return a promise', function () {
     var logs = logAdapter.getLogs();
