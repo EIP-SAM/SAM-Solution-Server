@@ -30,7 +30,7 @@ export default class NavbarContainer extends React.Component {
       navItems = [
       { pathname: '#', value: 'Users' },
       { pathname: `/save/${userInfo.username}`, value: 'Save' },
-      { pathname: '/restore', value: 'Restore' },
+      { pathname: `/restore/${userInfo.username}`, value: 'Restore' },
       { pathname: '#', value: 'Migration' },
       { pathname: '#', value: 'Software' },
       { pathname: '/logs', value: 'Logs' },
