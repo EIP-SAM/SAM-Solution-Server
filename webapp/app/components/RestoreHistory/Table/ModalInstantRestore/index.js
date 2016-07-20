@@ -12,6 +12,7 @@ export class RestoreHistoryInstantRestoreModal extends React.Component {
   constructor(props) {
     super(props);
     this.handleLaunchClick = this.handleLaunchClick.bind(this);
+    this.handleCancelClick = this.handleCancelClick.bind(this);
   }
 
   handleLaunchClick() {
@@ -19,9 +20,14 @@ export class RestoreHistoryInstantRestoreModal extends React.Component {
     this.props.hideInstantRestoreModal();
   }
 
+  handleCancelClick() {
+    this.props.resetStateCreationRestore();
+    this.props.hideInstantRestoreModal();
+  }
+
   render() {
     return (
-      <Modal show={this.props.state.showModal} onHide={this.props.hideInstantRestoreModal}>
+      <Modal show={this.props.state.showModal} onHide={this.handleCancelClick}>
         <Modal.Header closeButton>
           <Modal.Title><Glyphicon glyph="floppy-open" className={styles.icon} />Instant restore</Modal.Title>
         </Modal.Header>
@@ -32,7 +38,7 @@ export class RestoreHistoryInstantRestoreModal extends React.Component {
         <Modal.Footer>
           <ButtonToolbar>
             <LinkContainerButton buttonType="info" buttonText="Launch" onClick={this.handleLaunchClick} />
-            <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={this.props.hideInstantRestoreModal} />
+            <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={this.handleCancelClick} />
           </ButtonToolbar>
         </Modal.Footer>
       </Modal>
@@ -45,4 +51,5 @@ RestoreHistoryInstantRestoreModal.propTypes = {
   state: React.PropTypes.object.isRequired,
   hideInstantRestoreModal: React.PropTypes.func.isRequired,
   createRestoresRequest: React.PropTypes.func,
+  resetStateCreationRestore: React.PropTypes.func,
 };

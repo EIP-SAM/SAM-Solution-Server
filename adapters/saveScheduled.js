@@ -82,6 +82,18 @@ module.exports.cancelSave = function (saveId) {
 };
 
 //
+// Find user with savesScheduledId
+//
+module.exports.findUserBySaveScheduledId = function (saveScheduledId) {
+    return UserModel.findAll({
+      include: [{
+        model: SaveScheduledModel,
+        where: { id: saveScheduledId },
+      }],
+    });
+}
+
+//
 // Find saveScheduled by find
 //
 module.exports.findSaveScheduledById = function (saveScheduledId) {

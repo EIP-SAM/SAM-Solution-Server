@@ -3,9 +3,22 @@
 //
 
 import { connect } from 'react-redux';
-import { listUsers, dateSave, timeSave, frequencySave, addAllFiles, createSave } from 'containers/SaveCreation/actions';
-import { getSavesRequest, showInstantSaveModal, hideInstantSaveModal } from './actions';
 import { Save } from 'components/Save';
+import {
+  listUsers,
+  dateSave,
+  timeSave,
+  frequencySave,
+  addAllFiles,
+  createSave,
+  resetState,
+ } from 'containers/SaveCreation/actions';
+
+import {
+  getSavesRequest,
+  showInstantSaveModal,
+  hideInstantSaveModal,
+ } from './actions';
 
 function mapStateToProps(state) {
   return {
@@ -25,6 +38,7 @@ function mapDispatchToProps(dispatch) {
     showInstantSaveModal: () => dispatch(showInstantSaveModal()),
     hideInstantSaveModal: () => dispatch(hideInstantSaveModal()),
     createSave: (createSaveState, redirect) => dispatch(createSave(createSaveState, redirect)),
+    resetStateSaveCreation: () => dispatch(resetState()),
   };
 }
 

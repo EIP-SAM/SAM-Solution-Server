@@ -44,6 +44,18 @@ module.exports.createRestore = function (userId, files) {
 };
 
 //
+// Find user with restoreId
+//
+module.exports.findUserByRestoreId = function (restoreId) {
+    return UserModel.findAll({
+      include: [{
+        model: RestoreModel,
+        where: { id: restoreId },
+      }],
+    });
+}
+
+//
 // Search in the database a restore instance with id = restoreId
 // Update boolean isStart
 //

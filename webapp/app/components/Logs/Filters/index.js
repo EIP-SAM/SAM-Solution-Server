@@ -7,6 +7,7 @@ import styles from './styles.css';
 import DateRange from './DateRange';
 import LevelRange from './LevelRange';
 import NumberLogs from './NumberLogs';
+import moment from 'moment';
 import {
   Panel,
   Button,
@@ -92,9 +93,10 @@ export default class LogFilter extends React.Component {
               delete newFilters.findOpts.afterDate;
             }
             if (event.dateTwo !== null) {
-              const nextDay = new Date(event.dateTwo);
-              nextDay.setDate(nextDay.getDate() + 1);
-              newFilters.findOpts.beforeDate = nextDay.toISOString();
+              const nextDay = moment(event.dateTwo, 'ddd MMM DD YYYY HH:mm:ss');
+              nextDay.set({ hour: 23, minute: 59, second: 59 });
+
+              newFilters.findOpts.beforeDate = nextDay.toDate().toString();
             } else {
               delete newFilters.findOpts.beforeDate;
             }
