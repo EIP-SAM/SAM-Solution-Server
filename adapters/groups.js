@@ -14,7 +14,17 @@ module.exports.findAll = function () {
         allGroups.forEach(function (group) {
           groupsWithUsers.forEach(function (groupWithUser) {
             if (groupWithUser.id == group.id) {
-              group.users = groupWithUser.users;
+              const users = [];
+
+              groupWithUser.users.forEach(function (user) {
+                const curratedUser = {};
+
+                curratedUser.id = user.id;
+                curratedUser.name = user.name;
+                users.push(curratedUser);
+              });
+
+              group.dataValues.users = users;
             }
           });
         });
