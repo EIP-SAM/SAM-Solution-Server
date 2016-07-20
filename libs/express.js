@@ -13,7 +13,8 @@ module.exports = function initExpress(conf) {
   app.use(flash());
 
   app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', req.get('origin'));
+    if (req.get('origin'))
+      res.setHeader('Access-Control-Allow-Origin', req.get('origin'));
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
   });
