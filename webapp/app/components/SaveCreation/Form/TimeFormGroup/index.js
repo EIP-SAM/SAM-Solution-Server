@@ -3,7 +3,7 @@
 //
 
 import React from 'react';
-import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
@@ -26,10 +26,19 @@ export class SaveCreationTimeFormGroup extends React.Component {
   }
 
   render() {
+    let validationState = '';
+    let errorMessage = '';
+
+    if (this.props.state.timeError !== '') {
+      validationState = 'error';
+      errorMessage = this.props.state.timeError;
+    }
+
     return (
-      <FormGroup controlId="time">
+      <FormGroup controlId="time" validationState={validationState}>
         <ControlLabel>Time</ControlLabel>
         <FormControl type="time" value={this.props.state.time} onChange={this.handleTimeChange} disabled={this.disabled} />
+        <HelpBlock>{errorMessage}</HelpBlock>
       </FormGroup>
     );
   }

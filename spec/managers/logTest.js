@@ -4,26 +4,6 @@
 var logManager = require('../../managers/log');
 var logAdapter = require('../../adapters/log');
 
-describe('launchLog', function () {
-  var header;
-
-  beforeAll(function () {
-    header = { moduleName: 'restore', userID: 15 };
-  });
-
-  it('should not return null or undefined object', function () {
-    var child = logManager.launchLog(header);
-    expect(child).not.toBeNull();
-    expect(child).toBeDefined();
-  });
-
-  it('should have called createChild once', function () {
-    spyOn(logAdapter, 'createChild');
-    logManager.launchLog(header);
-    expect(logAdapter.createChild).toHaveBeenCalledTimes(1);
-  });
-});
-
 describe('getLogs', function () {
   it('should have called getLogs once', function () {
     spyOn(logAdapter, 'getLogs');
