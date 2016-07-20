@@ -28,6 +28,11 @@ export class SaveCreation extends React.Component {
           showAddFileModal={this.props.showAddFileModal}
           cancelAddingFile={this.props.cancelAddingFile}
           createSave={this.props.createSave}
+          userErrorMsg={this.props.userErrorMsg}
+          dateErrorMsg={this.props.dateErrorMsg}
+          timeErrorMsg={this.props.timeErrorMsg}
+          frequencyErrorMsg={this.props.frequencyErrorMsg}
+          fileErrorMsg={this.props.fileErrorMsg}
         />
       </div>
     );
@@ -48,4 +53,9 @@ SaveCreation.propTypes = {
   showAddFileModal: React.PropTypes.func,
   cancelAddingFile: React.PropTypes.func,
   createSave: React.PropTypes.func,
+  userErrorMsg: React.PropTypes.func,
+  dateErrorMsg: React.PropTypes.func,
+  timeErrorMsg: React.PropTypes.func,
+  frequencyErrorMsg: React.PropTypes.func,
+  fileErrorMsg: React.PropTypes.func,
 };
