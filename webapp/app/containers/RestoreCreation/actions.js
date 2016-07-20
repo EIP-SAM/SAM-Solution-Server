@@ -14,6 +14,7 @@ import { browserHistory } from 'react-router';
 const moment = require('moment');
 
 import {
+  RESET_STATE,
   GET_HISTORY_SAVES_BY_USER,
   USER,
   USER_ID,
@@ -23,6 +24,12 @@ import {
   SAVE_ERROR,
   FILES_ERROR,
 } from './constants';
+
+export function resetState() {
+  return {
+    type: RESET_STATE,
+  };
+}
 
 export function getHistorySavesByUser(allSaves) {
   return {
@@ -97,7 +104,7 @@ export function getHistorySavesByUserRequest(username) {
 }
 
 export function createRestoresRequest(state, redirect) {
-  return function startAction() {
+  return function startAction(dispatch) {
     return request
       .post('/createRestore')
       .type('form')
@@ -108,6 +115,7 @@ export function createRestoresRequest(state, redirect) {
       .end(() => {
         if (redirect) {
           browserHistory.goBack();
+          dispatch(resetState());
         }
       });
   };

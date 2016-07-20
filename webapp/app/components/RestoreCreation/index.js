@@ -13,6 +13,7 @@ export class RestoreCreation extends React.Component {
         <PageHeader>Launch Restore</PageHeader>
         <RestoreCreationForm
           state={this.props.state}
+          resetState={this.props.resetState}
           getHistorySavesByUserRequest={this.props.getHistorySavesByUserRequest}
           nameUser={this.props.nameUser}
           listFiles={this.props.listFiles}
@@ -30,6 +31,7 @@ export class RestoreCreation extends React.Component {
 
 RestoreCreation.propTypes = {
   state: React.PropTypes.object,
+  resetState: React.PropTypes.func,
   nameUser: React.PropTypes.func,
   setUserId: React.PropTypes.func,
   selectSave: React.PropTypes.func,

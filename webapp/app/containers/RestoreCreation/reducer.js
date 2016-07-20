@@ -9,6 +9,7 @@
 //
 
 import {
+  RESET_STATE,
   GET_HISTORY_SAVES_BY_USER,
   USER,
   USER_ID,
@@ -32,6 +33,10 @@ const initialState = {
 
 function RestoreCreationReducer(state = initialState, action) {
   switch (action.type) {
+    case RESET_STATE:
+      return Object.assign({}, initialState, {
+        allSaves: [],
+      });
     case GET_HISTORY_SAVES_BY_USER:
       return Object.assign({}, state, {
         allSaves: action.allSaves,
