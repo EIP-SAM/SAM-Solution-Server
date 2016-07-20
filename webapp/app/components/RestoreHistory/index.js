@@ -6,6 +6,7 @@ import React from 'react';
 import { PageHeader } from 'react-bootstrap';
 import { RestoreHistoryButtons } from 'components/RestoreHistory/Buttons';
 import { RestoreHistoryTable } from 'components/RestoreHistory/Table';
+import { isAdmin } from 'utils/user';
 import styles from 'components/RestoreHistory/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -17,10 +18,15 @@ export class RestoreHistory extends React.Component {
   }
 
   render() {
+    let username = '';
+    if (isAdmin()) {
+      username = <PageHeader className={styles.title}><small>{window.location.pathname.split('/')[2]}</small></PageHeader>;
+    }
+
     return (
       <div>
         <PageHeader>Restore</PageHeader>
-        <PageHeader className={styles.title}><small>{window.location.pathname.split('/')[2]}</small></PageHeader>
+        {username}
         <RestoreHistoryButtons username={window.location.pathname.split('/')[2]} />
         <RestoreHistoryTable
           state={this.props.state}
