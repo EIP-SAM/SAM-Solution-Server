@@ -91,7 +91,6 @@ module.exports.unlinkUsersGroups = function (user) {
 
 module.exports.createAndLinkGroupAndUser = function (user, group) {
   return new Promise(function (fulfill, reject) {
-    console.log(enumMode);
     module.exports.createGroup(group, enumMode.SIMPLE, enumMode.SIMPLE, enumMode.SIMPLE).then(function (group) {
       module.exports.linkUserAndGroup(user, group).then(function (user, group) {
         fulfill(user, group);
@@ -120,13 +119,20 @@ module.exports.reassignGroupsToUser = function (user, groups) {
   return new Promise(function (fulfill, reject) {
     module.exports.unlinkUsersGroups(user).then(function (user) {
       var i = 0;
-      groups.forEach(function (group) {
-        reassignGroupToUser(user, group).then(function (user, group) {
-          if (++i == groups.length) {
-            fulfill(user);
-          }
+
+      if (groups.length === 0) {
+        reassignGroupToUser(user, user.isAdmin ? 'admin_default' : 'user_default').then(function (user, group) {
+          fulfill(user);
         });
-      });
+      } else {
+        groups.forEach(function (group) {
+          reassignGroupToUser(user, group).then(function (user, group) {
+            if (++i >= groups.length) {
+              fulfill(user);
+            }
+          });
+        });
+      }
     });
   });
 };
