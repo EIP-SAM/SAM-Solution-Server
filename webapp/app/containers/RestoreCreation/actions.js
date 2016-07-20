@@ -11,6 +11,7 @@
 
 const request = require('superagent');
 import { browserHistory } from 'react-router';
+const moment = require('moment');
 
 import {
   GET_HISTORY_SAVES_BY_USER,
@@ -18,7 +19,9 @@ import {
   USER_ID,
   LIST_FILES,
   SELECTED_FILES,
-  LIST_SAVES,
+  SELECTED_SAVE,
+  SAVE_ERROR,
+  FILES_ERROR,
 } from './constants';
 
 export function getHistorySavesByUser(allSaves) {
@@ -56,10 +59,24 @@ export function selectFiles(selectedFiles) {
   };
 }
 
-export function listSaves(saves) {
+export function selectSave(save) {
   return {
-    type: LIST_SAVES,
-    saves,
+    type: SELECTED_SAVE,
+    save,
+  };
+}
+
+export function saveErrorMsg(saveError) {
+  return {
+    type: SAVE_ERROR,
+    saveError,
+  };
+}
+
+export function filesErrorMsg(filesError) {
+  return {
+    type: FILES_ERROR,
+    filesError,
   };
 }
 
@@ -69,8 +86,12 @@ export function getHistorySavesByUserRequest(username) {
       .get('http://localhost:8080/history_save')
       .set({ username })
       .end((err, res) => {
-        dispatch(getHistorySavesByUser(res.body));
-        dispatch(setUserId(res.body[0].save_scheduled.userId));
+        if (res.body.length > 0) {
+          dispatch(getHistorySavesByUser(res.body));
+          dispatch(selectSave({ value: res.body[0].id, text: moment(res.body[0].execDate).format('DD/MM/YYYY HH:mm') }));
+          dispatch(setUserId(res.body[0].save_scheduled.userId));
+          dispatch(selectFiles(res.body[0].save_scheduled.files));
+        }
       });
   };
 }
