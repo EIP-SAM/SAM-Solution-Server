@@ -82,8 +82,8 @@ export function editUserAdminRequest(users) {
   return function returnEditUserRequest(dispatch) {
     return request
       .post('http://localhost:8080/api/logged-in/admin/users/update')
-      .type('form')
-      .send(users)
+      .type('json')
+      .send({ users })
       .end((err, res) => {
         console.log('reponse a /api/logged-in/admin/users/update :');
         console.log(res.body);

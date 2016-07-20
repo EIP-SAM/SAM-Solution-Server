@@ -10,6 +10,7 @@ module.exports = function initExpress(conf) {
 
   // init global middleware
   app.use(cookieParser(conf.secret));
+  app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(flash());
   app.use(cors());
@@ -19,7 +20,7 @@ module.exports = function initExpress(conf) {
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
   });
-  
+
   require('./sequelizeSession')(app, conf);
   require('./connectFlash')(app);
   return app;
