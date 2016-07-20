@@ -495,9 +495,20 @@ function createUsers(users) {
 
     users.forEach(function (user) {
       checkAndCreateUser(user.name, user.email, user.password, user.confirmation)
-      .then(function (user) {
-        logger.info({ user: { id: user.id, name: user.name } }, 'New user created (by an administrator)');
-        stopForEachPromise(obj, null, fulfill);
+      .then(function (newUser) {
+        if (user.groups && user.groups.constructor == Array) {
+          GroupsAdapter.reassignGroupsToUser(newUser, user.groups).then(function () {
+            logger.info({ newUser: { id: user.id, name: user.name } }, 'New user created (by an administrator)');
+            stopForEachPromise(obj, null, fulfill);
+
+          }).catch(function () {
+            logger.warn({ error: error }, 'Error during user update (by an administrator)');
+            stopForEachPromise(obj, null, fulfill);
+          });
+        } else {
+          logger.info({ user: { id: newUser.id, name: newUser.name } }, 'New user created (by an administrator)');
+          stopForEachPromise(obj, null, fulfill);
+        }
       })
       .catch(function (error) {
         logger.warn({ error: error }, 'Error during new user creation (by an administrator)');
@@ -531,10 +542,19 @@ function updateUsers(users) {
       if (user.id) {
         UsersAdapter.findById(user.id).then(function (foundUser) {
           if (foundUser) {
-            updateUserProfile(foundUser, user)
-            .then(function (user) {
-              logger.info({ user: { id: user.id, name: user.name } }, 'User updated (by an administrator)');
-              stopForEachPromise(obj, null, fulfill);
+            updateUserProfile(foundUser, user).then(function (updatedUser) {
+              if (user.groups && user.groups.constructor == Array) {
+                GroupsAdapter.reassignGroupsToUser(foundUser, user.groups).then(function () {
+                  logger.info({ user: { id: updatedUser.id, name: updatedUser.name } }, 'User updated (by an administrator)');
+                  stopForEachPromise(obj, null, fulfill);
+                }).catch(function () {
+                  logger.warn({ error: error }, 'Error during user update (by an administrator)');
+                  stopForEachPromise(obj, null, fulfill);
+                });
+              } else {
+                logger.info({ user: { id: updatedUser.id, name: updatedUser.name } }, 'User updated (by an administrator)');
+                stopForEachPromise(obj, null, fulfill);
+              }
             })
             .catch(function (error) {
               logger.warn({ error: error }, 'Error during user update (by an administrator)');
