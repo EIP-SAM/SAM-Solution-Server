@@ -3,60 +3,112 @@
 //
 
 import React from 'react';
-import { FormGroup, FormControl, ControlLabel, PageHeader } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, PageHeader, Radio } from 'react-bootstrap';
 import { LinkContainerButton } from '../Button';
+import { RadioGroup } from '../RadioGroup';
 import styles from './styles.css';
 
 export class EditUser extends React.Component {
   constructor(props) {
     super(props);
+    this.user = {};
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
     this.onChangeConfirmation = this.onChangeConfirmation.bind(this);
+    this.onChangeGroups = this.onChangeGroups.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
   componentWillMount() {
     const username = window.location.pathname.split('/')[2];
-    this.props.getUserRequest(username);
-    // this.props.getCurrentUserRequest();
+    this.props.getUserRequest(username, this.props.getGroupsRequest);
+//    this.props.getCurrentUserRequest();
   }
 
   onChangeUsername(event) {
-    this.props.onChangeData(event.target.value, this.props.state.email, this.props.state.password, this.props.state.confirmation);
+    this.user.name = event.target.value;
   }
 
   onChangeEmail(event) {
-    this.props.onChangeData(this.props.state.username, event.target.value, this.props.state.password, this.props.state.confirmation);
+    this.user.email = event.target.value;
   }
 
   onChangePassword(event) {
-    this.props.onChangeData(this.props.state.username, this.props.state.email, event.target.value, this.props.state.confirmation);
+    this.user.password = event.target.value;
   }
 
   onChangeConfirmation(event) {
-    this.props.onChangeData(this.props.state.username, this.props.state.email, this.props.state.password, event.target.value);
+    this.user.confirmation = event.target.value;
+  }
+
+  onChangeGroups(event) {
+    if (event.target.value == false) {
+      for (var i; i = 0; i < this.user.groups) {
+        if (this.user.groups[i].name == event.target.id) {
+          this.user.groups.splice(i, 1);
+          break;
+        }
+      }
+    }
+    else {
+      for (var i; i = 0; i < this.props.state.groups) {
+        if (this.props.state.groups[i].name == event.target.id) {
+          this.user.groups.push(this.props.state.groups[i]);
+          break;
+        }
+      }
+    }
   }
 
   handleClick(event) {
-    this.props.editUserRequest(this.props.state.username, this.props.state.email, this.props.state.password, this.props.state.confirmation);
+    console.log('### USER ###');
+    console.log(this.user);
+    var users = [];
+    users.push(this.user);
+    this.props.editUserAdminRequest(users);
   }
 
   render() {
+    var admin = 1;
+
+    // var groupForm = [];
+    // if (this.props.state.usersGroups != null) {
+    //   var usersGroups = this.props.state.usersGroups;
+    //   this.props.state.user.groups.map(function(group, i) {
+    //     groupForm.push(<p>{group.name}</p>);
+    //     groupForm.push(<RadioGroup id={group.name} values={['In', 'Out']} placeholder='In' onChange={() => this.onChangeGroups} />);
+    //   });
+    //
+    //   var groupDisplay = [];
+    //   var groups = this.props.state.user.groups;
+    //   groups.map(function(group, i) {
+    //     groupDisplay.push(<p>{group.name}</p>);
+    //   });
+    //   // {(usersGroups[i] == true) ? 'In' : 'Out'}
+    //   var resGroups = (admin == 0 ? groupDisplay : groupForm);
+    // } else {
+    //   var resGroup = [];
+    // }
+    this.user.id = this.props.state.user.id;
+    this.user.name = this.props.state.user.name;
+    this.user.email = this.props.state.user.email;
+    this.user.password = this.props.state.user.password;
+    this.user.confirmation = this.props.state.user.confirmation;
+    this.user.groups = this.props.state.user.groups;
     return (
       <div container className={styles.editUser}>
         <form>
           <PageHeader>Edit user</PageHeader>
           <FormGroup controlId="formBasicText">
             <ControlLabel>Username</ControlLabel>
-            <FormControl type="text" value={this.props.state.displayedUsername} onChange={this.onChangeUsername} />
+            <FormControl type="text" placeholder={this.user.name} onChange={this.onChangeUsername} />
             <ControlLabel>Email</ControlLabel>
-            <FormControl type="email" value={this.props.state.displayedEmail} onChange={this.onChangeEmail} />
+            <FormControl type="email" placeholder={this.user.email} onChange={this.onChangeEmail} />
             <ControlLabel>Password</ControlLabel>
-            <FormControl type="password" value='Password' onChange={this.onChangePassword} />
+            <FormControl type="password" placeholder='********' onChange={this.onChangePassword} />
             <ControlLabel>Password confirmation</ControlLabel>
-            <FormControl type="password" value='Password' onChange={this.onChangeConfirmation} />
+            <FormControl type="password" placeholder='********' onChange={this.onChangeConfirmation} />
             <LinkContainerButton buttonType='default' buttonText='Submit' onClick={this.handleClick} />
           </FormGroup>
         </form>
@@ -64,20 +116,16 @@ export class EditUser extends React.Component {
     );
   }
 }
+// <br />
+// <ControlLabel>Groups</ControlLabel>
+// { resGroups }
 
 EditUser.propTypes = {
   state: React.PropTypes.object,
   onChangeData: React.PropTypes.func,
   getUserRequest: React.PropTypes.func,
   getCurrentUserRequest: React.PropTypes.func,
+  editUserAdminRequest: React.PropTypes.func,
   editUserRequest: React.PropTypes.func,
+  getGroupsRequest: React.PropTypes.func,
 };
-
-// let adminField;
-// if (this.props.state.isAdmin == true) {
-//   adminField = (
-//     <p>Si pas admin ce texte est invisible</p>
-//   )
-// }
-
-// { adminField  }
