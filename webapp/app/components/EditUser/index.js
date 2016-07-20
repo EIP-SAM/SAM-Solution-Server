@@ -74,13 +74,7 @@ export class EditUser extends React.Component {
   handleClick(event) {
     var users = [];
     const user = this.user;
-    console.log('TEST 1');
-    console.log(this.user);
     users.push(user);
-    console.log('TEST 2');
-    console.log(users);
-    console.log('TEST 3');
-    console.log(this.user.groups);
     this.props.editUserAdminRequest(users);
   }
 
@@ -94,7 +88,7 @@ export class EditUser extends React.Component {
 
   render() {
     var admin = 1;
-    var username = 'test2';
+    var username = 'test';
 
     var groupForm = [];
     if (this.props.state.usersGroups != null) {
