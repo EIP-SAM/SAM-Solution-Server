@@ -57,7 +57,14 @@ module.exports.findAllAssociatedWithUsers = function () {
 };
 
 module.exports.findById = function (id) {
-  return GroupsModel.findOne({ where: { id: id } });
+  return GroupsModel.findOne({
+    where: { id: id },
+    include: [{
+        model: UsersModel,
+        where: { groupId: Sequelize.col('groups.id') },
+      },
+    ],
+  });
 };
 
 module.exports.findByName = function (name) {
