@@ -9,7 +9,7 @@
 //    }
 //
 
-const request = require('superagent');
+import request from 'utils/request';
 import { push } from 'react-router-redux';
 
 import {
@@ -21,7 +21,7 @@ export function onChangeData(email) {
   return {
     type: SAVE_DATA,
     email: email,
-  }
+  };
 }
 
 export function forgottenPassword(res) {
@@ -34,7 +34,7 @@ export function forgottenPassword(res) {
 export function forgottenPasswordRequest(email) {
   return function returnForgottenPasswordRequest(dispatch) {
     return request
-      .post('http://localhost:8080/api/public/user/recover_password')
+      .post('/api/public/user/recover_password')
       .type('form')
       .send({ email })
       .end((err, res) => {
@@ -42,6 +42,6 @@ export function forgottenPasswordRequest(email) {
         if (res.body.success) {
           dispatch(push('/login'));
         }
-    });
+      });
   };
 }
