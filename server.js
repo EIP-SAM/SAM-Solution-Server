@@ -3,14 +3,12 @@ const config = require('./config/base.config.json');
 config.rootFolder = __dirname;
 
 var app = require('./libs/express')(config);
-var logger = require('./managers/log');
+var logger = require('./libs/bunyan');
 
 require('./models/init')().then(function () {
   require('./routes')(app, config);
   var server = app.listen(config.port, function () {
-    var log = logger.launchLog();
-
-    log.info('Listening on port ' + config.port);
+    logger.info('Listening on port ' + config.port);
   });
   var socket = require('./daemon/').init(server);
 });
