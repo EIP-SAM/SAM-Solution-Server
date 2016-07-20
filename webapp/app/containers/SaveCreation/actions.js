@@ -10,7 +10,7 @@
 //
 
 import { browserHistory } from 'react-router';
-const request = require('superagent');
+import request from 'utils/request';
 
 import {
   RESET_STATE,
@@ -155,7 +155,7 @@ export function createSave(state, redirect) {
 
   return function createSaveRequest(dispatch) {
     return request
-      .post('http://localhost:8080/create_save')
+      .post('/create_save')
       .type('form')
       .send({
         usersId,
