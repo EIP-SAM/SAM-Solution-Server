@@ -106,39 +106,36 @@ function checkAndCreateUser(name, email, password, confirmation) {
 // Security check for each url of this kind : /api/public/*
 //
 module.exports.ensureLoggedOut = function (req, res, next) {
-  // if (req.user) {
-  //   logger.warn({ user: { id: req.user.id, name: req.user.name } }, 'Logged user is trying to access a public (logged-out) ressource');
-  //   res.status(401).json({ error: 'Already logged-in' });
-  // } else {
-  //   next();
-  // }
-  next();
+  if (req.user) {
+    logger.warn({ user: { id: req.user.id, name: req.user.name } }, 'Logged user is trying to access a public (logged-out) ressource');
+    res.status(401).json({ error: 'Already logged-in' });
+  } else {
+    next();
+  }
 };
 
 //
 // Security check for each url of this kind : /api/logged-in/*
 //
 module.exports.ensureLoggedIn = function (req, res, next) {
-  // if (req.user) {
-  //   next();
-  // } else {
-  //   logger.warn('Non logged user is trying to access a protected ressource');
-  //   res.status(401).json({ error: 'Not logged-in' });
-  // }
-  next();
+  if (req.user) {
+    next();
+  } else {
+    logger.warn('Non logged user is trying to access a protected ressource');
+    res.status(401).json({ error: 'Not logged-in' });
+  }
 };
 
 //
 // Security check for each url of this kind : /api/logged-in/admin/*
 //
 module.exports.ensureAdminLoggedIn = function (req, res, next) {
-  // if (req.user.isAdmin) {
-  //   next();
-  // } else {
-  //   logger.warn({ user: { id: req.user.id, name: req.user.name } }, 'Non admin user is trying to access a protected ressource');
-  //   res.status(401).json({ error: 'Access denied' });
-  // }
-  next();
+  if (req.user.isAdmin) {
+    next();
+  } else {
+    logger.warn({ user: { id: req.user.id, name: req.user.name } }, 'Non admin user is trying to access a protected ressource');
+    res.status(401).json({ error: 'Access denied' });
+  }
 };
 
 //
