@@ -3,7 +3,6 @@ module.exports = function initExpress(conf) {
   var cookieParser = require('cookie-parser');
   var bodyParser = require('body-parser');
   var flash = require('connect-flash');
-  var cors = require('cors');
 
   // init express
   var app = express();
@@ -12,12 +11,10 @@ module.exports = function initExpress(conf) {
   app.use(cookieParser(conf.secret));
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(flash());
-  //app.use(cors());
 
   app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', req.get('origin'));
     res.setHeader('Access-Control-Allow-Credentials', true);
-    res.setHeader('Access-Control-Allow-Headers', '*');
     next();
   });
 
