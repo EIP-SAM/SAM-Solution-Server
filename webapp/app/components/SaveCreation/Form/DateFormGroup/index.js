@@ -3,7 +3,7 @@
 //
 
 import React from 'react';
-import { FormGroup, ControlLabel } from 'react-bootstrap';
+import { FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap';
 import DatePicker from 'components/DatePicker';
 import styles from 'components/SaveCreation/styles.css';
 const moment = require('moment');
@@ -27,10 +27,19 @@ export class SaveCreationDateFormGroup extends React.Component {
   }
 
   render() {
+    let validationState = '';
+    let errorMessage = '';
+
+    if (this.props.state.dateError !== '') {
+      validationState = 'error';
+      errorMessage = this.props.state.dateError;
+    }
+
     return (
-      <FormGroup controlId="date" className={styles.form}>
+      <FormGroup controlId="date" className={styles.form} validationState={validationState}>
         <ControlLabel className={styles.label}>Date</ControlLabel>
         <DatePicker onChange={this.handleDateChange} disabled={this.disabled} />
+        <HelpBlock>{errorMessage}</HelpBlock>
       </FormGroup>
     );
   }
