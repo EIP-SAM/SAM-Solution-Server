@@ -48,6 +48,11 @@ export class SaveHistory extends React.Component {
           hideInstantSaveModal={this.props.hideInstantSaveModal}
           createSave={this.props.createSave}
           resetStateSaveCreation={this.props.resetStateSaveCreation}
+          showInstantRestoreModal={this.props.showInstantRestoreModal}
+          hideInstantRestoreModal={this.props.hideInstantRestoreModal}
+          instantRestore={this.props.instantRestore}
+          createRestoreRequest={this.props.createRestoreRequest}
+          resetRestoreState={this.props.resetRestoreState}
         />
       </div>
     );
@@ -71,4 +76,9 @@ SaveHistory.propTypes = {
   hideInstantSaveModal: React.PropTypes.func,
   createSave: React.PropTypes.func,
   resetStateSaveCreation: React.PropTypes.func,
+  showInstantRestoreModal: React.PropTypes.func,
+  hideInstantRestoreModal: React.PropTypes.func,
+  instantRestore: React.PropTypes.func,
+  createRestoreRequest: React.PropTypes.func,
+  resetRestoreState: React.PropTypes.func,
 };
