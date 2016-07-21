@@ -23,9 +23,7 @@ function editUserReducer(state = null, action) {
       });
     case GET_CURRENT_USER:
       return Object.assign({}, state, {
-        currentEmail: action.currentEmail,
-        currentUsername: action.currentUsername,
-        isAdmin: action.isAdmin,
+        currentUser: action.currentUser,
       });
     case EDIT_USER:
       return Object.assign({}, state, {});

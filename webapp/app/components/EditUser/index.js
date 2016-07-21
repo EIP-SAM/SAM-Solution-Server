@@ -12,6 +12,7 @@ export class EditUser extends React.Component {
   constructor(props) {
     super(props);
     this.user = {};
+    this.done = 0;
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
@@ -20,9 +21,15 @@ export class EditUser extends React.Component {
   }
 
   componentWillMount() {
+    this.props.getCurrentUserRequest();
+  }
+
+  componentWillReceiveProps(prop) {
     const username = window.location.pathname.split('/')[2];
-    this.props.getUserRequest(username, this.props.getGroupsRequest);
-//    this.props.getCurrentUserRequest();
+    if (prop.state.currentUser.isAdmin == true && this.done == 0) {
+      this.props.getUserRequest(username, this.props.getGroupsRequest);
+      this.done = 1;
+    }
   }
 
   onChangeUsername(event) {
@@ -86,43 +93,46 @@ export class EditUser extends React.Component {
   }
 
   render() {
-    var admin = 1;
-    var username = 'test';
+    var exist = true;
+    var access = true;
 
     var groupForm = [];
     if (!this.props.state) {
       return(<p>loading...</p>);
     }
-    if (this.props.state.groups) {
-      var usersGroups = this.props.state.usersGroups;
-      this.props.state.groups.map((group, i) => {
-        groupForm.push(<p>{group.name}</p>);
-        groupForm.push(<RadioGroup inline id={group.name} values={['in', 'out']} placeholder={(usersGroups[i] == true) ? 'in' : 'out'} onChange={this.onChangeGroups.bind(this, group.name)} />);
-      });
 
-      var groupDisplay = [];
-      var groups = this.props.state.user.groups;
-      groups.map(function(group, i) {
-        groupDisplay.push(<p>{group.name}</p>);
-      });
-      var resGroups = (admin == 0 ? groupDisplay : groupForm);
-    } else {
-      var resGroup = [];
+    if (!this.props.state.user) {
+      this.user.id = this.props.state.currentUser.id;
+      this.user.name = this.props.state.currentUser.name;
+      this.user.email = this.props.state.currentUser.email;
+      this.setGroups(this.user, this.props.state.currentUser.groups);
+      if (this.props.state.currentUser.isAdmin == false && this.user.name != window.location.pathname.split('/')[2]) {
+        access = false;
+      }
     }
-
-    var exist = true;
-    var access = true;
-    if (this.props.state.user.error) {
+    else if (this.props.state.user.error) {
       exist = false;
     } else {
       this.user.id = this.props.state.user.id;
       this.user.name = this.props.state.user.name;
       this.user.email = this.props.state.user.email;
       this.setGroups(this.user, this.props.state.user.groups);
-      if (admin == 0 && this.user.name != username) {
-        access = false;
-      }
     }
+
+    if (this.props.state.groups) {
+      var usersGroups = this.props.state.usersGroups;
+      this.props.state.groups.map((group, i) => {
+        groupForm.push(<p>{group.name}</p>);
+        groupForm.push(<RadioGroup inline id={group.name} values={['in', 'out']} placeholder={(usersGroups[i] == true) ? 'in' : 'out'} onChange={this.onChangeGroups.bind(this, group.name)} />);
+      });
+    }
+
+    var groupDisplay = [];
+    var groups = this.props.state.currentUser.groups;
+    groups.map(function(group, i) {
+      groupDisplay.push(<p>{group.name}</p>);
+    });
+    var resGroups = (this.props.state.currentUser.isAdmin == false ? groupDisplay : groupForm);
 
     if (exist == false) {
       return (
@@ -134,7 +144,7 @@ export class EditUser extends React.Component {
     if (access == false) {
       return (
         <div>
-          <h3>Error : you must be admin to access this page</h3>
+          <h3>Error :  access not allowed</h3>
         </div>
       );
     }

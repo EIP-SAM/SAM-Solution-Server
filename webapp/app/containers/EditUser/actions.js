@@ -55,9 +55,7 @@ export function getUserRequest(username, callback) {
 export function getCurrentUser(user) {
   return {
     type: GET_CURRENT_USER,
-    currentUsername: user.username,
-    currentEmail: user.email,
-    isAdmin: user.isAdmin,
+    currentUser : user,
   }
 }
 
