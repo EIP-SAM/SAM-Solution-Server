@@ -11,13 +11,13 @@ module.exports = function initRestoreRoutes(app) {
     })
   });
 
-  app.get('/historyRestore', function (req, res) {
+  app.get('/history_restore', function (req, res) {
     restoreController.historyRestoreByUser(req, res).then(function(historyRestores) {
       res.json(historyRestores)
     })
   });
 
-  app.post('/createRestore', function (req, res) {
+  app.post('/create_restore', function (req, res) {
     restoreController.createRestore(req, res).then(function(newRestore) {
       res.json('Your restoration has been created');
     });

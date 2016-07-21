@@ -13,6 +13,8 @@ import request from 'utils/request';
 import {
   GET_FILTERED_LOGS,
   CLEAR_LOGS,
+  SET_SORTS,
+  REQUEST_IS_LOADING,
 } from '../constants/result';
 
 export function getLogs(type, logs) {
@@ -29,17 +31,34 @@ export function clearLogs() {
   };
 }
 
+export function requestIsLoading(isLoading) {
+  return {
+    type: REQUEST_IS_LOADING,
+    isLoading,
+  };
+}
+
 export function getFilteredLogs(filters) {
   return function startAction(dispatch) {
+    dispatch(requestIsLoading(true));
+    dispatch(clearLogs());
     return request
       .get('/log/multiple_criteria')
       .query({ criteria: filters })
       .end((err, res) => {
+        dispatch(requestIsLoading(false));
         if (err || res.body.error) {
-          console.log('Error occured');
+          dispatch(getLogs(GET_FILTERED_LOGS, { error: true, data: [] }));
         } else {
           dispatch(getLogs(GET_FILTERED_LOGS, res.body));
         }
       });
+  };
+}
+
+export function setSorts(sorts) {
+  return {
+    type: SET_SORTS,
+    sorts,
   };
 }
