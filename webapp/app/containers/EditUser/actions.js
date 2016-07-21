@@ -100,12 +100,12 @@ export function editUserAdminRequest(users) {
 
 export function editUserRequest(user) {
   console.log('requete envoyee a /api/logged-in/user/profile/update :');
-  console.log(user);
+  console.log(JSON.stringify(user));
   return function returnEditUserRequest(dispatch) {
     return request
       .post('/api/logged-in/user/profile/update')
       .type('json')
-      .send({ user })
+      .send(user)
       .end((err, res) => {
         console.log('reponse a /api/logged-in/user/profile/update :');
         console.log(res.body);

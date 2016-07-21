@@ -428,6 +428,7 @@ function updateUserProfile(userModel, userUpdateRequest) {
   return new Promise(function (fulfill, reject) {
     const fieldsToUpdate = [];
 
+    console.log(userUpdateRequest);
     prepareUserNameUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
     prepareUserEmailUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
     prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
@@ -449,12 +450,12 @@ module.exports.updateUserProfile = function () {
 
     userUpdate.name = req.body.username ? req.body.username : null;
     userUpdate.email = req.body.email ? req.body.email : null;
-    userUpdate.oldPassword = req.body.oldPassword ? req.body.oldPassword : null;
+    // userUpdate.oldPassword = req.body.oldPassword ? req.body.oldPassword : null;
     userUpdate.password = req.body.password ? req.body.password : null;
     userUpdate.confirmation = req.body.confirmation ? req.body.confirmation : null;
 
-    if (userUpdate.oldPassword &&
-        req.user.password == crypto.createHmac('sha256', salt).update(userUpdate.oldPassword).digest('hex')) {
+    // if (userUpdate.oldPassword &&
+        // req.user.password == crypto.createHmac('sha256', salt).update(userUpdate.oldPassword).digest('hex')) {
       updateUserProfile(req.user, userUpdate).then(function (user) {
         logger.setUser({ id: req.user.id, name: req.user.name }).info('Successfull user profile update');
         return res.status(200).json({ success: 'Your profile has been successfully updated' });
@@ -463,10 +464,10 @@ module.exports.updateUserProfile = function () {
         logger.setUser({ id: req.user.id, name: req.user.name }).warn('User profile update error: ' + error);
         return res.status(405).json({ error: error });
       });
-    } else {
-      logger.setUser({ id: req.user.id, name: req.user.name }).warn('User profile update error: Current password verification failed');
-      return res.status(405).json({ error: 'Current password verification failed' });
-    }
+    // } else {
+    //   logger.setUser({ id: req.user.id, name: req.user.name }).warn('User profile update error: Current password verification failed');
+    //   return res.status(405).json({ error: 'Current password verification failed' });
+    // }
   };
 };
 

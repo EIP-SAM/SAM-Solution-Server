@@ -81,7 +81,11 @@ export class EditUser extends React.Component {
   handleClick(event) {
     var users = [];
     users.push(this.user);
-    this.props.editUserAdminRequest(users);
+    if (!this.props.state.currentUser.isAdmin) {
+      this.props.editUserRequest(this.user);
+    } else {
+      this.props.editUserAdminRequest(users);
+    }
   }
 
   setGroups(user, groups) {
