@@ -13,7 +13,17 @@ import {
   GET_FILTERED_LOGS,
   CLEAR_LOGS,
   SET_SORTS,
+  REQUEST_IS_LOADING,
 } from '../constants/result';
+
+function request(state = false, action) {
+  switch (action.type) {
+    case REQUEST_IS_LOADING:
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
 
 function sorts(state = 'none', action) {
   switch (action.type) {
@@ -40,6 +50,7 @@ function logs(state = {}, action) {
 }
 
 export default combineReducers({
+  request,
   sorts,
   logs,
 });

@@ -53,3 +53,8 @@
   float: right !important;
   line-height: 1.4em;
 }
+
+.logsResultLoader {
+  margin-top: 15px;
+  text-align: center;
+}

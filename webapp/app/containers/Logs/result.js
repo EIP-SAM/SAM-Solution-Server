@@ -6,6 +6,10 @@ import { connect } from 'react-redux';
 import { setSorts } from './actions/result';
 import LogResult from 'components/Logs/Results';
 
+function getDefaultRequestStatus(state) {
+  return state.get('logs').get('result').get('request') || false;
+}
+
 function getDefaultLogs(state) {
   return state.get('logs').get('result').get('logs').logs ||
     {
@@ -22,6 +26,7 @@ function mapStateToProps(state) {
   return {
     logs: getDefaultLogs(state),
     sorts: getDefaultSorts(state),
+    isLoading: getDefaultRequestStatus(state),
   };
 }
 
