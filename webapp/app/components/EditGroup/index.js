@@ -100,7 +100,10 @@ export class EditGroup extends React.Component {
     var admin = 1;
 
     var userForm = [];
-    if (this.props.state) {
+    if (!this.props.state) {
+      return(<p>loading...</p>);
+    }
+    if (this.props.state.users) {
       var usersGroups = this.props.state.usersGroups;
       this.props.state.users.map((user, i) => {
         userForm.push(<p>{user.name}</p>);

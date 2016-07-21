@@ -10,6 +10,7 @@ import styles from './styles.css';
 export class CreateUser extends React.Component {
   constructor(props) {
     super(props);
+    this.user = {};
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
@@ -18,23 +19,26 @@ export class CreateUser extends React.Component {
   }
 
   onChangeUsername(event) {
-    this.props.onChangeData(event.target.value, this.props.state.email, this.props.state.password, this.props.state.confirmation);
+    this.user.name = event.target.value;
   }
 
   onChangeEmail(event) {
-    this.props.onChangeData(this.props.state.username, event.target.value, this.props.state.password, this.props.state.confirmation);
+    this.user.email = event.target.value;
   }
 
   onChangePassword(event) {
-    this.props.onChangeData(this.props.state.username, this.props.state.email, event.target.value, this.props.state.confirmation);
+    this.user.password = event.target.value;
   }
 
   onChangeConfirmation(event) {
-    this.props.onChangeData(this.props.state.username, this.props.state.email, this.props.state.password, event.target.value);
+    this.user.confirmation = event.target.value;
   }
 
   handleClick(event) {
-    this.props.createUserRequest(this.props.state.username, this.props.state.email, this.props.state.password, this.props.state.confirmation);
+    var users = [];
+    users.push(this.user);
+    console.log('###' + this.user);
+    this.props.createUserRequest(users);
   }
 
   render() {
@@ -44,13 +48,14 @@ export class CreateUser extends React.Component {
           <PageHeader>Create user</PageHeader>
           <FormGroup controlId="formBasicText">
             <ControlLabel>Username</ControlLabel>
-            <FormControl type="email" value={this.props.state.username} onChange={this.onChangeUsername} />
+            <FormControl type="text" placeholder='Enter you username' onChange={this.onChangeUsername} />
             <ControlLabel>Email</ControlLabel>
-            <FormControl type="text" value={this.props.state.email} onChange={this.onChangeEmail} />
+            <FormControl type="email" placeholder='Enter you email address' onChange={this.onChangeEmail} />
             <ControlLabel>Password</ControlLabel>
-            <FormControl type="password" value={this.props.state.password} onChange={this.onChangePassword} />
+            <FormControl type="password" placeholder='Enter your password' onChange={this.onChangePassword} />
             <ControlLabel>Password confirmation</ControlLabel>
-            <FormControl type="password" value={this.props.state.confirmation} onChange={this.onChangeConfirmation} />
+            <FormControl type="password" placeholder='Enter you password confirmation' onChange={this.onChangeConfirmation} />
+            <br />
             <LinkContainerButton buttonType='default' buttonText='Submit' onClick={this.handleClick} />
           </FormGroup>
         </form>
@@ -62,5 +67,4 @@ export class CreateUser extends React.Component {
 CreateUser.propTypes = {
   state: React.PropTypes.object,
   createUserRequest: React.PropTypes.func,
-  onChangeData: React.PropTypes.func,
 }

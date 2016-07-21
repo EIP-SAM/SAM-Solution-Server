@@ -90,7 +90,10 @@ export class EditUser extends React.Component {
     var username = 'test';
 
     var groupForm = [];
-    if (this.props.state.usersGroups != null) {
+    if (!this.props.state) {
+      return(<p>loading...</p>);
+    }
+    if (this.props.state.groups) {
       var usersGroups = this.props.state.usersGroups;
       this.props.state.groups.map((group, i) => {
         groupForm.push(<p>{group.name}</p>);

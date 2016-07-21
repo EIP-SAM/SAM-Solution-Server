@@ -9,7 +9,8 @@
 //    }
 //
 
-const request = require('superagent');
+import request from 'utils/request';
+
 import { push } from 'react-router-redux';
 
 import {
@@ -23,18 +24,21 @@ export function createGroup(group) {
   };
 }
 
-export function createGroupRequest(group) {
+export function createGroupRequest(groups) {
   console.log('requete envoyee a /api/logged-in/admin/groups/create :');
-  console.log(group);
+  console.log(groups);
   return function returnCreateGroupRequest(dispatch) {
     return request
       .post('/api/logged-in/admin/groups/create')
       .type('json')
-      .send({ group })
+      .send({ groups })
       .end((err, res) => {
         console.log('reponse a /api/logged-in/admin/groups/create :');
         console.log(res.body);
         dispatch(createGroup(res.body));
+        if (!res.body.error) {
+          dispatch(push('/edit-group/' + groups[0].name));
+        }
     });
   };
 }

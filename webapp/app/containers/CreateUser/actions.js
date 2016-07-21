@@ -15,18 +15,7 @@ import { push } from 'react-router-redux';
 
 import {
   CREATE_USER,
-  SAVE_DATA,
 } from './constants';
-
-export function onChangeData(username, email, password, confirmation) {
-  return {
-    type: SAVE_DATA,
-    username: username,
-    email: email,
-    password: password,
-    confirmation: confirmation,
-  };
-}
 
 export function createUser(user) {
   return {
@@ -35,16 +24,20 @@ export function createUser(user) {
   };
 }
 
-export function createUserRequest(username, email, password, confirmation) {
+export function createUserRequest(users) {
+  console.log('requete envoyee a /api/logged-in/admin/users/create :');
+  console.log(users);
   return function returnCreateUserRequest(dispatch) {
     return request
-      .post('/api/public/user/sign-up')
-      .type('form')
-      .send({ username, email, password, confirmation })
+      .post('/api/logged-in/admin/users/create')
+      .type('json')
+      .send({ users })
       .end((err, res) => {
+        console.log('reponse a /api/logged-in/admin/users/create :');
+        console.log(res.body);
         dispatch(createUser(res.body));
-        if (res.body.success) {
-          dispatch(push('/login'));
+        if (!res.body.error) {
+          dispatch(push('/edit-user/' + users[0].name));
         }
       });
   };

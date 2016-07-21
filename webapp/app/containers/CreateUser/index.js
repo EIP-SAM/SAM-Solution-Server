@@ -4,7 +4,6 @@
 
 import { connect } from 'react-redux';
 import { createUserRequest } from './actions';
-import { onChangeData } from './actions';
 import { CreateUser } from 'components/CreateUser';
 
 function mapStateToProps(state) {
@@ -15,8 +14,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onChangeData: (username, email, password, confirmation) => dispatch(onChangeData(username, email, password, confirmation)),
-    createUserRequest: (username, email, password, confirmation) => dispatch(createUserRequest(username, email, password, confirmation)),
+    createUserRequest: (user) => dispatch(createUserRequest(user)),
   };
 }
 
