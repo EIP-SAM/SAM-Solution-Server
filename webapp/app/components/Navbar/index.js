@@ -25,6 +25,7 @@ export default class NavbarContainer extends React.Component {
       { pathname: '/logs', value: 'Logs' },
       { pathname: '/statistics', value: 'Statistics' },
       { pathname: '#', value: 'Help' },
+      { pathname: '/login', value: 'Logout' },
       ];
     } else {
       navItems = [
@@ -36,6 +37,7 @@ export default class NavbarContainer extends React.Component {
       { pathname: '/logs', value: 'Logs' },
       { pathname: '/statistics', value: 'Statistics' },
       { pathname: '#', value: 'Help' },
+      { pathname: '/login', value: 'Logout' },
       ];
     }
 

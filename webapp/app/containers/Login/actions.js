@@ -23,7 +23,7 @@ export function onChangeData(username, password) {
     type: SAVE_DATA,
     username: username,
     password: password,
-  }
+  };
 }
 
 export function login(user) {
@@ -45,6 +45,18 @@ export function loginRequest(username, password) {
           // dispatch(push('/edit-user'));
           browserHistory.push('/edit-user/' + username);
         }
-    });
+      });
+  };
+}
+
+export function logoutRequest() {
+  return function startAction() {
+    return request
+      .post('/api/logged-in/user/logout')
+      .end((err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
   };
 }
