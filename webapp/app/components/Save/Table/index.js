@@ -24,6 +24,7 @@ export class SaveTable extends React.Component {
   }
 
   handleScheduledSaveClick(save) {
+    this.props.getUsers([{ id: save.id, name: save.name }]);
     this.props.addAllFiles(save.save_scheduleds.files);
   }
 
@@ -98,6 +99,7 @@ export class SaveTable extends React.Component {
 SaveTable.propTypes = {
   createSaveState: React.PropTypes.object,
   state: React.PropTypes.object,
+  getUsers: React.PropTypes.func,
   listUsers: React.PropTypes.func,
   dateSave: React.PropTypes.func,
   timeSave: React.PropTypes.func,
