@@ -79,7 +79,7 @@ export class EditGroup extends React.Component {
   setUsers(group, users) {
     var res = [];
     for (var i = 0; i < users.length; i++) {
-      res.push(users[i].name);
+      res.push(users[i].id);
     }
     group.users = res;
   }
@@ -100,7 +100,7 @@ export class EditGroup extends React.Component {
     var admin = 1;
 
     var userForm = [];
-    if (this.props.state.usersGroups != null) {
+    if (this.props.state) {
       var usersGroups = this.props.state.usersGroups;
       this.props.state.users.map((user, i) => {
         userForm.push(<p>{user.name}</p>);
@@ -118,7 +118,12 @@ export class EditGroup extends React.Component {
       this.group.saveAndRestoreMode = this.props.state.group.saveAndRestoreMode;
       this.group.migrationMode = this.props.state.group.migrationMode;
       this.group.softwarePackagesMode = this.props.state.group.softwarePackagesMode;
-      this.setUsers(this.group, this.props.state.group.users);
+      if (this.props.state.group.users) {
+        this.setUsers(this.group, this.props.state.group.users);
+      }
+      else {
+        this.group.users = [];
+      }
       if (admin == 0) {
         access = false;
       }
@@ -167,7 +172,7 @@ export class EditGroup extends React.Component {
               </FormControl>
             </FormGroup>
             <br />
-            <ControlLabel>Groups</ControlLabel>
+            <ControlLabel>Users</ControlLabel>
             { userForm }
             <br />
           <LinkContainerButton buttonType='default' buttonText='Submit' onClick={this.handleClick} />

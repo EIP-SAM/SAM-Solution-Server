@@ -79,18 +79,20 @@ export function editGroupRequest(groups) {
 export function getUsers(users, group) {
   var usersGroups = [];
   var i = 0;
-  while (i < users.length) {
-    var j = 0;
-    while (j < group.length) {
-      if (group[j].id == users[i].id) {
-        usersGroups.push(true);
-        break;
+  if (group) {
+    while (i < users.length) {
+      var j = 0;
+      while (j < group.length) {
+        if (group[j].id == users[i].id) {
+          usersGroups.push(true);
+          break;
+        }
+        ++j;
+        if (j == group.length)
+          usersGroups.push(false);
       }
-      ++j;
-      if (j == group.length)
-        usersGroups.push(false);
+      i++;
     }
-    i++;
   }
 
   return {
