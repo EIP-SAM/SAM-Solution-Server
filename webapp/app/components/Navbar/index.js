@@ -61,7 +61,8 @@ export default class NavbarContainer extends React.Component {
       </Navbar>
     );
     const empty = (<span></span>);
-    const endNavBar = (this.props.username.isLogin) ? navBar : empty;
+    console.log(this.props.username.isLogin);
+    const endNavBar = (!this.props.username.isLogin) ? navBar : empty;
 
     return (
       <span>{endNavBar}</span>
@@ -71,4 +72,5 @@ export default class NavbarContainer extends React.Component {
 
 NavbarContainer.propTypes = {
   username: React.PropTypes.object,
+  onLoginPage: React.PropTypes.func,
 };

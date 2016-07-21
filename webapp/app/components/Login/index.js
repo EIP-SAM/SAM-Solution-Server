@@ -18,6 +18,7 @@ export class Login extends React.Component {
 
   componentWillMount() {
     this.props.logoutRequest();
+    this.props.onLoginPage(true);
   }
 
   onChangeUsername(event) {
@@ -57,4 +58,5 @@ Login.propTypes = {
   loginRequest: React.PropTypes.func,
   logoutRequest: React.PropTypes.func,
   onChangeData: React.PropTypes.func,
+  onLoginPage: React.PropTypes.func,
 };

@@ -52,10 +52,8 @@ export function loginRequest(username, password) {
         console.log('reponse a /api/public/user/login :');
         console.log(res.body);
         dispatch(login(res.body));
-        if (!err) {
-          dispatch(userIsLogin(true));
-        }
         if (res.body.name) {
+          dispatch(userIsLogin(false));
           browserHistory.push('/edit-user/' + username);
         }
       });
