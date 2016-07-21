@@ -97,7 +97,7 @@ export function instantRestore(userId, files) {
 export function getHistorySavesByUserRequest(username) {
   return function returnGetHistorySavesRequest(dispatch) {
     return request
-      .get('/history_save')
+      .get('/api/logged-in/history_save')
       .query({ username })
       .end((err, res) => {
         dispatch(getHistorySavesByUser(res.body));
@@ -110,7 +110,7 @@ export function getHistorySavesByUserRequest(username) {
 export function cancelSave(saveId, saveScheduledId, username) {
   return function returnCancelSave(dispatch) {
     return request
-    .post('/cancel_save')
+    .post('/api/logged-in/cancel_save')
     .type('form')
     .send({
       saveScheduledId,

@@ -79,7 +79,7 @@ export function instantRestore(userId, files) {
 export function getSavesRequest() {
   return function returnGetSavesRequest(dispatch) {
     return request
-      .get('/save')
+      .get('/api/logged-in/admin/save')
       .end((err, res) => {
         dispatch(getSaves(res.body));
         const users = [];

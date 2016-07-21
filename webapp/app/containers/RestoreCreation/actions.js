@@ -90,7 +90,7 @@ export function filesErrorMsg(filesError) {
 export function getHistorySavesByUserRequest(username) {
   return function returnGetHistorySavesRequest(dispatch) {
     return request
-      .get('/history_save')
+      .get('/api/logged-in/history_save')
       .query({ username })
       .end((err, res) => {
         if (res.body.length > 0) {
@@ -106,7 +106,7 @@ export function getHistorySavesByUserRequest(username) {
 export function createRestoresRequest(state, redirect) {
   return function startAction(dispatch) {
     return request
-      .post('/create_restore')
+      .post('/api/logged-in/create_restore')
       .type('form')
       .send({
         userId: state.userId,

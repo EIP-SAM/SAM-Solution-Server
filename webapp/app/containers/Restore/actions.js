@@ -25,7 +25,7 @@ export function getRestores(restores) {
 export function getRestoresRequest() {
   return function returnGetRestoresRequest(dispatch) {
     return request
-      .get('/restore')
+      .get('/api/logged-in/admin/restore')
       .end((err, res) => {
         dispatch(getRestores(res.body));
       });

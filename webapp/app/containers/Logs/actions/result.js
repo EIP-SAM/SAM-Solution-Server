@@ -43,7 +43,7 @@ export function getFilteredLogs(filters) {
     dispatch(requestIsLoading(true));
     dispatch(clearLogs());
     return request
-      .get('/log/multiple_criteria')
+      .get('/api/logged-in/admin/log/multiple_criteria')
       .query({ criteria: filters })
       .end((err, res) => {
         dispatch(requestIsLoading(false));
