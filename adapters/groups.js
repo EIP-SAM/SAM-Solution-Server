@@ -106,7 +106,7 @@ module.exports.createAndLinkGroupAndUser = function (user, group) {
   });
 };
 
-function reassignGroupToUser(user, group) {
+module.exports.reassignGroupToUser = function (user, group) {
   return new Promise(function (fulfill, reject) {
     module.exports.findByName(group).then(function (foundGroup) {
       if (foundGroup) {
@@ -120,7 +120,7 @@ function reassignGroupToUser(user, group) {
       }
     });
   });
-}
+};
 
 module.exports.reassignGroupsToUser = function (user, groups) {
   return new Promise(function (fulfill, reject) {
@@ -128,12 +128,12 @@ module.exports.reassignGroupsToUser = function (user, groups) {
       var i = 0;
 
       if (groups.length === 0) {
-        reassignGroupToUser(user, user.isAdmin ? 'admin_default' : 'user_default').then(function (user, group) {
+        module.exports.reassignGroupToUser(user, user.isAdmin ? 'admin_default' : 'user_default').then(function (user, group) {
           fulfill(user);
         });
       } else {
         groups.forEach(function (group) {
-          reassignGroupToUser(user, group).then(function (user, group) {
+          module.exports.reassignGroupToUser(user, group).then(function (user, group) {
             if (++i >= groups.length) {
               fulfill(user);
             }
