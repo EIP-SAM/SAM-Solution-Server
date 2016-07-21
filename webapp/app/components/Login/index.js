@@ -35,9 +35,9 @@ export class Login extends React.Component {
         <form>
           <FormGroup controlId="formBasicText">
             <ControlLabel>Username</ControlLabel>
-            <FormControl type="text" value={this.props.state.username} onChange={this.onChangeUsername} />
+            <FormControl type="text" placeholder={this.props.state.username} onChange={this.onChangeUsername} />
             <ControlLabel>Password</ControlLabel>
-            <FormControl type="password" value={this.props.state.password} onChange={this.onChangePassword} />
+            <FormControl type="password" placeholder={this.props.state.password} onChange={this.onChangePassword} />
             <LinkContainerButton buttonType='default' buttonText='Submit' onClick={this.handleClick} />
           </FormGroup>
         </form>

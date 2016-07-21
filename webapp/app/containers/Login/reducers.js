@@ -13,7 +13,7 @@ import {
   SAVE_DATA,
 } from './constants';
 
-const initialState = {username: 'Username', password: 'Password'};
+const initialState = {username: 'Enter your username', password: 'Enter your password'};
 
 function loginReducer(state = initialState, action) {
   switch (action.type) {
