@@ -9,7 +9,7 @@
 //    }
 //
 
-const request = require('../../agent');
+import request from 'utils/request';
 
 import { browserHistory } from 'react-router';
 import {
@@ -30,7 +30,7 @@ export function getUserRequest(username, callback) {
   console.log('get : /api/logged-in/admin/users :');
   return function returnGetUserRequest(dispatch) {
     return request
-      .get('http://localhost:8080/api/logged-in/admin/users')
+      .get('/api/logged-in/admin/users')
       .end((err, res) => {
         console.log('reponse a /api/logged-in/admin/users :');
         console.log(res.body);
@@ -65,8 +65,7 @@ export function getCurrentUserRequest() {
   console.log('get : /api/logged-in/user/profile :');
   return function returnGetCurrentUserRequest(dispatch) {
     return request
-      .get('http://localhost:8080/api/logged-in/user/profile')
-      .withCredentials()
+      .get('/api/logged-in/user/profile')
       .end((err, res) => {
         console.log('reponse a /api/logged-in/user/profile :');
         console.log(res.body);
@@ -87,7 +86,7 @@ export function editUserAdminRequest(users) {
   console.log(users);
   return function returnEditUserRequest(dispatch) {
     return request
-      .post('http://localhost:8080/api/logged-in/admin/users/update')
+      .post('/api/logged-in/admin/users/update')
       .type('json')
       .send({ users })
       .end((err, res) => {
@@ -106,7 +105,7 @@ export function editUserRequest(user) {
   console.log(user);
   return function returnEditUserRequest(dispatch) {
     return request
-      .post('http://localhost:8080/api/logged-in/user/profile/update')
+      .post('/api/logged-in/user/profile/update')
       .type('json')
       .send({ user })
       .end((err, res) => {
@@ -148,7 +147,7 @@ export function getGroupsRequest(groups) {
   console.log('get : /api/logged-in/admin/groups :');
   return function returnGetGroupsRequest(dispatch) {
     return request
-      .get('http://localhost:8080/api/logged-in/admin/groups')
+      .get('/api/logged-in/admin/groups')
       .end((err, res) => {
         console.log('reponse a /api/logged-in/admin/groups :');
         console.log(res.body);

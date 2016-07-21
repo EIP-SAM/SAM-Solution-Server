@@ -1,11 +1,9 @@
 const GroupsAdapter = require('../adapters/groups');
 const UsersAdapter = require('../adapters/users');
 const rightsManager = require('./rights');
-const loggerManager = require('./log');
+const logger = require('../libs/bunyan').setModuleName('Users & Rights');
 
 const enumMode = rightsManager.enumMode;
-
-const logger = loggerManager.launchLog({ moduleName: 'Users & Rights' });
 
 initUserDefaultGroup();
 initAdminDefaultGroup();
@@ -99,6 +97,7 @@ function createGroups(groups) {
     const obj = { errors: [], i: 0, array: groups };
 
     groups.forEach(function (group) {
+// <<<<<<< HEAD
       createGroup(group).then(function (newGroup) {
         if (group.users && group.users.constructor == Array) {
           UsersAdapter.reassignUsersToGroup(newGroup, group.users).then(function () {
@@ -112,8 +111,13 @@ function createGroups(groups) {
           logger.info({ group: { id: newGroup.id, name: newGroup.name } }, 'New group created (by an administrator)');
           stopForEachPromise(obj, null, fulfill);
         }
+// =======
+//       createGroup(group).then(function (group) {
+//         logger.info('New group created (by an administrator): id: ' + group.id + ' name: ' + group.name);
+//         stopForEachPromise(obj, null, fulfill);
+// >>>>>>> develop
       }).catch(function (error) {
-        logger.warn({ group: { name: group.name }, error: error }, 'Error during new group creation (by an administrator)');
+        logger.warn('Error during new group creation (by an administrator): name: ' + group.name + 'error: ' + error);
         stopForEachPromise(obj, error, fulfill);
       });
     });
@@ -127,7 +131,7 @@ module.exports.createGroups = function () {
         return module.exports.retrieveAllGroups(errors)(req, res);
       });
     } else {
-      logger.error({ error: 'Invalid request' }, 'Error during new group creation (by an administrator)');
+      logger.error('Error during new group creation (by an administrator): ' + 'Invalid request');
       return res.status(405).json({ error: 'Invalid request' });
     }
   };
@@ -144,6 +148,7 @@ function updateGroups(groups) {
           group.saveAndRestoreMode = groupUpdate.saveAndRestoreMode ? groupUpdate.saveAndRestoreMode : group.saveAndRestoreMode;
           group.migrationMode = groupUpdate.migrationMode ? groupUpdate.migrationMode : group.migrationMode;
           group.softwarePackagesMode = groupUpdate.softwarePackagesMode ? groupUpdate.softwarePackagesMode : group.softwarePackagesMode;
+// <<<<<<< HEAD
           group.save().then(function (group) {
             if (groupUpdate.users && groupUpdate.users.constructor == Array) {
               UsersAdapter.reassignUsersToGroup(group, groupUpdate.users).then(function () {
@@ -161,6 +166,15 @@ function updateGroups(groups) {
         } else {
           logger.warn({ group: { id: groupUpdate.id }, error: 'Group id ' + groupUpdate.id + ' not found' }, 'Error during group update (by an administrator)');
           stopForEachPromise(obj, 'Group id ' + groupUpdate.id + ' not found', fulfill);
+// =======
+//           group.save().then(function () {
+//             logger.info('Group updated (by an administrator): id: ' + group.id + ' name: ' + group.name);
+//             stopForEachPromise(obj, null, fulfill);
+//           });
+//         } else {
+//           logger.warn('Error during group update (by an administrator): id: ' + groupId + ' not found');
+//           stopForEachPromise(obj, 'Group id ' + groupId + ' not found', fulfill);
+// >>>>>>> develop
         }
       });
     });
@@ -174,7 +188,7 @@ module.exports.updateGroups = function () {
         return module.exports.retrieveAllGroups(errors)(req, res);
       });
     } else {
-      logger.error({ error: 'Invalid request' }, 'Error during group update (by an administrator)');
+      logger.error('Error during group update (by an administrator): Invalid request');
       return res.status(405).json({ error: 'Invalid request' });
     }
   };
@@ -188,15 +202,15 @@ function deleteGroups(groups) {
       GroupsAdapter.findById(groupId).then(function (group) {
         if (group) {
           group.destroy().then(function () {
-            logger.info({ group: { id: group.id, name: group.name } }, 'Group deleted (by an administrator)');
+            logger.info('Group deleted (by an administrator): id: ' + group.id + ' name: ' + group.name);
             stopForEachPromise(obj, null, fulfill);
           });
         } else {
-          logger.warn({ group: { id: groupId }, error: 'Group id ' + groupId + ' not found' }, 'Error during group deletion (by an administrator)');
+          logger.warn('Error during group deletion (by an administrator): id: ' + groupId + 'not found');
           stopForEachPromise(obj, 'Group id ' + groupId + ' not found', fulfill);
         }
       }).catch(function (error) {
-        logger.warn({ group: { id: groupId }, error: 'Group id ' + groupId + ' not found' }, 'Error during group deletion (by an administrator)');
+          logger.warn('Error during group deletion (by an administrator): id: ' + groupId + 'not found');
         stopForEachPromise(obj, 'Group id ' + groupId + ' not found', fulfill);
       });
     });
@@ -210,7 +224,7 @@ module.exports.deleteGroups = function () {
         return module.exports.retrieveAllGroups(errors)(req, res);
       });
     } else {
-      logger.warn({ error: 'Invalid request' }, 'Error during group deletion (by an administrator)');
+      logger.warn('Error during group deletion (by an administrator): Invalid request');
       return res.status(405).json({ error: 'Invalid request' });
     }
   };
@@ -248,14 +262,14 @@ module.exports.addUsersToGroup = function () {
   return function (req, res) {
     if (req.body.group && req.body.users && req.body.users.constructor == Array) {
       addUsersToGroup(req.body.group, req.body.users).then(function (errors) {
-        logger.info({ group: { id: req.body.group } }, 'Users added to group (by an administrator)');
+        logger.info('Users added to group (by an administrator): id: ' + req.body.group);
         return module.exports.retrieveAllGroups(errors)(req, res);
       }).catch(function (error) {
-        logger.warn({ error: error }, 'Error during user addition to group (by an administrator)');
+        logger.warn('Error during user addition to group (by an administrator): ' + error);
         return res.status(405).json({ error: error });
       });
     } else {
-      logger.error({ error: 'Invalid request' }, 'Error during user addition to group (by an administrator)');
+      logger.error('Error during user addition to group (by an administrator): Invalid request');
       return res.status(405).json({ error: 'Invalid request' });
     }
   };

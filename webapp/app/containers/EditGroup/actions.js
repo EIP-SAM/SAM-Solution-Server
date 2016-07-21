@@ -9,7 +9,7 @@
 //    }
 //
 
-const request = require('../../agent');
+import request from 'utils/request';
 
 import {
   EDIT_GROUP,
@@ -28,7 +28,7 @@ export function getGroupRequest(groupname, callback) {
   console.log('get : /api/logged-in/admin/groups :');
   return function returnGetGroupRequest(dispatch) {
     return request
-      .get('http://localhost:8080/api/logged-in/admin/groups')
+      .get('/api/logged-in/admin/groups')
       .end((err, res) => {
         console.log('reponse a /api/logged-in/admin/groups :');
         console.log(res.body);
@@ -62,7 +62,7 @@ export function editGroupRequest(groups) {
   console.log(groups);
   return function returnEditGroupRequest(dispatch) {
     return request
-      .post('http://localhost:8080/api/logged-in/admin/groups/update')
+      .post('/api/logged-in/admin/groups/update')
       .type('json')
       .send({ groups })
       .end((err, res) => {
@@ -104,7 +104,7 @@ export function getUsersRequest(users) {
   console.log('get : /api/logged-in/admin/users :');
   return function returnGetUsersRequest(dispatch) {
     return request
-      .get('http://localhost:8080/api/logged-in/admin/users')
+      .get('/api/logged-in/admin/users')
       .end((err, res) => {
         console.log('reponse a /api/logged-in/admin/users :');
         console.log(res.body);
