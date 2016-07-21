@@ -40,11 +40,7 @@ export function getHistoryRestoresByUser(restores) {
 export function getHistoryRestoresByUserRequest(username) {
   return function returnGetHistoryRestoresByUserRequest(dispatch) {
     return request
-<<<<<<< HEAD
       .get('/api/logged-in/history_restore')
-=======
-      .get('/history_restore')
->>>>>>> origin/develop
       .query({ username })
       .end((err, res) => {
         dispatch(getHistoryRestoresByUser(res.body));
