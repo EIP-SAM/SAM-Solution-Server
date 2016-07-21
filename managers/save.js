@@ -101,7 +101,7 @@ module.exports.saveFinish = function (saveScheduledId, saveId, username, files) 
       saveScheduledAdapter.disableSaveScheduled(saveScheduled.id);
       //cronManager.removeCron(saveScheduled.id);
     } else {
-      var nextDateSave = new Date(cronManager.parserCronToDate(saveScheduled.cron));
+      var nextDateSave = cronManager.parserCronToDate(saveScheduled.cron);
       saveScheduledAdapter.createSave(saveScheduled.id, nextDateSave).then(function (save) {
         nodeSchedule.listCron[saveScheduled.id] = cronManager.createSaveScheduled(nextDateSave, username, files, save.id, saveScheduled.id);
       })
