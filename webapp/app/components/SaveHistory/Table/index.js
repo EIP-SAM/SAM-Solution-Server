@@ -6,6 +6,7 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 import { SaveHistoryDeletionScheduledSaveModal } from 'components/SaveHistory/Table/ModalDeletionScheduledSave';
 import { SaveHistoryInstantSaveModal } from 'components/SaveHistory/Table/ModalInstantSave';
+import { SaveHistoryInstantRestoreModal } from 'components/SaveHistory/Table/ModalInstantRestore';
 import { ButtonPopover } from 'components/ButtonPopover';
 import Tr from 'components/Tr';
 import Th from 'components/Th';
@@ -34,6 +35,11 @@ export class SaveHistoryTable extends React.Component {
     this.props.showDeletionScheduledSaveModal();
   }
 
+  handleRestoreClick(save) {
+    this.props.instantRestore(save.save_scheduled.user.id, save.save_scheduled.files);
+    this.props.showInstantRestoreModal();
+  }
+
   render() {
     const names = [{ isLink: false, value: 'Date' },
                   { isLink: false, value: 'State' },
@@ -57,7 +63,7 @@ export class SaveHistoryTable extends React.Component {
             const actions = [];
             actions.push(<ButtonPopover key={`action-${0}`} trigger="hover" placement="bottom" popoverContent="Relaunch Save" buttonType="link" icon="floppy-disk" onClick={() => this.handleSaveClick(save)} />);
             actions.push(<ButtonPopover key={`action-${1}`} trigger="hover" placement="bottom" popoverContent="Relaunch save at a specific time" buttonType="link" icon="calendar" onClick={() => this.handleScheduledSaveClick(save)} link="/create-save" />);
-            actions.push(<ButtonPopover key={`action-${2}`} trigger="hover" placement="bottom" popoverContent="Restore" buttonType="link" icon="repeat" />);
+            actions.push(<ButtonPopover key={`action-${2}`} trigger="hover" placement="bottom" popoverContent="Restore" buttonType="link" icon="repeat" onClick={() => this.handleRestoreClick(save)} />);
             actions.push(<ButtonPopover key={`action-${3}`} trigger="hover" placement="bottom" popoverContent="Cancel scheduled save" buttonType="link" icon="remove" buttonStyle={displayButton} onClick={() => this.handleDeleteClick(save.id, save.save_scheduled.id, save.save_scheduled.user.name)} />);
 
             const status = (!save.canceled) ? ((save.isStart) ? ((save.isFinish) ? ((save.isSuccess) ? 'Succeeded' : 'Failed') : 'In progress') : 'Scheduled') : 'Canceled';
@@ -87,6 +93,12 @@ export class SaveHistoryTable extends React.Component {
           createSave={this.props.createSave}
           resetStateSaveCreation={this.props.resetStateSaveCreation}
         />
+        <SaveHistoryInstantRestoreModal
+          state={this.props.state}
+          hideInstantRestoreModal={this.props.hideInstantRestoreModal}
+          createRestoreRequest={this.props.createRestoreRequest}
+          resetRestoreState={this.props.resetRestoreState}
+        />
       </div>
     );
   }
@@ -108,4 +120,9 @@ SaveHistoryTable.propTypes = {
   hideInstantSaveModal: React.PropTypes.func,
   createSave: React.PropTypes.func,
   resetStateSaveCreation: React.PropTypes.func,
+  showInstantRestoreModal: React.PropTypes.func,
+  hideInstantRestoreModal: React.PropTypes.func,
+  instantRestore: React.PropTypes.func,
+  createRestoreRequest: React.PropTypes.func,
+  resetRestoreState: React.PropTypes.func,
 };
