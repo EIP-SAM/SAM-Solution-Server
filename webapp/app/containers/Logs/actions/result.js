@@ -10,9 +10,11 @@
 //
 
 import request from 'utils/request';
+import styleSort from '../styleSort.json';
 import {
   GET_FILTERED_LOGS,
   CLEAR_LOGS,
+  RESET_SORTS,
 } from '../constants/result';
 
 export function getLogs(type, logs) {
@@ -41,5 +43,17 @@ export function getFilteredLogs(filters) {
           dispatch(getLogs(GET_FILTERED_LOGS, res.body));
         }
       });
+  };
+}
+
+export function resetSorts() {
+  return {
+    type: RESET_SORTS,
+    sorts: {
+      dateStatus: styleSort.desc,
+      levelStatus: styleSort.desc,
+      loggerStatus: styleSort.desc,
+      messageStatus: styleSort.desc,
+    },
   };
 }

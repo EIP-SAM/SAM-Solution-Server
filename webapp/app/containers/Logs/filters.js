@@ -9,22 +9,32 @@ import {
   collapsePanel,
   incKeyRerender,
 } from './actions/filters';
-import { getFilteredLogs, clearLogs } from './actions/result';
+import { getFilteredLogs, clearLogs, resetSorts } from './actions/result';
 import LogFilters from 'components/Logs/Filters/';
 
-function mapStateToProps(state) {
-  const storeKey = state.get('logs').get('filters').get('keyRerender');
-  const storeFilters = state.get('logs').get('filters').get('fields').filters;
-  const storePanel = state.get('logs').get('filters').get('panel').info;
+function getDefaultKeyRerender(state) {
+  return state.get('logs').get('filters').get('keyRerender') || 0;
+}
 
-  return {
-    keyRerender: storeKey || 0,
-    filters: storeFilters || { findOpts: { force: true } },
-    panel: storePanel || {
+function getDefaultFilters(state) {
+  return state.get('logs').get('filters').get('fields').filters ||
+    { findOpts: { force: true } };
+}
+
+function getDefaultPanel(state) {
+  return state.get('logs').get('filters').get('panel').info ||
+    {
       isCollapsed: true,
       titleIcon: 'plus-sign',
       titleHelp: '(click to show)',
-    },
+    };
+}
+
+function mapStateToProps(state) {
+  return {
+    keyRerender: getDefaultKeyRerender(state),
+    filters: getDefaultFilters(state),
+    panel: getDefaultPanel(state),
   };
 }
 
@@ -36,6 +46,7 @@ function mapDispatchToProps(dispatch) {
     clearLogs: () => dispatch(clearLogs()),
     collapsePanel: (isCollapsed) => dispatch(collapsePanel(isCollapsed)),
     incKeyRerender: () => dispatch(incKeyRerender()),
+    resetSorts: () => dispatch(resetSorts()),
   };
 }
 

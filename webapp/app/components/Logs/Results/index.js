@@ -14,6 +14,10 @@ import {
   Glyphicon,
 } from 'react-bootstrap';
 
+const pageHeaderHeight = 130;
+const openFilterHeight = 345;
+let resultTableHeight = window.innerHeight - pageHeaderHeight - openFilterHeight;
+
 /* eslint-disable react/prefer-stateless-function */
 export default class LogResult extends React.Component {
   constructor(props) {
@@ -24,16 +28,8 @@ export default class LogResult extends React.Component {
     this.sortByLevel = this.sortByLevel.bind(this);
     this.sortByLogger = this.sortByLogger.bind(this);
     this.sortByMessage = this.sortByMessage.bind(this);
-    const pageHeaderHeight = 130;
-    const openFilterHeight = 345;
 
-    this.state = {
-      resultTableHeight: window.innerHeight - pageHeaderHeight - openFilterHeight,
-      dateStatus: styleSort.desc,
-      levelStatus: styleSort.desc,
-      loggerStatus: styleSort.desc,
-      messageStatus: styleSort.desc,
-    };
+    this.state = this.props.sorts;
   }
 
   componentDidMount() {
@@ -41,29 +37,15 @@ export default class LogResult extends React.Component {
   }
 
   componentWillReceiveProps() {
-    this.setState({
-      dateStatus: styleSort.desc,
-      levelStatus: styleSort.desc,
-      loggerStatus: styleSort.desc,
-      messageStatus: styleSort.desc,
-    });
+    this.setState(this.props.sorts);
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
   }
 
-  getDefaultLog() {
-    let logs = this.props.logs;
-    if (typeof (logs) === 'undefined') {
-      logs = { error: false, data: [] };
-    }
-
-    return logs;
-  }
-
   sortByDate() {
-    const logs = this.getDefaultLog();
+    const logs = this.props.logs;
 
     if (this.state.dateStatus.order === 'DESC') {
       this.setState({ dateStatus: styleSort.asc });
@@ -79,7 +61,7 @@ export default class LogResult extends React.Component {
   }
 
   sortByLevel() {
-    const logs = this.getDefaultLog();
+    const logs = this.props.logs;
 
     if (this.state.levelStatus.order === 'DESC') {
       this.setState({ levelStatus: styleSort.asc });
@@ -95,7 +77,7 @@ export default class LogResult extends React.Component {
   }
 
   sortByLogger() {
-    const logs = this.getDefaultLog();
+    const logs = this.props.logs;
 
     if (this.state.loggerStatus.order === 'DESC') {
       this.setState({ loggerStatus: styleSort.asc });
@@ -111,7 +93,7 @@ export default class LogResult extends React.Component {
   }
 
   sortByMessage() {
-    const logs = this.getDefaultLog();
+    const logs = this.props.logs;
 
     if (this.state.messageStatus.order === 'DESC') {
       this.setState({ messageStatus: styleSort.asc });
@@ -131,18 +113,12 @@ export default class LogResult extends React.Component {
   }
 
   handleResize() {
-    const pageHeaderHeight = 130;
-    const openFilterHeight = 345;
-
-    this.setState({
-      resultTableHeight: window.innerHeight - pageHeaderHeight - openFilterHeight,
-    });
+    resultTableHeight = window.innerHeight - pageHeaderHeight - openFilterHeight;
   }
 
   render() {
-    const logs = this.getDefaultLog();
     const style = {
-      height: this.state.resultTableHeight,
+      height: resultTableHeight,
     };
 
     return (
@@ -169,7 +145,7 @@ export default class LogResult extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {logs.data.map((log, index) => (
+            {this.props.logs.data.map((log, index) => (
               <tr className={styles.trLogsResults} key={index}>
                 <td>
                   {this.formatDate(log.time)}
@@ -193,5 +169,6 @@ export default class LogResult extends React.Component {
 }
 
 LogResult.propTypes = {
-  logs: React.PropTypes.object,
+  logs: React.PropTypes.object.isRequired,
+  sorts: React.PropTypes.object.isRequired,
 };

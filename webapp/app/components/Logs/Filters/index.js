@@ -22,12 +22,13 @@ import {
 export default class LogFilter extends React.Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+
     this.getLogs = this.getLogs.bind(this);
     this.resetFilters = this.resetFilters.bind(this);
   }
 
   getLogs() {
+    this.props.resetSorts();
     this.props.getFilteredLogs(this.props.filters);
   }
 
@@ -150,4 +151,5 @@ LogFilter.propTypes = {
   resetFilters: React.PropTypes.func.isRequired,
   getFilteredLogs: React.PropTypes.func.isRequired,
   clearLogs: React.PropTypes.func.isRequired,
+  resetSorts: React.PropTypes.func.isRequired,
 };

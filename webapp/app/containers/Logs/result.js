@@ -4,10 +4,30 @@
 
 import { connect } from 'react-redux';
 import LogResult from 'components/Logs/Results';
+import styleSort from './styleSort.json';
+
+function getDefaultLogs(state) {
+  return state.get('logs').get('result').get('logs').logs ||
+    {
+      error: false,
+      data: [],
+    };
+}
+
+function getDefaultSorts(state) {
+  return state.get('logs').get('result').get('sorts').sorts ||
+    {
+      dateStatus: styleSort.desc,
+      levelStatus: styleSort.asc,
+      loggerStatus: styleSort.desc,
+      messageStatus: styleSort.desc,
+    };
+}
 
 function mapStateToProps(state) {
   return {
-    logs: state.get('logs').get('result').logs,
+    logs: getDefaultLogs(state),
+    sorts: getDefaultSorts(state),
   };
 }
 
