@@ -101,6 +101,42 @@ module.exports.findSaveScheduledById = function (saveScheduledId) {
 };
 
 //
+// Search in the database a save instance with id = saveId
+// Update boolean isStart
+//
+module.exports.saveIsStart = function (saveId) {
+  return SaveModel.findById(saveId).then(function (save) {
+    save.isStart = true;
+    save.save();
+    return save;
+  });
+};
+
+//
+// Search in the database a save instance with id = saveId
+// Update boolean isFinish & isActive
+//
+module.exports.saveIsFinish = function (saveId) {
+  return SaveModel.findById(saveId).then(function (save) {
+    save.isFinish = true;
+    save.save();
+    return save;
+  });
+};
+
+//
+// Search in the database a save instance with id = saveId
+// Update boolean isSuccess
+//
+module.exports.saveIsSuccess = function (saveId) {
+  return SaveModel.findById(saveId).then(function (save) {
+    save.isSuccess = true;
+    save.save();
+    return save;
+  });
+};
+
+//
 // Get all saveScheduled of all users
 //
 module.exports.getAllSaveScheduled = function () {

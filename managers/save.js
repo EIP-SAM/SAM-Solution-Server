@@ -71,49 +71,54 @@ module.exports.createSave = function (req, res) {
   for (const user of usersId) {
     saveScheduledAdapter.createSaveScheduled(user, cron, files.toString()).then(
       function (saveScheduled) {
-        saveScheduledAdapter.findUserBySaveScheduledId(saveScheduled.id).then(function (user) {
-          logger.setModuleName('Save').setUser({ id: user[0].dataValues.id, name: user[0].dataValues.name }).info(`${user[0].dataValues.name} has create a save`);
+        saveScheduledAdapter.findUserBySaveScheduledId(saveScheduled.id).then(function (username) {
+          logger.setModuleName('Save').setUser({ id: username[0].dataValues.id, name: username[0].dataValues.name }).info(`${username[0].dataValues.name} created a save`);
+          saveScheduledAdapter.createSave(saveScheduled.id, dateFormat).then(function (save) {
+            nodeSchedule.listCron[saveScheduled.id] = cronManager.createSaveScheduled(dateFormat, username[0].dataValues.name, files, save.id, saveScheduled.id);
+          })
         })
-        if (cron === null) {
-          nodeSchedule.listCron[saveScheduled.id] = cronManager.createSaveScheduled(dateFormat);
-        } else {
-          nodeSchedule.listCron[saveScheduled.id] = cronManager.createAutoSave(cron);
-        }
-        saveScheduledAdapter.createSave(saveScheduled.id, dateFormat);
       }
     )
   }
 };
 
 //
-// Get data from resquest
+// Start save
 // Call adapter
 //
-module.exports.startSave = function (req, res) {
-  const saveId = req.body.saveId;
-  return saveAdapter.saveIsStart(saveId);
+module.exports.startSave = function (saveId) {
+  return saveScheduledAdapter.saveIsStart(saveId);
 };
 
 //
-// Get data from resquest
 // If auto save then create new save
 // Else disable saveSchedule and remove cron from list
 // Call adapters
 //
-module.exports.saveFinish = function (req, res) {
-  const saveId = req.body.saveId;
-  const saveScheduledId = req.body.saveScheduledId;
+module.exports.saveFinish = function (saveScheduledId, saveId, username, files) {
   saveScheduledAdapter.findSaveScheduledById(saveScheduledId).then(function (saveScheduled) {
     if (saveScheduled.cron === null) {
       saveScheduledAdapter.disableSaveScheduled(saveScheduled.id);
-      cronManager.removeCron(saveScheduled.id);
+      //cronManager.removeCron(saveScheduled.id);
     } else {
-      var nextSave = new Date(cronManager.parserCronToDate(saveScheduled.cron));
-      saveAdapter.createSave(saveScheduled.id, nextSave);
+      var nextDateSave = new Date(cronManager.parserCronToDate(saveScheduled.cron));
+      saveScheduledAdapter.createSave(saveScheduled.id, nextDateSave).then(function (save) {
+        nodeSchedule.listCron[saveScheduled.id] = cronManager.createSaveScheduled(nextDateSave, username, files, save.id, saveScheduled.id);
+      })
     }
   });
+  return saveScheduledAdapter.saveIsFinish(saveId);
+};
 
-  return saveAdapter.saveIsFinish(saveId);
+//
+// Update Success boolean
+// Save hash of commit
+// Call adapter
+//
+module.exports.saveSuccess = function (saveId) {
+  const hash = '#45487';
+  saveScheduledAdapter.saveIsSuccess(saveId);
+  //return saveAdapter.hashSave(saveId, hash);
 };
 
 //
@@ -130,21 +135,8 @@ module.exports.cancelSave = function (req, res) {
   saveScheduledAdapter.disableSaveScheduled(saveScheduledId);
   saveScheduledAdapter.cancelSave(saveId);
   saveScheduledAdapter.findUserBySaveScheduledId(saveScheduledId).then(function (user) {
-    logger.setModuleName('Save').setUser({ id: user[0].dataValues.id, name: user[0].dataValues.name }).info(`${user[0].dataValues.name} has cancel a scheduled save`);
+    logger.setModuleName('Save').setUser({ id: user[0].dataValues.id, name: user[0].dataValues.name }).info(`${user[0].dataValues.name} canceled a scheduled save`);
   })
-};
-
-//
-// Get data from resquest
-// Update Success boolean
-// Save hash of commit
-// Call adapter
-//
-module.exports.saveSuccess = function (req, res) {
-  const saveId = req.body.saveId;
-  const hash = '#45487';
-  saveAdapter.saveIsSuccess(saveId);
-  return saveAdapter.hashSave(saveId, hash);
 };
 
 //

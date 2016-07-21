@@ -3,8 +3,11 @@
 //
 var nodeSchedule = require('../libs/nodeSchedule');
 var cronParser = require('cron-parser');
+var saveManager = require('./save');
 var saveScheduledAdapter = require('../adapters/saveScheduled');
 var saveAdapter = require('../adapters/save');
+var daemonSave = require('../daemon/save');
+var logger = require('../libs/bunyan');
 
 //
 // Call when server is restart
@@ -34,22 +37,27 @@ module.exports.initAllSaveCron = function () {
 };
 
 //
-// Create cron with cron notation
-// Function is call when the cron is triggered
-//
-module.exports.createAutoSave = function (cronNotation) {
-  return nodeSchedule.scheduleJob(cronNotation, function () {
-    console.log('Send request to client');
-  });
-};
-
-//
 // Create cron with a specific date
 // Function is call when the cron is triggered
 //
-module.exports.createSaveScheduled = function (date) {
+module.exports.createSaveScheduled = function (date, username, files, saveId, saveScheduledId) {
   return nodeSchedule.scheduleJob(date, function () {
+    if (typeof files === 'string' ) {
+      files = files.split();
+    }
     console.log('Send request to client');
+    daemonSave.exec(username, files, function (msg) {
+      if (msg.isSuccess) {
+        logger.setModuleName('Save').setUser({ id: '', name: username }).info(`${username} succeeded a save`);
+        saveManager.saveFinish(saveScheduledId, saveId);
+        saveManager.saveSuccess(saveId);
+      } else if (msg.isFinish) {
+        logger.setModuleName('Save').setUser({ id: '', name: username }).info(`${username} failed a save`);
+        saveManager.saveFinish(saveScheduledId, saveId, username, files);
+      } else if (msg.isStart) {
+        saveManager.startSave(saveId);
+      }
+    });
   });
 };
 
@@ -78,13 +86,13 @@ module.exports.parseDateFrequencyToCron = function (date, frequency) {
   let cron;
   switch (frequency) {
     case 'Daily':
-      cron = date.getMinutes() + ' ' + date.getHours() + ' 1/1 * ? *';
+      cron = date.getMinutes() + ' ' + date.getHours() + ' 1/1 * * *';
       break;
     case 'Weekly':
       cron = date.getMinutes() + ' ' + date.getHours() + ' ? * ' + (date.getDay() + 1) + ' *';
       break;
     case 'Monthly':
-      cron = date.getMinutes() + ' ' + date.getHours() + ' ' + date.getDate() + ' 1/1 ? *';
+      cron = date.getMinutes() + ' ' + date.getHours() + ' ' + date.getDate() + ' 1/1 * *';
       break;
     default:
       cron = null;
