@@ -37,7 +37,6 @@ export class CreateUser extends React.Component {
   handleClick(event) {
     var users = [];
     users.push(this.user);
-    console.log('###' + this.user);
     this.props.createUserRequest(users);
   }
 
@@ -56,7 +55,7 @@ export class CreateUser extends React.Component {
             <ControlLabel>Password confirmation</ControlLabel>
             <FormControl type="password" placeholder='Enter password confirmation' onChange={this.onChangeConfirmation} />
             <br />
-            <LinkContainerButton buttonType='default' buttonText='Submit' onClick={this.handleClick} />
+            <LinkContainerButton buttonType='default' buttonText='Create' onClick={this.handleClick} />
           </FormGroup>
         </form>
       </div>

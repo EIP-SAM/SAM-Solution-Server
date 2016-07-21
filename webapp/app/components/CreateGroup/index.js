@@ -73,7 +73,7 @@ export class CreateGroup extends React.Component {
               </FormControl>
             </FormGroup>
             <br />
-            <LinkContainerButton buttonType='default' buttonText='Submit' onClick={this.handleClick} />
+            <LinkContainerButton buttonType='default' buttonText='Create' onClick={this.handleClick} />
           </FormGroup>
         </form>
       </div>
