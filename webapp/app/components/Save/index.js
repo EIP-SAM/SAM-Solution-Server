@@ -28,6 +28,7 @@ export class Save extends React.Component {
         <SaveTable
           createSaveState={this.props.createSaveState}
           state={this.props.state}
+          getUsers={this.props.getUsers}
           listUsers={this.props.listUsers}
           dateSave={this.props.dateSave}
           timeSave={this.props.timeSave}
@@ -47,6 +48,7 @@ Save.propTypes = {
   createSaveState: React.PropTypes.object,
   state: React.PropTypes.object,
   getSavesRequest: React.PropTypes.func,
+  getUsers: React.PropTypes.func,
   listUsers: React.PropTypes.func,
   dateSave: React.PropTypes.func,
   timeSave: React.PropTypes.func,
