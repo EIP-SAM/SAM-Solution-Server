@@ -6,5 +6,9 @@ module.exports.getStatisticFilters = function () {
 }
 
 module.exports.getStatisticDataByType = function (type) {
-  return statManagers.getAllStatisticsByType(type);
+  return new Promise(function(fulfill, reject){
+    statManagers.getAllStatisticsByType(type).then(function(result){
+      fulfill(result);
+    });
+  });
 }
