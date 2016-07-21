@@ -37,11 +37,12 @@ export function getGraphFromServer(type) {
   return function startAction(dispatch) {
     return request
       .get('/statistic_select_graph/')
-      .query('type', type)
+      .query({type})
       .end((err, res) => {
         if (err || res.body.error) {
           // console.log('Error occured in request to server for statistic type data : ', res);
         } else {
+          console.log(res.body);
           dispatch(getStats(GET_STATS_BY_TYPE, res.body));
         }
       });

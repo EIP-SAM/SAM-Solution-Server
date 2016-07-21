@@ -110,11 +110,15 @@ function checkAndCreateUser(name, email, password, confirmation) {
 // Security check for each url of this kind : /api/public/*
 //
 module.exports.ensureLoggedOut = function (req, res, next) {
-  if (req.user) {
-    logger.setUser({ id: req.user.id, name: req.user.name }).warn('Logged user is trying to access a public (logged-out) ressource');
-    res.status(401).json({ error: 'Already logged-in' });
+  if (req.method == 'OPTIONS') {
+    res.end();
   } else {
-    next();
+    if (req.user) {
+      logger.setUser({ id: req.user.id, name: req.user.name }).warn('Logged user is trying to access a public (logged-out) ressource');
+      res.status(401).json({ error: 'Already logged-in' });
+    } else {
+      next();
+    }
   }
 };
 
@@ -122,11 +126,15 @@ module.exports.ensureLoggedOut = function (req, res, next) {
 // Security check for each url of this kind : /api/logged-in/*
 //
 module.exports.ensureLoggedIn = function (req, res, next) {
-  if (req.user) {
-    next();
+  if (req.method == 'OPTIONS') {
+    res.end();
   } else {
-    logger.warn('Non logged user is trying to access a protected ressource');
-    res.status(401).json({ error: 'Not logged-in' });
+    if (req.user) {
+      next();
+    } else {
+      logger.warn('Non logged user is trying to access a protected ressource');
+      res.status(401).json({ error: 'Not logged-in' });
+    }
   }
 };
 
@@ -134,11 +142,15 @@ module.exports.ensureLoggedIn = function (req, res, next) {
 // Security check for each url of this kind : /api/logged-in/admin/*
 //
 module.exports.ensureAdminLoggedIn = function (req, res, next) {
-  if (req.user.isAdmin) {
-    next();
+  if (req.method == 'OPTIONS') {
+    res.end();
   } else {
-    logger.setUser({ id: req.user.id, name: req.user.name }).warn('Non admin user is trying to access a protected ressource');
-    res.status(401).json({ error: 'Access denied' });
+    if (req.user.isAdmin) {
+      next();
+    } else {
+      logger.setUser({ id: req.user.id, name: req.user.name }).warn('Non admin user is trying to access a protected ressource');
+      res.status(401).json({ error: 'Access denied' });
+    }
   }
 };
 
@@ -499,9 +511,28 @@ function createUsers(users) {
 
     users.forEach(function (user) {
       checkAndCreateUser(user.name, user.email, user.password, user.confirmation)
-      .then(function (user) {
-        logger.setUser({ id: user.id, name: user.name }).info('New user created (by an administrator)');
-        stopForEachPromise(obj, null, fulfill);
+// <<<<<<< HEAD
+      .then(function (newUser) {
+        if (user.groups && user.groups.constructor == Array) {
+          GroupsAdapter.reassignGroupsToUser(newUser, user.groups).then(function () {
+            // logger.info({ newUser: { id: user.id, name: user.name } }, 'New user created (by an administrator)');
+            logger.setUser({ id: newUser.id, name: newUser.name }).info('New user created (by an administrator)');
+            stopForEachPromise(obj, null, fulfill);
+
+          }).catch(function () {
+            logger.warn({ error: error }, 'Error during user update (by an administrator)');
+            stopForEachPromise(obj, null, fulfill);
+          });
+        } else {
+          // logger.info({ user: { id: newUser.id, name: newUser.name } }, 'New user created (by an administrator)');
+          logger.setUser({ id: newUser.id, name: newUser.name }).info('New user created (by an administrator)');
+          stopForEachPromise(obj, null, fulfill);
+        }
+// =======
+//       .then(function (user) {
+//         logger.setUser({ id: user.id, name: user.name }).info('New user created (by an administrator)');
+//         stopForEachPromise(obj, null, fulfill);
+// >>>>>>> develop
       })
       .catch(function (error) {
         logger.warn('Error during new user creation (by an administrator): ' + error);
@@ -535,10 +566,28 @@ function updateUsers(users) {
       if (user.id) {
         UsersAdapter.findById(user.id).then(function (foundUser) {
           if (foundUser) {
-            updateUserProfile(foundUser, user)
-            .then(function (user) {
-              logger.setUser({ id: user.id, name: user.name }).info('User updated (by an administrator)');
-              stopForEachPromise(obj, null, fulfill);
+// <<<<<<< HEAD
+            updateUserProfile(foundUser, user).then(function (updatedUser) {
+              if (user.groups && user.groups.constructor == Array) {
+                GroupsAdapter.reassignGroupsToUser(foundUser, user.groups).then(function () {
+                  logger.setUser({ id: updatedUser.id, name: updatedUser.name }).info('User updated (by an administrator)');
+                  // logger.info({ user: { id: updatedUser.id, name: updatedUser.name } }, 'User updated (by an administrator)');
+                  stopForEachPromise(obj, null, fulfill);
+                }).catch(function () {
+                  logger.warn({ error: error }, 'Error during user update (by an administrator)');
+                  stopForEachPromise(obj, null, fulfill);
+                });
+              } else {
+                logger.setUser({ id: updatedUser.id, name: updatedUser.name }).info('User updated (by an administrator)');
+                // logger.info({ user: { id: updatedUser.id, name: updatedUser.name } }, 'User updated (by an administrator)');
+                stopForEachPromise(obj, null, fulfill);
+              }
+// =======
+//             updateUserProfile(foundUser, user)
+//             .then(function (user) {
+//               logger.setUser({ id: user.id, name: user.name }).info('User updated (by an administrator)');
+//               stopForEachPromise(obj, null, fulfill);
+// >>>>>>> develop
             })
             .catch(function (error) {
               logger.warn('Error during user update (by an administrator): ' + error);

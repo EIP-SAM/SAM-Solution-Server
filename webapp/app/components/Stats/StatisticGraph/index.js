@@ -25,7 +25,7 @@ export class StatisticGraphComponent extends React.Component {
 
     for (var i = 0; i < graphNumber; i++)
     {
-      if (allGraph[i])
+      if (allGraph[i] && allGraph[i].complete)
       {
         Chart = null;
         switch (allGraph[i].type) {

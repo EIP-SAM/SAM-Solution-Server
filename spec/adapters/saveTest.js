@@ -4,7 +4,7 @@
 var saveAdapter = require('../../adapters/save');
 var SaveModel = require('../../models/save');
 
-describe('saveIsStart', function () {
+xdescribe('saveIsStart', function () {
   var save;
 
   beforeEach(function () {
@@ -40,7 +40,7 @@ describe('saveIsStart', function () {
   });
 });
 
-describe('saveIsFinish', function () {
+xdescribe('saveIsFinish', function () {
   var save;
 
   beforeEach(function () {
@@ -76,7 +76,7 @@ describe('saveIsFinish', function () {
   });
 });
 
-describe('saveIsSuccess', function () {
+xdescribe('saveIsSuccess', function () {
   var save;
 
   beforeEach(function () {

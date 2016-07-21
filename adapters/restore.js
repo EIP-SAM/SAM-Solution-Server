@@ -110,3 +110,23 @@ module.exports.getRestoreByUser = function (userId) {
     },
   });
 };
+
+//
+// Get number restores by day (savesScheduleds)
+//
+module.exports.getRestoresByDay = function () {
+ var currentYear = new Date().getFullYear();
+ var firstDay = new Date("Jan 01, "+ currentYear +" 01:00:00");
+ var lastDay = new Date("Dec 31, " + currentYear + " 11:59:59");
+ var date = new Date();
+ return RestoreModel.findAndCountAll({
+     where: {
+       isFinish: true,
+       execDate: {
+         $between: [firstDay, lastDay]
+       }
+      },
+     order: [['execDate', 'ASC']],
+     group: ['execDate'],
+ });
+};

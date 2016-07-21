@@ -25,6 +25,7 @@ export default class NavbarContainer extends React.Component {
       { pathname: '/logs', value: 'Logs' },
       { pathname: '/statistics', value: 'Statistics' },
       { pathname: '#', value: 'Help' },
+      { pathname: '/login', value: 'Logout' },
       ];
     } else {
       navItems = [
@@ -36,10 +37,11 @@ export default class NavbarContainer extends React.Component {
       { pathname: '/logs', value: 'Logs' },
       { pathname: '/statistics', value: 'Statistics' },
       { pathname: '#', value: 'Help' },
+      { pathname: '/login', value: 'Logout' },
       ];
     }
 
-    return (
+    const navBar = (
       <Navbar inverse className={styles.position}>
         <Navbar.Header className={styles.noFloat}>
           <Navbar.Brand className={styles.noFloat}>
@@ -58,5 +60,15 @@ export default class NavbarContainer extends React.Component {
         </Navbar.Collapse>
       </Navbar>
     );
+    const empty = (<span></span>);
+    const endNavBar = (this.props.username.isLogin) ? navBar : empty;
+
+    return (
+      <span>{endNavBar}</span>
+    );
   }
 }
+
+NavbarContainer.propTypes = {
+  username: React.PropTypes.object,
+};

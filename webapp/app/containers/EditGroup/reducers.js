@@ -11,7 +11,7 @@
 import {
   EDIT_GROUP,
   GET_GROUP,
-  SAVE_DATA,
+  GET_USERS,
 } from './constants';
 
 function editGroupReducer(state = null, action) {
@@ -20,18 +20,13 @@ function editGroupReducer(state = null, action) {
       return Object.assign({}, state, {});
     case GET_GROUP:
       return Object.assign({}, state, {
-        displayedGroupname: action.displayedGroupname,
-        displayedSaveAndRestoreMode: action.displayedSaveAndRestoreMode,
-        displayedMigrationMode: action.displayedMigrationMode,
-        displayedSoftwarePackagesMode: action.displayedSoftwarePackagesMode,
+        group: action.group,
       });
-    case SAVE_DATA:
-      return Object.assign({}, state, {
-        groupname: action.groupname,
-        saveAndRestoreMode: action.saveAndRestoreMode,
-        migrationMode: action.migrationMode,
-        softwarePackages: action.softwarePackagesMode,
-      });
+      case GET_USERS:
+        return Object.assign({}, state, {
+          users: action.users,
+          usersGroups: action.usersGroups,
+        });
     default:
       return state;
   }
