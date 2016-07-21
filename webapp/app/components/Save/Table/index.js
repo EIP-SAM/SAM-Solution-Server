@@ -5,6 +5,7 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
 import { SaveInstantSaveModal } from 'components/Save/Table/ModalInstantSave';
+import { SaveInstantRestoreModal } from 'components/Save/Table/ModalInstantRestore';
 import { ButtonPopover } from 'components/ButtonPopover';
 import Tr from 'components/Tr';
 import Th from 'components/Th';
@@ -24,7 +25,13 @@ export class SaveTable extends React.Component {
   }
 
   handleScheduledSaveClick(save) {
+    this.props.getUsers([{ id: save.id, name: save.name }]);
     this.props.addAllFiles(save.save_scheduleds.files);
+  }
+
+  handleRestoreClick(save) {
+    this.props.instantRestore(save.id, save.save_scheduleds.files);
+    this.props.showInstantRestoreModal();
   }
 
   render() {
@@ -51,7 +58,7 @@ export class SaveTable extends React.Component {
               const actions = [];
               actions.push(<ButtonPopover key={`action-${0}`} trigger="hover" placement="bottom" popoverContent="Relaunch save" buttonType="link" icon="floppy-disk" onClick={() => this.handleSaveClick(save)} />);
               actions.push(<ButtonPopover key={`action-${1}`} trigger="hover" placement="bottom" popoverContent="Relaunch save at a specific time" buttonType="link" icon="calendar" onClick={() => this.handleScheduledSaveClick(save)} link="/create-save" />);
-              actions.push(<ButtonPopover key={`action-${2}`} trigger="hover" placement="bottom" popoverContent="Restore" buttonType="link" icon="repeat" />);
+              actions.push(<ButtonPopover key={`action-${2}`} trigger="hover" placement="bottom" popoverContent="Restore" buttonType="link" icon="repeat" onClick={() => this.handleRestoreClick(save)} />);
 
               if (typeof save.save_scheduleds.length === 'undefined') {
                 return (
@@ -90,6 +97,12 @@ export class SaveTable extends React.Component {
           createSave={this.props.createSave}
           resetStateSaveCreation={this.props.resetStateSaveCreation}
         />
+        <SaveInstantRestoreModal
+          state={this.props.state}
+          hideInstantRestoreModal={this.props.hideInstantRestoreModal}
+          createRestoreRequest={this.props.createRestoreRequest}
+          resetRestoreState={this.props.resetRestoreState}
+        />
       </div>
     );
   }
@@ -98,6 +111,7 @@ export class SaveTable extends React.Component {
 SaveTable.propTypes = {
   createSaveState: React.PropTypes.object,
   state: React.PropTypes.object,
+  getUsers: React.PropTypes.func,
   listUsers: React.PropTypes.func,
   dateSave: React.PropTypes.func,
   timeSave: React.PropTypes.func,
@@ -107,4 +121,9 @@ SaveTable.propTypes = {
   hideInstantSaveModal: React.PropTypes.func,
   createSave: React.PropTypes.func,
   resetStateSaveCreation: React.PropTypes.func,
+  showInstantRestoreModal: React.PropTypes.func,
+  hideInstantRestoreModal: React.PropTypes.func,
+  instantRestore: React.PropTypes.func,
+  createRestoreRequest: React.PropTypes.func,
+  resetRestoreState: React.PropTypes.func,
 };

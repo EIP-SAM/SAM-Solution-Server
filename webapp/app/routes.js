@@ -77,10 +77,18 @@ export default function createRoutes() {
         .catch(errorLoading);
       },
     }, {
-      path: '/register',
-      name: 'register',
+      path: '/create-user',
+      name: 'create user',
       getComponent(nextState, cb) {
-        System.import('containers/Register')
+        System.import('containers/CreateUser')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      },
+    }, {
+      path: '/create-group',
+      name: 'create group',
+      getComponent(nextState, cb) {
+        System.import('containers/CreateGroup')
         .then(loadModule(cb))
         .catch(errorLoading);
       },

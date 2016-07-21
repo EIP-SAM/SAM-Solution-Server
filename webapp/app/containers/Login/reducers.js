@@ -11,9 +11,10 @@
 import {
   LOGIN,
   SAVE_DATA,
+  IS_LOGIN,
 } from './constants';
 
-const initialState = {username: 'Username', password: 'Password'};
+const initialState = { username: 'Enter your username', password: 'Enter your password' };
 
 function loginReducer(state = initialState, action) {
   switch (action.type) {
@@ -23,6 +24,10 @@ function loginReducer(state = initialState, action) {
       return Object.assign({}, state, {
         username: action.username,
         password: action.password,
+      });
+    case IS_LOGIN:
+      return Object.assign({}, state, {
+        isLogin: action.isLogin,
       });
     default:
       return state;

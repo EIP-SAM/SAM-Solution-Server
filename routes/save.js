@@ -28,28 +28,6 @@ module.exports = function initSaveRoutes(app) {
     res.json('Your auto/programmed save has been canceled');
   });
 
-  app.post('/save_start', function (req, res) {
-    saveController.startSave(req, res);
-    req.flash('msg', 'Your save has started');
-    res.redirect('/save');
-  });
-
-  app.post('/save_finish', function (req, res) {
-    saveController.saveFinish(req, res);
-    res.redirect('/save');
-  });
-
-  app.post('/save_success', function (req, res) {
-    saveController.saveSuccess(req, res);
-    req.flash('msg', 'Your save has succeeded');
-    res.redirect('/save');
-  });
-
-  app.post('/save_fail', function (req, res) {
-    req.flash('msg', 'Your save has failed');
-    res.redirect('/save');
-  });
-
   app.post('/get_history_save', function (req, res) {
     saveController.getHistorySave(req, res);
     res.redirect('/save');

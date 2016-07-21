@@ -33,27 +33,6 @@ module.exports.cancelSave = function (req, res) {
 };
 
 //
-// Call when a save is started
-//
-module.exports.startSave = function (req, res) {
-  return saveManager.startSave(req, res);
-};
-
-//
-// Call when a save is finished
-//
-module.exports.saveFinish = function (req, res) {
-  return saveManager.saveFinish(req, res);
-};
-
-//
-// Call when a save has succeeded
-//
-module.exports.saveSuccess = function (req, res) {
-  return saveManager.saveSuccess(req, res);
-};
-
-//
 // Called to get history of saves
 //
 module.exports.getHistorySave = function (req, res) {

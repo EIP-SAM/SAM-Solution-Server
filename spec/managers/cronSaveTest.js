@@ -18,14 +18,6 @@ describe('initAllSaveCron', function () {
   });
 });
 
-describe('createAutoSave', function () {
-  it('should have called scheduleJob once', function() {
-    spyOn(nodeSchedule, 'scheduleJob');
-    cronSaveManager.createAutoSave('* * * * *');
-    expect(nodeSchedule.scheduleJob).toHaveBeenCalledTimes(1);
-  });
-});
-
 describe('createSaveScheduled', function () {
   it('should have called scheduleJob once', function() {
     spyOn(nodeSchedule, 'scheduleJob');

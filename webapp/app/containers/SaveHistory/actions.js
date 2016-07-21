@@ -17,7 +17,16 @@ import {
   SHOW_DELETION_SCHEDULED_SAVE_MODAL,
   SHOW_INSTANT_SAVE_MODAL,
   DELETE_SCHEDULED_SAVE_INFO,
+  SHOW_INSTANT_RESTORE_MODAL,
+  INSTANT_RESTORE,
+  RESET_RESTORE_STATE,
 } from './constants';
+
+export function resetRestoreState() {
+  return {
+    type: RESET_RESTORE_STATE,
+  };
+}
 
 export function showDeletionScheduledSaveModal() {
   return {
@@ -47,6 +56,20 @@ export function hideInstantSaveModal() {
   };
 }
 
+export function showInstantRestoreModal() {
+  return {
+    type: SHOW_INSTANT_RESTORE_MODAL,
+    showInstantRestoreModal: true,
+  };
+}
+
+export function hideInstantRestoreModal() {
+  return {
+    type: SHOW_INSTANT_RESTORE_MODAL,
+    showInstantRestoreModal: false,
+  };
+}
+
 export function getHistorySavesByUser(saves) {
   return {
     type: GET_HISTORY_SAVES_BY_USER,
@@ -60,6 +83,14 @@ export function deleteScheduledSaveInfo(saveId, saveScheduledId, username) {
     saveId,
     saveScheduledId,
     username,
+  };
+}
+
+export function instantRestore(userId, files) {
+  return {
+    type: INSTANT_RESTORE,
+    userId,
+    files,
   };
 }
 
@@ -88,5 +119,20 @@ export function cancelSave(saveId, saveScheduledId, username) {
     .end(() => {
       dispatch(getHistorySavesByUserRequest(username));
     });
+  };
+}
+
+export function createRestoreRequest(state) {
+  return function returnCreateRestoreRequest(dispatch) {
+    return request
+      .post('/create_restore')
+      .type('form')
+      .send({
+        userId: state.userId,
+        files: state.files,
+      })
+      .end(() => {
+        dispatch(resetRestoreState());
+      });
   };
 }

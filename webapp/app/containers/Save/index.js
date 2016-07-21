@@ -15,9 +15,15 @@ import {
  } from 'containers/SaveCreation/actions';
 
 import {
+  getUsers,
   getSavesRequest,
   showInstantSaveModal,
   hideInstantSaveModal,
+  showInstantRestoreModal,
+  hideInstantRestoreModal,
+  instantRestore,
+  createRestoreRequest,
+  resetRestoreState,
  } from './actions';
 
 function mapStateToProps(state) {
@@ -29,6 +35,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    getUsers: (users) => dispatch(getUsers(users)),
     listUsers: (users) => dispatch(listUsers(users)),
     getSavesRequest: () => dispatch(getSavesRequest()),
     dateSave: (date) => dispatch(dateSave(date)),
@@ -39,6 +46,11 @@ function mapDispatchToProps(dispatch) {
     hideInstantSaveModal: () => dispatch(hideInstantSaveModal()),
     createSave: (createSaveState, redirect) => dispatch(createSave(createSaveState, redirect)),
     resetStateSaveCreation: () => dispatch(resetState()),
+    showInstantRestoreModal: () => dispatch(showInstantRestoreModal()),
+    hideInstantRestoreModal: () => dispatch(hideInstantRestoreModal()),
+    instantRestore: (userId, files) => dispatch(instantRestore(userId, files)),
+    createRestoreRequest: (state) => dispatch(createRestoreRequest(state)),
+    resetRestoreState: () => dispatch(resetRestoreState()),
   };
 }
 

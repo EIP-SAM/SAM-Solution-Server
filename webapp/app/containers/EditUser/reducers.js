@@ -9,37 +9,29 @@
 //
 
 import {
-  SAVE_DATA,
   GET_USER,
   GET_CURRENT_USER,
   EDIT_USER,
+  GET_GROUPS,
 } from './constants';
 
 function editUserReducer(state = null, action) {
   switch (action.type) {
-    case SAVE_DATA:
+    case GET_USER:
       return Object.assign({}, state, {
-        username: action.username,
-        email: action.email,
-        password: action.password,
-        confirmation: action.confirmation,
+        user: action.user,
       });
-      case GET_USER:
-        return Object.assign({}, state, {
-          displayedUsername: action.displayedUsername,
-          displayedEmail: action.displayedEmail,
-
-        });
-      case GET_CURRENT_USER:
-        return Object.assign({}, state, {
-          username: action.username,
-          email: action.email,
-          password: action.password,
-          confirmation: action.confirmation,
-          // isAdmin: action.isAdmin,
-        });
+    case GET_CURRENT_USER:
+      return Object.assign({}, state, {
+        currentUser: action.currentUser,
+      });
     case EDIT_USER:
       return Object.assign({}, state, {});
+    case GET_GROUPS:
+      return Object.assign({}, state, {
+        groups: action.groups,
+        usersGroups: action.usersGroups,
+      });
     default:
       return state;
   }

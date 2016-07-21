@@ -13,7 +13,8 @@ import StatsReducer from 'containers/Stats/reducers';
 
 import loginReducer from 'containers/Login/reducers';
 import forgottenPasswordReducer from 'containers/ForgottenPassword/reducers';
-import registerReducer from 'containers/Register/reducers';
+import createUserReducer from 'containers/CreateUser/reducers';
+import createGroupReducer from 'containers/CreateGroup/reducers';
 import editUserReducer from 'containers/EditUser/reducers';
 import editGroupReducer from 'containers/EditGroup/reducers';
 import usersReducer from 'containers/Users/reducers';
@@ -64,7 +65,8 @@ export default function createReducer(asyncReducers) {
     stats: StatsReducer,
     login: loginReducer,
     forgottenPassword: forgottenPasswordReducer,
-    register: registerReducer,
+    createUser: createUserReducer,
+    createGroup: createGroupReducer,
     editUser: editUserReducer,
     editGroup: editGroupReducer,
     users: usersReducer,

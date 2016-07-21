@@ -10,6 +10,7 @@ import styles from './styles.css';
 import {
   FormGroup,
   ControlLabel,
+  HelpBlock,
   Label,
   Collapse,
 } from 'react-bootstrap';
@@ -33,6 +34,30 @@ export default class DateRange extends React.Component {
     }));
   }
 
+  setStatusStyle() {
+    if (this.state.specific) {
+      return undefined;
+    }
+    if (this.state.dateOne !== null && this.state.dateTwo !== null) {
+      if (moment(new Date(this.state.dateOne)) > moment(new Date(this.state.dateTwo))) {
+        return 'error';
+      }
+    }
+    return undefined;
+  }
+
+  setMessageStatus() {
+    if (this.state.specific) {
+      return undefined;
+    }
+    if (this.state.dateOne !== null && this.state.dateTwo !== null) {
+      if (moment(new Date(this.state.dateOne)) > moment(new Date(this.state.dateTwo))) {
+        return 'First date must be before second date';
+      }
+    }
+    return '';
+  }
+
   handleChange(name) {
     return event => {
       switch (name) {
@@ -52,30 +77,35 @@ export default class DateRange extends React.Component {
 
   render() {
     return (
-      <FormGroup>
-        <ControlLabel>
-          <h4><Label bsStyle="primary">Date</Label></h4>
-        </ControlLabel>
-        <RadioGroup
-          className={styles.radioLogs}
-          inline
-          values={['Specific', 'Range']}
-          placeholder="Specific"
-          onChange={this.handleChange('mode')}
-        />
-        <DatePicker
-          value={this.state.dateOne}
-          onChange={this.handleChange('rangeMin')}
-        />
-        <Collapse className={styles.rangeMaxLogs} in={!this.state.specific} timeout={500}>
-          <div>
-            <DatePicker
-              value={this.state.dateTwo}
-              onChange={this.handleChange('rangeMax')}
+      <div>
+        <FormGroup className={styles.dateRangeLog}>
+          <ControlLabel>
+            <h4><Label bsStyle="primary">Date</Label></h4>
+          </ControlLabel>
+          <RadioGroup
+            className={styles.radioLogs}
+            inline
+            values={['Specific', 'Range']}
+            placeholder="Specific"
+            onChange={this.handleChange('mode')}
             />
-          </div>
-        </Collapse>
-      </FormGroup>
+          </FormGroup>
+          <FormGroup validationState={this.setStatusStyle()}>
+            <DatePicker
+              value={this.state.dateOne}
+              onChange={this.handleChange('rangeMin')}
+              />
+            <Collapse className={styles.rangeMaxLogs} in={!this.state.specific} timeout={500}>
+              <div>
+                <DatePicker
+                  value={this.state.dateTwo}
+                  onChange={this.handleChange('rangeMax')}
+                  />
+              </div>
+            </Collapse>
+            <HelpBlock>{this.setMessageStatus()}</HelpBlock>
+        </FormGroup>
+      </div>
     );
   }
 }

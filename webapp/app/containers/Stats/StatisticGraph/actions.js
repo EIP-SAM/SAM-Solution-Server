@@ -42,6 +42,7 @@ export function getGraphFromServer(type) {
         if (err || res.body.error) {
           // console.log('Error occured in request to server for statistic type data : ', res);
         } else {
+          console.log(res.body);
           dispatch(getStats(GET_STATS_BY_TYPE, res.body));
         }
       });
