@@ -40,11 +40,11 @@ export class EditGroup extends React.Component {
     this.group.softwarePackagesMode = parseInt(event.target.value);
   }
 
-  onChangeUsers(name, event) {
+  onChangeUsers(name, id, event) {
     var check = 1;
     if (event == 'out') {
       for (var i = 0; i < this.group.users.length; i++) {
-        if (this.group.users[i] == name) {
+        if (this.group.users[i] == id) {
           this.group.users.splice(i, 1);
           console.log(this.group.users);
           break;
@@ -55,13 +55,13 @@ export class EditGroup extends React.Component {
       for (var i = 0; i < this.props.state.users.length; i++) {
         if (this.props.state.users[i].name == name) {
           for (var j = 0; j < this.group.users.length; j++) {
-            if (this.group.users[i] == name) {
+            if (this.group.users[i] == id) {
               check = 0;
               break;
             }
           }
           if (check == 1) {
-            this.group.users.push(this.props.state.users[i].name);
+            this.group.users.push(this.props.state.users[i].id);
           }
           console.log(this.group.users);
           break;
@@ -107,7 +107,7 @@ export class EditGroup extends React.Component {
       var usersGroups = this.props.state.usersGroups;
       this.props.state.users.map((user, i) => {
         userForm.push(<p>{user.name}</p>);
-        userForm.push(<RadioGroup inline id={user.name} values={['in', 'out']} placeholder={(usersGroups[i] == true) ? 'in' : 'out'} onChange={this.onChangeUsers.bind(this, user.name)} />);
+        userForm.push(<RadioGroup inline id={user.name} values={['in', 'out']} placeholder={(usersGroups[i] == true) ? 'in' : 'out'} onChange={this.onChangeUsers.bind(this, user.name, user.id)} />);
       });
     }
 
