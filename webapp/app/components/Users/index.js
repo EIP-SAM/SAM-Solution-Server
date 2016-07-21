@@ -4,6 +4,8 @@
 
 import React from 'react';
 import { PageHeader } from 'react-bootstrap';
+import { UserTable } from 'components/Users/Table';
+import { UserDeletionModal } from 'components/Users/Table/ModalDeletionUser';
 import styles from './styles.css';
 
 export class Users extends React.Component {
@@ -19,6 +21,15 @@ export class Users extends React.Component {
     return (
       <div container className={styles.users}>
         <PageHeader>Users</PageHeader>
+        <UserTable
+          state={this.props.state}
+          showInstantDeleteModal={this.props.showInstantDeleteModal}
+        />
+        <UserDeletionModal
+          state={this.props.state}
+          hideInstantDeleteModal={this.props.hideInstantDeleteModal}
+          deleteUser={this.props.deleteUser}
+        />
       </div>
     );
   }
@@ -27,4 +38,7 @@ export class Users extends React.Component {
 Users.propTypes = {
   state: React.PropTypes.object,
   getUsersRequest: React.PropTypes.func,
+  deleteUser: React.PropTypes.func,
+  hideInstantDeleteModal: React.PropTypes.func,
+  showInstantDeleteModal: React.PropTypes.func,
 };

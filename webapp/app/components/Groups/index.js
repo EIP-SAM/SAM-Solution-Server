@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { PageHeader } from 'react-bootstrap';
+import { GroupTable } from 'components/Groups/Table';
 import styles from './styles.css';
 
 export class Groups extends React.Component {
@@ -19,6 +20,9 @@ export class Groups extends React.Component {
     return (
       <div container className={styles.groups}>
         <PageHeader>Groups</PageHeader>
+        <GroupTable
+          state={this.props.state}
+        />
       </div>
     );
   }
