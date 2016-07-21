@@ -44,17 +44,42 @@ module.exports.getAllStatistics = function () {
   return data;
 }
 
+
+module.exports.doThings = function (type)
+{
+  return new Promise(function(fulfill, reject){
+
+
+    if (!module.exports.statisticFunctions[type])
+      return module.exports.getAllStatistics();
+    var functions = module.exports.statisticFunctions[type];
+    var data = [];
+    var callback_result;
+    var cpt = 0;
+    var arraySize = 0;
+
+    for (var j in functions)
+      arraySize++;
+
+    for (var i in functions) {
+      cpt++;
+
+
+      functions[i]().then(function(callback_result){
+        data.push(module.exports.prepareDataForGraph(callback_result));
+        if (cpt == arraySize)
+          fulfill(data);
+      });
+    }
+  })
+}
+
 module.exports.getAllStatisticsByType = function (type) {
-  if (!module.exports.statisticFunctions[type])
-    return module.exports.getAllStatistics();
-  var functions = module.exports.statisticFunctions[type];
-  var data = [];
-
-  for (var i in functions) {
-    data.push(module.exports.prepareDataForGraph(functions[i]()));
-  }
-
-  return data;
+  return new Promise(function(fulfill, reject){
+    module.exports.doThings(type).then(function(data){
+      fulfill(data);
+    })
+  });
 }
 
 module.exports.initiateGraphs = function () {
