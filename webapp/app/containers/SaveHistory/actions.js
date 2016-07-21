@@ -125,7 +125,7 @@ export function cancelSave(saveId, saveScheduledId, username) {
 export function createRestoreRequest(state) {
   return function returnCreateRestoreRequest(dispatch) {
     return request
-      .post('/createRestore')
+      .post('/create_restore')
       .type('form')
       .send({
         userId: state.userId,

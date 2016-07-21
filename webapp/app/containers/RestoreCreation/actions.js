@@ -106,7 +106,7 @@ export function getHistorySavesByUserRequest(username) {
 export function createRestoresRequest(state, redirect) {
   return function startAction(dispatch) {
     return request
-      .post('/createRestore')
+      .post('/create_restore')
       .type('form')
       .send({
         userId: state.userId,
