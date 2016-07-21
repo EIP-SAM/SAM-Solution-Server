@@ -12,6 +12,11 @@ import Td from 'components/Td';
 /* eslint-disable react/prefer-stateless-function */
 export class UserTable extends React.Component {
 
+  handleDeleteClick(save) {
+    this.props.showInstantDeleteModal();
+  }
+
+
   render() {
     const names = [{ isLink: false, value: 'Name' },
                   { isLink: false, value: 'Email' },
@@ -20,8 +25,7 @@ export class UserTable extends React.Component {
                   { isLink: false, value: 'Delete' }];
 
     let data = [];
-
-    if (typeof this.props.state.users !== 'undefined') {
+    if (this.props.state.users.users !== null) {
       if (this.props.state.users.users.length > 0) {
         data = this.props.state.users.users;
       }
@@ -45,9 +49,8 @@ export class UserTable extends React.Component {
             groupName += group.name;
             return groupName;
           });
-
-          actionEdit.push(<ButtonPopover key={`action-${0}`} trigger="hover" placement="bottom" popoverContent="Edit User" buttonType="link" icon="pencil" />);
-          actionRemove.push(<ButtonPopover key={`action-${1}`} trigger="hover" placement="bottom" popoverContent="Delete User" buttonType="link" icon="trash" />);
+          actionEdit.push(<ButtonPopover key={`action-${0}`} trigger="hover" placement="bottom" popoverContent="Edit User" buttonType="link" icon="pencil" link={`/edit-user/${user.name}`} />);
+          actionRemove.push(<ButtonPopover key={`action-${1}`} trigger="hover" placement="bottom" popoverContent="Delete User" buttonType="link" icon="trash" onClick={() => this.handleDeleteClick(user)} />);
           return (
             <Tr
               key={`row-${index}`} items={[
@@ -67,4 +70,5 @@ export class UserTable extends React.Component {
 
 UserTable.propTypes = {
   state: React.PropTypes.object,
+  showInstantDeleteModal: React.PropTypes.func,
 };
