@@ -50,7 +50,7 @@ export class CreateGroup extends React.Component {
           <PageHeader>Create Group</PageHeader>
           <FormGroup controlId="formBasicText">
             <ControlLabel>Group name</ControlLabel>
-            <FormControl type="text" placeholder='Enter your group name' onChange={this.onChangeGroupname} />
+            <FormControl type="text" placeholder='Enter group name' onChange={this.onChangeGroupname} />
             <FormGroup controlId="formControlsSelect">
               <ControlLabel>Save and restore mode</ControlLabel>
               <FormControl componentClass="select" onChange={this.onChangeSaveAndRestoreMode}>

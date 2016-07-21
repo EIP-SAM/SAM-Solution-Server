@@ -48,13 +48,13 @@ export class CreateUser extends React.Component {
           <PageHeader>Create user</PageHeader>
           <FormGroup controlId="formBasicText">
             <ControlLabel>Username</ControlLabel>
-            <FormControl type="text" placeholder='Enter you username' onChange={this.onChangeUsername} />
+            <FormControl type="text" placeholder='Enter username' onChange={this.onChangeUsername} />
             <ControlLabel>Email</ControlLabel>
-            <FormControl type="email" placeholder='Enter you email address' onChange={this.onChangeEmail} />
+            <FormControl type="email" placeholder='Enter email address' onChange={this.onChangeEmail} />
             <ControlLabel>Password</ControlLabel>
-            <FormControl type="password" placeholder='Enter your password' onChange={this.onChangePassword} />
+            <FormControl type="password" placeholder='Enter password' onChange={this.onChangePassword} />
             <ControlLabel>Password confirmation</ControlLabel>
-            <FormControl type="password" placeholder='Enter you password confirmation' onChange={this.onChangeConfirmation} />
+            <FormControl type="password" placeholder='Enter password confirmation' onChange={this.onChangeConfirmation} />
             <br />
             <LinkContainerButton buttonType='default' buttonText='Submit' onClick={this.handleClick} />
           </FormGroup>
