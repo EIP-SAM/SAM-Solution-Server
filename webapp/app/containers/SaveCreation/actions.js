@@ -10,7 +10,7 @@
 //
 
 import { browserHistory } from 'react-router';
-const request = require('superagent');
+import request from 'utils/request';
 
 import {
   RESET_STATE,
@@ -23,6 +23,11 @@ import {
   ADD_ALL_FILES,
   CAN_ADD_FILE,
   INPUT_FILE_CHANGE,
+  LIST_USERS_ERROR,
+  DATE_ERROR,
+  TIME_ERROR,
+  FREQUENCY_ERROR,
+  ADD_FILE_ERROR,
 } from './constants';
 
 export function resetState() {
@@ -101,10 +106,46 @@ export function inputFileChange(file) {
   };
 }
 
+export function userErrorMsg(userError) {
+  return {
+    type: LIST_USERS_ERROR,
+    userError,
+  };
+}
+
+export function dateErrorMsg(dateError) {
+  return {
+    type: DATE_ERROR,
+    dateError,
+  };
+}
+
+export function timeErrorMsg(timeError) {
+  return {
+    type: TIME_ERROR,
+    timeError,
+  };
+}
+
+export function frequencyErrorMsg(frequencyError) {
+  return {
+    type: FREQUENCY_ERROR,
+    frequencyError,
+  };
+}
+
+export function fileErrorMsg(fileError) {
+  return {
+    type: ADD_FILE_ERROR,
+    fileError,
+  };
+}
+
 //
 // Get username of users list in state.
 // Create save
 // Syntaxe state.users : { value: user.id }
+// Check if all elements send through the request are completed
 //
 export function createSave(state, redirect) {
   const usersId = [];
@@ -114,7 +155,7 @@ export function createSave(state, redirect) {
 
   return function createSaveRequest(dispatch) {
     return request
-      .post('http://localhost:8080/create_save')
+      .post('/create_save')
       .type('form')
       .send({
         usersId,
@@ -126,8 +167,8 @@ export function createSave(state, redirect) {
       .end(() => {
         if (redirect) {
           browserHistory.goBack();
-          dispatch(resetState());
         }
+        dispatch(resetState());
       });
   };
 }

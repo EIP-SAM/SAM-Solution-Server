@@ -9,7 +9,8 @@
 //    }
 //
 
-const request = require('superagent');
+import request from 'utils/request';
+
 import { push } from 'react-router-redux';
 
 import {
@@ -24,7 +25,7 @@ export function onChangeData(username, email, password, confirmation) {
     email: email,
     password: password,
     confirmation: confirmation,
-  }
+  };
 }
 
 export function createUser(user) {
@@ -37,7 +38,7 @@ export function createUser(user) {
 export function createUserRequest(username, email, password, confirmation) {
   return function returnCreateUserRequest(dispatch) {
     return request
-      .post('http://localhost:8080/api/public/user/sign-up')
+      .post('/api/public/user/sign-up')
       .type('form')
       .send({ username, email, password, confirmation })
       .end((err, res) => {
@@ -45,6 +46,6 @@ export function createUserRequest(username, email, password, confirmation) {
         if (res.body.success) {
           dispatch(push('/login'));
         }
-    });
+      });
   };
 }

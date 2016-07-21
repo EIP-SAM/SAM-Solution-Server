@@ -9,25 +9,34 @@
 //
 
 import {
+  RESET_STATE,
   GET_HISTORY_SAVES_BY_USER,
   USER,
   USER_ID,
   LIST_FILES,
-  LIST_SAVES,
+  SELECTED_SAVE,
   SELECTED_FILES,
+  SAVE_ERROR,
+  FILES_ERROR,
 } from './constants';
 
 const initialState = {
   user: '',
   userId: '',
   files: [],
-  saves: [],
+  save: [],
   allSaves: [],
   selectedFiles: [],
+  saveError: '',
+  filesError: '',
 };
 
 function RestoreCreationReducer(state = initialState, action) {
   switch (action.type) {
+    case RESET_STATE:
+      return Object.assign({}, initialState, {
+        allSaves: [],
+      });
     case GET_HISTORY_SAVES_BY_USER:
       return Object.assign({}, state, {
         allSaves: action.allSaves,
@@ -48,9 +57,17 @@ function RestoreCreationReducer(state = initialState, action) {
       return Object.assign({}, state, {
         selectedFiles: action.selectedFiles,
       });
-    case LIST_SAVES:
+    case SELECTED_SAVE:
       return Object.assign({}, state, {
-        saves: action.saves,
+        save: action.save,
+      });
+    case SAVE_ERROR:
+      return Object.assign({}, state, {
+        saveError: action.saveError,
+      });
+    case FILES_ERROR:
+      return Object.assign({}, state, {
+        filesError: action.filesError,
       });
     default:
       return state;

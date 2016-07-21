@@ -28,7 +28,7 @@ export function createGroupRequest(group) {
   console.log(group);
   return function returnCreateGroupRequest(dispatch) {
     return request
-      .post('http://localhost:8080/api/logged-in/admin/groups/create')
+      .post('/api/logged-in/admin/groups/create')
       .type('json')
       .send({ group })
       .end((err, res) => {

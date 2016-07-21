@@ -4,8 +4,25 @@
 
 import { connect } from 'react-redux';
 import { SaveHistory } from 'components/SaveHistory';
-import { listUsers, dateSave, timeSave, frequencySave, addAllFiles, createSave } from 'containers/SaveCreation/actions';
-import { getHistorySavesByUserRequest, showDeletionScheduledSaveModal, hideDeletionScheduledSaveModal, cancelSave, showInstantSaveModal, hideInstantSaveModal, deleteScheduledSaveInfo } from './actions';
+import {
+  listUsers,
+  dateSave,
+  timeSave,
+  frequencySave,
+  addAllFiles,
+  createSave,
+  resetState,
+ } from 'containers/SaveCreation/actions';
+
+import {
+  getHistorySavesByUserRequest,
+  showDeletionScheduledSaveModal,
+  hideDeletionScheduledSaveModal,
+  cancelSave,
+  showInstantSaveModal,
+  hideInstantSaveModal,
+  deleteScheduledSaveInfo,
+  } from './actions';
 
 
 function mapStateToProps(state) {
@@ -30,6 +47,7 @@ function mapDispatchToProps(dispatch) {
     showInstantSaveModal: () => dispatch(showInstantSaveModal()),
     hideInstantSaveModal: () => dispatch(hideInstantSaveModal()),
     createSave: (createSaveState, redirect) => dispatch(createSave(createSaveState, redirect)),
+    resetStateSaveCreation: () => dispatch(resetState()),
   };
 }
 

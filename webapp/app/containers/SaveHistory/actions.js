@@ -10,7 +10,7 @@
 //
 
 import { getUsers } from 'containers/Save/actions';
-const request = require('superagent');
+import request from 'utils/request';
 
 import {
   GET_HISTORY_SAVES_BY_USER,
@@ -66,8 +66,8 @@ export function deleteScheduledSaveInfo(saveId, saveScheduledId, username) {
 export function getHistorySavesByUserRequest(username) {
   return function returnGetHistorySavesRequest(dispatch) {
     return request
-      .get('http://localhost:8080/history_save')
-      .set({ username })
+      .get('/history_save')
+      .query({ username })
       .end((err, res) => {
         dispatch(getHistorySavesByUser(res.body));
         const users = [{ id: res.body[0].save_scheduled.user.id, name: res.body[0].save_scheduled.user.name }];
@@ -79,7 +79,7 @@ export function getHistorySavesByUserRequest(username) {
 export function cancelSave(saveId, saveScheduledId, username) {
   return function returnCancelSave(dispatch) {
     return request
-    .post('http://localhost:8080/cancel_save')
+    .post('/cancel_save')
     .type('form')
     .send({
       saveScheduledId,
