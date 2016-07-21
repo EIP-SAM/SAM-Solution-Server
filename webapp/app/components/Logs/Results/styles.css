@@ -36,11 +36,11 @@
   line-height: 1.4em;
 }
 
-.loggerLogsCol {
+.moduleLogsCol {
   width: 15%;
 }
 
-.loggerLogsCol span {
+.moduleLogsCol span {
   float: right !important;
   line-height: 1.4em;
 }

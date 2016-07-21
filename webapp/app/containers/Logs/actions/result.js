@@ -13,6 +13,7 @@ import request from 'utils/request';
 import {
   GET_FILTERED_LOGS,
   CLEAR_LOGS,
+  SET_SORTS,
 } from '../constants/result';
 
 export function getLogs(type, logs) {
@@ -41,5 +42,12 @@ export function getFilteredLogs(filters) {
           dispatch(getLogs(GET_FILTERED_LOGS, res.body));
         }
       });
+  };
+}
+
+export function setSorts(sorts) {
+  return {
+    type: SET_SORTS,
+    sorts,
   };
 }
