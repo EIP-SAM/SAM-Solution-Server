@@ -1,5 +1,24 @@
 .editGroup {
-  width:350px;
+  width: 600px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.editGroupRightLine {
+  margin-bottom: 10px;
+  padding: 0px;
+}
+
+.editGroupName {
+  padding: 0px;
+}
+
+.editGroup FromControl {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 991px) {
+  .editGroup {
+    width: 495px;
+  }
 }
