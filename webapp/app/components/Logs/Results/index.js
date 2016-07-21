@@ -7,10 +7,12 @@ import React from 'react';
 import moment from 'moment';
 import styles from './styles.css';
 import levels from './levels.json';
+import Loader from 'halogen';
 import {
   Table,
   Label,
   Glyphicon,
+  Alert,
 } from 'react-bootstrap';
 
 const pageHeaderHeight = 130;
@@ -28,6 +30,7 @@ export default class LogResult extends React.Component {
     this.sortByModule = this.sortByModule.bind(this);
     this.sortByMessage = this.sortByMessage.bind(this);
     this.getSortStyle = this.getSortStyle.bind(this);
+    this.getRequestInfo = this.getRequestInfo.bind(this);
   }
 
   componentDidMount() {
@@ -43,6 +46,20 @@ export default class LogResult extends React.Component {
       return 'chevron-up';
     }
     return 'chevron-down';
+  }
+
+  getRequestInfo() {
+    if (this.props.isLoading) {
+      return <Loader.PulseLoader className={styles.logsResultLoader} color="#006dcc" />;
+    } else if (this.props.logs.error) {
+      return (
+        <Alert bsStyle="danger">
+          <h4>Server Error !</h4>
+          <p>Sorry, something seems to be wrong with the server..</p>
+        </Alert>
+      );
+    }
+    return '';
   }
 
   handleResize() {
@@ -166,6 +183,7 @@ export default class LogResult extends React.Component {
             ))}
           </tbody>
         </Table>
+        {this.getRequestInfo()}
       </div>
     );
   }
@@ -174,5 +192,6 @@ export default class LogResult extends React.Component {
 LogResult.propTypes = {
   logs: React.PropTypes.object.isRequired,
   sorts: React.PropTypes.string.isRequired,
+  isLoading: React.PropTypes.bool.isRequired,
   setSorts: React.PropTypes.func.isRequired,
 };
