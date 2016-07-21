@@ -104,11 +104,15 @@ function checkAndCreateUser(name, email, password, confirmation) {
 // Security check for each url of this kind : /api/public/*
 //
 module.exports.ensureLoggedOut = function (req, res, next) {
-  if (req.user) {
-    logger.setUser({ id: req.user.id, name: req.user.name }).warn('Logged user is trying to access a public (logged-out) ressource');
-    res.status(401).json({ error: 'Already logged-in' });
+  if (req.method == 'OPTIONS') {
+    res.end();
   } else {
-    next();
+    if (req.user) {
+      logger.setUser({ id: req.user.id, name: req.user.name }).warn('Logged user is trying to access a public (logged-out) ressource');
+      res.status(401).json({ error: 'Already logged-in' });
+    } else {
+      next();
+    }
   }
 };
 
@@ -116,11 +120,15 @@ module.exports.ensureLoggedOut = function (req, res, next) {
 // Security check for each url of this kind : /api/logged-in/*
 //
 module.exports.ensureLoggedIn = function (req, res, next) {
-  if (req.user) {
-    next();
+  if (req.method == 'OPTIONS') {
+    res.end();
   } else {
-    logger.warn('Non logged user is trying to access a protected ressource');
-    res.status(401).json({ error: 'Not logged-in' });
+    if (req.user) {
+      next();
+    } else {
+      logger.warn('Non logged user is trying to access a protected ressource');
+      res.status(401).json({ error: 'Not logged-in' });
+    }
   }
 };
 
@@ -128,11 +136,15 @@ module.exports.ensureLoggedIn = function (req, res, next) {
 // Security check for each url of this kind : /api/logged-in/admin/*
 //
 module.exports.ensureAdminLoggedIn = function (req, res, next) {
-  if (req.user.isAdmin) {
-    next();
+  if (req.method == 'OPTIONS') {
+    res.end();
   } else {
-    logger.setUser({ id: req.user.id, name: req.user.name }).warn('Non admin user is trying to access a protected ressource');
-    res.status(401).json({ error: 'Access denied' });
+    if (req.user.isAdmin) {
+      next();
+    } else {
+      logger.setUser({ id: req.user.id, name: req.user.name }).warn('Non admin user is trying to access a protected ressource');
+      res.status(401).json({ error: 'Access denied' });
+    }
   }
 };
 
