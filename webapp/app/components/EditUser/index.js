@@ -155,7 +155,7 @@ export class EditUser extends React.Component {
             <ControlLabel>Groups</ControlLabel>
             { resGroups }
             <br />
-            <LinkContainerButton buttonType='default' buttonText='Submit' onClick={this.handleClick} />
+            <LinkContainerButton buttonType='default' buttonText='Edit' onClick={this.handleClick} />
           </FormGroup>
         </form>
       </div>
