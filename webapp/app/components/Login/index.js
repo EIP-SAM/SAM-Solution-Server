@@ -12,8 +12,12 @@ export class Login extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this)
-    this.handleClick = this.handleClick.bind(this)
+    this.onChangePassword = this.onChangePassword.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.logoutRequest();
   }
 
   onChangeUsername(event) {
@@ -38,7 +42,7 @@ export class Login extends React.Component {
             <FormControl type="text" placeholder={this.props.state.username} onChange={this.onChangeUsername} />
             <ControlLabel>Password</ControlLabel>
             <FormControl type="password" placeholder={this.props.state.password} onChange={this.onChangePassword} />
-            <LinkContainerButton buttonType='default' buttonText='Log In' onClick={this.handleClick} />
+            <LinkContainerButton buttonType="default" buttonText="Log In" onClick={this.handleClick} />
           </FormGroup>
         </form>
         <a href="/register">Register</a><br />
@@ -51,5 +55,6 @@ export class Login extends React.Component {
 Login.propTypes = {
   state: React.PropTypes.object,
   loginRequest: React.PropTypes.func,
+  logoutRequest: React.PropTypes.func,
   onChangeData: React.PropTypes.func,
 };
