@@ -41,6 +41,7 @@ export default class NavbarContainer extends React.Component {
       ];
     }
 
+    console.log(this.props.username.user);
     return (
       <Navbar inverse className={styles.position}>
         <Navbar.Header className={styles.noFloat}>
@@ -62,3 +63,7 @@ export default class NavbarContainer extends React.Component {
     );
   }
 }
+
+NavbarContainer.propTypes = {
+  username: React.PropTypes.object,
+};
