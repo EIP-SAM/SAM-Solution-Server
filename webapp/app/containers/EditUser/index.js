@@ -3,10 +3,11 @@
 //
 
 import { connect } from 'react-redux';
-import { onChangeData } from './actions';
 import { getUserRequest } from './actions';
 import { getCurrentUserRequest } from './actions';
+import { editUserAdminRequest } from './actions';
 import { editUserRequest } from './actions';
+import { getGroupsRequest } from './actions';
 import { EditUser } from 'components/EditUser';
 
 function mapStateToProps(state) {
@@ -17,10 +18,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onChangeData: (username, email, password, confirmation) => dispatch(onChangeData(username, email, password, confirmation)),
-    getUserRequest: (username) => dispatch(getUserRequest(username)),
+    getUserRequest: (username, callback) => dispatch(getUserRequest(username, callback)),
     getCurrentUserRequest: () => dispatch(getCurrentUserRequest()),
-    editUserRequest: (username, email, password, confirmation) => dispatch(editUserRequest(username, email, password, confirmation)),
+    editUserAdminRequest: (user) => dispatch(editUserAdminRequest(user)),
+    editUserRequest: (user) => dispatch(editUserRequest(user)),
+    getGroupsRequest: (groups) => dispatch(getGroupsRequest(groups)),
   };
 }
 

@@ -5,7 +5,7 @@
 import { connect } from 'react-redux';
 import { editGroupRequest } from './actions';
 import { getGroupRequest } from './actions';
-import { onChangeData } from './actions';
+import { getUsersRequest } from './actions';
 import { EditGroup } from 'components/EditGroup';
 
 function mapStateToProps(state) {
@@ -16,9 +16,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onChangeData: (groupname, saveAndRestoreMode, migrationMode, softwarePackages) => dispatch(onChangeData(groupname, saveAndRestoreMode, migrationMode, softwarePackages)),
-    getGroupRequest: (groupname) => dispatch(getGroupRequest(groupname)),
-    editGroupRequest: (groupname, saveAndRestoreMode, migrationMode, softwarePackages) => dispatch(editGroupRequest(groupname, saveAndRestoreMode, migrationMode, softwarePackages)),
+    getGroupRequest: (groupname, callback) => dispatch(getGroupRequest(groupname, callback)),
+    editGroupRequest: (groups) => dispatch(editGroupRequest(groups)),
+    getUsersRequest: (users) => dispatch(getUsersRequest(users)),
   };
 }
 

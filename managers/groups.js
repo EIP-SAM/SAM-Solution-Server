@@ -97,9 +97,19 @@ function createGroups(groups) {
     const obj = { errors: [], i: 0, array: groups };
 
     groups.forEach(function (group) {
-      createGroup(group).then(function (group) {
-        logger.info('New group created (by an administrator): id: ' + group.id + ' name: ' + group.name);
-        stopForEachPromise(obj, null, fulfill);
+      createGroup(group).then(function (newGroup) {
+        if (group.users && group.users.constructor == Array) {
+          UsersAdapter.reassignUsersToGroup(newGroup, group.users).then(function () {
+            logger.info({ group: { id: newGroup.id, name: newGroup.name } }, 'New group created (by an administrator)');
+            stopForEachPromise(obj, null, fulfill);
+          }).catch(function (error) {
+            logger.warn({ error: error }, 'Error during group creation (by an administrator)');
+            stopForEachPromise(obj, null, fulfill);
+          });
+        } else {
+          logger.info({ group: { id: newGroup.id, name: newGroup.name } }, 'New group created (by an administrator)');
+          stopForEachPromise(obj, null, fulfill);
+        }
       }).catch(function (error) {
         logger.warn('Error during new group creation (by an administrator): name: ' + group.name + 'error: ' + error);
         stopForEachPromise(obj, error, fulfill);
@@ -132,13 +142,23 @@ function updateGroups(groups) {
           group.saveAndRestoreMode = groupUpdate.saveAndRestoreMode ? groupUpdate.saveAndRestoreMode : group.saveAndRestoreMode;
           group.migrationMode = groupUpdate.migrationMode ? groupUpdate.migrationMode : group.migrationMode;
           group.softwarePackagesMode = groupUpdate.softwarePackagesMode ? groupUpdate.softwarePackagesMode : group.softwarePackagesMode;
-          group.save().then(function () {
-            logger.info('Group updated (by an administrator): id: ' + group.id + ' name: ' + group.name);
-            stopForEachPromise(obj, null, fulfill);
+          group.save().then(function (group) {
+            if (groupUpdate.users && groupUpdate.users.constructor == Array) {
+              UsersAdapter.reassignUsersToGroup(group, groupUpdate.users).then(function () {
+                logger.info({ group: { id: group.id, name: group.name } }, 'Group updated (by an administrator)');
+                stopForEachPromise(obj, null, fulfill);
+              }).catch(function (error) {
+                logger.warn({ error: error }, 'Error during group update (by an administrator)');
+                stopForEachPromise(obj, null, fulfill);
+              });
+            } else {
+              logger.info({ group: { id: group.id, name: group.name } }, 'Group updated (by an administrator)');
+              stopForEachPromise(obj, null, fulfill);
+            }
           });
         } else {
-          logger.warn('Error during group update (by an administrator): id: ' + groupId + ' not found');
-          stopForEachPromise(obj, 'Group id ' + groupId + ' not found', fulfill);
+          logger.warn({ group: { id: groupUpdate.id }, error: 'Group id ' + groupUpdate.id + ' not found' }, 'Error during group update (by an administrator)');
+          stopForEachPromise(obj, 'Group id ' + groupUpdate.id + ' not found', fulfill);
         }
       });
     });
@@ -174,7 +194,7 @@ function deleteGroups(groups) {
           stopForEachPromise(obj, 'Group id ' + groupId + ' not found', fulfill);
         }
       }).catch(function (error) {
-          logger.warn('Error during group deletion (by an administrator): id: ' + groupId + 'not found');
+        logger.warn('Error during group deletion (by an administrator): id: ' + groupId + 'not found');
         stopForEachPromise(obj, 'Group id ' + groupId + ' not found', fulfill);
       });
     });

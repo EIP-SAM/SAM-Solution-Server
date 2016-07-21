@@ -9,6 +9,7 @@ module.exports = function initExpress(conf) {
 
   // init global middleware
   app.use(cookieParser(conf.secret));
+  app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(flash());
 
@@ -16,6 +17,7 @@ module.exports = function initExpress(conf) {
     if (req.get('origin'))
       res.setHeader('Access-Control-Allow-Origin', req.get('origin'));
     res.setHeader('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
   });
 
