@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { PageHeader } from 'react-bootstrap';
+import { UserTable } from 'components/Users/Table';
 import styles from './styles.css';
 
 export class Users extends React.Component {
@@ -19,6 +20,9 @@ export class Users extends React.Component {
     return (
       <div container className={styles.users}>
         <PageHeader>Users</PageHeader>
+        <UserTable
+          state={this.props.state}
+        />
       </div>
     );
   }
