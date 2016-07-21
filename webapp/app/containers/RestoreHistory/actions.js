@@ -40,7 +40,7 @@ export function getHistoryRestoresByUser(restores) {
 export function getHistoryRestoresByUserRequest(username) {
   return function returnGetHistoryRestoresByUserRequest(dispatch) {
     return request
-      .get('/historyRestore')
+      .get('/history_restore')
       .query({ username })
       .end((err, res) => {
         dispatch(getHistoryRestoresByUser(res.body));
