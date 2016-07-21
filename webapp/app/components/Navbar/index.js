@@ -61,7 +61,6 @@ export default class NavbarContainer extends React.Component {
       </Navbar>
     );
     const empty = (<span></span>);
-    console.log(this.props.username.isLogin);
     const endNavBar = (!this.props.username.isLogin) ? navBar : empty;
 
     return (

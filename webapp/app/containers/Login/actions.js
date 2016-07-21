@@ -69,7 +69,7 @@ export function logoutRequest() {
           console.log(err);
         }
         else {
-          dispatch(userIsLogin(false));
+          dispatch(userIsLogin(true));
         }
       });
   };
