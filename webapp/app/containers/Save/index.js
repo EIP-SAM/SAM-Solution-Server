@@ -15,6 +15,7 @@ import {
  } from 'containers/SaveCreation/actions';
 
 import {
+  getUsers,
   getSavesRequest,
   showInstantSaveModal,
   hideInstantSaveModal,
@@ -29,6 +30,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    getUsers: (users) => dispatch(getUsers(users)),
     listUsers: (users) => dispatch(listUsers(users)),
     getSavesRequest: () => dispatch(getSavesRequest()),
     dateSave: (date) => dispatch(dateSave(date)),

@@ -64,10 +64,10 @@ module.exports.createSave = function (req, res) {
     cron = cronManager.parseDateFrequencyToCron(dateFormat, frequency);
   }
 
-  let users = [];
   if (typeof usersId === 'string' ) {
     usersId = usersId.split();
   }
+
   for (const user of usersId) {
     saveScheduledAdapter.createSaveScheduled(user, cron, files.toString()).then(
       function (saveScheduled) {
