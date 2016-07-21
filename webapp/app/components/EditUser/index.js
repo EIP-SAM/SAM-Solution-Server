@@ -73,8 +73,7 @@ export class EditUser extends React.Component {
 
   handleClick(event) {
     var users = [];
-    const user = this.user;
-    users.push(user);
+    users.push(this.user);
     this.props.editUserAdminRequest(users);
   }
 
@@ -125,7 +124,7 @@ export class EditUser extends React.Component {
     if (exist == false) {
       return (
         <div>
-          <h3>Error : user not found</h3>
+          <h3>{this.props.state.user.error}</h3>
         </div>
       );
     }

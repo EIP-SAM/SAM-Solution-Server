@@ -40,7 +40,7 @@ export function getUserRequest(username, callback) {
         }
         console.log('user affiche sur la page : ');
         if (!res.body.users[i]) {
-          var user = {error: 'User not found'};
+          var user = {error: 'Error : User ' + username + ' not found'};
           console.log(user);
           dispatch(getUser(user));
         } else {
@@ -107,7 +107,7 @@ export function editUserRequest(user) {
   return function returnEditUserRequest(dispatch) {
     return request
       .post('http://localhost:8080/api/logged-in/user/profile/update')
-      .type('form')
+      .type('json')
       .send({ user })
       .end((err, res) => {
         console.log('reponse a /api/logged-in/user/profile/update :');

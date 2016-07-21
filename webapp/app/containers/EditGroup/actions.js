@@ -14,39 +14,38 @@ const request = require('../../agent');
 import {
   EDIT_GROUP,
   GET_GROUP,
-  SAVE_DATA,
+  GET_USERS,
 } from './constants';
-
-export function onChangeData(groupname, saveAndRestoreMode, migrationMode, softwarePackagesMode) {
-  return {
-    type: SAVE_DATA,
-    groupname: groupname,
-    saveAndRestoreMode: saveAndRestoreMode,
-    migrationMode: migrationMode,
-    softwarePackages: softwarePackages,
-  }
-}
 
 export function getGroup(group) {
   return {
     type: GET_GROUP,
-    displayedGroupname: group.name,
-    displayedSaveAndRestoreMode: group.saveAndRestoreMode,
-    displayedMigrationMode: group.migrationMode,
-    displayedSoftwarePackagesMode: group.softwarePackagesMode,
+    group: group,
   }
 }
 
-export function getGroupRequest(groupname) {
+export function getGroupRequest(groupname, callback) {
+  console.log('get : /api/logged-in/admin/groups :');
   return function returnGetGroupRequest(dispatch) {
     return request
       .get('http://localhost:8080/api/logged-in/admin/groups')
       .end((err, res) => {
+        console.log('reponse a /api/logged-in/admin/groups :');
+        console.log(res.body);
         var i = 0;
         while (i < res.body.groups.length && res.body.groups[i].name != groupname) {
           ++i;
         }
-        dispatch(getGroup(res.body.groups[i]));
+        console.log('group affiche sur la page : ');
+        if (!res.body.groups[i]) {
+          var group = {error: 'Error : Group ' + groupname + ' not found'};
+          console.log(group);
+          dispatch(getGroup(group));
+        } else {
+          console.log(res.body.groups[i]);
+          dispatch(getGroup(res.body.groups[i]));
+          callback(res.body.groups[i].users);
+        }
     });
   };
 }
@@ -58,14 +57,58 @@ export function editGroup(group) {
   };
 }
 
-export function editGroupRequest(groupname, saveAndRestoreMode, migrationMode, softwarePackages) {
+export function editGroupRequest(groups) {
+  console.log('requete envoyee a /api/logged-in/admin/groups/update :');
+  console.log(groups);
   return function returnEditGroupRequest(dispatch) {
     return request
-      .post('http://localhost:8080/api/logged-in/groups/update')
-      .type('form')
-      .send({ groupname, saveAndRestoreMode, migrationMode, softwarePackages })
+      .post('http://localhost:8080/api/logged-in/admin/groups/update')
+      .type('json')
+      .send({ groups })
       .end((err, res) => {
+        console.log('reponse a /api/logged-in/admin/groups/update :');
+        console.log(res.body);
         dispatch(editGroup(res.body));
+        if (res.body.name) {
+          browserHistory.push('/edit-group/' + groups[0].name);
+        }
+    });
+  };
+}
+
+export function getUsers(users, group) {
+  var usersGroups = [];
+  var i = 0;
+  while (i < users.length) {
+    var j = 0;
+    while (j < group.length) {
+      if (group[j].id == users[i].id) {
+        usersGroups.push(true);
+        break;
+      }
+      ++j;
+      if (j == group.length)
+        usersGroups.push(false);
+    }
+    i++;
+  }
+
+  return {
+    type: GET_USERS,
+    users: users,
+    usersGroups: usersGroups,
+  }
+}
+
+export function getUsersRequest(users) {
+  console.log('get : /api/logged-in/admin/users :');
+  return function returnGetUsersRequest(dispatch) {
+    return request
+      .get('http://localhost:8080/api/logged-in/admin/users')
+      .end((err, res) => {
+        console.log('reponse a /api/logged-in/admin/users :');
+        console.log(res.body);
+        dispatch(getUsers(res.body.users, users));
     });
   };
 }

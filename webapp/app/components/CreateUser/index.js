@@ -1,5 +1,5 @@
 //
-// Component Register
+// Component CreateUser
 //
 
 import React from 'react';
@@ -7,7 +7,7 @@ import { FormGroup, FormControl, ControlLabel, PageHeader } from 'react-bootstra
 import { LinkContainerButton } from '../Button';
 import styles from './styles.css';
 
-export class Register extends React.Component {
+export class CreateUser extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeUsername = this.onChangeUsername.bind(this);
@@ -34,14 +34,14 @@ export class Register extends React.Component {
   }
 
   handleClick(event) {
-    this.props.registerRequest(this.props.state.username, this.props.state.email, this.props.state.password, this.props.state.confirmation);
+    this.props.createUserRequest(this.props.state.username, this.props.state.email, this.props.state.password, this.props.state.confirmation);
   }
 
   render() {
     return (
-      <div container className={styles.register}>
+      <div container className={styles.createUser}>
         <form>
-          <PageHeader>Register</PageHeader>
+          <PageHeader>Create user</PageHeader>
           <FormGroup controlId="formBasicText">
             <ControlLabel>Username</ControlLabel>
             <FormControl type="email" value={this.props.state.username} onChange={this.onChangeUsername} />
@@ -59,12 +59,8 @@ export class Register extends React.Component {
   }
 }
 
-Register.propTypes = {
+CreateUser.propTypes = {
   state: React.PropTypes.object,
-  registerRequest: React.PropTypes.func,
+  createUserRequest: React.PropTypes.func,
   onChangeData: React.PropTypes.func,
-};
-
-/*componentWillMount() {
-      this.props.getProfileRequest();
-  }*/
+}

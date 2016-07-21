@@ -1,5 +1,5 @@
 //
-// Register actions
+// CreateUser actions
 //
 // To add a new Action :
 // 1) Import you constant
@@ -13,7 +13,7 @@ const request = require('superagent');
 import { push } from 'react-router-redux';
 
 import {
-  REGISTER,
+  CREATE_USER,
   SAVE_DATA,
 } from './constants';
 
@@ -27,21 +27,21 @@ export function onChangeData(username, email, password, confirmation) {
   }
 }
 
-export function register(user) {
+export function createUser(user) {
   return {
-    type: REGISTER,
+    type: CREATE_USER,
     user: user,
   };
 }
 
-export function registerRequest(username, email, password, confirmation) {
-  return function returnRegisterRequest(dispatch) {
+export function createUserRequest(username, email, password, confirmation) {
+  return function returnCreateUserRequest(dispatch) {
     return request
       .post('http://localhost:8080/api/public/user/sign-up')
       .type('form')
       .send({ username, email, password, confirmation })
       .end((err, res) => {
-        dispatch(register(res.body));
+        dispatch(createUser(res.body));
         if (res.body.success) {
           dispatch(push('/login'));
         }

@@ -3,24 +3,24 @@
 //
 
 import { connect } from 'react-redux';
-import { registerRequest } from './actions';
+import { createUserRequest } from './actions';
 import { onChangeData } from './actions';
-import { Register } from 'components/Register';
+import { CreateUser } from 'components/CreateUser';
 
 function mapStateToProps(state) {
   return {
-    state: state.get('register'),
+    state: state.get('createUser'),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     onChangeData: (username, email, password, confirmation) => dispatch(onChangeData(username, email, password, confirmation)),
-    registerRequest: (username, email, password, confirmation) => dispatch(registerRequest(username, email, password, confirmation)),
+    createUserRequest: (username, email, password, confirmation) => dispatch(createUserRequest(username, email, password, confirmation)),
   };
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Register);
+)(CreateUser);
