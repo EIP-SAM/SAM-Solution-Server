@@ -3,7 +3,7 @@
 //
 
 import React from 'react';
-import { FormGroup, FormControl, ControlLabel, PageHeader, Radio } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, PageHeader, Col } from 'react-bootstrap';
 import { LinkContainerButton } from '../Button';
 import RadioGroup from '../RadioGroup';
 import styles from './styles.css';
@@ -96,8 +96,12 @@ export class EditUser extends React.Component {
     if (this.props.state.groups) {
       var usersGroups = this.props.state.usersGroups;
       this.props.state.groups.map((group, i) => {
-        groupForm.push(<p>{group.name}</p>);
-        groupForm.push(<RadioGroup inline id={group.name} values={['in', 'out']} placeholder={(usersGroups[i] == true) ? 'in' : 'out'} onChange={this.onChangeGroups.bind(this, group.name)} />);
+        groupForm.push(
+          <Col key={i} xs={12} className={styles.editUserRightLine}>
+            <Col xs={4} className={styles.editUserName}>{group.name}</Col>
+            <RadioGroup inline id={group.name} values={['in', 'out']} placeholder={(usersGroups[i] === true) ? 'in' : 'out'} onChange={this.onChangeGroups.bind(this, group.name)} />
+          </Col>
+        );
       });
 
       var groupDisplay = [];
@@ -107,7 +111,7 @@ export class EditUser extends React.Component {
       });
       var resGroups = (admin == 0 ? groupDisplay : groupForm);
     } else {
-      var resGroup = [];
+      var resGroups = [];
     }
 
     var exist = true;
@@ -143,18 +147,25 @@ export class EditUser extends React.Component {
         <form>
           <PageHeader>Edit user</PageHeader>
           <FormGroup controlId="formBasicText">
-            <ControlLabel>Username</ControlLabel>
-            <FormControl type="text" placeholder={this.user.name} onChange={this.onChangeUsername} />
-            <ControlLabel>Email</ControlLabel>
-            <FormControl type="email" placeholder={this.user.email} onChange={this.onChangeEmail} />
-            <ControlLabel>Password</ControlLabel>
-            <FormControl type="password" placeholder='********' onChange={this.onChangePassword} />
-            <ControlLabel>Password confirmation</ControlLabel>
-            <FormControl type="password" placeholder='********' onChange={this.onChangeConfirmation} />
+            <FormGroup>
+              <ControlLabel>Username</ControlLabel>
+              <FormControl type="text" placeholder={this.user.name} onChange={this.onChangeUsername} />
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Email</ControlLabel>
+              <FormControl type="email" placeholder={this.user.email} onChange={this.onChangeEmail} />
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Password</ControlLabel>
+              <FormControl type="password" placeholder='********' onChange={this.onChangePassword} />
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Password confirmation</ControlLabel>
+              <FormControl type="password" placeholder='********' onChange={this.onChangeConfirmation} />
+            </FormGroup>
             <br />
             <ControlLabel>Groups</ControlLabel>
             { resGroups }
-            <br />
             <LinkContainerButton buttonType='default' buttonText='Edit' onClick={this.handleClick} />
           </FormGroup>
         </form>

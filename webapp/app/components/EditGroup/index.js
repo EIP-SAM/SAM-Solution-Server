@@ -3,7 +3,7 @@
 //
 
 import React from 'react';
-import { FormGroup, FormControl, ControlLabel, PageHeader } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, PageHeader, Col } from 'react-bootstrap';
 import { LinkContainerButton } from '../Button';
 import RadioGroup from '../RadioGroup';
 import styles from './styles.css';
@@ -106,8 +106,12 @@ export class EditGroup extends React.Component {
     if (this.props.state.users) {
       var usersGroups = this.props.state.usersGroups;
       this.props.state.users.map((user, i) => {
-        userForm.push(<p>{user.name}</p>);
-        userForm.push(<RadioGroup inline id={user.name} values={['in', 'out']} placeholder={(usersGroups[i] == true) ? 'in' : 'out'} onChange={this.onChangeUsers.bind(this, user.name, user.id)} />);
+        userForm.push(
+          <Col key={i} xs={12} className={styles.editGroupRightLine}>
+            <Col xs={4} className={styles.editGroupName}>{user.name}</Col>
+            <RadioGroup inline id={user.name} values={['in', 'out']} placeholder={(usersGroups[i] == true) ? 'in' : 'out'} onChange={this.onChangeUsers.bind(this, user.name, user.id)} />
+          </Col>
+        );
       });
     }
 
@@ -151,8 +155,10 @@ export class EditGroup extends React.Component {
         <form>
           <PageHeader>Edit Group</PageHeader>
           <FormGroup controlId="formBasicText">
-            <ControlLabel>Group name</ControlLabel>
-            <FormControl type="text" placeholder={this.group.name} onChange={this.onChangeGroupname} />
+            <FormGroup>
+              <ControlLabel>Group name</ControlLabel>
+              <FormControl type="text" placeholder={this.group.name} onChange={this.onChangeGroupname} />
+            </FormGroup>
             <FormGroup controlId="formControlsSelect">
               <ControlLabel>Save and restore mode</ControlLabel>
               <FormControl componentClass="select" placeholder={this.group.saveAndRestoreMode} onChange={this.onChangeSaveAndRestoreMode}>
@@ -174,7 +180,6 @@ export class EditGroup extends React.Component {
                 <option value={this.getValue(2, this.group.softwarePackagesMode)}>{this.getMode(2, this.group.softwarePackagesMode)}</option>
               </FormControl>
             </FormGroup>
-            <br />
             <ControlLabel>Users</ControlLabel>
             { userForm }
             <br />
