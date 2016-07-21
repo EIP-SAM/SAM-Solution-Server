@@ -16,6 +16,7 @@ import { browserHistory } from 'react-router';
 import {
   LOGIN,
   SAVE_DATA,
+  IS_LOGIN,
 } from './constants';
 
 export function onChangeData(username, password) {
@@ -33,6 +34,12 @@ export function login(user) {
   };
 }
 
+export function userIsLogin(isLogin) {
+  return {
+    type: IS_LOGIN,
+    isLogin,
+  };
+}
 export function loginRequest(username, password) {
   return function returnLoginRequest(dispatch) {
     return request
@@ -41,6 +48,9 @@ export function loginRequest(username, password) {
       .send({ username, password })
       .end((err, res) => {
         dispatch(login(res.body));
+        if (!err) {
+          dispatch(userIsLogin(true));
+        }
         if (res.body.name) {
           // dispatch(push('/edit-user'));
           browserHistory.push('/edit-user/' + username);
@@ -50,12 +60,15 @@ export function loginRequest(username, password) {
 }
 
 export function logoutRequest() {
-  return function startAction() {
+  return function startAction(dispatch) {
     return request
       .post('/api/logged-in/user/logout')
       .end((err) => {
         if (err) {
           console.log(err);
+        }
+        else {
+          dispatch(userIsLogin(false));
         }
       });
   };

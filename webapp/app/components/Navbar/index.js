@@ -41,8 +41,7 @@ export default class NavbarContainer extends React.Component {
       ];
     }
 
-    console.log(this.props.username.user);
-    return (
+    const navBar = (
       <Navbar inverse className={styles.position}>
         <Navbar.Header className={styles.noFloat}>
           <Navbar.Brand className={styles.noFloat}>
@@ -60,6 +59,12 @@ export default class NavbarContainer extends React.Component {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+    );
+    const empty = (<span></span>);
+    const endNavBar = (this.props.username.isLogin) ? navBar : empty;
+
+    return (
+      <span>{endNavBar}</span>
     );
   }
 }
