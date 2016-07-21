@@ -20,7 +20,6 @@ export class UserDeletionModal extends React.Component {
   }
 
   render() {
-    console.log(this.props.state);
     return (
       <Modal show={this.props.state.showModal} onHide={this.props.hideInstantDeleteModal}>
         <Modal.Header closeButton>
