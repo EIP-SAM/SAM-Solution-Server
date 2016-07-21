@@ -10,11 +10,10 @@
 //
 
 import request from 'utils/request';
-import styleSort from '../styleSort.json';
 import {
   GET_FILTERED_LOGS,
   CLEAR_LOGS,
-  RESET_SORTS,
+  SET_SORTS,
 } from '../constants/result';
 
 export function getLogs(type, logs) {
@@ -46,14 +45,9 @@ export function getFilteredLogs(filters) {
   };
 }
 
-export function resetSorts() {
+export function setSorts(sorts) {
   return {
-    type: RESET_SORTS,
-    sorts: {
-      dateStatus: styleSort.desc,
-      levelStatus: styleSort.desc,
-      loggerStatus: styleSort.desc,
-      messageStatus: styleSort.desc,
-    },
+    type: SET_SORTS,
+    sorts,
   };
 }

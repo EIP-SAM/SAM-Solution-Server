@@ -9,7 +9,11 @@ import {
   collapsePanel,
   incKeyRerender,
 } from './actions/filters';
-import { getFilteredLogs, clearLogs, resetSorts } from './actions/result';
+import {
+  getFilteredLogs,
+  clearLogs,
+  setSorts,
+} from './actions/result';
 import LogFilters from 'components/Logs/Filters/';
 
 function getDefaultKeyRerender(state) {
@@ -46,7 +50,7 @@ function mapDispatchToProps(dispatch) {
     clearLogs: () => dispatch(clearLogs()),
     collapsePanel: (isCollapsed) => dispatch(collapsePanel(isCollapsed)),
     incKeyRerender: () => dispatch(incKeyRerender()),
-    resetSorts: () => dispatch(resetSorts()),
+    setSorts: (sort) => dispatch(setSorts(sort)),
   };
 }
 

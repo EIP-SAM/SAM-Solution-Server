@@ -12,15 +12,13 @@ import { combineReducers } from 'redux-immutable';
 import {
   GET_FILTERED_LOGS,
   CLEAR_LOGS,
-  RESET_SORTS,
+  SET_SORTS,
 } from '../constants/result';
 
-function sorts(state = {}, action) {
+function sorts(state = 'none', action) {
   switch (action.type) {
-    case RESET_SORTS:
-      return Object.assign({}, state, {
-        sorts: action.sorts,
-      });
+    case SET_SORTS:
+      return action.sorts;
     default:
       return state;
   }

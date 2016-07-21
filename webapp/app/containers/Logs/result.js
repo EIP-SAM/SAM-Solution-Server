@@ -3,8 +3,8 @@
 //
 
 import { connect } from 'react-redux';
+import { setSorts } from './actions/result';
 import LogResult from 'components/Logs/Results';
-import styleSort from './styleSort.json';
 
 function getDefaultLogs(state) {
   return state.get('logs').get('result').get('logs').logs ||
@@ -15,13 +15,7 @@ function getDefaultLogs(state) {
 }
 
 function getDefaultSorts(state) {
-  return state.get('logs').get('result').get('sorts').sorts ||
-    {
-      dateStatus: styleSort.desc,
-      levelStatus: styleSort.asc,
-      loggerStatus: styleSort.desc,
-      messageStatus: styleSort.desc,
-    };
+  return state.get('logs').get('result').get('sorts') || 'none';
 }
 
 function mapStateToProps(state) {
@@ -31,7 +25,13 @@ function mapStateToProps(state) {
   };
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    setSorts: (sorts) => dispatch(setSorts(sorts)),
+  };
+}
+
 export default connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 )(LogResult);
