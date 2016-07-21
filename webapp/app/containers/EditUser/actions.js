@@ -9,7 +9,7 @@
 //    }
 //
 
-const request = require('../../agent');
+import request from 'utils/request';
 
 import {
   SAVE_DATA,
@@ -38,7 +38,7 @@ export function getUser(user) {
 export function getUserRequest(username) {
   return function returnGetUserRequest(dispatch) {
     return request
-      .get('http://localhost:8080/api/logged-in/admin/users')
+      .get('/api/logged-in/admin/users')
       .end((err, res) => {
         var i = 0;
         while (i < res.body.users.length && res.body.users[i].name != username) {
@@ -62,8 +62,7 @@ export function getCurrentUser(user) {
 export function getCurrentUserRequest() {
   return function returngetCurrentUserRequest(dispatch) {
     return request
-      .get('http://localhost:8080/api/logged-in/user/profile')
-      .withCredentials()
+      .get('/api/logged-in/user/profile')
       .end((err, res) => {
         dispatch(getCurrentUser(res.body));
       });
@@ -80,7 +79,7 @@ export function editUser(user) {
 export function editUserRequest(username, email, password, confirmation) {
   return function returnEditUserRequest(dispatch) {
     return request
-      .post('http://localhost:8080/api/logged-in/user/profile/update')
+      .post('/api/logged-in/user/profile/update')
       .type('form')
       .send({ username, email, password, confirmation })
       .end((err, res) => {

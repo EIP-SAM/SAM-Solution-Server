@@ -9,7 +9,7 @@
 //      }
 //
 
-const request = require('superagent');
+import request from 'utils/request';
 
 import {
   GET_SAVES,
@@ -48,7 +48,7 @@ export function hideInstantSaveModal() {
 export function getSavesRequest() {
   return function returnGetSavesRequest(dispatch) {
     return request
-      .get('http://localhost:8080/api/logged-in/admin/save')
+      .get('/api/logged-in/admin/save')
       .end((err, res) => {
         dispatch(getSaves(res.body));
         const users = [];

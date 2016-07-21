@@ -9,7 +9,7 @@
 //      }
 //
 
-const request = require('superagent');
+import request from 'utils/request';
 
 import {
   GET_RESTORES,
@@ -25,7 +25,7 @@ export function getRestores(restores) {
 export function getRestoresRequest() {
   return function returnGetRestoresRequest(dispatch) {
     return request
-      .get('http://localhost:8080/api/logged-in/admin/restore')
+      .get('/api/logged-in/admin/restore')
       .end((err, res) => {
         dispatch(getRestores(res.body));
       });

@@ -30,7 +30,7 @@ describe('historyRestoreByUser', function () {
   var res;
 
   beforeAll(function () {
-    req = { get: function() {
+    req = { query: function() {
       return 'admin';
     }};
     res = {};

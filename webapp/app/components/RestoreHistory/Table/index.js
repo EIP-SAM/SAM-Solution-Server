@@ -62,6 +62,7 @@ export class RestoreHistoryTable extends React.Component {
           state={this.props.state}
           hideInstantRestoreModal={this.props.hideInstantRestoreModal}
           stateRestore={this.props.stateRestore}
+          resetStateCreationRestore={this.props.resetStateCreationRestore}
         />
       </div>
     );
@@ -77,4 +78,5 @@ RestoreHistoryTable.propTypes = {
   setUserId: React.PropTypes.func,
   selectFiles: React.PropTypes.func,
   getHistoryRestoresByUserRequest: React.PropTypes.func,
+  resetStateCreationRestore: React.PropTypes.func,
 };

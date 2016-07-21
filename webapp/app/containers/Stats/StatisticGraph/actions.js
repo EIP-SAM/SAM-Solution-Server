@@ -2,7 +2,7 @@
 // StatisticGraph Actions
 //
 
-import request from 'superagent';
+import request from 'utils/request';
 
 import {
   GET_STATS_BY_TYPE,
@@ -20,7 +20,7 @@ export function getStats(type, stats) {
 export function getAllGraphFromServer() {
   return function startAction(dispatch) {
     return request
-      .get('http://localhost:8080/statistic_data/')
+      .get('/statistic_data/')
       .end((err, res) => {
         if (err || res.body.error) {
           console.log('Error occured in request to server for statistic data');
@@ -36,8 +36,8 @@ export function getAllGraphFromServer() {
 export function getGraphFromServer(type) {
   return function startAction(dispatch) {
     return request
-      .get('http://localhost:8080/api/logged-in/admin/statistic_select_graph')
-      .set('type', type)
+      .get('/api/logged-in/admin/statistic_select_graph')
+      .query({ type })
       .end((err, res) => {
         if (err || res.body.error) {
           // console.log('Error occured in request to server for statistic type data : ', res);
