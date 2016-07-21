@@ -21,6 +21,11 @@ const logger = require('../libs/bunyan').setModuleName('Users & Rights');
 const enumModules = rightsManager.enumModules;
 
 //
+// Load workers
+//
+const gitWorker = require('../workers/git');
+
+//
 // Create admin if not exists
 //
 initAdminUser();
@@ -84,6 +89,7 @@ function checkAndCreateUser(name, email, password, confirmation) {
                 .then(function (group) {
                   user.addGroups([group])
                   .then(function () {
+                    gitWorker.initNewGitRepo(name);
                     fulfill(user);
                   });
                 });
