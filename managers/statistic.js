@@ -231,6 +231,7 @@ function prepareBarDataForGraph(graphData) {
   }
 
   var dataToChart = {
+      complete: graphData.complete,
       datasets: dataSets,
       type: graphData.type,
       title: graphData.title,
@@ -252,6 +253,7 @@ function preparePieDataForGraph(graphData) {
   };
 
   var dataToChart = {
+     complete: graphData.complete,
      datasets: datasets,
      type: graphData.type,
      title: graphData.title,
@@ -273,6 +275,7 @@ function prepareDoughnutDataForGraph(graphData) {
   };
 
   var dataToChart = {
+     complete: graphData.complete,
      datasets: datasets,
      type: graphData.type,
      title: graphData.title,
@@ -302,6 +305,7 @@ function prepareRadarDataForGraph(graphData, ctx) {
   }
 
   var dataToChart = {
+      complete: graphData.complete,
       datasets: dataSets,
       type: graphData.type,
       title: graphData.title,
@@ -331,6 +335,7 @@ function prepareLineDataForGraph(graphData, ctx) {
   }
 
   var dataToChart = {
+      complete: graphData.complete,
       datasets: dataSets,
       type: graphData.type,
       title: graphData.title,
