@@ -30,7 +30,7 @@ export class SaveCreationUsersFormGroup extends React.Component {
       errorMessage = this.props.state.userError;
     }
 
-    const usersOptions = this.props.state.users.map((item, index) => (
+    const usersOptions = this.props.saving.users.map((item, index) => (
       <Option object={item} key={`item-${index}`} />
     ));
 
@@ -47,6 +47,7 @@ export class SaveCreationUsersFormGroup extends React.Component {
 }
 
 SaveCreationUsersFormGroup.propTypes = {
+  saving: React.PropTypes.object,
   listUsersState: React.PropTypes.object,
   state: React.PropTypes.object,
   listUsers: React.PropTypes.func,

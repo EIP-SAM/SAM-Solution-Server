@@ -26,7 +26,7 @@ export class Save extends React.Component {
           frequencySave={this.props.frequencySave}
         />
         <SaveTable
-          createSaveState={this.props.createSaveState}
+          saving={this.props.saving}
           state={this.props.state}
           getUsers={this.props.getUsers}
           listUsers={this.props.listUsers}
@@ -37,7 +37,7 @@ export class Save extends React.Component {
           showInstantSaveModal={this.props.showInstantSaveModal}
           hideInstantSaveModal={this.props.hideInstantSaveModal}
           createSave={this.props.createSave}
-          resetStateSaveCreation={this.props.resetStateSaveCreation}
+          resetStateSaving={this.props.resetStateSaving}
           showInstantRestoreModal={this.props.showInstantRestoreModal}
           hideInstantRestoreModal={this.props.hideInstantRestoreModal}
           instantRestore={this.props.instantRestore}
@@ -50,7 +50,7 @@ export class Save extends React.Component {
 }
 
 Save.propTypes = {
-  createSaveState: React.PropTypes.object,
+  saving: React.PropTypes.object,
   state: React.PropTypes.object,
   getSavesRequest: React.PropTypes.func,
   getUsers: React.PropTypes.func,
@@ -62,7 +62,7 @@ Save.propTypes = {
   showInstantSaveModal: React.PropTypes.func,
   hideInstantSaveModal: React.PropTypes.func,
   createSave: React.PropTypes.func,
-  resetStateSaveCreation: React.PropTypes.func,
+  resetStateSaving: React.PropTypes.func,
   showInstantRestoreModal: React.PropTypes.func,
   hideInstantRestoreModal: React.PropTypes.func,
   instantRestore: React.PropTypes.func,

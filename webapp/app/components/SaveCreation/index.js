@@ -15,9 +15,11 @@ export class SaveCreation extends React.Component {
       <div>
         <PageHeader>Scheduled Save</PageHeader>
         <SaveCreationForm
+          saving={this.props.saving}
           listUsersState={this.props.listUsersState}
           state={this.props.state}
-          resetState={this.props.resetState}
+          resetStateSaving={this.props.resetStateSaving}
+          resetStateSaveCreation={this.props.resetStateSaveCreation}
           listUsers={this.props.listUsers}
           dateSave={this.props.dateSave}
           timeSave={this.props.timeSave}
@@ -40,9 +42,11 @@ export class SaveCreation extends React.Component {
 }
 
 SaveCreation.propTypes = {
+  saving: React.PropTypes.object,
   listUsersState: React.PropTypes.object,
   state: React.PropTypes.object,
-  resetState: React.PropTypes.func,
+  resetStateSaving: React.PropTypes.func,
+  resetStateSaveCreation: React.PropTypes.func,
   listUsers: React.PropTypes.func,
   dateSave: React.PropTypes.func,
   timeSave: React.PropTypes.func,

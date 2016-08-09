@@ -16,7 +16,7 @@ export class SaveCreationFrequencyFormGroup extends React.Component {
   }
 
   componentWillMount() {
-    if (!this.props.state.frequency) {
+    if (!this.props.saving.frequency) {
       this.isActive = false;
       this.props.frequencySave('No Repeat');
     }
@@ -42,6 +42,7 @@ export class SaveCreationFrequencyFormGroup extends React.Component {
 }
 
 SaveCreationFrequencyFormGroup.propTypes = {
+  saving: React.PropTypes.object,
   state: React.PropTypes.object,
   frequencySave: React.PropTypes.func,
 };

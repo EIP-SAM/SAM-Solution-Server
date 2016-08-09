@@ -16,26 +16,31 @@ export class SaveCreationForm extends React.Component {
     return (
       <form>
         <SaveCreationUsersFormGroup
+          saving={this.props.saving}
           listUsersState={this.props.listUsersState}
           state={this.props.state}
           listUsers={this.props.listUsers}
           userErrorMsg={this.props.userErrorMsg}
         />
         <SaveCreationDateFormGroup
+          saving={this.props.saving}
           state={this.props.state}
           dateSave={this.props.dateSave}
           dateErrorMsg={this.props.dateErrorMsg}
         />
         <SaveCreationTimeFormGroup
+          saving={this.props.saving}
           state={this.props.state}
           timeSave={this.props.timeSave}
           timeErrorMsg={this.props.timeErrorMsg}
         />
         <SaveCreationFrequencyFormGroup
+          saving={this.props.saving}
           state={this.props.state}
           frequencySave={this.props.frequencySave}
         />
         <SaveCreationFilesFormGroup
+          saving={this.props.saving}
           state={this.props.state}
           addFile={this.props.addFile}
           displayAddFile={this.props.displayAddFile}
@@ -45,9 +50,11 @@ export class SaveCreationForm extends React.Component {
           fileErrorMsg={this.props.fileErrorMsg}
         />
         <SaveCreationButtons
+          saving={this.props.saving}
           state={this.props.state}
           createSave={this.props.createSave}
-          resetState={this.props.resetState}
+          resetStateSaveCreation={this.props.resetStateSaveCreation}
+          resetStateSaving={this.props.resetStateSaving}
           userErrorMsg={this.props.userErrorMsg}
           dateErrorMsg={this.props.dateErrorMsg}
           timeErrorMsg={this.props.timeErrorMsg}
@@ -60,9 +67,11 @@ export class SaveCreationForm extends React.Component {
 }
 
 SaveCreationForm.propTypes = {
+  saving: React.PropTypes.object,
   listUsersState: React.PropTypes.object,
   state: React.PropTypes.object,
-  resetState: React.PropTypes.func,
+  resetStateSaveCreation: React.PropTypes.func,
+  resetStateSaving: React.PropTypes.func,
   listUsers: React.PropTypes.func,
   dateSave: React.PropTypes.func,
   timeSave: React.PropTypes.func,

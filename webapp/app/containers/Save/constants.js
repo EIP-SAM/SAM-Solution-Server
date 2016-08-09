@@ -1,13 +1,11 @@
 //
-// Save Constants
-//
-// Follow this format:
-//    export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
+// Save Module Constants
 //
 
-export const GET_SAVES = 'SAM/Save/GET_SAVES';
-export const GET_USERS = 'SAM/Save/GET_USERS';
-export const SHOW_INSTANT_SAVE_MODAL = 'SAM/Save/SHOW_INSTANT_SAVE_MODAL';
-export const SHOW_INSTANT_RESTORE_MODAL = 'SAM/Save/SHOW_INSTANT_RESTORE_MODAL';
-export const RESET_RESTORE_STATE = 'SAM/SaveHistory/RESET_RESTORE_STATE';
-export const INSTANT_RESTORE = 'SAM/Save/INSTANT_RESTORE';
+export const LIST_USERS = 'LIST_USERS';
+export const DATE = 'DATE';
+export const TIME = 'TIME';
+export const FREQUENCY = 'FREQUENCY';
+export const ADD_FILE = 'ADD_FILE';
+export const ADD_ALL_FILES = 'ADD_ALL_FILES';
+export const RESET_STATE_SAVING = 'RESET_STATE_SAVING';

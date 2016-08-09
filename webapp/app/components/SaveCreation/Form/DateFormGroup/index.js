@@ -17,7 +17,7 @@ export class SaveCreationDateFormGroup extends React.Component {
   }
 
   componentWillMount() {
-    if (this.props.state.date) {
+    if (this.props.saving.date) {
       this.disabled = true;
     }
   }
@@ -46,6 +46,7 @@ export class SaveCreationDateFormGroup extends React.Component {
 }
 
 SaveCreationDateFormGroup.propTypes = {
+  saving: React.PropTypes.object,
   state: React.PropTypes.object,
   dateSave: React.PropTypes.func,
 };

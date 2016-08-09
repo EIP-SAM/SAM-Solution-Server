@@ -20,9 +20,10 @@ import editGroupReducer from 'containers/EditGroup/reducers';
 import usersReducer from 'containers/Users/reducers';
 import groupsReducer from 'containers/Groups/reducers';
 
-import SaveReducer from 'containers/Save/reducer';
-import SaveHistoryReducer from 'containers/SaveHistory/reducer';
-import SaveCreationReducer from 'containers/SaveCreation/reducer';
+import savingReducer from 'containers/Save/reducer';
+import saveReducer from 'containers/Save/Save/reducer';
+import saveHistoryReducer from 'containers/Save/SaveHistory/reducer';
+import saveCreationReducer from 'containers/Save/SaveCreation/reducer';
 import RestoreReducer from 'containers/Restore/reducer';
 import RestoreHistoryReducer from 'containers/RestoreHistory/reducer';
 import RestoreCreationReducer from 'containers/RestoreCreation/reducer';
@@ -71,12 +72,13 @@ export default function createReducer(asyncReducers) {
     editGroup: editGroupReducer,
     users: usersReducer,
     groups: groupsReducer,
-    save: SaveReducer,
-    saveHistory: SaveHistoryReducer,
+    saving: savingReducer,
+    save: saveReducer,
+    saveHistory: saveHistoryReducer,
+    saveCreation: saveCreationReducer,
     restore: RestoreReducer,
     restoreHistory: RestoreHistoryReducer,
     restoreCreation: RestoreCreationReducer,
-    saveCreation: SaveCreationReducer,
     ...asyncReducers,
   });
 }

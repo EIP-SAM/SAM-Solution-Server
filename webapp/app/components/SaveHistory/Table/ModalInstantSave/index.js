@@ -16,12 +16,12 @@ export class SaveHistoryInstantSaveModal extends React.Component {
   }
 
   handleLaunchClick() {
-    this.props.createSave(this.props.createSaveState, false);
+    this.props.createSave(this.props.saving, false);
     this.props.hideInstantSaveModal();
   }
 
   handleCancelClick() {
-    this.props.resetStateSaveCreation();
+    this.props.resetStateSaving();
     this.props.hideInstantSaveModal();
   }
 
@@ -47,9 +47,9 @@ export class SaveHistoryInstantSaveModal extends React.Component {
 }
 
 SaveHistoryInstantSaveModal.propTypes = {
-  createSaveState: React.PropTypes.object,
+  saving: React.PropTypes.object,
   state: React.PropTypes.object.isRequired,
   hideInstantSaveModal: React.PropTypes.func.isRequired,
   createSave: React.PropTypes.func,
-  resetStateSaveCreation: React.PropTypes.func,
+  resetStateSaving: React.PropTypes.func,
 };

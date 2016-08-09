@@ -17,28 +17,29 @@ export class SaveCreationButtons extends React.Component {
   }
 
   handleFormClick() {
-    if (this.props.state.users.length > 0 &&
-        this.props.state.date !== 'Invalid date' &&
-        this.props.state.time !== 'Invalid date' &&
-        this.props.state.files.length > 0) {
-      this.props.createSave(this.props.state, true);
+    if (this.props.saving.users.length > 0 &&
+        this.props.saving.date !== 'Invalid date' &&
+        this.props.saving.time !== 'Invalid date' &&
+        this.props.saving.files.length > 0) {
+      this.props.createSave(this.props.saving, true);
     }
-    if (this.props.state.users.length === 0) {
+    if (this.props.saving.users.length === 0) {
       this.props.userErrorMsg('You can\'t create a save without a user');
     }
-    if (this.props.state.date === 'Invalid date') {
+    if (this.props.saving.date === 'Invalid date') {
       this.props.dateErrorMsg('Invalid date');
     }
-    if (this.props.state.time === 'Invalid date') {
+    if (this.props.saving.time === 'Invalid date') {
       this.props.timeErrorMsg('Invalid time');
     }
-    if (this.props.state.files.length === 0) {
+    if (this.props.saving.files.length === 0) {
       this.props.fileErrorMsg('Select a file to save');
     }
   }
 
   handleCancelClick() {
-    this.props.resetState();
+    this.props.resetStateSaveCreation();
+    this.props.resetStateSaving();
     browserHistory.goBack();
   }
 
@@ -53,9 +54,11 @@ export class SaveCreationButtons extends React.Component {
 }
 
 SaveCreationButtons.propTypes = {
+  saving: React.PropTypes.object,
   state: React.PropTypes.object,
   createSave: React.PropTypes.func,
-  resetState: React.PropTypes.func,
+  resetStateSaveCreation: React.PropTypes.func,
+  resetStateSaving: React.PropTypes.func,
   userErrorMsg: React.PropTypes.func,
   dateErrorMsg: React.PropTypes.func,
   timeErrorMsg: React.PropTypes.func,

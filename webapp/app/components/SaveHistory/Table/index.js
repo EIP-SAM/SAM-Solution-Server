@@ -87,11 +87,11 @@ export class SaveHistoryTable extends React.Component {
           cancelSave={this.props.cancelSave}
         />
         <SaveHistoryInstantSaveModal
-          createSaveState={this.props.createSaveState}
+          saving={this.props.saving}
           state={this.props.state}
           hideInstantSaveModal={this.props.hideInstantSaveModal}
           createSave={this.props.createSave}
-          resetStateSaveCreation={this.props.resetStateSaveCreation}
+          resetStateSaving={this.props.resetStateSaving}
         />
         <SaveHistoryInstantRestoreModal
           state={this.props.state}
@@ -105,7 +105,7 @@ export class SaveHistoryTable extends React.Component {
 }
 
 SaveHistoryTable.propTypes = {
-  createSaveState: React.PropTypes.object,
+  saving: React.PropTypes.object,
   state: React.PropTypes.object,
   listUsers: React.PropTypes.func,
   dateSave: React.PropTypes.func,
@@ -119,7 +119,7 @@ SaveHistoryTable.propTypes = {
   showInstantSaveModal: React.PropTypes.func,
   hideInstantSaveModal: React.PropTypes.func,
   createSave: React.PropTypes.func,
-  resetStateSaveCreation: React.PropTypes.func,
+  resetStateSaving: React.PropTypes.func,
   showInstantRestoreModal: React.PropTypes.func,
   hideInstantRestoreModal: React.PropTypes.func,
   instantRestore: React.PropTypes.func,

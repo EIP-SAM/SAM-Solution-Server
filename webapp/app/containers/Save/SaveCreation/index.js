@@ -5,17 +5,21 @@
 import { connect } from 'react-redux';
 import { SaveCreation } from 'components/SaveCreation';
 import {
-  resetState,
+  resetStateSaving,
   listUsers,
   dateSave,
   timeSave,
   frequencySave,
   addFile,
+  createSave,
+} from 'containers/Save/actions';
+
+import {
+  resetStateSaveCreation,
   displayAddFile,
   inputFileChange,
   showModal,
   hideModal,
-  createSave,
   userErrorMsg,
   dateErrorMsg,
   timeErrorMsg,
@@ -25,6 +29,7 @@ import {
 
 function mapStateToProps(state) {
   return {
+    saving: state.get('saving'),
     listUsersState: state.get('save'),
     state: state.get('saveCreation'),
   };
@@ -32,7 +37,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    resetState: () => dispatch(resetState()),
+    resetStateSaving: () => dispatch(resetStateSaving()),
+    resetStateSaveCreation: () => dispatch(resetStateSaveCreation()),
     listUsers: (users) => dispatch(listUsers(users)),
     dateSave: (date) => dispatch(dateSave(date)),
     timeSave: (time) => dispatch(timeSave(time)),

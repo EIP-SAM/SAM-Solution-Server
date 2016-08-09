@@ -13,7 +13,7 @@ import styles from 'components/SaveCreation/styles.css';
 export class SaveCreationFilesFormGroup extends React.Component {
 
   componentDidMount() {
-    if (this.props.state.files.length > 0) {
+    if (this.props.saving.files.length > 0) {
       this.props.displayAddFile(false);
     }
   }
@@ -43,13 +43,17 @@ export class SaveCreationFilesFormGroup extends React.Component {
           inputFileChange={this.props.inputFileChange}
           cancelAddingFile={this.props.cancelAddingFile}
         />
-        <SaveCreationFilesSelect state={this.props.state} />
+        <SaveCreationFilesSelect
+          saving={this.props.saving}
+          state={this.props.state}
+        />
       </FormGroup>
     );
   }
 }
 
 SaveCreationFilesFormGroup.propTypes = {
+  saving: React.PropTypes.object,
   state: React.PropTypes.object,
   addFile: React.PropTypes.func,
   displayAddFile: React.PropTypes.func,
