@@ -5,6 +5,7 @@ var Sequelize = require('sequelize');
 var sequelize = require('../libs/sequelize');
 
 var UserModel = require('./users');
+var SaveModel = require('./save');
 
 var restore = sequelize.define('restore', {
     execDate: {
@@ -35,6 +36,7 @@ var restore = sequelize.define('restore', {
 //
 restore.belongsTo(UserModel, { foreignKey: 'userId' });
 UserModel.hasMany(restore);
+restore.belongsTo(SaveModel, { foreignKey: 'saveId' });
 
 //
 // Sync model Restore

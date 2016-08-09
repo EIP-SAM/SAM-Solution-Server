@@ -35,11 +35,12 @@ module.exports.historyRestoreByUser = function(username) {
 //
 // Create new restore instance
 //
-module.exports.createRestore = function (userId, files) {
+module.exports.createRestore = function (userId, files, saveId) {
   return RestoreModel.create({
     userId: userId,
     files: files,
     execDate: new Date(),
+    saveId: saveId,
   });
 };
 
