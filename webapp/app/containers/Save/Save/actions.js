@@ -1,5 +1,5 @@
 //
-// Save History Actions
+// Save Actions
 //
 // To add a new Action:
 //  1) Import your constant
@@ -9,14 +9,12 @@
 //      }
 //
 
-import { getUsers } from 'containers/Save/actions';
 import request from 'utils/request';
 
 import {
-  GET_HISTORY_SAVES_BY_USER,
-  SHOW_DELETION_SCHEDULED_SAVE_MODAL,
+  GET_SAVES,
+  GET_USERS,
   SHOW_INSTANT_SAVE_MODAL,
-  DELETE_SCHEDULED_SAVE_INFO,
   SHOW_INSTANT_RESTORE_MODAL,
   INSTANT_RESTORE,
   RESET_RESTORE_STATE,
@@ -28,17 +26,17 @@ export function resetRestoreState() {
   };
 }
 
-export function showDeletionScheduledSaveModal() {
+export function getSaves(saves) {
   return {
-    type: SHOW_DELETION_SCHEDULED_SAVE_MODAL,
-    showDeletionModal: true,
+    type: GET_SAVES,
+    saves,
   };
 }
 
-export function hideDeletionScheduledSaveModal() {
+export function getUsers(users) {
   return {
-    type: SHOW_DELETION_SCHEDULED_SAVE_MODAL,
-    showDeletionModal: false,
+    type: GET_USERS,
+    users,
   };
 }
 
@@ -70,22 +68,6 @@ export function hideInstantRestoreModal() {
   };
 }
 
-export function getHistorySavesByUser(saves) {
-  return {
-    type: GET_HISTORY_SAVES_BY_USER,
-    saves,
-  };
-}
-
-export function deleteScheduledSaveInfo(saveId, saveScheduledId, username) {
-  return {
-    type: DELETE_SCHEDULED_SAVE_INFO,
-    saveId,
-    saveScheduledId,
-    username,
-  };
-}
-
 export function instantRestore(userId, files) {
   return {
     type: INSTANT_RESTORE,
@@ -94,31 +76,18 @@ export function instantRestore(userId, files) {
   };
 }
 
-export function getHistorySavesByUserRequest(username) {
-  return function returnGetHistorySavesRequest(dispatch) {
+export function getSavesRequest() {
+  return function returnGetSavesRequest(dispatch) {
     return request
-      .get('/api/logged-in/history_save')
-      .query({ username })
+      .get('/api/logged-in/admin/save')
       .end((err, res) => {
-        dispatch(getHistorySavesByUser(res.body));
-        const users = [{ id: res.body[0].save_scheduled.user.id, name: res.body[0].save_scheduled.user.name }];
+        dispatch(getSaves(res.body));
+        const users = [];
+        for (const user of res.body) {
+          users.push({ id: user.id, name: user.name });
+        }
         dispatch(getUsers(users));
       });
-  };
-}
-
-export function cancelSave(saveId, saveScheduledId, username) {
-  return function returnCancelSave(dispatch) {
-    return request
-    .post('/api/logged-in/cancel_save')
-    .type('form')
-    .send({
-      saveScheduledId,
-      saveId,
-    })
-    .end(() => {
-      dispatch(getHistorySavesByUserRequest(username));
-    });
   };
 }
 

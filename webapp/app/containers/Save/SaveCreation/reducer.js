@@ -11,12 +11,6 @@
 import {
   RESET_STATE,
   SHOW_ADD_FILE_MODAL,
-  LIST_USERS,
-  DATE,
-  TIME,
-  FREQUENCY,
-  ADD_FILE,
-  ADD_ALL_FILES,
   CAN_ADD_FILE,
   INPUT_FILE_CHANGE,
   LIST_USERS_ERROR,
@@ -28,11 +22,6 @@ import {
 
 const initialState = {
   showModal: false,
-  users: [],
-  date: '',
-  time: '',
-  frequency: '',
-  files: [],
   canAddFile: true,
   inputFileChange: '',
   userError: '',
@@ -46,37 +35,10 @@ function SaveHistoryReducer(state = initialState, action) {
   switch (action.type) {
     case RESET_STATE:
       return Object.assign({}, initialState, {
-        files: [],
       });
     case SHOW_ADD_FILE_MODAL:
       return Object.assign({}, state, {
         showModal: action.showModal,
-      });
-    case LIST_USERS:
-      return Object.assign({}, state, {
-        users: action.users,
-      });
-    case DATE:
-      return Object.assign({}, state, {
-        date: action.date,
-      });
-    case TIME:
-      return Object.assign({}, state, {
-        time: action.time,
-      });
-    case FREQUENCY:
-      return Object.assign({}, state, {
-        frequency: action.frequency,
-      });
-    case ADD_FILE:
-      state.files.push(action.file);
-      return Object.assign({}, state, {
-        files: state.files,
-      });
-    case ADD_ALL_FILES:
-      const files = action.files.split(',');
-      return Object.assign({}, state, {
-        files,
       });
     case CAN_ADD_FILE:
       return Object.assign({}, state, {

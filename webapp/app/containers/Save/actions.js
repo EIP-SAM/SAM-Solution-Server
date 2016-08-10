@@ -1,107 +1,101 @@
 //
-// Save Actions
-//
-// To add a new Action:
-//  1) Import your constant
-//  2) Add a function like this:
-//      export function yourAction(var) {
-//          return { type: YOUR_ACTION_CONSTANT, var: var }
-//      }
+// Save Module Actions
 //
 
+import { browserHistory } from 'react-router';
 import request from 'utils/request';
 
 import {
-  GET_SAVES,
-  GET_USERS,
-  SHOW_INSTANT_SAVE_MODAL,
-  SHOW_INSTANT_RESTORE_MODAL,
-  INSTANT_RESTORE,
-  RESET_RESTORE_STATE,
+  resetStateSaveCreation,
+} from 'containers/Save/SaveCreation/actions';
+
+import {
+  RESET_STATE_SAVING,
+  LIST_USERS,
+  DATE,
+  TIME,
+  FREQUENCY,
+  ADD_FILE,
+  ADD_ALL_FILES,
 } from './constants';
 
-export function resetRestoreState() {
+export function resetStateSaving() {
   return {
-    type: RESET_RESTORE_STATE,
+    type: RESET_STATE_SAVING,
   };
 }
 
-export function getSaves(saves) {
+export function listUsers(users) {
   return {
-    type: GET_SAVES,
-    saves,
-  };
-}
-
-export function getUsers(users) {
-  return {
-    type: GET_USERS,
+    type: LIST_USERS,
     users,
   };
 }
 
-export function showInstantSaveModal() {
+export function dateSave(date) {
   return {
-    type: SHOW_INSTANT_SAVE_MODAL,
-    showInstantSaveModal: true,
+    type: DATE,
+    date,
   };
 }
 
-export function hideInstantSaveModal() {
+export function timeSave(time) {
   return {
-    type: SHOW_INSTANT_SAVE_MODAL,
-    showInstantSaveModal: false,
+    type: TIME,
+    time,
   };
 }
 
-export function showInstantRestoreModal() {
+export function frequencySave(frequency) {
   return {
-    type: SHOW_INSTANT_RESTORE_MODAL,
-    showInstantRestoreModal: true,
+    type: FREQUENCY,
+    frequency,
   };
 }
 
-export function hideInstantRestoreModal() {
+export function addFile(file) {
   return {
-    type: SHOW_INSTANT_RESTORE_MODAL,
-    showInstantRestoreModal: false,
+    type: ADD_FILE,
+    file,
   };
 }
 
-export function instantRestore(userId, files) {
+export function addAllFiles(files) {
   return {
-    type: INSTANT_RESTORE,
-    userId,
+    type: ADD_ALL_FILES,
     files,
   };
 }
 
-export function getSavesRequest() {
-  return function returnGetSavesRequest(dispatch) {
-    return request
-      .get('/api/logged-in/admin/save')
-      .end((err, res) => {
-        dispatch(getSaves(res.body));
-        const users = [];
-        for (const user of res.body) {
-          users.push({ id: user.id, name: user.name });
-        }
-        dispatch(getUsers(users));
-      });
-  };
-}
+//
+// Get username of users list in state.
+// Create save
+// Syntaxe state.users : { value: user.id }
+// Check if all elements send through the request are completed
+//
+export function createSave(state, redirect) {
+  const usersId = [];
+  for (const user of state.users) {
+    usersId.push(user.value);
+  }
 
-export function createRestoreRequest(state) {
-  return function returnCreateRestoreRequest(dispatch) {
+  return function createSaveRequest(dispatch) {
     return request
-      .post('/create_restore')
+      .post('/api/logged-in/create_save')
       .type('form')
       .send({
-        userId: state.userId,
+        usersId,
+        date: state.date,
+        time: state.time,
+        frequency: state.frequency,
         files: state.files,
       })
       .end(() => {
-        dispatch(resetRestoreState());
+        if (redirect) {
+          browserHistory.goBack();
+        }
+        dispatch(resetStateSaveCreation());
+        dispatch(resetStateSaving());
       });
   };
 }

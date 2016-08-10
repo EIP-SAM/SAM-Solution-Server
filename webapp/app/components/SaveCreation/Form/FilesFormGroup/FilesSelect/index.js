@@ -19,8 +19,8 @@ export class SaveCreationFilesSelect extends React.Component {
 
     let options = [];
 
-    if (this.props.state.files) {
-      const files = this.props.state.files.map((file) => (
+    if (this.props.saving.files) {
+      const files = this.props.saving.files.map((file) => (
         { isActive: false, value: file, text: file }
       ));
 
@@ -55,5 +55,6 @@ export class SaveCreationFilesSelect extends React.Component {
 }
 
 SaveCreationFilesSelect.propTypes = {
+  saving: React.PropTypes.object,
   state: React.PropTypes.object,
 };

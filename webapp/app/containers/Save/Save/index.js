@@ -1,58 +1,51 @@
 //
-// Container page history save by user
+// Container page save
 //
 
 import { connect } from 'react-redux';
-import { SaveHistory } from 'components/SaveHistory';
+import { Save } from 'components/Save';
 import {
   listUsers,
   dateSave,
   timeSave,
   frequencySave,
   addAllFiles,
+  resetStateSaving,
   createSave,
-  resetState,
- } from 'containers/SaveCreation/actions';
+} from 'containers/Save/actions';
 
 import {
-  getHistorySavesByUserRequest,
-  showDeletionScheduledSaveModal,
-  hideDeletionScheduledSaveModal,
-  cancelSave,
+  getUsers,
+  getSavesRequest,
   showInstantSaveModal,
   hideInstantSaveModal,
   showInstantRestoreModal,
   hideInstantRestoreModal,
-  deleteScheduledSaveInfo,
   instantRestore,
   createRestoreRequest,
   resetRestoreState,
-  } from './actions';
-
+ } from './actions';
 
 function mapStateToProps(state) {
   return {
-    state: state.get('saveHistory'),
-    createSaveState: state.get('saveCreation'),
+    saving: state.get('saving'),
+    state: state.get('save'),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    getUsers: (users) => dispatch(getUsers(users)),
     listUsers: (users) => dispatch(listUsers(users)),
-    getHistorySavesByUserRequest: (username) => dispatch(getHistorySavesByUserRequest(username)),
+    getSavesRequest: () => dispatch(getSavesRequest()),
     dateSave: (date) => dispatch(dateSave(date)),
     timeSave: (time) => dispatch(timeSave(time)),
     frequencySave: (frequency) => dispatch(frequencySave(frequency)),
     addAllFiles: (files) => dispatch(addAllFiles(files)),
-    deleteScheduledSaveInfo: (saveId, saveScheduledId, username) => dispatch(deleteScheduledSaveInfo(saveId, saveScheduledId, username)),
-    showDeletionScheduledSaveModal: () => dispatch(showDeletionScheduledSaveModal()),
-    hideDeletionScheduledSaveModal: () => dispatch(hideDeletionScheduledSaveModal()),
-    cancelSave: (saveId, saveScheduledId, username) => dispatch(cancelSave(saveId, saveScheduledId, username)),
     showInstantSaveModal: () => dispatch(showInstantSaveModal()),
     hideInstantSaveModal: () => dispatch(hideInstantSaveModal()),
     createSave: (createSaveState, redirect) => dispatch(createSave(createSaveState, redirect)),
-    resetStateSaveCreation: () => dispatch(resetState()),
+    resetStateSaving: () => dispatch(resetStateSaving()),
     showInstantRestoreModal: () => dispatch(showInstantRestoreModal()),
     hideInstantRestoreModal: () => dispatch(hideInstantRestoreModal()),
     instantRestore: (userId, files) => dispatch(instantRestore(userId, files)),
@@ -64,4 +57,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SaveHistory);
+)(Save);

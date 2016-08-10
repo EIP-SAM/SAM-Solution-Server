@@ -91,11 +91,11 @@ export class SaveTable extends React.Component {
           </tbody>
         </Table>
         <SaveInstantSaveModal
-          createSaveState={this.props.createSaveState}
+          saving={this.props.saving}
           state={this.props.state}
           hideInstantSaveModal={this.props.hideInstantSaveModal}
           createSave={this.props.createSave}
-          resetStateSaveCreation={this.props.resetStateSaveCreation}
+          resetStateSaving={this.props.resetStateSaving}
         />
         <SaveInstantRestoreModal
           state={this.props.state}
@@ -109,7 +109,7 @@ export class SaveTable extends React.Component {
 }
 
 SaveTable.propTypes = {
-  createSaveState: React.PropTypes.object,
+  saving: React.PropTypes.object,
   state: React.PropTypes.object,
   getUsers: React.PropTypes.func,
   listUsers: React.PropTypes.func,
@@ -120,7 +120,7 @@ SaveTable.propTypes = {
   showInstantSaveModal: React.PropTypes.func,
   hideInstantSaveModal: React.PropTypes.func,
   createSave: React.PropTypes.func,
-  resetStateSaveCreation: React.PropTypes.func,
+  resetStateSaving: React.PropTypes.func,
   showInstantRestoreModal: React.PropTypes.func,
   hideInstantRestoreModal: React.PropTypes.func,
   instantRestore: React.PropTypes.func,

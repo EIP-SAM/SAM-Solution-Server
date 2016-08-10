@@ -1,5 +1,5 @@
 //
-// Save Reducer
+// Save Module Reducer
 //
 // To add a new action:
 //
@@ -9,54 +9,58 @@
 //
 
 import {
-  GET_SAVES,
-  GET_USERS,
-  SHOW_INSTANT_SAVE_MODAL,
-  SHOW_INSTANT_RESTORE_MODAL,
-  INSTANT_RESTORE,
-  RESET_RESTORE_STATE,
+  RESET_STATE_SAVING,
+  LIST_USERS,
+  DATE,
+  TIME,
+  FREQUENCY,
+  ADD_FILE,
+  ADD_ALL_FILES,
 } from './constants';
 
 const initialState = {
-  saves: [],
   users: [],
-  showInstantSaveModal: false,
-  userId: '',
-  files: '',
+  date: '',
+  time: '',
+  frequency: '',
+  files: [],
 };
 
-function SaveReducer(state = initialState, action) {
+function SavingReducer(state = initialState, action) {
   switch (action.type) {
-    case RESET_RESTORE_STATE:
-      return Object.assign({}, state, {
-        userId: '',
-        files: '',
-        showInstantRestoreModal: false,
+    case RESET_STATE_SAVING:
+      return Object.assign({}, initialState, {
+        files: [],
       });
-    case GET_SAVES:
-      return Object.assign({}, state, {
-        saves: action.saves,
-      });
-    case GET_USERS:
+    case LIST_USERS:
       return Object.assign({}, state, {
         users: action.users,
       });
-    case SHOW_INSTANT_SAVE_MODAL:
+    case DATE:
       return Object.assign({}, state, {
-        showInstantSaveModal: action.showInstantSaveModal,
+        date: action.date,
       });
-    case SHOW_INSTANT_RESTORE_MODAL:
+    case TIME:
       return Object.assign({}, state, {
-        showInstantRestoreModal: action.showInstantRestoreModal,
+        time: action.time,
       });
-    case INSTANT_RESTORE:
+    case FREQUENCY:
       return Object.assign({}, state, {
-        userId: action.userId,
-        files: action.files,
+        frequency: action.frequency,
+      });
+    case ADD_FILE:
+      state.files.push(action.file);
+      return Object.assign({}, state, {
+        files: state.files,
+      });
+    case ADD_ALL_FILES:
+      const files = action.files.split(',');
+      return Object.assign({}, state, {
+        files,
       });
     default:
       return state;
   }
 }
 
-export default SaveReducer;
+export default SavingReducer;
