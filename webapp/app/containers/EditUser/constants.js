@@ -2,8 +2,8 @@
 // EditUser constants
 //
 
-export const SAVE_DATA = 'SAM/EditUser/SAVE_DATA';
-export const GET_USER = 'SAM/EditUser/GET_USER';
-export const GET_CURRENT_USER = 'SAM/EditUser/GET_CURRENT_USER';
-export const EDIT_USER = 'SAM/EditUser/EDIT_USER';
-export const GET_GROUPS = 'SAM/EditUser/GET_GROUPS';
+export const SAVE_DATA = 'SAVE_DATA';
+export const GET_USER = 'GET_USER';
+export const GET_CURRENT_USER = 'GET_CURRENT_USER';
+export const EDIT_USER = 'EDIT_USER';
+export const GET_GROUPS = 'GET_GROUPS';

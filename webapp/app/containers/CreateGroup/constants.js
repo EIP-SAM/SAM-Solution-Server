@@ -2,4 +2,4 @@
 // CreateGROUP constants
 //
 
-export const CREATE_GROUP = 'SAM/CreateGroup/CREATE_GROUP';
+export const CREATE_GROUP = 'CREATE_GROUP';

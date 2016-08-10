@@ -2,4 +2,4 @@
 // Groups constants
 //
 
-export const GET_GROUPS = 'SAM/GROUPS/GET_GROUPS';
+export const GET_GROUPS = 'GET_GROUPS';
