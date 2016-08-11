@@ -428,7 +428,6 @@ function updateUserProfile(userModel, userUpdateRequest) {
   return new Promise(function (fulfill, reject) {
     const fieldsToUpdate = [];
 
-    console.log(userUpdateRequest);
     prepareUserNameUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
     prepareUserEmailUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
     prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
@@ -450,24 +449,17 @@ module.exports.updateUserProfile = function () {
 
     userUpdate.name = req.body.username ? req.body.username : null;
     userUpdate.email = req.body.email ? req.body.email : null;
-    // userUpdate.oldPassword = req.body.oldPassword ? req.body.oldPassword : null;
     userUpdate.password = req.body.password ? req.body.password : null;
     userUpdate.confirmation = req.body.confirmation ? req.body.confirmation : null;
 
-    // if (userUpdate.oldPassword &&
-        // req.user.password == crypto.createHmac('sha256', salt).update(userUpdate.oldPassword).digest('hex')) {
-      updateUserProfile(req.user, userUpdate).then(function (user) {
-        logger.setUser({ id: req.user.id, name: req.user.name }).info('Successfull user profile update');
-        return res.status(200).json({ success: 'Your profile has been successfully updated' });
-      })
-      .catch(function (error) {
-        logger.setUser({ id: req.user.id, name: req.user.name }).warn('User profile update error: ' + error);
-        return res.status(405).json({ error: error });
-      });
-    // } else {
-    //   logger.setUser({ id: req.user.id, name: req.user.name }).warn('User profile update error: Current password verification failed');
-    //   return res.status(405).json({ error: 'Current password verification failed' });
-    // }
+    updateUserProfile(req.user, userUpdate).then(function (user) {
+      logger.setUser({ id: req.user.id, name: req.user.name }).info('Successfull user profile update');
+      return res.status(200).json({ success: 'Your profile has been successfully updated' });
+    })
+    .catch(function (error) {
+      logger.setUser({ id: req.user.id, name: req.user.name }).warn('User profile update error: ' + error);
+      return res.status(405).json({ error: error });
+    });
   };
 };
 
@@ -512,11 +504,9 @@ function createUsers(users) {
 
     users.forEach(function (user) {
       checkAndCreateUser(user.name, user.email, user.password, user.confirmation)
-// <<<<<<< HEAD
       .then(function (newUser) {
         if (user.groups && user.groups.constructor == Array) {
           GroupsAdapter.reassignGroupsToUser(newUser, user.groups).then(function () {
-            // logger.info({ newUser: { id: user.id, name: user.name } }, 'New user created (by an administrator)');
             logger.setUser({ id: newUser.id, name: newUser.name }).info('New user created (by an administrator)');
             stopForEachPromise(obj, null, fulfill);
 
@@ -525,15 +515,9 @@ function createUsers(users) {
             stopForEachPromise(obj, null, fulfill);
           });
         } else {
-          // logger.info({ user: { id: newUser.id, name: newUser.name } }, 'New user created (by an administrator)');
           logger.setUser({ id: newUser.id, name: newUser.name }).info('New user created (by an administrator)');
           stopForEachPromise(obj, null, fulfill);
         }
-// =======
-//       .then(function (user) {
-//         logger.setUser({ id: user.id, name: user.name }).info('New user created (by an administrator)');
-//         stopForEachPromise(obj, null, fulfill);
-// >>>>>>> develop
       })
       .catch(function (error) {
         logger.warn('Error during new user creation (by an administrator): ' + error);
@@ -567,12 +551,10 @@ function updateUsers(users) {
       if (user.id) {
         UsersAdapter.findById(user.id).then(function (foundUser) {
           if (foundUser) {
-// <<<<<<< HEAD
             updateUserProfile(foundUser, user).then(function (updatedUser) {
               if (user.groups && user.groups.constructor == Array) {
                 GroupsAdapter.reassignGroupsToUser(foundUser, user.groups).then(function () {
                   logger.setUser({ id: updatedUser.id, name: updatedUser.name }).info('User updated (by an administrator)');
-                  // logger.info({ user: { id: updatedUser.id, name: updatedUser.name } }, 'User updated (by an administrator)');
                   stopForEachPromise(obj, null, fulfill);
                 }).catch(function () {
                   logger.warn({ error: error }, 'Error during user update (by an administrator)');
@@ -580,15 +562,8 @@ function updateUsers(users) {
                 });
               } else {
                 logger.setUser({ id: updatedUser.id, name: updatedUser.name }).info('User updated (by an administrator)');
-                // logger.info({ user: { id: updatedUser.id, name: updatedUser.name } }, 'User updated (by an administrator)');
                 stopForEachPromise(obj, null, fulfill);
               }
-// =======
-//             updateUserProfile(foundUser, user)
-//             .then(function (user) {
-//               logger.setUser({ id: user.id, name: user.name }).info('User updated (by an administrator)');
-//               stopForEachPromise(obj, null, fulfill);
-// >>>>>>> develop
             })
             .catch(function (error) {
               logger.warn('Error during user update (by an administrator): ' + error);
