@@ -16,7 +16,7 @@
 const ensureLoggedIn = require('../libs/connectEnsureLogin').ensureLoggedIn;
 const ensureLoggedOut = require('../libs/connectEnsureLogin').ensureLoggedOut;
 
-const usersAndRightsController = require('../controllers/users');
+const usersAndRightsController = require('../controllers/usersAndRights');
 
 module.exports = function initBaseRoutes(app, conf, passport) {
 
