@@ -448,7 +448,7 @@ module.exports.updateUserProfile = function () {
   return function (req, res) {
     const userUpdate = {};
 
-    userUpdate.name = req.body.username ? req.body.username : null;
+    userUpdate.name = req.body.name ? req.body.name : null;
     userUpdate.email = req.body.email ? req.body.email : null;
     // userUpdate.oldPassword = req.body.oldPassword ? req.body.oldPassword : null;
     userUpdate.password = req.body.password ? req.body.password : null;
