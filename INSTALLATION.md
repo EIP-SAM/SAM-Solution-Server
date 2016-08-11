@@ -12,11 +12,13 @@
 ### Software requirements
 * A modern and up to date __Linux__ operating system (like Debian/Ubuntu/Fedora/Archlinux/...)  
   *Note: It is important to note that, for experimental purposes only, in accordance with the actual development status, a modern version of __Windows__ or __OS X__, can, for now, be still sufficient to make run the server.*
-* A __node.js__ version `>= 5.4.X`
+* A __node.js__ version `>= 6.0.X`
 * A __npm__ version `>= 1.2.X`
 * An __SQL__ database must be available. __PostgreSQL__, __MySQL__, __MariaDB__, __SQLite__ and __MSSQL__ are supported.
 * A __MongoDB__ database must be available.
 * __git__ must be available through the command line
+
+*Note: If you're encountering problems installing nodejs `>= 6.0.X`, visit the official [nodejs installation instructions](https://nodejs.org/en/download/package-manager/)*
 
 ## Usage
 ### Installation (from source)
