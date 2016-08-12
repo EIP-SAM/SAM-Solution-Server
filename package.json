@@ -51,6 +51,7 @@
     "express": "^4.12.4",
     "express-session": "^1.13.0",
     "flash": "^1.1.0",
+    "helmet": "^2.1.2",
     "istanbul": "^0.4.2",
     "jasmine": "^2.4.1",
     "mongoose": "^4.4.10",
