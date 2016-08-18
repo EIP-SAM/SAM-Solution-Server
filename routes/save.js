@@ -27,9 +27,4 @@ module.exports = function initSaveRoutes(app) {
     saveController.cancelSave(req, res);
     res.json('Your auto/programmed save has been canceled');
   });
-
-  app.post('/get_history_save', function (req, res) {
-    saveController.getHistorySave(req, res);
-    res.redirect('/save');
-  });
 };
