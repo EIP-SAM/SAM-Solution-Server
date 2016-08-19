@@ -10,10 +10,12 @@
 
 import {
   GET_RESTORES,
+  USER_TYPE,
 } from './constants';
 
 const initialState = {
   restores: [],
+  typeUser: '',
 };
 
 function RestoreReducer(state = initialState, action) {
@@ -21,6 +23,10 @@ function RestoreReducer(state = initialState, action) {
     case GET_RESTORES:
       return Object.assign({}, state, {
         restores: action.restores,
+      });
+    case USER_TYPE:
+      return Object.assign({}, state, {
+        typeUser: action.typeUser,
       });
     default:
       return state;
