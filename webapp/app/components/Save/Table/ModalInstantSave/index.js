@@ -1,5 +1,5 @@
 //
-// Modal to create an instant save in save history page
+// Modal to create an instant save in save page
 //
 
 import React from 'react';

@@ -1,5 +1,5 @@
 //
-// Modal to launch an instant restore in save history page
+// Modal to launch an instant restore in save page
 //
 
 import React from 'react';
