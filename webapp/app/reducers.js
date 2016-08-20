@@ -22,7 +22,7 @@ import groupsReducer from 'containers/Groups/reducers';
 
 import savingReducer from 'containers/Save/reducer';
 import saveReducer from 'containers/Save/Save/reducers';
-import saveHistoryReducer from 'containers/Save/SaveHistory/reducer';
+import saveHistoryReducer from 'containers/Save/SaveHistory/reducers';
 import saveCreationReducer from 'containers/Save/SaveCreation/reducer';
 import RestoreReducer from 'containers/Restore/reducer';
 import RestoreHistoryReducer from 'containers/RestoreHistory/reducer';

@@ -1,5 +1,5 @@
 //
-// Save History Reducer
+// Save History Table Reducer
 //
 // To add a new action:
 //
@@ -9,7 +9,6 @@
 //
 
 import {
-  GET_HISTORY_SAVES_BY_USER,
   SHOW_DELETION_SCHEDULED_SAVE_MODAL,
   SHOW_INSTANT_SAVE_MODAL,
   DELETE_SCHEDULED_SAVE_INFO,
@@ -19,7 +18,6 @@ import {
 } from './constants';
 
 const initialState = {
-  saves: [],
   showDeletionModal: false,
   showInstantSaveModal: false,
   saveId: '',
@@ -30,17 +28,13 @@ const initialState = {
   files: '',
 };
 
-function SaveHistoryReducer(state = initialState, action) {
+function SaveHistoryTableReducer(state = initialState, action) {
   switch (action.type) {
     case RESET_RESTORE_STATE:
       return Object.assign({}, state, {
         userId: '',
         files: '',
         showInstantRestoreModal: false,
-      });
-    case GET_HISTORY_SAVES_BY_USER:
-      return Object.assign({}, state, {
-        saves: action.saves,
       });
     case SHOW_DELETION_SCHEDULED_SAVE_MODAL:
       return Object.assign({}, state, {
@@ -70,4 +64,4 @@ function SaveHistoryReducer(state = initialState, action) {
   }
 }
 
-export default SaveHistoryReducer;
+export default SaveHistoryTableReducer;
