@@ -33,7 +33,6 @@ export class RestoreTable extends React.Component {
         data = this.props.data;
       }
     }
-
     return (
       <div>
         <Table responsive hover striped>
@@ -44,7 +43,7 @@ export class RestoreTable extends React.Component {
             {data.map((restore, index) => {
               const actions = [];
               if (restore.restores.length > 0) {
-                actions.push(<ButtonPopover key={`action-${0}`} trigger="hover" placement="bottom" popoverContent="Relaunch restore" buttonType="link" icon="repeat" onClick={() => this.handleRestoreClick(restore)} />);
+                actions.push(<ButtonPopover key={`action-${0}`} placement="bottom" popoverContent="Relaunch restore" buttonType="link" icon="repeat" onClick={() => this.handleRestoreClick(restore)} />);
                 return (
                   <Tr
                     key={`item-${index}`} items={[
@@ -82,7 +81,7 @@ export class RestoreTable extends React.Component {
 }
 
 RestoreTable.propTypes = {
-  data: React.PropTypes.object,
+  data: React.PropTypes.array,
   historyState: React.PropTypes.object,
   creationState: React.PropTypes.object,
   showInstantRestoreModal: React.PropTypes.func,

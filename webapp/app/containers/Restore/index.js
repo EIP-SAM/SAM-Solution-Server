@@ -3,8 +3,8 @@
 //
 
 import { connect } from 'react-redux';
-import { getRestoresRequest } from './actions';
-import { getHistoryRestoresByUserRequest, showInstantRestoreModal, hideInstantRestoreModal } from 'containers/RestoreHistory/actions';
+import { getVisibilityFilter, getRestoresRequest } from './actions';
+import { showInstantRestoreModal, hideInstantRestoreModal } from 'containers/RestoreHistory/actions';
 import { createRestoresRequest, setUserId, selectFiles, resetState } from 'containers/RestoreCreation/actions';
 import { Restore } from 'components/Restore';
 
@@ -25,6 +25,7 @@ function mapDispatchToProps(dispatch) {
     selectFiles: (selectedFiles) => dispatch(selectFiles(selectedFiles)),
     setUserId: (userId) => dispatch(setUserId(userId)),
     resetStateCreationRestore: () => dispatch(resetState()),
+    getVisibilityFilter: (typeUser) => dispatch(getVisibilityFilter(typeUser)),
   };
 }
 

@@ -12,7 +12,10 @@ export class RestoreFilters extends React.Component {
   render() {
     return (
       <Form horizontal>
-        <TypeUserFormGroup />
+        <TypeUserFormGroup
+          state={this.props.state}
+          getVisibilityFilter={this.props.getVisibilityFilter}
+        />
         <GroupsFormGroup />
       </Form>
    );
@@ -20,4 +23,6 @@ export class RestoreFilters extends React.Component {
 }
 
 RestoreFilters.propTypes = {
+  state: React.PropTypes.object,
+  getVisibilityFilter: React.PropTypes.func,
 };

@@ -11,7 +11,7 @@
    render() {
      return (
        <FormGroup controlId="groups" bsSize="small" >
-         <Col componentClass={ControlLabel} sm={1}>
+         <Col componentClass={ControlLabel} sm={2}>
            Groups :
          </Col>
          <Col sm={2}>

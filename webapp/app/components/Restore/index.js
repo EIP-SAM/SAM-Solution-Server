@@ -18,7 +18,10 @@ export class Restore extends React.Component {
     return (
       <div>
         <PageHeader>Restore</PageHeader>
-        <RestoreFilters />
+        <RestoreFilters
+          state={this.props.state}
+          getVisibilityFilter={this.props.getVisibilityFilter}
+        />
         <RestoreTable
           data={this.props.state.restores}
           createRestoresRequest={this.props.createRestoresRequest}
@@ -47,4 +50,5 @@ Restore.propTypes = {
   setUserId: React.PropTypes.func,
   selectFiles: React.PropTypes.func,
   resetStateCreationRestore: React.PropTypes.func,
+  getVisibilityFilter: React.PropTypes.func,
 };
