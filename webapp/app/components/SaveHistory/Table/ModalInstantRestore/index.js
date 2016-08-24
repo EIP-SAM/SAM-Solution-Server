@@ -16,7 +16,7 @@ export class SaveHistoryInstantRestoreModal extends React.Component {
   }
 
   handleLaunchClick() {
-    this.props.createRestoreRequest(this.props.state);
+    this.props.createRestoreRequest(this.props.userId, this.props.files);
     this.props.hideInstantRestoreModal();
   }
 
@@ -27,7 +27,7 @@ export class SaveHistoryInstantRestoreModal extends React.Component {
 
   render() {
     return (
-      <Modal show={this.props.state.showInstantRestoreModal} onHide={this.handleCancelClick}>
+      <Modal show={this.props.showInstantRestoreModal} onHide={this.handleCancelClick}>
         <Modal.Header closeButton>
           <Modal.Title><Glyphicon glyph="save" className={styles.icon} />Instant Restore</Modal.Title>
         </Modal.Header>
@@ -47,8 +47,10 @@ export class SaveHistoryInstantRestoreModal extends React.Component {
 }
 
 SaveHistoryInstantRestoreModal.propTypes = {
-  state: React.PropTypes.object.isRequired,
-  hideInstantRestoreModal: React.PropTypes.func.isRequired,
+  showInstantRestoreModal: React.PropTypes.bool,
+  userId: React.PropTypes.number,
+  files: React.PropTypes.array,
+  hideInstantRestoreModal: React.PropTypes.func,
   createRestoreRequest: React.PropTypes.func,
   resetRestoreState: React.PropTypes.func,
 };

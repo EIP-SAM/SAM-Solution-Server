@@ -8,12 +8,15 @@ import { SaveHistoryDeletionScheduledSaveModal } from 'components/SaveHistory/Ta
 import {
   hideDeletionScheduledSaveModal,
   cancelSave,
-} from 'containers/Save/SaveHistory/Table/actions';
+} from './actions';
 
 
 function mapStateToProps(state) {
   return {
-    state: state.get('saveHistory').get('SaveHistoryTableReducer'),
+    showDeletionModal: state.get('saveHistory').get('SaveHistoryTableDeletionModalReducer').showDeletionModal,
+    saveId: state.get('saveHistory').get('SaveHistoryTableDeletionModalReducer').saveId,
+    saveScheduledId: state.get('saveHistory').get('SaveHistoryTableDeletionModalReducer').saveScheduledId,
+    username: state.get('saveHistory').get('SaveHistoryTableDeletionModalReducer').username,
   };
 }
 

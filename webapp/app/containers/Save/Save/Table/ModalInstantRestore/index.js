@@ -9,7 +9,7 @@ import {
   hideInstantRestoreModal,
   createRestoreRequest,
   resetRestoreState,
-} from 'containers/Save/Save/Table/ModalInstantRestore/actions';
+} from './actions';
 
 function mapStateToProps(state) {
   return {

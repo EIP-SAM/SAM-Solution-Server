@@ -11,13 +11,13 @@ import {
 
 import {
   hideInstantSaveModal,
-} from 'containers/Save/SaveHistory/Table/actions';
+} from './actions';
 
 
 function mapStateToProps(state) {
   return {
     saving: state.get('saving'),
-    state: state.get('saveHistory').get('SaveHistoryTableReducer'),
+    showInstantSaveModal: state.get('saveHistory').get('SaveHistoryTableInstantSaveModalReducer').showInstantSaveModal,
   };
 }
 

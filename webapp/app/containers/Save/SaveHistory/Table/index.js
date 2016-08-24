@@ -14,11 +14,17 @@ import {
 
 import {
   showDeletionScheduledSaveModal,
-  showInstantSaveModal,
-  showInstantRestoreModal,
   deleteScheduledSaveInfo,
+} from './ModalDeletionScheduledSave/actions';
+
+import {
+  showInstantRestoreModal,
   instantRestore,
-} from './actions';
+} from './ModalInstantRestore/actions';
+
+import {
+  showInstantSaveModal,
+} from './ModalInstantSave/actions';
 
 
 function mapStateToProps(state) {

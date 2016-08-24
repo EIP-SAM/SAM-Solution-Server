@@ -15,13 +15,13 @@ export class SaveHistoryDeletionScheduledSaveModal extends React.Component {
   }
 
   handleDeleteClick() {
-    this.props.cancelSave(this.props.state.saveId, this.props.state.saveScheduledId, this.props.state.username);
+    this.props.cancelSave(this.props.saveId, this.props.saveScheduledId, this.props.username);
     this.props.hideDeletionScheduledSaveModal();
   }
 
   render() {
     return (
-      <Modal show={this.props.state.showDeletionModal} onHide={this.props.hideDeletionScheduledSaveModal}>
+      <Modal show={this.props.showDeletionModal} onHide={this.props.hideDeletionScheduledSaveModal}>
         <Modal.Header closeButton>
           <Modal.Title><Glyphicon glyph="warning-sign" className={styles.icon} />Delete scheduled save</Modal.Title>
         </Modal.Header>
@@ -41,7 +41,10 @@ export class SaveHistoryDeletionScheduledSaveModal extends React.Component {
 }
 
 SaveHistoryDeletionScheduledSaveModal.propTypes = {
-  state: React.PropTypes.object.isRequired,
-  hideDeletionScheduledSaveModal: React.PropTypes.func.isRequired,
+  showDeletionModal: React.PropTypes.bool,
+  saveId: React.PropTypes.number,
+  saveScheduledId: React.PropTypes.number,
+  username: React.PropTypes.string,
+  hideDeletionScheduledSaveModal: React.PropTypes.func,
   cancelSave: React.PropTypes.func.isRequired,
 };

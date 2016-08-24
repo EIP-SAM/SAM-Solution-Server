@@ -8,12 +8,14 @@ import {
   hideInstantRestoreModal,
   createRestoreRequest,
   resetRestoreState,
-} from 'containers/Save/SaveHistory/Table/actions';
+} from './actions';
 
 
 function mapStateToProps(state) {
   return {
-    state: state.get('saveHistory').get('SaveHistoryTableReducer'),
+    showInstantRestoreModal: state.get('saveHistory').get('SaveHistoryTableInstantRestoreModalReducer').showInstantRestoreModal,
+    userId: state.get('saveHistory').get('SaveHistoryTableInstantRestoreModalReducer').userId,
+    files: state.get('saveHistory').get('SaveHistoryTableInstantRestoreModalReducer').files,
   };
 }
 

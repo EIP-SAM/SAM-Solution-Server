@@ -9,7 +9,9 @@
 //
 
 import { combineReducers } from 'redux-immutable';
-import SaveHistoryTableReducer from './Table/reducer';
+import SaveHistoryTableDeletionModalReducer from './Table/ModalDeletionScheduledSave/reducer';
+import SaveHistoryTableInstantSaveModalReducer from './Table/ModalInstantSave/reducer';
+import SaveHistoryTableInstantRestoreModalReducer from './Table/ModalInstantRestore/reducer';
 import {
   GET_HISTORY_SAVES_BY_USER,
 } from './constants';
@@ -32,5 +34,7 @@ function SaveHistoryReducer(state = initialState, action) {
 
 export default combineReducers({
   SaveHistoryReducer,
-  SaveHistoryTableReducer,
+  SaveHistoryTableDeletionModalReducer,
+  SaveHistoryTableInstantSaveModalReducer,
+  SaveHistoryTableInstantRestoreModalReducer,
 });
