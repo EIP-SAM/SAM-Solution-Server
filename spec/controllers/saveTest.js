@@ -182,32 +182,3 @@ xdescribe('saveSuccess', function () {
     expect(saveManager.saveSuccess).toHaveBeenCalledTimes(1);
   });
 });
-
-describe('getHistorySave', function () {
-  var save;
-  var req;
-  var res;
-
-  beforeAll(function () {
-    req = {};
-    res = {};
-  });
-
-  beforeEach(function () {
-    save = saveManager.getHistorySave(req, res);
-  });
-
-  afterEach(function () {
-    save = null;
-  });
-
-  it('should return a promise', function () {
-    expect(typeof save.then === 'function').toBeTruthy();
-  });
-
-  xit('should have called getHistorySave once', function () {
-    spyOn(saveManager, 'getHistorySave');
-    saveController.getHistorySave(req, res);
-    expect(saveManager.getHistorySave).toHaveBeenCalledTimes(1);
-  });
-});

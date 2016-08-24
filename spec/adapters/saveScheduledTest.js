@@ -193,32 +193,6 @@ describe('findSaveScheduledById', function () {
   });
 });
 
-describe('getAllSaveScheduled', function () {
-  it('should return a promise', function () {
-    var saveScheduled = saveScheduledAdapter.getAllSaveScheduled();
-    expect(typeof saveScheduled.then === 'function').toBeTruthy();
-  });
-
-  it('should have called findAll once', function () {
-    spyOn(SaveScheduledModel, 'findAll');
-    saveScheduledAdapter.getAllSaveScheduled();
-    expect(SaveScheduledModel.findAll).toHaveBeenCalledTimes(1);
-  });
-});
-
-describe('getAllSaveScheduledByUser', function () {
-  it('should return a promise', function () {
-    var saveScheduled = saveScheduledAdapter.getAllSaveScheduledByUser(1);
-    expect(typeof saveScheduled.then === 'function').toBeTruthy();
-  });
-
-  it('should have called findAll once', function () {
-    spyOn(SaveScheduledModel, 'findAll');
-    saveScheduledAdapter.getAllSaveScheduledByUser(1);
-    expect(SaveScheduledModel.findAll).toHaveBeenCalledTimes(1);
-  });
-});
-
 describe('getAllSaveScheduleActive', function () {
   it('should return a promise', function () {
     var saveScheduled = saveScheduledAdapter.getAllSaveScheduleActive();

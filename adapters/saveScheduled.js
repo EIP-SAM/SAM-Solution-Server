@@ -137,22 +137,25 @@ module.exports.saveIsSuccess = function (saveId) {
 };
 
 //
-// Get all saveScheduled of all users
+// Search in the database a save instance with id = saveId
+// Save the hash of the commit
 //
-module.exports.getAllSaveScheduled = function () {
-  return SaveScheduledModel.findAll({
-    order: 'id',
+module.exports.hashSave = function (saveId, hash) {
+  return SaveModel.findById(saveId).then(function (save) {
+    save.hash = hash;
+    save.save();
+    return save;
   });
 };
 
 //
-// Get all saveScheduled of one/several users
+// Get all saves of one/several users
 //
-module.exports.getAllSaveScheduledByUser = function (userId) {
-  return SaveScheduledModel.findAll({
+module.exports.getAllSaveBySaveSchedule = function (saveScheduledIds) {
+  return SaveModel.findAll({
     where: {
-      userId: {
-        $in: userId,
+      saveScheduledId: {
+        $in: saveScheduledIds,
       },
     },
   });

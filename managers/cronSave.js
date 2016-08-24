@@ -5,7 +5,6 @@ var nodeSchedule = require('../libs/nodeSchedule');
 var cronParser = require('cron-parser');
 var saveManager = require('./save');
 var saveScheduledAdapter = require('../adapters/saveScheduled');
-var saveAdapter = require('../adapters/save');
 var daemonSave = require('../daemon/save');
 var logger = require('../libs/bunyan');
 
@@ -20,7 +19,7 @@ module.exports.initAllSaveCron = function () {
       saveScheduledIds.push(ss.id);
     }
 
-    saveAdapter.getAllSaveBySaveSchedule(saveScheduledIds).then(function (saves) {
+    saveScheduledAdapter.getAllSaveBySaveSchedule(saveScheduledIds).then(function (saves) {
       for (var ss of savesScheduled) {
         if (ss.cron === null) {
           for (var s of saves) {
@@ -39,13 +38,13 @@ module.exports.initAllSaveCron = function () {
 //
 // Create cron with a specific date
 // Function is call when the cron is triggered
+// Call daemon
 //
 module.exports.createSaveScheduled = function (date, username, files, saveId, saveScheduledId) {
   return nodeSchedule.scheduleJob(date, function () {
     if (typeof files === 'string' ) {
       files = files.split();
     }
-    console.log('Send request to client');
     daemonSave.exec(username, files, function (msg) {
       if (msg.isSuccess) {
         logger.setModuleName('Save').setUser({ id: '', name: username }).info(`${username} succeeded a save`);

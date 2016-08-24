@@ -4,7 +4,6 @@
 var saveManager = require('../../managers/save');
 var cronManager = require('../../managers/cronSave');
 var saveScheduledAdapter = require('../../adapters/saveScheduled');
-var saveAdapter = require('../../adapters/save');
 var SaveScheduledModel = require('../../models/saveScheduled');
 var UserModel = require('../../models/users');
 
@@ -215,44 +214,5 @@ xdescribe('saveSuccess', function () {
     spyOn(saveAdapter, 'hashSave');
     saveManager.saveSuccess(req, res);
     expect(saveAdapter.hashSave).toHaveBeenCalledTimes(1);
-  });
-});
-
-describe('getHistorySave', function () {
-  var save;
-  var req;
-  var res;
-
-  beforeAll(function () {
-    req = {};
-    res = {};
-  });
-
-  beforeEach(function () {
-    save = saveManager.getHistorySave(req, res);
-  });
-
-  afterEach(function () {
-    save = null;
-  });
-
-  it('should return a promise', function () {
-    expect(typeof save.then === 'function').toBeTruthy();
-  });
-
-  it('should have called getAllSaveScheduled once', function () {
-    spyOn(saveScheduledAdapter, 'getAllSaveScheduled').and.returnValue(
-          new Promise(function (resolve, reject) {
-      resolve(SaveScheduledModel);
-    }));
-
-    saveManager.getHistorySave(req, res);
-    expect(saveScheduledAdapter.getAllSaveScheduled).toHaveBeenCalledTimes(1);
-  });
-
-  xit('should have called getAllSaveScheduledByUser once', function () {
-    spyOn(saveScheduledAdapter, 'getAllSaveScheduledByUser');
-    saveManager.getHistorySave(req, res);
-    expect(saveScheduledAdapter.getAllSaveScheduledByUser).toHaveBeenCalledTimes(1);
   });
 });
