@@ -18,9 +18,12 @@ import {
 
 import {
   showInstantSaveModal,
+} from './ModalInstantSave/actions';
+
+import {
   showInstantRestoreModal,
   instantRestore,
-} from './actions';
+} from './ModalInstantRestore/actions';
 
 function mapStateToProps(state) {
   return {

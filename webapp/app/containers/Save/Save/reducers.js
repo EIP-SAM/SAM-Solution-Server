@@ -9,7 +9,8 @@
 //
 
 import { combineReducers } from 'redux-immutable';
-import SaveTableReducer from './Table/reducer';
+import SaveTableInstantSaveModalReducer from './Table/ModalInstantSave/reducer';
+import SaveTableInstantRestoreModalReducer from './Table/ModalInstantRestore/reducer';
 import {
   GET_SAVES,
   GET_USERS,
@@ -35,7 +36,11 @@ function SaveReducer(state = initialState, action) {
   }
 }
 
+//
+// Combine all reducers of save page
+//
 export default combineReducers({
   SaveReducer,
-  SaveTableReducer,
+  SaveTableInstantSaveModalReducer,
+  SaveTableInstantRestoreModalReducer,
 });

@@ -27,7 +27,7 @@ export class SaveInstantSaveModal extends React.Component {
 
   render() {
     return (
-      <Modal show={this.props.state.showInstantSaveModal} onHide={this.handleCancelClick}>
+      <Modal show={this.props.showInstantSaveModal} onHide={this.handleCancelClick}>
         <Modal.Header closeButton>
           <Modal.Title><Glyphicon glyph="floppy-open" className={styles.icon} />Instant save</Modal.Title>
         </Modal.Header>
@@ -48,7 +48,7 @@ export class SaveInstantSaveModal extends React.Component {
 
 SaveInstantSaveModal.propTypes = {
   saving: React.PropTypes.object,
-  state: React.PropTypes.object.isRequired,
+  showInstantSaveModal: React.PropTypes.object.isRequired,
   hideInstantSaveModal: React.PropTypes.func.isRequired,
   createSave: React.PropTypes.func.isRequired,
   resetStateSaving: React.PropTypes.func,

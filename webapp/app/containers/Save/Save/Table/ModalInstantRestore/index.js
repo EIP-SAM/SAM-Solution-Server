@@ -9,18 +9,20 @@ import {
   hideInstantRestoreModal,
   createRestoreRequest,
   resetRestoreState,
-} from 'containers/Save/Save/Table/actions';
+} from 'containers/Save/Save/Table/ModalInstantRestore/actions';
 
 function mapStateToProps(state) {
   return {
-    state: state.get('save').get('SaveTableReducer'),
+    showInstantRestoreModal: state.get('save').get('SaveTableInstantRestoreModalReducer').showInstantRestoreModal,
+    userId: state.get('save').get('SaveTableInstantRestoreModalReducer').userId,
+    files: state.get('save').get('SaveTableInstantRestoreModalReducer').files,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     hideInstantRestoreModal: () => dispatch(hideInstantRestoreModal()),
-    createRestoreRequest: (state) => dispatch(createRestoreRequest(state)),
+    createRestoreRequest: (userId, files) => dispatch(createRestoreRequest(userId, files)),
     resetRestoreState: () => dispatch(resetRestoreState()),
   };
 }

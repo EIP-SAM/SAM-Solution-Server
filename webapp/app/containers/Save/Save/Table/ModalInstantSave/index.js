@@ -11,12 +11,12 @@ import {
 
 import {
   hideInstantSaveModal,
-} from 'containers/Save/Save/Table/actions';
+} from './actions';
 
 function mapStateToProps(state) {
   return {
     saving: state.get('saving'),
-    state: state.get('save').get('SaveTableReducer'),
+    showInstantSaveModal: state.get('save').get('SaveTableInstantSaveModalReducer').showInstantSaveModal,
   };
 }
 
