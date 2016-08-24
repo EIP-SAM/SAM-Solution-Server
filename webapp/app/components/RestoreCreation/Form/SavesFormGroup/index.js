@@ -28,7 +28,6 @@ export class RestoreCreationSavesFormGroup extends React.Component {
   render() {
     let saves = [];
     let savesOption = [];
-    let validationState = '';
     let errorMessage = '';
     if (this.props.state.allSaves.length > 0) {
       saves = this.props.state.allSaves.map((save) => (
@@ -40,17 +39,17 @@ export class RestoreCreationSavesFormGroup extends React.Component {
     }
 
     if (this.props.state.saveError !== '') {
-      validationState = 'error';
       errorMessage = this.props.state.saveError;
     }
     return (
-      <FormGroup controlId="saves" className={styles.form} validationState={validationState}>
+      <FormGroup controlId="saves" className={styles.form} validationState={this.props.state.saveError.length > 0 ? 'error' : null}>
         <ControlLabel>Saves</ControlLabel>
         <ButtonPopover
+          id="saves"
+          trigger={['hover', 'focus']}
           buttonType="link"
           icon="question-sign"
           popoverContent="Select the save"
-          trigger="hover"
           placement="right"
         />
         <FormControl componentClass="select" onChange={this.handleFilesChange}>

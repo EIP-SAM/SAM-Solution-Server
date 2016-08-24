@@ -44,7 +44,7 @@ export class RestoreHistoryTable extends React.Component {
           <tbody>
           {data.map((restore, index) => {
             const actions = [];
-            actions.push(<ButtonPopover key={`action-${0}`} trigger="hover" placement="bottom" popoverContent="Relaunch Restore" buttonType="link" icon="repeat" onClick={() => this.handleRestoreClick(restore)} />);
+            actions.push(<ButtonPopover key={`action-${0}`} id="relaunch-restore" trigger={['focus', 'hover']} placement="bottom" popoverContent="Relaunch Restore" buttonType="link" icon="repeat" onClick={() => this.handleRestoreClick(restore)} />);
             return (
               <Tr
                 key={`row-${index}`} items={[

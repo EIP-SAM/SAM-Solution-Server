@@ -9,7 +9,6 @@ import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ButtonPopover extends React.Component {
-
   render() {
     const buttonStyle = ((this.props.buttonStyle) ? this.props.buttonStyle : styles.button);
 
@@ -31,13 +30,15 @@ export class ButtonPopover extends React.Component {
         </Button>
       );
     }
-
     return (
       <OverlayTrigger
         trigger={this.props.trigger}
         placement={this.props.placement}
         overlay={
-          <Popover title={this.props.popoverTitle}>
+          <Popover
+            id={this.props.id}
+            title={this.props.popoverTitle}
+          >
             {this.props.popoverContent}
           </Popover>
         }
@@ -49,7 +50,8 @@ export class ButtonPopover extends React.Component {
 }
 
 ButtonPopover.propTypes = {
-  trigger: React.PropTypes.string.isRequired,
+  trigger: React.PropTypes.array.isRequired,
+  id: React.PropTypes.string,
   placement: React.PropTypes.string.isRequired,
   popoverContent: React.PropTypes.string.isRequired,
   buttonType: React.PropTypes.string.isRequired,

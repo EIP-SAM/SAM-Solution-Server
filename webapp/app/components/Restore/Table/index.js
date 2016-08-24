@@ -44,7 +44,7 @@ export class RestoreTable extends React.Component {
             {data.map((restore, index) => {
               const actions = [];
               if (restore.restores.length > 0) {
-                actions.push(<ButtonPopover key={`action-${0}`} trigger="hover" placement="bottom" popoverContent="Relaunch restore" buttonType="link" icon="repeat" onClick={() => this.handleRestoreClick(restore)} />);
+                actions.push(<ButtonPopover key={`action-${0}`} id="relaunch-restore" trigger={['focus', 'hover']} placement="bottom" popoverContent="Relaunch restore" buttonType="link" icon="repeat" onClick={() => this.handleRestoreClick(restore)} />);
                 return (
                   <Tr
                     key={`item-${index}`} items={[
