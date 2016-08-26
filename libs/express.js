@@ -3,6 +3,8 @@ module.exports = function initExpress(conf) {
   var cookieParser = require('cookie-parser');
   var bodyParser = require('body-parser');
   var flash = require('connect-flash');
+  var expressGit = require('./expressGit')
+
 
   // init express
   var app = express();
@@ -12,6 +14,7 @@ module.exports = function initExpress(conf) {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(flash());
+  app.use("/git", expressGit());
 
   app.use(function(req, res, next) {
     if (req.get('origin'))

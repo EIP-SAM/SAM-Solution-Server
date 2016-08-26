@@ -89,7 +89,6 @@ function checkAndCreateUser(name, email, password, confirmation) {
                 .then(function (group) {
                   user.addGroups([group])
                   .then(function () {
-                    gitWorker.initNewGitRepo(name);
                     fulfill(user);
                   });
                 });
