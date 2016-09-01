@@ -1,9 +1,9 @@
 //
-// Container page SaveCreation
+// Container form page SaveCreation
 //
 
 import { connect } from 'react-redux';
-import { SaveCreation } from 'components/SaveCreation';
+import { SaveCreationForm } from 'components/SaveCreation/Form';
 
 function mapStateToProps() {
   return {
@@ -18,4 +18,4 @@ function mapDispatchToProps() {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SaveCreation);
+)(SaveCreationForm);

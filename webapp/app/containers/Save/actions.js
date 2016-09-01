@@ -6,10 +6,6 @@ import { browserHistory } from 'react-router';
 import request from 'utils/request';
 
 import {
-  resetStateSaveCreation,
-} from 'containers/Save/SaveCreation/actions';
-
-import {
   RESET_STATE_SAVING,
   LIST_USERS,
   DATE,
@@ -94,7 +90,6 @@ export function createSave(state, redirect) {
         if (redirect) {
           browserHistory.goBack();
         }
-        dispatch(resetStateSaveCreation());
         dispatch(resetStateSaving());
       });
   };

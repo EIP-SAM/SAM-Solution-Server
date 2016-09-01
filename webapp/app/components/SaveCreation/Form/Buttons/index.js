@@ -38,7 +38,6 @@ export class SaveCreationButtons extends React.Component {
   }
 
   handleCancelClick() {
-    this.props.resetStateSaveCreation();
     this.props.resetStateSaving();
     browserHistory.goBack();
   }
@@ -55,9 +54,7 @@ export class SaveCreationButtons extends React.Component {
 
 SaveCreationButtons.propTypes = {
   saving: React.PropTypes.object,
-  state: React.PropTypes.object,
   createSave: React.PropTypes.func,
-  resetStateSaveCreation: React.PropTypes.func,
   resetStateSaving: React.PropTypes.func,
   userErrorMsg: React.PropTypes.func,
   dateErrorMsg: React.PropTypes.func,

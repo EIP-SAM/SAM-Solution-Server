@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { PageHeader } from 'react-bootstrap';
-import { SaveCreationForm } from 'components/SaveCreation/Form';
+import SaveCreationForm from 'containers/Save/SaveCreation/Form';
 
 
 /* eslint-disable react/prefer-stateless-function */
@@ -14,52 +14,8 @@ export class SaveCreation extends React.Component {
     return (
       <div>
         <PageHeader>Scheduled Save</PageHeader>
-        <SaveCreationForm
-          saving={this.props.saving}
-          listUsersState={this.props.listUsersState}
-          state={this.props.state}
-          resetStateSaving={this.props.resetStateSaving}
-          resetStateSaveCreation={this.props.resetStateSaveCreation}
-          listUsers={this.props.listUsers}
-          dateSave={this.props.dateSave}
-          timeSave={this.props.timeSave}
-          frequencySave={this.props.frequencySave}
-          addFile={this.props.addFile}
-          displayAddFile={this.props.displayAddFile}
-          inputFileChange={this.props.inputFileChange}
-          showAddFileModal={this.props.showAddFileModal}
-          cancelAddingFile={this.props.cancelAddingFile}
-          createSave={this.props.createSave}
-          userErrorMsg={this.props.userErrorMsg}
-          dateErrorMsg={this.props.dateErrorMsg}
-          timeErrorMsg={this.props.timeErrorMsg}
-          frequencyErrorMsg={this.props.frequencyErrorMsg}
-          fileErrorMsg={this.props.fileErrorMsg}
-        />
+        <SaveCreationForm />
       </div>
     );
   }
 }
-
-SaveCreation.propTypes = {
-  saving: React.PropTypes.object,
-  listUsersState: React.PropTypes.object,
-  state: React.PropTypes.object,
-  resetStateSaving: React.PropTypes.func,
-  resetStateSaveCreation: React.PropTypes.func,
-  listUsers: React.PropTypes.func,
-  dateSave: React.PropTypes.func,
-  timeSave: React.PropTypes.func,
-  frequencySave: React.PropTypes.func,
-  addFile: React.PropTypes.func,
-  displayAddFile: React.PropTypes.func,
-  inputFileChange: React.PropTypes.func,
-  showAddFileModal: React.PropTypes.func,
-  cancelAddingFile: React.PropTypes.func,
-  createSave: React.PropTypes.func,
-  userErrorMsg: React.PropTypes.func,
-  dateErrorMsg: React.PropTypes.func,
-  timeErrorMsg: React.PropTypes.func,
-  frequencyErrorMsg: React.PropTypes.func,
-  fileErrorMsg: React.PropTypes.func,
-};

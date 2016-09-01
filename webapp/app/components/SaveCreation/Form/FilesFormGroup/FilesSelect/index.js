@@ -12,15 +12,15 @@ export class SaveCreationFilesSelect extends React.Component {
     let validationState = '';
     let errorMessage = '';
 
-    if (this.props.state.fileError !== '') {
+    if (this.props.fileError !== '') {
       validationState = 'error';
-      errorMessage = this.props.state.fileError;
+      errorMessage = this.props.fileError;
     }
 
     let options = [];
 
-    if (this.props.saving.files) {
-      const files = this.props.saving.files.map((file) => (
+    if (this.props.files) {
+      const files = this.props.files.map((file) => (
         { isActive: false, value: file, text: file }
       ));
 
@@ -55,6 +55,7 @@ export class SaveCreationFilesSelect extends React.Component {
 }
 
 SaveCreationFilesSelect.propTypes = {
-  saving: React.PropTypes.object,
-  state: React.PropTypes.object,
+  test: React.PropTypes.string,
+  files: React.PropTypes.array,
+  fileError: React.PropTypes.string,
 };

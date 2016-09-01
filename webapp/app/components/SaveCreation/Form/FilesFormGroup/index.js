@@ -5,22 +5,22 @@
 import React from 'react';
 import { FormGroup, ControlLabel } from 'react-bootstrap';
 import { ButtonPopover } from 'components/ButtonPopover';
-import { SaveCreationAddFileModal } from 'components/SaveCreation/Form/FilesFormGroup/Modal';
-import { SaveCreationFilesSelect } from 'components/SaveCreation/Form/FilesFormGroup/FilesSelect';
+import SaveCreationAddFileModal from 'containers/Save/SaveCreation/Form/Files/Modal';
+import SaveCreationFilesSelect from 'containers/Save/SaveCreation/Form/Files/Select';
 import styles from 'components/SaveCreation/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SaveCreationFilesFormGroup extends React.Component {
 
   componentDidMount() {
-    if (this.props.saving.files.length > 0) {
+    if (this.props.files.length > 0) {
       this.props.displayAddFile(false);
     }
   }
 
   render() {
     let addFileButton = null;
-    if (this.props.state.canAddFile) {
+    if (this.props.canAddFile) {
       addFileButton = (
         <ButtonPopover
           buttonType="link"
@@ -37,27 +37,16 @@ export class SaveCreationFilesFormGroup extends React.Component {
       <FormGroup controlId="files" className={styles.form}>
         <ControlLabel>Files</ControlLabel>
         {addFileButton}
-        <SaveCreationAddFileModal
-          state={this.props.state}
-          addFile={this.props.addFile}
-          inputFileChange={this.props.inputFileChange}
-          cancelAddingFile={this.props.cancelAddingFile}
-        />
-        <SaveCreationFilesSelect
-          saving={this.props.saving}
-          state={this.props.state}
-        />
+        <SaveCreationAddFileModal />
+        <SaveCreationFilesSelect />
       </FormGroup>
     );
   }
 }
 
 SaveCreationFilesFormGroup.propTypes = {
-  saving: React.PropTypes.object,
-  state: React.PropTypes.object,
-  addFile: React.PropTypes.func,
+  files: React.PropTypes.array,
+  canAddFile: React.PropTypes.bool,
   displayAddFile: React.PropTypes.func,
-  inputFileChange: React.PropTypes.func,
   showAddFileModal: React.PropTypes.func,
-  cancelAddingFile: React.PropTypes.func,
 };
