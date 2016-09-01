@@ -16,7 +16,7 @@ export class SaveInstantSaveModal extends React.Component {
   }
 
   handleLaunchClick() {
-    this.props.createSave(this.props.saving, false);
+    this.props.createSave(false, this.props.saving.users, this.props.saving.date, this.props.saving.time, this.props.saving.frequency, this.props.saving.files);
     this.props.hideInstantSaveModal();
   }
 
@@ -48,8 +48,8 @@ export class SaveInstantSaveModal extends React.Component {
 
 SaveInstantSaveModal.propTypes = {
   saving: React.PropTypes.object,
-  showInstantSaveModal: React.PropTypes.object.isRequired,
-  hideInstantSaveModal: React.PropTypes.func.isRequired,
+  showInstantSaveModal: React.PropTypes.bool,
+  hideInstantSaveModal: React.PropTypes.func,
   createSave: React.PropTypes.func.isRequired,
   resetStateSaving: React.PropTypes.func,
 };

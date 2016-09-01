@@ -21,7 +21,7 @@ export class SaveCreationButtons extends React.Component {
         this.props.saving.date !== 'Invalid date' &&
         this.props.saving.time !== 'Invalid date' &&
         this.props.saving.files.length > 0) {
-      this.props.createSave(this.props.saving, true);
+      this.props.createSave(true, this.props.saving.users, this.props.saving.date, this.props.saving.time, this.props.saving.frequency, this.props.saving.files);
     }
     if (this.props.saving.users.length === 0) {
       this.props.userErrorMsg('You can\'t create a save without a user');

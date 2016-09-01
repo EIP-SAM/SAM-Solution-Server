@@ -16,7 +16,7 @@ export class SaveHistoryInstantSaveModal extends React.Component {
   }
 
   handleLaunchClick() {
-    this.props.createSave(this.props.saving, false);
+    this.props.createSave(false, this.props.saving.users, this.props.saving.date, this.props.saving.time, this.props.saving.frequency, this.props.saving.files);
     this.props.hideInstantSaveModal();
   }
 

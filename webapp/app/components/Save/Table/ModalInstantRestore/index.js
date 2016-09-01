@@ -48,8 +48,8 @@ export class SaveInstantRestoreModal extends React.Component {
 
 SaveInstantRestoreModal.propTypes = {
   showInstantRestoreModal: React.PropTypes.bool,
-  userId: React.PropTypes.number,
-  files: React.PropTypes.array,
+  userId: React.PropTypes.string,
+  files: React.PropTypes.string,
   hideInstantRestoreModal: React.PropTypes.func,
   createRestoreRequest: React.PropTypes.func,
   resetRestoreState: React.PropTypes.func,

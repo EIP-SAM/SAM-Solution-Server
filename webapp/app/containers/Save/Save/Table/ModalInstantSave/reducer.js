@@ -12,7 +12,11 @@ import {
   SHOW_INSTANT_SAVE_MODAL,
 } from './constants';
 
-function SaveTableInstantSaveModalReducer(state = {}, action) {
+const initialState = {
+  showInstantSaveModal: false,
+};
+
+function SaveTableInstantSaveModalReducer(state = initialState, action) {
   switch (action.type) {
     case SHOW_INSTANT_SAVE_MODAL:
       return Object.assign({}, state, {

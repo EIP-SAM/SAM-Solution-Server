@@ -38,7 +38,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     resetStateSaving: () => dispatch(resetStateSaving()),
-    createSave: (state, redirect) => dispatch(createSave(state, redirect)),
+    createSave: (redirect, users, date, time, frequency, files) => dispatch(createSave(redirect, users, date, time, frequency, files)),
     userErrorMsg: (userError) => dispatch(userErrorMsg(userError)),
     dateErrorMsg: (dateError) => dispatch(dateErrorMsg(dateError)),
     timeErrorMsg: (timeError) => dispatch(timeErrorMsg(timeError)),

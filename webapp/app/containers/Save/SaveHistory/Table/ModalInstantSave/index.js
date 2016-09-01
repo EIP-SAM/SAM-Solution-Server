@@ -24,7 +24,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     hideInstantSaveModal: () => dispatch(hideInstantSaveModal()),
-    createSave: (createSaveState, redirect) => dispatch(createSave(createSaveState, redirect)),
+    createSave: (redirect, users, date, time, frequency, files) => dispatch(createSave(redirect, users, date, time, frequency, files)),
     resetStateSaving: () => dispatch(resetStateSaving()),
   };
 }
