@@ -49,14 +49,15 @@ function SavingReducer(state = initialState, action) {
         frequency: action.frequency,
       });
     case ADD_FILE:
-      state.files.push(action.file);
       return Object.assign({}, state, {
-        files: state.files,
+        files: [
+          ...state.files,
+          action.file,
+        ],
       });
     case ADD_ALL_FILES:
-      const files = action.files.split(',');
       return Object.assign({}, state, {
-        files,
+        files: action.files.split(','),
       });
     default:
       return state;

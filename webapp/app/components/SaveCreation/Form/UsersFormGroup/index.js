@@ -11,7 +11,7 @@ import styles from 'components/SaveCreation/styles.css';
 /* eslint-disable react/prefer-stateless-function */
 export class SaveCreationUsersFormGroup extends React.Component {
   componentDidMount() {
-    const users = this.props.listUsersState.users.map((user) => (
+    const users = this.props.listAllUsers.map((user) => (
       { isActive: true, value: user.id, text: user.name }
     ));
     this.props.listUsers(users);
@@ -25,12 +25,12 @@ export class SaveCreationUsersFormGroup extends React.Component {
     let validationState = '';
     let errorMessage = '';
 
-    if (this.props.state.userError !== '') {
+    if (this.props.userError !== '') {
       validationState = 'error';
-      errorMessage = this.props.state.userError;
+      errorMessage = this.props.userError;
     }
 
-    const usersOptions = this.props.saving.users.map((item, index) => (
+    const usersOptions = this.props.users.map((item, index) => (
       <Option object={item} key={`item-${index}`} />
     ));
 
@@ -47,8 +47,8 @@ export class SaveCreationUsersFormGroup extends React.Component {
 }
 
 SaveCreationUsersFormGroup.propTypes = {
-  saving: React.PropTypes.object,
-  listUsersState: React.PropTypes.object,
-  state: React.PropTypes.object,
+  users: React.PropTypes.array,
+  listAllUsers: React.PropTypes.array,
+  userError: React.PropTypes.string,
   listUsers: React.PropTypes.func,
 };

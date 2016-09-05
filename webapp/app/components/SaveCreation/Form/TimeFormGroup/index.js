@@ -15,7 +15,7 @@ export class SaveCreationTimeFormGroup extends React.Component {
   }
 
   componentWillMount() {
-    if (this.props.saving.time) {
+    if (this.props.time) {
       this.disabled = true;
     }
     this.props.timeSave(moment().format('HH:mm'));
@@ -29,15 +29,15 @@ export class SaveCreationTimeFormGroup extends React.Component {
     let validationState = '';
     let errorMessage = '';
 
-    if (this.props.state.timeError !== '') {
+    if (this.props.timeError !== '') {
       validationState = 'error';
-      errorMessage = this.props.state.timeError;
+      errorMessage = this.props.timeError;
     }
 
     return (
       <FormGroup controlId="time" validationState={validationState}>
         <ControlLabel>Time</ControlLabel>
-        <FormControl type="time" value={this.props.saving.time} onChange={this.handleTimeChange} disabled={this.disabled} />
+        <FormControl type="time" value={this.props.time} onChange={this.handleTimeChange} disabled={this.disabled} />
         <HelpBlock>{errorMessage}</HelpBlock>
       </FormGroup>
     );
@@ -45,7 +45,7 @@ export class SaveCreationTimeFormGroup extends React.Component {
 }
 
 SaveCreationTimeFormGroup.propTypes = {
-  saving: React.PropTypes.object,
-  state: React.PropTypes.object,
+  time: React.PropTypes.string,
+  timeError: React.PropTypes.string,
   timeSave: React.PropTypes.func,
 };

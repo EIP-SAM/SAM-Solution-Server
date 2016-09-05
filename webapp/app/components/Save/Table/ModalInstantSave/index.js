@@ -1,5 +1,5 @@
 //
-// Modal to create an instant save in save history page
+// Modal to create an instant save in save page
 //
 
 import React from 'react';
@@ -16,7 +16,7 @@ export class SaveInstantSaveModal extends React.Component {
   }
 
   handleLaunchClick() {
-    this.props.createSave(this.props.saving, false);
+    this.props.createSave(false, this.props.saving.users, this.props.saving.date, this.props.saving.time, this.props.saving.frequency, this.props.saving.files);
     this.props.hideInstantSaveModal();
   }
 
@@ -27,7 +27,7 @@ export class SaveInstantSaveModal extends React.Component {
 
   render() {
     return (
-      <Modal show={this.props.state.showInstantSaveModal} onHide={this.handleCancelClick}>
+      <Modal show={this.props.showInstantSaveModal} onHide={this.handleCancelClick}>
         <Modal.Header closeButton>
           <Modal.Title><Glyphicon glyph="floppy-open" className={styles.icon} />Instant save</Modal.Title>
         </Modal.Header>
@@ -48,8 +48,8 @@ export class SaveInstantSaveModal extends React.Component {
 
 SaveInstantSaveModal.propTypes = {
   saving: React.PropTypes.object,
-  state: React.PropTypes.object.isRequired,
-  hideInstantSaveModal: React.PropTypes.func.isRequired,
+  showInstantSaveModal: React.PropTypes.bool,
+  hideInstantSaveModal: React.PropTypes.func,
   createSave: React.PropTypes.func.isRequired,
   resetStateSaving: React.PropTypes.func,
 };

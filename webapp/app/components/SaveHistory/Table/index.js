@@ -4,9 +4,9 @@
 
 import React from 'react';
 import { Table } from 'react-bootstrap';
-import { SaveHistoryDeletionScheduledSaveModal } from 'components/SaveHistory/Table/ModalDeletionScheduledSave';
-import { SaveHistoryInstantSaveModal } from 'components/SaveHistory/Table/ModalInstantSave';
-import { SaveHistoryInstantRestoreModal } from 'components/SaveHistory/Table/ModalInstantRestore';
+import SaveHistoryDeletionScheduledSaveModal from 'containers/Save/SaveHistory/Table/ModalDeletionScheduledSave';
+import SaveHistoryInstantSaveModal from 'containers/Save/SaveHistory/Table/ModalInstantSave';
+import SaveHistoryInstantRestoreModal from 'containers/Save/SaveHistory/Table/ModalInstantRestore';
 import { ButtonPopover } from 'components/ButtonPopover';
 import Tr from 'components/Tr';
 import Th from 'components/Th';
@@ -46,11 +46,6 @@ export class SaveHistoryTable extends React.Component {
                   { isLink: false, value: 'Files' },
                   { isLink: false, value: 'Actions' }];
 
-    let saves = this.props.state.saves;
-    if (typeof saves === 'undefined') {
-      saves = [];
-    }
-
     return (
       <div>
         <Table responsive hover striped>
@@ -58,7 +53,7 @@ export class SaveHistoryTable extends React.Component {
             <Tr items={names} component={Th} />
           </thead>
           <tbody>
-          {saves.map((save, index) => {
+          {this.props.saves.map((save, index) => {
             const displayButton = (!save.canceled) ? ((save.isStart) ? styles.undisplay : styles.button) : styles.undisplay;
             const actions = [];
             actions.push(<ButtonPopover key={`action-${0}`} trigger="hover" placement="bottom" popoverContent="Relaunch Save" buttonType="link" icon="floppy-disk" onClick={() => this.handleSaveClick(save)} />);
@@ -81,32 +76,16 @@ export class SaveHistoryTable extends React.Component {
           })}
           </tbody>
         </Table>
-        <SaveHistoryDeletionScheduledSaveModal
-          state={this.props.state}
-          hideDeletionScheduledSaveModal={this.props.hideDeletionScheduledSaveModal}
-          cancelSave={this.props.cancelSave}
-        />
-        <SaveHistoryInstantSaveModal
-          saving={this.props.saving}
-          state={this.props.state}
-          hideInstantSaveModal={this.props.hideInstantSaveModal}
-          createSave={this.props.createSave}
-          resetStateSaving={this.props.resetStateSaving}
-        />
-        <SaveHistoryInstantRestoreModal
-          state={this.props.state}
-          hideInstantRestoreModal={this.props.hideInstantRestoreModal}
-          createRestoreRequest={this.props.createRestoreRequest}
-          resetRestoreState={this.props.resetRestoreState}
-        />
+        <SaveHistoryDeletionScheduledSaveModal />
+        <SaveHistoryInstantSaveModal />
+        <SaveHistoryInstantRestoreModal />
       </div>
     );
   }
 }
 
 SaveHistoryTable.propTypes = {
-  saving: React.PropTypes.object,
-  state: React.PropTypes.object,
+  saves: React.PropTypes.array,
   listUsers: React.PropTypes.func,
   dateSave: React.PropTypes.func,
   timeSave: React.PropTypes.func,
@@ -114,15 +93,7 @@ SaveHistoryTable.propTypes = {
   addAllFiles: React.PropTypes.func,
   deleteScheduledSaveInfo: React.PropTypes.func,
   showDeletionScheduledSaveModal: React.PropTypes.func,
-  hideDeletionScheduledSaveModal: React.PropTypes.func,
-  cancelSave: React.PropTypes.func,
   showInstantSaveModal: React.PropTypes.func,
-  hideInstantSaveModal: React.PropTypes.func,
-  createSave: React.PropTypes.func,
-  resetStateSaving: React.PropTypes.func,
   showInstantRestoreModal: React.PropTypes.func,
-  hideInstantRestoreModal: React.PropTypes.func,
   instantRestore: React.PropTypes.func,
-  createRestoreRequest: React.PropTypes.func,
-  resetRestoreState: React.PropTypes.func,
 };

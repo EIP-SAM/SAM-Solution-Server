@@ -21,9 +21,9 @@ import usersReducer from 'containers/Users/reducers';
 import groupsReducer from 'containers/Groups/reducers';
 
 import savingReducer from 'containers/Save/reducer';
-import saveReducer from 'containers/Save/Save/reducer';
-import saveHistoryReducer from 'containers/Save/SaveHistory/reducer';
-import saveCreationReducer from 'containers/Save/SaveCreation/reducer';
+import saveReducer from 'containers/Save/Save/reducers';
+import saveHistoryReducer from 'containers/Save/SaveHistory/reducers';
+import saveCreationReducer from 'containers/Save/SaveCreation/Form/reducers';
 import RestoreReducer from 'containers/Restore/reducer';
 import RestoreHistoryReducer from 'containers/RestoreHistory/reducer';
 import RestoreCreationReducer from 'containers/RestoreCreation/reducer';

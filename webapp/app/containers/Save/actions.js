@@ -6,10 +6,6 @@ import { browserHistory } from 'react-router';
 import request from 'utils/request';
 
 import {
-  resetStateSaveCreation,
-} from 'containers/Save/SaveCreation/actions';
-
-import {
   RESET_STATE_SAVING,
   LIST_USERS,
   DATE,
@@ -73,9 +69,9 @@ export function addAllFiles(files) {
 // Syntaxe state.users : { value: user.id }
 // Check if all elements send through the request are completed
 //
-export function createSave(state, redirect) {
+export function createSave(redirect, users, date, time, frequency, files) {
   const usersId = [];
-  for (const user of state.users) {
+  for (const user of users) {
     usersId.push(user.value);
   }
 
@@ -85,16 +81,15 @@ export function createSave(state, redirect) {
       .type('form')
       .send({
         usersId,
-        date: state.date,
-        time: state.time,
-        frequency: state.frequency,
-        files: state.files,
+        date,
+        time,
+        frequency,
+        files,
       })
       .end(() => {
         if (redirect) {
           browserHistory.goBack();
         }
-        dispatch(resetStateSaveCreation());
         dispatch(resetStateSaving());
       });
   };

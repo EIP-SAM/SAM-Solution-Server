@@ -17,7 +17,7 @@ export class SaveCreationDateFormGroup extends React.Component {
   }
 
   componentWillMount() {
-    if (this.props.saving.date) {
+    if (this.props.date) {
       this.disabled = true;
     }
   }
@@ -30,9 +30,9 @@ export class SaveCreationDateFormGroup extends React.Component {
     let validationState = '';
     let errorMessage = '';
 
-    if (this.props.state.dateError !== '') {
+    if (this.props.dateError !== '') {
       validationState = 'error';
-      errorMessage = this.props.state.dateError;
+      errorMessage = this.props.dateError;
     }
 
     return (
@@ -46,7 +46,7 @@ export class SaveCreationDateFormGroup extends React.Component {
 }
 
 SaveCreationDateFormGroup.propTypes = {
-  saving: React.PropTypes.object,
-  state: React.PropTypes.object,
+  date: React.PropTypes.string,
+  dateError: React.PropTypes.string,
   dateSave: React.PropTypes.func,
 };

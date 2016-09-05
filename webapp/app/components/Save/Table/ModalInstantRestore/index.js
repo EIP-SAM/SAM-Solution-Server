@@ -1,5 +1,5 @@
 //
-// Modal to launch an instant restore in save history page
+// Modal to launch an instant restore in save page
 //
 
 import React from 'react';
@@ -16,7 +16,7 @@ export class SaveInstantRestoreModal extends React.Component {
   }
 
   handleLaunchClick() {
-    this.props.createRestoreRequest(this.props.state);
+    this.props.createRestoreRequest(this.props.userId, this.props.files);
     this.props.hideInstantRestoreModal();
   }
 
@@ -27,7 +27,7 @@ export class SaveInstantRestoreModal extends React.Component {
 
   render() {
     return (
-      <Modal show={this.props.state.showInstantRestoreModal} onHide={this.handleCancelClick}>
+      <Modal show={this.props.showInstantRestoreModal} onHide={this.handleCancelClick}>
         <Modal.Header closeButton>
           <Modal.Title><Glyphicon glyph="save" className={styles.icon} />Instant Restore</Modal.Title>
         </Modal.Header>
@@ -47,8 +47,10 @@ export class SaveInstantRestoreModal extends React.Component {
 }
 
 SaveInstantRestoreModal.propTypes = {
-  state: React.PropTypes.object.isRequired,
-  hideInstantRestoreModal: React.PropTypes.func.isRequired,
+  showInstantRestoreModal: React.PropTypes.bool,
+  userId: React.PropTypes.string,
+  files: React.PropTypes.string,
+  hideInstantRestoreModal: React.PropTypes.func,
   createRestoreRequest: React.PropTypes.func,
   resetRestoreState: React.PropTypes.func,
 };
