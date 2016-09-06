@@ -25,7 +25,6 @@ export class RestoreCreationFilesFormGroup extends React.Component {
   render() {
     let options = [];
     let listFiles = [];
-    let validationState = '';
     let errorMessage = '';
 
     if (this.props.state.allSaves.length > 0) {
@@ -44,18 +43,17 @@ export class RestoreCreationFilesFormGroup extends React.Component {
     }
 
     if (this.props.state.filesError !== '') {
-      validationState = 'error';
       errorMessage = this.props.state.filesError;
     }
-
     return (
-      <FormGroup controlId="files" className={styles.form} validationState={validationState}>
+      <FormGroup controlId="files" className={styles.form} validationState={this.props.state.filesError.length > 0 ? 'error' : null}>
         <ControlLabel>Files</ControlLabel>
         <ButtonPopover
+          id="files"
+          trigger={['hover', 'focus']}
           buttonType="link"
           icon="question-sign"
           popoverContent="Select the files you want to restore"
-          trigger="hover"
           placement="right"
         />
         <FormControl componentClass="select" multiple onChange={this.handleSelectedFiles}>

@@ -14,13 +14,13 @@ export class RestoreCreationForm extends React.Component {
           nameUser={this.props.nameUser}
           getHistorySavesByUserRequest={this.props.getHistorySavesByUserRequest}
         />
-
         <RestoreCreationSavesFormGroup
           state={this.props.state}
           selectSave={this.props.selectSave}
           listFiles={this.props.listFiles}
           setUserId={this.props.setUserId}
         />
+
         <RestoreCreationFilesFormGroup
           state={this.props.state}
           listFiles={this.props.listFiles}
@@ -33,6 +33,7 @@ export class RestoreCreationForm extends React.Component {
           saveErrorMsg={this.props.saveErrorMsg}
           filesErrorMsg={this.props.filesErrorMsg}
         />
+
       </form>
     );
   }
