@@ -16,7 +16,7 @@ import {
 
 const initialState = {
   showInstantRestoreModal: false,
-  userId: '',
+  userId: -1,
   files: '',
 };
 

@@ -22,7 +22,7 @@ export class SaveCreationUsersFormGroup extends React.Component {
       return (<div></div>);
     }
 
-    let validationState = '';
+    let validationState = null;
     let errorMessage = '';
 
     if (this.props.userError !== '') {
