@@ -10,9 +10,16 @@
 //
 
 import {
+  RESET_STATE_FILES,
   CAN_ADD_FILE,
   ADD_FILE_ERROR,
 } from './constants';
+
+export function resetStateFiles() {
+  return {
+    type: RESET_STATE_FILES,
+  };
+}
 
 export function displayAddFile(canAddFile) {
   return {

@@ -4,7 +4,7 @@
 
 import { browserHistory } from 'react-router';
 import request from 'utils/request';
-
+import { resetStateFiles } from './SaveCreation/Form/Files/actions';
 import {
   RESET_STATE_SAVING,
   LIST_USERS,
@@ -91,6 +91,7 @@ export function createSave(redirect, users, date, time, frequency, files) {
           browserHistory.goBack();
         }
         dispatch(resetStateSaving());
+        dispatch(resetStateFiles());
       });
   };
 }
