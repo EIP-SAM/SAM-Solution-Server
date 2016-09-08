@@ -12,6 +12,7 @@ import { combineReducers } from 'redux-immutable';
 import SaveCreationFormFilesModalReducer from './Modal/reducer';
 
 import {
+  RESET_STATE_FILES,
   CAN_ADD_FILE,
   ADD_FILE_ERROR,
 } from './constants';
@@ -23,6 +24,8 @@ const initialState = {
 
 function SaveCreationFormFilesReducer(state = initialState, action) {
   switch (action.type) {
+    case RESET_STATE_FILES:
+      return Object.assign({}, initialState, {});
     case CAN_ADD_FILE:
       return Object.assign({}, state, {
         canAddFile: action.canAddFile,

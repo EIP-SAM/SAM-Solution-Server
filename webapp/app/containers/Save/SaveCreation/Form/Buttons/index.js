@@ -26,6 +26,7 @@ import {
 } from 'containers/Save/SaveCreation/Form/Frequency/actions';
 
 import {
+  resetStateFiles,
   fileErrorMsg,
 } from 'containers/Save/SaveCreation/Form/Files/actions';
 
@@ -38,6 +39,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     resetStateSaving: () => dispatch(resetStateSaving()),
+    resetStateFiles: () => dispatch(resetStateFiles()),
     createSave: (redirect, users, date, time, frequency, files) => dispatch(createSave(redirect, users, date, time, frequency, files)),
     userErrorMsg: (userError) => dispatch(userErrorMsg(userError)),
     dateErrorMsg: (dateError) => dispatch(dateErrorMsg(dateError)),
