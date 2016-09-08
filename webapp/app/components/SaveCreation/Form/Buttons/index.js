@@ -17,29 +17,28 @@ export class SaveCreationButtons extends React.Component {
   }
 
   handleFormClick() {
-    if (this.props.saving.users.length > 0 &&
-        this.props.saving.date !== 'Invalid date' &&
-        this.props.saving.time !== 'Invalid date' &&
-        this.props.saving.files.length > 0) {
-      this.props.createSave(true, this.props.saving.users, this.props.saving.date, this.props.saving.time, this.props.saving.frequency, this.props.saving.files);
+    if (this.props.users.length > 0 &&
+        this.props.date !== 'Invalid date' &&
+        this.props.time !== 'Invalid date' &&
+        this.props.files.length > 0) {
+      this.props.createSave(true, this.props.users, this.props.date, this.props.time, this.props.frequency, this.props.files);
     }
-    if (this.props.saving.users.length === 0) {
+    if (this.props.users.length === 0) {
       this.props.userErrorMsg('You can\'t create a save without a user');
     }
-    if (this.props.saving.date === 'Invalid date') {
+    if (this.props.date === 'Invalid date') {
       this.props.dateErrorMsg('Invalid date');
     }
-    if (this.props.saving.time === 'Invalid date') {
+    if (this.props.time === 'Invalid date') {
       this.props.timeErrorMsg('Invalid time');
     }
-    if (this.props.saving.files.length === 0) {
+    if (this.props.files.length === 0) {
       this.props.fileErrorMsg('Select a file to save');
     }
   }
 
   handleCancelClick() {
-    this.props.resetStateSaving();
-    this.props.resetStateFiles();
+    this.props.resetStateForm();
     browserHistory.goBack();
   }
 
@@ -54,10 +53,13 @@ export class SaveCreationButtons extends React.Component {
 }
 
 SaveCreationButtons.propTypes = {
-  saving: React.PropTypes.object,
+  users: React.PropTypes.array,
+  date: React.PropTypes.string,
+  time: React.PropTypes.string,
+  frequency: React.PropTypes.string,
+  files: React.PropTypes.array,
   createSave: React.PropTypes.func,
-  resetStateSaving: React.PropTypes.func,
-  resetStateFiles: React.PropTypes.func,
+  resetStateForm: React.PropTypes.func,
   userErrorMsg: React.PropTypes.func,
   dateErrorMsg: React.PropTypes.func,
   timeErrorMsg: React.PropTypes.func,
