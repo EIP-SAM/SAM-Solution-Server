@@ -27,7 +27,7 @@ export class SaveCreationDateFormGroup extends React.Component {
   }
 
   render() {
-    let validationState = '';
+    let validationState = null;
     let errorMessage = '';
 
     if (this.props.dateError !== '') {

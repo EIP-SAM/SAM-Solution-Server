@@ -23,11 +23,12 @@ export class SaveCreationFilesFormGroup extends React.Component {
     if (this.props.canAddFile) {
       addFileButton = (
         <ButtonPopover
+          id="add_file_button"
           buttonType="link"
           icon="plus-sign"
           onClick={this.props.showAddFileModal}
           popoverContent="Add a fill"
-          trigger="hover"
+          trigger={['focus', 'hover']}
           placement="right"
         />
       );

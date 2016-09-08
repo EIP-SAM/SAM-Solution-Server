@@ -15,8 +15,8 @@ import {
 
 const initialState = {
   showDeletionModal: false,
-  saveId: '',
-  saveScheduledId: '',
+  saveId: -1,
+  saveScheduledId: -1,
   username: '',
 };
 

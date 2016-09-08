@@ -26,7 +26,7 @@ export class SaveCreationTimeFormGroup extends React.Component {
   }
 
   render() {
-    let validationState = '';
+    let validationState = null;
     let errorMessage = '';
 
     if (this.props.timeError !== '') {
