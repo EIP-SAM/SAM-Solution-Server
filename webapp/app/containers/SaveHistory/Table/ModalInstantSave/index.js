@@ -4,11 +4,11 @@
 
 import { connect } from 'react-redux';
 import { SaveHistoryInstantSaveModal } from 'components/SaveHistory/Table/ModalInstantSave';
-import { hideInstantSaveModal } from './actions';
+import { resetStateForm } from 'containers/SaveCreation/Form/actions';
 import {
-  resetStateForm,
-  createSave,
-} from 'containers/SaveCreation/Form/actions';
+  hideInstantSaveModal,
+  createSaveActionSaveHistory,
+} from './actions';
 
 function mapStateToProps(state) {
   return {
@@ -24,7 +24,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     hideInstantSaveModal: () => dispatch(hideInstantSaveModal()),
-    createSave: (redirect, users, date, time, frequency, files) => dispatch(createSave(redirect, users, date, time, frequency, files)),
+    createSaveActionSaveHistory: (username, users, date, time, frequency, files) => dispatch(createSaveActionSaveHistory(username, users, date, time, frequency, files)),
     resetStateForm: () => dispatch(resetStateForm()),
   };
 }

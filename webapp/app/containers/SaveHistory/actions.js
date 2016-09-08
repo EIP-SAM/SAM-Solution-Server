@@ -11,7 +11,6 @@
 
 import request from 'utils/request';
 import { getUsers } from 'containers/Save/actions';
-
 import {
   GET_HISTORY_SAVES_BY_USER,
 } from './constants';
