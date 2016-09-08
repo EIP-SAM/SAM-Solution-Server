@@ -1,97 +1,46 @@
 //
-// Save Module Actions
+// Save Actions
+//
+// To add a new Action:
+//  1) Import your constant
+//  2) Add a function like this:
+//      export function yourAction(var) {
+//          return { type: YOUR_ACTION_CONSTANT, var: var }
+//      }
 //
 
-import { browserHistory } from 'react-router';
 import request from 'utils/request';
-import { resetStateFiles } from './SaveCreation/Form/Files/actions';
+
 import {
-  RESET_STATE_SAVING,
-  LIST_USERS,
-  DATE,
-  TIME,
-  FREQUENCY,
-  ADD_FILE,
-  ADD_ALL_FILES,
+  GET_SAVES,
+  GET_USERS,
 } from './constants';
 
-export function resetStateSaving() {
+export function getSaves(saves) {
   return {
-    type: RESET_STATE_SAVING,
+    type: GET_SAVES,
+    saves,
   };
 }
 
-export function listUsers(users) {
+export function getUsers(users) {
   return {
-    type: LIST_USERS,
+    type: GET_USERS,
     users,
   };
 }
 
-export function dateSave(date) {
-  return {
-    type: DATE,
-    date,
-  };
-}
-
-export function timeSave(time) {
-  return {
-    type: TIME,
-    time,
-  };
-}
-
-export function frequencySave(frequency) {
-  return {
-    type: FREQUENCY,
-    frequency,
-  };
-}
-
-export function addFile(file) {
-  return {
-    type: ADD_FILE,
-    file,
-  };
-}
-
-export function addAllFiles(files) {
-  return {
-    type: ADD_ALL_FILES,
-    files,
-  };
-}
-
-//
-// Get username of users list in state.
-// Create save
-// Syntaxe state.users : { value: user.id }
-// Check if all elements send through the request are completed
-//
-export function createSave(redirect, users, date, time, frequency, files) {
-  const usersId = [];
-  for (const user of users) {
-    usersId.push(user.value);
-  }
-
-  return function createSaveRequest(dispatch) {
+export function getSavesRequest() {
+  return function returnGetSavesRequest(dispatch) {
     return request
-      .post('/api/logged-in/create_save')
-      .type('form')
-      .send({
-        usersId,
-        date,
-        time,
-        frequency,
-        files,
-      })
-      .end(() => {
-        if (redirect) {
-          browserHistory.goBack();
+      .get('/api/logged-in/admin/save')
+      .end((err, res) => {
+        dispatch(getSaves(res.body));
+        const users = [];
+        for (const user of res.body) {
+          users.push({ id: user.id, name: user.name });
         }
-        dispatch(resetStateSaving());
-        dispatch(resetStateFiles());
+        dispatch(getUsers(users));
       });
   };
 }

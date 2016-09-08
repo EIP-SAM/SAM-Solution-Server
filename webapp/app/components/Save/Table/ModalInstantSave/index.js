@@ -16,12 +16,12 @@ export class SaveInstantSaveModal extends React.Component {
   }
 
   handleLaunchClick() {
-    this.props.createSave(false, this.props.saving.users, this.props.saving.date, this.props.saving.time, this.props.saving.frequency, this.props.saving.files);
+    this.props.createSave(false, this.props.users, this.props.date, this.props.time, this.props.frequency, this.props.files);
     this.props.hideInstantSaveModal();
   }
 
   handleCancelClick() {
-    this.props.resetStateSaving();
+    this.props.resetStateForm();
     this.props.hideInstantSaveModal();
   }
 
@@ -47,9 +47,13 @@ export class SaveInstantSaveModal extends React.Component {
 }
 
 SaveInstantSaveModal.propTypes = {
-  saving: React.PropTypes.object,
+  users: React.PropTypes.array,
+  date: React.PropTypes.string,
+  time: React.PropTypes.string,
+  frequency: React.PropTypes.string,
+  files: React.PropTypes.array,
   showInstantSaveModal: React.PropTypes.bool,
   hideInstantSaveModal: React.PropTypes.func,
   createSave: React.PropTypes.func.isRequired,
-  resetStateSaving: React.PropTypes.func,
+  resetStateForm: React.PropTypes.func,
 };

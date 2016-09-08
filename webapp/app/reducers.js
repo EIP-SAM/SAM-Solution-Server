@@ -20,7 +20,6 @@ import editGroupReducer from 'containers/EditGroup/reducers';
 import usersReducer from 'containers/Users/reducers';
 import groupsReducer from 'containers/Groups/reducers';
 
-import savingReducer from 'containers/Save/reducer';
 import saveReducer from 'containers/Save/Save/reducers';
 import saveHistoryReducer from 'containers/Save/SaveHistory/reducers';
 import saveCreationReducer from 'containers/Save/SaveCreation/Form/reducers';
@@ -72,7 +71,6 @@ export default function createReducer(asyncReducers) {
     editGroup: editGroupReducer,
     users: usersReducer,
     groups: groupsReducer,
-    saving: savingReducer,
     save: saveReducer,
     saveHistory: saveHistoryReducer,
     saveCreation: saveCreationReducer,
