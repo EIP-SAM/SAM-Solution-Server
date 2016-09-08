@@ -4,8 +4,8 @@
 
 import React from 'react';
 import { PageHeader } from 'react-bootstrap';
-import SaveTable from 'containers/Save/Save/Table';
-import SaveButtons from 'containers/Save/Save/Buttons';
+import SaveTable from 'containers/Save/Table';
+import SaveButtons from 'containers/Save/Buttons';
 import { SaveFilters } from 'components/Save/Filters';
 
 /* eslint-disable react/prefer-stateless-function */

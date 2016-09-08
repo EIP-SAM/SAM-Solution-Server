@@ -20,9 +20,9 @@ import editGroupReducer from 'containers/EditGroup/reducers';
 import usersReducer from 'containers/Users/reducers';
 import groupsReducer from 'containers/Groups/reducers';
 
-import saveReducer from 'containers/Save/Save/reducers';
-import saveHistoryReducer from 'containers/Save/SaveHistory/reducers';
-import saveCreationReducer from 'containers/Save/SaveCreation/Form/reducers';
+import saveReducer from 'containers/Save/reducers';
+import saveHistoryReducer from 'containers/SaveHistory/reducers';
+import saveCreationReducer from 'containers/SaveCreation/Form/reducers';
 import RestoreReducer from 'containers/Restore/reducer';
 import RestoreHistoryReducer from 'containers/RestoreHistory/reducer';
 import RestoreCreationReducer from 'containers/RestoreCreation/reducer';

@@ -128,7 +128,7 @@ export default function createRoutes() {
       path: '/save',
       name: 'save',
       getComponent(nextState, cb) {
-        System.import('containers/Save/Save')
+        System.import('containers/Save')
           .then(loadModule(cb))
           .catch(errorLoading);
       },
@@ -136,7 +136,7 @@ export default function createRoutes() {
       path: '/save/:username',
       name: 'history save',
       getComponent(nextState, cb) {
-        System.import('containers/Save/SaveHistory')
+        System.import('containers/SaveHistory')
           .then(loadModule(cb))
           .catch(errorLoading);
       },
@@ -144,7 +144,7 @@ export default function createRoutes() {
       path: '/create-save',
       name: 'creation save',
       getComponent(nextState, cb) {
-        System.import('containers/Save/SaveCreation')
+        System.import('containers/SaveCreation')
           .then(loadModule(cb))
           .catch(errorLoading);
       },
