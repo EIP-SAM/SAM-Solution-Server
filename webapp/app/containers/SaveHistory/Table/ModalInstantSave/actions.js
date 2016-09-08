@@ -9,6 +9,9 @@
 //      }
 //
 
+import request from 'utils/request';
+import { resetStateForm } from 'containers/SaveCreation/Form/actions';
+import { getHistorySavesByUserRequest } from 'containers/SaveHistory/actions';
 import {
   SHOW_INSTANT_SAVE_MODAL,
 } from './constants';
@@ -24,5 +27,29 @@ export function hideInstantSaveModal() {
   return {
     type: SHOW_INSTANT_SAVE_MODAL,
     showInstantSaveModal: false,
+  };
+}
+
+export function createSaveActionSaveHistory(username, users, date, time, frequency, files) {
+  const usersId = [];
+  for (const user of users) {
+    usersId.push(user.value);
+  }
+
+  return function createSaveRequest(dispatch) {
+    return request
+      .post('/api/logged-in/create_save')
+      .type('form')
+      .send({
+        usersId,
+        date,
+        time,
+        frequency,
+        files,
+      })
+      .end(() => {
+        dispatch(resetStateForm());
+        dispatch(getHistorySavesByUserRequest(username));
+      });
   };
 }

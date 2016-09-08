@@ -4,9 +4,7 @@
 
 import { connect } from 'react-redux';
 import { SaveHistory } from 'components/SaveHistory';
-import {
-  getHistorySavesByUserRequest,
-} from './actions';
+import { getHistorySavesByUserRequest } from './actions';
 
 
 function mapStateToProps() {
