@@ -1,16 +1,26 @@
-const expressGit = require("express-git");
-const fs = require('fs');
+const spawn = require('child_process').spawn;
+const path = require('path');
+const backend = require('git-http-backend');
 
+const logger = require('../libs/bunyan').setModuleName('Git');
+const gitConf = require('../config/git.config.json');
 
-const logger = require('../libs/bunyan').setModuleName('Libs');
+module.exports = function init() {
+  logger.info('Serve git repository in ' + gitConf.baseDir);
+  return function (req, res) {
+      let urlArray = req.url.split('/');
+      let repo = urlArray[1].replace('.git', '');
+      let dir = path.join(gitConf.baseDir, repo);
 
-const conf = require('../config/git.config.json');
+      req.pipe(backend(req.url, function (err, service) {
+          if (err) return res.end(err + '\n');
 
-module.exports = function initExpressGit() {
+          res.setHeader('content-type', service.type);
+          logger.info(service.action + ' ' + repo + ' ' + JSON.stringify(service.fields));
 
-  logger.info('Serve git repository in ' + conf.baseDir);
-  return expressGit.serve(conf.baseDir, {
-      auto_init: true,
-      serve_static: true,
-  });
+          let ps = spawn(service.cmd, service.args.concat(dir));
+          ps.stdout.pipe(service.createStream()).pipe(ps.stdin);
+
+      })).pipe(res);
+  }
 };
