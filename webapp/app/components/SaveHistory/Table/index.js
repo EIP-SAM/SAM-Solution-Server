@@ -4,9 +4,9 @@
 
 import React from 'react';
 import { Table } from 'react-bootstrap';
-import SaveHistoryDeletionScheduledSaveModal from 'containers/Save/SaveHistory/Table/ModalDeletionScheduledSave';
-import SaveHistoryInstantSaveModal from 'containers/Save/SaveHistory/Table/ModalInstantSave';
-import SaveHistoryInstantRestoreModal from 'containers/Save/SaveHistory/Table/ModalInstantRestore';
+import SaveHistoryDeletionScheduledSaveModal from 'containers/SaveHistory/Table/ModalDeletionScheduledSave';
+import SaveHistoryInstantSaveModal from 'containers/SaveHistory/Table/ModalInstantSave';
+import SaveHistoryInstantRestoreModal from 'containers/SaveHistory/Table/ModalInstantRestore';
 import { ButtonPopover } from 'components/ButtonPopover';
 import Tr from 'components/Tr';
 import Th from 'components/Th';

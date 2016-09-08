@@ -4,8 +4,8 @@
 
 import React from 'react';
 import { Table } from 'react-bootstrap';
-import SaveInstantSaveModal from 'containers/Save/Save/Table/ModalInstantSave';
-import SaveInstantRestoreModal from 'containers/Save/Save/Table/ModalInstantRestore';
+import SaveInstantSaveModal from 'containers/Save/Table/ModalInstantSave';
+import SaveInstantRestoreModal from 'containers/Save/Table/ModalInstantRestore';
 import { ButtonPopover } from 'components/ButtonPopover';
 import Tr from 'components/Tr';
 import Th from 'components/Th';

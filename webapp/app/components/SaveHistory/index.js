@@ -4,8 +4,8 @@
 
 import React from 'react';
 import { PageHeader } from 'react-bootstrap';
-import SaveHistoryButtons from 'containers/Save/SaveHistory/Buttons';
-import SaveHistoryTable from 'containers/Save/SaveHistory/Table';
+import SaveHistoryButtons from 'containers/SaveHistory/Buttons';
+import SaveHistoryTable from 'containers/SaveHistory/Table';
 import { isAdmin } from 'utils/user';
 import styles from 'components/SaveHistory/styles.css';
 
