@@ -4,30 +4,21 @@ import { isAdmin } from 'utils/user';
 import styles from 'components/RestoreCreation/styles.css';
 
 export class RestoreCreationUserFormGroup extends React.Component {
-  componentDidMount() {
-    const username = window.location.pathname.split('/')[2];
-    this.props.getHistorySavesByUserRequest(username);
-    this.props.nameUser(username);
-  }
-
   render() {
     if (!isAdmin()) {
       return (<div></div>);
     }
 
-    const user = this.props.state.user;
+    const user = this.props.username;
     return (
       <FormGroup controlId="users" className={styles.form}>
         <ControlLabel>User</ControlLabel>
-        <FormControl type="text" placeholder={user} disabled />
+        <FormControl type="text" value={user} disabled />
       </FormGroup>
     );
   }
 }
 
 RestoreCreationUserFormGroup.propTypes = {
-  state: React.PropTypes.object,
-  nameUser: React.PropTypes.func,
-  setUserId: React.PropTypes.func,
-  getHistorySavesByUserRequest: React.PropTypes.func,
+  username: React.PropTypes.string,
 };

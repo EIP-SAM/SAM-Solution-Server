@@ -1,5 +1,5 @@
 //
-// Save Actions
+// Restore history actions
 //
 // To add a new Action:
 //  1) Import your constant
@@ -13,22 +13,7 @@ import request from 'utils/request';
 
 import {
   GET_HISTORY_RESTORES_BY_USER,
-  SHOW_INSTANT_RESTORE_MODAL,
 } from './constants';
-
-export function showInstantRestoreModal() {
-  return {
-    type: SHOW_INSTANT_RESTORE_MODAL,
-    showModal: true,
-  };
-}
-
-export function hideInstantRestoreModal() {
-  return {
-    type: SHOW_INSTANT_RESTORE_MODAL,
-    showModal: false,
-  };
-}
 
 export function getHistoryRestoresByUser(restores) {
   return {

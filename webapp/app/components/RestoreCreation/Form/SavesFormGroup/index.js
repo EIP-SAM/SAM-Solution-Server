@@ -15,7 +15,7 @@ export class RestoreCreationSavesFormGroup extends React.Component {
   // event on click to dynamically change files depending on save selected
   handleFilesChange(e) {
     const files = [];
-    const data = this.props.state.allSaves;
+    const data = this.props.allSaves;
     for (let i = 0; i < data.length; i++) {
       if (data[i].id.toString() === e.target.value) {
         this.props.selectSave(data[i].id);
@@ -29,8 +29,8 @@ export class RestoreCreationSavesFormGroup extends React.Component {
     let saves = [];
     let savesOption = [];
     let errorMessage = '';
-    if (this.props.state.allSaves.length > 0) {
-      saves = this.props.state.allSaves.map((save) => (
+    if (this.props.allSaves.length > 0) {
+      saves = this.props.allSaves.map((save) => (
         { value: save.id, text: moment(save.execDate).format('DD/MM/YYYY HH:mm') }
       ));
       savesOption = saves.map((item, index) => (
@@ -38,11 +38,11 @@ export class RestoreCreationSavesFormGroup extends React.Component {
       ));
     }
 
-    if (this.props.state.saveError !== '') {
-      errorMessage = this.props.state.saveError;
+    if (this.props.saveError !== '') {
+      errorMessage = this.props.saveError;
     }
     return (
-      <FormGroup controlId="saves" className={styles.form} validationState={this.props.state.saveError.length > 0 ? 'error' : null}>
+      <FormGroup controlId="saves" className={styles.form} validationState={this.props.saveError.length > 0 ? 'error' : null}>
         <ControlLabel>Saves</ControlLabel>
         <ButtonPopover
           id="saves"
@@ -62,8 +62,8 @@ export class RestoreCreationSavesFormGroup extends React.Component {
 }
 
 RestoreCreationSavesFormGroup.propTypes = {
-  state: React.PropTypes.object,
+  allSaves: React.PropTypes.array,
+  saveError: React.PropTypes.string,
   selectSave: React.PropTypes.func,
   listFiles: React.PropTypes.func,
-  setUserId: React.PropTypes.func,
 };

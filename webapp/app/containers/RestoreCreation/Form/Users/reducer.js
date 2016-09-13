@@ -1,5 +1,5 @@
 //
-// Save Reducer
+// Users form restore reducer
 //
 // To add a new action:
 //
@@ -9,28 +9,28 @@
 //
 
 import {
-  GET_RESTORES,
-  USER_TYPE,
+  USERNAME,
+  USER_ID,
 } from './constants';
 
 const initialState = {
-  restores: [],
-  typeUser: '',
+  username: '',
+  userId: -1,
 };
 
-function RestoreReducer(state = initialState, action) {
+function UsersRestoreCreationReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_RESTORES:
+    case USERNAME:
       return Object.assign({}, state, {
-        restores: action.restores,
+        username: action.username,
       });
-    case USER_TYPE:
+    case USER_ID:
       return Object.assign({}, state, {
-        typeUser: action.typeUser,
+        userId: action.userId,
       });
     default:
       return state;
   }
 }
 
-export default RestoreReducer;
+export default UsersRestoreCreationReducer;

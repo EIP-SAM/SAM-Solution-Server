@@ -5,7 +5,7 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
 import { ButtonPopover } from 'components/ButtonPopover';
-import { RestoreHistoryInstantRestoreModal } from 'components/RestoreHistory/Table/ModalInstantRestore';
+import RestoreHistoryInstantRestoreModal from 'containers/RestoreHistory/Table/ModalInstantRestore';
 import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Td from 'components/Td';
@@ -13,10 +13,11 @@ const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
 export class RestoreHistoryTable extends React.Component {
+  // this.props.getHistoryRestoresByUserRequest(window.location.pathname.split('/')[2]);
+
   handleRestoreClick(restore) {
     let files = [];
     files = restore.files.split(',');
-    this.props.getHistoryRestoresByUserRequest(window.location.pathname.split('/')[2]);
     this.props.showInstantRestoreModal();
     this.props.setUserId(restore.userId);
     this.props.selectFiles(files);
@@ -29,9 +30,9 @@ export class RestoreHistoryTable extends React.Component {
                   { isLink: false, value: 'Actions' }];
 
     let data = [];
-    if (typeof this.props.state.restores !== 'undefined') {
-      if (this.props.state.restores.length > 0) {
-        data = this.props.state.restores;
+    if (typeof this.props.restores !== 'undefined') {
+      if (this.props.restores.length > 0) {
+        data = this.props.restores;
       }
     }
 
@@ -57,26 +58,15 @@ export class RestoreHistoryTable extends React.Component {
           })}
           </tbody>
         </Table>
-        <RestoreHistoryInstantRestoreModal
-          createRestoresRequest={this.props.createRestoresRequest}
-          state={this.props.state}
-          hideInstantRestoreModal={this.props.hideInstantRestoreModal}
-          stateRestore={this.props.stateRestore}
-          resetStateCreationRestore={this.props.resetStateCreationRestore}
-        />
+        <RestoreHistoryInstantRestoreModal />
       </div>
     );
   }
 }
 
 RestoreHistoryTable.propTypes = {
-  state: React.PropTypes.object,
-  stateRestore: React.PropTypes.object,
-  hideInstantRestoreModal: React.PropTypes.func,
+  restores: React.PropTypes.array,
   showInstantRestoreModal: React.PropTypes.func,
-  createRestoresRequest: React.PropTypes.func,
   setUserId: React.PropTypes.func,
   selectFiles: React.PropTypes.func,
-  getHistoryRestoresByUserRequest: React.PropTypes.func,
-  resetStateCreationRestore: React.PropTypes.func,
 };

@@ -27,7 +27,7 @@ export class RestoreHistoryInstantRestoreModal extends React.Component {
 
   render() {
     return (
-      <Modal show={this.props.state.showModal} onHide={this.handleCancelClick}>
+      <Modal show={this.props.showModal} onHide={this.handleCancelClick}>
         <Modal.Header closeButton>
           <Modal.Title><Glyphicon glyph="floppy-open" className={styles.icon} />Instant restore</Modal.Title>
         </Modal.Header>
@@ -48,8 +48,8 @@ export class RestoreHistoryInstantRestoreModal extends React.Component {
 
 RestoreHistoryInstantRestoreModal.propTypes = {
   stateRestore: React.PropTypes.object,
-  state: React.PropTypes.object.isRequired,
-  hideInstantRestoreModal: React.PropTypes.func.isRequired,
+  showModal: React.PropTypes.bool,
+  hideInstantRestoreModal: React.PropTypes.func,
   createRestoresRequest: React.PropTypes.func,
   resetStateCreationRestore: React.PropTypes.func,
 };
