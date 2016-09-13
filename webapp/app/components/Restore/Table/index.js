@@ -17,6 +17,7 @@ export class RestoreTable extends React.Component {
   handleRestoreClick(restore) {
     this.props.setUserId(restore.restores[0].userId);
     this.props.selectFiles(restore.restores[0].files);
+    this.props.selectSave({ value: restore.restores[0].saveId, text: moment().format('DD/MM/YYYY HH:mm') });
     this.props.showInstantRestoreModal();
   }
 
@@ -73,4 +74,5 @@ RestoreTable.propTypes = {
   showInstantRestoreModal: React.PropTypes.func,
   setUserId: React.PropTypes.func,
   selectFiles: React.PropTypes.func,
+  selectSave: React.PropTypes.func,
 };

@@ -12,13 +12,14 @@ function mapStateToProps(state) {
     showModal: state.get('restoreHistory').get('InstantRestoreModalRestoreHistoryReducer').showModal,
     userId: state.get('restoreCreation').get('UsersRestoreCreationReducer').userId,
     selectedFiles: state.get('restoreCreation').get('FilesRestoreCreationReducer').selectedFiles,
+    save: state.get('restoreCreation').get('SavesRestoreCreationReducer').save,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     hideInstantRestoreModal: () => dispatch(hideInstantRestoreModal()),
-    createRestoresRequest: (state, redirect) => dispatch(createRestoresRequest(state, redirect)),
+    createRestoresRequest: (userId, selectedFiles, saveId, redirect) => dispatch(createRestoresRequest(userId, selectedFiles, saveId, redirect)),
     resetStateForm: () => dispatch(resetStateForm()),
   };
 }

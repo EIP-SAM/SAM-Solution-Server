@@ -29,10 +29,10 @@ export function getHistorySavesByUser(allSaves) {
   };
 }
 
-export function selectSave(saves) {
+export function selectSave(save) {
   return {
     type: SELECTED_SAVE,
-    saves,
+    save,
   };
 }
 

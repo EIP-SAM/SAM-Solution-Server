@@ -14,14 +14,14 @@ import {
 function mapStateToProps(state) {
   return {
     userId: state.get('restoreCreation').get('UsersRestoreCreationReducer').userId,
-    saves: state.get('restoreCreation').get('SavesRestoreCreationReducer').saves,
+    save: state.get('restoreCreation').get('SavesRestoreCreationReducer').save,
     selectedFiles: state.get('restoreCreation').get('FilesRestoreCreationReducer').selectedFiles,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    createRestoresRequest: (userId, selectedFiles, redirect) => dispatch(createRestoresRequest(userId, selectedFiles, redirect)),
+    createRestoresRequest: (userId, selectedFiles, saveId, redirect) => dispatch(createRestoresRequest(userId, selectedFiles, saveId, redirect)),
     saveErrorMsg: (saveError) => dispatch(saveErrorMsg(saveError)),
     filesErrorMsg: (filesError) => dispatch(filesErrorMsg(filesError)),
     resetStateForm: () => dispatch(resetStateForm()),

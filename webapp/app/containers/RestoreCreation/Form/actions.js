@@ -46,6 +46,7 @@ export function getHistorySavesByUserRequest(username) {
         dispatch(nameUser(username));
         if (res.body.length > 0) {
           dispatch(getHistorySavesByUser(res.body));
+          console.log(res.body[0]);
           dispatch(selectSave({ value: res.body[0].id, text: moment(res.body[0].execDate).format('DD/MM/YYYY HH:mm') }));
           dispatch(setUserId(res.body[0].save_scheduled.userId));
           dispatch(selectFiles(res.body[0].save_scheduled.files));
@@ -54,13 +55,14 @@ export function getHistorySavesByUserRequest(username) {
   };
 }
 
-export function createRestoresRequest(userId, selectedFiles, redirect) {
+export function createRestoresRequest(userId, selectedFiles, saveId, redirect) {
   return function startAction(dispatch) {
     return request
       .post('/api/logged-in/create_restore')
       .type('form')
       .send({
         userId,
+        saveId,
         files: selectedFiles.toString(),
       })
       .end(() => {
