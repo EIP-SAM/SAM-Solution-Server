@@ -13,10 +13,10 @@ export class RestoreCreationButtons extends React.Component {
 
   handleFormClick() {
     if (this.props.userId !== ''
-      && this.props.saves.value !== ''
-      && this.props.selectedFiles !== null) {
+      && this.props.saves !== []
+      && this.props.selectedFiles.length > 0) {
       this.props.createRestoresRequest(this.props.userId, this.props.selectedFiles, true);
-    } if (this.props.saves.length === 0) {
+    } if (this.props.saves !== []) {
       this.props.saveErrorMsg('No save selected');
     } if (this.props.selectedFiles.length === 0) {
       this.props.filesErrorMsg('No files selected');
@@ -24,7 +24,7 @@ export class RestoreCreationButtons extends React.Component {
   }
 
   handleCancelClick() {
-    // this.props.resetState();
+    this.props.resetStateForm();
     browserHistory.goBack();
   }
 
@@ -40,9 +40,9 @@ export class RestoreCreationButtons extends React.Component {
 
 RestoreCreationButtons.propTypes = {
   userId: React.PropTypes.number,
-  saves: React.PropTypes.array,
+  saves: React.PropTypes.object,
   selectedFiles: React.PropTypes.array,
-  resetState: React.PropTypes.func,
+  resetStateForm: React.PropTypes.func,
   createRestoresRequest: React.PropTypes.func,
   saveErrorMsg: React.PropTypes.func,
   filesErrorMsg: React.PropTypes.func,

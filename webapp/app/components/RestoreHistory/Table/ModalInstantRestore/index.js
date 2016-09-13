@@ -16,12 +16,12 @@ export class RestoreHistoryInstantRestoreModal extends React.Component {
   }
 
   handleLaunchClick() {
-    this.props.createRestoresRequest(this.props.stateRestore, false);
+    this.props.createRestoresRequest(this.props.userId, this.props.selectedFiles, false);
     this.props.hideInstantRestoreModal();
   }
 
   handleCancelClick() {
-    this.props.resetStateCreationRestore();
+    this.props.resetStateForm();
     this.props.hideInstantRestoreModal();
   }
 
@@ -47,9 +47,10 @@ export class RestoreHistoryInstantRestoreModal extends React.Component {
 }
 
 RestoreHistoryInstantRestoreModal.propTypes = {
-  stateRestore: React.PropTypes.object,
+  userId: React.PropTypes.number,
+  selectedFiles: React.PropTypes.array,
   showModal: React.PropTypes.bool,
   hideInstantRestoreModal: React.PropTypes.func,
   createRestoresRequest: React.PropTypes.func,
-  resetStateCreationRestore: React.PropTypes.func,
+  resetStateForm: React.PropTypes.func,
 };

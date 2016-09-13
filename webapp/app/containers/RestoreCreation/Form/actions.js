@@ -12,12 +12,30 @@
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
 const moment = require('moment');
-import { setUserId, nameUser } from './Users/actions';
-import { selectFiles } from './Files/actions';
 import {
+  setUserId,
+  nameUser,
+  resetStateUsers,
+} from './Users/actions';
+
+import {
+  selectFiles,
+  resetStateFiles,
+} from './Files/actions';
+
+import {
+  resetStateSaves,
   getHistorySavesByUser,
   selectSave,
 } from './Saves/actions';
+
+export function resetStateForm() {
+  return function resetState(dispatch) {
+    dispatch(resetStateUsers());
+    dispatch(resetStateSaves());
+    dispatch(resetStateFiles());
+  };
+}
 
 export function getHistorySavesByUserRequest(username) {
   return function returnGetHistorySavesRequest(dispatch) {
@@ -37,7 +55,7 @@ export function getHistorySavesByUserRequest(username) {
 }
 
 export function createRestoresRequest(userId, selectedFiles, redirect) {
-  return function startAction() {
+  return function startAction(dispatch) {
     return request
       .post('/api/logged-in/create_restore')
       .type('form')
@@ -49,7 +67,7 @@ export function createRestoresRequest(userId, selectedFiles, redirect) {
         if (redirect) {
           browserHistory.goBack();
         }
-        // dispatch(resetState());
+        dispatch(resetStateForm());
       });
   };
 }

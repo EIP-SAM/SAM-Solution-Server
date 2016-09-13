@@ -9,6 +9,7 @@
 //
 
 import {
+  RESET_STATE_USERS,
   USERNAME,
   USER_ID,
 } from './constants';
@@ -20,6 +21,8 @@ const initialState = {
 
 function UsersRestoreCreationReducer(state = initialState, action) {
   switch (action.type) {
+    case RESET_STATE_USERS:
+      return Object.assign({}, initialState, {});
     case USERNAME:
       return Object.assign({}, state, {
         username: action.username,

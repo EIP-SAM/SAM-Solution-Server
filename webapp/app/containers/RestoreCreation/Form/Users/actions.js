@@ -10,9 +10,16 @@
 //
 
 import {
+  RESET_STATE_USERS,
   USERNAME,
   USER_ID,
 } from './constants';
+
+export function resetStateUsers() {
+  return {
+    type: RESET_STATE_USERS,
+  };
+}
 
 export function nameUser(username) {
   return {

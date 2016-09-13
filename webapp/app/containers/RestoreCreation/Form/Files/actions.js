@@ -10,10 +10,17 @@
 //
 
 import {
+  RESET_STATE_FILES,
   LIST_FILES,
   SELECTED_FILES,
   FILES_ERROR,
 } from './constants';
+
+export function resetStateFiles() {
+  return {
+    type: RESET_STATE_FILES,
+  };
+}
 
 export function listFiles(files) {
   return {

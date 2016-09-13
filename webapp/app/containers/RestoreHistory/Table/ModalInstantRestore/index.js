@@ -4,13 +4,14 @@
 
 import { connect } from 'react-redux';
 import { hideInstantRestoreModal } from './actions';
-import { createRestoresRequest, resetState } from 'containers/RestoreCreation/Form/actions';
+import { createRestoresRequest, resetStateForm } from 'containers/RestoreCreation/Form/actions';
 import { RestoreHistoryInstantRestoreModal } from 'components/RestoreHistory/Table/ModalInstantRestore';
 
 function mapStateToProps(state) {
   return {
     showModal: state.get('restoreHistory').get('InstantRestoreModalRestoreHistoryReducer').showModal,
-    stateRestore: state.get('restoreCreation'),
+    userId: state.get('restoreCreation').get('UsersRestoreCreationReducer').userId,
+    selectedFiles: state.get('restoreCreation').get('FilesRestoreCreationReducer').selectedFiles,
   };
 }
 
@@ -18,7 +19,7 @@ function mapDispatchToProps(dispatch) {
   return {
     hideInstantRestoreModal: () => dispatch(hideInstantRestoreModal()),
     createRestoresRequest: (state, redirect) => dispatch(createRestoresRequest(state, redirect)),
-    resetStateCreationRestore: () => dispatch(resetState()),
+    resetStateForm: () => dispatch(resetStateForm()),
   };
 }
 

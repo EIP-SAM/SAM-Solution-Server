@@ -9,6 +9,7 @@
 //
 
 import {
+  RESET_STATE_FILES,
   LIST_FILES,
   SELECTED_FILES,
   FILES_ERROR,
@@ -22,6 +23,8 @@ const initialState = {
 
 function FilesRestoreCreationReducer(state = initialState, action) {
   switch (action.type) {
+    case RESET_STATE_FILES:
+      return Object.assign({}, initialState, {});
     case LIST_FILES:
       return Object.assign({}, state, {
         files: action.files,

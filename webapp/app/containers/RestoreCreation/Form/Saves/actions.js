@@ -10,11 +10,17 @@
 //
 
 import {
+  RESET_STATE_SAVES,
   GET_HISTORY_SAVES_BY_USER,
   SELECTED_SAVE,
   SAVE_ERROR,
 } from './constants';
 
+export function resetStateSaves() {
+  return {
+    type: RESET_STATE_SAVES,
+  };
+}
 
 export function getHistorySavesByUser(allSaves) {
   return {
