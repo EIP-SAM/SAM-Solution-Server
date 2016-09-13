@@ -634,12 +634,50 @@ module.exports.deleteUsers = function () {
   };
 };
 
+function retrieveUserFromId(id) {
+  return new Promise(function (fulfill, reject) {
+    UsersAdapter.findById(id).then(function (user) {
+      if (user) {
+        constructUserProfile(user).then(function (user) {
+          fulfill(user);
+        });
+      } else {
+        if (req.user.isAdmin) {
+          reject(404, 'User not found');
+        } else {
+          reject(500, 'Internal server error');
+        }
+      }
+    }).catch(function (error) {
+      reject(500, error);
+    });
+  });
+}
+
 //
 // Retrieve user for its GET route
 //
 module.exports.retrieveUser = function (errors) {
   return function (req, res) {
-    return res.status(200).json({ message: 'This is empty' });
+    if (req.query.id) {
+      if (req.user.id == req.query.id) {
+        retrieveUserFromId(req.query.id).then(function (user) {
+          return res.status(200).json(user);
+        }).catch(function (code, error) {
+          return res.status(code).json({ error: error });
+        });
+      } else if (req.user.isAdmin) {
+        retrieveUserFromId(req.query.id).then(function (user) {
+          return res.status(200).json(user);
+        }).catch(function (code, error) {
+          return res.status(code).json({ error: error });
+        });
+      } else {
+        return res.status(401).json({ error: 'Access denied' });
+      }
+    } else {
+      return res.status(405).json({ error: 'Invalid request' });
+    }
   };
 };
 
@@ -648,7 +686,22 @@ module.exports.retrieveUser = function (errors) {
 //
 module.exports.updateUser = function () {
   return function (req, res) {
-    return res.status(200).json({ message: 'This is empty' });
+    console.log(req.body);
+    console.log(req.query);
+
+    if (req.id) {
+      if (req.user.id == req.id) {
+        // ok, le user veut editer son propre profil
+        return res.status(200).json({ message: 'This is empty' });
+      } else if (req.user.isAdmin) {
+        // ok, le user est admin
+        return res.status(200).json({ message: 'This is empty' });
+      } else {
+        return res.status(401).json({ error: 'Access denied' });
+      }
+    } else {
+      return res.status(405).json({ error: 'Invalid request' });
+    }
   };
 };
 
@@ -657,6 +710,14 @@ module.exports.updateUser = function () {
 //
 module.exports.deleteUser = function () {
   return function (req, res) {
-    return res.status(200).json({ message: 'This is empty' });
+    console.log(req.body);
+    console.log(req.query);
+
+    // ok, le user est admin
+    if (req.id) {
+      return res.status(200).json({ message: 'This is empty' });
+    } else {
+      return res.status(405).json({ error: 'Invalid request' });
+    }
   };
 };
