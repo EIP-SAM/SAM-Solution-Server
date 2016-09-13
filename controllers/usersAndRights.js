@@ -46,15 +46,15 @@ module.exports.updateUserProfile = function () {
 };
 
 //
-// Users/Groups administration
+// Users administration
 //
 
 module.exports.retrieveAllUsers = function () {
   return usersManager.retrieveAllUsers();
 };
 
-module.exports.retrieveAllGroups = function () {
-  return groupsManager.retrieveAllGroups();
+module.exports.retrieveUser = function () {
+  return usersManager.retrieveUser();
 };
 
 module.exports.createUsers = function () {
@@ -67,6 +67,22 @@ module.exports.updateUsers = function () {
 
 module.exports.deleteUsers = function () {
   return usersManager.deleteUsers();
+};
+
+module.exports.updateUser = function () {
+  return usersManager.updateUser();
+};
+
+module.exports.deleteUser = function () {
+  return usersManager.deleteUser();
+};
+
+//
+// Groups administration
+//
+
+module.exports.retrieveAllGroups = function () {
+  return groupsManager.retrieveAllGroups();
 };
 
 module.exports.createGroups = function () {
