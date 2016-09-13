@@ -258,3 +258,24 @@ module.exports.addUsersToGroup = function () {
     }
   };
 };
+
+module.exports.retrieveGroup = function () {
+  return function (req, res) {
+    console.log(req.query);
+    return res.status(200).json({ message: 'This is empty' });
+  };
+};
+
+module.exports.updateGroup = function () {
+  return function (req, res) {
+    console.log(req.body);
+    return res.status(200).json({ message: 'This is empty' });
+  };
+};
+
+module.exports.deleteGroup = function () {
+  return function (req, res) {
+    console.log(req.body);
+    return res.status(200).json({ message: 'This is empty' });
+  };
+};
