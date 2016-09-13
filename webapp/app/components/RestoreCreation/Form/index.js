@@ -1,54 +1,28 @@
 import React from 'react';
-import { RestoreCreationUserFormGroup } from 'components/RestoreCreation/Form/UsersFormGroup';
-import { RestoreCreationSavesFormGroup } from 'components/RestoreCreation/Form/SavesFormGroup';
-import { RestoreCreationFilesFormGroup } from 'components/RestoreCreation/Form/FilesFormGroup';
-import { RestoreCreationButtons } from 'components/RestoreCreation/Form/Buttons';
+import RestoreCreationUserFormGroup from 'containers/RestoreCreation/Form/Users';
+import RestoreCreationSavesFormGroup from 'containers/RestoreCreation/Form/Saves';
+import RestoreCreationFilesFormGroup from 'containers/RestoreCreation/Form/Files';
+import RestoreCreationButtons from 'containers/RestoreCreation/Form/Buttons';
 
 /* eslint-disable react/prefer-stateless-function */
 export class RestoreCreationForm extends React.Component {
+  componentDidMount() {
+    const username = window.location.pathname.split('/')[2];
+    this.props.getHistorySavesByUserRequest(username);
+  }
+
   render() {
     return (
       <form>
-        <RestoreCreationUserFormGroup
-          state={this.props.state}
-          nameUser={this.props.nameUser}
-          getHistorySavesByUserRequest={this.props.getHistorySavesByUserRequest}
-        />
-        <RestoreCreationSavesFormGroup
-          state={this.props.state}
-          selectSave={this.props.selectSave}
-          listFiles={this.props.listFiles}
-          setUserId={this.props.setUserId}
-        />
-
-        <RestoreCreationFilesFormGroup
-          state={this.props.state}
-          listFiles={this.props.listFiles}
-          selectFiles={this.props.selectFiles}
-        />
-        <RestoreCreationButtons
-          state={this.props.state}
-          resetState={this.props.resetState}
-          createRestoresRequest={this.props.createRestoresRequest}
-          saveErrorMsg={this.props.saveErrorMsg}
-          filesErrorMsg={this.props.filesErrorMsg}
-        />
-
+        <RestoreCreationUserFormGroup />
+        <RestoreCreationSavesFormGroup />
+        <RestoreCreationFilesFormGroup />
+        <RestoreCreationButtons />
       </form>
     );
   }
 }
 
 RestoreCreationForm.propTypes = {
-  state: React.PropTypes.object,
-  resetState: React.PropTypes.func,
   getHistorySavesByUserRequest: React.PropTypes.func,
-  nameUser: React.PropTypes.func,
-  listFiles: React.PropTypes.func,
-  selectSave: React.PropTypes.func,
-  selectFiles: React.PropTypes.func,
-  createRestoresRequest: React.PropTypes.func,
-  setUserId: React.PropTypes.func,
-  saveErrorMsg: React.PropTypes.func,
-  filesErrorMsg: React.PropTypes.func,
 };

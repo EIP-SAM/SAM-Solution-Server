@@ -3,7 +3,7 @@
 //
 
 import React from 'react';
-import { ControlLabel, FormGroup, Radio, Col } from 'react-bootstrap';
+import { ControlLabel, FormGroup, Col } from 'react-bootstrap';
 import RadioGroup from 'components/RadioGroup';
 import styles from 'components/Restore/Filters/styles.css';
 
@@ -37,6 +37,5 @@ export class TypeUserFormGroup extends React.Component {
 }
 
 TypeUserFormGroup.propTypes = {
-  state: React.PropTypes.object,
   getVisibilityFilter: React.PropTypes.func,
 };

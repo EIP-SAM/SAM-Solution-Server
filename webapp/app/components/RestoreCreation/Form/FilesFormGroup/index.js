@@ -27,13 +27,13 @@ export class RestoreCreationFilesFormGroup extends React.Component {
     let listFiles = [];
     let errorMessage = '';
 
-    if (this.props.state.allSaves.length > 0) {
-      if (this.props.state.files.length > 0) {
-        listFiles = this.props.state.files[0].split(',').map((file) => (
+    if (this.props.allSaves.length > 0) {
+      if (this.props.files.length > 0) {
+        listFiles = this.props.files[0].split(',').map((file) => (
             { value: file, text: file }
         ));
       } else {
-        listFiles = this.props.state.allSaves[0].save_scheduled.files.split(',').map((file) => (
+        listFiles = this.props.allSaves[0].save_scheduled.files.split(',').map((file) => (
             { value: file, text: file }
         ));
       }
@@ -42,11 +42,11 @@ export class RestoreCreationFilesFormGroup extends React.Component {
       ));
     }
 
-    if (this.props.state.filesError !== '') {
-      errorMessage = this.props.state.filesError;
+    if (this.props.filesError !== '') {
+      errorMessage = this.props.filesError;
     }
     return (
-      <FormGroup controlId="files" className={styles.form} validationState={this.props.state.filesError.length > 0 ? 'error' : null}>
+      <FormGroup controlId="files" className={styles.form} validationState={this.props.filesError.length > 0 ? 'error' : null}>
         <ControlLabel>Files</ControlLabel>
         <ButtonPopover
           id="files"
@@ -66,6 +66,8 @@ export class RestoreCreationFilesFormGroup extends React.Component {
 }
 
 RestoreCreationFilesFormGroup.propTypes = {
-  state: React.PropTypes.object,
+  allSaves: React.PropTypes.array,
+  files: React.PropTypes.array,
+  filesError: React.PropTypes.string,
   selectFiles: React.PropTypes.func,
 };

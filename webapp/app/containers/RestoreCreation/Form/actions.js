@@ -1,5 +1,5 @@
 //
-// Restore Actions
+// Restore creation actions
 //
 // To add a new Action:
 //  1) Import your constant
@@ -12,78 +12,28 @@
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
 const moment = require('moment');
+import {
+  setUserId,
+  nameUser,
+  resetStateUsers,
+} from './Users/actions';
 
 import {
-  RESET_STATE,
-  GET_HISTORY_SAVES_BY_USER,
-  USER,
-  USER_ID,
-  LIST_FILES,
-  SELECTED_FILES,
-  SELECTED_SAVE,
-  SAVE_ERROR,
-  FILES_ERROR,
-} from './constants';
+  selectFiles,
+  resetStateFiles,
+} from './Files/actions';
 
-export function resetState() {
-  return {
-    type: RESET_STATE,
-  };
-}
+import {
+  resetStateSaves,
+  getHistorySavesByUser,
+  selectSave,
+} from './Saves/actions';
 
-export function getHistorySavesByUser(allSaves) {
-  return {
-    type: GET_HISTORY_SAVES_BY_USER,
-    allSaves,
-  };
-}
-
-export function nameUser(user) {
-  return {
-    type: USER,
-    user,
-  };
-}
-
-export function setUserId(userId) {
-  return {
-    type: USER_ID,
-    userId,
-  };
-}
-
-export function listFiles(files) {
-  return {
-    type: LIST_FILES,
-    files,
-  };
-}
-
-export function selectFiles(selectedFiles) {
-  return {
-    type: SELECTED_FILES,
-    selectedFiles,
-  };
-}
-
-export function selectSave(save) {
-  return {
-    type: SELECTED_SAVE,
-    save,
-  };
-}
-
-export function saveErrorMsg(saveError) {
-  return {
-    type: SAVE_ERROR,
-    saveError,
-  };
-}
-
-export function filesErrorMsg(filesError) {
-  return {
-    type: FILES_ERROR,
-    filesError,
+export function resetStateForm() {
+  return function resetState(dispatch) {
+    dispatch(resetStateUsers());
+    dispatch(resetStateSaves());
+    dispatch(resetStateFiles());
   };
 }
 
@@ -93,6 +43,7 @@ export function getHistorySavesByUserRequest(username) {
       .get('/api/logged-in/history_save')
       .query({ username })
       .end((err, res) => {
+        dispatch(nameUser(username));
         if (res.body.length > 0) {
           dispatch(getHistorySavesByUser(res.body));
           dispatch(selectSave({ value: res.body[0].id, text: moment(res.body[0].execDate).format('DD/MM/YYYY HH:mm') }));
@@ -103,20 +54,20 @@ export function getHistorySavesByUserRequest(username) {
   };
 }
 
-export function createRestoresRequest(state, redirect) {
+export function createRestoresRequest(userId, selectedFiles, redirect) {
   return function startAction(dispatch) {
     return request
       .post('/api/logged-in/create_restore')
       .type('form')
       .send({
-        userId: state.userId,
-        files: state.selectedFiles.toString(),
+        userId,
+        files: selectedFiles.toString(),
       })
       .end(() => {
         if (redirect) {
           browserHistory.goBack();
         }
-        dispatch(resetState());
+        dispatch(resetStateForm());
       });
   };
 }

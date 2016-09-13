@@ -7,15 +7,14 @@
 //  case YOUR_ACTION_CONSTANT:
 //    return state.set('yourStateVariable', true);
 //
-
+import { combineReducers } from 'redux-immutable';
+import InstantRestoreModalRestoreReducer from 'containers/Restore/Table/ModalInstantRestore/reducer';
 import {
   GET_RESTORES,
-  USER_TYPE,
 } from './constants';
 
 const initialState = {
   restores: [],
-  typeUser: '',
 };
 
 function RestoreReducer(state = initialState, action) {
@@ -24,13 +23,15 @@ function RestoreReducer(state = initialState, action) {
       return Object.assign({}, state, {
         restores: action.restores,
       });
-    case USER_TYPE:
-      return Object.assign({}, state, {
-        typeUser: action.typeUser,
-      });
     default:
       return state;
   }
 }
 
-export default RestoreReducer;
+//
+// Combine all reducers of save page
+//
+export default combineReducers({
+  RestoreReducer,
+  InstantRestoreModalRestoreReducer,
+});
