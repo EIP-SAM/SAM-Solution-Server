@@ -173,7 +173,7 @@ module.exports = function initBaseRoutes(app, conf, passport) {
     usersAndRightsController.updateUser()
   );
 
-  app.post('/api/logged-in/admin/users/delete',
+  app.post('/api/logged-in/admin/user/delete',
     usersAndRightsController.deleteUser()
   );
 
