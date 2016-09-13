@@ -665,18 +665,22 @@ module.exports.retrieveUser = function (errors) {
         retrieveUserFromId(req.query.id).then(function (user) {
           return res.status(200).json(user);
         }).catch(function (code, error) {
+          logger.setUser({ id: req.user.id, name: req.user.name }).error(error);
           return res.status(code).json({ error: error });
         });
       } else if (req.user.isAdmin) {
         retrieveUserFromId(req.query.id).then(function (user) {
           return res.status(200).json(user);
         }).catch(function (code, error) {
+          logger.setUser({ id: req.user.id, name: req.user.name }).error(error);
           return res.status(code).json({ error: error });
         });
       } else {
+        logger.setUser({ id: req.user.id, name: req.user.name }).warn('Trying to access a protected ressource');
         return res.status(401).json({ error: 'Access denied' });
       }
     } else {
+      logger.setUser({ id: req.user.id, name: req.user.name }).warn('Invalid request');
       return res.status(405).json({ error: 'Invalid request' });
     }
   };
