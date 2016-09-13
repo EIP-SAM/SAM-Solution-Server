@@ -252,6 +252,7 @@ module.exports.createUser = function () {
 function constructUserProfile(user) {
   return new Promise(function (fulfill, reject) {
     const userProfile = {
+      id: user.id,
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
@@ -681,21 +682,63 @@ module.exports.retrieveUser = function (errors) {
   };
 };
 
+function updateUserFromId(user) {
+  return new Promise(function (fulfill, reject) {
+    if (user.id) {
+      UsersAdapter.findById(user.id).then(function (foundUser) {
+        if (foundUser) {
+          updateUserProfile(foundUser, user).then(function (updatedUser) {
+            if (user.groups && user.groups.constructor == Array) {
+              GroupsAdapter.reassignGroupsToUser(foundUser, user.groups).then(function () {
+                logger.setUser({ id: updatedUser.id, name: updatedUser.name }).info('User updated');
+                fulfill(updatedUser);
+              }).catch(function () {
+                logger.warn({ error: error }, 'Error during user update');
+                reject({ code: 500, error: 'Internal server error' });
+              });
+            } else {
+              logger.setUser({ id: updatedUser.id, name: updatedUser.name }).info('User updated');
+              fulfill(updatedUser);
+            }
+          })
+          .catch(function (error) {
+            logger.warn('Error during user update', error);
+            reject({ code: 500, error: 'Internal server error' });
+          });
+        } else {
+          logger.warn('Error during user update', 'User id ' + user.id + ' not found');
+          reject({ code: 500, error: 'Internal server error' });
+        }
+      });
+    } else {
+      logger.warn('Error during user update', 'Invalid request');
+      reject({ code: 405, error: 'Invalid request' });
+    }
+  });
+}
+
 //
 // Update user entry point from its POST route
 //
 module.exports.updateUser = function () {
   return function (req, res) {
-    console.log(req.body);
-    console.log(req.query);
-
-    if (req.id) {
-      if (req.user.id == req.id) {
-        // ok, le user veut editer son propre profil
-        return res.status(200).json({ message: 'This is empty' });
+    if (req.body.id) {
+      if (req.user.id == req.body.id) {
+        updateUserFromId(req.body).then(function (user) {
+          constructUserProfile(user).then(function (user) {
+            return res.status(200).json(user);
+          });
+        }).catch(function (error) {
+          return res.status(error.code).json(error.error);
+        });
       } else if (req.user.isAdmin) {
-        // ok, le user est admin
-        return res.status(200).json({ message: 'This is empty' });
+        updateUserFromId(req.body).then(function (user) {
+          constructUserProfile(user).then(function (user) {
+            return res.status(200).json(user);
+          });
+        }).catch(function (error) {
+          return res.status(error.code).json(error.error);
+        });
       } else {
         return res.status(401).json({ error: 'Access denied' });
       }
@@ -710,12 +753,18 @@ module.exports.updateUser = function () {
 //
 module.exports.deleteUser = function () {
   return function (req, res) {
-    console.log(req.body);
-    console.log(req.query);
-
-    // ok, le user est admin
-    if (req.id) {
-      return res.status(200).json({ message: 'This is empty' });
+    if (req.body.id) {
+      UsersAdapter.findById(req.body.id).then(function (user) {
+        if (user) {
+          user.destroy().then(function () {
+            logger.setUser({ id: req.body.id }).info('User deleted (by an administrator)');
+            return res.status(200).json({ message: 'User deleted' });
+          });
+        } else {
+          logger.warn('Error during user deletion (by an administrator): ' + 'User id ' + req.body.id + ' not found');
+          return res.status(404).json({ error: 'User not found' });
+        }
+      });
     } else {
       return res.status(405).json({ error: 'Invalid request' });
     }
