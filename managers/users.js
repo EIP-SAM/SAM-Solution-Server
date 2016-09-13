@@ -633,3 +633,30 @@ module.exports.deleteUsers = function () {
     }
   };
 };
+
+//
+// Retrieve user for its GET route
+//
+module.exports.retrieveUser = function (errors) {
+  return function (req, res) {
+    return res.status(200).json({ message: 'This is empty' });
+  };
+};
+
+//
+// Update user entry point from its POST route
+//
+module.exports.updateUser = function () {
+  return function (req, res) {
+    return res.status(200).json({ message: 'This is empty' });
+  };
+};
+
+//
+// Delete user entry point from its POST route
+//
+module.exports.deleteUser = function () {
+  return function (req, res) {
+    return res.status(200).json({ message: 'This is empty' });
+  };
+};
