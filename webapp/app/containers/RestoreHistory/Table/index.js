@@ -7,6 +7,7 @@ import { showInstantRestoreModal } from 'containers/RestoreHistory/Table/ModalIn
 import { setUserId } from 'containers/RestoreCreation/Form/Users/actions';
 import { selectFiles } from 'containers/RestoreCreation/Form/Files/actions';
 import { RestoreHistoryTable } from 'components/RestoreHistory/Table';
+import { selectSave } from 'containers/RestoreCreation/Form/Saves/actions';
 
 function mapStateToProps(state) {
   return {
@@ -19,6 +20,7 @@ function mapDispatchToProps(dispatch) {
     showInstantRestoreModal: () => dispatch(showInstantRestoreModal()),
     selectFiles: (selectedFiles) => dispatch(selectFiles(selectedFiles)),
     setUserId: (userId) => dispatch(setUserId(userId)),
+    selectSave: (save) => dispatch(selectSave(save)),
   };
 }
 

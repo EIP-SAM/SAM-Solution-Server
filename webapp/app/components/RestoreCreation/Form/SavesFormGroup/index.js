@@ -18,7 +18,7 @@ export class RestoreCreationSavesFormGroup extends React.Component {
     const data = this.props.allSaves;
     for (let i = 0; i < data.length; i++) {
       if (data[i].id.toString() === e.target.value) {
-        this.props.selectSave(data[i].id);
+        this.props.selectSave({ value: data[i].id, text: moment().format('DD/MM/YYYY HH:mm') });
         files.push(data[i].save_scheduled.files);
       }
     }

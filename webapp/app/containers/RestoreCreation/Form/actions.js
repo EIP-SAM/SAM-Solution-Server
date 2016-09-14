@@ -54,13 +54,14 @@ export function getHistorySavesByUserRequest(username) {
   };
 }
 
-export function createRestoresRequest(userId, selectedFiles, redirect) {
+export function createRestoresRequest(userId, selectedFiles, saveId, redirect) {
   return function startAction(dispatch) {
     return request
       .post('/api/logged-in/create_restore')
       .type('form')
       .send({
         userId,
+        saveId,
         files: selectedFiles.toString(),
       })
       .end(() => {
