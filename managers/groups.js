@@ -261,8 +261,22 @@ module.exports.addUsersToGroup = function () {
 
 module.exports.retrieveGroup = function () {
   return function (req, res) {
-    console.log(req.query);
-    return res.status(200).json({ message: 'This is empty' });
+    if (req.query.id) {
+      GroupsAdapter.findById(req.query.id).then(function (group) {
+        if (group) {
+          return res.status(200).json(group);
+        } else {
+          logger.setUser({ id: req.user.id, name: req.user.name }).error('Group not found');
+          return res.status(500).json({ error: 'Group not found' });
+        }
+      }).catch(function (error) {
+        logger.setUser({ id: req.user.id, name: req.user.name }).error(error);
+        return res.status(500).json({ error: error });
+      });
+    } else {
+      logger.setUser({ id: req.user.id, name: req.user.name }).error('Invalid request');
+      return res.status(405).json({ error: 'Invalid request' });
+    }
   };
 };
 
