@@ -17,7 +17,7 @@ export class SaveTable extends React.Component {
 
   handleSaveClick(save) {
     this.props.showInstantSaveModal();
-    this.props.listUsers([{ value: save.id }]);
+    this.props.listUsers([{ id: save.id }]);
     this.props.dateSave(moment().format('DD/MM/YYYY'));
     this.props.timeSave(moment().format('HH:mm'));
     this.props.frequencySave('No Repeat');

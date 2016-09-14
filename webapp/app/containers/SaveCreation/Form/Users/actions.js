@@ -21,6 +21,10 @@ export function resetStateUsers() {
   };
 }
 
+//
+// Format users
+// { id: user.id, name: user.name }
+//
 export function listUsers(users) {
   return {
     type: LIST_USERS,
