@@ -15,7 +15,6 @@ export class RestoreCreationButtons extends React.Component {
     if (this.props.userId !== ''
       && this.props.save !== []
       && this.props.selectedFiles.length > 0) {
-      console.log(this.props.save);
       this.props.createRestoresRequest(this.props.userId, this.props.selectedFiles, this.props.save.value, true);
     } if (this.props.save !== []) {
       this.props.saveErrorMsg('No save selected');
