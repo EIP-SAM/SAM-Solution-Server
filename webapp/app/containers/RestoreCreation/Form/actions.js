@@ -40,7 +40,7 @@ export function resetStateForm() {
 export function getHistorySavesByUserRequest(username) {
   return function returnGetHistorySavesRequest(dispatch) {
     return request
-      .get('/api/logged-in/history_save')
+      .get('/api/logged-in/history_succeeded_save')
       .query({ username })
       .end((err, res) => {
         dispatch(nameUser(username));

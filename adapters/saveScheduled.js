@@ -23,11 +23,28 @@ module.exports.lastUsersSaves = function () {
 }
 
 //
-// Get all saves (savesScheduleds & saves) of a user (past & scheduled)
+// Get all saves of a user (past & scheduled)
 //
 module.exports.historySavesByUser = function (username) {
   return SaveModel.findAll({
     order: [['execDate', 'DESC']],
+    include: [{
+      model: SaveScheduledModel,
+      include: [{
+        model: UserModel,
+        where: { name: username },
+      }]
+    }]
+  })
+}
+
+//
+// Get all succeeded saves of a user
+//
+module.exports.historySucceededSavesByUser = function (username) {
+  return SaveModel.findAll({
+    order: [['execDate', 'DESC']],
+    where: { isSuccess: true },
     include: [{
       model: SaveScheduledModel,
       include: [{
