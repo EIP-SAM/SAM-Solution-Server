@@ -16,7 +16,7 @@ export class RestoreHistoryInstantRestoreModal extends React.Component {
   }
 
   handleLaunchClick() {
-    this.props.createRestoresRequest(this.props.userId, this.props.selectedFiles, this.props.save.value, false);
+    this.props.createRestoreActionRestoreHistory(window.location.pathname.split('/')[2], this.props.userId, this.props.selectedFiles, this.props.save.value, false);
     this.props.hideInstantRestoreModal();
   }
 
@@ -52,6 +52,6 @@ RestoreHistoryInstantRestoreModal.propTypes = {
   save: React.PropTypes.object,
   showModal: React.PropTypes.bool,
   hideInstantRestoreModal: React.PropTypes.func,
-  createRestoresRequest: React.PropTypes.func,
+  createRestoreActionRestoreHistory: React.PropTypes.func,
   resetStateForm: React.PropTypes.func,
 };
