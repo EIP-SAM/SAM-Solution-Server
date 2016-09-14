@@ -28,8 +28,15 @@ export function getHistorySavesByUserRequest(username) {
       .get('/api/logged-in/history_save')
       .query({ username })
       .end((err, res) => {
-        dispatch(getHistorySavesByUser(res.body));
-        const users = [{ id: res.body[0].save_scheduled.user.id, name: res.body[0].save_scheduled.user.name }];
+        let users;
+        let saves = [];
+        if (res.body.length) {
+          saves = res.body;
+          users = [{ id: res.body[0].save_scheduled.user.id, name: res.body[0].save_scheduled.user.name }];
+        } else {
+          users = [{ id: res.body.id, name: res.body.name }];
+        }
+        dispatch(getHistorySavesByUser(saves));
         dispatch(getUsers(users));
       });
   };

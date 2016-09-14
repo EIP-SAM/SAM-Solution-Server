@@ -1,6 +1,8 @@
 //
 // Manager Save
 //
+
+var userAdapter = require('../adapters/users');
 var saveScheduledAdapter = require('../adapters/saveScheduled');
 var cronManager = require('./cronSave');
 var nodeSchedule = require('../libs/nodeSchedule');
@@ -38,7 +40,12 @@ module.exports.lastUsersSaves = function (req, res) {
 //
 module.exports.historySavesByUser = function (req, res) {
   const username = req.query.username;
-  return saveScheduledAdapter.historySavesByUser(username);
+  return saveScheduledAdapter.historySavesByUser(username).then(function (saves) {
+    if (saves.length === 0) {
+      return userAdapter.findByName(username);
+    }
+    return saves;
+  });
 }
 
 module.exports.createSave = function (req, res) {

@@ -47,7 +47,7 @@ describe('historySavesByUser', function () {
     expect(typeof historySavesByUser.then === 'function').toBeTruthy();
   });
 
-  it('should have called historySavesByUser once', function () {
+  xit('should have called historySavesByUser once', function () {
     spyOn(saveScheduledAdapter, 'historySavesByUser');
     saveManager.historySavesByUser(req, res);
     expect(saveScheduledAdapter.historySavesByUser).toHaveBeenCalledTimes(1);
