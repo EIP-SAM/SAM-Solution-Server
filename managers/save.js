@@ -1,8 +1,6 @@
 //
 // Manager Save
 //
-
-var userAdapter = require('../adapters/users');
 var saveScheduledAdapter = require('../adapters/saveScheduled');
 var cronManager = require('./cronSave');
 var nodeSchedule = require('../libs/nodeSchedule');
