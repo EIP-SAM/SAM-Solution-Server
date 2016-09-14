@@ -3,9 +3,12 @@
 //
 
 import { connect } from 'react-redux';
-import { hideInstantRestoreModal } from './actions';
-import { createRestoresRequest, resetStateForm } from 'containers/RestoreCreation/Form/actions';
+import { resetStateForm } from 'containers/RestoreCreation/Form/actions';
 import { RestoreHistoryInstantRestoreModal } from 'components/RestoreHistory/Table/ModalInstantRestore';
+import {
+  hideInstantRestoreModal,
+  createRestoreActionRestoreHistory,
+} from './actions';
 
 function mapStateToProps(state) {
   return {
@@ -19,7 +22,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     hideInstantRestoreModal: () => dispatch(hideInstantRestoreModal()),
-    createRestoresRequest: (userId, selectedFiles, saveId, redirect) => dispatch(createRestoresRequest(userId, selectedFiles, saveId, redirect)),
+    createRestoreActionRestoreHistory: (username, userId, selectedFiles, saveId) => dispatch(createRestoreActionRestoreHistory(username, userId, selectedFiles, saveId)),
     resetStateForm: () => dispatch(resetStateForm()),
   };
 }
