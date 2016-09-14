@@ -13,7 +13,6 @@ import request from 'utils/request';
 
 import {
   GET_SAVES,
-  GET_USERS,
 } from './constants';
 
 export function getSaves(saves) {
@@ -23,24 +22,12 @@ export function getSaves(saves) {
   };
 }
 
-export function getUsers(users) {
-  return {
-    type: GET_USERS,
-    users,
-  };
-}
-
 export function getSavesRequest() {
   return function returnGetSavesRequest(dispatch) {
     return request
       .get('/api/logged-in/admin/save')
       .end((err, res) => {
         dispatch(getSaves(res.body));
-        const users = [];
-        for (const user of res.body) {
-          users.push({ id: user.id, name: user.name });
-        }
-        dispatch(getUsers(users));
       });
   };
 }

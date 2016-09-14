@@ -12,13 +12,23 @@ const moment = require('moment');
 export class SaveButtons extends React.Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleClickInstantSave = this.handleClickInstantSave.bind(this);
+    this.handleClickSaveScheduled = this.handleClickSaveScheduled.bind(this);
   }
 
-  handleClick() {
+  handleClickInstantSave() {
+    this.props.listUsers(this.props.saves.map((save) => (
+      { id: save.id, name: save.name }
+    )));
     this.props.dateSave(moment().format('DD/MM/YYYY'));
     this.props.timeSave(moment().format('HH:mm'));
     this.props.frequencySave('No Repeat');
+  }
+
+  handleClickSaveScheduled() {
+    this.props.listUsers(this.props.saves.map((save) => (
+      { id: save.id, name: save.name }
+    )));
   }
 
   render() {
@@ -29,13 +39,14 @@ export class SaveButtons extends React.Component {
           className={styles.button}
           buttonText="Launch save for all"
           link="/create-save"
-          onClick={this.handleClick}
+          onClick={this.handleClickInstantSave}
         />
         <LinkContainerButton
           buttonType="info"
           className={styles.button}
           buttonText="Program save for all"
           link="/create-save"
+          onClick={this.handleClickSaveScheduled}
         />
       </ButtonToolbar>
     );
@@ -43,6 +54,8 @@ export class SaveButtons extends React.Component {
 }
 
 SaveButtons.propTypes = {
+  saves: React.PropTypes.array,
+  listUsers: React.PropTypes.func,
   dateSave: React.PropTypes.func,
   timeSave: React.PropTypes.func,
   frequencySave: React.PropTypes.func,

@@ -13,12 +13,10 @@ import SaveTableInstantSaveModalReducer from './Table/ModalInstantSave/reducer';
 import SaveTableInstantRestoreModalReducer from './Table/ModalInstantRestore/reducer';
 import {
   GET_SAVES,
-  GET_USERS,
 } from './constants';
 
 const initialState = {
   saves: [],
-  users: [],
 };
 
 function SaveReducer(state = initialState, action) {
@@ -26,10 +24,6 @@ function SaveReducer(state = initialState, action) {
     case GET_SAVES:
       return Object.assign({}, state, {
         saves: action.saves,
-      });
-    case GET_USERS:
-      return Object.assign({}, state, {
-        users: action.users,
       });
     default:
       return state;

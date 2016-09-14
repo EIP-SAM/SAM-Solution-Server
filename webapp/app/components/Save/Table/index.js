@@ -25,7 +25,7 @@ export class SaveTable extends React.Component {
   }
 
   handleScheduledSaveClick(save) {
-    this.props.getUsers([{ id: save.id, name: save.name }]);
+    this.props.listUsers([{ id: save.id, name: save.name }]);
     this.props.addAllFiles(save.save_scheduleds.files);
   }
 
@@ -60,7 +60,7 @@ export class SaveTable extends React.Component {
                   <Tr
                     key={`item-${index}`} items={[
                       { isLink: false, value: save.id },
-                      { isLink: true, link: `/save/${save.name}`, value: save.name },
+                      { isLink: true, link: `/save/${save.name}/${save.id}`, value: save.name },
                       { isLink: false, value: moment(save.save_scheduleds.saves[0].execDate).format('DD/MM/YYYY HH:mm') },
                       { isLink: false, value: (save.save_scheduleds.saves[0].isSuccess) ? 'Succeeded' : 'Failed' },
                       { isLink: false, value: save.save_scheduleds.files },
@@ -73,7 +73,7 @@ export class SaveTable extends React.Component {
                 <Tr
                   key={`item-${index}`} items={[
                     { isLink: false, value: save.id },
-                    { isLink: true, link: `/save/${save.name}`, value: save.name },
+                    { isLink: true, link: `/save/${save.name}/${save.id}`, value: save.name },
                     { isLink: false, value: '' },
                     { isLink: false, value: '' },
                     { isLink: false, value: '' },
@@ -94,7 +94,6 @@ export class SaveTable extends React.Component {
 
 SaveTable.propTypes = {
   saves: React.PropTypes.array,
-  getUsers: React.PropTypes.func,
   listUsers: React.PropTypes.func,
   dateSave: React.PropTypes.func,
   timeSave: React.PropTypes.func,

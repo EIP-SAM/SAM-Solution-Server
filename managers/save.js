@@ -40,12 +40,7 @@ module.exports.lastUsersSaves = function (req, res) {
 //
 module.exports.historySavesByUser = function (req, res) {
   const username = req.query.username;
-  return saveScheduledAdapter.historySavesByUser(username).then(function (saves) {
-    if (saves.length === 0) {
-      return userAdapter.findByName(username);
-    }
-    return saves;
-  });
+  return saveScheduledAdapter.historySavesByUser(username);
 }
 
 module.exports.createSave = function (req, res) {

@@ -23,7 +23,7 @@ export function resetStateUsers() {
 
 //
 // Format users
-// { id: user.id, name: user.name }
+// [{ id: user.id, name: user.name }]
 //
 export function listUsers(users) {
   return {

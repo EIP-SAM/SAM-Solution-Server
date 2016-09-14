@@ -10,10 +10,6 @@ import styles from 'components/SaveCreation/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SaveCreationUsersFormGroup extends React.Component {
-  componentDidMount() {
-    this.props.listUsers(this.props.listAllUsers);
-  }
-
   render() {
     if (!isAdmin()) {
       return (<div></div>);
