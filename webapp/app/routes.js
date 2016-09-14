@@ -93,7 +93,7 @@ export default function createRoutes() {
         .catch(errorLoading);
       },
     }, {
-      path: '/edit-user/:username',
+      path: '/edit-user/:id',
       name: 'edit user',
       getComponent(nextState, cb) {
         System.import('containers/EditUser')

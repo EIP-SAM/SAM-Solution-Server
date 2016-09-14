@@ -12,6 +12,7 @@ export class EditUser extends React.Component {
   constructor(props) {
     super(props);
     this.user = {};
+    this.done = 0;
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
@@ -20,8 +21,15 @@ export class EditUser extends React.Component {
   }
 
   componentWillMount() {
-    const id = window.location.pathname.split('/')[2];
-    this.props.getUserRequest(id, this.props.getGroupsRequest);
+    this.props.getCurrentUserRequest();
+  }
+
+  componentWillReceiveProps(prop) {
+    const username = window.location.pathname.split('/')[2];
+    if (prop.state.currentUser.isAdmin == true && this.done == 0) {
+      this.props.getUserRequest(username, this.props.getGroupsRequest);
+      this.done = 1;
+    }
   }
 
   onChangeUsername(event) {
@@ -71,17 +79,52 @@ export class EditUser extends React.Component {
   }
 
   handleClick(event) {
-    this.props.editUserRequest(this.user);
+    var users = [];
+    users.push(this.user);
+    if (!this.props.state.currentUser.isAdmin) {
+      this.props.editUserRequest(this.user);
+    } else {
+      this.props.editUserAdminRequest(users);
+    }
+  }
+
+  setGroups(user, groups) {
+    var res = [];
+    for (var i = 0; i < groups.length; i++) {
+      res.push(groups[i].name);
+    }
+    user.groups = res;
   }
 
   render() {
-    this.user = this.props.state.user;
+    var exist = true;
+    var access = true;
+
     var groupForm = [];
+    if (!this.props.state) {
+      return(<p>loading...</p>);
+    }
+
+    if (!this.props.state.user) {
+      this.user.id = this.props.state.currentUser.id;
+      this.user.name = this.props.state.currentUser.name;
+      this.user.email = this.props.state.currentUser.email;
+      this.setGroups(this.user, this.props.state.currentUser.groups);
+      if (this.props.state.currentUser.isAdmin == false && this.user.name != window.location.pathname.split('/')[2]) {
+        access = false;
+      }
+    }
+    else if (this.props.state.user.error) {
+      exist = false;
+    } else {
+      this.user.id = this.props.state.user.id;
+      this.user.name = this.props.state.user.name;
+      this.user.email = this.props.state.user.email;
+      this.setGroups(this.user, this.props.state.user.groups);
+    }
 
     if (this.props.state.groups) {
       var usersGroups = this.props.state.usersGroups;
-      // console.log("groupssssssssssss");
-      // console.log(usersGroups);
       this.props.state.groups.map((group, i) => {
         groupForm.push(
           <Col key={i} xs={12} className={styles.editUserRightLine}>
@@ -92,6 +135,27 @@ export class EditUser extends React.Component {
       });
     }
 
+    var groupDisplay = [];
+    var groups = this.props.state.currentUser.groups;
+    groups.map(function(group, i) {
+      groupDisplay.push(<p>{group.name}</p>);
+    });
+    var resGroups = (this.props.state.currentUser.isAdmin == false ? groupDisplay : groupForm);
+
+    if (exist == false) {
+      return (
+        <div>
+          <h3>{this.props.state.user.error}</h3>
+        </div>
+      );
+    }
+    if (access == false) {
+      return (
+        <div>
+          <h3>Error :  access not allowed</h3>
+        </div>
+      );
+    }
     return (
       <div container className={styles.editUser}>
         <form>
@@ -115,7 +179,7 @@ export class EditUser extends React.Component {
             </FormGroup>
             <br />
             <ControlLabel>Groups</ControlLabel>
-            { groupForm }
+            { resGroups }
             <LinkContainerButton buttonType='default' buttonText='Edit' onClick={this.handleClick} />
           </FormGroup>
         </form>
@@ -126,7 +190,10 @@ export class EditUser extends React.Component {
 
 EditUser.propTypes = {
   state: React.PropTypes.object,
+  onChangeData: React.PropTypes.func,
   getUserRequest: React.PropTypes.func,
+  getCurrentUserRequest: React.PropTypes.func,
+  editUserAdminRequest: React.PropTypes.func,
   editUserRequest: React.PropTypes.func,
   getGroupsRequest: React.PropTypes.func,
 };

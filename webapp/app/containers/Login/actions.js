@@ -40,6 +40,7 @@ export function userIsLogin(isLogin) {
     isLogin,
   };
 }
+
 export function loginRequest(username, password) {
   console.log('requete envoyee a /api/public/user/login :');
   console.log('{ username: ' + username + ', password: ' + password + ' }');
@@ -54,7 +55,7 @@ export function loginRequest(username, password) {
         dispatch(login(res.body));
         if (res.body.name) {
           dispatch(userIsLogin(false));
-          browserHistory.push('/edit-user/' + username);
+          browserHistory.push('/edit-user/' + res.body.id);
         }
       });
   };
