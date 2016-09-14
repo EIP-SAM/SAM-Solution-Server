@@ -25,7 +25,7 @@ export function resetStateForm() {
 export function createSave(redirect, users, date, time, frequency, files) {
   const usersId = [];
   for (const user of users) {
-    usersId.push(user.value);
+    usersId.push(user.id);
   }
 
   return function createSaveRequest(dispatch) {

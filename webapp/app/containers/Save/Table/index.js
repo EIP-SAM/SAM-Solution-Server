@@ -4,7 +4,6 @@
 
 import { connect } from 'react-redux';
 import { SaveTable } from 'components/Save/Table';
-import { getUsers } from 'containers/Save/actions';
 import { listUsers } from 'containers/SaveCreation/Form/Users/actions';
 import { dateSave } from 'containers/SaveCreation/Form/Date/actions';
 import { timeSave } from 'containers/SaveCreation/Form/Time/actions';
@@ -28,7 +27,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUsers: (users) => dispatch(getUsers(users)),
     listUsers: (users) => dispatch(listUsers(users)),
     dateSave: (date) => dispatch(dateSave(date)),
     timeSave: (time) => dispatch(timeSave(time)),

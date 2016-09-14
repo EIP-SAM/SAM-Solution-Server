@@ -30,18 +30,13 @@ export function hideInstantSaveModal() {
   };
 }
 
-export function createSaveActionSaveHistory(username, users, date, time, frequency, files) {
-  const usersId = [];
-  for (const user of users) {
-    usersId.push(user.value);
-  }
-
+export function createSaveActionSaveHistory(users, date, time, frequency, files) {
   return function createSaveRequest(dispatch) {
     return request
       .post('/api/logged-in/create_save')
       .type('form')
       .send({
-        usersId,
+        usersId: users[0].id,
         date,
         time,
         frequency,
@@ -49,7 +44,7 @@ export function createSaveActionSaveHistory(username, users, date, time, frequen
       })
       .end(() => {
         dispatch(resetStateForm());
-        dispatch(getHistorySavesByUserRequest(username));
+        dispatch(getHistorySavesByUserRequest(users[0].name));
       });
   };
 }
