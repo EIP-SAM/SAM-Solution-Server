@@ -17,6 +17,7 @@ import {
 const initialState = {
   showInstantRestoreModal: false,
   userId: -1,
+  saveId: -1,
   files: '',
 };
 
@@ -32,6 +33,7 @@ function SaveHistoryTableInstantRestoreModalReducer(state = initialState, action
     case INSTANT_RESTORE:
       return Object.assign({}, state, {
         userId: action.userId,
+        saveId: action.saveId,
         files: action.files,
       });
     default:
