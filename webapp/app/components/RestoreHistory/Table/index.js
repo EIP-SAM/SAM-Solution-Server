@@ -9,6 +9,7 @@ import RestoreHistoryInstantRestoreModal from 'containers/RestoreHistory/Table/M
 import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Td from 'components/Td';
+import styles from './styles.css';
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
@@ -45,8 +46,9 @@ export class RestoreHistoryTable extends React.Component {
           </thead>
           <tbody>
           {data.map((restore, index) => {
+            const displayButton = (restore.isFinish) ? '' : styles.undisplay;
             const actions = [];
-            actions.push(<ButtonPopover key={`action-${0}`} id="relaunch-restore" trigger={['focus', 'hover']} placement="bottom" popoverContent="Relaunch Restore" buttonType="link" icon="repeat" onClick={() => this.handleRestoreClick(restore)} />);
+            actions.push(<ButtonPopover key={`action-${0}`} id="relaunch-restore" trigger={['focus', 'hover']} placement="bottom" popoverContent="Relaunch Restore" buttonType="link" icon="repeat" buttonStyle={displayButton} onClick={() => this.handleRestoreClick(restore)} />);
             return (
               <Tr
                 key={`row-${index}`} items={[
