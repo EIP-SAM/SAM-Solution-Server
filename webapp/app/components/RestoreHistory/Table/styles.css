@@ -1,12 +1,3 @@
-.button {
-  color: #d9534f;
-  margin: 0!important;
-}
-
-.button:hover {
-  color: #c9302c;
-}
-
 .undisplay {
   display: none;
 }
