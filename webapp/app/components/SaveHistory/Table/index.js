@@ -54,7 +54,7 @@ export class SaveHistoryTable extends React.Component {
           <tbody>
           {this.props.saves.map((save, index) => {
             const displayButtonCancel = (!save.canceled) ? ((save.isStart) ? styles.undisplay : styles.button) : styles.undisplay;
-            const displayButtonRestore = (!save.canceled) ? ((save.isFinish) ? '' : styles.undisplay) : styles.undisplay;
+            const displayButtonRestore = (!save.canceled) ? ((save.isFinish) ? ((save.isSuccess) ? '' : styles.undisplay) : styles.undisplay) : styles.undisplay;
             const actions = [];
             actions.push(<ButtonPopover key={`action-${0}`} id="launch_save_action" trigger={['focus', 'hover']} placement="bottom" popoverContent="Relaunch Save" buttonType="link" icon="floppy-disk" onClick={() => this.handleSaveClick(save)} />);
             actions.push(<ButtonPopover key={`action-${1}`} id="launch_save_scheduled_action" trigger={['focus', 'hover']} placement="bottom" popoverContent="Relaunch save at a specific time" buttonType="link" icon="calendar" onClick={() => this.handleScheduledSaveClick(save)} link="/create-save" />);
