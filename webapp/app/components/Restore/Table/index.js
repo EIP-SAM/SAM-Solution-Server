@@ -45,6 +45,7 @@ export class RestoreTable extends React.Component {
                       { isLink: false, value: restore.id },
                       { isLink: true, link: `/restore/${restore.name}`, value: restore.name },
                       { isLink: false, value: moment(restore.restores[0].execDate).format('DD/MM/YYYY HH:mm') },
+                      { isLink: false, value: (restore.restores[0].isSuccess) ? 'Succeeded' : 'Failed' },
                       { isLink: false, value: restore.restores[0].files },
                       { isLink: false, value: actions }]} component={Td}
                   />
@@ -55,6 +56,7 @@ export class RestoreTable extends React.Component {
                   key={`item-${index}`} items={[
                     { isLink: false, value: restore.id },
                     { isLink: true, link: `/restore/${restore.name}`, value: restore.name },
+                    { isLink: false, value: '' },
                     { isLink: false, value: '' },
                     { isLink: false, value: '' },
                     { isLink: false, value: actions }]} component={Td}
