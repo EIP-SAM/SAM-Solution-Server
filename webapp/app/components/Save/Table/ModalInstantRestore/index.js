@@ -16,7 +16,7 @@ export class SaveInstantRestoreModal extends React.Component {
   }
 
   handleLaunchClick() {
-    this.props.createRestoreRequest(this.props.userId, this.props.files);
+    this.props.createRestoreRequest(this.props.userId, this.props.files, this.props.saveId);
     this.props.hideInstantRestoreModal();
   }
 
@@ -49,6 +49,7 @@ export class SaveInstantRestoreModal extends React.Component {
 SaveInstantRestoreModal.propTypes = {
   showInstantRestoreModal: React.PropTypes.bool,
   userId: React.PropTypes.number,
+  saveId: React.PropTypes.number,
   files: React.PropTypes.string,
   hideInstantRestoreModal: React.PropTypes.func,
   createRestoreRequest: React.PropTypes.func,

@@ -31,7 +31,7 @@ export class SaveTable extends React.Component {
   }
 
   handleRestoreClick(save) {
-    this.props.instantRestore(save.id, save.save_scheduleds.files);
+    this.props.instantRestore(save.id, save.save_scheduleds.files, save.save_scheduleds.saves[0].id);
     this.props.showInstantRestoreModal();
   }
 
