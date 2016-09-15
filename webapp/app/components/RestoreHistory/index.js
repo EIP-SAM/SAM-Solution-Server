@@ -4,8 +4,8 @@
 
 import React from 'react';
 import { PageHeader } from 'react-bootstrap';
-import { RestoreHistoryButtons } from 'components/RestoreHistory/Buttons';
-import { RestoreHistoryTable } from 'components/RestoreHistory/Table';
+import RestoreHistoryButtons from 'containers/RestoreHistory/Buttons';
+import RestoreHistoryTable from 'containers/RestoreHistory/Table';
 import { isAdmin } from 'utils/user';
 import styles from 'components/RestoreHistory/styles.css';
 
@@ -27,31 +27,13 @@ export class RestoreHistory extends React.Component {
       <div>
         <PageHeader>Restore</PageHeader>
         {username}
-        <RestoreHistoryButtons username={window.location.pathname.split('/')[2]} />
-        <RestoreHistoryTable
-          state={this.props.state}
-          hideInstantRestoreModal={this.props.hideInstantRestoreModal}
-          showInstantRestoreModal={this.props.showInstantRestoreModal}
-          stateRestore={this.props.stateRestore}
-          createRestoresRequest={this.props.createRestoresRequest}
-          selectFiles={this.props.selectFiles}
-          setUserId={this.props.setUserId}
-          getHistoryRestoresByUserRequest={this.props.getHistoryRestoresByUserRequest}
-          resetStateCreationRestore={this.props.resetStateCreationRestore}
-        />
+        <RestoreHistoryButtons />
+        <RestoreHistoryTable />
       </div>
     );
   }
 }
 
 RestoreHistory.propTypes = {
-  state: React.PropTypes.object,
-  stateRestore: React.PropTypes.object,
   getHistoryRestoresByUserRequest: React.PropTypes.func,
-  createRestoresRequest: React.PropTypes.func,
-  setUserId: React.PropTypes.func,
-  selectFiles: React.PropTypes.func,
-  hideInstantRestoreModal: React.PropTypes.func,
-  showInstantRestoreModal: React.PropTypes.func,
-  resetStateCreationRestore: React.PropTypes.func,
 };

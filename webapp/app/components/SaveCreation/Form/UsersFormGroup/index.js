@@ -10,13 +10,6 @@ import styles from 'components/SaveCreation/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SaveCreationUsersFormGroup extends React.Component {
-  componentDidMount() {
-    const users = this.props.listAllUsers.map((user) => (
-      { isActive: true, value: user.id, text: user.name }
-    ));
-    this.props.listUsers(users);
-  }
-
   render() {
     if (!isAdmin()) {
       return (<div></div>);
@@ -30,9 +23,10 @@ export class SaveCreationUsersFormGroup extends React.Component {
       errorMessage = this.props.userError;
     }
 
-    const usersOptions = this.props.users.map((item, index) => (
-      <Option object={item} key={`item-${index}`} />
-    ));
+    const usersOptions = this.props.users.map((user, index) => {
+      const item = { isActive: true, value: user.id, text: user.name };
+      return (<Option object={item} key={`item-${index}`} />);
+    });
 
     return (
       <FormGroup controlId="users" className={styles.form} validationState={validationState}>

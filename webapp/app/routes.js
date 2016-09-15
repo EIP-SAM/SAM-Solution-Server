@@ -133,7 +133,7 @@ export default function createRoutes() {
           .catch(errorLoading);
       },
     }, {
-      path: '/save/:username',
+      path: '/save/:username/:id',
       name: 'history save',
       getComponent(nextState, cb) {
         System.import('containers/SaveHistory')

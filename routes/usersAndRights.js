@@ -146,15 +146,15 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   );
 
   //
-  // Users/Groups administration
+  // Users administration
   //
 
   app.get('/api/logged-in/admin/users',
     usersAndRightsController.retrieveAllUsers()
   );
 
-  app.get('/api/logged-in/admin/groups',
-    usersAndRightsController.retrieveAllGroups()
+  app.get('/api/logged-in/user',
+    usersAndRightsController.retrieveUser()
   );
 
   app.post('/api/logged-in/admin/users/create',
@@ -167,6 +167,22 @@ module.exports = function initBaseRoutes(app, conf, passport) {
 
   app.post('/api/logged-in/admin/users/delete',
     usersAndRightsController.deleteUsers()
+  );
+
+  app.post('/api/logged-in/user/update',
+    usersAndRightsController.updateUser()
+  );
+
+  app.post('/api/logged-in/admin/user/delete',
+    usersAndRightsController.deleteUser()
+  );
+
+  //
+  // Groups administration
+  //
+
+  app.get('/api/logged-in/admin/groups',
+    usersAndRightsController.retrieveAllGroups()
   );
 
   app.post('/api/logged-in/admin/groups/create',

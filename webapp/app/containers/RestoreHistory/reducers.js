@@ -1,5 +1,5 @@
 //
-// Save Reducer
+// Restore history reducer
 //
 // To add a new action:
 //
@@ -8,14 +8,14 @@
 //    return state.set('yourStateVariable', true);
 //
 
+import { combineReducers } from 'redux-immutable';
+import InstantRestoreModalRestoreHistoryReducer from 'containers/RestoreHistory/Table/ModalInstantRestore/reducer';
 import {
   GET_HISTORY_RESTORES_BY_USER,
-  SHOW_INSTANT_RESTORE_MODAL,
 } from './constants';
 
 const initialState = {
   restores: [],
-  showModal: false,
 };
 
 function RestoreHistoryReducer(state = initialState, action) {
@@ -24,13 +24,15 @@ function RestoreHistoryReducer(state = initialState, action) {
       return Object.assign({}, state, {
         restores: action.restores,
       });
-    case SHOW_INSTANT_RESTORE_MODAL:
-      return Object.assign({}, state, {
-        showModal: action.showModal,
-      });
     default:
       return state;
   }
 }
 
-export default RestoreHistoryReducer;
+//
+// Combine all reducers of save page
+//
+export default combineReducers({
+  RestoreHistoryReducer,
+  InstantRestoreModalRestoreHistoryReducer,
+});

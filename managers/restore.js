@@ -2,8 +2,10 @@
 // Manager Restore
 //
 var restoreAdapter = require('../adapters/restore');
+var saveScheduledAdapter = require('../adapters/saveScheduled');
 var usersAdapter = require('../adapters/users');
 var logger = require('../libs/bunyan');
+var daemon = require('../daemon/restore');
 
 //
 // Get all users with their last restoration
@@ -29,49 +31,46 @@ module.exports.createRestore = function (req, res) {
   const userId = req.body.userId;
   const files = req.body.files;
   const saveId = req.body.saveId;
-  usersAdapter.findById(userId).then(function (user) {
-    logger.setModuleName('Restore').setUser({ id: user.id, name: user.name }).info(`${user.name} has create a restore`)
+  return usersAdapter.findById(userId).then(function (user) {
+    logger.setModuleName('Restore').setUser({ id: user.id, name: user.name }).info(`${user.name} has create a restore`);
+    restoreAdapter.createRestore(userId, files, saveId).then(function (restore) {
+      saveScheduledAdapter.findSaveById(saveId).then(function(save) {
+        daemon.exec(user.name, save.hash, function(msg) {
+          if (msg.isSuccess) {
+            logger.setModuleName('Restore').setUser({ id: '', name: user.name }).info(`${user.name} succeeded a restore`);
+            restoreFinish(restore.id);
+            restoreSuccess(restore.id);
+          } else if (msg.isFinish) {
+            logger.setModuleName('Restore').setUser({ id: '', name: user.name }).info(`${user.name} failed a restore. Error: ${msg.msg.cmd}`);
+            restoreFinish(restore.id);
+          } else if (msg.isStart) {
+            startRestore(restore.id);
+          }
+        });
+      })
+    });
   });
-  return restoreAdapter.createRestore(userId, files, saveId);
 };
 
 //
-// Get data from resquest
+// Update restore isStart boolean
 // Call adapter
 //
-module.exports.startRestore = function (req, res) {
-  const restoreId = req.body.restoreId;
+function startRestore(restoreId) {
   return restoreAdapter.restoreIsStart(restoreId);
 };
 
 //
-// Get data from resquest
+// Update restore isFinish boolean
 // Call adapter
 //
-module.exports.restoreFinish = function (req, res) {
-  const restoreId = req.body.restoreId;
+function restoreFinish(restoreId) {
   return restoreAdapter.restoreIsFinish(restoreId);
 };
 
 //
-// Get data from resquest
 // Call adapter
 //
-module.exports.restoreSuccess = function (req, res) {
-  const restoreId = req.body.restoreId;
+function restoreSuccess(restoreId) {
   return restoreAdapter.restoreIsSuccess(restoreId);
-};
-
-//
-// Get data from request
-// Check to get:
-//   - all restorations of all user
-//   - all restorations of one/several users
-// Call adapter
-//
-module.exports.getHistoryRestore = function (req, res) {
-  const userId = []; // init with req.body
-  if (userId.length === 0)
-    return restoreAdapter.getAllRestore();
-  return restoreAdapter.getRestoreByUser(userId);
 };

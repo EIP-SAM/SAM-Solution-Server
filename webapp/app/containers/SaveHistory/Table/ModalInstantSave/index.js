@@ -24,7 +24,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     hideInstantSaveModal: () => dispatch(hideInstantSaveModal()),
-    createSaveActionSaveHistory: (username, users, date, time, frequency, files) => dispatch(createSaveActionSaveHistory(username, users, date, time, frequency, files)),
+    createSaveActionSaveHistory: (users, date, time, frequency, files) => dispatch(createSaveActionSaveHistory(users, date, time, frequency, files)),
     resetStateForm: () => dispatch(resetStateForm()),
   };
 }

@@ -19,6 +19,13 @@ module.exports.historySavesByUser = function (req, res) {
 }
 
 //
+// Call to get all succeeded saves of a user
+//
+module.exports.historySucceededSavesByUser = function (req, res) {
+  return saveManager.historySucceededSavesByUser(req, res);
+}
+
+//
 // Call when a save is created
 //
 module.exports.createSave = function (req, res) {

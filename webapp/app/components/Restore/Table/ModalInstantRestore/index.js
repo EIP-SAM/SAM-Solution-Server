@@ -16,18 +16,18 @@ export class RestoreInstantRestoreModal extends React.Component {
   }
 
   handleLaunchClick() {
-    this.props.createRestoresRequest(this.props.creationState, false);
+    this.props.createRestoresRequest(this.props.userId, this.props.selectedFiles, this.props.save.value, false);
     this.props.hideInstantRestoreModal();
   }
 
   handleCancelClick() {
-    this.props.resetStateCreationRestore();
+    this.props.resetStateForm();
     this.props.hideInstantRestoreModal();
   }
 
   render() {
     return (
-      <Modal show={this.props.historyState.showModal} onHide={this.handleCancelClick}>
+      <Modal show={this.props.showModal} onHide={this.handleCancelClick}>
         <Modal.Header closeButton>
           <Modal.Title><Glyphicon glyph="floppy-open" className={styles.icon} />Instant restore</Modal.Title>
         </Modal.Header>
@@ -47,9 +47,11 @@ export class RestoreInstantRestoreModal extends React.Component {
 }
 
 RestoreInstantRestoreModal.propTypes = {
-  creationState: React.PropTypes.object,
-  historyState: React.PropTypes.object.isRequired,
-  hideInstantRestoreModal: React.PropTypes.func.isRequired,
+  userId: React.PropTypes.number,
+  selectedFiles: React.PropTypes.array,
+  save: React.PropTypes.object,
+  showModal: React.PropTypes.bool,
+  hideInstantRestoreModal: React.PropTypes.func,
   createRestoresRequest: React.PropTypes.func,
-  resetStateCreationRestore: React.PropTypes.func,
+  resetStateForm: React.PropTypes.func,
 };

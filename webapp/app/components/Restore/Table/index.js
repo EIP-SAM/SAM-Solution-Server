@@ -8,7 +8,7 @@ import { ButtonPopover } from 'components/ButtonPopover';
 import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Td from 'components/Td';
-import { RestoreInstantRestoreModal } from 'components/Restore/Table/ModalInstantRestore';
+import RestoreInstantRestoreModal from 'containers/Restore/Table/ModalInstantRestore';
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
@@ -17,6 +17,7 @@ export class RestoreTable extends React.Component {
   handleRestoreClick(restore) {
     this.props.setUserId(restore.restores[0].userId);
     this.props.selectFiles(restore.restores[0].files);
+    this.props.selectSave({ value: restore.restores[0].saveId, text: moment().format('DD/MM/YYYY HH:mm') });
     this.props.showInstantRestoreModal();
   }
 
@@ -27,12 +28,6 @@ export class RestoreTable extends React.Component {
                   { isLink: 'false', value: 'Files' },
                   { isLink: 'false', value: 'Actions' }];
 
-    let data = [];
-    if (this.props.data !== null) {
-      if (this.props.data.length > 0) {
-        data = this.props.data;
-      }
-    }
     return (
       <div>
         <Table responsive hover striped>
@@ -40,7 +35,7 @@ export class RestoreTable extends React.Component {
             <Tr items={names} component={Th} />
           </thead>
           <tbody>
-            {data.map((restore, index) => {
+            {this.props.restores.map((restore, index) => {
               const actions = [];
               if (restore.restores.length > 0) {
                 actions.push(<ButtonPopover key={`action-${0}`} id="relaunch-restore" trigger={['focus', 'hover']} placement="bottom" popoverContent="Relaunch restore" buttonType="link" icon="repeat" onClick={() => this.handleRestoreClick(restore)} />);
@@ -68,26 +63,16 @@ export class RestoreTable extends React.Component {
             })}
           </tbody>
         </Table>
-        <RestoreInstantRestoreModal
-          createRestoresRequest={this.props.createRestoresRequest}
-          historyState={this.props.historyState}
-          hideInstantRestoreModal={this.props.hideInstantRestoreModal}
-          creationState={this.props.creationState}
-          resetStateCreationRestore={this.props.resetStateCreationRestore}
-        />
+        <RestoreInstantRestoreModal />
       </div>
     );
   }
 }
 
 RestoreTable.propTypes = {
-  data: React.PropTypes.array,
-  historyState: React.PropTypes.object,
-  creationState: React.PropTypes.object,
+  restores: React.PropTypes.array,
   showInstantRestoreModal: React.PropTypes.func,
-  hideInstantRestoreModal: React.PropTypes.func,
-  createRestoresRequest: React.PropTypes.func,
-  resetStateCreationRestore: React.PropTypes.func,
   setUserId: React.PropTypes.func,
   selectFiles: React.PropTypes.func,
+  selectSave: React.PropTypes.func,
 };
