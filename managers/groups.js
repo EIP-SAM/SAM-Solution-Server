@@ -319,7 +319,24 @@ module.exports.updateGroup = function () {
 
 module.exports.deleteGroup = function () {
   return function (req, res) {
-    console.log(req.body);
-    return res.status(200).json({ message: 'This is empty' });
+    if (req.body.id) {
+      GroupsAdapter.findById(req.body.id).then(function (group) {
+        if (group) {
+          group.destroy().then(function () {
+            logger.info('Group deleted (by an administrator): id: ' + group.id + ' name: ' + group.name);
+            return res.status(200).json({ message: 'Success' });
+          });
+        } else {
+          logger.warn('Error during group deletion (by an administrator): id: ' + req.body.id + ' not found');
+          return res.status(404).json({ error: 'Group id ' + req.body.id + ' not found' });
+        }
+      }).catch(function (error) {
+        logger.warn('Error during group deletion (by an administrator): id: ' + req.body.id + ' not found');
+        return res.status(404).json({ error: 'Group id ' + req.body.id + ' not found' });
+      });
+    } else {
+      logger.setUser({ id: req.user.id, name: req.user.name }).error('Invalid request');
+      return res.status(405).json({ error: 'Invalid request' });
+    }
   };
 };
