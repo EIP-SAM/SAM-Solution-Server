@@ -155,15 +155,22 @@ module.exports.saveIsSuccess = function (saveId) {
 
 //
 // Search in the database a save instance with id = saveId
-// Save the hash of the commit
+// Save the name of the branch
 //
-module.exports.hashSave = function (saveId, hash) {
+module.exports.branchSave = function (saveId, branch) {
   return SaveModel.findById(saveId).then(function (save) {
-    save.hash = hash;
+    save.hash = branch;
     save.save();
     return save;
   });
 };
+
+//
+// Find save by id
+//
+module.exports.findSaveById = function (saveId) {
+  return SaveModel.findById(saveId);
+}
 
 //
 // Get all saves of one/several users

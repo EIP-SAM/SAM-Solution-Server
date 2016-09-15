@@ -22,31 +22,4 @@ module.exports = function initRestoreRoutes(app) {
       res.json('Your restoration has been created');
     });
   });
-
-  app.post('/restore_start', function (req, res) {
-    restoreController.startRestore(req, res);
-    req.flash('msg', 'Your restoration has started');
-    res.redirect('/restore');
-  });
-
-  app.post('/restore_finish', function (req, res) {
-    restoreController.restoreFinish(req, res);
-    res.redirect('/restore');
-  });
-
-  app.post('/restore_success', function (req, res) {
-    restoreController.restoreSuccess(req, res);
-    req.flash('msg', 'Your restoration has succeeded');
-    res.redirect('/restore');
-  });
-
-  app.post('/restore_fail', function (req, res) {
-    req.flash('msg', 'Your restoration has failed');
-    res.redirect('/restore');
-  });
-
-  app.post('/get_history_restore', function (req, res) {
-    restoreController.getHistoryRestore(req, res);
-    res.redirect('/restore');
-  });
 };
