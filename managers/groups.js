@@ -283,7 +283,37 @@ module.exports.retrieveGroup = function () {
 module.exports.updateGroup = function () {
   return function (req, res) {
     console.log(req.body);
-    return res.status(200).json({ message: 'This is empty' });
+    if (req.body.id) {
+      GroupsAdapter.findById(req.body.id).then(function (group) {
+        if (group) {
+          group.name = req.body.name ? req.body.name : group.name;
+          group.saveAndRestoreMode = req.body.saveAndRestoreMode ? req.body.saveAndRestoreMode : group.saveAndRestoreMode;
+          group.migrationMode = req.body.migrationMode ? req.body.migrationMode : group.migrationMode;
+          group.softwarePackagesMode = req.body.softwarePackagesMode ? req.body.softwarePackagesMode : group.softwarePackagesMode;
+          group.save().then(function (group) {
+            if (req.body.users && req.body.users.constructor == Array) {
+              UsersAdapter.reassignUsersToGroup(group, req.body.users).then(function () {
+                logger.info({ group: { id: group.id, name: group.name } }, 'Group updated (by an administrator)');
+                req.query.id = req.body.id;
+                return module.exports.retrieveGroup()(req, res);
+              }).catch(function (error) {
+                logger.warn({ error: error }, 'Error during group update (by an administrator)');
+                return res.status(500).json({ message: 'Internal server error' });
+              });
+            } else {
+              logger.info({ group: { id: group.id, name: group.name } }, 'Group updated (by an administrator)');
+              return res.status(200).json(group);
+            }
+          });
+        } else {
+          logger.warn({ group: { id: req.body.id }, error: 'Group id ' + req.body.id + ' not found' }, 'Error during group update (by an administrator)');
+          return res.status(404).json({ message: 'Group id ' + req.body.id + ' not found' });
+        }
+      });
+    } else {
+      logger.setUser({ id: req.user.id, name: req.user.name }).error('Invalid request');
+      return res.status(405).json({ error: 'Invalid request' });
+    }
   };
 };
 
