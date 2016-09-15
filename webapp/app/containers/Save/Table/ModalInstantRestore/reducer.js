@@ -17,14 +17,14 @@ import {
 const initialState = {
   showInstantRestoreModal: false,
   userId: -1,
+  saveId: -1,
   files: '',
 };
 
 function SaveTableInstantRestoreModalReducer(state = initialState, action) {
   switch (action.type) {
     case RESET_RESTORE_STATE:
-      return Object.assign({}, initialState, {
-      });
+      return Object.assign({}, initialState, {});
     case SHOW_INSTANT_RESTORE_MODAL:
       return Object.assign({}, state, {
         showInstantRestoreModal: action.showInstantRestoreModal,
@@ -32,6 +32,7 @@ function SaveTableInstantRestoreModalReducer(state = initialState, action) {
     case INSTANT_RESTORE:
       return Object.assign({}, state, {
         userId: action.userId,
+        saveId: action.saveId,
         files: action.files,
       });
     default:
