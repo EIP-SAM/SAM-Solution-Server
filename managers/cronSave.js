@@ -31,7 +31,6 @@ function initAllSaveCron() {
                 date = new Date(new Date().getTime() + 60000);
               }
               nodeSchedule.listCron[ss.id] = module.exports.createSaveScheduled(date, user.name, ss.files, s.id, ss.id);
-              console.log(nodeSchedule.listCron);
             }
           };
         });
