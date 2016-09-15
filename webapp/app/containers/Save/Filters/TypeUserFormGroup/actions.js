@@ -3,29 +3,28 @@
 //
 
 import request from 'utils/request';
+import { getSaves } from 'containers/Save/actions'
 
-export function getVisibilityFilter() {
-  return function returnGetvisibilityFilter() {
+export function getVisibilityFilter(typeUser) {
+  return function returnGetvisibilityFilter(dispatch) {
     return request
     .get('/api/logged-in/admin/save')
-    .end(() => {
-      console.log('ICIII');
-      // const listUser = [];
-      // if (typeUser !== 'All') {
-      //   res.body.map(function (save) {
-      //     console.log(save)
-          // if (typeUser === 'Admins' && restore.isAdmin === true) {
-          //   listUser.push(restore);
-          // }
-          // else if (typeUser === 'Users' && restore.isAdmin === false) {
-          //   listUser.push(restore);
-          // }
-        // });
-      //   dispatch(getRestores(listUser));
-      // }
-      // else {
-      //   dispatch(getRestores(res.body));
-      // }
+    .end((err, res) => {
+      const listUser = [];
+      if (typeUser !== 'All') {
+        res.body.map(function (save) {
+          if (typeUser === 'Admins' && save.isAdmin === true) {
+            listUser.push(save);
+          }
+          else if (typeUser === 'Users' && save.isAdmin === false) {
+            listUser.push(save);
+          }
+        });
+        dispatch(getSaves(listUser));
+      }
+      else {
+        dispatch(getSaves(res.body));
+      }
     });
   };
 }

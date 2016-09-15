@@ -21,10 +21,10 @@ export class TypeUserFormGroup extends React.Component {
   render() {
     return (
       <FormGroup controlId="type_user" bsSize="small" className={styles.radioButtons}>
-        <Col componentClass={ControlLabel} sm={2}>
+        <Col componentClass={ControlLabel} sm={3}>
            Type of user :
         </Col>
-        <Col sm={4}>
+        <Col sm={6}>
           <RadioGroup
             inline
             values={['All', 'Admins', 'Users']}
