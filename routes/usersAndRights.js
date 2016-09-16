@@ -185,6 +185,10 @@ module.exports = function initBaseRoutes(app, conf, passport) {
     usersAndRightsController.retrieveAllGroups()
   );
 
+  app.get('/api/logged-in/admin/group',
+    usersAndRightsController.retrieveGroup()
+  );
+
   app.post('/api/logged-in/admin/groups/create',
     usersAndRightsController.createGroups()
   );
@@ -195,6 +199,14 @@ module.exports = function initBaseRoutes(app, conf, passport) {
 
   app.post('/api/logged-in/admin/groups/delete',
     usersAndRightsController.deleteGroups()
+  );
+
+  app.post('/api/logged-in/admin/group/update',
+    usersAndRightsController.updateGroup()
+  );
+
+  app.post('/api/logged-in/admin/group/delete',
+    usersAndRightsController.deleteGroup()
   );
 
   app.post('/api/logged-in/admin/groups/add_users',
