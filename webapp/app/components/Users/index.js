@@ -23,6 +23,7 @@ export class Users extends React.Component {
         <PageHeader>Users</PageHeader>
         <UserTable
           state={this.props.state}
+          rebootUser={this.props.rebootUser}
           showInstantDeleteModal={this.props.showInstantDeleteModal}
         />
         <UserDeletionModal
@@ -38,6 +39,7 @@ export class Users extends React.Component {
 Users.propTypes = {
   state: React.PropTypes.object,
   getUsersRequest: React.PropTypes.func,
+  rebootUser: React.PropTypes.func,
   deleteUser: React.PropTypes.func,
   hideInstantDeleteModal: React.PropTypes.func,
   showInstantDeleteModal: React.PropTypes.func,

@@ -61,3 +61,14 @@ export function deleteUser(user) {
     });
   };
 }
+
+export function rebootUser(username) {
+  return function rebootUserRequest() {
+    return request
+      .get('/api/logged-in/admin/reboot')
+      .query({ username })
+      .end((err, res) => {
+        console.log(res);
+      });
+  };
+}

@@ -11,6 +11,9 @@ import Td from 'components/Td';
 
 /* eslint-disable react/prefer-stateless-function */
 export class UserTable extends React.Component {
+  handleRebootClick(username) {
+    this.props.rebootUser(username);
+  }
 
   handleDeleteClick(save) {
     this.props.showInstantDeleteModal();
@@ -22,6 +25,7 @@ export class UserTable extends React.Component {
                   { isLink: false, value: 'Email' },
                   { isLink: false, value: 'Belongs to group(s)' },
                   { isLink: false, value: 'Edit' },
+                  { isLink: false, value: 'Reboot' },
                   { isLink: false, value: 'Delete' }];
 
     let data = [];
@@ -50,7 +54,8 @@ export class UserTable extends React.Component {
             return groupName;
           });
           actionEdit.push(<ButtonPopover key={`action-${0}`} trigger="hover" placement="bottom" popoverContent="Edit User" buttonType="link" icon="pencil" link={`/edit-user/${user.name}`} />);
-          actionRemove.push(<ButtonPopover key={`action-${1}`} trigger="hover" placement="bottom" popoverContent="Delete User" buttonType="link" icon="trash" onClick={() => this.handleDeleteClick(user)} />);
+          const actionReboot = <ButtonPopover key={`action-${1}`} trigger="hover" placement="bottom" popoverContent="Reboot User" buttonType="link" icon="refresh" onClick={() => this.handleRebootClick(user.name)} />;
+          actionRemove.push(<ButtonPopover key={`action-${2}`} trigger="hover" placement="bottom" popoverContent="Delete User" buttonType="link" icon="trash" onClick={() => this.handleDeleteClick(user)} />);
           return (
             <Tr
               key={`row-${index}`} items={[
@@ -58,6 +63,7 @@ export class UserTable extends React.Component {
                 { isLink: false, value: user.email },
                 { isLink: false, value: groupName },
                 { isLink: false, value: actionEdit },
+                { isLink: false, value: actionReboot },
                 { isLink: false, value: actionRemove }]} component={Td}
             />
           );
@@ -71,4 +77,5 @@ export class UserTable extends React.Component {
 UserTable.propTypes = {
   state: React.PropTypes.object,
   showInstantDeleteModal: React.PropTypes.func,
+  rebootUser: React.PropTypes.func,
 };
