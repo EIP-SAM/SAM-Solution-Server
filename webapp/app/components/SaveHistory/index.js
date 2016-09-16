@@ -13,8 +13,11 @@ import styles from 'components/SaveHistory/styles.css';
 export class SaveHistory extends React.Component {
 
   componentDidMount() {
-    const username = window.location.pathname.split('/')[2];
+    const url = window.location.pathname.split('/');
+    const username = url[2];
+    const userId = url[3];
     this.props.getHistorySavesByUserRequest(username);
+    this.props.listUsers([{ id: userId, name: username }]);
   }
 
   render() {
@@ -36,4 +39,5 @@ export class SaveHistory extends React.Component {
 
 SaveHistory.propTypes = {
   getHistorySavesByUserRequest: React.PropTypes.func,
+  listUsers: React.PropTypes.func,
 };

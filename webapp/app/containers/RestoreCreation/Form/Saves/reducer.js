@@ -16,7 +16,7 @@ import {
 } from './constants';
 
 const initialState = {
-  saves: [],
+  save: {},
   allSaves: [],
   saveError: '',
 };
@@ -31,7 +31,7 @@ function SavesRestoreCreationReducer(state = initialState, action) {
       });
     case SELECTED_SAVE:
       return Object.assign({}, state, {
-        saves: action.saves,
+        save: action.save,
       });
     case SAVE_ERROR:
       return Object.assign({}, state, {

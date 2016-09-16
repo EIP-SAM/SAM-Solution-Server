@@ -49,9 +49,9 @@ module.exports.createSaveScheduled = function (date, username, files, saveId, sa
       if (msg.isSuccess) {
         logger.setModuleName('Save').setUser({ id: '', name: username }).info(`${username} succeeded a save`);
         saveManager.saveFinish(saveScheduledId, saveId);
-        saveManager.saveSuccess(saveId);
+        saveManager.saveSuccess(saveId, msg.branch);
       } else if (msg.isFinish) {
-        logger.setModuleName('Save').setUser({ id: '', name: username }).info(`${username} failed a save`);
+        logger.setModuleName('Save').setUser({ id: '', name: username }).info(`${username} failed a save. Error: ${msg.msg.cmd}`);
         saveManager.saveFinish(saveScheduledId, saveId, username, files);
       } else if (msg.isStart) {
         saveManager.startSave(saveId);

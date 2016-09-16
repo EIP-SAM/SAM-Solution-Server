@@ -4,7 +4,6 @@
 
 import { connect } from 'react-redux';
 import { SaveInstantRestoreModal } from 'components/Save/Table/ModalInstantRestore';
-
 import {
   hideInstantRestoreModal,
   createRestoreRequest,
@@ -15,6 +14,7 @@ function mapStateToProps(state) {
   return {
     showInstantRestoreModal: state.get('save').get('SaveTableInstantRestoreModalReducer').showInstantRestoreModal,
     userId: state.get('save').get('SaveTableInstantRestoreModalReducer').userId,
+    saveId: state.get('save').get('SaveTableInstantRestoreModalReducer').saveId,
     files: state.get('save').get('SaveTableInstantRestoreModalReducer').files,
   };
 }
@@ -22,7 +22,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     hideInstantRestoreModal: () => dispatch(hideInstantRestoreModal()),
-    createRestoreRequest: (userId, files) => dispatch(createRestoreRequest(userId, files)),
+    createRestoreRequest: (userId, files, saveId) => dispatch(createRestoreRequest(userId, files, saveId)),
     resetRestoreState: () => dispatch(resetRestoreState()),
   };
 }

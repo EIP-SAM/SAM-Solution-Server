@@ -17,6 +17,7 @@ export class RestoreTable extends React.Component {
   handleRestoreClick(restore) {
     this.props.setUserId(restore.restores[0].userId);
     this.props.selectFiles(restore.restores[0].files);
+    this.props.selectSave({ value: restore.restores[0].saveId, text: moment().format('DD/MM/YYYY HH:mm') });
     this.props.showInstantRestoreModal();
   }
 
@@ -44,6 +45,7 @@ export class RestoreTable extends React.Component {
                       { isLink: false, value: restore.id },
                       { isLink: true, link: `/restore/${restore.name}`, value: restore.name },
                       { isLink: false, value: moment(restore.restores[0].execDate).format('DD/MM/YYYY HH:mm') },
+                      { isLink: false, value: (restore.restores[0].isSuccess) ? 'Succeeded' : 'Failed' },
                       { isLink: false, value: restore.restores[0].files },
                       { isLink: false, value: actions }]} component={Td}
                   />
@@ -54,6 +56,7 @@ export class RestoreTable extends React.Component {
                   key={`item-${index}`} items={[
                     { isLink: false, value: restore.id },
                     { isLink: true, link: `/restore/${restore.name}`, value: restore.name },
+                    { isLink: false, value: '' },
                     { isLink: false, value: '' },
                     { isLink: false, value: '' },
                     { isLink: false, value: actions }]} component={Td}
@@ -73,4 +76,5 @@ RestoreTable.propTypes = {
   showInstantRestoreModal: React.PropTypes.func,
   setUserId: React.PropTypes.func,
   selectFiles: React.PropTypes.func,
+  selectSave: React.PropTypes.func,
 };

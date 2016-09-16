@@ -41,7 +41,7 @@ function mapDispatchToProps(dispatch) {
     showDeletionScheduledSaveModal: () => dispatch(showDeletionScheduledSaveModal()),
     showInstantSaveModal: () => dispatch(showInstantSaveModal()),
     showInstantRestoreModal: () => dispatch(showInstantRestoreModal()),
-    instantRestore: (userId, files) => dispatch(instantRestore(userId, files)),
+    instantRestore: (userId, files, saveId) => dispatch(instantRestore(userId, files, saveId)),
   };
 }
 

@@ -10,6 +10,7 @@ import { ButtonPopover } from 'components/ButtonPopover';
 import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Td from 'components/Td';
+import styles from './styles.css';
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
@@ -17,7 +18,7 @@ export class SaveTable extends React.Component {
 
   handleSaveClick(save) {
     this.props.showInstantSaveModal();
-    this.props.listUsers([{ value: save.id }]);
+    this.props.listUsers([{ id: save.id }]);
     this.props.dateSave(moment().format('DD/MM/YYYY'));
     this.props.timeSave(moment().format('HH:mm'));
     this.props.frequencySave('No Repeat');
@@ -25,12 +26,12 @@ export class SaveTable extends React.Component {
   }
 
   handleScheduledSaveClick(save) {
-    this.props.getUsers([{ id: save.id, name: save.name }]);
+    this.props.listUsers([{ id: save.id, name: save.name }]);
     this.props.addAllFiles(save.save_scheduleds.files);
   }
 
   handleRestoreClick(save) {
-    this.props.instantRestore(save.id, save.save_scheduleds.files);
+    this.props.instantRestore(save.id, save.save_scheduleds.files, save.save_scheduleds.saves[0].id);
     this.props.showInstantRestoreModal();
   }
 
@@ -50,17 +51,17 @@ export class SaveTable extends React.Component {
           </thead>
           <tbody>
             {this.props.saves.map((save, index) => {
-              const actions = [];
-              actions.push(<ButtonPopover key={`action-${0}`} id="launch_save_action" trigger={['focus', 'hover']} placement="bottom" popoverContent="Relaunch save" buttonType="link" icon="floppy-disk" onClick={() => this.handleSaveClick(save)} />);
-              actions.push(<ButtonPopover key={`action-${1}`} id="launch_save_scheduled_action" trigger={['focus', 'hover']} placement="bottom" popoverContent="Relaunch save at a specific time" buttonType="link" icon="calendar" onClick={() => this.handleScheduledSaveClick(save)} link="/create-save" />);
-              actions.push(<ButtonPopover key={`action-${2}`} id="launch_restore_action" trigger={['focus', 'hover']} placement="bottom" popoverContent="Restore" buttonType="link" icon="repeat" onClick={() => this.handleRestoreClick(save)} />);
-
               if (typeof save.save_scheduleds.length === 'undefined') {
+                const actions = [];
+                const displayButtonRestore = ((save.save_scheduleds.saves[0].isSuccess) ? '' : styles.undisplay);
+                actions.push(<ButtonPopover key={`action-${0}`} id="launch_save_action" trigger={['focus', 'hover']} placement="bottom" popoverContent="Relaunch save" buttonType="link" icon="floppy-disk" onClick={() => this.handleSaveClick(save)} />);
+                actions.push(<ButtonPopover key={`action-${1}`} id="launch_save_scheduled_action" trigger={['focus', 'hover']} placement="bottom" popoverContent="Relaunch save at a specific time" buttonType="link" icon="calendar" onClick={() => this.handleScheduledSaveClick(save)} link="/create-save" />);
+                actions.push(<ButtonPopover key={`action-${2}`} id="launch_restore_action" trigger={['focus', 'hover']} placement="bottom" popoverContent="Restore" buttonType="link" icon="repeat" buttonStyle={displayButtonRestore} onClick={() => this.handleRestoreClick(save)} />);
                 return (
                   <Tr
                     key={`item-${index}`} items={[
                       { isLink: false, value: save.id },
-                      { isLink: true, link: `/save/${save.name}`, value: save.name },
+                      { isLink: true, link: `/save/${save.name}/${save.id}`, value: save.name },
                       { isLink: false, value: moment(save.save_scheduleds.saves[0].execDate).format('DD/MM/YYYY HH:mm') },
                       { isLink: false, value: (save.save_scheduleds.saves[0].isSuccess) ? 'Succeeded' : 'Failed' },
                       { isLink: false, value: save.save_scheduleds.files },
@@ -73,7 +74,7 @@ export class SaveTable extends React.Component {
                 <Tr
                   key={`item-${index}`} items={[
                     { isLink: false, value: save.id },
-                    { isLink: true, link: `/save/${save.name}`, value: save.name },
+                    { isLink: true, link: `/save/${save.name}/${save.id}`, value: save.name },
                     { isLink: false, value: '' },
                     { isLink: false, value: '' },
                     { isLink: false, value: '' },
@@ -94,7 +95,6 @@ export class SaveTable extends React.Component {
 
 SaveTable.propTypes = {
   saves: React.PropTypes.array,
-  getUsers: React.PropTypes.func,
   listUsers: React.PropTypes.func,
   dateSave: React.PropTypes.func,
   timeSave: React.PropTypes.func,

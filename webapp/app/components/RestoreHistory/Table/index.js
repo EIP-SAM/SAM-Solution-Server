@@ -9,6 +9,7 @@ import RestoreHistoryInstantRestoreModal from 'containers/RestoreHistory/Table/M
 import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Td from 'components/Td';
+import styles from './styles.css';
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
@@ -21,6 +22,7 @@ export class RestoreHistoryTable extends React.Component {
     this.props.showInstantRestoreModal();
     this.props.setUserId(restore.userId);
     this.props.selectFiles(files);
+    this.props.selectSave({ value: restore.saveId, text: moment().format('DD/MM/YYYY HH:mm') });
   }
 
   render() {
@@ -44,13 +46,14 @@ export class RestoreHistoryTable extends React.Component {
           </thead>
           <tbody>
           {data.map((restore, index) => {
+            const displayButton = (restore.isFinish) ? '' : styles.undisplay;
             const actions = [];
-            actions.push(<ButtonPopover key={`action-${0}`} id="relaunch-restore" trigger={['focus', 'hover']} placement="bottom" popoverContent="Relaunch Restore" buttonType="link" icon="repeat" onClick={() => this.handleRestoreClick(restore)} />);
+            actions.push(<ButtonPopover key={`action-${0}`} id="relaunch-restore" trigger={['focus', 'hover']} placement="bottom" popoverContent="Relaunch Restore" buttonType="link" icon="repeat" buttonStyle={displayButton} onClick={() => this.handleRestoreClick(restore)} />);
             return (
               <Tr
                 key={`row-${index}`} items={[
                   { isLink: false, value: moment(restore.execDate).format('DD/MM/YYYY HH:mm') },
-                  { isLink: false, value: (restore.isStart) ? ((restore.isFinish) ? ((restore.isSuccess) ? 'Succeeded' : 'Failed') : 'In progress') : 'In progress' },
+                  { isLink: false, value: (restore.isStart) ? ((restore.isFinish) ? ((restore.isSuccess) ? 'Succeeded' : 'Failed') : 'In progress') : 'Has been launch' },
                   { isLink: false, value: restore.files },
                   { isLink: false, value: actions }]} component={Td}
               />
@@ -69,4 +72,5 @@ RestoreHistoryTable.propTypes = {
   showInstantRestoreModal: React.PropTypes.func,
   setUserId: React.PropTypes.func,
   selectFiles: React.PropTypes.func,
+  selectSave: React.PropTypes.func,
 };
