@@ -31,13 +31,6 @@ export class RestoreHistoryTable extends React.Component {
                   { isLink: false, value: 'Files' },
                   { isLink: false, value: 'Actions' }];
 
-    let data = [];
-    if (typeof this.props.restores !== 'undefined') {
-      if (this.props.restores.length > 0) {
-        data = this.props.restores;
-      }
-    }
-
     return (
       <div>
         <Table responsive hover striped>
@@ -45,7 +38,7 @@ export class RestoreHistoryTable extends React.Component {
             <Tr items={names} component={Th} />
           </thead>
           <tbody>
-          {data.map((restore, index) => {
+          {this.props.restores.map((restore, index) => {
             const displayButton = (restore.isFinish) ? '' : styles.undisplay;
             const actions = [];
             actions.push(<ButtonPopover key={`action-${0}`} id="relaunch-restore" trigger={['focus', 'hover']} placement="bottom" popoverContent="Relaunch Restore" buttonType="link" icon="repeat" buttonStyle={displayButton} onClick={() => this.handleRestoreClick(restore)} />);
