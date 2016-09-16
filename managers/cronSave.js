@@ -5,32 +5,36 @@ var nodeSchedule = require('../libs/nodeSchedule');
 var cronParser = require('cron-parser');
 var saveManager = require('./save');
 var saveScheduledAdapter = require('../adapters/saveScheduled');
+var userAdapter = require('../adapters/users');
 var daemonSave = require('../daemon/save');
 var logger = require('../libs/bunyan');
+
+initAllSaveCron();
 
 //
 // Call when server is restart
 // Create all the cron and add them to listCron;
 //
-module.exports.initAllSaveCron = function () {
+function initAllSaveCron() {
   saveScheduledAdapter.getAllSaveScheduleActive().then(function (savesScheduled) {
     var saveScheduledIds = [];
     for (var ss of savesScheduled) {
       saveScheduledIds.push(ss.id);
     }
-
     saveScheduledAdapter.getAllSaveBySaveSchedule(saveScheduledIds).then(function (saves) {
-      for (var ss of savesScheduled) {
-        if (ss.cron === null) {
+      savesScheduled.forEach(function (ss) {
+        userAdapter.findById(ss.userId).then(function (user) {
           for (var s of saves) {
             if (ss.id == s.saveScheduledId) {
-              nodeSchedule.listCron[ss.id] = module.exports.createSaveScheduled(s.execDate);
+              let date = s.execDate;
+              if (date < new Date()) {
+                date = new Date(new Date().getTime() + 60000);
+              }
+              nodeSchedule.listCron[ss.id] = module.exports.createSaveScheduled(date, user.name, ss.files, s.id, ss.id);
             }
-          }
-        } else {
-          nodeSchedule.listCron[ss.id] = module.exports.createAutoSave(ss.cron, ss.id);
-        }
-      }
+          };
+        });
+      })
     });
   });
 };
