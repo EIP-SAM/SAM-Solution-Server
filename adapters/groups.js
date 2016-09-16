@@ -61,7 +61,7 @@ module.exports.findById = function (id) {
     where: { id: id },
     include: [{
         model: UsersModel,
-        where: { groupId: Sequelize.col('groups.id') },
+        attributes: ['id', 'name'],
       },
     ],
   });

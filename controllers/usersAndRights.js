@@ -85,6 +85,10 @@ module.exports.retrieveAllGroups = function () {
   return groupsManager.retrieveAllGroups();
 };
 
+module.exports.retrieveGroup = function () {
+  return groupsManager.retrieveGroup();
+};
+
 module.exports.createGroups = function () {
   return groupsManager.createGroups();
 };
@@ -95,6 +99,14 @@ module.exports.updateGroups = function () {
 
 module.exports.deleteGroups = function () {
   return groupsManager.deleteGroups();
+};
+
+module.exports.updateGroup = function () {
+  return groupsManager.updateGroup();
+};
+
+module.exports.deleteGroup = function () {
+  return groupsManager.deleteGroup();
 };
 
 module.exports.addUsersToGroup = function () {
