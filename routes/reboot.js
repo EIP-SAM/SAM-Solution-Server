@@ -9,7 +9,7 @@ module.exports = function initRebootRoutes(app, conf) {
   //// GET requests
 
   app.get('/api/logged-in/admin/reboot', function (req, res) {
-    let data = rebootController.execRebootByUsername();
+    let data = rebootController.execRebootByUsername(req, res);
     res.json(data);
   });
 };
