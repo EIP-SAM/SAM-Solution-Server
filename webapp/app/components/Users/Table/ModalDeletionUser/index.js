@@ -5,33 +5,28 @@
 import React from 'react';
 import { Modal, ButtonToolbar, Glyphicon } from 'react-bootstrap';
 import { LinkContainerButton } from 'components/Button';
-import styles from 'components/Users/Table/ModalDeletionUser/styles.css';
+import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class UserDeletionModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleDeleteClick = this.handleDeleteClick.bind(this);
-  }
-
   handleDeleteClick() {
-    this.props.deleteUser(this.props.state.users.users[0]);
+    this.props.deleteUser(this.props.userId);
     this.props.hideInstantDeleteModal();
   }
 
   render() {
     return (
-      <Modal show={this.props.state.showModal} onHide={this.props.hideInstantDeleteModal}>
+      <Modal show={this.props.showModal} onHide={this.props.hideInstantDeleteModal}>
         <Modal.Header closeButton>
           <Modal.Title><Glyphicon glyph="warning-sign" className={styles.icon} />Delete scheduled save</Modal.Title>
         </Modal.Header>
         <Modal.Body className={styles.p}>
-          <p>You are about to delete {this.props.state.users.users[0].name}.</p>
+          <p>You are about to delete {this.props.username}.</p>
           <p className={styles.bold}>Are you sure that you want to delete it?</p>
         </Modal.Body>
         <Modal.Footer>
           <ButtonToolbar>
-            <LinkContainerButton buttonType="danger" buttonText="Delete" onClick={this.handleDeleteClick} />
+            <LinkContainerButton buttonType="danger" buttonText="Delete" onClick={() => this.handleDeleteClick()} />
             <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={this.props.hideInstantDeleteModal} />
           </ButtonToolbar>
         </Modal.Footer>
@@ -41,7 +36,9 @@ export class UserDeletionModal extends React.Component {
 }
 
 UserDeletionModal.propTypes = {
-  state: React.PropTypes.object.isRequired,
+  username: React.PropTypes.string,
+  userId: React.PropTypes.number,
+  showModal: React.PropTypes.bool,
   deleteUser: React.PropTypes.func,
-  hideInstantDeleteModal: React.PropTypes.func.isRequired,
+  hideInstantDeleteModal: React.PropTypes.func,
 };
