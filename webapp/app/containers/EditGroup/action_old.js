@@ -24,16 +24,28 @@ export function getGroup(group) {
   }
 }
 
-export function getGroupRequest(id, callback) {
-  console.log('get : /api/logged-in/group?id=' + id + ' :');
+export function getGroupRequest(groupname, callback) {
+  console.log('get : /api/logged-in/admin/groups :');
   return function returnGetGroupRequest(dispatch) {
     return request
-      .get('/api/logged-in/group?id=' + id);
+      .get('/api/logged-in/admin/groups')
       .end((err, res) => {
-        console.log('reponse a /api/logged-in/group?id=' + id + ' :');
+        console.log('reponse a /api/logged-in/admin/groups :');
         console.log(res.body);
-        dispatch(getGroup(res.body));
-        callback(res.body.users);
+        var i = 0;
+        while (i < res.body.groups.length && res.body.groups[i].name != groupname) {
+          ++i;
+        }
+        console.log('group affiche sur la page : ');
+        if (!res.body.groups[i]) {
+          var group = {error: 'Error : Group ' + groupname + ' not found'};
+          console.log(group);
+          dispatch(getGroup(group));
+        } else {
+          console.log(res.body.groups[i]);
+          dispatch(getGroup(res.body.groups[i]));
+          callback(res.body.groups[i].users);
+        }
     });
   };
 }
@@ -45,20 +57,20 @@ export function editGroup(group) {
   };
 }
 
-export function editGroupRequest(group) {
-  console.log('requete envoyee a /api/logged-in/group/update :');
-  console.log(group);
+export function editGroupRequest(groups) {
+  console.log('requete envoyee a /api/logged-in/admin/groups/update :');
+  console.log(groups);
   return function returnEditGroupRequest(dispatch) {
     return request
-      .post('/api/logged-in/group/update')
+      .post('/api/logged-in/admin/groups/update')
       .type('json')
-      .send(user)
+      .send({ groups })
       .end((err, res) => {
-        console.log('reponse a /api/logged-in/group/update :');
+        console.log('reponse a /api/logged-in/admin/groups/update :');
         console.log(res.body);
         dispatch(editGroup(res.body));
         if (res.body.name) {
-          browserHistory.push('/edit-group/' + group.name);
+          browserHistory.push('/edit-group/' + groups[0].name);
         }
     });
   };

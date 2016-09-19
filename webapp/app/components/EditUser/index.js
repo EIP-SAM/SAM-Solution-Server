@@ -16,6 +16,7 @@ export class EditUser extends React.Component {
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
     this.onChangeConfirmation = this.onChangeConfirmation.bind(this);
+    this.onChangeGroups = this.onChangeGroups.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -77,11 +78,12 @@ export class EditUser extends React.Component {
   render() {
     this.user = this.props.state.user;
     var groupForm = [];
-
+    
+    if (!this.props.state) {
+      return(<p>loading...</p>);
+    }
     if (this.props.state.groups) {
       var usersGroups = this.props.state.usersGroups;
-      // console.log("groupssssssssssss");
-      // console.log(usersGroups);
       this.props.state.groups.map((group, i) => {
         groupForm.push(
           <Col key={i} xs={12} className={styles.editUserRightLine}>
@@ -129,4 +131,5 @@ EditUser.propTypes = {
   getUserRequest: React.PropTypes.func,
   editUserRequest: React.PropTypes.func,
   getGroupsRequest: React.PropTypes.func,
+  getCurrentUserRequest: React.PropTypes.func,
 };

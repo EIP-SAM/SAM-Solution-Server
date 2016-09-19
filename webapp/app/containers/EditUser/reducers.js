@@ -10,9 +10,9 @@
 
 import {
   GET_USER,
-  GET_CURRENT_USER,
   EDIT_USER,
   GET_GROUPS,
+  GET_CURRENT_USER,
 } from './constants';
 
 function editUserReducer(state = null, action) {
@@ -21,16 +21,16 @@ function editUserReducer(state = null, action) {
       return Object.assign({}, state, {
         user: action.user,
       });
-    case GET_CURRENT_USER:
-      return Object.assign({}, state, {
-        currentUser: action.currentUser,
-      });
     case EDIT_USER:
       return Object.assign({}, state, {});
     case GET_GROUPS:
       return Object.assign({}, state, {
         groups: action.groups,
         usersGroups: action.usersGroups,
+      });
+    case GET_CURRENT_USER:
+      return Object.assign({}, state, {
+        currentUser: action.currentUser,
       });
     default:
       return state;
