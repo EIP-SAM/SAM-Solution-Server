@@ -5,11 +5,6 @@ import { LinkContainerButton } from 'components/Button';
 import styles from 'components/RestoreCreation/styles.css';
 /* eslint-disable react/prefer-stateless-function */
 export class RestoreCreationButtons extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleFormClick = this.handleFormClick.bind(this);
-    this.handleCancelClick = this.handleCancelClick.bind(this);
-  }
 
   handleFormClick() {
     if (this.props.userId !== ''
@@ -24,15 +19,14 @@ export class RestoreCreationButtons extends React.Component {
   }
 
   handleCancelClick() {
-    this.props.resetStateForm();
     browserHistory.goBack();
   }
 
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="info" buttonText="Restore" onClick={this.handleFormClick} />
-        <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={this.handleCancelClick} />
+        <LinkContainerButton buttonType="info" buttonText="Restore" onClick={() => this.handleFormClick()} />
+        <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
       </ButtonToolbar>
     );
   }

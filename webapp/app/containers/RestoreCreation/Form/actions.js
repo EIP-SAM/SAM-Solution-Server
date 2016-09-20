@@ -48,13 +48,14 @@ export function getHistorySavesByUserRequest(username) {
           dispatch(getHistorySavesByUser(res.body));
           dispatch(selectSave({ value: res.body[0].id, text: moment(res.body[0].execDate).format('DD/MM/YYYY HH:mm') }));
           dispatch(setUserId(res.body[0].save_scheduled.userId));
-          dispatch(selectFiles(res.body[0].save_scheduled.files));
+          const files = res.body[0].save_scheduled.files.split(',');
+          dispatch(selectFiles(files));
         }
       });
   };
 }
 
-export function createRestoresRequest(userId, selectedFiles, saveId, redirect) {
+export function createRestoresRequest(userId, files, saveId, redirect) {
   return function startAction(dispatch) {
     return request
       .post('/api/logged-in/create_restore')
@@ -62,7 +63,7 @@ export function createRestoresRequest(userId, selectedFiles, saveId, redirect) {
       .send({
         userId,
         saveId,
-        files: selectedFiles.toString(),
+        files,
       })
       .end(() => {
         if (redirect) {

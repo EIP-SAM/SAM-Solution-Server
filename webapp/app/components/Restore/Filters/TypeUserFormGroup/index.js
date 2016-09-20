@@ -13,6 +13,7 @@ export class TypeUserFormGroup extends React.Component {
     super(props);
     this.selectTypeUser = this.selectTypeUser.bind(this);
   }
+
   selectTypeUser(e) {
     this.props.getVisibilityFilter(e);
   }

@@ -14,11 +14,9 @@ const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
 export class RestoreHistoryTable extends React.Component {
-  // this.props.getHistoryRestoresByUserRequest(window.location.pathname.split('/')[2]);
 
   handleRestoreClick(restore) {
-    let files = [];
-    files = restore.files.split(',');
+    const files = restore.files.split(',');
     this.props.showInstantRestoreModal();
     this.props.setUserId(restore.userId);
     this.props.selectFiles(files);
