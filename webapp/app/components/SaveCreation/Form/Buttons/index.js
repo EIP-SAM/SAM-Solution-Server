@@ -33,7 +33,6 @@ export class SaveCreationButtons extends React.Component {
   }
 
   handleCancelClick() {
-    this.props.resetStateForm();
     browserHistory.goBack();
   }
 
@@ -54,7 +53,6 @@ SaveCreationButtons.propTypes = {
   frequency: React.PropTypes.string,
   files: React.PropTypes.array,
   createSave: React.PropTypes.func,
-  resetStateForm: React.PropTypes.func,
   userErrorMsg: React.PropTypes.func,
   dateErrorMsg: React.PropTypes.func,
   timeErrorMsg: React.PropTypes.func,
