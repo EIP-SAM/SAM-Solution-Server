@@ -10,12 +10,10 @@
 
 import {
   GET_GROUPS,
-  GET_USERS,
 } from './constants';
 
 const initialState = {
   listGroups: [],
-  listGroupsUsers: [],
 };
 
 function SaveGroupsFormGroupReducer(state = initialState, action) {
@@ -23,10 +21,6 @@ function SaveGroupsFormGroupReducer(state = initialState, action) {
     case GET_GROUPS:
       return Object.assign({}, state, {
         listGroups: action.listGroups,
-      });
-    case GET_USERS:
-      return Object.assign({}, state, {
-        listGroupsUsers: action.listGroupsUsers,
       });
     default:
       return state;

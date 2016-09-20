@@ -15,17 +15,19 @@ export class TypeUserFormGroup extends React.Component {
   }
 
   selectTypeUser(e) {
-    this.props.getVisibilityFilter(e, this.props.listGroupsUsers, this.props.listTypeUsers);
-  }
-
-  render() {
     // console.log("TypeView------listGroupsUsers-------");
     // console.log(this.props.listGroupsUsers);
     // console.log("TypeView-----listGroupsUsers-------");
     // console.log("TypeView------listTypeUsers-------");
     // console.log(this.props.listTypeUsers);
     // console.log("TypeView-----listTypeUsers-------");
-    console.log(this.props.listGroupsUsers);
+    // console.log("TypeView-----listUsers-------");
+    // console.log(this.props.listUsers);
+    // console.log("TypeView-----listUsers-------");
+    this.props.getVisibilityFilter(e, this.props.listGroupsUsers, this.props.listTypeUsers, this.props.listUsers);
+  }
+
+  render() {
     return (
       <FormGroup controlId="type_user" bsSize="small" className={styles.radioButtons}>
         <Col componentClass={ControlLabel} sm={2}>
@@ -45,7 +47,7 @@ export class TypeUserFormGroup extends React.Component {
 }
 
 TypeUserFormGroup.propTypes = {
-  getVisibilityFilter: React.PropTypes.func,
-  listGroupsUsers: React.PropTypes.array,
   listTypeUsers: React.PropTypes.array,
+  listGroupsUsers: React.PropTypes.array,
+  getVisibilityFilter: React.PropTypes.func,
 };
