@@ -4,14 +4,13 @@
 
 import { connect } from 'react-redux';
 import { SaveCreationDateFormGroup } from 'components/SaveCreation/Form/DateFormGroup';
-import {
-  dateSave,
-} from './actions';
+import { dateSave } from './actions';
 
 function mapStateToProps(state) {
   return {
     date: state.get('saveCreation').get('SaveCreationFormDateReducer').date,
     dateError: state.get('saveCreation').get('SaveCreationFormDateReducer').dateError,
+    isDateDisabled: state.get('saveCreation').get('SaveCreationFormDateReducer').isDateDisabled,
   };
 }
 

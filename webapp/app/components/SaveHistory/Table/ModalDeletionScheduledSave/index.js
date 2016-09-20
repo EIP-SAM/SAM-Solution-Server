@@ -9,10 +9,6 @@ import styles from 'components/SaveHistory/Table/ModalDeletionScheduledSave/styl
 
 /* eslint-disable react/prefer-stateless-function */
 export class SaveHistoryDeletionScheduledSaveModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleDeleteClick = this.handleDeleteClick.bind(this);
-  }
 
   handleDeleteClick() {
     this.props.cancelSave(this.props.saveId, this.props.saveScheduledId, this.props.username);
@@ -31,7 +27,7 @@ export class SaveHistoryDeletionScheduledSaveModal extends React.Component {
         </Modal.Body>
         <Modal.Footer>
           <ButtonToolbar>
-            <LinkContainerButton buttonType="danger" buttonText="Delete" onClick={this.handleDeleteClick} />
+            <LinkContainerButton buttonType="danger" buttonText="Delete" onClick={() => this.handleDeleteClick()} />
             <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={this.props.hideDeletionScheduledSaveModal} />
           </ButtonToolbar>
         </Modal.Footer>
