@@ -25,7 +25,7 @@ export class UserTable extends React.Component {
     const names = [{ isLink: false, value: 'id' },
                   { isLink: false, value: 'Name' },
                   { isLink: false, value: 'Email' },
-                  { isLink: false, value: 'Belongs to group(s)' },
+                  { isLink: false, value: 'Group(s)' },
                   { isLink: false, value: 'Actions' }];
 
     return (
