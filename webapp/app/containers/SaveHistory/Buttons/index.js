@@ -4,9 +4,20 @@
 
 import { connect } from 'react-redux';
 import { SaveHistoryButtons } from 'components/SaveHistory/Buttons';
-import { dateSave } from 'containers/SaveCreation/Form/Date/actions';
-import { timeSave } from 'containers/SaveCreation/Form/Time/actions';
-import { frequencySave } from 'containers/SaveCreation/Form/Frequency/actions';
+import {
+  timeSave,
+  timeDisabled,
+} from 'containers/SaveCreation/Form/Time/actions';
+
+import {
+  frequencySave,
+  frequencyDisabled,
+} from 'containers/SaveCreation/Form/Frequency/actions';
+
+import {
+  dateSave,
+  dateDisabled,
+} from 'containers/SaveCreation/Form/Date/actions';
 
 function mapStateToProps() {
   return {
@@ -16,8 +27,11 @@ function mapStateToProps() {
 function mapDispatchToProps(dispatch) {
   return {
     dateSave: (date) => dispatch(dateSave(date)),
+    dateDisabled: (isDateDisabled) => dispatch(dateDisabled(isDateDisabled)),
     timeSave: (time) => dispatch(timeSave(time)),
+    timeDisabled: (isTimeDisabled) => dispatch(timeDisabled(isTimeDisabled)),
     frequencySave: (frequency) => dispatch(frequencySave(frequency)),
+    frequencyDisabled: (isFrequencyDisabled) => dispatch(frequencyDisabled(isFrequencyDisabled)),
   };
 }
 

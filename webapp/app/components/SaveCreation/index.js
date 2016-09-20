@@ -9,6 +9,9 @@ import SaveCreationForm from 'containers/SaveCreation/Form';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SaveCreation extends React.Component {
+  componentWillUnmount() {
+    this.props.resetStateForm();
+  }
 
   render() {
     return (
@@ -19,3 +22,7 @@ export class SaveCreation extends React.Component {
     );
   }
 }
+
+SaveCreation.propTypes = {
+  resetStateForm: React.PropTypes.func,
+};
