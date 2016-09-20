@@ -8,6 +8,10 @@ import RestoreCreationForm from 'containers/RestoreCreation/Form';
 
 /* eslint-disable react/prefer-stateless-function */
 export class RestoreCreation extends React.Component {
+  componentWillUnmount() {
+    this.props.resetStateForm();
+  }
+
   render() {
     return (
       <div>
@@ -17,3 +21,7 @@ export class RestoreCreation extends React.Component {
     );
   }
 }
+
+RestoreCreation.propTypes = {
+  resetStateForm: React.PropTypes.func,
+};
