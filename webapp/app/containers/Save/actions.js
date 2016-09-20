@@ -15,6 +15,9 @@ import {
   GET_SAVES,
 } from './constants';
 
+import { getGroupsFormUsers } from './Filters/GroupsFormGroup/actions';
+import { getTypeFormUsers } from './Filters/TypeUserFormGroup/actions';
+
 export function getSaves(saves) {
   return {
     type: GET_SAVES,
@@ -28,6 +31,8 @@ export function getSavesRequest() {
       .get('/api/logged-in/admin/save')
       .end((err, res) => {
         dispatch(getSaves(res.body));
+        dispatch(getGroupsFormUsers(res.body));
+        dispatch(getTypeFormUsers(res.body));
       });
   };
 }

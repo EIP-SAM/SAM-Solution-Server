@@ -13,14 +13,22 @@ export class TypeUserFormGroup extends React.Component {
     super(props);
     this.selectTypeUser = this.selectTypeUser.bind(this);
   }
+
   selectTypeUser(e) {
-    this.props.getVisibilityFilter(e);
+    this.props.getVisibilityFilter(e, this.props.listGroupsUsers, this.props.listTypeUsers);
   }
 
   render() {
+    // console.log("TypeView------listGroupsUsers-------");
+    // console.log(this.props.listGroupsUsers);
+    // console.log("TypeView-----listGroupsUsers-------");
+    // console.log("TypeView------listTypeUsers-------");
+    // console.log(this.props.listTypeUsers);
+    // console.log("TypeView-----listTypeUsers-------");
+    console.log(this.props.listGroupsUsers);
     return (
       <FormGroup controlId="type_user" bsSize="small" className={styles.radioButtons}>
-        <Col componentClass={ControlLabel} sm={3}>
+        <Col componentClass={ControlLabel} sm={2}>
            Type of user :
         </Col>
         <Col sm={6}>
@@ -38,4 +46,6 @@ export class TypeUserFormGroup extends React.Component {
 
 TypeUserFormGroup.propTypes = {
   getVisibilityFilter: React.PropTypes.func,
+  listGroupsUsers: React.PropTypes.array,
+  listTypeUsers: React.PropTypes.array,
 };
