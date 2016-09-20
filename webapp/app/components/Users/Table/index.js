@@ -46,9 +46,9 @@ export class UserTable extends React.Component {
               groupName += group.name;
               return groupName;
             });
-            action.push(<ButtonPopover key={`action-${0}`} trigger="hover" placement="bottom" popoverContent="Edit User" buttonType="link" icon="pencil" link={`/edit-user/${user.name}`} />);
-            action.push(<ButtonPopover key={`action-${1}`} trigger="hover" placement="bottom" popoverContent="Reboot User" buttonType="link" icon="refresh" onClick={() => this.handleRebootClick(user.name)} />);
-            action.push(<ButtonPopover key={`action-${2}`} trigger="hover" placement="bottom" popoverContent="Delete User" buttonType="link" icon="trash" onClick={() => this.handleDeleteClick(user)} />);
+            action.push(<ButtonPopover key={`action-${0}`} id="modify_user" trigger={['focus', 'hover']} placement="bottom" popoverContent="Edit User" buttonType="link" icon="pencil" link={`/edit-user/${user.name}`} />);
+            action.push(<ButtonPopover key={`action-${1}`} id="reboot_user" trigger={['focus', 'hover']} placement="bottom" popoverContent="Reboot User" buttonType="link" icon="refresh" onClick={() => this.handleRebootClick(user.name)} />);
+            action.push(<ButtonPopover key={`action-${2}`} id="delete_user" trigger={['focus', 'hover']} placement="bottom" popoverContent="Delete User" buttonType="link" icon="trash" onClick={() => this.handleDeleteClick(user)} />);
             return (
               <Tr
                 key={`row-${index}`} items={[
