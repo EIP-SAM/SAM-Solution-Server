@@ -3,7 +3,7 @@
 //
 
 import React from 'react';
-import { PageHeader } from 'react-bootstrap';
+import { PageHeader, Alert } from 'react-bootstrap';
 import UserTable from 'containers/Users/Table';
 import styles from './styles.css';
 
@@ -13,9 +13,19 @@ export class Users extends React.Component {
   }
 
   render() {
+    let alert = '';
+    if (this.props.displayAlert) {
+      alert = (
+        <Alert bsStyle={this.props.typeAlert}>
+          <strong>{`${this.props.username}`}</strong> {`${this.props.alertMsg}`}
+        </Alert>
+      );
+    }
+
     return (
       <div container className={styles.users}>
         <PageHeader>Users</PageHeader>
+        {alert}
         <UserTable />
       </div>
     );
@@ -23,5 +33,9 @@ export class Users extends React.Component {
 }
 
 Users.propTypes = {
+  username: React.PropTypes.string,
+  alertMsg: React.PropTypes.string,
+  typeAlert: React.PropTypes.string,
+  displayAlert: React.PropTypes.bool,
   getUsersRequest: React.PropTypes.func,
 };
