@@ -4,23 +4,19 @@
 
 import { connect } from 'react-redux';
 import { TypeUserFormGroup } from 'components/Save/Filters/TypeUserFormGroup';
-import {
-  getVisibilityFilter,
-  getTypeFormUsers
-} from './actions';
+import { getVisibilityFilter } from './actions';
 
 function mapStateToProps(state) {
   return {
-    saves: state.get('save').get('SaveReducer').saves,
-    listGroupsUsers: state.get('save').get('SaveGroupsFormGroupReducer').listGroupsUsers,
-    listTypeUsers: state.get('save').get('SaveTypeUserFormGroupReducer').listTypeUsers,
+    listGroupsUsers: state.get('save').get('SaveFiltersReducer').listGroupsUsers,
+    listTypeUsers: state.get('save').get('SaveFiltersReducer').listTypeUsers,
+    listUsers: state.get('save').get('SaveFiltersReducer').listUsers,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getVisibilityFilter: (typeUser, listGroupsUsers, listTypeUsers) => dispatch(getVisibilityFilter(typeUser, listGroupsUsers, listTypeUsers)),
-    getTypeFormUsers: (listTypeUsers) => dispatch(getTypeFormUsers(listTypeUsers)),
+    getVisibilityFilter: (typeUser, listGroupsUsers, listTypeUsers, listFilterUsers) => dispatch(getVisibilityFilter(typeUser, listGroupsUsers, listTypeUsers, listFilterUsers)),
   };
 }
 

@@ -9,6 +9,9 @@ import GroupsFormGroup from 'containers/Save/Filters/GroupsFormGroup';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SaveFilters extends React.Component {
+  componentDidMount() {
+    this.props.getListUsersRequest();
+  }
   render() {
     return (
       <Form horizontal>
@@ -20,4 +23,5 @@ export class SaveFilters extends React.Component {
 }
 
 SaveFilters.propTypes = {
+  getListUsersRequest: React.PropTypes.func,
 };

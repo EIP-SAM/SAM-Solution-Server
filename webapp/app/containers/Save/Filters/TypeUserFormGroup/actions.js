@@ -3,52 +3,51 @@
 //
 
 import request from 'utils/request';
-import { getSaves } from 'containers/Save/actions'
-import { getGroupsFormUsers } from 'containers/Save/Filters/GroupsFormGroup/actions'
+// import { getSaves } from 'containers/Save/actions'
+// import { getGroupsFormUsers } from 'containers/Save/Filters/GroupsFormGroup/actions'
 
 import {
-  GET_USERS,
-} from './constants'
+  getTypeFormUsers,
+  getGroupsFormUsers,
+  getListUsers
+} from 'containers/Save/Filters/actions'
 
-export function getTypeFormUsers(listTypeUsers) {
-  return {
-    type: GET_USERS,
-    listTypeUsers,
-  };
-}
+export function getVisibilityFilter(typeUser, listGroupsUsers, listTypeUsers, listFilterUsers) {
+  console.log("Type------listTypeUsers-------");
+  console.log(listTypeUsers);
+  console.log("Type------listTypeUsers-------");
+  console.log("Type------listGroupsUsers-------");
+  console.log(listGroupsUsers);
+  console.log("Type------listGroupsUsers-------");
+  console.log("Type------listFilterUsers-------");
+  console.log(listFilterUsers);
+  console.log("Type------listFilterUsers-------");
 
-export function getVisibilityFilter(typeUser, listGroupsUsers, listTypeUsers) {
-  return function returnGetvisibilityFilter(dispatch) {
-    return request
-    .get('/api/logged-in/admin/save')
-    .end((err, res) => {
-      const listUsers = [];
-      let saves = [];
-      if (typeUser !== 'All') {
-        if (listGroupsUsers != 'undefined' && listGroupsUsers != null && listGroupsUsers.length > 0){
-          saves = listGroupsUsers;
+  const listUsers = [];
+  let saves = [];
+  if (typeUser !== 'All') {
+    if (listGroupsUsers != 'undefined' && listGroupsUsers != null && listGroupsUsers.length > 0){
+      saves = listGroupsUsers;
+    }
+    else {
+      saves = listTypeUsers;
+    }
+    if (saves.length > 0) {
+      saves.map(function (save) {
+        if (typeUser === 'Admins' && save.isAdmin === true) {
+          listUsers.push(save);
         }
-        else {
-          saves = listTypeUsers;
+        else if (typeUser === 'Users' && save.isAdmin === false) {
+          listUsers.push(save);
         }
-        if (saves.length > 0) {
-          saves.map(function (save) {
-            if (typeUser === 'Admins' && save.isAdmin === true) {
-              listUsers.push(save);
-            }
-            else if (typeUser === 'Users' && save.isAdmin === false) {
-              listUsers.push(save);
-            }
-          });
-          getTypeFormUsers(listGroupsUsers);
-          dispatch(getGroupsFormUsers(listUsers));
-          dispatch(getSaves(listUsers));
-        }
-      }
-      else {
-        dispatch(getTypeFormUsers(res.body));
-        dispatch(getSaves(res.body));
-      }
-    });
-  };
+      });
+      getTypeFormUsers(listGroupsUsers);
+      getGroupsFormUsers(listUsers);
+      getListUsers(listUsers);
+    }
+  }
+  else {
+    getTypeFormUsers(listFilterUsers);
+    getListUsers(listFilterUsers);
+  }
 }

@@ -18,15 +18,20 @@ export class GroupsFormGroup extends React.Component {
   }
 
   selectGroup(e) {
+    // console.log("Groupsview------listTypeUsers-------");
+    // console.log(this.props.listTypeUsers);
+    // console.log("Groupsview------listTypeUsers-------");
+
+    // console.log("Groupsview------listUsers-------");
+    // console.log(this.props.listUsers);
+    // console.log("Groupsview------listUsers-------");
     this.props.getVisibilityFilter(e.target.value, this.props.listGroups, this.props.listTypeUsers, this.props.listGroupsUsers);
 
   }
-
   render() {
-    // console.log("view------listTypeUsers-------");
-    // console.log(this.props.listTypeUsers);
-    // console.log(this.props.listGroups);
-    // console.log("view-----listTypeUsers-------");
+    console.log("Groupsview------listGroupsUsers-------");
+    console.log(this.props.listGroupsUsers);
+    console.log("Groupsview------listGroupsUsers-------");
     const groups = [];
     groups.push(<option value="-1">All Groups</option>)
     if (this.props.listGroups !== undefined){

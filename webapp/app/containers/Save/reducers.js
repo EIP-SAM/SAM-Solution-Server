@@ -11,8 +11,9 @@
 import { combineReducers } from 'redux-immutable';
 import SaveTableInstantSaveModalReducer from './Table/ModalInstantSave/reducer';
 import SaveTableInstantRestoreModalReducer from './Table/ModalInstantRestore/reducer';
+import SaveFiltersReducer from './Filters/reducer'
 import SaveGroupsFormGroupReducer from './Filters/GroupsFormGroup/reducer';
-import SaveTypeUserFormGroupReducer from './Filters/TypeUserFormGroup/reducer';
+
 import {
   GET_SAVES,
 } from './constants';
@@ -39,6 +40,6 @@ export default combineReducers({
   SaveReducer,
   SaveTableInstantSaveModalReducer,
   SaveTableInstantRestoreModalReducer,
+  SaveFiltersReducer,
   SaveGroupsFormGroupReducer,
-  SaveTypeUserFormGroupReducer,
 });

@@ -7,23 +7,23 @@ import { GroupsFormGroup } from 'components/Save/Filters/GroupsFormGroup';
 import {
   getGroupsRequest,
   getVisibilityFilter,
-  getGroupsFormUsers,
+  getGroups,
 } from './actions';
 
 function mapStateToProps(state) {
   return {
     listGroups: state.get('save').get('SaveGroupsFormGroupReducer').listGroups.groups,
-    saves: state.get('save').get('SaveReducer').saves,
-    listGroupsUsers: state.get('save').get('SaveGroupsFormGroupReducer').listGroupsUsers,
-    listTypeUsers: state.get('save').get('SaveTypeUserFormGroupReducer').listTypeUsers,
+    listGroupsUsers: state.get('save').get('SaveFiltersReducer').listGroupsUsers,
+    listTypeUsers: state.get('save').get('SaveFiltersReducer').listTypeUsers,
+    listUsers: state.get('save').get('SaveFiltersReducer').listUsers,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getGroupsRequest: (listGroups) => dispatch(getGroupsRequest(listGroups)),
-    getVisibilityFilter: (groupFilter, listGroups, listTypeUsers, listGroupsUsers) => dispatch(getVisibilityFilter(groupFilter, listGroups, listTypeUsers, listGroupsUsers)),
-    getGroupsFormUsers: (listGroupsUsers) => dispatch(getGroupsFormUsers(listGroupsUsers)),
+    getGroupsRequest: () => dispatch(getGroupsRequest()),
+    getVisibilityFilter: (groupFilter, listGroups, listTypeUsers, listGroupsUsers, listFilterUsers) => dispatch(getVisibilityFilter(groupFilter, listGroups, listTypeUsers, listGroupsUsers, listFilterUsers)),
+    getGroups: (listGroups) => dispatch(getGroups(listGroups)),
   };
 }
 
