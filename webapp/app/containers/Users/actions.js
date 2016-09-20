@@ -12,7 +12,28 @@
 import request from 'utils/request';
 import {
   GET_USERS,
+  REMOVE_ALERT,
+  REBOOT_ALERT,
+  RESET_ALERT,
 } from './constants';
+
+export function resetAlert() {
+  return {
+    type: RESET_ALERT,
+  };
+}
+
+export function removeAlert() {
+  return {
+    type: REMOVE_ALERT,
+  };
+}
+
+export function rebootAlert() {
+  return {
+    type: REBOOT_ALERT,
+  };
+}
 
 export function getUsers(users) {
   return {

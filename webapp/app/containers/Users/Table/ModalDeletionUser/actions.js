@@ -10,6 +10,10 @@
 //
 
 import request from 'utils/request';
+import {
+  getUsersRequest,
+  removeAlert,
+} from 'containers/Users/actions';
 
 import {
   SHOW_INSTANT_DELETE_MODAL,
@@ -42,13 +46,14 @@ export function deleteUser(userId) {
   const users = [
     userId,
   ];
-  return function returnDeleteUser() {
+  return function returnDeleteUser(dispatch) {
     return request
     .post('/api/logged-in/admin/users/delete')
     .type('json')
     .send({ users })
     .end(() => {
-      console.log('user deleted');
+      dispatch(removeAlert());
+      dispatch(getUsersRequest());
     });
   };
 }
