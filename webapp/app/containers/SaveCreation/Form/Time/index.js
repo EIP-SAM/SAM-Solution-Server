@@ -12,6 +12,7 @@ function mapStateToProps(state) {
   return {
     time: state.get('saveCreation').get('SaveCreationFormTimeReducer').time,
     timeError: state.get('saveCreation').get('SaveCreationFormTimeReducer').timeError,
+    isTimeDisabled: state.get('saveCreation').get('SaveCreationFormTimeReducer').isTimeDisabled,
   };
 }
 

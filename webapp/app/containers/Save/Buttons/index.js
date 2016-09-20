@@ -5,9 +5,20 @@
 import { connect } from 'react-redux';
 import { SaveButtons } from 'components/Save/Buttons';
 import { listUsers } from 'containers/SaveCreation/Form/Users/actions';
-import { dateSave } from 'containers/SaveCreation/Form/Date/actions';
-import { timeSave } from 'containers/SaveCreation/Form/Time/actions';
-import { frequencySave } from 'containers/SaveCreation/Form/Frequency/actions';
+import {
+  timeSave,
+  timeDisabled,
+} from 'containers/SaveCreation/Form/Time/actions';
+
+import {
+  frequencySave,
+  frequencyDisabled,
+} from 'containers/SaveCreation/Form/Frequency/actions';
+
+import {
+  dateSave,
+  dateDisabled,
+} from 'containers/SaveCreation/Form/Date/actions';
 
 function mapStateToProps(state) {
   return {
@@ -19,8 +30,11 @@ function mapDispatchToProps(dispatch) {
   return {
     listUsers: (users) => dispatch(listUsers(users)),
     dateSave: (date) => dispatch(dateSave(date)),
+    dateDisabled: (isDateDisabled) => dispatch(dateDisabled(isDateDisabled)),
     timeSave: (time) => dispatch(timeSave(time)),
+    timeDisabled: (isTimeDisabled) => dispatch(timeDisabled(isTimeDisabled)),
     frequencySave: (frequency) => dispatch(frequencySave(frequency)),
+    frequencyDisabled: (isFrequencyDisabled) => dispatch(frequencyDisabled(isFrequencyDisabled)),
   };
 }
 

@@ -11,15 +11,13 @@ const moment = require('moment');
 /* eslint-disable react/prefer-stateless-function */
 export class SaveHistoryButtons extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
   handleClick() {
     this.props.dateSave(moment().format('DD/MM/YYYY'));
+    this.props.dateDisabled(true);
     this.props.timeSave(moment().format('HH:mm'));
+    this.props.timeDisabled(true);
     this.props.frequencySave('No Repeat');
+    this.props.frequencyDisabled(true);
   }
 
   render() {
@@ -30,7 +28,7 @@ export class SaveHistoryButtons extends React.Component {
           className={styles.button}
           buttonText="Launch save"
           link="/create-save"
-          onClick={this.handleClick}
+          onClick={() => this.handleClick()}
         />
         <LinkContainerButton
           buttonType="info"
@@ -45,6 +43,9 @@ export class SaveHistoryButtons extends React.Component {
 
 SaveHistoryButtons.propTypes = {
   dateSave: React.PropTypes.func,
+  dateDisabled: React.PropTypes.func,
   timeSave: React.PropTypes.func,
+  timeDisabled: React.PropTypes.func,
   frequencySave: React.PropTypes.func,
+  frequencyDisabled: React.PropTypes.func,
 };

@@ -9,11 +9,6 @@ import styles from 'components/SaveHistory/Table/ModalInstantSave/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SaveHistoryInstantSaveModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleLaunchClick = this.handleLaunchClick.bind(this);
-    this.handleCancelClick = this.handleCancelClick.bind(this);
-  }
 
   handleLaunchClick() {
     this.props.createSaveActionSaveHistory(this.props.users, this.props.date, this.props.time, this.props.frequency, this.props.files);
@@ -27,7 +22,7 @@ export class SaveHistoryInstantSaveModal extends React.Component {
 
   render() {
     return (
-      <Modal show={this.props.showInstantSaveModal} onHide={this.handleCancelClick}>
+      <Modal show={this.props.showInstantSaveModal} onHide={() => this.handleCancelClick()}>
         <Modal.Header closeButton>
           <Modal.Title><Glyphicon glyph="floppy-open" className={styles.icon} />Instant save</Modal.Title>
         </Modal.Header>
@@ -37,8 +32,8 @@ export class SaveHistoryInstantSaveModal extends React.Component {
         </Modal.Body>
         <Modal.Footer>
           <ButtonToolbar>
-            <LinkContainerButton buttonType="info" buttonText="Launch" onClick={this.handleLaunchClick} />
-            <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={this.handleCancelClick} />
+            <LinkContainerButton buttonType="info" buttonText="Launch" onClick={() => this.handleLaunchClick()} />
+            <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
           </ButtonToolbar>
         </Modal.Footer>
       </Modal>
