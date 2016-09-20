@@ -28,7 +28,7 @@ export function createSave(redirect, users, date, time, frequency, files) {
     usersId.push(user.id);
   }
 
-  return function createSaveRequest() {
+  return function createSaveRequest(dispatch) {
     return request
       .post('/api/logged-in/create_save')
       .type('form')
@@ -43,6 +43,7 @@ export function createSave(redirect, users, date, time, frequency, files) {
         if (redirect) {
           browserHistory.goBack();
         }
+        dispatch(resetStateForm());
       });
   };
 }
