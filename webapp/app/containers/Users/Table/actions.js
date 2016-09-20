@@ -10,14 +10,15 @@
 //
 
 import request from 'utils/request';
+import { rebootAlert } from 'containers/Users/actions';
 
 export function rebootUser(username) {
-  return function rebootUserRequest() {
+  return function rebootUserRequest(dispatch) {
     return request
       .get('/api/logged-in/admin/reboot')
       .query({ username })
-      .end((err, res) => {
-        console.log(res);
+      .end(() => {
+        dispatch(rebootAlert());
       });
   };
 }

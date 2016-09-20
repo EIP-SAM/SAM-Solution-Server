@@ -10,7 +10,11 @@
 //
 
 import request from 'utils/request';
-import { getUsersRequest } from 'containers/Users/actions';
+import {
+  getUsersRequest,
+  removeAlert,
+} from 'containers/Users/actions';
+
 import {
   SHOW_INSTANT_DELETE_MODAL,
   USER_TO_DELETE,
@@ -48,6 +52,7 @@ export function deleteUser(userId) {
     .type('json')
     .send({ users })
     .end(() => {
+      dispatch(removeAlert());
       dispatch(getUsersRequest());
     });
   };

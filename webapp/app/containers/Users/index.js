@@ -6,8 +6,12 @@ import { connect } from 'react-redux';
 import { Users } from 'components/Users';
 import { getUsersRequest } from './actions';
 
-function mapStateToProps() {
+function mapStateToProps(state) {
   return {
+    username: state.get('users').get('UsersDeletionModalReducer').username,
+    alertMsg: state.get('users').get('UsersReducer').alertMsg,
+    typeAlert: state.get('users').get('UsersReducer').typeAlert,
+    displayAlert: state.get('users').get('UsersReducer').displayAlert,
   };
 }
 
