@@ -43,6 +43,7 @@ export class SaveHistoryTable extends React.Component {
     const names = [{ isLink: false, value: 'Date' },
                   { isLink: false, value: 'State' },
                   { isLink: false, value: 'Files' },
+                  { isLink: false, value: 'Auto save' },
                   { isLink: false, value: 'Actions' }];
 
     return (
@@ -69,6 +70,7 @@ export class SaveHistoryTable extends React.Component {
                   { isLink: false, value: moment(save.execDate).format('DD/MM/YYYY HH:mm') },
                   { isLink: false, value: status },
                   { isLink: false, value: save.save_scheduled.files },
+                  { isLink: false, value: (save.save_scheduled.cron !== null) ? 'Enabled' : 'Disabled' },
                   { isLink: false, value: actions }]} component={Td}
               />
 
