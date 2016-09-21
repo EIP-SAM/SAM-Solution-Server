@@ -5,6 +5,7 @@
 import React from 'react';
 import { PageHeader, Alert } from 'react-bootstrap';
 import UserTable from 'containers/Users/Table';
+import UserButton from 'containers/Users/Button';
 import styles from './styles.css';
 
 export class Users extends React.Component {
@@ -26,6 +27,7 @@ export class Users extends React.Component {
       <div container className={styles.users}>
         <PageHeader>Users</PageHeader>
         {alert}
+        <UserButton />
         <UserTable />
       </div>
     );
