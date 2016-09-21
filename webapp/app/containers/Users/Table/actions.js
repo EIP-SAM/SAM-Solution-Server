@@ -10,6 +10,7 @@
 //
 
 import request from 'utils/request';
+import { browserHistory } from 'react-router';
 import { rebootAlert } from 'containers/Users/actions';
 
 export function rebootUser(username) {
@@ -17,7 +18,12 @@ export function rebootUser(username) {
     return request
       .get('/api/logged-in/admin/reboot')
       .query({ username })
-      .end(() => {
+      .end((err, res) => {
+
+        if (err && res.statusCode == 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(rebootAlert());
       });
   };

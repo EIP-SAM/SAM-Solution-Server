@@ -12,6 +12,7 @@
 import request from 'utils/request';
 
 import { push } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 
 import {
   CREATE_GROUP,
@@ -35,6 +36,11 @@ export function createGroupRequest(groups) {
       .end((err, res) => {
         console.log('reponse a /api/logged-in/admin/groups/create :');
         console.log(res.body);
+
+        if (err && res.statusCode == 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(createGroup(res.body));
         if (!res.body.error) {
           dispatch(push('/edit-group/' + groups[0].name));

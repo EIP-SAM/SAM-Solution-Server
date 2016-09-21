@@ -10,6 +10,7 @@
 //
 
 import request from 'utils/request';
+import { browserHistory } from 'react-router';
 import {
   GET_USERS,
   REMOVE_ALERT,
@@ -47,6 +48,11 @@ export function getUsersRequest() {
     return request
       .get('/api/logged-in/admin/users')
       .end((err, res) => {
+
+        if (err && res.statusCode == 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(getUsers(res.body.users));
       });
   };

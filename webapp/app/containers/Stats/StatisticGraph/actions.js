@@ -3,6 +3,7 @@
 //
 
 import request from 'utils/request';
+import { browserHistory } from 'react-router';
 
 import {
   GET_STATS_BY_TYPE,
@@ -22,6 +23,11 @@ export function getAllGraphFromServer() {
     return request
       .get('/statistic_data/')
       .end((err, res) => {
+
+        if (err && res.statusCode == 401) {
+          browserHistory.push('/login');
+        }
+
         if (err || res.body.error) {
           console.log('Error occured in request to server for statistic data');
         } else {
@@ -39,6 +45,11 @@ export function getGraphFromServer(type) {
       .get('/api/logged-in/admin/statistic_select_graph')
       .query({ type })
       .end((err, res) => {
+
+        if (err && res.statusCode == 401) {
+          browserHistory.push('/login');
+        }
+
         if (err || res.body.error) {
           // console.log('Error occured in request to server for statistic type data : ', res);
         } else {

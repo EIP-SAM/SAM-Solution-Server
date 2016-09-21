@@ -12,6 +12,7 @@
 import request from 'utils/request';
 
 import { push } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 
 import {
   CREATE_USER,
@@ -35,6 +36,11 @@ export function createUserRequest(users) {
       .end((err, res) => {
         console.log('reponse a /api/logged-in/admin/users/create :');
         console.log(res.body);
+
+        if (err && res.statusCode == 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(createUser(res.body));
         if (!res.body.error) {
           dispatch(push('/edit-user/' + users[0].name));

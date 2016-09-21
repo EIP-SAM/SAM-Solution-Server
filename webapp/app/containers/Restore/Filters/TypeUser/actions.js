@@ -11,12 +11,18 @@
 
 import request from 'utils/request';
 import { getRestores } from 'containers/Restore/actions';
+import { browserHistory } from 'react-router';
 
 export function getVisibilityFilter(typeUser) {
   return function returnGetvisibilityFilter(dispatch) {
     return request
     .get('/api/logged-in/admin/restore')
     .end((err, res) => {
+
+      if (err && res.statusCode == 401) {
+        browserHistory.push('/login');
+      }
+
       const listUser = [];
       if (typeUser !== 'All') {
         res.body.map((restore) => {

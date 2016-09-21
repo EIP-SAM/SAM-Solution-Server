@@ -51,6 +51,11 @@ export function loginRequest(username, password) {
       .end((err, res) => {
         console.log('reponse a /api/public/user/login :');
         console.log(res.body);
+
+        if (err && res.statusCode == 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(login(res.body));
         if (res.body.name) {
           dispatch(userIsLogin(false));
@@ -65,6 +70,11 @@ export function logoutRequest() {
     return request
       .post('/api/logged-in/user/logout')
       .end((err) => {
+
+        if (err && res.statusCode == 401) {
+          browserHistory.push('/login');
+        }
+
         if (err) {
           console.log(err);
         }

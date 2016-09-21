@@ -3,6 +3,7 @@
 //
 
 import request from 'utils/request';
+import { browserHistory } from 'react-router';
 
 import {
   GET_FILTERS,
@@ -20,6 +21,11 @@ export function getFiltersFromServer() {
     return request
       .get('/api/logged-in/admin/statistic_filters')
       .end((err, res) => {
+
+        if (err && res.statusCode == 401) {
+          browserHistory.push('/login');
+        }
+
         if (err || res.body.error) {
           console.log('Error occured in request to server for statistic filters');
         } else {
