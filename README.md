@@ -2,7 +2,6 @@
 System Administration Manager - Web server
 
 [![Build Status](https://circleci.com/gh/EIP-SAM/SAM-Solution-Server/tree/develop.svg?style=shield)](https://circleci.com/gh/EIP-SAM/SAM-Solution-Server)
-[![Dependencies Status](https://david-dm.org/EIP-SAM/SAM-Solution-Server/status.svg)](https://david-dm.org/EIP-SAM/SAM-Solution-Server)
 
 ## Description
 ### Project
