@@ -1,9 +1,9 @@
 //
-// Container create user
+// Container form create user
 //
 
 import { connect } from 'react-redux';
-import { CreateUser } from 'components/CreateUser';
+import { CreateUserForm } from 'components/CreateUser/Form';
 
 function mapStateToProps() {
   return {
@@ -18,4 +18,4 @@ function mapDispatchToProps() {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(CreateUser);
+)(CreateUserForm);
