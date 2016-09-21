@@ -18,27 +18,18 @@ export class GroupsFormGroup extends React.Component {
   }
 
   selectGroup(e) {
-    // console.log("Groupsview------listTypeUsers-------");
-    // console.log(this.props.listTypeUsers);
-    // console.log("Groupsview------listTypeUsers-------");
-
-    // console.log("Groupsview------listUsers-------");
-    // console.log(this.props.listUsers);
-    // console.log("Groupsview------listUsers-------");
-    this.props.getVisibilityFilter(e.target.value, this.props.listGroups, this.props.listTypeUsers, this.props.listGroupsUsers);
-
+    this.props.getCurrentGroup(e.target.value);
+    this.props.filterUsers(this.props.currentTypeUser, e.target.value, this.props.allUsers);
   }
+
   render() {
-    console.log("Groupsview------listGroupsUsers-------");
-    console.log(this.props.listGroupsUsers);
-    console.log("Groupsview------listGroupsUsers-------");
-    const groups = [];
-    groups.push(<option value="-1">All Groups</option>)
-    if (this.props.listGroups !== undefined){
-      if (this.props.listGroups.length > 0) {
-        this.props.listGroups.map(function (group, index) {
-          groups.push(<option value={index}>{group.name}</option>)
-        });
+    const selectGroups = [];
+    selectGroups.push(<option key="option-all" value="All">All Groups</option>);
+    if (this.props.groups !== undefined) {
+      if (this.props.groups.length > 0) {
+        this.props.groups.map((group, index) => (
+          selectGroups.push(<option key={`option-${index}`} value={group.name}>{group.name}</option>)
+        ));
       }
     }
     return (
@@ -48,7 +39,7 @@ export class GroupsFormGroup extends React.Component {
         </Col>
         <Col sm={4}>
           <FormControl componentClass="select" className={styles.select} onChange={this.selectGroup}>
-            { groups }
+            {selectGroups}
           </FormControl>
         </Col>
       </FormGroup>
@@ -57,9 +48,10 @@ export class GroupsFormGroup extends React.Component {
 }
 
 GroupsFormGroup.propTypes = {
-  listGroups: React.PropTypes.array,
-  listTypeUsers: React.PropTypes.array,
-  listGroupsUsers: React.PropTypes.array,
+  groups: React.PropTypes.array,
+  currentTypeUser: React.PropTypes.string,
+  allUsers: React.PropTypes.array,
+  getCurrentGroup: React.PropTypes.func,
   getGroupsRequest: React.PropTypes.func,
-  getVisibilityFilter: React.PropTypes.func,
+  filterUsers: React.PropTypes.func,
 };

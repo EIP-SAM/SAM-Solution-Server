@@ -10,7 +10,7 @@
 //
 
 import request from 'utils/request';
-
+import { getAllUsers } from './Filters/actions';
 import {
   GET_SAVES,
 } from './constants';
@@ -28,6 +28,7 @@ export function getSavesRequest() {
       .get('/api/logged-in/admin/save')
       .end((err, res) => {
         dispatch(getSaves(res.body));
+        dispatch(getAllUsers(res.body));
       });
   };
 }

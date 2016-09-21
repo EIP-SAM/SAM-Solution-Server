@@ -1,30 +1,17 @@
 //
-// Container table page save
+// Container filters page save
 //
 
 import { connect } from 'react-redux';
 import { SaveFilters } from 'components/Save/Filters';
-import {
-  getGroupsFormUsers,
-  getTypeFormUsers,
-  getListUsers,
-  getListUsersRequest
- } from './actions'
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {
-    listGroups: state.get('save').get('SaveFiltersReducer'),
-    listTypeUsers: state.get('save').get('SaveFiltersReducer').listTypeUsers,
-    listUsers: state.get('save').get('SaveFiltersReducer'),
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps() {
   return {
-    getListUsersRequest: () => dispatch(getListUsersRequest()),
-    getListUsers: (listUsers) => dispatch(getListUsers(listUsers)),
-    getGroupsFormUsers: (listGroupsUsers) => dispatch(getGroupsFormUsers(listGroupsUsers)),
-    getTypeFormUsers: (listTypeUsers) => dispatch(getTypeFormUsers(listTypeUsers)),
   };
 }
 

@@ -15,16 +15,8 @@ export class TypeUserFormGroup extends React.Component {
   }
 
   selectTypeUser(e) {
-    // console.log("TypeView------listGroupsUsers-------");
-    // console.log(this.props.listGroupsUsers);
-    // console.log("TypeView-----listGroupsUsers-------");
-    // console.log("TypeView------listTypeUsers-------");
-    // console.log(this.props.listTypeUsers);
-    // console.log("TypeView-----listTypeUsers-------");
-    // console.log("TypeView-----listUsers-------");
-    // console.log(this.props.listUsers);
-    // console.log("TypeView-----listUsers-------");
-    this.props.getVisibilityFilter(e, this.props.listGroupsUsers, this.props.listTypeUsers, this.props.listUsers);
+    this.props.getCurrentTypeUser(e);
+    this.props.filterUsers(e, this.props.currentGroup, this.props.allUsers);
   }
 
   render() {
@@ -47,7 +39,8 @@ export class TypeUserFormGroup extends React.Component {
 }
 
 TypeUserFormGroup.propTypes = {
-  listTypeUsers: React.PropTypes.array,
-  listGroupsUsers: React.PropTypes.array,
-  getVisibilityFilter: React.PropTypes.func,
+  currentGroup: React.PropTypes.string,
+  allUsers: React.PropTypes.array,
+  getCurrentTypeUser: React.PropTypes.func,
+  filterUsers: React.PropTypes.func,
 };

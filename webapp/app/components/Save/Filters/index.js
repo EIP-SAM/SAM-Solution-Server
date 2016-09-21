@@ -4,14 +4,11 @@
 
 import React from 'react';
 import { Form } from 'react-bootstrap';
-import TypeUserFormGroup from 'containers/Save/Filters/TypeUserFormGroup';
-import GroupsFormGroup from 'containers/Save/Filters/GroupsFormGroup';
+import TypeUserFormGroup from 'containers/Save/Filters/TypeUser';
+import GroupsFormGroup from 'containers/Save/Filters/Groups';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SaveFilters extends React.Component {
-  componentDidMount() {
-    this.props.getListUsersRequest();
-  }
   render() {
     return (
       <Form horizontal>
@@ -21,7 +18,3 @@ export class SaveFilters extends React.Component {
     );
   }
 }
-
-SaveFilters.propTypes = {
-  getListUsersRequest: React.PropTypes.func,
-};

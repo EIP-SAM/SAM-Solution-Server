@@ -1,5 +1,5 @@
 //
-// Instant save modal save page  Reducer
+// Type user filter save page reducer
 //
 // To add a new action:
 //
@@ -9,22 +9,22 @@
 //
 
 import {
-  GET_GROUPS,
+  CURRENT_TYPE_USER,
 } from './constants';
 
 const initialState = {
-  listGroups: [],
+  currentTypeUser: 'All',
 };
 
-function SaveGroupsFormGroupReducer(state = initialState, action) {
+function SaveTypeUserFilterReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_GROUPS:
+    case CURRENT_TYPE_USER:
       return Object.assign({}, state, {
-        listGroups: action.listGroups,
+        currentTypeUser: action.currentTypeUser,
       });
     default:
       return state;
   }
 }
 
-export default SaveGroupsFormGroupReducer;
+export default SaveTypeUserFilterReducer;
