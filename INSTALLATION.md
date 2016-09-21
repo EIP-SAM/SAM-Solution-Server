@@ -108,13 +108,17 @@ Configuration file: `config/mail.config.json`
 *"I don't have a mail server! What should I do?"* You should be able to setup and use a gmail account as a mail server. You can find the setup and use instructions here http://nodemailer.com/using-gmail/
 
 ### Run
-#### Launch the server
+#### Launch API server
 ```
 $ npm start
 ```
+#### Launch web application server
+```
+$ cd webapp && npm start
+```
 
 #### Access the web interface
-Check that the web interface is successfully running. For that go with your favorite web browser at the address the server is listening on. For example `http://localhost:8080`, depending of the configuration you previously set.
+Check that the web interface is successfully running. For that go with your favorite web browser at the address the server is listening on. For example `http://localhost:3000/login`, depending of the configuration you previously set.
 
 #### Install the client service
 Please refer to the README instructions inside [SAM-Solution-Daemon-Client](https://github.com/EIP-SAM/SAM-Solution-Daemon-Client) repository.
