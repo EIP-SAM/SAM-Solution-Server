@@ -1,5 +1,5 @@
 //
-// Filters page save
+// Filters page restore
 //
 
 import React from 'react';
@@ -15,6 +15,6 @@ export class RestoreFilters extends React.Component {
         <TypeUserFormGroup />
         <GroupsFormGroup />
       </Form>
-   );
+    );
   }
 }

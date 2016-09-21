@@ -282,7 +282,6 @@ module.exports.retrieveGroup = function () {
 
 module.exports.updateGroup = function () {
   return function (req, res) {
-    console.log(req.body);
     if (req.body.id) {
       GroupsAdapter.findById(req.body.id).then(function (group) {
         if (group) {
