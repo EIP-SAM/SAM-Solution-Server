@@ -1,58 +1,53 @@
 import React from 'react';
-import { PageHeader, Nav, NavItem } from 'react-bootstrap';
 import styles from 'components/Stats/StatisticGraph/styles.css';
-const chartJs = require("react-chartjs");
+const chartJs = require('react-chartjs');
 
 export class StatisticGraphComponent extends React.Component {
 
   componentDidMount() {
-      this.props.getGraphFromServer('User');
-    }
+    this.props.getGraphListByType('User');
+  }
 
   render() {
+    const graphs = [];
+    const allGraph = this.props.stats.stats;
 
-    var graphs = [];
-    var allGraph = this.props.stats.stats;
-
-    if (!allGraph)
+    if (!allGraph) {
       return null;
+    }
 
-    var graphNumber = allGraph.length;
-    var graphOptions = {
-              animatable: true,
+    const graphNumber = allGraph.length;
+
+    let graphOptions = {
+      animatable: true,
     };
-    var Chart = null;
 
-    for (var i = 0; i < graphNumber; i++)
-    {
-      if (allGraph[i] && allGraph[i].complete)
-      {
+    let Chart = null;
+
+    for (let i = 0; i < graphNumber; i++) {
+      if (allGraph[i]) {
         Chart = null;
         switch (allGraph[i].type) {
-          case "bar":
+          case 'bar':
             Chart = chartJs.Bar;
             break;
-          case "pie":
+          case 'pie':
             Chart = chartJs.Pie;
             break;
-          case "radar":
+          case 'radar':
             Chart = chartJs.Radar;
             break;
-          case "line":
+          case 'line':
             Chart = chartJs.Line;
             break;
-          // case "polar":
-          //   Chart = chartJs.PolarArea;
-          //   break;
-          case "doughnut":
+          case 'doughnut':
             Chart = chartJs.Doughnut;
             break;
           default:
             break;
         }
-        if (Chart)
-        {
-          graphs.push({graph: <Chart width="500" height="100" data={allGraph[i].datasets} options={graphOptions} />, title: allGraph[i].title, type: allGraph[i].type});
+        if (Chart) {
+          graphs.push({ graph: <Chart width="500" height="100" data={allGraph[i].datasets} redraw options={graphOptions} />, title: allGraph[i].title, type: allGraph[i].type });
         }
       }
     }
@@ -61,9 +56,9 @@ export class StatisticGraphComponent extends React.Component {
       <div>
         {
           graphs.map((data, index) => (
-            <div className={ styles.divGraph } key={ data.title + index + data.type }>
-              <div className={ styles.divCanvas } >{ data.graph }</div>
-              <span className={ styles.spanTitle } >{ data.title }</span>
+            <div className={styles.divGraph} key={data.title + index + data.type}>
+              <div className={styles.divCanvas} >{data.graph}</div>
+              <span className={styles.spanTitle} >{data.title}</span>
             </div>
           ))
         }
@@ -73,6 +68,8 @@ export class StatisticGraphComponent extends React.Component {
 }
 
 StatisticGraphComponent.propTypes = {
+  getGraphListByType: React.PropTypes.func.isRequired,
   getGraphFromServer: React.PropTypes.func.isRequired,
+  clearGraph: React.PropTypes.func.isRequired,
   stats: React.PropTypes.object.isRequired,
-}
+};

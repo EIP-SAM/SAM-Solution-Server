@@ -6,7 +6,7 @@ import {
   GET_FILTERS,
 } from './constants';
 
-function StatisticFilterReducer (state = {}, action) {
+function StatisticFilterReducer(state = {}, action) {
   switch (action.type) {
     case GET_FILTERS:
       return Object.assign({}, state, {
