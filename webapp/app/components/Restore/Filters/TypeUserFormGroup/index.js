@@ -24,7 +24,7 @@ export class TypeUserFormGroup extends React.Component {
         <Col componentClass={ControlLabel} sm={2}>
            Type of user :
         </Col>
-        <Col sm={4}>
+        <Col sm={6}>
           <RadioGroup
             inline
             values={['All', 'Admins', 'Users']}

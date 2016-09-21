@@ -4,6 +4,7 @@
 SaveScheduledModel = require('../models/saveScheduled');
 UserModel = require('../models/users');
 SaveModel = require('../models/save');
+GroupModel = require('../models/groups');
 
 //
 // Get all users with their last saves (savesScheduleds & saves)
@@ -11,6 +12,8 @@ SaveModel = require('../models/save');
 module.exports.lastUsersSaves = function () {
   return UserModel.findAll({
     include: [{
+      model: GroupModel,
+    }, {
       model: SaveScheduledModel,
       include: [{
           model: SaveModel,

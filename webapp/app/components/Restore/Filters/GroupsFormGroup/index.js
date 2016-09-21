@@ -14,7 +14,7 @@
          <Col componentClass={ControlLabel} sm={2}>
            Groups :
          </Col>
-         <Col sm={2}>
+         <Col sm={4}>
            <FormControl componentClass="select" className={styles.select}>
              <option value="0">All Groups</option>
            </FormControl>
