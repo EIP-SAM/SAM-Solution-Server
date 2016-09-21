@@ -18,10 +18,10 @@ export class UserDeletionModal extends React.Component {
     return (
       <Modal show={this.props.showModal} onHide={this.props.hideInstantDeleteModal}>
         <Modal.Header closeButton>
-          <Modal.Title><Glyphicon glyph="warning-sign" className={styles.icon} />Delete scheduled save</Modal.Title>
+          <Modal.Title><Glyphicon glyph="warning-sign" className={styles.icon} />Delete user</Modal.Title>
         </Modal.Header>
         <Modal.Body className={styles.p}>
-          <p>You are about to delete {this.props.username}.</p>
+          <p>You are about to delete the user {this.props.username}.</p>
           <p className={styles.bold}>Are you sure that you want to delete it?</p>
         </Modal.Body>
         <Modal.Footer>
