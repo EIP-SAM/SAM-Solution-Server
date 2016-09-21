@@ -26,7 +26,7 @@ export class EditUser extends React.Component {
 
   componentWillReceiveProps(prop) {
     const username = window.location.pathname.split('/')[2];
-    if (prop.state.currentUser.isAdmin == true && this.done == 0) {
+    if (prop.state.currentUser.isAdmin === true && this.done === 0) {
       this.props.getUserRequest(username, this.props.getGroupsRequest);
       this.done = 1;
     }
@@ -49,26 +49,25 @@ export class EditUser extends React.Component {
   }
 
   onChangeGroups(name, event) {
-    var check = 1;
-    if (event == 'out') {
-      for (var i = 0; i < this.user.groups.length; i++) {
-        if (this.user.groups[i] == name) {
+    let check = 1;
+    if (event === 'out') {
+      for (let i = 0; i < this.user.groups.length; i++) {
+        if (this.user.groups[i] === name) {
           this.user.groups.splice(i, 1);
           console.log(this.user.groups);
           break;
         }
       }
-    }
-    else if (event == 'in') {
-      for (var i = 0; i < this.props.state.groups.length; i++) {
-        if (this.props.state.groups[i].name == name) {
-          for (var j = 0; j < this.user.groups.length; j++) {
-            if (this.user.groups[i] == name) {
+    } else if (event === 'in') {
+      for (let i = 0; i < this.props.state.groups.length; i++) {
+        if (this.props.state.groups[i].name === name) {
+          for (let j = 0; j < this.user.groups.length; j++) {
+            if (this.user.groups[i] === name) {
               check = 0;
               break;
             }
           }
-          if (check == 1) {
+          if (check === 1) {
             this.user.groups.push(this.props.state.groups[i].name);
           }
           console.log(this.user.groups);
@@ -78,8 +77,16 @@ export class EditUser extends React.Component {
     }
   }
 
-  handleClick(event) {
-    var users = [];
+  setGroups(user, groups) {
+    const res = [];
+    for (let i = 0; i < groups.length; i++) {
+      res.push(groups[i].name);
+    }
+    user.groups = res;
+  }
+
+  handleClick() {
+    const users = [];
     users.push(this.user);
     if (!this.props.state.currentUser.isAdmin) {
       this.props.editUserRequest(this.user);
@@ -88,21 +95,13 @@ export class EditUser extends React.Component {
     }
   }
 
-  setGroups(user, groups) {
-    var res = [];
-    for (var i = 0; i < groups.length; i++) {
-      res.push(groups[i].name);
-    }
-    user.groups = res;
-  }
-
   render() {
-    var exist = true;
-    var access = true;
+    let exist = true;
+    let access = true;
 
-    var groupForm = [];
+    const groupForm = [];
     if (!this.props.state) {
-      return(<p>loading...</p>);
+      return (<p>loading...</p>);
     }
 
     if (!this.props.state.user) {
@@ -110,11 +109,10 @@ export class EditUser extends React.Component {
       this.user.name = this.props.state.currentUser.name;
       this.user.email = this.props.state.currentUser.email;
       this.setGroups(this.user, this.props.state.currentUser.groups);
-      if (this.props.state.currentUser.isAdmin == false && this.user.name != window.location.pathname.split('/')[2]) {
+      if (this.props.state.currentUser.isAdmin === false && this.user.name !== window.location.pathname.split('/')[2]) {
         access = false;
       }
-    }
-    else if (this.props.state.user.error) {
+    } else if (this.props.state.user.error) {
       exist = false;
     } else {
       this.user.id = this.props.state.user.id;
@@ -124,32 +122,29 @@ export class EditUser extends React.Component {
     }
 
     if (this.props.state.groups) {
-      var usersGroups = this.props.state.usersGroups;
-      this.props.state.groups.map((group, i) => {
+      const usersGroups = this.props.state.usersGroups;
+      this.props.state.groups.map((group, i) =>
         groupForm.push(
           <Col key={i} xs={12} className={styles.editUserRightLine}>
             <Col xs={4} className={styles.editUserName}>{group.name}</Col>
             <RadioGroup inline id={group.name} values={['in', 'out']} placeholder={(usersGroups[i] === true) ? 'in' : 'out'} onChange={this.onChangeGroups.bind(this, group.name)} />
           </Col>
-        );
-      });
+        ));
     }
 
-    var groupDisplay = [];
-    var groups = this.props.state.currentUser.groups;
-    groups.map(function(group, i) {
-      groupDisplay.push(<p>{group.name}</p>);
-    });
-    var resGroups = (this.props.state.currentUser.isAdmin == false ? groupDisplay : groupForm);
+    const groupDisplay = this.props.state.currentUser.groups.map((group) =>
+      <p>{group.name}</p>
+    );
+    const resGroups = (this.props.state.currentUser.isAdmin === false) ? groupDisplay : groupForm;
 
-    if (exist == false) {
+    if (exist === false) {
       return (
         <div>
           <h3>{this.props.state.user.error}</h3>
         </div>
       );
     }
-    if (access == false) {
+    if (access === false) {
       return (
         <div>
           <h3>Error :  access not allowed</h3>
@@ -163,24 +158,24 @@ export class EditUser extends React.Component {
           <FormGroup controlId="formBasicText">
             <FormGroup>
               <ControlLabel>Username</ControlLabel>
-              <FormControl type="text" placeholder={this.user.name} onChange={this.onChangeUsername} />
+              <FormControl type="text" value={this.user.name} onChange={this.onChangeUsername} />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Email</ControlLabel>
-              <FormControl type="email" placeholder={this.user.email} onChange={this.onChangeEmail} />
+              <FormControl type="email" value={this.user.email} onChange={this.onChangeEmail} />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Password</ControlLabel>
-              <FormControl type="password" placeholder='********' onChange={this.onChangePassword} />
+              <FormControl type="password" value="********" onChange={this.onChangePassword} />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Password confirmation</ControlLabel>
-              <FormControl type="password" placeholder='********' onChange={this.onChangeConfirmation} />
+              <FormControl type="password" value="********" onChange={this.onChangeConfirmation} />
             </FormGroup>
             <br />
             <ControlLabel>Groups</ControlLabel>
-            { resGroups }
-            <LinkContainerButton buttonType='default' buttonText='Edit' onClick={this.handleClick} />
+            {resGroups}
+            <LinkContainerButton buttonType="default" buttonText="Edit" onClick={this.handleClick} />
           </FormGroup>
         </form>
       </div>
