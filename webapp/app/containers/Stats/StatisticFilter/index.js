@@ -5,7 +5,7 @@
 import { connect } from 'react-redux';
 import { getFiltersFromServer } from './actions';
 import { StatisticFilterComponent } from 'components/Stats/StatisticFilter';
-import { getGraphFromServer } from 'containers/Stats/StatisticGraph/actions';
+import { getGraphListByType, clearGraph } from 'containers/Stats/StatisticGraph/actions';
 
 function mapStateToProps(state) {
   return {
@@ -16,7 +16,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getFiltersFromServer: () => dispatch(getFiltersFromServer()),
-    getGraphFromServer: (type) => dispatch(getGraphFromServer(type)),
+    getGraphListByType: (type) => dispatch(getGraphListByType(type)),
+    clearGraph: () => dispatch(clearGraph()),
   };
 }
 

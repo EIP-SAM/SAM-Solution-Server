@@ -3,6 +3,7 @@
 //
 RestoreModel = require('../models/restore');
 UserModel = require('../models/users');
+GroupModel = require('../models/groups');
 
 //
 // Get all users with their last restoration
@@ -10,6 +11,8 @@ UserModel = require('../models/users');
 module.exports.lastUsersRestores = function () {
   return UserModel.findAll({
     include: [{
+      model: GroupModel,
+    }, {
       model: RestoreModel,
       where: { isFinish : true},
       order: [['execDate', 'DESC']],
