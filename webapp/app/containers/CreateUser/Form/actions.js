@@ -8,6 +8,7 @@
 //        return { type: YOUR_ACTION_CONSTANT, var: var }
 //    }
 //
+
 import { browserHistory } from 'react-router';
 import request from 'utils/request';
 import { resetStateUsername } from './Username/actions';
@@ -39,7 +40,11 @@ export function createUserRequest(username, email, password, passwordConfirmatio
       .post('/api/logged-in/admin/users/create')
       .type('json')
       .send({ users })
-      .end(() => {
+      .end((err, res) => {
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         browserHistory.goBack();
         dispatch(resetStateForm());
       });

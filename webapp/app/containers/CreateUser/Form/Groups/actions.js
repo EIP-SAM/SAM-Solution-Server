@@ -2,6 +2,7 @@
 // Groups form create user actions
 //
 
+import { browserHistory } from 'react-router';
 import request from 'utils/request';
 import {
   GROUPS,
@@ -34,6 +35,9 @@ export function getGroupsRequest() {
     return request
     .get('/api/logged-in/admin/groups')
     .end((err, res) => {
+      if (err && res.statusCode === 401) {
+        browserHistory.push('/login');
+      }
       dispatch(getGroups(res.body.groups));
     });
   };
