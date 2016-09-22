@@ -27,7 +27,7 @@ module.exports.numberRestoresPerMonthByUser = function() {
         complete: 1,
         type: 'line',
         labels: months,
-        title: 'radar : Graphique des restorations',
+        title: 'radar : Graphique des Restorations',
         dataset: [
           {
             title: 'Sauvegarde des utilisateurs',
