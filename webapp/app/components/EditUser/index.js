@@ -71,7 +71,22 @@ export class EditUser extends React.Component {
   }
 
   handleClick(event) {
-    this.props.editUserRequest(this.user);
+    var user = {};
+    var groups = [];
+    this.user.groups.map(function(group) {
+      groups.push(group.name);
+    });
+    user.id = this.user.id;
+    user.name = this.user.name;
+    user.email = this.user.email;
+    if (this.user.password) {
+      user.password = this.user.password;
+    }
+    if (this.user.confirmation) {
+      user.confirmation = this.user.confirmation;
+    }
+    user.groups = groups;
+    this.props.editUserRequest(user);
   }
 
   render() {
@@ -100,19 +115,19 @@ export class EditUser extends React.Component {
           <FormGroup controlId="formBasicText">
             <FormGroup>
               <ControlLabel>Username</ControlLabel>
-              <FormControl type="text" value={this.user.name} onChange={this.onChangeUsername} />
+              <FormControl type="text" placeholder={this.user.name} onChange={this.onChangeUsername} />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Email</ControlLabel>
-              <FormControl type="email" value={this.user.email} onChange={this.onChangeEmail} />
+              <FormControl type="email" placeholder={this.user.email} onChange={this.onChangeEmail} />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Password</ControlLabel>
-              <FormControl type="password" value="********" onChange={this.onChangePassword} />
+              <FormControl type="password" placeholder="********" onChange={this.onChangePassword} />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Password confirmation</ControlLabel>
-              <FormControl type="password" value="********" onChange={this.onChangeConfirmation} />
+              <FormControl type="password" placeholder="********" onChange={this.onChangeConfirmation} />
             </FormGroup>
             <br />
             <ControlLabel>Groups</ControlLabel>

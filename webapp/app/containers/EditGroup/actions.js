@@ -11,6 +11,8 @@
 
 import request from 'utils/request';
 
+import { browserHistory } from 'react-router';
+
 import {
   EDIT_GROUP,
   GET_GROUP,
@@ -25,13 +27,10 @@ export function getGroup(group) {
 }
 
 export function getGroupRequest(id, callback) {
-  console.log('get : /api/logged-in/group?id=' + id + ' :');
   return function returnGetGroupRequest(dispatch) {
     return request
-      .get('/api/logged-in/group?id=' + id)
+      .get('/api/logged-in/admin/group?id=' + id)
       .end((err, res) => {
-        console.log('reponse a /api/logged-in/group?id=' + id + ' :');
-        console.log(res.body);
         dispatch(getGroup(res.body));
         callback(res.body.users);
     });
@@ -46,19 +45,15 @@ export function editGroup(group) {
 }
 
 export function editGroupRequest(group) {
-  console.log('requete envoyee a /api/logged-in/group/update :');
-  console.log(group);
   return function returnEditGroupRequest(dispatch) {
     return request
-      .post('/api/logged-in/group/update')
+      .post('/api/logged-in/admin/group/update')
       .type('json')
-      .send(user)
+      .send(group)
       .end((err, res) => {
-        console.log('reponse a /api/logged-in/group/update :');
-        console.log(res.body);
         dispatch(editGroup(res.body));
         if (res.body.name) {
-          browserHistory.push('/edit-group/' + group.name);
+          browserHistory.push('/edit-group/' + group.id);
         }
     });
   };
@@ -91,13 +86,10 @@ export function getUsers(users, group) {
 }
 
 export function getUsersRequest(users) {
-  console.log('get : /api/logged-in/admin/users :');
   return function returnGetUsersRequest(dispatch) {
     return request
       .get('/api/logged-in/admin/users')
       .end((err, res) => {
-        console.log('reponse a /api/logged-in/admin/users :');
-        console.log(res.body);
         dispatch(getUsers(res.body.users, users));
     });
   };

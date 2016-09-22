@@ -42,16 +42,12 @@ export function userIsLogin(isLogin) {
 }
 
 export function loginRequest(username, password) {
-  console.log('requete envoyee a /api/public/user/login :');
-  console.log('{ username: ' + username + ', password: ' + password + ' }');
   return function returnLoginRequest(dispatch) {
     return request
       .post('/api/public/user/login/')
       .type('form')
       .send({ username, password })
       .end((err, res) => {
-        console.log('reponse a /api/public/user/login :');
-        console.log(res.body);
         dispatch(login(res.body));
         if (res.body.name) {
           dispatch(userIsLogin(false));

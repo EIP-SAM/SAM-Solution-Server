@@ -25,19 +25,16 @@ export function createUser(user) {
 }
 
 export function createUserRequest(users) {
-  console.log('requete envoyee a /api/logged-in/admin/users/create :');
-  console.log(users);
   return function returnCreateUserRequest(dispatch) {
     return request
       .post('/api/logged-in/admin/users/create')
       .type('json')
       .send({ users })
       .end((err, res) => {
-        console.log('reponse a /api/logged-in/admin/users/create :');
-        console.log(res.body);
         dispatch(createUser(res.body));
         if (!res.body.error) {
-          dispatch(push('/edit-user/' + users[0].name));
+          var last = res.body.users.length - 1;
+          dispatch(push('/edit-user/' + res.body.users[last].id));
         }
       });
   };

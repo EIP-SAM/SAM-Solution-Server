@@ -72,7 +72,20 @@ export class EditGroup extends React.Component {
   }
 
   handleClick(event) {
-    this.props.editGroupRequest(this.group);
+    var group = {};
+    var users = [];
+    this.group.users.map(function(user) {
+      users.push(user.id);
+    });
+    console.log('CUCUCUCUCUCUCU');
+    console.log(this.group);
+    group.id = this.group.id;
+    group.name = this.group.name;
+    group.saveAndRestoreMode = this.group.saveAndRestoreMode;
+    group.migrationMode = this.group.migrationMode;
+    group.softwarePackagesMode = this.group.softwarePackagesMode;
+    group.users = users;
+    this.props.editGroupRequest(group);
   }
 
   setUsers(group, users) {
