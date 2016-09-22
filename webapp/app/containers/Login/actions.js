@@ -84,7 +84,7 @@ export function getUserInfo() {
         if (!err) {
           dispatch(setUserInfo(true, res.body));
         } else {
-          dispatch(setUserInfo(false));
+          dispatch(resetUserInfo());
         }
       });
   };

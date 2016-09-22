@@ -31,6 +31,10 @@ export function getUserRequest(username, callback) {
     return request
       .get('/api/logged-in/admin/users')
       .end((err, res) => {
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         var i = 0;
         while (i < res.body.users.length && res.body.users[i].name != username) {
           ++i;
@@ -58,6 +62,10 @@ export function getCurrentUserRequest() {
     return request
       .get('/api/logged-in/user/profile')
       .end((err, res) => {
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(getCurrentUser(res.body));
       });
   };
@@ -77,6 +85,10 @@ export function editUserAdminRequest(users) {
       .type('json')
       .send({ users })
       .end((err, res) => {
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(editUser(res.body));
         if (res.body.users) {
           browserHistory.push('/edit-user/' + users[0].name);
@@ -92,6 +104,10 @@ export function editUserRequest(user) {
       .type('json')
       .send(user)
       .end((err, res) => {
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(editUser(res.body));
         if (res.body.name) {
           browserHistory.push('/edit-user/' + users[0].name);
@@ -129,6 +145,10 @@ export function getGroupsRequest(groups) {
     return request
       .get('/api/logged-in/admin/groups')
       .end((err, res) => {
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(getGroups(res.body.groups, groups));
       });
   };

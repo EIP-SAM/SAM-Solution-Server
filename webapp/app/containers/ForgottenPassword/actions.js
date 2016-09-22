@@ -11,6 +11,7 @@
 
 import request from 'utils/request';
 import { push } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 
 import {
   FORGOTTEN_PASSWORD,
@@ -39,6 +40,11 @@ export function forgottenPasswordRequest(email) {
       .send({ email })
       .end((err, res) => {
         dispatch(forgottenPassword(res.body));
+
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         if (res.body.success) {
           dispatch(push('/login'));
         }

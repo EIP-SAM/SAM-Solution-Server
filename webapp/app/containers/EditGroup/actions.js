@@ -10,6 +10,7 @@
 //
 
 import request from 'utils/request';
+import { browserHistory } from 'react-router';
 
 import {
   EDIT_GROUP,
@@ -32,6 +33,11 @@ export function getGroupRequest(groupname, callback) {
       .end((err, res) => {
         console.log('reponse a /api/logged-in/admin/groups :');
         console.log(res.body);
+
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         var i = 0;
         while (i < res.body.groups.length && res.body.groups[i].name != groupname) {
           ++i;
@@ -68,6 +74,11 @@ export function editGroupRequest(groups) {
       .end((err, res) => {
         console.log('reponse a /api/logged-in/admin/groups/update :');
         console.log(res.body);
+
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(editGroup(res.body));
         if (res.body.name) {
           browserHistory.push('/edit-group/' + groups[0].name);
@@ -110,6 +121,11 @@ export function getUsersRequest(users) {
       .end((err, res) => {
         console.log('reponse a /api/logged-in/admin/users :');
         console.log(res.body);
+
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(getUsers(res.body.users, users));
     });
   };

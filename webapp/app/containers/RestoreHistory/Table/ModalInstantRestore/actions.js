@@ -10,6 +10,7 @@
 //
 
 import request from 'utils/request';
+import { browserHistory } from 'react-router';
 import { resetStateForm } from 'containers/RestoreCreation/Form/actions';
 import { getHistoryRestoresByUserRequest } from 'containers/RestoreHistory/actions';
 
@@ -41,7 +42,11 @@ export function createRestoreActionRestoreHistory(username, userId, selectedFile
         saveId,
         files: selectedFiles.toString(),
       })
-      .end(() => {
+      .end((err, res) => {
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(resetStateForm());
         dispatch(getHistoryRestoresByUserRequest(username));
       });
