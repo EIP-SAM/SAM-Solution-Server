@@ -10,7 +10,7 @@
 
 import {
   RESET_STATE_SAVES,
-  GET_HISTORY_SAVES_BY_USER,
+  GET_HISTORY_SAVES_BY_USER_RESTORE,
   SELECTED_SAVE,
   SAVE_ERROR,
 } from './constants';
@@ -25,7 +25,7 @@ function SavesRestoreCreationReducer(state = initialState, action) {
   switch (action.type) {
     case RESET_STATE_SAVES:
       return Object.assign({}, initialState, {});
-    case GET_HISTORY_SAVES_BY_USER:
+    case GET_HISTORY_SAVES_BY_USER_RESTORE:
       return Object.assign({}, state, {
         allSaves: action.allSaves,
       });

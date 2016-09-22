@@ -1,24 +1,31 @@
 //
-// Groups filter restore actions
+// Groups form create user actions
 //
 
 import { browserHistory } from 'react-router';
 import request from 'utils/request';
 import {
-  USERS_GROUPS,
-  CURRENT_GROUP,
+  GROUPS,
+  SELECTED_GROUPS,
+  RESET_STATE_GROUPS,
 } from './constants';
 
-export function getCurrentGroup(currentGroup) {
+export function resetStateGroups() {
   return {
-    type: CURRENT_GROUP,
-    currentGroup,
+    type: RESET_STATE_GROUPS,
+  };
+}
+
+export function getSelectedGroup(selectedGroup) {
+  return {
+    type: SELECTED_GROUPS,
+    selectedGroup,
   };
 }
 
 export function getGroups(groups) {
   return {
-    type: USERS_GROUPS,
+    type: GROUPS,
     groups,
   };
 }
