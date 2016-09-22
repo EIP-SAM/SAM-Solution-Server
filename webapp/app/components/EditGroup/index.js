@@ -47,7 +47,6 @@ export class EditGroup extends React.Component {
       for (var i = 0; i < this.group.users.length; i++) {
         if (this.group.users[i] == id) {
           this.group.users.splice(i, 1);
-          console.log(this.group.users);
           break;
         }
       }
@@ -64,7 +63,6 @@ export class EditGroup extends React.Component {
           if (check == 1) {
             this.group.users.push(this.props.state.users[i].id);
           }
-          console.log(this.group.users);
           break;
         }
       }
@@ -77,8 +75,6 @@ export class EditGroup extends React.Component {
     this.group.users.map(function(user) {
       users.push(user.id);
     });
-    console.log('CUCUCUCUCUCUCU');
-    console.log(this.group);
     group.id = this.group.id;
     group.name = this.group.name;
     group.saveAndRestoreMode = this.group.saveAndRestoreMode;

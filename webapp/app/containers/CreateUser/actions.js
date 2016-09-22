@@ -11,7 +11,7 @@
 
 import request from 'utils/request';
 
-import { push } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 
 import {
   CREATE_USER,
@@ -34,7 +34,7 @@ export function createUserRequest(users) {
         dispatch(createUser(res.body));
         if (!res.body.error) {
           var last = res.body.users.length - 1;
-          dispatch(push('/edit-user/' + res.body.users[last].id));
+          browserHistory.push('/edit-user/' + res.body.users[last].id);
         }
       });
   };

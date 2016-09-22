@@ -11,7 +11,7 @@
 
 import request from 'utils/request';
 
-import { push } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 
 import {
   CREATE_GROUP,
@@ -34,7 +34,7 @@ export function createGroupRequest(groups) {
         dispatch(createGroup(res.body));
         if (!res.body.error) {
           var last = res.body.groups.length - 1;
-          dispatch(push('/edit-group/' + res.body.groups[last].id));
+          browserHistory.push('/edit-group/' + res.body.groups[last].id);
         }
     });
   };
