@@ -3,12 +3,16 @@
 //
 
 import {
-  GET_FILTERS,
+  GET_STATS_FILTERS_LIST,
 } from './constants';
 
-function StatisticFilterReducer(state = {}, action) {
+const initialState = {
+  filters: '',
+};
+
+function StatisticFilterReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_FILTERS:
+    case GET_STATS_FILTERS_LIST:
       return Object.assign({}, state, {
         filters: action.filters,
       });
