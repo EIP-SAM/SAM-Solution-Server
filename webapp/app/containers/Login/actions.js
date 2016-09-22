@@ -70,7 +70,7 @@ export function loginRequest(username, password) {
         if (!err && res.body.name) {
           dispatch(login(res.body));
           dispatch(setUserInfo(true, res.body));
-          browserHistory.push(`/edit-user/${username}`);
+          browserHistory.push('/edit-user/' + res.body.id);
         }
       });
   };
@@ -85,6 +85,10 @@ export function getUserInfo() {
           dispatch(setUserInfo(true, res.body));
         } else {
           dispatch(resetUserInfo());
+        dispatch(login(res.body));
+        if (res.body.name) {
+          dispatch(userIsLogin(false));
+          browserHistory.push('/edit-user/' + res.body.id);
         }
       });
   };

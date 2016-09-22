@@ -16,12 +16,13 @@ export class EditGroup extends React.Component {
     this.onChangeSaveAndRestoreMode = this.onChangeSaveAndRestoreMode.bind(this);
     this.onChangeMigrationMode = this.onChangeMigrationMode.bind(this);
     this.onChangeSoftwarePackagesMode = this.onChangeSoftwarePackagesMode.bind(this);
+    this.onChangeUsers = this.onChangeUsers.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
   componentWillMount() {
-    const groupname = window.location.pathname.split('/')[2];
-    this.props.getGroupRequest(groupname, this.props.getUsersRequest);
+    const id = window.location.pathname.split('/')[2];
+    this.props.getGroupRequest(id, this.props.getUsersRequest);
   }
 
   onChangeGroupname(event) {
@@ -46,7 +47,6 @@ export class EditGroup extends React.Component {
       for (var i = 0; i < this.group.users.length; i++) {
         if (this.group.users[i] == id) {
           this.group.users.splice(i, 1);
-          console.log(this.group.users);
           break;
         }
       }
@@ -63,7 +63,6 @@ export class EditGroup extends React.Component {
           if (check == 1) {
             this.group.users.push(this.props.state.users[i].id);
           }
-          console.log(this.group.users);
           break;
         }
       }
@@ -71,9 +70,18 @@ export class EditGroup extends React.Component {
   }
 
   handleClick(event) {
-    var groups = [];
-    groups.push(this.group);
-    this.props.editGroupRequest(groups);
+    var group = {};
+    var users = [];
+    this.group.users.map(function(user) {
+      users.push(user.id);
+    });
+    group.id = this.group.id;
+    group.name = this.group.name;
+    group.saveAndRestoreMode = this.group.saveAndRestoreMode;
+    group.migrationMode = this.group.migrationMode;
+    group.softwarePackagesMode = this.group.softwarePackagesMode;
+    group.users = users;
+    this.props.editGroupRequest(group);
   }
 
   setUsers(group, users) {
@@ -97,9 +105,9 @@ export class EditGroup extends React.Component {
   }
 
   render() {
-    var admin = 1;
-
+    this.group = this.props.state.group;
     var userForm = [];
+
     if (!this.props.state) {
       return(<p>loading...</p>);
     }
@@ -115,41 +123,6 @@ export class EditGroup extends React.Component {
       });
     }
 
-    var exist = true;
-    var access = true;
-    if (this.props.state.group.error) {
-      exist = false;
-    } else {
-      this.group.id = this.props.state.group.id;
-      this.group.name = this.props.state.group.name;
-      this.group.saveAndRestoreMode = this.props.state.group.saveAndRestoreMode;
-      this.group.migrationMode = this.props.state.group.migrationMode;
-      this.group.softwarePackagesMode = this.props.state.group.softwarePackagesMode;
-      if (this.props.state.group.users) {
-        this.setUsers(this.group, this.props.state.group.users);
-      }
-      else {
-        this.group.users = [];
-      }
-      if (admin == 0) {
-        access = false;
-      }
-    }
-
-    if (exist == false) {
-      return (
-        <div>
-          <h3>{this.props.state.group.error}</h3>
-        </div>
-      );
-    }
-    if (access == false) {
-      return (
-        <div>
-          <h3>Error : you must be admin to access this page</h3>
-        </div>
-      );
-    }
     return (
       <div container className={styles.editGroup}>
         <form>

@@ -12,11 +12,12 @@
 import request from 'utils/request';
 
 import { browserHistory } from 'react-router';
+
 import {
   GET_USER,
-  GET_CURRENT_USER,
   EDIT_USER,
   GET_GROUPS,
+  GET_CURRENT_USER,
 } from './constants';
 
 export function getUser(user) {
@@ -26,10 +27,10 @@ export function getUser(user) {
   };
 }
 
-export function getUserRequest(username, callback) {
+export function getUserRequest(id, callback) {
   return function returnGetUserRequest(dispatch) {
     return request
-      .get('/api/logged-in/admin/users')
+      .get('/api/logged-in/user?id=' + id)
       .end((err, res) => {
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
@@ -43,8 +44,8 @@ export function getUserRequest(username, callback) {
           var user = { error: 'Error : User ' + username + ' not found' };
           dispatch(getUser(user));
         } else {
-          dispatch(getUser(res.body.users[i]));
-          callback(res.body.users[i].groups);
+          dispatch(getUser(res.body));
+          callback(res.body.groups);
         }
       });
   };
@@ -100,7 +101,7 @@ export function editUserAdminRequest(users) {
 export function editUserRequest(user) {
   return function returnEditUserRequest(dispatch) {
     return request
-      .post('/api/logged-in/user/profile/update')
+      .post('/api/logged-in/user/update')
       .type('json')
       .send(user)
       .end((err, res) => {
@@ -110,7 +111,7 @@ export function editUserRequest(user) {
 
         dispatch(editUser(res.body));
         if (res.body.name) {
-          browserHistory.push('/edit-user/' + users[0].name);
+          browserHistory.push('/edit-user/' + user.id);
         }
       });
   };
@@ -122,7 +123,7 @@ export function getGroups(groups, user) {
   while (i < groups.length) {
     var j = 0;
     while (j < user.length) {
-      if (user[j].id == groups[i].id) {
+      if (user[j].name == groups[i].name) {
         usersGroups.push(true);
         break;
       }
@@ -132,7 +133,6 @@ export function getGroups(groups, user) {
     }
     i++;
   }
-
   return {
     type: GET_GROUPS,
     groups,

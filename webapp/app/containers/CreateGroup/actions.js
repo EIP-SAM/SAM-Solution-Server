@@ -26,16 +26,12 @@ export function createGroup(group) {
 }
 
 export function createGroupRequest(groups) {
-  console.log('requete envoyee a /api/logged-in/admin/groups/create :');
-  console.log(groups);
   return function returnCreateGroupRequest(dispatch) {
     return request
       .post('/api/logged-in/admin/groups/create')
       .type('json')
       .send({ groups })
       .end((err, res) => {
-        console.log('reponse a /api/logged-in/admin/groups/create :');
-        console.log(res.body);
 
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
@@ -43,7 +39,8 @@ export function createGroupRequest(groups) {
 
         dispatch(createGroup(res.body));
         if (!res.body.error) {
-          dispatch(push('/edit-group/' + groups[0].name));
+          var last = res.body.groups.length - 1;
+          browserHistory.push('/edit-group/' + res.body.groups[last].id);
         }
     });
   };
