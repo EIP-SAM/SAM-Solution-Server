@@ -1,3 +1,14 @@
+//
+// Form save creation actions
+//
+// To add a new Action:
+//  1) Import your constant
+//  2) Add a function like this:
+//      export function yourAction(var) {
+//          return { type: YOUR_ACTION_CONSTANT, var: var }
+//      }
+//
+
 import { browserHistory } from 'react-router';
 import request from 'utils/request';
 import { resetStateUsers } from 'containers/SaveCreation/Form/Users/actions';
@@ -39,7 +50,11 @@ export function createSave(redirect, users, date, time, frequency, files) {
         frequency,
         files,
       })
-      .end(() => {
+      .end((err, res) => {
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         if (redirect) {
           browserHistory.goBack();
         }

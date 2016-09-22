@@ -8,6 +8,7 @@ import UserTable from 'containers/Users/Table';
 import UserButton from 'containers/Users/Button';
 import styles from './styles.css';
 
+/* eslint-disable react/prefer-stateless-function */
 export class Users extends React.Component {
   componentWillMount() {
     this.props.getUsersRequest();

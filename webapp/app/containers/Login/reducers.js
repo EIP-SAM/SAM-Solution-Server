@@ -11,7 +11,7 @@
 import {
   LOGIN,
   SAVE_DATA,
-  IS_LOGIN,
+  SET_USER_INFO,
 } from './constants';
 
 const initialState = { username: 'Enter your username', password: 'Enter your password' };
@@ -25,9 +25,9 @@ function loginReducer(state = initialState, action) {
         username: action.username,
         password: action.password,
       });
-    case IS_LOGIN:
+    case SET_USER_INFO:
       return Object.assign({}, state, {
-        isLogin: action.isLogin,
+        userInfo: action.userInfo,
       });
     default:
       return state;

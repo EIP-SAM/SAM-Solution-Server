@@ -12,41 +12,40 @@
 import request from 'utils/request';
 
 import { browserHistory } from 'react-router';
+
 import {
   GET_USER,
-  GET_CURRENT_USER,
   EDIT_USER,
   GET_GROUPS,
+  GET_CURRENT_USER,
 } from './constants';
 
 export function getUser(user) {
   return {
     type: GET_USER,
-    user: user,
-  }
+    user,
+  };
 }
 
-export function getUserRequest(username, callback) {
-  console.log('get : /api/logged-in/admin/users :');
+export function getUserRequest(id, callback) {
   return function returnGetUserRequest(dispatch) {
     return request
-      .get('/api/logged-in/admin/users')
+      .get('/api/logged-in/user?id=' + id)
       .end((err, res) => {
-        console.log('reponse a /api/logged-in/admin/users :');
-        console.log(res.body);
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         var i = 0;
         while (i < res.body.users.length && res.body.users[i].name != username) {
           ++i;
         }
-        console.log('user affiche sur la page : ');
         if (!res.body.users[i]) {
-          var user = {error: 'Error : User ' + username + ' not found'};
-          console.log(user);
+          var user = { error: 'Error : User ' + username + ' not found' };
           dispatch(getUser(user));
         } else {
-          console.log(res.body.users[i]);
-          dispatch(getUser(res.body.users[i]));
-          callback(res.body.users[i].groups);
+          dispatch(getUser(res.body));
+          callback(res.body.groups);
         }
       });
   };
@@ -55,18 +54,19 @@ export function getUserRequest(username, callback) {
 export function getCurrentUser(user) {
   return {
     type: GET_CURRENT_USER,
-    currentUser : user,
-  }
+    currentUser: user,
+  };
 }
 
 export function getCurrentUserRequest() {
-  console.log('get : /api/logged-in/user/profile :');
   return function returnGetCurrentUserRequest(dispatch) {
     return request
       .get('/api/logged-in/user/profile')
       .end((err, res) => {
-        console.log('reponse a /api/logged-in/user/profile :');
-        console.log(res.body);
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(getCurrentUser(res.body));
       });
   };
@@ -75,21 +75,21 @@ export function getCurrentUserRequest() {
 export function editUser(user) {
   return {
     type: EDIT_USER,
-    user: user,
+    user,
   };
 }
 
 export function editUserAdminRequest(users) {
-  console.log('requete envoyee a /api/logged-in/admin/users/update :');
-  console.log(users);
   return function returnEditUserRequest(dispatch) {
     return request
       .post('/api/logged-in/admin/users/update')
       .type('json')
       .send({ users })
       .end((err, res) => {
-        console.log('reponse a /api/logged-in/admin/users/update :');
-        console.log(res.body);
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(editUser(res.body));
         if (res.body.users) {
           browserHistory.push('/edit-user/' + users[0].name);
@@ -99,19 +99,19 @@ export function editUserAdminRequest(users) {
 }
 
 export function editUserRequest(user) {
-  console.log('requete envoyee a /api/logged-in/user/profile/update :');
-  console.log(JSON.stringify(user));
   return function returnEditUserRequest(dispatch) {
     return request
-      .post('/api/logged-in/user/profile/update')
+      .post('/api/logged-in/user/update')
       .type('json')
       .send(user)
       .end((err, res) => {
-        console.log('reponse a /api/logged-in/user/profile/update :');
-        console.log(res.body);
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(editUser(res.body));
         if (res.body.name) {
-          browserHistory.push('/edit-user/' + users[0].name);
+          browserHistory.push('/edit-user/' + user.id);
         }
       });
   };
@@ -123,7 +123,7 @@ export function getGroups(groups, user) {
   while (i < groups.length) {
     var j = 0;
     while (j < user.length) {
-      if (user[j].id == groups[i].id) {
+      if (user[j].name == groups[i].name) {
         usersGroups.push(true);
         break;
       }
@@ -133,23 +133,23 @@ export function getGroups(groups, user) {
     }
     i++;
   }
-
   return {
     type: GET_GROUPS,
-    groups: groups,
-    usersGroups: usersGroups,
-  }
+    groups,
+    usersGroups,
+  };
 }
 
 export function getGroupsRequest(groups) {
-  console.log('get : /api/logged-in/admin/groups :');
   return function returnGetGroupsRequest(dispatch) {
     return request
       .get('/api/logged-in/admin/groups')
       .end((err, res) => {
-        console.log('reponse a /api/logged-in/admin/groups :');
-        console.log(res.body);
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(getGroups(res.body.groups, groups));
-    });
+      });
   };
 }

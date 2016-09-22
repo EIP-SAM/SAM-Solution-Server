@@ -10,6 +10,7 @@
 //
 
 import request from 'utils/request';
+import { browserHistory } from 'react-router';
 import { getAllUsers } from './Filters/actions';
 
 import {
@@ -28,6 +29,10 @@ export function getRestoresRequest() {
     return request
       .get('/api/logged-in/admin/restore')
       .end((err, res) => {
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(getRestores(res.body));
         dispatch(getAllUsers(res.body));
       });

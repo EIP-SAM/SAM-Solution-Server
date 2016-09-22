@@ -16,8 +16,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getGroupRequest: (groupname, callback) => dispatch(getGroupRequest(groupname, callback)),
-    editGroupRequest: (groups) => dispatch(editGroupRequest(groups)),
+    getGroupRequest: (id, callback) => dispatch(getGroupRequest(id, callback)),
+    editGroupRequest: (group) => dispatch(editGroupRequest(group)),
     getUsersRequest: (users) => dispatch(getUsersRequest(users)),
   };
 }
