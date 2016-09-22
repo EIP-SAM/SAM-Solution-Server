@@ -1,16 +1,15 @@
-var restoreAdapter = require('../restore.js');
+var saveAdapter = require('../saveScheduled.js');
 
-module.exports.numberRestoresPerMonthByUser = function() {
+module.exports.numberSavesPerMonthByUser = function() {
   return new Promise(function(fulfill, reject) {
 
-    restoreAdapter.getRestoresByDay().then(function (saves) {
+    saveAdapter.getSavesByDay().then(function (saves) {
       var months = ['January', 'February', 'March', 'April', 'May', 'June','July', 'August', 'September', 'October', 'November', 'December'];
-      var restoresByMonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      var savesByMonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
       var i = 0;
       var j = 0;
       var k = 0;
-
       saves.rows.forEach(function(save) {
         i = save.dataValues.execDate.getMonth(save.dataValues.execDate);
         if (i == k){
@@ -27,11 +26,11 @@ module.exports.numberRestoresPerMonthByUser = function() {
         complete: 1,
         type: 'line',
         labels: months,
-        title: 'radar : Graphique des restorations',
+        title: 'radar : Graphique des Sauvegardes',
         dataset: [
           {
             title: 'Sauvegarde des utilisateurs',
-            data: restoresByMonth,
+            data: savesByMonth,
           },
         ]
       };
