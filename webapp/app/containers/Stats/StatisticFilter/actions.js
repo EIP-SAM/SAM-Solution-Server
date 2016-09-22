@@ -21,8 +21,7 @@ export function getFiltersFromServer() {
     return request
       .get('/api/logged-in/admin/statistic_filters')
       .end((err, res) => {
-
-        if (err && res.statusCode == 401) {
+        if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
 

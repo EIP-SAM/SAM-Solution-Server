@@ -37,7 +37,7 @@ export function createUserRequest(users) {
         console.log('reponse a /api/logged-in/admin/users/create :');
         console.log(res.body);
 
-        if (err && res.statusCode == 401) {
+        if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
 

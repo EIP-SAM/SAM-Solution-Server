@@ -29,8 +29,7 @@ export function getHistoryRestoresByUserRequest(username) {
       .get('/api/logged-in/history_restore')
       .query({ username })
       .end((err, res) => {
-
-        if (err && res.statusCode == 401) {
+        if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
 

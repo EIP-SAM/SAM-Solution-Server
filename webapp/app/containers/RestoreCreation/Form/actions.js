@@ -43,8 +43,7 @@ export function getHistorySavesByUserRequest(username) {
       .get('/api/logged-in/history_succeeded_save')
       .query({ username })
       .end((err, res) => {
-
-        if (err && res.statusCode == 401) {
+        if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
 
@@ -70,8 +69,7 @@ export function createRestoresRequest(userId, selectedFiles, saveId, redirect) {
         files: selectedFiles.toString(),
       })
       .end((err, res) => {
-
-        if (err && res.statusCode == 401) {
+        if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
 

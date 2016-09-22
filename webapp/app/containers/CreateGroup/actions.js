@@ -37,7 +37,7 @@ export function createGroupRequest(groups) {
         console.log('reponse a /api/logged-in/admin/groups/create :');
         console.log(res.body);
 
-        if (err && res.statusCode == 401) {
+        if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
 

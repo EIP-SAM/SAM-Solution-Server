@@ -34,7 +34,7 @@ export function getGroupRequest(groupname, callback) {
         console.log('reponse a /api/logged-in/admin/groups :');
         console.log(res.body);
 
-        if (err && res.statusCode == 401) {
+        if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
 
@@ -75,7 +75,7 @@ export function editGroupRequest(groups) {
         console.log('reponse a /api/logged-in/admin/groups/update :');
         console.log(res.body);
 
-        if (err && res.statusCode == 401) {
+        if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
 
@@ -122,7 +122,7 @@ export function getUsersRequest(users) {
         console.log('reponse a /api/logged-in/admin/users :');
         console.log(res.body);
 
-        if (err && res.statusCode == 401) {
+        if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
 

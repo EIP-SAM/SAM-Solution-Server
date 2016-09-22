@@ -44,8 +44,7 @@ export function createSaveActionSaveHistory(users, date, time, frequency, files)
         files,
       })
       .end((err, res) => {
-
-        if (err && res.statusCode == 401) {
+        if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
 

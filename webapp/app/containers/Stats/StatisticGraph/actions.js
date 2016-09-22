@@ -23,8 +23,7 @@ export function getAllGraphFromServer() {
     return request
       .get('/statistic_data/')
       .end((err, res) => {
-
-        if (err && res.statusCode == 401) {
+        if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
 
@@ -45,8 +44,7 @@ export function getGraphFromServer(type) {
       .get('/api/logged-in/admin/statistic_select_graph')
       .query({ type })
       .end((err, res) => {
-
-        if (err && res.statusCode == 401) {
+        if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
 

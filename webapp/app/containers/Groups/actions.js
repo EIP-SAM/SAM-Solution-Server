@@ -28,8 +28,7 @@ export function getGroupsRequest() {
     return request
       .get('/api/logged-in/admin/groups')
       .end((err, res) => {
-
-        if (err && res.statusCode == 401) {
+        if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
 

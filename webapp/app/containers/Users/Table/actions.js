@@ -19,8 +19,7 @@ export function rebootUser(username) {
       .get('/api/logged-in/admin/reboot')
       .query({ username })
       .end((err, res) => {
-
-        if (err && res.statusCode == 401) {
+        if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
 

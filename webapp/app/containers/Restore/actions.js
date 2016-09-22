@@ -28,8 +28,7 @@ export function getRestoresRequest() {
     return request
       .get('/api/logged-in/admin/restore')
       .end((err, res) => {
-
-        if (err && res.statusCode == 401) {
+        if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
 

@@ -50,8 +50,7 @@ export function cancelSave(saveId, saveScheduledId, username) {
       saveId,
     })
     .end((err, res) => {
-
-      if (err && res.statusCode == 401) {
+      if (err && res.statusCode === 401) {
         browserHistory.push('/login');
       }
 
