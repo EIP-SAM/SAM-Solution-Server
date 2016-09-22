@@ -6,7 +6,7 @@ import request from 'utils/request';
 import { browserHistory } from 'react-router';
 
 import {
-  GET_FILTERS,
+  GET_STATS_FILTERS_LIST,
 } from './constants';
 
 export function getFilters(type, filters) {
@@ -28,7 +28,7 @@ export function getFiltersFromServer() {
         if (err || res.body.error) {
           console.log('Error occured in request to server for statistic filters');
         } else {
-          dispatch(getFilters(GET_FILTERS, res.body));
+          dispatch(getFilters(GET_STATS_FILTERS_LIST, res.body));
         }
       });
   };

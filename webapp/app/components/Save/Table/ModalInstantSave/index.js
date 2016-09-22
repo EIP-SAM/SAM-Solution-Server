@@ -9,11 +9,6 @@ import styles from 'components/Save/Table/ModalInstantSave/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SaveInstantSaveModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleLaunchClick = this.handleLaunchClick.bind(this);
-    this.handleCancelClick = this.handleCancelClick.bind(this);
-  }
 
   handleLaunchClick() {
     this.props.createSave(false, this.props.users, this.props.date, this.props.time, this.props.frequency, this.props.files);
@@ -37,8 +32,8 @@ export class SaveInstantSaveModal extends React.Component {
         </Modal.Body>
         <Modal.Footer>
           <ButtonToolbar>
-            <LinkContainerButton buttonType="info" buttonText="Launch" onClick={this.handleLaunchClick} />
-            <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={this.handleCancelClick} />
+            <LinkContainerButton buttonType="info" buttonText="Launch" onClick={() => this.handleLaunchClick()} />
+            <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
           </ButtonToolbar>
         </Modal.Footer>
       </Modal>

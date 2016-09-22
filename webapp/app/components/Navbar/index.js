@@ -18,6 +18,7 @@ export default class NavbarContainer extends React.Component {
     if (userInfo.isAdmin) {
       navItems = [
       { pathname: '/users', value: 'Users' },
+      { pathname: '/groups', value: 'Groups' },
       { pathname: '/save', value: 'Save' },
       { pathname: '/restore', value: 'Restore' },
       { pathname: '#', value: 'Migration' },

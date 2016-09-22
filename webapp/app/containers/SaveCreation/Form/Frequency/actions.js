@@ -13,11 +13,19 @@ import {
   RESET_STATE_FREQUENCY,
   FREQUENCY,
   FREQUENCY_ERROR,
+  FREQUENCY_DISABLED,
 } from './constants';
 
 export function resetStateFrequency() {
   return {
     type: RESET_STATE_FREQUENCY,
+  };
+}
+
+export function frequencyDisabled(isFrequencyDisabled) {
+  return {
+    type: FREQUENCY_DISABLED,
+    isFrequencyDisabled,
   };
 }
 

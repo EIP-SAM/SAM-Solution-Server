@@ -15,8 +15,9 @@ const moment = require('moment');
 export class RestoreTable extends React.Component {
 
   handleRestoreClick(restore) {
+    const files = restore.restores[0].files.split(',');
     this.props.setUserId(restore.restores[0].userId);
-    this.props.selectFiles(restore.restores[0].files);
+    this.props.selectFiles(files);
     this.props.selectSave({ value: restore.restores[0].saveId, text: moment().format('DD/MM/YYYY HH:mm') });
     this.props.showInstantRestoreModal();
   }
@@ -25,6 +26,7 @@ export class RestoreTable extends React.Component {
     const names = [{ isLink: 'true', link: '#', value: '#' },
                   { isLink: 'false', value: 'Username' },
                   { isLink: 'false', value: 'Last Restore date' },
+                  { isLink: 'false', value: 'State' },
                   { isLink: 'false', value: 'Files' },
                   { isLink: 'false', value: 'Actions' }];
 

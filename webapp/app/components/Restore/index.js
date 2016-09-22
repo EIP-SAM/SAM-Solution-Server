@@ -1,5 +1,5 @@
 //
-// Component page save
+// Component page restore
 //
 
 import React from 'react';

@@ -11,6 +11,7 @@
 
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
+import { getAllUsers } from './Filters/actions';
 
 import {
   GET_SAVES,
@@ -33,6 +34,7 @@ export function getSavesRequest() {
         }
 
         dispatch(getSaves(res.body));
+        dispatch(getAllUsers(res.body));
       });
   };
 }

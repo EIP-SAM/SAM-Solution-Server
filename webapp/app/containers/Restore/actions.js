@@ -11,6 +11,7 @@
 
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
+import { getAllUsers } from './Filters/actions';
 
 import {
   GET_RESTORES,
@@ -33,6 +34,7 @@ export function getRestoresRequest() {
         }
 
         dispatch(getRestores(res.body));
+        dispatch(getAllUsers(res.body));
       });
   };
 }

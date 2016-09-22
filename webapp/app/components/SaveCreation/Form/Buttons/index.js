@@ -10,11 +10,6 @@ import styles from 'components/SaveCreation/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SaveCreationButtons extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleFormClick = this.handleFormClick.bind(this);
-    this.handleCancelClick = this.handleCancelClick.bind(this);
-  }
 
   handleFormClick() {
     if (this.props.users.length > 0 &&
@@ -38,15 +33,14 @@ export class SaveCreationButtons extends React.Component {
   }
 
   handleCancelClick() {
-    this.props.resetStateForm();
     browserHistory.goBack();
   }
 
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="info" buttonText="Create" onClick={this.handleFormClick} />
-        <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={this.handleCancelClick} />
+        <LinkContainerButton buttonType="info" buttonText="Create" onClick={() => this.handleFormClick()} />
+        <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
       </ButtonToolbar>
     );
   }
@@ -59,7 +53,6 @@ SaveCreationButtons.propTypes = {
   frequency: React.PropTypes.string,
   files: React.PropTypes.array,
   createSave: React.PropTypes.func,
-  resetStateForm: React.PropTypes.func,
   userErrorMsg: React.PropTypes.func,
   dateErrorMsg: React.PropTypes.func,
   timeErrorMsg: React.PropTypes.func,

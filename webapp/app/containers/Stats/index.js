@@ -5,12 +5,12 @@
 import { connect } from 'react-redux';
 import { StatsComponent } from 'components/Stats';
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps() {
   return {
   };
 }

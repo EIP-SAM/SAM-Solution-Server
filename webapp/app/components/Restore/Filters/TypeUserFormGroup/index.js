@@ -1,5 +1,5 @@
 //
-// Radio button type user filters page save
+// Radio button type user filters page restore
 //
 
 import React from 'react';
@@ -13,8 +13,10 @@ export class TypeUserFormGroup extends React.Component {
     super(props);
     this.selectTypeUser = this.selectTypeUser.bind(this);
   }
+
   selectTypeUser(e) {
-    this.props.getVisibilityFilter(e);
+    this.props.getCurrentTypeUser(e);
+    this.props.filterUsers(e, this.props.currentGroup, this.props.allUsers);
   }
 
   render() {
@@ -23,7 +25,7 @@ export class TypeUserFormGroup extends React.Component {
         <Col componentClass={ControlLabel} sm={2}>
            Type of user :
         </Col>
-        <Col sm={4}>
+        <Col sm={6}>
           <RadioGroup
             inline
             values={['All', 'Admins', 'Users']}
@@ -37,5 +39,8 @@ export class TypeUserFormGroup extends React.Component {
 }
 
 TypeUserFormGroup.propTypes = {
-  getVisibilityFilter: React.PropTypes.func,
+  currentGroup: React.PropTypes.string,
+  allUsers: React.PropTypes.array,
+  getCurrentTypeUser: React.PropTypes.func,
+  filterUsers: React.PropTypes.func,
 };

@@ -12,17 +12,23 @@ import {
   RESET_STATE_DATE,
   DATE,
   DATE_ERROR,
+  DATE_DISABLED,
 } from './constants';
 
 const initialState = {
   date: '',
   dateError: '',
+  isDateDisabled: false,
 };
 
 function SaveCreationFormDateReducer(state = initialState, action) {
   switch (action.type) {
     case RESET_STATE_DATE:
       return Object.assign({}, initialState, {});
+    case DATE_DISABLED:
+      return Object.assign({}, state, {
+        isDateDisabled: action.isDateDisabled,
+      });
     case DATE:
       return Object.assign({}, state, {
         date: action.date,

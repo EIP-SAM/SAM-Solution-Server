@@ -6,8 +6,17 @@ import request from 'utils/request';
 import { browserHistory } from 'react-router';
 
 import {
-  GET_STATS_BY_TYPE,
+  GET_STATS_BY_TYPE_AND_NAME,
+  RESET_STATE_GRAPH_DATA,
+
 } from './constants';
+
+export function getStatInfos(type, statsInfo) {
+  return {
+    type,
+    statsInfo,
+  };
+}
 
 export function getStats(type, stats) {
   return {
@@ -16,32 +25,10 @@ export function getStats(type, stats) {
   };
 }
 
-// ----- TO DELETE ONCE ALL FINISHED
-
-export function getAllGraphFromServer() {
+export function getGraphListByType(type) {
   return function startAction(dispatch) {
     return request
-      .get('/statistic_data/')
-      .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
-
-        if (err || res.body.error) {
-          console.log('Error occured in request to server for statistic data');
-        } else {
-          dispatch(getStats(GET_STATS, res.body));
-        }
-      });
-  };
-}
-
-// --------------------------------------------
-
-export function getGraphFromServer(type) {
-  return function startAction(dispatch) {
-    return request
-      .get('/api/logged-in/admin/statistic_select_graph')
+      .get('/api/logged-in/admin/statistic_data_type_name_list')
       .query({ type })
       .end((err, res) => {
         if (err && res.statusCode === 401) {
@@ -49,11 +36,51 @@ export function getGraphFromServer(type) {
         }
 
         if (err || res.body.error) {
-          // console.log('Error occured in request to server for statistic type data : ', res);
+          console.log('Error occured in request to server for statistic type data : ', res);
         } else {
-          console.log(res.body);
-          dispatch(getStats(GET_STATS_BY_TYPE, res.body));
+          const allGraph = res.body;
+
+          if (!allGraph) {
+            return null;
+          }
+
+          const graphList = allGraph.data;
+
+          if (graphList) {
+            const graphNumber = graphList.length;
+
+            for (let i = 0; i < graphNumber; i++) {
+              dispatch(getGraphFromServerByTypeAndName(type, graphList[i]));
+            }
+          }
+        }
+
+        return null;
+      });
+  };
+}
+
+export function getGraphFromServerByTypeAndName(type, name) {
+  return function startAction(dispatch) {
+    return request
+      .get('/api/logged-in/admin/statistic_data_by_type_name')
+      .query({ type, name })
+      .end((err, res) => {
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
+        if (err || res.body.error) {
+          console.log('Error occured in request to server for statistic type data : ', res);
+        } else {
+          dispatch(getStats(GET_STATS_BY_TYPE_AND_NAME, res.body));
         }
       });
+  };
+}
+
+export function clearGraph() {
+  return function startAction(dispatch) {
+    return dispatch({ type: RESET_STATE_GRAPH_DATA });
   };
 }
