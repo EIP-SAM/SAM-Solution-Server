@@ -5,13 +5,12 @@
 import React from 'react';
 import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 import Option from 'components/Option';
-import { isAdmin } from 'utils/user';
 import styles from 'components/SaveCreation/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SaveCreationUsersFormGroup extends React.Component {
   render() {
-    if (!isAdmin()) {
+    if (!this.props.userInfo.isAdmin) {
       return (<div></div>);
     }
 
@@ -41,6 +40,7 @@ export class SaveCreationUsersFormGroup extends React.Component {
 }
 
 SaveCreationUsersFormGroup.propTypes = {
+  userInfo: React.PropTypes.object,
   users: React.PropTypes.array,
   listAllUsers: React.PropTypes.array,
   userError: React.PropTypes.string,

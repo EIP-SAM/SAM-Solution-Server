@@ -6,7 +6,6 @@ import React from 'react';
 import { PageHeader } from 'react-bootstrap';
 import SaveHistoryButtons from 'containers/SaveHistory/Buttons';
 import SaveHistoryTable from 'containers/SaveHistory/Table';
-import { isAdmin } from 'utils/user';
 import styles from 'components/SaveHistory/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -22,7 +21,7 @@ export class SaveHistory extends React.Component {
 
   render() {
     let username = '';
-    if (isAdmin()) {
+    if (this.props.userInfo.isAdmin) {
       username = <PageHeader className={styles.title}><small>{window.location.pathname.split('/')[2]}</small></PageHeader>;
     }
 
@@ -38,6 +37,7 @@ export class SaveHistory extends React.Component {
 }
 
 SaveHistory.propTypes = {
+  userInfo: React.PropTypes.object,
   getHistorySavesByUserRequest: React.PropTypes.func,
   listUsers: React.PropTypes.func,
 };

@@ -1,12 +1,11 @@
 import React from 'react';
 import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
-import { isAdmin } from 'utils/user';
 import styles from 'components/RestoreCreation/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class RestoreCreationUserFormGroup extends React.Component {
   render() {
-    if (!isAdmin()) {
+    if (!this.props.userInfo.isAdmin) {
       return (<div></div>);
     }
 
@@ -21,5 +20,6 @@ export class RestoreCreationUserFormGroup extends React.Component {
 }
 
 RestoreCreationUserFormGroup.propTypes = {
+  userInfo: React.PropTypes.object,
   username: React.PropTypes.string,
 };

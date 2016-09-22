@@ -16,45 +16,75 @@ import { browserHistory } from 'react-router';
 import {
   LOGIN,
   SAVE_DATA,
-  IS_LOGIN,
+  SET_USER_INFO,
 } from './constants';
 
 export function onChangeData(username, password) {
   return {
     type: SAVE_DATA,
-    username: username,
-    password: password,
+    username,
+    password,
   };
 }
 
 export function login(user) {
   return {
     type: LOGIN,
-    user: user,
+    user,
   };
 }
 
-export function userIsLogin(isLogin) {
+export function setUserInfo(logged, user) {
   return {
-    type: IS_LOGIN,
-    isLogin,
+    type: SET_USER_INFO,
+    userInfo: {
+      logged,
+      userId: user.id,
+      username: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    },
   };
 }
+
+export function resetUserInfo() {
+  return {
+    type: SET_USER_INFO,
+    userInfo: {
+      logged: false,
+      userId: '',
+      username: '',
+      email: '',
+      isAdmin: '',
+    },
+  };
+}
+
 export function loginRequest(username, password) {
-  console.log('requete envoyee a /api/public/user/login :');
-  console.log('{ username: ' + username + ', password: ' + password + ' }');
   return function returnLoginRequest(dispatch) {
     return request
       .post('/api/public/user/login/')
       .type('form')
       .send({ username, password })
       .end((err, res) => {
-        console.log('reponse a /api/public/user/login :');
-        console.log(res.body);
-        dispatch(login(res.body));
-        if (res.body.name) {
-          dispatch(userIsLogin(false));
-          browserHistory.push('/edit-user/' + username);
+        if (!err && res.body.name) {
+          dispatch(login(res.body));
+          dispatch(setUserInfo(true, res.body));
+          browserHistory.push(`/edit-user/${username}`);
+        }
+      });
+  };
+}
+
+export function getUserInfo() {
+  return function startAction(dispatch) {
+    return request
+      .get('/api/logged-in/user/profile')
+      .end((err, res) => {
+        if (!err) {
+          dispatch(setUserInfo(true, res.body));
+        } else {
+          dispatch(setUserInfo(false));
         }
       });
   };
@@ -67,9 +97,9 @@ export function logoutRequest() {
       .end((err) => {
         if (err) {
           console.log(err);
-        }
-        else {
-          dispatch(userIsLogin(true));
+        } else {
+          dispatch(resetUserInfo());
+          browserHistory.push('/login');
         }
       });
   };
