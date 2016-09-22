@@ -11,8 +11,19 @@ import styles from 'components/Navbar/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class NavbarContainer extends React.Component {
-  logout() {
-    this.props.logoutRequest();
+  getNavbarLinkContainer(item, i) {
+    if (item.value !== 'Logout') {
+      return (
+        <LinkContainer key={`navItem-${i}`} to={{ pathname: item.pathname }}>
+          <NavItem eventKey={i} className={styles.menuItem}>{item.value}</NavItem>
+        </LinkContainer>
+      );
+    }
+    return (
+      <LinkContainer onClick={() => this.props.logoutRequest()} key={`navItem-${i}`} to={{ pathname: item.pathname }}>
+        <NavItem eventKey={i} className={styles.menuItem}>{item.value}</NavItem>
+      </LinkContainer>
+    );
   }
 
   render() {
@@ -30,7 +41,7 @@ export default class NavbarContainer extends React.Component {
       { pathname: '/logs', value: 'Logs' },
       { pathname: '/statistics', value: 'Statistics' },
       { pathname: '#', value: 'Help' },
-      { pathname: '/login', value: 'Logout', onClick: this.logout },
+      { pathname: '/login', value: 'Logout' },
       ];
     } else {
       navItems = [
@@ -42,7 +53,7 @@ export default class NavbarContainer extends React.Component {
       { pathname: '/logs', value: 'Logs' },
       { pathname: '/statistics', value: 'Statistics' },
       { pathname: '#', value: 'Help' },
-      { pathname: '/login', value: 'Logout', onClick: this.logout },
+      { pathname: '/login', value: 'Logout' },
       ];
     }
 
@@ -57,9 +68,7 @@ export default class NavbarContainer extends React.Component {
         <Navbar.Collapse className={styles.collapse}>
           <Nav className={styles.menu}>
             {navItems.map((item, i) =>
-              <LinkContainer onClick={() => this.logout()} key={`navItem-${i}`} to={{ pathname: item.pathname }}>
-                <NavItem eventKey={i} className={styles.menuItem}>{item.value}</NavItem>
-              </LinkContainer>
+              this.getNavbarLinkContainer(item, i)
             )}
           </Nav>
         </Navbar.Collapse>
@@ -68,6 +77,6 @@ export default class NavbarContainer extends React.Component {
   }
 }
 
-Navbar.propTypes = {
+NavbarContainer.propTypes = {
   logoutRequest: React.PropTypes.func,
 };
