@@ -71,7 +71,7 @@ export class EditUser extends React.Component {
   handleClick(event) {
     var user = {};
     var groups = [];
-    this.user.groups.map(function(group) {
+    this.user.groups.map(function (group) {
       groups.push(group.name);
     });
     user.id = this.user.id;
@@ -87,13 +87,17 @@ export class EditUser extends React.Component {
     this.props.editUserRequest(user);
   }
 
+  componentWillUpdate(nextProps) {
+    console.log('next', nextProps);
+  }
+
   render() {
-    this.user = this.props.state.user;
     var groupForm = [];
 
     if (!this.props.state) {
       return (<p>loading...</p>);
     }
+    this.user = this.props.state.user;
 
     if (this.props.state.groups) {
       const usersGroups = this.props.state.usersGroups;
@@ -129,9 +133,9 @@ export class EditUser extends React.Component {
             </FormGroup>
             <br />
             <ControlLabel>Groups</ControlLabel>
-            { groupForm }
+            {groupForm}
             <br />
-            <LinkContainerButton buttonType='default' buttonText='Edit' onClick={this.handleClick} />
+            <LinkContainerButton buttonType="default" buttonText="Edit" onClick={this.handleClick} />
           </FormGroup>
         </form>
       </div>

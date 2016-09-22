@@ -12,8 +12,6 @@
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
 
-import { browserHistory } from 'react-router';
-
 import {
   EDIT_GROUP,
   GET_GROUP,
@@ -23,8 +21,8 @@ import {
 export function getGroup(group) {
   return {
     type: GET_GROUP,
-    group: group,
-  }
+    group,
+  };
 }
 
 export function getGroupRequest(id, callback) {
@@ -32,7 +30,6 @@ export function getGroupRequest(id, callback) {
     return request
       .get('/api/logged-in/admin/group?id=' + id)
       .end((err, res) => {
-
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
@@ -42,20 +39,20 @@ export function getGroupRequest(id, callback) {
           ++i;
         }
         if (!res.body.groups[i]) {
-          var group = {error: 'Error : Group ' + groupname + ' not found'};
+          var group = { error: 'Error : Group ' + groupname + ' not found' };
           dispatch(getGroup(group));
         } else {
           dispatch(getGroup(res.body));
           callback(res.body.users);
         }
-    });
+      });
   };
 }
 
 export function editGroup(group) {
   return {
     type: EDIT_GROUP,
-    group: group,
+    group,
   };
 }
 
@@ -66,7 +63,6 @@ export function editGroupRequest(group) {
       .type('json')
       .send(group)
       .end((err, res) => {
-
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
@@ -75,7 +71,7 @@ export function editGroupRequest(group) {
         if (res.body.name) {
           browserHistory.push('/edit-group/' + group.id);
         }
-    });
+      });
   };
 }
 
@@ -100,9 +96,9 @@ export function getUsers(users, group) {
 
   return {
     type: GET_USERS,
-    users: users,
-    usersGroups: usersGroups,
-  }
+    users,
+    usersGroups,
+  };
 }
 
 export function getUsersRequest(users) {
@@ -110,12 +106,11 @@ export function getUsersRequest(users) {
     return request
       .get('/api/logged-in/admin/users')
       .end((err, res) => {
-
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
 
         dispatch(getUsers(res.body.users, users));
-    });
+      });
   };
 }
