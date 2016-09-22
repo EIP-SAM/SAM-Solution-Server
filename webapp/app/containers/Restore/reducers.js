@@ -8,7 +8,9 @@
 //    return state.set('yourStateVariable', true);
 //
 import { combineReducers } from 'redux-immutable';
-import InstantRestoreModalRestoreReducer from 'containers/Restore/Table/ModalInstantRestore/reducer';
+import InstantRestoreModalRestoreReducer from './Table/ModalInstantRestore/reducer';
+import RestoreFiltersReducer from './Filters/reducers';
+
 import {
   GET_RESTORES,
 } from './constants';
@@ -33,5 +35,6 @@ function RestoreReducer(state = initialState, action) {
 //
 export default combineReducers({
   RestoreReducer,
+  RestoreFiltersReducer,
   InstantRestoreModalRestoreReducer,
 });

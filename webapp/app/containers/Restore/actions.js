@@ -10,6 +10,7 @@
 //
 
 import request from 'utils/request';
+import { getAllUsers } from './Filters/actions';
 
 import {
   GET_RESTORES,
@@ -28,6 +29,7 @@ export function getRestoresRequest() {
       .get('/api/logged-in/admin/restore')
       .end((err, res) => {
         dispatch(getRestores(res.body));
+        dispatch(getAllUsers(res.body));
       });
   };
 }

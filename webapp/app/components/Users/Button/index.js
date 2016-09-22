@@ -1,5 +1,5 @@
 //
-// List buttons page save
+// List buttons page users
 //
 
 import React from 'react';
@@ -15,7 +15,6 @@ export class UsersButton extends React.Component {
       <ButtonToolbar className={styles.toolbar}>
         <LinkContainerButton
           buttonType="info"
-          className={styles.button}
           buttonText="Create user"
           link="/create-user"
         />

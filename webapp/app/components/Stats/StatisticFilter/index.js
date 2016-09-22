@@ -1,31 +1,33 @@
 import React from 'react';
-import { Nav, NavItem, ButtonToolbar } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button'
+import { ButtonToolbar } from 'react-bootstrap';
+import { LinkContainerButton } from 'components/Button';
 import styles from 'components/Stats/StatisticFilter/styles.css';
 
 export class StatisticFilterComponent extends React.Component {
 
   componentDidMount() {
-      this.props.getFiltersFromServer()
-    }
+    this.props.getFiltersFromServer();
+  }
 
+  handleClick(type) {
+    this.props.clearGraph();
+    this.props.getGraphListByType(type.value);
+  }
 
   render() {
-
-    var handleClick = function(type) {
-      this.props.getGraphFromServer(type.value)
+    const filters = this.props.filters.filters;
+    if (!filters) {
+      return null;
     }
 
-    var filters = this.props.filters.filters;
-    if (!filters)
-      return null;
-
     return (
-      <ButtonToolbar className={ styles.buttonBar } >
+      <ButtonToolbar className={styles.buttonBar}>
         {
           filters.map((value, index) => (
-            <LinkContainerButton buttonText={ value } buttonType="link"
-              onClick={ handleClick.bind(this, { value }) } key={ index } link="#" />
+            <LinkContainerButton
+              buttonText={value} buttonType="link"
+              onClick={() => this.handleClick({ value })} key={index} link="#"
+            />
           ))
         }
       </ButtonToolbar>
@@ -35,6 +37,7 @@ export class StatisticFilterComponent extends React.Component {
 
 StatisticFilterComponent.propTypes = {
   getFiltersFromServer: React.PropTypes.func.isRequired,
-  getGraphFromServer: React.PropTypes.func.isRequired,
+  getGraphListByType: React.PropTypes.func.isRequired,
+  clearGraph: React.PropTypes.func.isRequired,
   filters: React.PropTypes.object.isRequired,
-}
+};

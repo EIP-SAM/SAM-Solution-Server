@@ -1,36 +1,14 @@
 //
-// Restore type user filters actions
-//
-// To add a new Action:
-//  1) Import your constant
-//  2) Add a function like this:
-//      export function yourAction(var) {
-//          return { type: YOUR_ACTION_CONSTANT, var: var }
-//      }
+// Type user filter restore actions
 //
 
-import request from 'utils/request';
-import { getRestores } from 'containers/Restore/actions';
+import {
+  CURRENT_TYPE_USER,
+} from './constants';
 
-export function getVisibilityFilter(typeUser) {
-  return function returnGetvisibilityFilter(dispatch) {
-    return request
-    .get('/api/logged-in/admin/restore')
-    .end((err, res) => {
-      const listUser = [];
-      if (typeUser !== 'All') {
-        res.body.map((restore) => {
-          if (typeUser === 'Admins' && restore.isAdmin === true) {
-            listUser.push(restore);
-          } else if (typeUser === 'Users' && restore.isAdmin === false) {
-            listUser.push(restore);
-          }
-          return true;
-        });
-        dispatch(getRestores(listUser));
-      } else {
-        dispatch(getRestores(res.body));
-      }
-    });
+export function getCurrentTypeUser(currentTypeUser) {
+  return {
+    type: CURRENT_TYPE_USER,
+    currentTypeUser,
   };
 }
