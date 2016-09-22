@@ -69,7 +69,7 @@ export function logoutRequest() {
   return function startAction(dispatch) {
     return request
       .post('/api/logged-in/user/logout')
-      .end((err) => {
+      .end((err, res) => {
 
         if (err && res.statusCode == 401) {
           browserHistory.push('/login');
