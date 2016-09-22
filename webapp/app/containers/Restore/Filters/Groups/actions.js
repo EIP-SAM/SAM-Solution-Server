@@ -2,6 +2,7 @@
 // Groups filter restore actions
 //
 
+import { browserHistory } from 'react-router';
 import request from 'utils/request';
 import {
   USERS_GROUPS,
@@ -18,7 +19,7 @@ export function getCurrentGroup(currentGroup) {
 export function getGroups(groups) {
   return {
     type: USERS_GROUPS,
-    usersGroups,
+    groups,
   };
 }
 
@@ -27,10 +28,10 @@ export function getGroupsRequest() {
     return request
     .get('/api/logged-in/admin/groups')
     .end((err, res) => {
-      if (err && res.statusCode == 401) {
+      if (err && res.statusCode === 401) {
         browserHistory.push('/login');
       }
-      dispatch(getUsersGroups(res.body.groups));
+      dispatch(getGroups(res.body.groups));
     });
   };
 }
