@@ -12,8 +12,6 @@ export class SaveCreationAddFileModal extends React.Component {
   constructor(props) {
     super(props);
     this.handleFileChange = this.handleFileChange.bind(this);
-    this.handleFileClick = this.handleFileClick.bind(this);
-    this.handleCancelClick = this.handleCancelClick.bind(this);
   }
 
   handleFileChange(e) {
@@ -33,7 +31,7 @@ export class SaveCreationAddFileModal extends React.Component {
 
   render() {
     return (
-      <Modal show={this.props.showModal} onHide={this.handleCancelClick}>
+      <Modal show={this.props.showModal} onHide={() => this.handleCancelClick()}>
         <Modal.Header closeButton>
           <Modal.Title>Add a file to save</Modal.Title>
         </Modal.Header>
@@ -48,8 +46,8 @@ export class SaveCreationAddFileModal extends React.Component {
         </Modal.Body>
         <Modal.Footer>
           <ButtonToolbar>
-            <LinkContainerButton buttonType="info" buttonText="Add" onClick={this.handleFileClick} />
-            <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={this.handleCancelClick} />
+            <LinkContainerButton buttonType="info" buttonText="Add" onClick={() => this.handleFileClick()} />
+            <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
           </ButtonToolbar>
         </Modal.Footer>
       </Modal>

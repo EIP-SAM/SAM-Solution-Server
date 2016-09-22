@@ -15,6 +15,7 @@ function mapStateToProps(state) {
   return {
     showInstantRestoreModal: state.get('saveHistory').get('SaveHistoryTableInstantRestoreModalReducer').showInstantRestoreModal,
     userId: state.get('saveHistory').get('SaveHistoryTableInstantRestoreModalReducer').userId,
+    saveId: state.get('saveHistory').get('SaveHistoryTableInstantRestoreModalReducer').saveId,
     files: state.get('saveHistory').get('SaveHistoryTableInstantRestoreModalReducer').files,
   };
 }
@@ -22,7 +23,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     hideInstantRestoreModal: () => dispatch(hideInstantRestoreModal()),
-    createRestoreRequest: (state) => dispatch(createRestoreRequest(state)),
+    createRestoreRequest: (userId, files, saveId) => dispatch(createRestoreRequest(userId, files, saveId)),
     resetRestoreState: () => dispatch(resetRestoreState()),
   };
 }

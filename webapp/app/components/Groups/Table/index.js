@@ -38,7 +38,7 @@ export class GroupTable extends React.Component {
           const actionEdit = [];
           const actionRemove = [];
 
-          actionEdit.push(<ButtonPopover key={`action-${0}`} trigger="hover" placement="bottom" popoverContent="Edit Group" buttonType="link" icon="pencil" />);
+          actionEdit.push(<ButtonPopover key={`action-${0}`} link={`/edit-group/${group.name}`} trigger="hover" placement="bottom" popoverContent="Edit Group" buttonType="link" icon="pencil" />);
           actionRemove.push(<ButtonPopover key={`action-${1}`} trigger="hover" placement="bottom" popoverContent="Delete Group" buttonType="link" icon="trash" />);
           return (
             <Tr

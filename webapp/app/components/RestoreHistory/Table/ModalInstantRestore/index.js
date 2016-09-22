@@ -9,14 +9,9 @@ import styles from 'components/RestoreHistory/Table/ModalInstantRestore/styles.c
 
 /* eslint-disable react/prefer-stateless-function */
 export class RestoreHistoryInstantRestoreModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleLaunchClick = this.handleLaunchClick.bind(this);
-    this.handleCancelClick = this.handleCancelClick.bind(this);
-  }
 
   handleLaunchClick() {
-    this.props.createRestoresRequest(this.props.userId, this.props.selectedFiles, this.props.save.value, false);
+    this.props.createRestoreActionRestoreHistory(window.location.pathname.split('/')[2], this.props.userId, this.props.selectedFiles, this.props.save.value, false);
     this.props.hideInstantRestoreModal();
   }
 
@@ -37,8 +32,8 @@ export class RestoreHistoryInstantRestoreModal extends React.Component {
         </Modal.Body>
         <Modal.Footer>
           <ButtonToolbar>
-            <LinkContainerButton buttonType="info" buttonText="Launch" onClick={this.handleLaunchClick} />
-            <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={this.handleCancelClick} />
+            <LinkContainerButton buttonType="info" buttonText="Launch" onClick={() => this.handleLaunchClick()} />
+            <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
           </ButtonToolbar>
         </Modal.Footer>
       </Modal>
@@ -52,6 +47,6 @@ RestoreHistoryInstantRestoreModal.propTypes = {
   save: React.PropTypes.object,
   showModal: React.PropTypes.bool,
   hideInstantRestoreModal: React.PropTypes.func,
-  createRestoresRequest: React.PropTypes.func,
+  createRestoreActionRestoreHistory: React.PropTypes.func,
   resetStateForm: React.PropTypes.func,
 };

@@ -14,11 +14,19 @@ import {
   RESET_STATE_DATE,
   DATE,
   DATE_ERROR,
+  DATE_DISABLED,
 } from './constants';
 
 export function resetStateDate() {
   return {
     type: RESET_STATE_DATE,
+  };
+}
+
+export function dateDisabled(isDateDisabled) {
+  return {
+    type: DATE_DISABLED,
+    isDateDisabled,
   };
 }
 

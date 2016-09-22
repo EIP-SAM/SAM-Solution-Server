@@ -10,30 +10,35 @@
 //
 
 import request from 'utils/request';
-
 import {
   GET_USERS,
-  SHOW_INSTANT_DELETE_MODAL,
+  REMOVE_ALERT,
+  REBOOT_ALERT,
+  RESET_ALERT,
 } from './constants';
+
+export function resetAlert() {
+  return {
+    type: RESET_ALERT,
+  };
+}
+
+export function removeAlert() {
+  return {
+    type: REMOVE_ALERT,
+  };
+}
+
+export function rebootAlert() {
+  return {
+    type: REBOOT_ALERT,
+  };
+}
 
 export function getUsers(users) {
   return {
     type: GET_USERS,
-    users: users,
-  };
-}
-
-export function showInstantDeleteModal() {
-  return {
-    type: SHOW_INSTANT_DELETE_MODAL,
-    showModal: true,
-  };
-}
-
-export function hideInstantDeleteModal() {
-  return {
-    type: SHOW_INSTANT_DELETE_MODAL,
-    showModal: false,
+    users,
   };
 }
 
@@ -42,22 +47,7 @@ export function getUsersRequest() {
     return request
       .get('/api/logged-in/admin/users')
       .end((err, res) => {
-        dispatch(getUsers(res.body));
+        dispatch(getUsers(res.body.users));
       });
-  };
-}
-
-export function deleteUser(user) {
-  const users = [
-    user.id,
-  ];
-  return function returnDeleteUser() {
-    return request
-    .post('/api/logged-in/admin/users/delete')
-    .type('json')
-    .send({ users })
-    .end((err, res) => {
-      console.log('user deleted');
-    });
   };
 }

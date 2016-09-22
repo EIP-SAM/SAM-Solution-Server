@@ -42,26 +42,25 @@ export class EditUser extends React.Component {
   }
 
   onChangeGroups(name, event) {
-    var check = 1;
-    if (event == 'out') {
-      for (var i = 0; i < this.user.groups.length; i++) {
-        if (this.user.groups[i] == name) {
+    let check = 1;
+    if (event === 'out') {
+      for (let i = 0; i < this.user.groups.length; i++) {
+        if (this.user.groups[i] === name) {
           this.user.groups.splice(i, 1);
           console.log(this.user.groups);
           break;
         }
       }
-    }
-    else if (event == 'in') {
-      for (var i = 0; i < this.props.state.groups.length; i++) {
-        if (this.props.state.groups[i].name == name) {
-          for (var j = 0; j < this.user.groups.length; j++) {
-            if (this.user.groups[i] == name) {
+    } else if (event === 'in') {
+      for (let i = 0; i < this.props.state.groups.length; i++) {
+        if (this.props.state.groups[i].name === name) {
+          for (let j = 0; j < this.user.groups.length; j++) {
+            if (this.user.groups[i] === name) {
               check = 0;
               break;
             }
           }
-          if (check == 1) {
+          if (check === 1) {
             this.user.groups.push(this.props.state.groups[i].name);
           }
           console.log(this.user.groups);
@@ -78,20 +77,20 @@ export class EditUser extends React.Component {
   render() {
     this.user = this.props.state.user;
     var groupForm = [];
-    
+
     if (!this.props.state) {
-      return(<p>loading...</p>);
+      return (<p>loading...</p>);
     }
+
     if (this.props.state.groups) {
-      var usersGroups = this.props.state.usersGroups;
-      this.props.state.groups.map((group, i) => {
+      const usersGroups = this.props.state.usersGroups;
+      this.props.state.groups.map((group, i) =>
         groupForm.push(
           <Col key={i} xs={12} className={styles.editUserRightLine}>
             <Col xs={4} className={styles.editUserName}>{group.name}</Col>
             <RadioGroup inline id={group.name} values={['in', 'out']} placeholder={(usersGroups[i] === true) ? 'in' : 'out'} onChange={this.onChangeGroups.bind(this, group.name)} />
           </Col>
-        );
-      });
+        ));
     }
 
     return (
@@ -101,23 +100,24 @@ export class EditUser extends React.Component {
           <FormGroup controlId="formBasicText">
             <FormGroup>
               <ControlLabel>Username</ControlLabel>
-              <FormControl type="text" placeholder={this.user.name} onChange={this.onChangeUsername} />
+              <FormControl type="text" value={this.user.name} onChange={this.onChangeUsername} />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Email</ControlLabel>
-              <FormControl type="email" placeholder={this.user.email} onChange={this.onChangeEmail} />
+              <FormControl type="email" value={this.user.email} onChange={this.onChangeEmail} />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Password</ControlLabel>
-              <FormControl type="password" placeholder='********' onChange={this.onChangePassword} />
+              <FormControl type="password" value="********" onChange={this.onChangePassword} />
             </FormGroup>
             <FormGroup>
               <ControlLabel>Password confirmation</ControlLabel>
-              <FormControl type="password" placeholder='********' onChange={this.onChangeConfirmation} />
+              <FormControl type="password" value="********" onChange={this.onChangeConfirmation} />
             </FormGroup>
             <br />
             <ControlLabel>Groups</ControlLabel>
             { groupForm }
+            <br />
             <LinkContainerButton buttonType='default' buttonText='Edit' onClick={this.handleClick} />
           </FormGroup>
         </form>

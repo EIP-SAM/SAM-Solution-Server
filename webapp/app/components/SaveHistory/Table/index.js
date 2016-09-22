@@ -35,7 +35,7 @@ export class SaveHistoryTable extends React.Component {
   }
 
   handleRestoreClick(save) {
-    this.props.instantRestore(save.save_scheduled.user.id, save.save_scheduled.files);
+    this.props.instantRestore(save.save_scheduled.user.id, save.save_scheduled.files, save.id);
     this.props.showInstantRestoreModal();
   }
 
@@ -43,6 +43,7 @@ export class SaveHistoryTable extends React.Component {
     const names = [{ isLink: false, value: 'Date' },
                   { isLink: false, value: 'State' },
                   { isLink: false, value: 'Files' },
+                  { isLink: false, value: 'Auto save' },
                   { isLink: false, value: 'Actions' }];
 
     return (
@@ -53,12 +54,13 @@ export class SaveHistoryTable extends React.Component {
           </thead>
           <tbody>
           {this.props.saves.map((save, index) => {
-            const displayButton = (!save.canceled) ? ((save.isStart) ? styles.undisplay : styles.button) : styles.undisplay;
+            const displayButtonCancel = (!save.canceled) ? ((save.isStart) ? styles.undisplay : styles.button) : styles.undisplay;
+            const displayButtonRestore = (!save.canceled) ? ((save.isFinish) ? ((save.isSuccess) ? '' : styles.undisplay) : styles.undisplay) : styles.undisplay;
             const actions = [];
             actions.push(<ButtonPopover key={`action-${0}`} id="launch_save_action" trigger={['focus', 'hover']} placement="bottom" popoverContent="Relaunch Save" buttonType="link" icon="floppy-disk" onClick={() => this.handleSaveClick(save)} />);
             actions.push(<ButtonPopover key={`action-${1}`} id="launch_save_scheduled_action" trigger={['focus', 'hover']} placement="bottom" popoverContent="Relaunch save at a specific time" buttonType="link" icon="calendar" onClick={() => this.handleScheduledSaveClick(save)} link="/create-save" />);
-            actions.push(<ButtonPopover key={`action-${2}`} id="launch_restore_action" trigger={['focus', 'hover']} placement="bottom" popoverContent="Restore" buttonType="link" icon="repeat" onClick={() => this.handleRestoreClick(save)} />);
-            actions.push(<ButtonPopover key={`action-${3}`} id="cancel_save_action" trigger={['focus', 'hover']} placement="bottom" popoverContent="Cancel scheduled save" buttonType="link" icon="remove" buttonStyle={displayButton} onClick={() => this.handleDeleteClick(save.id, save.save_scheduled.id, save.save_scheduled.user.name)} />);
+            actions.push(<ButtonPopover buttonStyle={displayButtonRestore} key={`action-${2}`} id="launch_restore_action" trigger={['focus', 'hover']} placement="bottom" popoverContent="Restore" buttonType="link" icon="repeat" onClick={() => this.handleRestoreClick(save)} />);
+            actions.push(<ButtonPopover key={`action-${3}`} id="cancel_save_action" trigger={['focus', 'hover']} placement="bottom" popoverContent="Cancel scheduled save" buttonType="link" icon="remove" buttonStyle={displayButtonCancel} onClick={() => this.handleDeleteClick(save.id, save.save_scheduled.id, save.save_scheduled.user.name)} />);
 
             const status = (!save.canceled) ? ((save.isStart) ? ((save.isFinish) ? ((save.isSuccess) ? 'Succeeded' : 'Failed') : 'In progress') : 'Scheduled') : 'Canceled';
 
@@ -68,6 +70,7 @@ export class SaveHistoryTable extends React.Component {
                   { isLink: false, value: moment(save.execDate).format('DD/MM/YYYY HH:mm') },
                   { isLink: false, value: status },
                   { isLink: false, value: save.save_scheduled.files },
+                  { isLink: false, value: (save.save_scheduled.cron !== null) ? 'Enabled' : 'Disabled' },
                   { isLink: false, value: actions }]} component={Td}
               />
 

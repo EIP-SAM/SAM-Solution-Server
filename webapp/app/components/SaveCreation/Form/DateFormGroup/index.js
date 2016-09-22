@@ -13,13 +13,6 @@ export class SaveCreationDateFormGroup extends React.Component {
   constructor(props) {
     super(props);
     this.handleDateChange = this.handleDateChange.bind(this);
-    this.disabled = false;
-  }
-
-  componentWillMount() {
-    if (this.props.date) {
-      this.disabled = true;
-    }
   }
 
   handleDateChange(date) {
@@ -38,7 +31,7 @@ export class SaveCreationDateFormGroup extends React.Component {
     return (
       <FormGroup controlId="date" className={styles.form} validationState={validationState}>
         <ControlLabel className={styles.label}>Date</ControlLabel>
-        <DatePicker onChange={this.handleDateChange} disabled={this.disabled} />
+        <DatePicker onChange={this.handleDateChange} disabled={this.props.isDateDisabled} />
         <HelpBlock>{errorMessage}</HelpBlock>
       </FormGroup>
     );
@@ -48,5 +41,6 @@ export class SaveCreationDateFormGroup extends React.Component {
 SaveCreationDateFormGroup.propTypes = {
   date: React.PropTypes.string,
   dateError: React.PropTypes.string,
+  isDateDisabled: React.PropTypes.bool,
   dateSave: React.PropTypes.func,
 };

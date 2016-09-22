@@ -13,6 +13,7 @@ export class TypeUserFormGroup extends React.Component {
     super(props);
     this.selectTypeUser = this.selectTypeUser.bind(this);
   }
+
   selectTypeUser(e) {
     this.props.getVisibilityFilter(e);
   }
@@ -23,7 +24,7 @@ export class TypeUserFormGroup extends React.Component {
         <Col componentClass={ControlLabel} sm={2}>
            Type of user :
         </Col>
-        <Col sm={4}>
+        <Col sm={6}>
           <RadioGroup
             inline
             values={['All', 'Admins', 'Users']}

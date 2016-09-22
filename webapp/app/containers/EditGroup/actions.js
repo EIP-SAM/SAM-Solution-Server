@@ -28,7 +28,7 @@ export function getGroupRequest(id, callback) {
   console.log('get : /api/logged-in/group?id=' + id + ' :');
   return function returnGetGroupRequest(dispatch) {
     return request
-      .get('/api/logged-in/group?id=' + id);
+      .get('/api/logged-in/group?id=' + id)
       .end((err, res) => {
         console.log('reponse a /api/logged-in/group?id=' + id + ' :');
         console.log(res.body);

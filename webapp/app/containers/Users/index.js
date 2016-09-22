@@ -3,21 +3,21 @@
 //
 
 import { connect } from 'react-redux';
-import { getUsersRequest, deleteUser, hideInstantDeleteModal, showInstantDeleteModal } from './actions';
 import { Users } from 'components/Users';
+import { getUsersRequest } from './actions';
 
 function mapStateToProps(state) {
   return {
-    state: state.get('users'),
+    username: state.get('users').get('UsersDeletionModalReducer').username,
+    alertMsg: state.get('users').get('UsersReducer').alertMsg,
+    typeAlert: state.get('users').get('UsersReducer').typeAlert,
+    displayAlert: state.get('users').get('UsersReducer').displayAlert,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     getUsersRequest: () => dispatch(getUsersRequest()),
-    deleteUser: (user) => dispatch(deleteUser(user)),
-    hideInstantDeleteModal: () => dispatch(hideInstantDeleteModal()),
-    showInstantDeleteModal: () => dispatch(showInstantDeleteModal()),
   };
 }
 

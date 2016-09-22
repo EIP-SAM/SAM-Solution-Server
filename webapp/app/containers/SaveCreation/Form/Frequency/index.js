@@ -4,13 +4,12 @@
 
 import { connect } from 'react-redux';
 import { SaveCreationFrequencyFormGroup } from 'components/SaveCreation/Form/FrequencyFormGroup';
-import {
-  frequencySave,
-} from './actions';
+import { frequencySave } from './actions';
 
 function mapStateToProps(state) {
   return {
     frequency: state.get('saveCreation').get('SaveCreationFormFrequencyReducer').frequency,
+    isFrequencyDisabled: state.get('saveCreation').get('SaveCreationFormFrequencyReducer').isFrequencyDisabled,
   };
 }
 

@@ -101,7 +101,7 @@ export default function createRoutes() {
         .catch(errorLoading);
       },
     }, {
-      path: '/edit-group/:groupname',
+      path: '/edit-group/:id',
       name: 'edit group',
       getComponent(nextState, cb) {
         System.import('containers/EditGroup')

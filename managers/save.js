@@ -34,11 +34,20 @@ module.exports.lastUsersSaves = function (req, res) {
 
 //
 // Get username from request
-// Get all saves (savesScheduleds & saves) of a user (past & scheduled)
+// Get all saves of a user (past & scheduled)
 //
 module.exports.historySavesByUser = function (req, res) {
   const username = req.query.username;
   return saveScheduledAdapter.historySavesByUser(username);
+}
+
+//
+// Get username from request
+// Get all succeeded saves of a user
+//
+module.exports.historySucceededSavesByUser = function (req, res) {
+  const username = req.query.username;
+  return saveScheduledAdapter.historySucceededSavesByUser(username);
 }
 
 module.exports.createSave = function (req, res) {
@@ -111,13 +120,12 @@ module.exports.saveFinish = function (saveScheduledId, saveId, username, files) 
 
 //
 // Update Success boolean
-// Save hash of commit
+// Save name of the branch
 // Call adapter
 //
-module.exports.saveSuccess = function (saveId) {
-  const hash = '#45487';
+module.exports.saveSuccess = function (saveId, branch) {
   saveScheduledAdapter.saveIsSuccess(saveId);
-  //return saveAdapter.hashSave(saveId, hash);
+  saveScheduledAdapter.branchSave(saveId, branch);
 };
 
 //

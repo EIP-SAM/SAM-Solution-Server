@@ -3,4 +3,6 @@
 //
 
 export const GET_USERS = 'GET_USERS';
-export const SHOW_INSTANT_DELETE_MODAL = 'SHOW_INSTANT_DELETE_MODAL';
+export const REMOVE_ALERT = 'REMOVE_ALERT';
+export const REBOOT_ALERT = 'REBOOT_ALERT';
+export const RESET_ALERT = 'RESET_ALERT';

@@ -35,9 +35,7 @@ export function getUserRequest(id, callback) {
           console.log('reponse a /api/logged-in/user?id=' + id + ' :');
           console.log(res.body);
           dispatch(getUser(res.body));
-          if (res.body.isAdmin == true) {
-            callback(res.body.groups);
-          }
+          callback(res.body.groups);
       });
   };
 }

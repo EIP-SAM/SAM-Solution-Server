@@ -9,6 +9,9 @@
 //      }
 //
 
+import request from 'utils/request';
+import { resetStateForm } from 'containers/RestoreCreation/Form/actions';
+import { getHistoryRestoresByUserRequest } from 'containers/RestoreHistory/actions';
 
 import {
   SHOW_INSTANT_RESTORE_MODAL,
@@ -25,5 +28,22 @@ export function hideInstantRestoreModal() {
   return {
     type: SHOW_INSTANT_RESTORE_MODAL,
     showModal: false,
+  };
+}
+
+export function createRestoreActionRestoreHistory(username, userId, selectedFiles, saveId) {
+  return function createRestoreRequest(dispatch) {
+    return request
+      .post('/api/logged-in/create_restore')
+      .type('form')
+      .send({
+        userId,
+        saveId,
+        files: selectedFiles.toString(),
+      })
+      .end(() => {
+        dispatch(resetStateForm());
+        dispatch(getHistoryRestoresByUserRequest(username));
+      });
   };
 }

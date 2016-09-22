@@ -3,42 +3,41 @@
 //
 
 import React from 'react';
-import { PageHeader } from 'react-bootstrap';
-import { UserTable } from 'components/Users/Table';
-import { UserDeletionModal } from 'components/Users/Table/ModalDeletionUser';
+import { PageHeader, Alert } from 'react-bootstrap';
+import UserTable from 'containers/Users/Table';
+import UserButton from 'containers/Users/Button';
 import styles from './styles.css';
 
 export class Users extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount() {
     this.props.getUsersRequest();
   }
 
   render() {
+    let alert = '';
+    if (this.props.displayAlert) {
+      alert = (
+        <Alert bsStyle={this.props.typeAlert}>
+          <strong>{`${this.props.username}`}</strong> {`${this.props.alertMsg}`}
+        </Alert>
+      );
+    }
+
     return (
       <div container className={styles.users}>
         <PageHeader>Users</PageHeader>
-        <UserTable
-          state={this.props.state}
-          showInstantDeleteModal={this.props.showInstantDeleteModal}
-        />
-        <UserDeletionModal
-          state={this.props.state}
-          hideInstantDeleteModal={this.props.hideInstantDeleteModal}
-          deleteUser={this.props.deleteUser}
-        />
+        {alert}
+        <UserButton />
+        <UserTable />
       </div>
     );
   }
 }
 
 Users.propTypes = {
-  state: React.PropTypes.object,
+  username: React.PropTypes.string,
+  alertMsg: React.PropTypes.string,
+  typeAlert: React.PropTypes.string,
+  displayAlert: React.PropTypes.bool,
   getUsersRequest: React.PropTypes.func,
-  deleteUser: React.PropTypes.func,
-  hideInstantDeleteModal: React.PropTypes.func,
-  showInstantDeleteModal: React.PropTypes.func,
 };

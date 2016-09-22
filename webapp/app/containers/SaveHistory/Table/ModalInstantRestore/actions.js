@@ -36,21 +36,23 @@ export function hideInstantRestoreModal() {
   };
 }
 
-export function instantRestore(userId, files) {
+export function instantRestore(userId, files, saveId) {
   return {
     type: INSTANT_RESTORE,
     userId,
+    saveId,
     files,
   };
 }
 
-export function createRestoreRequest(userId, files) {
+export function createRestoreRequest(userId, files, saveId) {
   return function returnCreateRestoreRequest(dispatch) {
     return request
       .post('/api/logged-in/create_restore')
       .type('form')
       .send({
         userId,
+        saveId,
         files,
       })
       .end(() => {

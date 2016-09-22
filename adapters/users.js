@@ -7,6 +7,7 @@ const GroupsAdapter = require('./groups');
 module.exports.findAll = function () {
   return UsersModel.findAll({
     attributes: ['id', 'name', 'email', 'isAdmin'],
+    order: [['id', 'ASC']],
     include: [{
         model: GroupsModel,
         where: { userId: Sequelize.col('users.id') },
