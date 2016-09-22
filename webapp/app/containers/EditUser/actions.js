@@ -35,18 +35,8 @@ export function getUserRequest(id, callback) {
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
-
-        var i = 0;
-        while (i < res.body.users.length && res.body.users[i].name != username) {
-          ++i;
-        }
-        if (!res.body.users[i]) {
-          var user = { error: 'Error : User ' + username + ' not found' };
-          dispatch(getUser(user));
-        } else {
-          dispatch(getUser(res.body));
-          callback(res.body.groups);
-        }
+        dispatch(getUser(res.body));
+        callback(res.body.groups);
       });
   };
 }
