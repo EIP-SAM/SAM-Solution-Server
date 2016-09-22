@@ -23,11 +23,13 @@ const logSchema = new Schema({
     type: Number,
     required: true,
   },
-  header: {
-    type: Object,
+  moduleName: {
+    type: String,
+    required: false,
   },
-  data: {
+  user: {
     type: Object,
+    required: false,
   },
   msg: {
     type: String,

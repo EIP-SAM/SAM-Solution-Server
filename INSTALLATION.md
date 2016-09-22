@@ -12,11 +12,13 @@
 ### Software requirements
 * A modern and up to date __Linux__ operating system (like Debian/Ubuntu/Fedora/Archlinux/...)  
   *Note: It is important to note that, for experimental purposes only, in accordance with the actual development status, a modern version of __Windows__ or __OS X__, can, for now, be still sufficient to make run the server.*
-* A __node.js__ version `>= 5.4.X`
+* A __node.js__ version `>= 6.0.X`
 * A __npm__ version `>= 1.2.X`
 * An __SQL__ database must be available. __PostgreSQL__, __MySQL__, __MariaDB__, __SQLite__ and __MSSQL__ are supported.
 * A __MongoDB__ database must be available.
 * __git__ must be available through the command line
+
+*Note: If you're encountering problems installing nodejs `>= 6.0.X`, visit the official [nodejs installation instructions](https://nodejs.org/en/download/package-manager/)*
 
 ## Usage
 ### Installation (from source)
@@ -106,13 +108,17 @@ Configuration file: `config/mail.config.json`
 *"I don't have a mail server! What should I do?"* You should be able to setup and use a gmail account as a mail server. You can find the setup and use instructions here http://nodemailer.com/using-gmail/
 
 ### Run
-#### Launch the server
+#### Launch API server
 ```
 $ npm start
 ```
+#### Launch web application server
+```
+$ cd webapp && npm start
+```
 
 #### Access the web interface
-Check that the web interface is successfully running. For that go with your favorite web browser at the address the server is listening on. For example `http://localhost:8080`, depending of the configuration you previously set.
+Check that the web interface is successfully running. For that go with your favorite web browser at the address the server is listening on. For example `http://localhost:3000/login`, depending of the configuration you previously set.
 
 #### Install the client service
 Please refer to the README instructions inside [SAM-Solution-Daemon-Client](https://github.com/EIP-SAM/SAM-Solution-Daemon-Client) repository.

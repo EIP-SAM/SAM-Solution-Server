@@ -1,144 +1,133 @@
 var usersManager = require('../../managers/users');
 var groupsManager = require('../../managers/groups');
-var usersController = require('../../controllers/users');
+var usersAndRightsController = require('../../controllers/usersAndRights');
 
-describe("retrieveUserProfile", function() {
-  var req = {session : {}};
+describe('retrieveUserProfile', function () {
+  var req = { session: {}, user: { id: 1 } };
   var res = {};
-  var user = usersController.retrieveUserProfile(req, res);
+  var user = usersManager.retrieveUserProfile();
 
-  it("should not return null", function() {
+  it('should not return null', function () {
     expect(user).not.toBeNull();
   });
 
-  it("should return a promise", function() {
-    expect('function' === typeof user.then).toBeTruthy();
+  it('should return a function', function () {
+    expect(typeof user === 'function').toBeTruthy();
   });
 
-  it("should have called retrieveUserProfile once", function() {
-    spyOn(usersManager, 'retrieveUserProfile');
-    usersController.retrieveUserProfile(req, res);
-    expect(usersManager.retrieveUserProfile).toHaveBeenCalledTimes(1);
-  });
 });
 
-describe("retrieveAllUsers", function() {
-  var req = {session : {}};
+describe('retrieveAllUsers', function () {
+  var req = { session: {} };
   var res = {};
-  var users = usersController.retrieveAllUsers(req, res);
+  var users = usersAndRightsController.retrieveAllUsers(req, res);
 
-  it("should not return null", function() {
+  it('should not return null', function () {
     expect(users).not.toBeNull();
   });
 
-  it("should return a promise", function() {
-    expect('function' === typeof users.then).toBeTruthy();
+  it('should return a function', function () {
+    expect(typeof users === 'function').toBeTruthy();
   });
 
-  it("should have called retrieveAllUsers once", function() {
+  it('should have called retrieveAllUsers once', function () {
     spyOn(usersManager, 'retrieveAllUsers');
-    usersController.retrieveAllUsers(req, res);
+    usersAndRightsController.retrieveAllUsers(req, res);
     expect(usersManager.retrieveAllUsers).toHaveBeenCalledTimes(1);
   });
 });
 
-describe("createUser", function() {
+describe('createUser', function () {
   var params;
-  var user = usersController.createUser(params);
+  var user = usersAndRightsController.createUser(params);
 
-  it("should return a function", function() {
-    expect('function' === typeof user).toBeTruthy();
+  it('should return a function', function () {
+    expect(typeof user === 'function').toBeTruthy();
   });
 });
 
-describe("createUsers", function() {
+describe('createUsers', function () {
   var params;
-  var user = usersController.createUsers(params);
+  var user = usersAndRightsController.createUsers(params);
 
-  it("should return a function", function() {
-    expect('function' === typeof user).toBeTruthy();
+  it('should return a function', function () {
+    expect(typeof user === 'function').toBeTruthy();
   });
 });
 
-describe("updateUserProfile", function() {
+describe('updateUserProfile', function () {
   var params;
-  var user = usersController.updateUserProfile(params);
+  var user = usersAndRightsController.updateUserProfile(params);
 
-  it("should return a function", function() {
-    expect('function' === typeof user).toBeTruthy();
+  it('should return a function', function () {
+    expect(typeof user === 'function').toBeTruthy();
   });
 });
 
-describe("updateUsers", function() {
+describe('updateUsers', function () {
   var params;
-  var users = usersController.updateUsers(params);
+  var users = usersAndRightsController.updateUsers(params);
 
-  it("should return a function", function() {
-    expect('function' === typeof users).toBeTruthy();
+  it('should return a function', function () {
+    expect(typeof users === 'function').toBeTruthy();
   });
 });
 
-describe("deleteUsers", function() {
+describe('deleteUsers', function () {
   var params;
-  var user = usersController.deleteUsers(params);
+  var user = usersAndRightsController.deleteUsers(params);
 
-  it("should return a function", function() {
-    expect('function' === typeof user).toBeTruthy();
+  it('should return a function', function () {
+    expect(typeof user === 'function').toBeTruthy();
   });
 });
 
-describe("retrieveAllGroups", function() {
-  var req = {session : {}};
+describe('retrieveAllGroups', function () {
+  var req = { session: {} };
   var res = {};
-  var groups = usersController.retrieveAllGroups(req, res);
+  var groups = usersAndRightsController.retrieveAllGroups(req, res);
 
-  it("should not return null", function() {
+  it('should not return null', function () {
     expect(groups).not.toBeNull();
   });
 
-  it("should return a promise", function() {
-    expect('function' === typeof groups.then).toBeTruthy();
-  });
-
-  it("should have called retrieveAllGroups once", function() {
-    spyOn(groupsManager, 'retrieveAllGroups');
-    usersController.retrieveAllGroups(req, res);
-    expect(groupsManager.retrieveAllGroups).toHaveBeenCalledTimes(1);
+  it('should return a function', function () {
+    expect(typeof groups === 'function').toBeTruthy();
   });
 });
 
-describe("updateGroups", function() {
+describe('updateGroups', function () {
   var params;
-  var group = usersController.updateGroups(params);
+  var group = usersAndRightsController.updateGroups(params);
 
-  it("should return a function", function() {
-    expect('function' === typeof group).toBeTruthy();
+  it('should return a function', function () {
+    expect(typeof group === 'function').toBeTruthy();
   });
 });
 
-describe("createGroups", function() {
+describe('createGroups', function () {
   var params;
-  var group = usersController.createGroups(params);
+  var group = usersAndRightsController.createGroups(params);
 
-  it("should return a function", function() {
-    expect('function' === typeof group).toBeTruthy();
+  it('should return a function', function () {
+    expect(typeof group === 'function').toBeTruthy();
   });
 });
 
-describe("deleteGroups", function() {
+describe('deleteGroups', function () {
   var params;
-  var group = usersController.deleteGroups(params);
+  var group = usersAndRightsController.deleteGroups(params);
 
-  it("should return a function", function() {
-    expect('function' === typeof group).toBeTruthy();
+  it('should return a function', function () {
+    expect(typeof group === 'function').toBeTruthy();
   });
 });
 
-describe("addUsersToGroup", function() {
+describe('addUsersToGroup', function () {
   var params;
-  var group = usersController.addUsersToGroup(params);
+  var group = usersAndRightsController.addUsersToGroup(params);
 
-  it("should return a function", function() {
-    expect('function' === typeof group).toBeTruthy();
+  it('should return a function', function () {
+    expect(typeof group === 'function').toBeTruthy();
   });
 });

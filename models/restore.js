@@ -4,12 +4,16 @@
 var Sequelize = require('sequelize');
 var sequelize = require('../libs/sequelize');
 
-var user = require('./users');
-var save = require('./save');
+var UserModel = require('./users');
+var SaveModel = require('./save');
 
 var restore = sequelize.define('restore', {
     execDate: {
       type: Sequelize.DATE,
+    },
+    files: {
+      type: Sequelize.TEXT,
+      allowNull: false,
     },
     isStart: {
       type: Sequelize.BOOLEAN,
@@ -30,8 +34,9 @@ var restore = sequelize.define('restore', {
 //
 // Setup ForeignKeys
 //
-restore.belongsTo(user, { foreignKey: 'userId' });
-restore.belongsTo(save, { foreignKey: 'saveId' });
+restore.belongsTo(UserModel, { foreignKey: 'userId' });
+UserModel.hasMany(restore);
+restore.belongsTo(SaveModel, { foreignKey: 'saveId' });
 
 //
 // Sync model Restore

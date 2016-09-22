@@ -1,44 +1,9 @@
 //
 // Unit test for saveScheduled adapter
 //
-var saveAdapter = require('../../adapters/save');
 var SaveModel = require('../../models/save');
 
-describe('createSave', function () {
-  var save;
-
-  beforeEach(function () {
-    save = saveAdapter.createSave(1, new Date());
-  });
-
-  afterEach(function () {
-    save = null;
-  });
-
-  it('should not return null or undefined object', function () {
-    expect(save).not.toBeNull();
-    expect(save).toBeDefined();
-  });
-
-  it('should return a promise', function () {
-    expect(typeof save.then === 'function').toBeTruthy();
-  });
-
-  it('should return a SaveModel object with right values', function () {
-    saveAdapter.createSave(1, new Date()).then(function (asyncSave) {
-      expect(asyncSave.saveScheduledId).toEqual(1);
-      expect(asyncSave.execDate).toEqual(new Date());
-    });
-  });
-
-  it('should have called create once', function () {
-    spyOn(SaveModel, 'create');
-    saveAdapter.createSave(1, new Date());
-    expect(SaveModel.create).toHaveBeenCalledTimes(1);
-  });
-});
-
-describe('saveIsStart', function () {
+xdescribe('saveIsStart', function () {
   var save;
 
   beforeEach(function () {
@@ -74,7 +39,7 @@ describe('saveIsStart', function () {
   });
 });
 
-describe('saveIsFinish', function () {
+xdescribe('saveIsFinish', function () {
   var save;
 
   beforeEach(function () {
@@ -110,7 +75,7 @@ describe('saveIsFinish', function () {
   });
 });
 
-describe('saveIsSuccess', function () {
+xdescribe('saveIsSuccess', function () {
   var save;
 
   beforeEach(function () {
@@ -146,7 +111,7 @@ describe('saveIsSuccess', function () {
   });
 });
 
-describe('hashSave', function () {
+xdescribe('hashSave', function () {
   var save;
 
   beforeEach(function () {
@@ -182,20 +147,7 @@ describe('hashSave', function () {
   });
 });
 
-describe('getAllSave', function () {
-  it('should return a promise', function () {
-    var save = saveAdapter.getAllSave();
-    expect(typeof save.then === 'function').toBeTruthy();
-  });
-
-  it('should have called findAll once', function () {
-    spyOn(SaveModel, 'findAll');
-    saveAdapter.getAllSave();
-    expect(SaveModel.findAll).toHaveBeenCalledTimes(1);
-  });
-});
-
-describe('getAllSaveBySaveSchedule', function () {
+xdescribe('getAllSaveBySaveSchedule', function () {
   it('should return a promise', function () {
     var restore = saveAdapter.getAllSaveBySaveSchedule(1);
     expect(typeof restore.then === 'function').toBeTruthy();

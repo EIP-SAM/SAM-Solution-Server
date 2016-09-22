@@ -30,5 +30,19 @@ node_modules
 # Optional REPL history
 .node_repl_history
 
+# emacs temps files
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# VIM swap files
+*.swp
+*.swo
+
 # config
 *.config.json

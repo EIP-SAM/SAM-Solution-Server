@@ -4,7 +4,7 @@
 var Sequelize = require('sequelize');
 var sequelize = require('../libs/sequelize');
 
-var saveScheduled = require('./saveScheduled');
+var SaveScheduledModel = require('./saveScheduled');
 
 var save = sequelize.define('save', {
   execDate: {
@@ -22,6 +22,10 @@ var save = sequelize.define('save', {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
+  canceled: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
   hash: {
     type: Sequelize.STRING,
     allowNull: true,
@@ -34,10 +38,11 @@ var save = sequelize.define('save', {
 //
 // Setup ForeignKeys
 //
-save.belongsTo(saveScheduled, { foreignKey: 'saveScheduledId' });
+save.belongsTo(SaveScheduledModel, { foreignKey: 'saveScheduledId' });
+SaveScheduledModel.hasMany(save);
 
 //
-// Sync model SaveSchedule
+// Sync model Save
 //
 save.sync();
 

@@ -1,18 +1,48 @@
 //
 // Navbar
 //
-
 import React from 'react';
 import { Navbar, Nav, NavItem, Image } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { getUser } from 'utils/user';
 import Logo from 'components/Navbar/logo_sam_solution.png';
 import styles from 'components/Navbar/styles.css';
 
+
 /* eslint-disable react/prefer-stateless-function */
 export default class NavbarContainer extends React.Component {
-
   render() {
-    return (
+    let navItems = [];
+    const userInfo = getUser();
+
+    if (userInfo.isAdmin) {
+      navItems = [
+      { pathname: '/users', value: 'Users' },
+      { pathname: '/groups', value: 'Groups' },
+      { pathname: '/save', value: 'Save' },
+      { pathname: '/restore', value: 'Restore' },
+      { pathname: '#', value: 'Migration' },
+      { pathname: '#', value: 'Software' },
+      { pathname: '/logs', value: 'Logs' },
+      { pathname: '/statistics', value: 'Statistics' },
+      { pathname: '#', value: 'Help' },
+      { pathname: '/login', value: 'Logout' },
+      ];
+    } else {
+      navItems = [
+      { pathname: '#', value: 'Users' },
+      { pathname: `/save/${userInfo.username}`, value: 'Save' },
+      { pathname: `/restore/${userInfo.username}`, value: 'Restore' },
+      { pathname: '#', value: 'Migration' },
+      { pathname: '#', value: 'Software' },
+      { pathname: '/logs', value: 'Logs' },
+      { pathname: '/statistics', value: 'Statistics' },
+      { pathname: '#', value: 'Help' },
+      { pathname: '/login', value: 'Logout' },
+      ];
+    }
+
+    const navBar = (
       <Navbar inverse className={styles.position}>
         <Navbar.Header className={styles.noFloat}>
           <Navbar.Brand className={styles.noFloat}>
@@ -22,24 +52,25 @@ export default class NavbarContainer extends React.Component {
         </Navbar.Header>
         <Navbar.Collapse className={styles.collapse}>
           <Nav className={styles.menu}>
-            <LinkContainer to={{ pathname: '#' }}>
-              <NavItem eventKey={1} className={styles.menuItem}>Users</NavItem>
-            </LinkContainer>
-            <LinkContainer to={{ pathname: '/save' }}>
-              <NavItem eventKey={2} className={styles.menuItem}>Save</NavItem>
-            </LinkContainer>
-            <LinkContainer to={{ pathname: '#' }}>
-              <NavItem eventKey={3} className={styles.menuItem}>Restore</NavItem>
-            </LinkContainer>
-            <LinkContainer to={{ pathname: '#' }}>
-              <NavItem eventKey={4} className={styles.menuItem}>Logs</NavItem>
-            </LinkContainer>
-            <LinkContainer to={{ pathname: '#' }}>
-              <NavItem eventKey={5} className={styles.menuItem}>Statistics</NavItem>
-            </LinkContainer>
+            {navItems.map((item, i) =>
+              <LinkContainer key={`navItem-${i}`} to={{ pathname: item.pathname }}>
+                <NavItem eventKey={i} className={styles.menuItem}>{item.value}</NavItem>
+              </LinkContainer>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
     );
+    const empty = (<span></span>);
+    const endNavBar = (!this.props.username.isLogin) ? navBar : empty;
+
+    return (
+      <span>{endNavBar}</span>
+    );
   }
 }
+
+NavbarContainer.propTypes = {
+  username: React.PropTypes.object,
+  onLoginPage: React.PropTypes.func,
+};

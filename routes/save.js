@@ -6,46 +6,31 @@ var saveController = require('../controllers/save');
 
 module.exports = function initSaveRoutes(app) {
 
-  app.get('/save', function (req, res) {
-    res.render('program_save_restore_test.ejs');
+  app.get('/api/logged-in/admin/save', function (req, res) {
+    saveController.lastUsersSaves().then(function(saves) {
+      res.json(saves);
+    })
   });
 
-  app.post('/create_save', function (req, res) {
-    saveController.createSave(req, res);
-    req.flash('msg', 'Your save has been created');
-    res.redirect('/save');
+  app.get('/api/logged-in/history_save', function (req, res) {
+    saveController.historySavesByUser(req, res).then(function(historySaves) {
+      res.json(historySaves);
+    })
   });
 
-  app.post('/save_start', function (req, res) {
-    saveController.startSave(req, res);
-    req.flash('msg', 'Your save has started');
-    res.redirect('/save');
+  app.get('/api/logged-in/history_succeeded_save', function (req, res) {
+    saveController.historySucceededSavesByUser(req, res).then(function(saves) {
+      res.json(saves);
+    })
   });
 
-  app.post('/save_finish', function (req, res) {
-    saveController.saveFinish(req, res);
-    res.redirect('/save');
+  app.post('/api/logged-in/create_save', function (req, res) {
+    saveController.createSave(req, res)
+    res.json('Your save has been created');
   });
 
-  app.post('/cancel_save', function (req, res) {
+  app.post('/api/logged-in/cancel_save', function (req, res) {
     saveController.cancelSave(req, res);
-    req.flash('msg', 'Your auto/program save has been canceled');
-    res.redirect('/save');
-  });
-
-  app.post('/save_success', function (req, res) {
-    saveController.saveSuccess(req, res);
-    req.flash('msg', 'Your save has succeeded');
-    res.redirect('/save');
-  });
-
-  app.post('/save_fail', function (req, res) {
-    req.flash('msg', 'Your save has failed');
-    res.redirect('/save');
-  });
-
-  app.post('/get_history_save', function (req, res) {
-    saveController.getHistorySave(req, res);
-    res.redirect('/save');
+    res.json('Your auto/programmed save has been canceled');
   });
 };

@@ -1,147 +1,147 @@
 //
 // Manager Save
 //
-var saveAdapter = require('../adapters/save');
 var saveScheduledAdapter = require('../adapters/saveScheduled');
 var cronManager = require('./cronSave');
 var nodeSchedule = require('../libs/nodeSchedule');
+var logger = require('../libs/bunyan');
+
+//
+// Get all users with their last save
+//
+module.exports.lastUsersSaves = function (req, res) {
+  return saveScheduledAdapter.lastUsersSaves().then(function(results) {
+    for (var user of results) {
+      var lastSaveScheduled = [];
+      if (user.save_scheduleds.length === 0) {
+        continue;
+      }
+      lastSaveScheduled = user.save_scheduleds[0];
+      for (var saveScheduled of user.save_scheduleds) {
+        if (lastSaveScheduled.saves.length === 0) {
+          lastSaveScheduled = saveScheduled;
+          continue;
+        }
+        if (saveScheduled.saves[0] && lastSaveScheduled.saves[0].execDate < saveScheduled.saves[0].execDate) {
+          lastSaveScheduled = saveScheduled;
+        }
+      }
+      user.dataValues.save_scheduleds = (lastSaveScheduled.saves.length) ? lastSaveScheduled : [];
+    }
+    return results;
+  });
+}
+
+//
+// Get username from request
+// Get all saves of a user (past & scheduled)
+//
+module.exports.historySavesByUser = function (req, res) {
+  const username = req.query.username;
+  return saveScheduledAdapter.historySavesByUser(username);
+}
+
+//
+// Get username from request
+// Get all succeeded saves of a user
+//
+module.exports.historySucceededSavesByUser = function (req, res) {
+  const username = req.query.username;
+  return saveScheduledAdapter.historySucceededSavesByUser(username);
+}
 
 module.exports.createSave = function (req, res) {
-  // Get data from form
-  // Format date
-  // Launch save
-  const userId = req.body.userId;
+  let usersId = req.body.usersId;
+  const date = req.body.date;
+  const time = req.body.time;
+  const frequency = req.body.frequency;
+  const files = req.body.files;
 
-  // Cron management
-  const repeatFrequenceSave = req.body.repeatFrequenceSave;
-  var cron = req.body.cron; // to modify -> will need a parser
-  if (repeatFrequenceSave == 'no') {
-    cron = null;
+  const splitDate = date.split('/');
+  const splitTime = time.split(':');
+  // In JavaScript - 0 - January, 11 - December
+  // YYYY-MM-DD hh:mm
+  let dateFormat = new Date(splitDate[2], splitDate[1] - 1, splitDate[0],
+    splitTime[0], splitTime[1]);
+  if (dateFormat < new Date()) {
+    dateFormat = new Date(new Date().getTime() + 60000);
   }
 
-  const files = req.body.files; // will probably need a parser
+  var cron = null;
+  if (frequency !== 'No Repeat') {
+    cron = cronManager.parseDateFrequencyToCron(dateFormat, frequency);
+  }
 
-  // Exec Date management
-  var dateProgSave = req.body.dateProgSave;
-  var timeProgSave = req.body.timeProgSave;
-  dateProgSave = dateProgSave.split('-');
-  timeProgSave = timeProgSave.split(':');
+  if (typeof usersId === 'string' ) {
+    usersId = usersId.split();
+  }
 
-  // In JavaScript - 0 - January, 11 - December
-  const date = new Date(dateProgSave[0], dateProgSave[1] - 1, dateProgSave[2],
-    timeProgSave[0], timeProgSave[1]);
-
-  return saveScheduledAdapter.createSaveScheduled(userId, cron, files).then(
-    function (saveScheduled) {
-      if (cron === null) {
-        nodeSchedule.listCron[saveScheduled.id] = cronManager.createSaveScheduled(date);
-      } else {
-        nodeSchedule.listCron[saveScheduled.id] = cronManager.createAutoSave(cron);
+  for (const user of usersId) {
+    saveScheduledAdapter.createSaveScheduled(user, cron, files.toString()).then(
+      function (saveScheduled) {
+        saveScheduledAdapter.findUserBySaveScheduledId(saveScheduled.id).then(function (username) {
+          logger.setModuleName('Save').setUser({ id: username[0].dataValues.id, name: username[0].dataValues.name }).info(`${username[0].dataValues.name} created a save`);
+          saveScheduledAdapter.createSave(saveScheduled.id, dateFormat).then(function (save) {
+            nodeSchedule.listCron[saveScheduled.id] = cronManager.createSaveScheduled(dateFormat, username[0].dataValues.name, files, save.id, saveScheduled.id);
+          })
+        })
       }
-
-      return saveAdapter.createSave(saveScheduled.id, date);
-    });
+    )
+  }
 };
 
 //
-// Get data from resquest
+// Start save
 // Call adapter
 //
-module.exports.startSave = function (req, res) {
-  const saveId = req.body.saveId;
-  return saveAdapter.saveIsStart(saveId);
+module.exports.startSave = function (saveId) {
+  return saveScheduledAdapter.saveIsStart(saveId);
 };
 
 //
-// Get data from resquest
 // If auto save then create new save
 // Else disable saveSchedule and remove cron from list
 // Call adapters
 //
-module.exports.saveFinish = function (req, res) {
-  const saveId = req.body.saveId;
-  const saveScheduledId = req.body.saveScheduledId;
+module.exports.saveFinish = function (saveScheduledId, saveId, username, files) {
   saveScheduledAdapter.findSaveScheduledById(saveScheduledId).then(function (saveScheduled) {
     if (saveScheduled.cron === null) {
       saveScheduledAdapter.disableSaveScheduled(saveScheduled.id);
-      cronManager.removeCron(saveScheduled.id);
+      //cronManager.removeCron(saveScheduled.id);
     } else {
-      var nextSave = new Date(cronManager.parserCronToDate(saveScheduled.cron));
-      saveAdapter.createSave(saveScheduled.id, nextSave);
+      var nextDateSave = cronManager.parserCronToDate(saveScheduled.cron);
+      saveScheduledAdapter.createSave(saveScheduled.id, nextDateSave).then(function (save) {
+        nodeSchedule.listCron[saveScheduled.id] = cronManager.createSaveScheduled(nextDateSave, username, files, save.id, saveScheduled.id);
+      })
     }
   });
-
-  return saveAdapter.saveIsFinish(saveId);
+  return saveScheduledAdapter.saveIsFinish(saveId);
 };
 
 //
-// Get data from resquest
 // Update Success boolean
-// Save hash of commit
+// Save name of the branch
 // Call adapter
 //
-module.exports.saveSuccess = function (req, res) {
-  const saveId = req.body.saveId;
-  const hash = '#45487';
-  saveAdapter.saveIsSuccess(saveId);
-  return saveAdapter.hashSave(saveId, hash);
+module.exports.saveSuccess = function (saveId, branch) {
+  saveScheduledAdapter.saveIsSuccess(saveId);
+  saveScheduledAdapter.branchSave(saveId, branch);
 };
 
 //
 // Get data from resquest
 // Remove cron from list
+// Disabled saveScheduled
+// Cancel save
 // Call adapter
 //
 module.exports.cancelSave = function (req, res) {
   const saveScheduledId = req.body.saveScheduledId;
+  const saveId = req.body.saveId;
   cronManager.removeCron(saveScheduledId);
-  return saveScheduledAdapter.disableSaveScheduled(saveScheduledId);
-};
-
-//
-// Display save order by saveSchedule
-//
-function displayHistory(savesScheduled, saves) {
-  for (var ss of savesScheduled) {
-    console.log('---------' + ss.id + '---------');
-    console.log(ss.userId);
-    for (var s of saves) {
-      if (ss.id == s.saveScheduledId) {
-        console.log(s.id + '     ' + s.execDate + '      ' + ss.cron);
-      }
-    }
-
-    console.log('---------' + ss.id + '---------');
-  }
-
-  return savesScheduled;
-}
-
-//
-// Get data from request
-// Check to get:
-//   - all saves of all user
-//   - all saves of one/several users
-// Call adapter
-//
-module.exports.getHistorySave = function (req, res) {
-  const userId = []; // init with req.body
-
-  if (userId.length === 0)
-    return saveScheduledAdapter.getAllSaveScheduled().then(function (savesScheduled) {
-      return saveAdapter.getAllSave().then(function (saves) {
-        return displayHistory(savesScheduled, saves);
-      });
-    });
-
-  return saveScheduledAdapter.getAllSaveScheduledByUser(userId).then(function (savesScheduled) {
-    var saveScheduledIds = [];
-    for (var ss of savesScheduled) {
-      saveScheduledIds.push(ss.id);
-    }
-
-    return saveAdapter.getAllSaveBySaveSchedule(saveScheduledIds).then(function (saves) {
-      return displayHistory(savesScheduled, saves);
-    });
-  });
+  saveScheduledAdapter.disableSaveScheduled(saveScheduledId);
+  saveScheduledAdapter.cancelSave(saveId);
+  saveScheduledAdapter.findUserBySaveScheduledId(saveScheduledId).then(function (user) {
+    logger.setModuleName('Save').setUser({ id: user[0].dataValues.id, name: user[0].dataValues.name }).info(`${user[0].dataValues.name} canceled a scheduled save`);
+  })
 };
