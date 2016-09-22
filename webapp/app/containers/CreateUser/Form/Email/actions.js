@@ -11,11 +11,26 @@
 
 import {
   EMAIL_CHANGE,
+  RESET_STATE_EMAIL,
+  EMAIL_ERROR,
 } from './constants';
+
+export function resetStateEmail() {
+  return {
+    type: RESET_STATE_EMAIL,
+  };
+}
 
 export function emailChange(email) {
   return {
     type: EMAIL_CHANGE,
     email,
+  };
+}
+
+export function emailErrorMsg(emailError) {
+  return {
+    type: EMAIL_ERROR,
+    emailError,
   };
 }

@@ -11,11 +11,26 @@
 
 import {
   USERNAME_CHANGE,
+  RESET_STATE_USERNAME,
+  USERNAME_ERROR,
 } from './constants';
+
+export function resetStateUsername() {
+  return {
+    type: RESET_STATE_USERNAME,
+  };
+}
 
 export function usernameChange(username) {
   return {
     type: USERNAME_CHANGE,
     username,
+  };
+}
+
+export function usernameErrorMsg(usernameError) {
+  return {
+    type: USERNAME_ERROR,
+    usernameError,
   };
 }

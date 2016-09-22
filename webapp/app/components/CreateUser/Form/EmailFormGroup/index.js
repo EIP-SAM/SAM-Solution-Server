@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap';
-import styles from '../../styles.css';
+import styles from 'components/CreateUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class CreateUserFormEmailFormGroup extends React.Component {
@@ -20,18 +20,25 @@ export class CreateUserFormEmailFormGroup extends React.Component {
 
   render() {
     let validationState = null;
+    let errorMessage = '';
+
+    if (this.props.emailError !== '') {
+      validationState = 'error';
+      errorMessage = this.props.emailError;
+    }
 
     return (
       <FormGroup controlId="email" className={styles.form} validationState={validationState}>
         <ControlLabel>Email</ControlLabel>
         <FormControl type="email" value={this.props.email} placeholder="Enter email address" onChange={this.onChangeEmail} />
+        <HelpBlock>{errorMessage}</HelpBlock>
       </FormGroup>
     );
   }
 }
-// <HelpBlock>{errorMessage}</HelpBlock>
 
 CreateUserFormEmailFormGroup.propTypes = {
   email: React.PropTypes.string,
   emailChange: React.PropTypes.func,
+  emailError: React.PropTypes.string,
 };

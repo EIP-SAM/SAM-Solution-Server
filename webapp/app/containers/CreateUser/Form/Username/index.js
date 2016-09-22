@@ -9,6 +9,7 @@ import { usernameChange } from './actions';
 function mapStateToProps(state) {
   return {
     username: state.get('createUser').get('CreateUserFormUsernameReducer').username,
+    usernameError: state.get('createUser').get('CreateUserFormUsernameReducer').usernameError,
   };
 }
 

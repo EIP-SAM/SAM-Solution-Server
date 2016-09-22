@@ -11,6 +11,7 @@
 import {
   GROUPS,
   SELECTED_GROUPS,
+  RESET_STATE_GROUPS,
 } from './constants';
 
 const initialState = {
@@ -20,6 +21,8 @@ const initialState = {
 
 function CreateUserFormGroupsReducer(state = initialState, action) {
   switch (action.type) {
+    case RESET_STATE_GROUPS:
+      return Object.assign({}, initialState, {});
     case GROUPS:
       return Object.assign({}, state, {
         groups: action.groups,

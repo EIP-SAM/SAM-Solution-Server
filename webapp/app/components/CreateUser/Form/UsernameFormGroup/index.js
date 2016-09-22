@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap';
-import styles from '../../styles.css';
+import styles from 'components/CreateUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class CreateUserFormUsernameFormGroup extends React.Component {
@@ -19,18 +19,25 @@ export class CreateUserFormUsernameFormGroup extends React.Component {
 
   render() {
     let validationState = null;
+    let errorMessage = '';
+
+    if (this.props.usernameError !== '') {
+      validationState = 'error';
+      errorMessage = this.props.usernameError;
+    }
 
     return (
       <FormGroup controlId="username" className={styles.form} validationState={validationState}>
         <ControlLabel>Username</ControlLabel>
         <FormControl type="text" value={this.props.username} placeholder="Enter username" onChange={this.onChangeUsername} />
+        <HelpBlock>{errorMessage}</HelpBlock>
       </FormGroup>
     );
   }
 }
-// <HelpBlock>{errorMessage}</HelpBlock>
 
 CreateUserFormUsernameFormGroup.propTypes = {
   username: React.PropTypes.string,
+  usernameError: React.PropTypes.string,
   usernameChange: React.PropTypes.func,
 };

@@ -11,11 +11,26 @@
 
 import {
   PASSWORD_CONFIRMATION_CHANGE,
+  RESET_STATE_PASSWORD_CONFIRMATION,
+  PASSWORD_CONFIRMATION_ERROR,
 } from './constants';
+
+export function resetStatePasswordConfirmation() {
+  return {
+    type: RESET_STATE_PASSWORD_CONFIRMATION,
+  };
+}
 
 export function passwordConfirmationChange(passwordConfirmation) {
   return {
     type: PASSWORD_CONFIRMATION_CHANGE,
     passwordConfirmation,
+  };
+}
+
+export function passwordConfirmationErrorMsg(passwordConfirmationError) {
+  return {
+    type: PASSWORD_CONFIRMATION_ERROR,
+    passwordConfirmationError,
   };
 }

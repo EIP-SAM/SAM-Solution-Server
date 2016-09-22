@@ -9,6 +9,7 @@ import { passwordChange } from './actions';
 function mapStateToProps(state) {
   return {
     password: state.get('createUser').get('CreateUserFormPasswordReducer').password,
+    passwordError: state.get('createUser').get('CreateUserFormPasswordReducer').passwordError,
   };
 }
 

@@ -4,14 +4,16 @@
 
 import { connect } from 'react-redux';
 import { CreateUser } from 'components/CreateUser';
+import { resetStateForm } from './Form/actions';
 
 function mapStateToProps() {
   return {
   };
 }
 
-function mapDispatchToProps() {
+function mapDispatchToProps(dispatch) {
   return {
+    resetStateForm: () => dispatch(resetStateForm()),
   };
 }
 

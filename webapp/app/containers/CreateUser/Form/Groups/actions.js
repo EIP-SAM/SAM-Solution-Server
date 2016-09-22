@@ -6,7 +6,14 @@ import request from 'utils/request';
 import {
   GROUPS,
   SELECTED_GROUPS,
+  RESET_STATE_GROUPS,
 } from './constants';
+
+export function resetStateGroups() {
+  return {
+    type: RESET_STATE_GROUPS,
+  };
+}
 
 export function getSelectedGroup(selectedGroup) {
   return {
