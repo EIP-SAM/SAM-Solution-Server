@@ -1,20 +1,19 @@
 //
-// Container Login
+// Container create user
 //
 
 import { connect } from 'react-redux';
-import { createUserRequest } from './actions';
 import { CreateUser } from 'components/CreateUser';
+import { resetStateForm } from './Form/actions';
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {
-    state: state.get('createUser'),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    createUserRequest: (user) => dispatch(createUserRequest(user)),
+    resetStateForm: () => dispatch(resetStateForm()),
   };
 }
 
