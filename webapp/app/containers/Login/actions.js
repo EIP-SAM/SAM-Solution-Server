@@ -34,13 +34,28 @@ export function login(user) {
   };
 }
 
-export function setUserInfo(logged, username, email) {
+export function setUserInfo(logged, user) {
   return {
     type: SET_USER_INFO,
     userInfo: {
       logged,
-      username,
-      email,
+      userId: user.id,
+      username: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    },
+  };
+}
+
+export function resetUserInfo() {
+  return {
+    type: SET_USER_INFO,
+    userInfo: {
+      logged: false,
+      userId: '',
+      username: '',
+      email: '',
+      isAdmin: '',
     },
   };
 }
@@ -54,8 +69,8 @@ export function loginRequest(username, password) {
       .end((err, res) => {
         if (!err && res.body.name) {
           dispatch(login(res.body));
-          dispatch(setUserInfo(true, res.body.name, res.body.email));
-          browserHistory.push('/edit-user/' + username);
+          dispatch(setUserInfo(true, res.body));
+          browserHistory.push(`/edit-user/${username}`);
         }
       });
   };
@@ -67,7 +82,7 @@ export function getUserInfo() {
       .get('/api/logged-in/user/profile')
       .end((err, res) => {
         if (!err) {
-          dispatch(setUserInfo(true, res.body.name, res.body.email));
+          dispatch(setUserInfo(true, res.body));
         } else {
           dispatch(setUserInfo(false));
         }
@@ -83,7 +98,7 @@ export function logoutRequest() {
         if (err) {
           console.log(err);
         } else {
-          dispatch(setUserInfo(false));
+          dispatch(resetUserInfo());
           browserHistory.push('/login');
         }
       });

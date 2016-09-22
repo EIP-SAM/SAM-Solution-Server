@@ -10,6 +10,7 @@ import {
 
 function mapStateToProps(state) {
   return {
+    userInfo: state.get('login').userInfo,
     users: state.get('saveCreation').get('SaveCreationFormUsersReducer').users,
     listAllUsers: state.get('save').get('SaveReducer').users,
     userError: state.get('saveCreation').get('SaveCreationFormUsersReducer').userError,

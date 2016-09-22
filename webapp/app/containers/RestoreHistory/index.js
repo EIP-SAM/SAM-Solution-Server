@@ -6,8 +6,9 @@ import { connect } from 'react-redux';
 import { getHistoryRestoresByUserRequest } from './actions';
 import { RestoreHistory } from 'components/RestoreHistory';
 
-function mapStateToProps() {
+function mapStateToProps(state) {
   return {
+    userInfo: state.get('login').userInfo,
   };
 }
 

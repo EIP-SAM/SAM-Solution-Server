@@ -19,7 +19,8 @@ export class Login extends React.Component {
 
   shouldComponentUpdate(nextProps) {
     if (nextProps.userInfo && nextProps.userInfo.logged) {
-      browserHistory.push('/logs');
+      console.log('In');
+      browserHistory.push(`/edit-user/${nextProps.userInfo.username}`);
       return true;
     }
     return false;
@@ -33,7 +34,7 @@ export class Login extends React.Component {
     this.props.onChangeData(this.props.state.username, event.target.value);
   }
 
-  handleClick(event) {
+  handleClick() {
     this.props.loginRequest(this.props.state.username, this.props.state.password);
   }
 

@@ -4,7 +4,6 @@
 import React from 'react';
 import { Navbar, Nav, NavItem, Image } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { getUser } from 'utils/user';
 import Logo from 'components/Navbar/logo_sam_solution.png';
 import styles from 'components/Navbar/styles.css';
 
@@ -28,7 +27,7 @@ export default class NavbarContainer extends React.Component {
 
   render() {
     let navItems = [];
-    const userInfo = getUser();
+    const userInfo = this.props.userInfo;
 
     if (userInfo.isAdmin) {
       navItems = [
@@ -45,13 +44,11 @@ export default class NavbarContainer extends React.Component {
       ];
     } else {
       navItems = [
-      { pathname: '#', value: 'Users' },
-      { pathname: `/save/${userInfo.username}`, value: 'Save' },
+      { pathname: `/edit-user/${userInfo.username}`, value: 'Users' },
+      { pathname: `/save/${userInfo.username}/${userInfo.userId}`, value: 'Save' },
       { pathname: `/restore/${userInfo.username}`, value: 'Restore' },
       { pathname: '#', value: 'Migration' },
       { pathname: '#', value: 'Software' },
-      { pathname: '/logs', value: 'Logs' },
-      { pathname: '/statistics', value: 'Statistics' },
       { pathname: '#', value: 'Help' },
       { pathname: '/login', value: 'Logout' },
       ];
@@ -78,5 +75,6 @@ export default class NavbarContainer extends React.Component {
 }
 
 NavbarContainer.propTypes = {
+  userInfo: React.PropTypes.object,
   logoutRequest: React.PropTypes.func,
 };

@@ -1,5 +1,5 @@
 //
-// Navbar
+// App container
 //
 
 import { connect } from 'react-redux';
