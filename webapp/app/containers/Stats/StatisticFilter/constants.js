@@ -2,4 +2,4 @@
 // StatisticFilter constants
 //
 
-export const GET_FILTERS = 'GET_FILTERS';
+export const GET_STATS_FILTERS_LIST = 'GET_STATS_FILTERS_LIST';
