@@ -63,7 +63,7 @@ export function createRestoresRequest(userId, files, saveId, redirect) {
       .send({
         userId,
         saveId,
-        files,
+        files: files.toString(),
       })
       .end(() => {
         if (redirect) {
