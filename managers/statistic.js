@@ -82,9 +82,6 @@ module.exports.getAllStatisticsByType = function (type) {
 }
 
 module.exports.getStatisticByTypeAndName = function (type, name) {
-    // console.log(type + ' ' + name);
-    // console.log(module.exports.prepareDataForGraph(module.exports.statisticFunctions[type][name]()));
-    // return module.exports.prepareDataForGraph(module.exports.statisticGetMethodForEntity(type, name));
     return new Promise(function(fulfill, reject){
         module.exports.statisticFunctions[type][name]().then(function(data) {
             fulfill( module.exports.prepareDataForGraph(data));
@@ -93,8 +90,6 @@ module.exports.getStatisticByTypeAndName = function (type, name) {
 }
 
 module.exports.getStatisticTypeAndNameListByType = function (type) {
-    console.log('TYPE : ' + type);
-
     var functions = module.exports.statisticFunctions[type];
     var data = [];
 
