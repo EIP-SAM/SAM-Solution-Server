@@ -5,6 +5,7 @@
 import React from 'react';
 import { FormGroup, FormControl, ControlLabel, Image } from 'react-bootstrap';
 import { LinkContainerButton } from '../Button';
+import { browserHistory } from 'react-router';
 import Logo from '../App/logo_sam_solution.png';
 import styles from './styles.css';
 
@@ -16,9 +17,12 @@ export class Login extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentWillMount() {
-    this.props.logoutRequest();
-    this.props.onLoginPage(true);
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.userInfo && nextProps.userInfo.logged) {
+      browserHistory.push('/logs');
+      return true;
+    }
+    return false;
   }
 
   onChangeUsername(event) {
@@ -35,7 +39,7 @@ export class Login extends React.Component {
 
   render() {
     return (
-      <div container className={styles.login}>
+      <div className={styles.login}>
         <Image src={Logo} responsive className={styles.logo} />
         <form>
           <FormGroup controlId="formBasicText">
@@ -55,8 +59,7 @@ export class Login extends React.Component {
 
 Login.propTypes = {
   state: React.PropTypes.object,
+  userInfo: React.PropTypes.object,
   loginRequest: React.PropTypes.func,
-  logoutRequest: React.PropTypes.func,
   onChangeData: React.PropTypes.func,
-  onLoginPage: React.PropTypes.func,
 };

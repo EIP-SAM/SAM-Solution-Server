@@ -11,6 +11,10 @@ import styles from 'components/Navbar/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class NavbarContainer extends React.Component {
+  logout() {
+    this.props.logoutRequest();
+  }
+
   render() {
     let navItems = [];
     const userInfo = getUser();
@@ -26,7 +30,7 @@ export default class NavbarContainer extends React.Component {
       { pathname: '/logs', value: 'Logs' },
       { pathname: '/statistics', value: 'Statistics' },
       { pathname: '#', value: 'Help' },
-      { pathname: '/login', value: 'Logout' },
+      { pathname: '/login', value: 'Logout', onClick: this.logout },
       ];
     } else {
       navItems = [
@@ -38,11 +42,11 @@ export default class NavbarContainer extends React.Component {
       { pathname: '/logs', value: 'Logs' },
       { pathname: '/statistics', value: 'Statistics' },
       { pathname: '#', value: 'Help' },
-      { pathname: '/login', value: 'Logout' },
+      { pathname: '/login', value: 'Logout', onClick: this.logout },
       ];
     }
 
-    const navBar = (
+    return (
       <Navbar inverse className={styles.position}>
         <Navbar.Header className={styles.noFloat}>
           <Navbar.Brand className={styles.noFloat}>
@@ -53,7 +57,7 @@ export default class NavbarContainer extends React.Component {
         <Navbar.Collapse className={styles.collapse}>
           <Nav className={styles.menu}>
             {navItems.map((item, i) =>
-              <LinkContainer key={`navItem-${i}`} to={{ pathname: item.pathname }}>
+              <LinkContainer onClick={() => this.logout()} key={`navItem-${i}`} to={{ pathname: item.pathname }}>
                 <NavItem eventKey={i} className={styles.menuItem}>{item.value}</NavItem>
               </LinkContainer>
             )}
@@ -61,16 +65,9 @@ export default class NavbarContainer extends React.Component {
         </Navbar.Collapse>
       </Navbar>
     );
-    const empty = (<span></span>);
-    const endNavBar = (!this.props.username.isLogin) ? navBar : empty;
-
-    return (
-      <span>{endNavBar}</span>
-    );
   }
 }
 
-NavbarContainer.propTypes = {
-  username: React.PropTypes.object,
-  onLoginPage: React.PropTypes.func,
+Navbar.propTypes = {
+  logoutRequest: React.PropTypes.func,
 };

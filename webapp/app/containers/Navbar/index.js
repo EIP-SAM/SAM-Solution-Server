@@ -4,14 +4,14 @@
 
 import { connect } from 'react-redux';
 import Navbar from 'components/Navbar';
+import { logoutRequest } from 'containers/Login/actions';
 
-function mapStateToProps(state) {
+function mapDispatchToProps(dispatch) {
   return {
-    username: state.get('login'),
+    logoutRequest: () => dispatch(logoutRequest()),
   };
 }
-
 export default connect(
-  mapStateToProps,
   null,
+  mapDispatchToProps,
 )(Navbar);

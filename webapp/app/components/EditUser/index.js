@@ -54,7 +54,6 @@ export class EditUser extends React.Component {
       for (let i = 0; i < this.user.groups.length; i++) {
         if (this.user.groups[i] === name) {
           this.user.groups.splice(i, 1);
-          console.log(this.user.groups);
           break;
         }
       }
@@ -70,7 +69,6 @@ export class EditUser extends React.Component {
           if (check === 1) {
             this.user.groups.push(this.props.state.groups[i].name);
           }
-          console.log(this.user.groups);
           break;
         }
       }
@@ -152,7 +150,7 @@ export class EditUser extends React.Component {
       );
     }
     return (
-      <div container className={styles.editUser}>
+      <div className={styles.editUser}>
         <form>
           <PageHeader>Edit user</PageHeader>
           <FormGroup controlId="formBasicText">
