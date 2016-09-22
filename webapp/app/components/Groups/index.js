@@ -5,12 +5,10 @@
 import React from 'react';
 import { PageHeader } from 'react-bootstrap';
 import { GroupTable } from 'components/Groups/Table';
+import GroupsButton from 'containers/Groups/Button';
 import styles from './styles.css';
 
 export class Groups extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentWillMount() {
     this.props.getGroupsRequest();
@@ -20,6 +18,7 @@ export class Groups extends React.Component {
     return (
       <div container className={styles.groups}>
         <PageHeader>Groups</PageHeader>
+        <GroupsButton />
         <GroupTable
           state={this.props.state}
         />
