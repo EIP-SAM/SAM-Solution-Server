@@ -11,7 +11,7 @@ import styles from '../../styles.css';
 export class CreateUserFormButtons extends React.Component {
 
   handleCreateClick() {
-    this.props.createUserRequest(this.props.username, this.props.email, this.props.password, this.props.passwordConfirmation);
+    this.props.createUserRequest(this.props.username, this.props.email, this.props.password, this.props.passwordConfirmation, this.props.selectedGroup);
   }
 
   handleCancelClick() {
@@ -33,5 +33,6 @@ CreateUserFormButtons.propTypes = {
   email: React.PropTypes.string,
   password: React.PropTypes.string,
   passwordConfirmation: React.PropTypes.string,
+  selectedGroup: React.PropTypes.array,
   createUserRequest: React.PropTypes.func,
 };

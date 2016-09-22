@@ -13,10 +13,12 @@ import CreateUserFormUsernameReducer from './Username/reducer';
 import CreateUserFormEmailReducer from './Email/reducer';
 import CreateUserFormPasswordReducer from './Password/reducer';
 import CreateUserFormPasswordConfirmationReducer from './PasswordConfirmation/reducer';
+import CreateUserFormGroupsReducer from './Groups/reducer';
 
 export default combineReducers({
   CreateUserFormUsernameReducer,
   CreateUserFormEmailReducer,
   CreateUserFormPasswordReducer,
   CreateUserFormPasswordConfirmationReducer,
+  CreateUserFormGroupsReducer,
 });

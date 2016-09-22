@@ -11,14 +11,14 @@
 import { browserHistory } from 'react-router';
 import request from 'utils/request';
 
-export function createUserRequest(username, email, password, passwordConfirmation) {
+export function createUserRequest(username, email, password, passwordConfirmation, selectedGroup) {
   const users = [{
     name: username,
     email,
     password,
     confirmation: passwordConfirmation,
+    groups: selectedGroup,
   }];
-
   return function returnCreateUserRequest() {
     return request
       .post('/api/logged-in/admin/users/create')

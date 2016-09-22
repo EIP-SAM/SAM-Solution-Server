@@ -12,12 +12,13 @@ function mapStateToProps(state) {
     email: state.get('createUser').get('CreateUserFormEmailReducer').email,
     password: state.get('createUser').get('CreateUserFormPasswordReducer').password,
     passwordConfirmation: state.get('createUser').get('CreateUserFormPasswordConfirmationReducer').passwordConfirmation,
+    selectedGroup: state.get('createUser').get('CreateUserFormGroupsReducer').selectedGroup,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    createUserRequest: (username, email, password, passwordConfirmation) => dispatch(createUserRequest(username, email, password, passwordConfirmation)),
+    createUserRequest: (username, email, password, passwordConfirmation, selectedGroup) => dispatch(createUserRequest(username, email, password, passwordConfirmation, selectedGroup)),
   };
 }
 
