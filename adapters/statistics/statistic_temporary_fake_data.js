@@ -116,30 +116,6 @@ module.exports.TESTDEFONCTION5 = function () {
   });
 }
 
-
-// module.exports.TESTDEFONCTION6 = function () {
-//   var returnData = {
-//     type: 'polar',
-//     title: 'Graphique polaire type des ordinateurs',
-//     dataset: [
-//       {
-//         title: "portable",
-//         value: 200,
-//       },
-//       {
-//         title: "fixe",
-//         value: 210,
-//       },
-//       {
-//         title: "ultrabook",
-//         value: 50,
-//       },
-//     ]
-//   };
-//
-//   return (returnData);
-// }
-
 module.exports.TESTDEFONCTION7 = function () {
   return new Promise(function(fulfill, reject) {
     var returnData = {

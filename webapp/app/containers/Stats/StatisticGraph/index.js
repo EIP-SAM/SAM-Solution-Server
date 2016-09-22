@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { getGraphFromServer } from './actions';
+import { getGraphFromServer, getGraphListByType, getGraphFromServerByTypeAndName, clearGraph } from './actions';
 import { StatisticGraphComponent } from 'components/Stats/StatisticGraph';
 
 function mapStateToProps(state) {
@@ -14,7 +14,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getGraphFromServer: (type) => dispatch(getGraphFromServer(type)),
+    getGraphListByType: (type) => dispatch(getGraphListByType(type)),
+    getGraphFromServerByTypeAndName: (type, name) => dispatch(getGraphFromServerByTypeAndName(type, name)),
+    clearGraph: () => dispatch(clearGraph()),
   };
 }
 
