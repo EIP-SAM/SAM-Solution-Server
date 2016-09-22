@@ -17,8 +17,6 @@ import {
 
 const initialState = {
   allUsers: [],
-  listTypeUsers: [],
-  listGroupsUsers: [],
 };
 
 function RestoreFiltersReducer(state = initialState, action) {

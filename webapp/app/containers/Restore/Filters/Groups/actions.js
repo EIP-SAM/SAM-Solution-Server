@@ -4,7 +4,7 @@
 
 import request from 'utils/request';
 import {
-  GROUPS,
+  USERS_GROUPS,
   CURRENT_GROUP,
 } from './constants';
 
@@ -17,8 +17,8 @@ export function getCurrentGroup(currentGroup) {
 
 export function getGroups(groups) {
   return {
-    type: GROUPS,
-    groups,
+    type: USERS_GROUPS,
+    usersGroups,
   };
 }
 
@@ -27,7 +27,10 @@ export function getGroupsRequest() {
     return request
     .get('/api/logged-in/admin/groups')
     .end((err, res) => {
-      dispatch(getGroups(res.body.groups));
+      if (err && res.statusCode == 401) {
+        browserHistory.push('/login');
+      }
+      dispatch(getUsersGroups(res.body.groups));
     });
   };
 }

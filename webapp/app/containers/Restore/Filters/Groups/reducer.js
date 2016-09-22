@@ -9,7 +9,7 @@
 //
 
 import {
-  GROUPS,
+  USERS_GROUPS,
   CURRENT_GROUP,
 } from './constants';
 
@@ -20,7 +20,7 @@ const initialState = {
 
 function RestoreGroupsFilterReducer(state = initialState, action) {
   switch (action.type) {
-    case GROUPS:
+    case USERS_GROUPS:
       return Object.assign({}, state, {
         groups: action.groups,
       });
