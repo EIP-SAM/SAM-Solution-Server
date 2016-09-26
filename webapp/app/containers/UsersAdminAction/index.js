@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { getCurrentUserRequest } from 'containers/EditUser/actions';
+import { getCurrentUserRequest } from 'containers/EditUser/Form/actions';
 import { UsersAdminAction } from 'components/UsersAdminAction/';
 
 function mapStateToProps(state) {

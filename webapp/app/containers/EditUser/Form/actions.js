@@ -27,16 +27,16 @@ export function getUser(user) {
   };
 }
 
-export function getUserRequest(id, callback) {
+export function getUserRequest(id) {
   return function returnGetUserRequest(dispatch) {
     return request
-      .get('/api/logged-in/user?id=' + id)
+      .get(`/api/logged-in/user?id=${id}`)
       .end((err, res) => {
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
         dispatch(getUser(res.body));
-        callback(res.body.groups);
+        dispatch(getGroupsRequest(res.body.groups));
       });
   };
 }
@@ -82,7 +82,7 @@ export function editUserAdminRequest(users) {
 
         dispatch(editUser(res.body));
         if (res.body.users) {
-          browserHistory.push('/edit-user/' + users[0].name);
+          browserHistory.push(`/edit-user/${users[0].name}`);
         }
       });
   };
@@ -101,25 +101,26 @@ export function editUserRequest(user) {
 
         dispatch(editUser(res.body));
         if (res.body.name) {
-          browserHistory.push('/edit-user/' + user.id);
+          browserHistory.push(`/edit-user/${user.id}`);
         }
       });
   };
 }
 
 export function getGroups(groups, user) {
-  var usersGroups = [];
-  var i = 0;
+  const usersGroups = [];
+  let i = 0;
   while (i < groups.length) {
-    var j = 0;
+    let j = 0;
     while (j < user.length) {
-      if (user[j].name == groups[i].name) {
+      if (user[j].name === groups[i].name) {
         usersGroups.push(true);
         break;
       }
       ++j;
-      if (j == user.length)
+      if (j === user.length) {
         usersGroups.push(false);
+      }
     }
     i++;
   }
