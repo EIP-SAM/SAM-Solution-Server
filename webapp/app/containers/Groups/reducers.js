@@ -12,8 +12,11 @@ import {
   GET_GROUPS,
 } from './constants';
 
+const initialState = {
+  groups: [],
+};
 
-function groupsReducer(state = null, action) {
+function groupsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_GROUPS:
       return Object.assign({}, state, {

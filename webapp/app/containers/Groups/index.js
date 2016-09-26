@@ -6,9 +6,8 @@ import { connect } from 'react-redux';
 import { getGroupsRequest } from './actions';
 import { Groups } from 'components/Groups';
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {
-    state: state.get('groups'),
   };
 }
 
