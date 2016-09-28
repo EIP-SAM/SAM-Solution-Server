@@ -19,8 +19,8 @@ import {
 export function getGroups(groups) {
   return {
     type: GET_GROUPS,
-    groups: groups,
-  }
+    groups,
+  };
 }
 
 export function getGroupsRequest() {
@@ -31,8 +31,7 @@ export function getGroupsRequest() {
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
-
-        dispatch(getGroups(res.body));
-    });
+        dispatch(getGroups(res.body.groups));
+      });
   };
 }
