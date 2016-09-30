@@ -25,19 +25,9 @@ import {
 } from './Email/actions';
 
 import {
-  GET_USER,
-  EDIT_USER,
-  GET_CURRENT_USER,
   EDIT_USER_ID,
   EDIT_USER_RESET_USER_ID,
 } from './constants';
-
-export function getUser(user) {
-  return {
-    type: GET_USER,
-    user,
-  };
-}
 
 export function resetStateForm() {
   return function resetState(dispatch) {
@@ -78,8 +68,6 @@ export function getUserRequest(id) {
           groupsName = res.body.groups.map((group) => group.name);
         }
         dispatch(getUserGroups(groupsName));
-
-        dispatch(getUser(res.body));
       });
   };
 }
@@ -106,54 +94,6 @@ export function editUserRequest(userId, username, email, password, passwordConfi
 
         browserHistory.goBack();
         dispatch(resetStateForm());
-      });
-  };
-}
-
-
-export function getCurrentUser(user) {
-  return {
-    type: GET_CURRENT_USER,
-    currentUser: user,
-  };
-}
-
-export function getCurrentUserRequest() {
-  return function returnGetCurrentUserRequest(dispatch) {
-    return request
-      .get('/api/logged-in/user/profile')
-      .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
-
-        dispatch(getCurrentUser(res.body));
-      });
-  };
-}
-
-export function editUser(user) {
-  return {
-    type: EDIT_USER,
-    user,
-  };
-}
-
-export function editUserAdminRequest(users) {
-  return function returnEditUserRequest(dispatch) {
-    return request
-      .post('/api/logged-in/admin/users/update')
-      .type('json')
-      .send({ users })
-      .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
-
-        dispatch(editUser(res.body));
-        if (res.body.users) {
-          browserHistory.push(`/edit-user/${users[0].name}`);
-        }
       });
   };
 }

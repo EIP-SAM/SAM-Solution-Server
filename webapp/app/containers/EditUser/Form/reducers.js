@@ -15,10 +15,6 @@ import EditUserFormPasswordReducer from './Password/reducer';
 import EditUserFormPasswordConfirmationReducer from './PasswordConfirmation/reducer';
 import EditUserFormGroupsReducer from './Groups/reducer';
 import {
-  GET_USER,
-  EDIT_USER,
-  GET_GROUPS,
-  GET_CURRENT_USER,
   EDIT_USER_ID,
   EDIT_USER_RESET_USER_ID,
 } from './constants';
@@ -29,21 +25,6 @@ const initialState = {
 
 function EditUserFormReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_USER:
-      return Object.assign({}, state, {
-        user: action.user,
-      });
-    case EDIT_USER:
-      return Object.assign({}, state, {});
-    case GET_GROUPS:
-      return Object.assign({}, state, {
-        groups: action.groups,
-        usersGroups: action.usersGroups,
-      });
-    case GET_CURRENT_USER:
-      return Object.assign({}, state, {
-        currentUser: action.currentUser,
-      });
     case EDIT_USER_RESET_USER_ID:
       return Object.assign({}, state, {
         userId: 0,
