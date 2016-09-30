@@ -8,6 +8,10 @@ import EditUserForm from 'containers/EditUser/Form';
 
 /* eslint-disable react/prefer-stateless-function */
 export class EditUser extends React.Component {
+  componentWillUnmount() {
+    this.props.resetStateForm();
+  }
+
   render() {
     return (
       <div>
@@ -17,3 +21,7 @@ export class EditUser extends React.Component {
     );
   }
 }
+
+EditUser.propTypes = {
+  resetStateForm: React.PropTypes.func,
+};

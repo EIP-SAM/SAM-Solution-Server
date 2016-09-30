@@ -10,20 +10,55 @@
 //
 
 import request from 'utils/request';
-
 import { browserHistory } from 'react-router';
+import { resetStatePassword } from './Password/actions';
+import { resetStatePasswordConfirmation } from './PasswordConfirmation/actions';
+import { getUserGroups } from './Groups/actions';
+import {
+  usernameChange,
+  resetStateUsername,
+ } from './Username/actions';
+
+import {
+  emailChange,
+  resetStateEmail,
+} from './Email/actions';
 
 import {
   GET_USER,
   EDIT_USER,
-  GET_GROUPS,
   GET_CURRENT_USER,
+  EDIT_USER_ID,
+  EDIT_USER_RESET_USER_ID,
 } from './constants';
 
 export function getUser(user) {
   return {
     type: GET_USER,
     user,
+  };
+}
+
+export function resetStateForm() {
+  return function resetState(dispatch) {
+    dispatch(resetStateUserId());
+    dispatch(resetStateUsername());
+    dispatch(resetStateEmail());
+    dispatch(resetStatePassword());
+    dispatch(resetStatePasswordConfirmation());
+  };
+}
+
+export function resetStateUserId() {
+  return {
+    type: EDIT_USER_RESET_USER_ID,
+  };
+}
+
+export function getUserId(userId) {
+  return {
+    type: EDIT_USER_ID,
+    userId,
   };
 }
 
@@ -35,11 +70,46 @@ export function getUserRequest(id) {
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
+        dispatch(getUserId(res.body.id));
+        dispatch(usernameChange(res.body.name));
+        dispatch(emailChange(res.body.email));
+        let groupsName = [];
+        if (res.body.groups.length > 0) {
+          groupsName = res.body.groups.map((group) => group.name);
+        }
+        dispatch(getUserGroups(groupsName));
+
         dispatch(getUser(res.body));
-        dispatch(getGroupsRequest(res.body.groups));
       });
   };
 }
+
+export function editUserRequest(userId, username, email, password, passwordConfirmation, userGroups) {
+  const user = {
+    id: userId,
+    name: username,
+    email,
+    password,
+    confirmation: passwordConfirmation,
+    groups: userGroups,
+  };
+
+  return function returnEditUserRequest(dispatch) {
+    return request
+      .post('/api/logged-in/user/update')
+      .type('json')
+      .send(user)
+      .end((err, res) => {
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
+        browserHistory.goBack();
+        dispatch(resetStateForm());
+      });
+  };
+}
+
 
 export function getCurrentUser(user) {
   return {
@@ -84,63 +154,6 @@ export function editUserAdminRequest(users) {
         if (res.body.users) {
           browserHistory.push(`/edit-user/${users[0].name}`);
         }
-      });
-  };
-}
-
-export function editUserRequest(user) {
-  return function returnEditUserRequest(dispatch) {
-    return request
-      .post('/api/logged-in/user/update')
-      .type('json')
-      .send(user)
-      .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
-
-        dispatch(editUser(res.body));
-        if (res.body.name) {
-          browserHistory.push(`/edit-user/${user.id}`);
-        }
-      });
-  };
-}
-
-export function getGroups(groups, user) {
-  const usersGroups = [];
-  let i = 0;
-  while (i < groups.length) {
-    let j = 0;
-    while (j < user.length) {
-      if (user[j].name === groups[i].name) {
-        usersGroups.push(true);
-        break;
-      }
-      ++j;
-      if (j === user.length) {
-        usersGroups.push(false);
-      }
-    }
-    i++;
-  }
-  return {
-    type: GET_GROUPS,
-    groups,
-    usersGroups,
-  };
-}
-
-export function getGroupsRequest(groups) {
-  return function returnGetGroupsRequest(dispatch) {
-    return request
-      .get('/api/logged-in/admin/groups')
-      .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
-
-        dispatch(getGroups(res.body.groups, groups));
       });
   };
 }
