@@ -108,10 +108,8 @@ module.exports.getLogsWithMultipleCriteria = function (queryCriteria) {
 // Get the numbers of logs
 //
 module.exports.getNumberOfLogs = function() {
-  console.log('getNumberOfLogs => Adapter');
   return new Promise(function (fulfill) {
-    logModel.find({})
-    .count()
+    logModel.count()
     .exec(function (err, logsNumber) {
       if (err) {
         logger.error(err);

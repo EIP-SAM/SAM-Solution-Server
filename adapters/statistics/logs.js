@@ -10,20 +10,19 @@ module.exports.numberOfLogs = function () {
   return new Promise(function(fulfill) {
     logsAdapters.getNumberOfLogs().then(function (logsNumbers) {
 
-      console.log('Logs numbers: ', logsNumbers);
-
-      let returnDate = {
+      let returnData = {
         type: 'bar',
-        label: ['total'],
+        labels: ['total'],
         title: 'Bar: Nombres de logs effectués depuis le début',
         dataset: [
           {
             title: 'Nombres de logs',
-            data: logsNumbers,
+            data: [logsNumbers.data],
           },
         ]
       };
-      fulfill(returnDate);
+
+      fulfill(returnData);
     });
   });
 };

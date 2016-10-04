@@ -1,7 +1,7 @@
 var statManager = require('../managers/statistic');
-var dataAdapters = require('../adapters/statistics/statistic_temporary_fake_data');
-var restoreAdapters = require('../adapters/statistics/restore');
-var saveAdapters = require('../adapters/statistics/save');
+var dataAdapters = require('./statistics/statistic_temporary_fake_data');
+var restoreAdapters = require('./statistics/restore');
+var saveAdapters = require('./statistics/save');
 var logsAdapters = require('./statistics/logs');
 
 module.exports.registerGraphs = function () {
