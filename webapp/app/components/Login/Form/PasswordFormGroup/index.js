@@ -36,7 +36,7 @@ export class LoginFormPasswordFormGroup extends React.Component {
   }
 }
 
-EditUserFormPasswordFormGroup.propTypes = {
+LoginFormPasswordFormGroup.propTypes = {
   password: React.PropTypes.string,
   passwordError: React.PropTypes.string,
   passwordChange: React.PropTypes.func,

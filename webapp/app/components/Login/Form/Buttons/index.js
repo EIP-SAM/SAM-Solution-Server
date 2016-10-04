@@ -32,7 +32,7 @@ export class LoginFormButtons extends React.Component {
   }
 }
 
-EditUserFormButtons.propTypes = {
+LoginFormButtons.propTypes = {
   username: React.PropTypes.string,
   password: React.PropTypes.string,
   loginRequest: React.PropTypes.func,

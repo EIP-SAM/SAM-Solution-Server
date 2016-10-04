@@ -10,8 +10,10 @@
 //
 
 import request from 'utils/request';
-
 import { browserHistory } from 'react-router';
+import { resetStateUsername } from './Username/actions';
+import { resetStatePassword } from './Password/actions';
+import { setUserInfo } from 'containers/App/actions';
 
 import {
   LOGIN,
@@ -31,46 +33,6 @@ export function login(user) {
   };
 }
 
-export function setUserInfo(logged, user) {
-  return {
-    type: SET_USER_INFO,
-    userInfo: {
-      logged,
-      userId: user.id,
-      username: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-    },
-  };
-}
-
-export function resetUserInfo() {
-  return {
-    type: SET_USER_INFO,
-    userInfo: {
-      logged: false,
-      userId: '',
-      username: '',
-      email: '',
-      isAdmin: '',
-    },
-  };
-}
-
-export function getUserInfo() {
-  return function startAction(dispatch) {
-    return request
-      .get('/api/logged-in/user/profile')
-      .end((err, res) => {
-        if (!err) {
-          dispatch(setUserInfo(true, res.body));
-        } else {
-          dispatch(resetUserInfo());
-        }
-      });
-  };
-}
-
 export function loginRequest(username, password) {
   return function returnLoginRequest(dispatch) {
     return request
@@ -82,21 +44,6 @@ export function loginRequest(username, password) {
           dispatch(login(res.body));
           dispatch(setUserInfo(true, res.body));
           browserHistory.push('/edit-user/' + res.body.id);
-        }
-      });
-  };
-}
-
-export function logoutRequest() {
-  return function startAction(dispatch) {
-    return request
-      .post('/api/logged-in/user/logout')
-      .end((err) => {
-        if (err) {
-          console.log(err);
-        } else {
-          dispatch(resetUserInfo());
-          browserHistory.push('/login');
         }
       });
   };
