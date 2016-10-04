@@ -132,6 +132,33 @@ module.exports.getNumberOfLogsGroupByModuleName = function() {
 };
 
 //
+// Get the numbers of logs group by level
+//
+module.exports.getNumberOfLogsGroupByLevel = function() {
+  var aggregate = [
+    {
+      $group: {
+        _id: '$level',
+        total: {
+          $sum: 1
+        }
+      }
+    }
+  ];
+
+  return new Promise(function (fulfill) {
+    logModel.aggregate(aggregate, function(err, logs) {
+      if (err) {
+        logger.error(err);
+        fulfill({ error: true, data: err });
+      } else {
+        fulfill({ error: false, data: logs });
+      }
+    });
+  });
+};
+
+//
 // Get all the log from database
 //
 module.exports.getLogs = function () {

@@ -19,14 +19,27 @@ module.exports.getLogsWithMultipleCriteria = function (criteria) {
 };
 
 //
-// Launch getNumberOfLogs adapters and return the result
+// Launch getNumberOfLogsGroupByModuleName adapters and return the result
 //
-module.exports.getNumberOfLogs = function () {
+module.exports.getNumberOfLogsGroupByModuleName = function () {
   return new Promise(function (fulfill) {
-    var promise = logAdapter.getNumberOfLogs();
+    var promise = logAdapter.getNumberOfLogsGroupByModuleName();
 
-    promise.then(function (logsNumbersData) {
-      fulfill(logsNumbersData);
+    promise.then(function (logs) {
+      fulfill(logs);
+    })
+  });
+}
+
+//
+// Launch getNumberOfLogsGroupByModuleName adapters and return the result
+//
+module.exports.getNumberOfLogsGroupByLevel = function () {
+  return new Promise(function (fulfill) {
+    var promise = logAdapter.getNumberOfLogsGroupByLevel();
+
+    promise.then(function (logs) {
+      fulfill(logs);
     })
   });
 }
