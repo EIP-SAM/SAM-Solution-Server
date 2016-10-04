@@ -10,11 +10,10 @@ module.exports.numberOfLogs = function () {
   return new Promise(function(fulfill) {
     logsAdapters.getNumberOfLogs().then(function (logsNumbers) {
 
-      console.log('Logs numbers: ', logsNumbers);
-
-      let returnDate = {
+      var returnDate = {
+        complete: 1,
         type: 'bar',
-        label: ['total'],
+        labels: ['total'],
         title: 'Bar: Nombres de logs effectués depuis le début',
         dataset: [
           {
