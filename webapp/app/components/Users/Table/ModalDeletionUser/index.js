@@ -1,5 +1,5 @@
 //
-// Modal to delete a scheduled save in save history page
+// Modal to delete a user in users page
 //
 
 import React from 'react';
