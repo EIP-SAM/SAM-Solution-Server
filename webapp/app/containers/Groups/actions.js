@@ -13,12 +13,26 @@ import request from 'utils/request';
 import { browserHistory } from 'react-router';
 
 import {
-  GET_GROUPS,
+  GROUPS_GET_GROUPS,
+  GROUPS_REMOVE_ALERT,
+  GROUPS_RESET_ALERT,
 } from './constants';
+
+export function resetAlert() {
+  return {
+    type: GROUPS_RESET_ALERT,
+  };
+}
+
+export function removeAlert() {
+  return {
+    type: GROUPS_REMOVE_ALERT,
+  };
+}
 
 export function getGroups(groups) {
   return {
-    type: GET_GROUPS,
+    type: GROUPS_GET_GROUPS,
     groups,
   };
 }
