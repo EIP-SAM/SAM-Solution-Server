@@ -105,6 +105,25 @@ module.exports.getLogsWithMultipleCriteria = function (queryCriteria) {
 };
 
 //
+// Get the numbers of logs
+//
+module.exports.getNumberOfLogs = function() {
+  console.log('getNumberOfLogs => Adapter');
+  return new Promise(function (fulfill) {
+    logModel.find({})
+    .count()
+    .exec(function (err, logsNumber) {
+      if (err) {
+        logger.error(err);
+        fulfill({ error: true, data: err });
+      } else {
+        fulfill({ error: false, data: logsNumber });
+      }
+    });
+  });
+};
+
+//
 // Get all the log from database
 //
 module.exports.getLogs = function () {

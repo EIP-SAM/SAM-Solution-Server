@@ -19,6 +19,19 @@ module.exports.getLogsWithMultipleCriteria = function (criteria) {
 };
 
 //
+// Launch getNumberOfLogs adapters and return the result
+//
+module.exports.getNumberOfLogs = function () {
+  return new Promise(function (fulfill) {
+    var promise = logAdapter.getNumberOfLogs();
+
+    promise.then(function (logsNumbersData) {
+      fulfill(logsNumbersData);
+    })
+  });
+}
+
+//
 // Launch getLogsfrom adapters and return the result
 //
 module.exports.getLogs = function () {

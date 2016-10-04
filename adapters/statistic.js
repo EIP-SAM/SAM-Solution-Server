@@ -2,6 +2,7 @@ var statManager = require('../managers/statistic');
 var dataAdapters = require('../adapters/statistics/statistic_temporary_fake_data');
 var restoreAdapters = require('../adapters/statistics/restore');
 var saveAdapters = require('../adapters/statistics/save');
+var logsAdapters = require('./statistics/logs');
 
 module.exports.registerGraphs = function () {
   statManager.statisticRegisterMethodForEntity('User', 'GraphRadarOfSave', dataAdapters.TESTDEFONCTION);
@@ -13,6 +14,7 @@ module.exports.registerGraphs = function () {
   // statManager.statisticRegisterMethodForEntity('Save', 'GraphRadarOfSave', dataAdapters.TESTDEFONCTION8);
   statManager.statisticRegisterMethodForEntity('Restore', 'GraphLineOfRestore', restoreAdapters.numberRestoresPerMonthByUser);
   statManager.statisticRegisterMethodForEntity('Save', 'GraphLineOfSave', saveAdapters.numberSavesPerMonthByUser);
+  statManager.statisticRegisterMethodForEntity('Logs', 'GraphBarOfLogs', logsAdapters.numberOfLogs);
 };
 
 /*
