@@ -105,17 +105,27 @@ module.exports.getLogsWithMultipleCriteria = function (queryCriteria) {
 };
 
 //
-// Get the numbers of logs
+// Get the numbers of logs group by module name
 //
-module.exports.getNumberOfLogs = function() {
+module.exports.getNumberOfLogsGroupByModuleName = function() {
+  var aggregate = [
+    {
+      $group: {
+        _id: '$moduleName',
+        total: {
+          $sum: 1
+        }
+      }
+    }
+  ];
+
   return new Promise(function (fulfill) {
-    logModel.count()
-    .exec(function (err, logsNumber) {
+    logModel.aggregate(aggregate, function(err, logs) {
       if (err) {
         logger.error(err);
         fulfill({ error: true, data: err });
       } else {
-        fulfill({ error: false, data: logsNumber });
+        fulfill({ error: false, data: logs });
       }
     });
   });

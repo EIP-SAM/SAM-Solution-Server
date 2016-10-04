@@ -14,7 +14,7 @@ module.exports.registerGraphs = function () {
   // statManager.statisticRegisterMethodForEntity('Save', 'GraphRadarOfSave', dataAdapters.TESTDEFONCTION8);
   statManager.statisticRegisterMethodForEntity('Restore', 'GraphLineOfRestore', restoreAdapters.numberRestoresPerMonthByUser);
   statManager.statisticRegisterMethodForEntity('Save', 'GraphLineOfSave', saveAdapters.numberSavesPerMonthByUser);
-  statManager.statisticRegisterMethodForEntity('Logs', 'GraphBarOfLogs', logsAdapters.numberOfLogs);
+  statManager.statisticRegisterMethodForEntity('Logs', 'GraphPieOfLogs', logsAdapters.numberOfLogsGroupByModuleName);
 };
 
 /*

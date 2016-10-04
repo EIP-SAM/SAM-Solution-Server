@@ -6,21 +6,25 @@ const logsAdapters = require('../log');
 //
 // Return the numbers of logs
 //
-module.exports.numberOfLogs = function () {
+module.exports.numberOfLogsGroupByModuleName = function () {
   return new Promise(function(fulfill) {
-    logsAdapters.getNumberOfLogs().then(function (logsNumbers) {
+    logsAdapters.getNumberOfLogsGroupByModuleName().then(function (logs) {
+
+      let logsData = logs.data;
+      let dataset = [];
+
+      logsData.forEach(function(curVal, index, logsData) {
+        dataset.push({
+          title: curVal._id || 'Autre',
+          value: [curVal.total],
+        });
+      });
 
       let returnData = {
         complete: 1,
-        type: 'bar',
-        labels: ['total'],
-        title: 'Bar: Nombres de logs effectués depuis le début',
-        dataset: [
-          {
-            title: 'Nombres de logs',
-            data: [logsNumbers.data],
-          },
-        ]
+        type: 'pie',
+        title: 'Pie: Nombres de logs effectués depuis le début par nom de module',
+        dataset: dataset,
       };
 
       fulfill(returnData);
