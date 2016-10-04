@@ -11,6 +11,7 @@ module.exports.numberOfLogs = function () {
     logsAdapters.getNumberOfLogs().then(function (logsNumbers) {
 
       let returnData = {
+        complete: 1,
         type: 'bar',
         labels: ['total'],
         title: 'Bar: Nombres de logs effectués depuis le début',
