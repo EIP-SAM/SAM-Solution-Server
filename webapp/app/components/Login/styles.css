@@ -9,3 +9,21 @@
   height: 100%;
   width: 100%;
 }
+
+body {
+  overflow: visible;
+}
+
+.form {
+  margin: auto!important;
+}
+
+::-webkit-inner-spin-button {
+  position: relative;
+  top: 7px;
+}
+
+.toolbar {
+  margin-top: 20px;
+  text-align: right;
+}
