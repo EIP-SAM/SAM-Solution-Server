@@ -7,25 +7,49 @@ var logger  = require('../../libs/bunyan');
 
 describe('getLogsWithMultipleCriteria', function () {
   it('should return a promise', function () {
-    var logs = logAdapter.getLogsWithMultipleCriteria();
+    var logs = logAdapter.getLogsWithMultipleCriteria({
+      queryCriteria: {},
+    });
     expect(typeof logs.then === 'function').toBeTruthy();
   });
 
   it('should have called find once', function () {
     spyOn(logModel, 'find');
-    logAdapter.getLogsWithMultipleCriteria();
+    logAdapter.getLogsWithMultipleCriteria({
+      queryCriteria: {},
+    });
     expect(logModel.find).toHaveBeenCalledTimes(1);
   });
 
-  it('should have called exec once', function () {
-    var object = { exec: function () {
+  it('should have called sort once', function () {
+    var object = { sort: function () {
         return;
       }, };
 
     spyOn(logModel, 'find').and.returnValue(object);
-    spyOn(object, 'exec');
-    logAdapter.getLogsWithMultipleCriteria();
-    expect(object.exec).toHaveBeenCalledTimes(1);
+    spyOn(object, 'sort');
+    logAdapter.getLogsWithMultipleCriteria({
+      queryCriteria: {},
+    });
+    expect(object.sort).toHaveBeenCalledTimes(1);
+  });
+
+  it('should have called exec once', function () {
+    var objectSort = { sort: function () {
+        return;
+      }, };
+    var objectExec = { exec: function () {
+        return;
+      }, };
+
+    spyOn(logModel, 'find').and.returnValue(objectSort);
+    spyOn(objectSort, 'sort').and.returnValue(objectExec);
+    spyOn(objectExec, 'exec');
+    logAdapter.getLogsWithMultipleCriteria({
+      queryCriteria: {},
+    });
+    expect(objectSort.sort).toHaveBeenCalledTimes(1);
+    expect(objectExec.exec).toHaveBeenCalledTimes(1);
   });
 });
 

@@ -6,13 +6,17 @@ var logAdapter = require('../../adapters/log');
 
 describe('getLogsWithMultipleCriteria', function () {
   it('should return a promise', function () {
-    var logs = logAdapter.getLogsWithMultipleCriteria();
+    var logs = logAdapter.getLogsWithMultipleCriteria({
+      queryCriteria: {},
+    });
     expect(typeof logs.then === 'function').toBeTruthy();
   });
 
   it('should have called getLogsWithMultipleCriteria once', function () {
     spyOn(logAdapter, 'getLogsWithMultipleCriteria');
-    logManager.getLogsWithMultipleCriteria().then(function (logs) {
+    logManager.getLogsWithMultipleCriteria({
+      queryCriteria: {},
+    }).then(function (logs) {
       expect(logAdapter.getLogsWithMultipleCriteria).toHaveBeenCalledTimes(1);
     });
   });
