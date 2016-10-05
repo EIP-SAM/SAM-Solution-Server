@@ -3,20 +3,17 @@
 //
 
 import { connect } from 'react-redux';
-import { loginRequest, onChangeData } from './actions';
 import { Login } from 'components/Login';
+import { resetStateForm } from './Form/actions';
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {
-    state: state.get('login'),
-    userInfo: state.get('login').userInfo,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    onChangeData: (username, password) => dispatch(onChangeData(username, password)),
-    loginRequest: (username, password) => dispatch(loginRequest(username, password)),
+    resetStateForm: () => dispatch(resetStateForm()),
   };
 }
 

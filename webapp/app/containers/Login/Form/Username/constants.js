@@ -1,0 +1,7 @@
+//
+// Username form login constants
+//
+
+export const LOGIN_USERNAME_CHANGE = 'LOGIN_USERNAME_CHANGE';
+export const LOGIN_RESET_STATE_USERNAME = 'LOGIN_RESET_STATE_USERNAME';
+export const LOGIN_USERNAME_ERROR = 'LOGIN_USERNAME_ERROR';
