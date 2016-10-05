@@ -26,10 +26,10 @@ module.exports.numberSavesPerMonthByUser = function() {
         complete: 1,
         type: 'line',
         labels: months,
-        title: 'radar : Graphique des Sauvegardes',
+        title: 'radar : Saves graph',
         dataset: [
           {
-            title: 'Sauvegarde des utilisateurs',
+            title: 'Users save',
             data: savesByMonth,
           },
         ]

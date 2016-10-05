@@ -15,7 +15,7 @@ module.exports.numberOfLogsGroupByModuleName = function () {
 
       logsData.forEach(function(curVal, index, logsData) {
         dataset.push({
-          title: curVal._id || 'Autre',
+          title: curVal._id || 'Other',
           value: [curVal.total],
         });
       });
@@ -23,7 +23,7 @@ module.exports.numberOfLogsGroupByModuleName = function () {
       let returnData = {
         complete: 1,
         type: 'pie',
-        title: 'Pie: Nombres de logs effectués par nom de module',
+        title: 'Pie: Logs numbers by module name',
         dataset: dataset,
       };
 
@@ -77,7 +77,7 @@ module.exports.numberOfLogsGroupByLevel = function () {
       let returnData = {
         complete: 1,
         type: 'pie',
-        title: 'Pie: Nombres de logs effectués par niveau',
+        title: 'Pie: Logs numbers by level',
         dataset: dataset,
       };
 
