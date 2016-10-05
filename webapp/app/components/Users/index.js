@@ -13,6 +13,10 @@ export class Users extends React.Component {
     this.props.getUsersRequest();
   }
 
+  componentWillUnmount() {
+    this.props.resetAlert();
+  }
+
   render() {
     let alert = '';
     if (this.props.displayAlert) {
@@ -40,4 +44,5 @@ Users.propTypes = {
   typeAlert: React.PropTypes.string,
   displayAlert: React.PropTypes.bool,
   getUsersRequest: React.PropTypes.func,
+  resetAlert: React.PropTypes.func,
 };

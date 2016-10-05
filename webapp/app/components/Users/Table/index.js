@@ -13,10 +13,6 @@ import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class UserTable extends React.Component {
-  componentWillUnmount() {
-    this.props.resetAlert();
-  }
-
   handleRebootClick(username) {
     this.props.rebootUser(username);
     // use only to set the username => will be remove with all the reboot management
@@ -80,5 +76,4 @@ UserTable.propTypes = {
   showInstantDeleteModal: React.PropTypes.func,
   rebootUser: React.PropTypes.func,
   userToDelete: React.PropTypes.func,
-  resetAlert: React.PropTypes.func,
 };
