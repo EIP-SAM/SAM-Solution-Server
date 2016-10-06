@@ -105,12 +105,14 @@ export class EditGroup extends React.Component {
   }
 
   render() {
-    this.group = this.props.state.group;
     var userForm = [];
 
     if (!this.props.state) {
       return(<p>loading...</p>);
     }
+
+    this.group = this.props.state.group;
+
     if (this.props.state.users) {
       var usersGroups = this.props.state.usersGroups;
       this.props.state.users.map((user, i) => {
