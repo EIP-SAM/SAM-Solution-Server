@@ -126,7 +126,7 @@ export class EditGroup extends React.Component {
     }
 
     return (
-      <div container className={styles.editGroup}>
+      <div className={styles.editGroup}>
         <form>
           <PageHeader>Edit Group</PageHeader>
           <FormGroup controlId="formBasicText">
