@@ -172,14 +172,6 @@ export default function createRoutes() {
         .then(loadModule(cb))
         .catch(errorLoading);
       },
-    }, {
-      path: '/admin-action',
-      name: 'adminAction',
-      getComponent(nextState, cb) {
-        System.import('containers/UsersAdminAction')
-        .then(loadModule(cb))
-        .catch(errorLoading);
-      },
     },
      /* {
       path: '*',
