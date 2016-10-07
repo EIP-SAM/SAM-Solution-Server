@@ -11,7 +11,10 @@
 
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
-import { resetStateGroupName } from './GroupName/actions';
+import {
+  resetStateGroupName,
+  groupNameErrorMsg,
+} from './GroupName/actions';
 
 export function resetStateForm() {
   return function resetState(dispatch) {
@@ -37,8 +40,12 @@ export function createGroupRequest(groupName, saveRestoreMode, migrationMode, so
           browserHistory.push('/login');
         }
 
-        dispatch(resetStateForm());
-        browserHistory.goBack();
+        if (res.body.errors && res.body.errors[0].error.includes('name')) {
+          dispatch(groupNameErrorMsg(res.body.errors[0].error));
+        } else {
+          dispatch(resetStateForm());
+          browserHistory.goBack();
+        }
       });
   };
 }
