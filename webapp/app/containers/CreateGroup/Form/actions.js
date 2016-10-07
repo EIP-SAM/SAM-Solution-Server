@@ -10,38 +10,35 @@
 //
 
 import request from 'utils/request';
-
-import { push } from 'react-router-redux';
 import { browserHistory } from 'react-router';
+import { resetStateGroupName } from './GroupName/actions';
 
-import {
-  CREATE_GROUP,
-} from './constants';
-
-export function createGroup(group) {
-  return {
-    type: CREATE_GROUP,
-    group: group,
+export function resetStateForm() {
+  return function resetState(dispatch) {
+    dispatch(resetStateGroupName());
   };
 }
 
-export function createGroupRequest(groups) {
+export function createGroupRequest(groupName, saveRestoreMode, migrationMode, softwareMode) {
+  const groups = [{
+    name: groupName,
+    saveAndRestoreMode: saveRestoreMode,
+    migrationMode,
+    softwarePackagesMode: softwareMode,
+  }];
+
   return function returnCreateGroupRequest(dispatch) {
     return request
       .post('/api/logged-in/admin/groups/create')
       .type('json')
       .send({ groups })
       .end((err, res) => {
-
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
 
-        dispatch(createGroup(res.body));
-        if (!res.body.error) {
-          var last = res.body.groups.length - 1;
-          browserHistory.push('/edit-group/' + res.body.groups[last].id);
-        }
-    });
+        dispatch(resetStateForm());
+        browserHistory.goBack();
+      });
   };
 }
