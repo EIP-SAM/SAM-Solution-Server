@@ -5,7 +5,7 @@
 import { connect } from 'react-redux';
 import { selectSave } from './actions';
 import { listFiles } from 'containers/RestoreCreation/Form/Files/actions';
-import { RestoreCreationSavesFormGroup } from 'components/RestoreCreation/Form/SavesFormGroup';
+import { RestoreCreationSaves } from 'components/RestoreCreation/Form/Saves';
 
 function mapStateToProps(state) {
   return {
@@ -24,4 +24,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(RestoreCreationSavesFormGroup);
+)(RestoreCreationSaves);

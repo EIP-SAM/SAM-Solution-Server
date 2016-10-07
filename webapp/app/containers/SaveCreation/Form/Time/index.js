@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveCreationTimeFormGroup } from 'components/SaveCreation/Form/TimeFormGroup';
+import { SaveCreationTime } from 'components/SaveCreation/Form/Time';
 import {
   timeSave,
 } from './actions';
@@ -25,4 +25,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SaveCreationTimeFormGroup);
+)(SaveCreationTime);

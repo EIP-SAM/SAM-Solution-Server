@@ -4,7 +4,7 @@
 
 import { connect } from 'react-redux';
 import { selectFiles } from './actions';
-import { RestoreCreationFilesFormGroup } from 'components/RestoreCreation/Form/FilesFormGroup';
+import { RestoreCreationFiles } from 'components/RestoreCreation/Form/Files';
 
 function mapStateToProps(state) {
   return {
@@ -23,4 +23,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(RestoreCreationFilesFormGroup);
+)(RestoreCreationFiles);
