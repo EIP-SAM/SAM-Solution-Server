@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { GroupsFormGroup } from 'components/Save/Filters/GroupsFormGroup';
+import { SaveFiltersGroups } from 'components/Save/Filters/Groups';
 import { filterUsers } from 'containers/Save/Filters/actions';
 import {
   getGroupsRequest,
@@ -31,4 +31,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(GroupsFormGroup);
+)(SaveFiltersGroups);

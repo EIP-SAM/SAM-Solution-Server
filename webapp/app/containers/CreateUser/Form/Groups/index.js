@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { CreateUserFormGroupsFormGroup } from 'components/CreateUser/Form/GroupsFormGroup';
+import { CreateUserFormGroups } from 'components/CreateUser/Form/Groups';
 import {
   getGroupsRequest,
   getSelectedGroup,
@@ -26,4 +26,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(CreateUserFormGroupsFormGroup);
+)(CreateUserFormGroups);

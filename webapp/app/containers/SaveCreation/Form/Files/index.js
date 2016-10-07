@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveCreationFilesFormGroup } from 'components/SaveCreation/Form/FilesFormGroup';
+import { SaveCreationFiles } from 'components/SaveCreation/Form/Files';
 import { displayAddFile } from './actions';
 import { showModal } from './Modal/actions';
 
@@ -24,4 +24,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SaveCreationFilesFormGroup);
+)(SaveCreationFiles);

@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { EditUserFormGroupsFormGroup } from 'components/EditUser/Form/GroupsFormGroup';
+import { EditUserFormGroups } from 'components/EditUser/Form/Groups';
 import { getUserGroups } from './actions';
 
 function mapStateToProps(state) {
@@ -22,4 +22,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(EditUserFormGroupsFormGroup);
+)(EditUserFormGroups);

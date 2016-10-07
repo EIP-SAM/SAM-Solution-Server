@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { CreateUserFormEmailFormGroup } from 'components/CreateUser/Form/EmailFormGroup';
+import { CreateUserFormEmail } from 'components/CreateUser/Form/Email';
 import { emailChange } from './actions';
 
 function mapStateToProps(state) {
@@ -22,4 +22,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(CreateUserFormEmailFormGroup);
+)(CreateUserFormEmail);
