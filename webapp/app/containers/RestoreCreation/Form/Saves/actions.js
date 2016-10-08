@@ -10,35 +10,35 @@
 //
 
 import {
-  RESET_STATE_SAVES,
-  GET_HISTORY_SAVES_BY_USER_RESTORE,
-  SELECTED_SAVE,
-  SAVE_ERROR,
+  RESTORE_CREATION_RESET_STATE_SAVES,
+  RESTORE_CREATION_GET_HISTORY_SAVES_BY_USER_RESTORE,
+  RESTORE_CREATION_SELECTED_SAVE,
+  RESTORE_CREATION_SAVE_ERROR,
 } from './constants';
 
 export function resetStateSaves() {
   return {
-    type: RESET_STATE_SAVES,
+    type: RESTORE_CREATION_RESET_STATE_SAVES,
   };
 }
 
 export function getHistorySavesByUser(allSaves) {
   return {
-    type: GET_HISTORY_SAVES_BY_USER_RESTORE,
+    type: RESTORE_CREATION_GET_HISTORY_SAVES_BY_USER_RESTORE,
     allSaves,
   };
 }
 
 export function selectSave(save) {
   return {
-    type: SELECTED_SAVE,
+    type: RESTORE_CREATION_SELECTED_SAVE,
     save,
   };
 }
 
 export function saveErrorMsg(saveError) {
   return {
-    type: SAVE_ERROR,
+    type: RESTORE_CREATION_SAVE_ERROR,
     saveError,
   };
 }

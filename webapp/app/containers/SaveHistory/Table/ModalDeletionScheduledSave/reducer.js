@@ -9,8 +9,8 @@
 //
 
 import {
-  SHOW_DELETION_SCHEDULED_SAVE_MODAL,
-  DELETE_SCHEDULED_SAVE_INFO,
+  SAVE_HISTORY_SHOW_DELETION_SCHEDULED_SAVE_MODAL,
+  SAVE_HISTORY_DELETE_SCHEDULED_SAVE_INFO,
 } from './constants';
 
 const initialState = {
@@ -22,11 +22,11 @@ const initialState = {
 
 function SaveHistoryTableDeletionModalReducer(state = initialState, action) {
   switch (action.type) {
-    case SHOW_DELETION_SCHEDULED_SAVE_MODAL:
+    case SAVE_HISTORY_SHOW_DELETION_SCHEDULED_SAVE_MODAL:
       return Object.assign({}, state, {
         showDeletionModal: action.showDeletionModal,
       });
-    case DELETE_SCHEDULED_SAVE_INFO:
+    case SAVE_HISTORY_DELETE_SCHEDULED_SAVE_INFO:
       return Object.assign({}, state, {
         saveId: action.saveId,
         saveScheduledId: action.saveScheduledId,

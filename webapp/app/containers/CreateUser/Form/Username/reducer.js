@@ -9,9 +9,9 @@
 //
 
 import {
-  USERNAME_CHANGE,
-  RESET_STATE_USERNAME,
-  USERNAME_ERROR,
+  CREATE_USER_USERNAME_CHANGE,
+  CREATE_USER_RESET_STATE_USERNAME,
+  CREATE_USER_USERNAME_ERROR,
 } from './constants';
 
 const initialState = {
@@ -21,13 +21,13 @@ const initialState = {
 
 function CreateUserFormUsernameReducer(state = initialState, action) {
   switch (action.type) {
-    case RESET_STATE_USERNAME:
+    case CREATE_USER_RESET_STATE_USERNAME:
       return Object.assign({}, initialState, {});
-    case USERNAME_CHANGE:
+    case CREATE_USER_USERNAME_CHANGE:
       return Object.assign({}, state, {
         username: action.username,
       });
-    case USERNAME_ERROR:
+    case CREATE_USER_USERNAME_ERROR:
       return Object.assign({}, state, {
         usernameError: action.usernameError,
       });

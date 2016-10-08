@@ -9,9 +9,9 @@
 //
 
 import {
-  GROUPS,
-  SELECTED_GROUPS,
-  RESET_STATE_GROUPS,
+  CREATE_USER_GROUPS,
+  CREATE_USER_SELECTED_GROUPS,
+  CREATE_USER_RESET_STATE_GROUPS,
 } from './constants';
 
 const initialState = {
@@ -21,13 +21,13 @@ const initialState = {
 
 function CreateUserFormGroupsReducer(state = initialState, action) {
   switch (action.type) {
-    case RESET_STATE_GROUPS:
+    case CREATE_USER_RESET_STATE_GROUPS:
       return Object.assign({}, initialState, {});
-    case GROUPS:
+    case CREATE_USER_GROUPS:
       return Object.assign({}, state, {
         groups: action.groups,
       });
-    case SELECTED_GROUPS:
+    case CREATE_USER_SELECTED_GROUPS:
       return Object.assign({}, state, {
         selectedGroup: action.selectedGroup,
       });

@@ -5,27 +5,27 @@
 import { browserHistory } from 'react-router';
 import request from 'utils/request';
 import {
-  GROUPS,
-  SELECTED_GROUPS,
-  RESET_STATE_GROUPS,
+  CREATE_USER_GROUPS,
+  CREATE_USER_SELECTED_GROUPS,
+  CREATE_USER_RESET_STATE_GROUPS,
 } from './constants';
 
 export function resetStateGroups() {
   return {
-    type: RESET_STATE_GROUPS,
+    type: CREATE_USER_RESET_STATE_GROUPS,
   };
 }
 
 export function getSelectedGroup(selectedGroup) {
   return {
-    type: SELECTED_GROUPS,
+    type: CREATE_USER_SELECTED_GROUPS,
     selectedGroup,
   };
 }
 
 export function getGroups(groups) {
   return {
-    type: GROUPS,
+    type: CREATE_USER_GROUPS,
     groups,
   };
 }

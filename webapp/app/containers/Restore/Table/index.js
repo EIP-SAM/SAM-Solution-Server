@@ -5,7 +5,7 @@
 import { connect } from 'react-redux';
 import { RestoreTable } from 'components/Restore/Table';
 import { showInstantRestoreModal } from 'containers/Restore/Table/ModalInstantRestore/actions';
-import { setUserId } from 'containers/RestoreCreation/Form/Users/actions';
+import { setUserId } from 'containers/RestoreCreation/Form/User/actions';
 import { selectFiles } from 'containers/RestoreCreation/Form/Files/actions';
 import { selectSave } from 'containers/RestoreCreation/Form/Saves/actions';
 

@@ -14,12 +14,12 @@ import { browserHistory } from 'react-router';
 import { getAllUsers } from './Filters/actions';
 
 import {
-  GET_SAVES,
+  SAVE_GET_SAVES,
 } from './constants';
 
 export function getSaves(saves) {
   return {
-    type: GET_SAVES,
+    type: SAVE_GET_SAVES,
     saves,
   };
 }

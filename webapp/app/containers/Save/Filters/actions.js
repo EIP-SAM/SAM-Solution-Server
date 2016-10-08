@@ -3,12 +3,12 @@
 //
 import { getSaves } from 'containers/Save/actions';
 import {
-  GET_ALL_USERS,
+  SAVE_GET_ALL_USERS,
 } from './constants';
 
 export function getAllUsers(allUsers) {
   return {
-    type: GET_ALL_USERS,
+    type: SAVE_GET_ALL_USERS,
     allUsers,
   };
 }
