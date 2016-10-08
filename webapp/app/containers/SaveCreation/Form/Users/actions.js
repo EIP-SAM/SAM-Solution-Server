@@ -10,14 +10,14 @@
 //
 
 import {
-  RESET_STATE_USERS,
-  LIST_USERS,
-  LIST_USERS_ERROR,
+  SAVE_CREATION_RESET_STATE_USERS,
+  SAVE_CREATION_LIST_USERS,
+  SAVE_CREATION_LIST_USERS_ERROR,
 } from './constants';
 
 export function resetStateUsers() {
   return {
-    type: RESET_STATE_USERS,
+    type: SAVE_CREATION_RESET_STATE_USERS,
   };
 }
 
@@ -27,14 +27,14 @@ export function resetStateUsers() {
 //
 export function listUsers(users) {
   return {
-    type: LIST_USERS,
+    type: SAVE_CREATION_LIST_USERS,
     users,
   };
 }
 
 export function userErrorMsg(userError) {
   return {
-    type: LIST_USERS_ERROR,
+    type: SAVE_CREATION_LIST_USERS_ERROR,
     userError,
   };
 }

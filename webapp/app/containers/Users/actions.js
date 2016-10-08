@@ -12,33 +12,33 @@
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
 import {
-  GET_USERS,
-  REMOVE_ALERT,
-  REBOOT_ALERT,
-  RESET_ALERT,
+  USERS_GET_USERS,
+  USERS_REMOVE_ALERT,
+  USERS_REBOOT_ALERT,
+  USERS_RESET_ALERT,
 } from './constants';
 
 export function resetAlert() {
   return {
-    type: RESET_ALERT,
+    type: USERS_RESET_ALERT,
   };
 }
 
 export function removeAlert() {
   return {
-    type: REMOVE_ALERT,
+    type: USERS_REMOVE_ALERT,
   };
 }
 
 export function rebootAlert() {
   return {
-    type: REBOOT_ALERT,
+    type: USERS_REBOOT_ALERT,
   };
 }
 
 export function getUsers(users) {
   return {
-    type: GET_USERS,
+    type: USERS_GET_USERS,
     users,
   };
 }

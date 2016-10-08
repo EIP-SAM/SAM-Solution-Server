@@ -13,27 +13,27 @@ import request from 'utils/request';
 import { browserHistory } from 'react-router';
 import { getHistorySavesByUserRequest } from 'containers/SaveHistory/actions';
 import {
-  SHOW_DELETION_SCHEDULED_SAVE_MODAL,
-  DELETE_SCHEDULED_SAVE_INFO,
+  SAVE_HISTORY_SHOW_DELETION_SCHEDULED_SAVE_MODAL,
+  SAVE_HISTORY_DELETE_SCHEDULED_SAVE_INFO,
 } from './constants';
 
 export function showDeletionScheduledSaveModal() {
   return {
-    type: SHOW_DELETION_SCHEDULED_SAVE_MODAL,
+    type: SAVE_HISTORY_SHOW_DELETION_SCHEDULED_SAVE_MODAL,
     showDeletionModal: true,
   };
 }
 
 export function hideDeletionScheduledSaveModal() {
   return {
-    type: SHOW_DELETION_SCHEDULED_SAVE_MODAL,
+    type: SAVE_HISTORY_SHOW_DELETION_SCHEDULED_SAVE_MODAL,
     showDeletionModal: false,
   };
 }
 
 export function deleteScheduledSaveInfo(saveId, saveScheduledId, username) {
   return {
-    type: DELETE_SCHEDULED_SAVE_INFO,
+    type: SAVE_HISTORY_DELETE_SCHEDULED_SAVE_INFO,
     saveId,
     saveScheduledId,
     username,

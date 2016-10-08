@@ -12,11 +12,11 @@ import { combineReducers } from 'redux-immutable';
 import SaveCreationFormFilesModalReducer from './Modal/reducer';
 
 import {
-  RESET_STATE_FILES,
-  ADD_FILE,
-  ADD_ALL_FILES,
-  CAN_ADD_FILE,
-  ADD_FILE_ERROR,
+  SAVE_CREATION_RESET_STATE_FILES,
+  SAVE_CREATION_ADD_FILE,
+  SAVE_CREATION_ADD_ALL_FILES,
+  SAVE_CREATION_CAN_ADD_FILE,
+  SAVE_CREATION_ADD_FILE_ERROR,
 } from './constants';
 
 const initialState = {
@@ -27,24 +27,24 @@ const initialState = {
 
 function SaveCreationFormFilesReducer(state = initialState, action) {
   switch (action.type) {
-    case RESET_STATE_FILES:
+    case SAVE_CREATION_RESET_STATE_FILES:
       return Object.assign({}, initialState, {});
-    case CAN_ADD_FILE:
+    case SAVE_CREATION_CAN_ADD_FILE:
       return Object.assign({}, state, {
         canAddFile: action.canAddFile,
       });
-    case ADD_FILE_ERROR:
+    case SAVE_CREATION_ADD_FILE_ERROR:
       return Object.assign({}, state, {
         fileError: action.fileError,
       });
-    case ADD_FILE:
+    case SAVE_CREATION_ADD_FILE:
       return Object.assign({}, state, {
         files: [
           ...state.files,
           action.file,
         ],
       });
-    case ADD_ALL_FILES:
+    case SAVE_CREATION_ADD_ALL_FILES:
       return Object.assign({}, state, {
         files: action.files.split(','),
       });

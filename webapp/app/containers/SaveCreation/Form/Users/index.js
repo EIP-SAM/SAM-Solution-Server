@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveCreationUsersFormGroup } from 'components/SaveCreation/Form/UsersFormGroup';
+import { SaveCreationUsers } from 'components/SaveCreation/Form/Users';
 import {
   listUsers,
 } from './actions';
@@ -26,4 +26,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SaveCreationUsersFormGroup);
+)(SaveCreationUsers);

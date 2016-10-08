@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveCreationDateFormGroup } from 'components/SaveCreation/Form/DateFormGroup';
+import { SaveCreationDate } from 'components/SaveCreation/Form/Date';
 import { dateSave } from './actions';
 
 function mapStateToProps(state) {
@@ -23,4 +23,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SaveCreationDateFormGroup);
+)(SaveCreationDate);

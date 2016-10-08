@@ -1,5 +1,5 @@
 import React from 'react';
-import RestoreCreationUserFormGroup from 'containers/RestoreCreation/Form/Users';
+import RestoreCreationUserFormGroup from 'containers/RestoreCreation/Form/User';
 import RestoreCreationSavesFormGroup from 'containers/RestoreCreation/Form/Saves';
 import RestoreCreationFilesFormGroup from 'containers/RestoreCreation/Form/Files';
 import RestoreCreationButtons from 'containers/RestoreCreation/Form/Buttons';

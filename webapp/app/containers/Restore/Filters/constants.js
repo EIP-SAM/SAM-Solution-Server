@@ -2,4 +2,4 @@
 // Filters restore Constants
 //
 
-export const GET_ALL_USERS = 'GET_ALL_USERS';
+export const RESTORE_GET_ALL_USERS = 'RESTORE_GET_ALL_USERS';

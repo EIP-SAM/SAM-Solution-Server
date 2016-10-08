@@ -2,4 +2,4 @@
 // Restore instant restore modal Constants
 //
 
-export const SHOW_INSTANT_RESTORE_MODAL = 'SHOW_INSTANT_RESTORE_MODAL';
+export const RESTORE_SHOW_INSTANT_RESTORE_MODAL = 'RESTORE_SHOW_INSTANT_RESTORE_MODAL';

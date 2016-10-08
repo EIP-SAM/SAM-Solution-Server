@@ -9,7 +9,7 @@
 //
 
 import {
-  SHOW_INSTANT_SAVE_MODAL,
+  SAVE_HISTORY_SHOW_INSTANT_SAVE_MODAL,
 } from './constants';
 
 const initialState = {
@@ -18,7 +18,7 @@ const initialState = {
 
 function SaveHistoryTableInstantSaveModalReducer(state = initialState, action) {
   switch (action.type) {
-    case SHOW_INSTANT_SAVE_MODAL:
+    case SAVE_HISTORY_SHOW_INSTANT_SAVE_MODAL:
       return Object.assign({}, state, {
         showInstantSaveModal: action.showInstantSaveModal,
       });
