@@ -11,6 +11,8 @@
 
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
+import { getAllUsers } from './Filters/actions';
+
 import {
   USERS_GET_USERS,
   USERS_REMOVE_ALERT,
@@ -53,6 +55,7 @@ export function getUsersRequest() {
         }
 
         dispatch(getUsers(res.body.users));
+        dispatch(getAllUsers(res.body.users));
       });
   };
 }

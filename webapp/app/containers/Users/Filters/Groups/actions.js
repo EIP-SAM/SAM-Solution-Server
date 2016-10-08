@@ -11,14 +11,14 @@ import {
 
 export function getCurrentGroup(currentGroup) {
   return {
-    type: CURRENT_GROUP,
+    type: USERS_CURRENT_GROUP,
     currentGroup,
   };
 }
 
 export function getGroups(groups) {
   return {
-    type: USERS_GROUPS,
+    type: USERS_USERS_GROUPS,
     groups,
   };
 }

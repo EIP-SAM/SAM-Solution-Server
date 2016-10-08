@@ -13,9 +13,9 @@ import {
 
 function mapStateToProps(state) {
   return {
-    groups: state.get('users').get('RestoreFiltersReducer').get('RestoreGroupsFilterReducer').groups,
-    currentTypeUser: state.get('users').get('RestoreFiltersReducer').get('RestoreTypeUserFilterReducer').currentTypeUser,
-    allUsers: state.get('users').get('RestoreFiltersReducer').get('RestoreFiltersReducer').allUsers,
+    groups: state.get('users').get('UsersFiltersReducer').get('UsersGroupsFilterReducer').groups,
+    currentTypeUser: state.get('users').get('UsersFiltersReducer').get('UsersTypeUserFilterReducer').currentTypeUser,
+    allUsers: state.get('users').get('UsersFiltersReducer').get('UsersFiltersReducer').allUsers,
   };
 }
 
