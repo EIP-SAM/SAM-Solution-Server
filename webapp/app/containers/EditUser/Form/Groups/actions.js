@@ -15,6 +15,7 @@ import { browserHistory } from 'react-router';
 import {
   EDIT_USER_GET_ALL_GROUPS,
   EDIT_USER_USER_GROUPS,
+  EDIT_USER_RESET_STATE_GROUPS
 } from './constants';
 
 export function getUserGroups(userGroups) {
@@ -28,6 +29,12 @@ export function getAllGroups(allGroups) {
   return {
     type: EDIT_USER_GET_ALL_GROUPS,
     allGroups,
+  };
+}
+
+export function resetStateGroups() {
+  return {
+    type: EDIT_USER_RESET_STATE_GROUPS,
   };
 }
 
