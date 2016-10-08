@@ -10,15 +10,15 @@
 
 import { combineReducers } from 'redux-immutable';
 import {
-  GET_FILTERED_LOGS,
-  CLEAR_LOGS,
-  SET_SORTS,
-  REQUEST_IS_LOADING,
+  LOGS_GET_FILTERED_LOGS,
+  LOGS_CLEAR_LOGS,
+  LOGS_SET_SORTS,
+  LOGS_REQUEST_IS_LOADING,
 } from '../constants/result';
 
 function request(state = false, action) {
   switch (action.type) {
-    case REQUEST_IS_LOADING:
+    case LOGS_REQUEST_IS_LOADING:
       return action.isLoading;
     default:
       return state;
@@ -27,7 +27,7 @@ function request(state = false, action) {
 
 function sorts(state = 'none', action) {
   switch (action.type) {
-    case SET_SORTS:
+    case LOGS_SET_SORTS:
       return action.sorts;
     default:
       return state;
@@ -36,11 +36,11 @@ function sorts(state = 'none', action) {
 
 function logs(state = {}, action) {
   switch (action.type) {
-    case GET_FILTERED_LOGS:
+    case LOGS_GET_FILTERED_LOGS:
       return Object.assign({}, state, {
         logs: action.logs,
       });
-    case CLEAR_LOGS:
+    case LOGS_CLEAR_LOGS:
       return Object.assign({}, state, {
         logs: action.logs,
       });

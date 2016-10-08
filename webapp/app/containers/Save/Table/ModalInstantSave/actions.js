@@ -11,12 +11,12 @@
 
 
 import {
-  SHOW_INSTANT_SAVE_MODAL,
+  SAVE_SHOW_INSTANT_SAVE_MODAL,
 } from './constants';
 
 export function showInstantSaveModal() {
   return {
-    type: SHOW_INSTANT_SAVE_MODAL,
+    type: SAVE_SHOW_INSTANT_SAVE_MODAL,
     showInstantSaveModal: true,
   };
 }

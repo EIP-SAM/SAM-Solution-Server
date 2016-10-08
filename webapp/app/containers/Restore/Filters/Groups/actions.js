@@ -5,20 +5,20 @@
 import { browserHistory } from 'react-router';
 import request from 'utils/request';
 import {
-  USERS_GROUPS,
-  CURRENT_GROUP,
+  RESTORE_USERS_GROUPS,
+  RESTORE_CURRENT_GROUP,
 } from './constants';
 
 export function getCurrentGroup(currentGroup) {
   return {
-    type: CURRENT_GROUP,
+    type: RESTORE_CURRENT_GROUP,
     currentGroup,
   };
 }
 
 export function getGroups(groups) {
   return {
-    type: USERS_GROUPS,
+    type: RESTORE_USERS_GROUPS,
     groups,
   };
 }

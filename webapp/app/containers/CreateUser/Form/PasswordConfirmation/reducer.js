@@ -9,9 +9,9 @@
 //
 
 import {
-  PASSWORD_CONFIRMATION_CHANGE,
-  RESET_STATE_PASSWORD_CONFIRMATION,
-  PASSWORD_CONFIRMATION_ERROR,
+  CREATE_USER_PASSWORD_CONFIRMATION_CHANGE,
+  CREATE_USER_RESET_STATE_PASSWORD_CONFIRMATION,
+  CREATE_USER_PASSWORD_CONFIRMATION_ERROR,
 } from './constants';
 
 const initialState = {
@@ -21,13 +21,13 @@ const initialState = {
 
 function CreateUserFormPasswordConfirmationReducer(state = initialState, action) {
   switch (action.type) {
-    case RESET_STATE_PASSWORD_CONFIRMATION:
+    case CREATE_USER_RESET_STATE_PASSWORD_CONFIRMATION:
       return Object.assign({}, initialState, {});
-    case PASSWORD_CONFIRMATION_CHANGE:
+    case CREATE_USER_PASSWORD_CONFIRMATION_CHANGE:
       return Object.assign({}, state, {
         passwordConfirmation: action.passwordConfirmation,
       });
-    case PASSWORD_CONFIRMATION_ERROR:
+    case CREATE_USER_PASSWORD_CONFIRMATION_ERROR:
       return Object.assign({}, state, {
         passwordConfirmationError: action.passwordConfirmationError,
       });

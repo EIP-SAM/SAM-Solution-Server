@@ -3,7 +3,7 @@
 //
 
 import {
-  GET_STATS_FILTERS_LIST,
+  STATS_GET_STATS_FILTERS_LIST,
 } from './constants';
 
 const initialState = {
@@ -12,7 +12,7 @@ const initialState = {
 
 function StatisticFilterReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_STATS_FILTERS_LIST:
+    case STATS_GET_STATS_FILTERS_LIST:
       return Object.assign({}, state, {
         filters: action.filters,
       });

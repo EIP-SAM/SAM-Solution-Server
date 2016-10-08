@@ -11,7 +11,7 @@
 import { combineReducers } from 'redux-immutable';
 import InstantRestoreModalRestoreHistoryReducer from 'containers/RestoreHistory/Table/ModalInstantRestore/reducer';
 import {
-  GET_HISTORY_RESTORES_BY_USER,
+  RESTORE_HISTORY_GET_HISTORY_RESTORES_BY_USER,
 } from './constants';
 
 const initialState = {
@@ -20,7 +20,7 @@ const initialState = {
 
 function RestoreHistoryReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_HISTORY_RESTORES_BY_USER:
+    case RESTORE_HISTORY_GET_HISTORY_RESTORES_BY_USER:
       return Object.assign({}, state, {
         restores: action.restores,
       });

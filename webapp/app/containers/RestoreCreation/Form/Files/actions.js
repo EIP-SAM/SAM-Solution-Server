@@ -10,35 +10,35 @@
 //
 
 import {
-  RESET_STATE_FILES,
-  LIST_FILES,
-  SELECTED_FILES,
-  FILES_ERROR,
+  RESTORE_CREATION_RESET_STATE_FILES,
+  RESTORE_CREATION_LIST_FILES,
+  RESTORE_CREATION_SELECTED_FILES,
+  RESTORE_CREATION_FILES_ERROR,
 } from './constants';
 
 export function resetStateFiles() {
   return {
-    type: RESET_STATE_FILES,
+    type: RESTORE_CREATION_RESET_STATE_FILES,
   };
 }
 
 export function listFiles(files) {
   return {
-    type: LIST_FILES,
+    type: RESTORE_CREATION_LIST_FILES,
     files,
   };
 }
 
 export function selectFiles(selectedFiles) {
   return {
-    type: SELECTED_FILES,
+    type: RESTORE_CREATION_SELECTED_FILES,
     selectedFiles,
   };
 }
 
 export function filesErrorMsg(filesError) {
   return {
-    type: FILES_ERROR,
+    type: RESTORE_CREATION_FILES_ERROR,
     filesError,
   };
 }
