@@ -185,7 +185,7 @@ export default function createRoutes() {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
-        System.import('components/PageNotFound')
+        System.import('containers/PageNotFound')
           .then(loadModule(cb))
           .catch(errorLoading);
       },

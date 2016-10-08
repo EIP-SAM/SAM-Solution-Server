@@ -4,7 +4,7 @@
 
 import { connect } from 'react-redux';
 import { redirectToLoginPage, redirectToDashboardPage, redirectToPageNotFound } from './actions';
-import { PageNotFound } from './components/PageNotFound';
+import { PageNotFound } from 'components/PageNotFound';
 
 function mapStateToProps(state) {
   return {

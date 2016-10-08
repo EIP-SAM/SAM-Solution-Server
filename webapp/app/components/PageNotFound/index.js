@@ -4,18 +4,27 @@
 
 import React from 'react';
 import { Alert } from 'react-bootstrap';
+import styles from './styles.css';
 
 export class PageNotFound extends React.Component {
 
   componentDidMount() {
-    this.state.isLogged = this.props.userInfo;
+    this.isLogged = this.props.userInfo;
+
+    setTimeout(() => {
+      if (this.isLogged) {
+        this.props.redirectToLoginPage();
+      } else {
+        this.props.redirectToDashboardPage();
+      }
+    }, 5000);
   }
 
   render() {
-    let page = this.state.isLogged !== undefined ? 'dashboard' : 'login';
+    let page = this.isLogged !== undefined ? 'login' : 'dashboard';
 
     return (
-      <Alert bsStyle="danger">
+      <Alert container bsStyle="info" className={styles.pageNotFoundAlert}>
         The page you are trying to access does not exist, you will be redirect to the {page} page soon ...
       </Alert>
     );
@@ -24,4 +33,7 @@ export class PageNotFound extends React.Component {
 
 PageNotFound.propTypes = {
   userInfo: React.PropTypes.object,
+  redirectToLoginPage: React.PropTypes.func,
+  redirectToDashboardPage: React.PropTypes.func,
+  redirectToPageNotFound: React.PropTypes.func,
 };

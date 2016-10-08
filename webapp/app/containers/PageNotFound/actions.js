@@ -16,7 +16,7 @@ export function redirectToLoginPage() {
 }
 
 export function redirectToDashboardPage() {
-  browserHistory.push('/login');
+  browserHistory.push('/logs');
 }
 
 export function redirectToPageNotFound() {
