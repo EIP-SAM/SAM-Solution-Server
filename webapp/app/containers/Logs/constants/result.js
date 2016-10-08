@@ -2,7 +2,7 @@
 // Logs constans
 //
 
-export const GET_FILTERED_LOGS = 'GET_FILTERED_LOGS';
-export const CLEAR_LOGS = 'CLEAR_LOGS';
-export const SET_SORTS = 'SET_SORTS';
-export const REQUEST_IS_LOADING = 'REQUEST_IS_LOADING';
+export const LOGS_GET_FILTERED_LOGS = 'LOGS_GET_FILTERED_LOGS';
+export const LOGS_CLEAR_LOGS = 'LOGS_CLEAR_LOGS';
+export const LOGS_SET_SORTS = 'LOGS_SET_SORTS';
+export const LOGS_REQUEST_IS_LOADING = 'LOGS_REQUEST_IS_LOADING';
