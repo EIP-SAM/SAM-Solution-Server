@@ -32,10 +32,10 @@ export class LinkContainerButton extends React.Component {
 }
 
 LinkContainerButton.propTypes = {
-  buttonType: React.PropTypes.string.isRequired,
+  buttonType: React.PropTypes.string,
   buttonText: React.PropTypes.string.isRequired,
   link: React.PropTypes.string,
   onClick: React.PropTypes.func,
   buttonStyle: React.PropTypes.string,
-  buttonBsStyle: React.PropTypes.string,
+  buttonBsStyle: React.PropTypes.string.isRequired,
 };

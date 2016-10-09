@@ -158,7 +158,7 @@ export class EditGroup extends React.Component {
             <ControlLabel>Users</ControlLabel>
             { userForm }
             <br />
-          <LinkContainerButton buttonType='default' buttonText='Edit' onClick={this.handleClick} />
+          <LinkContainerButton buttonBsStyle='default' buttonText='Edit' onClick={this.handleClick} />
           </FormGroup>
         </form>
       </div>

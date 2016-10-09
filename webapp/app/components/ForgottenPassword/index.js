@@ -31,7 +31,7 @@ export class ForgottenPassword extends React.Component {
           <FormGroup controlId="formBasicText">
             <ControlLabel>Email</ControlLabel>
             <FormControl type="text" value={this.props.state.email} onChange={this.onChangeEmail} />
-            <LinkContainerButton buttonType='default' buttonText='Send' onClick={this.handleClick} />
+            <LinkContainerButton buttonType="submit" buttonBsStyle="default" buttonText="Send" onClick={this.handleClick} />
           </FormGroup>
         </form>
       </div>

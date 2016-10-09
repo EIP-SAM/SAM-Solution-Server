@@ -13,7 +13,7 @@ export class RestoreHistoryButtons extends React.Component {
     const username = window.location.pathname.split('/')[2];
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="info" className={styles.button} buttonText="Launch restore" link={`/create-restore/${username}`} />
+        <LinkContainerButton buttonBsStyle="info" className={styles.button} buttonText="Launch restore" link={`/create-restore/${username}`} />
       </ButtonToolbar>
     );
   }
