@@ -12,18 +12,19 @@ export class LinkContainerButton extends React.Component {
 
   render() {
     const buttonStyle = ((this.props.buttonStyle) ? this.props.buttonStyle : styles.button);
+    const buttonType = this.props.buttonType ? this.props.buttonType : 'button';
 
     if (this.props.link) {
       return (
         <LinkContainer to={{ pathname: this.props.link }}>
-          <Button className={buttonStyle} bsStyle={this.props.buttonType} onClick={this.props.onClick}>
+          <Button type={buttonType} className={buttonStyle} bsStyle={this.props.buttonBsStyle} onClick={this.props.onClick}>
             {this.props.buttonText}
           </Button>
         </LinkContainer>
       );
     }
     return (
-      <Button className={buttonStyle} bsStyle={this.props.buttonType} onClick={this.props.onClick}>
+      <Button type={buttonType} className={buttonStyle} bsStyle={this.props.buttonBsStyle} onClick={this.props.onClick}>
         {this.props.buttonText}
       </Button>
     );
@@ -36,4 +37,5 @@ LinkContainerButton.propTypes = {
   link: React.PropTypes.string,
   onClick: React.PropTypes.func,
   buttonStyle: React.PropTypes.string,
+  buttonBsStyle: React.PropTypes.string,
 };
