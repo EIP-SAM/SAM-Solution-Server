@@ -34,6 +34,7 @@ export class Login extends React.Component {
   }
 
   handleClick() {
+    event.preventDefault();
     this.props.loginRequest(this.props.state.username, this.props.state.password);
   }
 

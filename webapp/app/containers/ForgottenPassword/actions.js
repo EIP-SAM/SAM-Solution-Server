@@ -41,9 +41,9 @@ export function forgottenPasswordRequest(email) {
       .end((err, res) => {
         dispatch(forgottenPassword(res.body));
 
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
+        // if (err && res.statusCode === 401) {
+        //   browserHistory.push('/login');
+        // }
 
         if (res.body.success) {
           dispatch(push('/login'));
