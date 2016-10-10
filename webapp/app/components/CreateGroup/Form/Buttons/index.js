@@ -10,7 +10,8 @@ import styles from 'components/CreateGroup/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class CreateGroupFormButtons extends React.Component {
-  handleCreateClick() {
+  handleCreateClick(event) {
+    event.preventDefault();
     if (this.props.groupName !== '') {
       this.props.createGroupRequest(this.props.groupName, this.props.saveRestoreMode, this.props.migrationMode, this.props.softwareMode);
     } else {
@@ -25,8 +26,8 @@ export class CreateGroupFormButtons extends React.Component {
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="info" buttonText="Create" onClick={() => this.handleCreateClick()} />
-        <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
+        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Create" onClick={(event) => this.handleCreateClick(event)} />
+        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={(event) => this.handleCancelClick(event)} />
       </ButtonToolbar>
     );
   }

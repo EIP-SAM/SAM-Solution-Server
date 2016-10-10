@@ -14,7 +14,7 @@ export class GroupsButton extends React.Component {
     return (
       <ButtonToolbar className={styles.toolbar}>
         <LinkContainerButton
-          buttonType="info"
+          buttonBsStyle="info"
           buttonText="Create group"
           link="/create-group"
         />

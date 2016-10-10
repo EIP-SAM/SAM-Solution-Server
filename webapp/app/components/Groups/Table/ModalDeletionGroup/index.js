@@ -26,8 +26,8 @@ export class GroupDeletionModal extends React.Component {
         </Modal.Body>
         <Modal.Footer>
           <ButtonToolbar>
-            <LinkContainerButton buttonType="danger" buttonText="Delete" onClick={() => this.handleDeleteClick()} />
-            <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={this.props.hideInstantDeleteModal} />
+            <LinkContainerButton buttonBsStyle="danger" buttonText="Delete" onClick={() => this.handleDeleteClick()} />
+            <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={this.props.hideInstantDeleteModal} />
           </ButtonToolbar>
         </Modal.Footer>
       </Modal>

@@ -14,7 +14,7 @@ export class UsersButton extends React.Component {
     return (
       <ButtonToolbar className={styles.toolbar}>
         <LinkContainerButton
-          buttonType="info"
+          buttonBsStyle="info"
           buttonText="Create user"
           link="/create-user"
         />
