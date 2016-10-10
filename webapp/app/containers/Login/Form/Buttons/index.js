@@ -3,10 +3,10 @@
 //
 
 import { connect } from 'react-redux';
-import { LoginFormButtons } from 'components/EditUser/Form/Buttons';
-import { loginRequest } from 'containers/EditUser/Form/actions';
-import { usernameErrorMsg } from 'containers/EditUser/Form/Username/actions';
-import { passwordErrorMsg } from 'containers/EditUser/Form/Password/actions';
+import { LoginFormButtons } from 'components/Login/Form/Buttons';
+import { loginRequest } from 'containers/Login/Form/actions';
+import { usernameErrorMsg } from 'containers/Login/Form/Username/actions';
+import { passwordErrorMsg } from 'containers/Login/Form/Password/actions';
 
 function mapStateToProps(state) {
   return {

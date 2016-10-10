@@ -17,12 +17,57 @@ import {
   LOGIN,
 } from './constants';
 
-
+export function resetStateForm() {
+  return function resetState(dispatch) {
+    dispatch(resetStateUsername());
+    dispatch(resetStatePassword());
+  };
+}
 
 export function login(user) {
   return {
     type: LOGIN,
     user,
+  };
+}
+
+export function setUserInfo(logged, user) {
+  return {
+    type: SET_USER_INFO,
+    userInfo: {
+      logged,
+      userId: user.id,
+      username: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    },
+  };
+}
+
+export function resetUserInfo() {
+  return {
+    type: SET_USER_INFO,
+    userInfo: {
+      logged: false,
+      userId: '',
+      username: '',
+      email: '',
+      isAdmin: '',
+    },
+  };
+}
+
+export function getUserInfo() {
+  return function startAction(dispatch) {
+    return request
+      .get('/api/logged-in/user/profile')
+      .end((err, res) => {
+        if (!err) {
+          dispatch(setUserInfo(true, res.body));
+        } else {
+          dispatch(resetUserInfo());
+        }
+      });
   };
 }
 
