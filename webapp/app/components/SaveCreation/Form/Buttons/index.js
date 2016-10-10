@@ -11,7 +11,7 @@ import styles from 'components/SaveCreation/styles.css';
 /* eslint-disable react/prefer-stateless-function */
 export class SaveCreationButtons extends React.Component {
 
-  handleFormClick() {
+  handleFormClick(event) {
     event.preventDefault();
     if (this.props.users.length > 0 &&
         this.props.date !== 'Invalid date' &&
