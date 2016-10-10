@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { GroupsFormGroup } from 'components/Users/Filters/GroupsFormGroup';
+import { UsersFiltersGroups } from 'components/Users/Filters/Groups';
 import { filterUsers } from 'containers/Users/Filters/actions';
 import {
   getGroupsRequest,
@@ -31,4 +31,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(GroupsFormGroup);
+)(UsersFiltersGroups);

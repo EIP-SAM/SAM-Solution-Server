@@ -32,8 +32,8 @@ export class Users extends React.Component {
       <div>
         <PageHeader>Users</PageHeader>
         {alert}
-        <UserButton />
         <UserFilters />
+        <UserButton />
         <UserTable />
       </div>
     );

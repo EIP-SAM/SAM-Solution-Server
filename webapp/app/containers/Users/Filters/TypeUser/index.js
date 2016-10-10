@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { TypeUserFormGroup } from 'components/Users/Filters/TypeUserFormGroup';
+import { UsersFiltersTypeUser } from 'components/Users/Filters/TypeUser';
 import { getCurrentTypeUser } from './actions';
 import { filterUsers } from 'containers/Users/Filters/actions';
 
@@ -24,4 +24,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(TypeUserFormGroup);
+)(UsersFiltersTypeUser);

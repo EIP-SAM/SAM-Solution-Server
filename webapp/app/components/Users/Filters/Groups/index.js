@@ -7,7 +7,7 @@ import { FormGroup, ControlLabel, FormControl, Col } from 'react-bootstrap';
 import styles from 'components/Users/Filters/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class GroupsFormGroup extends React.Component {
+export class UsersFiltersGroups extends React.Component {
   constructor(props) {
     super(props);
     this.selectGroup = this.selectGroup.bind(this);
@@ -47,7 +47,7 @@ export class GroupsFormGroup extends React.Component {
   }
 }
 
-GroupsFormGroup.propTypes = {
+UsersFiltersGroups.propTypes = {
   groups: React.PropTypes.array,
   currentTypeUser: React.PropTypes.string,
   allUsers: React.PropTypes.array,
