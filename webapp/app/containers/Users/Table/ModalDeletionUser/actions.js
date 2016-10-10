@@ -35,10 +35,9 @@ export function hideInstantDeleteModal() {
   };
 }
 
-export function userToDelete(username, userId) {
+export function userToDelete(userId) {
   return {
     type: USERS_USER_TO_DELETE,
-    username,
     userId,
   };
 }

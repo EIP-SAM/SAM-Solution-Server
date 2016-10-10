@@ -23,7 +23,7 @@ export function showInstantSaveModal() {
 
 export function hideInstantSaveModal() {
   return {
-    type: SHOW_INSTANT_SAVE_MODAL,
+    type: SAVE_SHOW_INSTANT_SAVE_MODAL,
     showInstantSaveModal: false,
   };
 }

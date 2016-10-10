@@ -13,6 +13,24 @@ import request from 'utils/request';
 import { browserHistory } from 'react-router';
 import { rebootAlert } from 'containers/Users/actions';
 
+import {
+  USERS_SHOW_INSTANT_REBOOT_MODAL,
+} from './constants';
+
+export function showInstantRebootModal() {
+  return {
+    type: USERS_SHOW_INSTANT_REBOOT_MODAL,
+    showModal: true,
+  };
+}
+
+export function hideInstantRebootModal() {
+  return {
+    type: USERS_SHOW_INSTANT_REBOOT_MODAL,
+    showModal: false,
+  };
+}
+
 export function rebootUser(username) {
   return function rebootUserRequest(dispatch) {
     return request

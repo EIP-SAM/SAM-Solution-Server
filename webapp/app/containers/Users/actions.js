@@ -13,6 +13,7 @@ import request from 'utils/request';
 import { browserHistory } from 'react-router';
 import {
   USERS_GET_USERS,
+  USERS_USERNAME,
   USERS_REMOVE_ALERT,
   USERS_REBOOT_ALERT,
   USERS_RESET_ALERT,
@@ -40,6 +41,13 @@ export function getUsers(users) {
   return {
     type: USERS_GET_USERS,
     users,
+  };
+}
+
+export function getUsername(username) {
+  return {
+    type: USERS_USERNAME,
+    username,
   };
 }
 
