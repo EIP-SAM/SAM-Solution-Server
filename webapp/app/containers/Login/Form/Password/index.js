@@ -23,4 +23,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(LoginFormPasswordFormGroup);
-Contact GitHub API Training Shop Blog About

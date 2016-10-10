@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { getUserInfo } from 'containers/Login/actions';
+import { getUserInfo } from 'containers/Login/Form/actions';
 import App from 'components/App';
 
 function mapStateToProps(state) {
