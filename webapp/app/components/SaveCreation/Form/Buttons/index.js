@@ -12,6 +12,7 @@ import styles from 'components/SaveCreation/styles.css';
 export class SaveCreationButtons extends React.Component {
 
   handleFormClick() {
+    event.preventDefault();
     if (this.props.users.length > 0 &&
         this.props.date !== 'Invalid date' &&
         this.props.time !== 'Invalid date' &&
@@ -39,7 +40,7 @@ export class SaveCreationButtons extends React.Component {
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonBsStyle="info" buttonText="Create" onClick={() => this.handleFormClick()} />
+        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Create" onClick={(event) => this.handleFormClick(event)} />
         <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
       </ButtonToolbar>
     );
