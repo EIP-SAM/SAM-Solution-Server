@@ -12,7 +12,7 @@ import styles from 'components/Logs/styles.css';
 export default class Log extends React.Component {
   render() {
     return (
-      <div className={styles.inheritWith}>
+      <div>
         <PageHeader>Logs</PageHeader>
         <Filters />
         <Result />
