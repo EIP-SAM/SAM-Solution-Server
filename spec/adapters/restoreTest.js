@@ -64,11 +64,31 @@ describe('createRestore', function () {
   });
 });
 
+describe('findUserByRestoreId', function () {
+  var restoreId;
+
+  beforeAll(function () {
+    restoreId = 1;
+  });
+
+  it('should return a promise', function () {
+    var restore = restoreAdapter.findUserByRestoreId(restoreId);
+    expect(typeof restore.then === 'function').toBeTruthy();
+  });
+  it('should have called findAll once', function () {
+    spyOn(UserModel, 'findAll');
+    restoreAdapter.findUserByRestoreId(restoreId);
+    expect(UserModel.findAll).toHaveBeenCalledTimes(1);
+  });
+});
+
 describe('restoreIsStart', function () {
   var restore;
+  var restoreId;
 
   beforeEach(function () {
-    restore = restoreAdapter.restoreIsStart(1);
+    restoreId = 1;
+    restore = restoreAdapter.restoreIsStart(restoreId);
   });
 
   afterEach(function () {
@@ -85,7 +105,7 @@ describe('restoreIsStart', function () {
   });
 
   it('should return a RestoreModel with isStart boolean at true', function () {
-    restoreAdapter.restoreIsStart(1).then(function (asyncRestore) {
+    restoreAdapter.restoreIsStart(restoreId).then(function (asyncRestore) {
       expect(asyncRestore.isStart).toBe(true);
     });
   });
@@ -95,16 +115,18 @@ describe('restoreIsStart', function () {
       resolve(RestoreModel);
     }));
 
-    restoreAdapter.restoreIsStart(1);
+    restoreAdapter.restoreIsStart(restoreId);
     expect(RestoreModel.findById).toHaveBeenCalledTimes(1);
   });
 });
 
 describe('restoreIsFinish', function () {
   var restore;
+  var restoreId;
 
   beforeEach(function () {
-    restore = restoreAdapter.restoreIsFinish(1);
+    restoreId = 1;
+    restore = restoreAdapter.restoreIsFinish(restoreId);
   });
 
   afterEach(function () {
@@ -121,7 +143,7 @@ describe('restoreIsFinish', function () {
   });
 
   it('should return a RestoreModel with isFinish boolean at true', function () {
-    restoreAdapter.restoreIsFinish(1).then(function (asyncRestore) {
+    restoreAdapter.restoreIsFinish(restoreId).then(function (asyncRestore) {
       expect(asyncRestore.isFinish).toBe(true);
     });
   });
@@ -131,16 +153,18 @@ describe('restoreIsFinish', function () {
       resolve(RestoreModel);
     }));
 
-    restoreAdapter.restoreIsFinish(1);
+    restoreAdapter.restoreIsFinish(restoreId);
     expect(RestoreModel.findById).toHaveBeenCalledTimes(1);
   });
 });
 
 describe('restoreIsSuccess', function () {
   var restore;
+  var restoreId;
 
   beforeEach(function () {
-    restore = restoreAdapter.restoreIsSuccess(1);
+    restoreId = 1;
+    restore = restoreAdapter.restoreIsSuccess(restoreId);
   });
 
   afterEach(function () {
@@ -157,7 +181,7 @@ describe('restoreIsSuccess', function () {
   });
 
   it('should return a RestoreModel with isSuccess boolean at true', function () {
-    restoreAdapter.restoreIsSuccess(1).then(function (asyncRestore) {
+    restoreAdapter.restoreIsSuccess(restoreId).then(function (asyncRestore) {
       expect(asyncRestore.isSuccess).toBe(true);
     });
   });
@@ -167,8 +191,21 @@ describe('restoreIsSuccess', function () {
       resolve(RestoreModel);
     }));
 
-    restoreAdapter.restoreIsSuccess(1);
+    restoreAdapter.restoreIsSuccess(restoreId);
     expect(RestoreModel.findById).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('getAllRestore', function () {
+  it('should return a promise', function () {
+    var restore = restoreAdapter.getAllRestore();
+    expect(typeof restore.then === 'function').toBeTruthy();
+  });
+
+  it('should have called findAll once', function () {
+    spyOn(RestoreModel, 'findAll');
+    restoreAdapter.getAllRestore();
+    expect(RestoreModel.findAll).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -193,8 +230,20 @@ describe('getRestoreByUser', function () {
 
   it('should have called findAll once', function () {
     spyOn(RestoreModel, 'findAll');
-    restoreAdapter.getRestoreByUser();
+    restoreAdapter.getRestoreByUser(1);
     expect(RestoreModel.findAll).toHaveBeenCalledTimes(1);
   });
+});
 
+describe('getRestoresByDay', function () {
+  it('should return a promise', function () {
+    var restore = restoreAdapter.getRestoresByDay();
+    expect(typeof restore.then === 'function').toBeTruthy();
+  });
+
+  it('should have called findAndCountAll once', function () {
+    spyOn(RestoreModel, 'findAndCountAll');
+    restoreAdapter.getRestoresByDay();
+    expect(RestoreModel.findAndCountAll).toHaveBeenCalledTimes(1);
+  });
 });

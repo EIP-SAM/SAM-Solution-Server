@@ -25,7 +25,7 @@ describe('lastUsersSaves', function () {
     spyOn(saveScheduledAdapter, 'lastUsersSaves').and.returnValue(
           new Promise(function (resolve, reject) {
       resolve(UserModel);
-    }));;
+    }));
     saveManager.lastUsersSaves(req, res);
     expect(saveScheduledAdapter.lastUsersSaves).toHaveBeenCalledTimes(1);
   });
