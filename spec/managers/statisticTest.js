@@ -46,19 +46,19 @@ describe("Add/Get filter", function() {
 describe("Get all statistic list by type", function() {
   it("should get list of statistics by the type passed in parameter", function(){
 
-    statManager.statisticRegisterMethodForEntity('UserTest', 'GraphBarOfAgeTest', function() {
+    statManager.statisticRegisterMethodForEntity('VoitureTest', 'GraphBarOfCarTest', function() {
 
       var returnData = {
         type: 'bar',
-        labels: ['janvier', 'fevrier', 'mars'],
-        title: 'Graphique barre age',
+        labels: ['bmw', 'audi', 'mercedes'],
+        title: 'Graphique voiture',
         dataset: [
           {
-            title: 'Age des utilisateurs',
+            title: 'Taille des voitures',
             data: [65, 50, 79]
           },
           {
-            title: 'Age des enfants',
+            title: 'Taille des pneu',
             data: [35, 20, 49]
           },
         ]
@@ -67,7 +67,7 @@ describe("Get all statistic list by type", function() {
       return (returnData);
     });
 
-    var result = statManager.getStatisticTypeAndNameListByType('UserTest');
+    var result = statManager.getStatisticTypeAndNameListByType('VoitureTest');
 
     expect(result).not.toBeNull();
     expect('object' === typeof result).toBeTruthy();
