@@ -4,7 +4,7 @@
 
 import { connect } from 'react-redux';
 import Navbar from 'components/Navbar';
-import { logoutRequest } from 'containers/Login/actions';
+import { logoutRequest } from 'containers/Login/Form/actions';
 
 function mapStateToProps(state) {
   return {
