@@ -5,11 +5,6 @@
 import React from 'react';
 
 export class Dashboard extends React.Component {
-  componentWillMount() {
-    this.userInfo = this.props.userInfo;
-    console.log('user info: ', this.userInfo);
-  }
-
   render() {
     return (
       <div>
@@ -20,6 +15,4 @@ export class Dashboard extends React.Component {
   }
 }
 
-Dashboard.propTypes = {
-  userInfo: React.propTypes.Object,
-};
+Dashboard.propTypes = {};

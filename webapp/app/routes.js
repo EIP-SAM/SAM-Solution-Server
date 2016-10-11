@@ -180,8 +180,7 @@ export default function createRoutes() {
         .then(loadModule(cb))
         .catch(errorLoading);
       },
-    },
-    {
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

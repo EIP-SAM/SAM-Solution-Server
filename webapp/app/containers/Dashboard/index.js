@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 import { Dashboard } from 'components/Dashboard';
 
 function mapStateToProps(state) {
+  console.log(state);
   return {
-    userInfo: state.get('login').userInfo,
   };
 }
 
