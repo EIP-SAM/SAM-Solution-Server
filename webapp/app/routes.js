@@ -37,6 +37,14 @@ export default function createRoutes() {
         importModules.catch(errorLoading);
       },
     }, {
+      path: '/dashboard',
+      name: 'dashboard',
+      getComponent(nextState, cb) {
+        System.import('containers/Dashboard')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    }, {
       path: '/logs',
       name: 'logs',
       getComponent(nextState, cb) {
