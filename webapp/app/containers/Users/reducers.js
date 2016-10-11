@@ -10,6 +10,8 @@
 
 import { combineReducers } from 'redux-immutable';
 import UsersDeletionModalReducer from './Table/ModalDeletionUser/reducer';
+import UsersFiltersReducer from './Filters/reducers';
+
 import {
   USERS_GET_USERS,
   USERS_REMOVE_ALERT,
@@ -58,5 +60,6 @@ function UsersReducer(state = initialState, action) {
 //
 export default combineReducers({
   UsersReducer,
+  UsersFiltersReducer,
   UsersDeletionModalReducer,
 });
