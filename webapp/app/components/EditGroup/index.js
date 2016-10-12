@@ -72,8 +72,6 @@ export class EditGroup extends React.Component {
   handleClick(event) {
     var group = {};
     var users = [];
-
-    event.preventDefault();
     this.group.users.map(function(user) {
       users.push(user.id);
     });
@@ -158,9 +156,9 @@ export class EditGroup extends React.Component {
               </FormControl>
             </FormGroup>
             <ControlLabel>Users</ControlLabel>
-            {userForm}
+            { userForm }
             <br />
-            <LinkContainerButton buttonType="submit" buttonBsStyle="default" buttonText="Edit" onClick={this.handleClick} />
+            <LinkContainerButton buttonBsStyle="default" buttonText="Edit" onClick={this.handleClick} />
           </FormGroup>
         </form>
       </div>
