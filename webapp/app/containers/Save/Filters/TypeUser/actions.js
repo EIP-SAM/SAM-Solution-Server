@@ -3,12 +3,12 @@
 //
 
 import {
-  CURRENT_TYPE_USER,
+  SAVE_CURRENT_TYPE_USER,
 } from './constants';
 
 export function getCurrentTypeUser(currentTypeUser) {
   return {
-    type: CURRENT_TYPE_USER,
+    type: SAVE_CURRENT_TYPE_USER,
     currentTypeUser,
   };
 }

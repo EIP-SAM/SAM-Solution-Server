@@ -3,13 +3,14 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveCreationUsersFormGroup } from 'components/SaveCreation/Form/UsersFormGroup';
+import { SaveCreationUsers } from 'components/SaveCreation/Form/Users';
 import {
   listUsers,
 } from './actions';
 
 function mapStateToProps(state) {
   return {
+    userInfo: state.get('login').userInfo,
     users: state.get('saveCreation').get('SaveCreationFormUsersReducer').users,
     listAllUsers: state.get('save').get('SaveReducer').users,
     userError: state.get('saveCreation').get('SaveCreationFormUsersReducer').userError,
@@ -25,4 +26,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SaveCreationUsersFormGroup);
+)(SaveCreationUsers);

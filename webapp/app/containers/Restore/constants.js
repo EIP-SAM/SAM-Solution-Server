@@ -2,4 +2,4 @@
 // Restore Constants
 //
 
-export const GET_RESTORES = 'GET_RESTORES';
+export const RESTORE_GET_RESTORES = 'RESTORE_GET_RESTORES';

@@ -11,35 +11,35 @@
 
 
 import {
-  RESET_STATE_DATE,
-  DATE,
-  DATE_ERROR,
-  DATE_DISABLED,
+  SAVE_CREATION_RESET_STATE_DATE,
+  SAVE_CREATION_DATE,
+  SAVE_CREATION_DATE_ERROR,
+  SAVE_CREATION_DATE_DISABLED,
 } from './constants';
 
 export function resetStateDate() {
   return {
-    type: RESET_STATE_DATE,
+    type: SAVE_CREATION_RESET_STATE_DATE,
   };
 }
 
 export function dateDisabled(isDateDisabled) {
   return {
-    type: DATE_DISABLED,
+    type: SAVE_CREATION_DATE_DISABLED,
     isDateDisabled,
   };
 }
 
 export function dateSave(date) {
   return {
-    type: DATE,
+    type: SAVE_CREATION_DATE,
     date,
   };
 }
 
 export function dateErrorMsg(dateError) {
   return {
-    type: DATE_ERROR,
+    type: SAVE_CREATION_DATE_ERROR,
     dateError,
   };
 }

@@ -1,0 +1,7 @@
+//
+// Groups form create user constants
+//
+
+export const CREATE_USER_GROUPS = 'CREATE_USER_GROUPS';
+export const CREATE_USER_SELECTED_GROUPS = 'CREATE_USER_SELECTED_GROUPS';
+export const CREATE_USER_RESET_STATE_GROUPS = 'CREATE_USER_RESET_STATE_GROUPS';

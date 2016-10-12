@@ -57,12 +57,12 @@
     "mongoose": "^4.4.10",
     "mysql": "^2.10.2",
     "node-schedule": "^1.1.0",
-    "nodegit": "^0.13.0",
+    "nodegit": "^0.16.0",
     "nodemailer": "^2.4.2",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "password-generator": "^2.0.2",
-    "sequelize": "^3.17.3",
+    "sequelize": "^3.24.3",
     "socket.io": "^1.4.6"
   },
   "jshintConfig": {

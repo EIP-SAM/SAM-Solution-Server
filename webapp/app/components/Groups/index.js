@@ -3,32 +3,45 @@
 //
 
 import React from 'react';
-import { PageHeader } from 'react-bootstrap';
-import { GroupTable } from 'components/Groups/Table';
-import styles from './styles.css';
+import { PageHeader, Alert } from 'react-bootstrap';
+import GroupTable from 'containers/Groups/Table';
+import GroupsButton from 'containers/Groups/Button';
 
 export class Groups extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount() {
     this.props.getGroupsRequest();
   }
 
+  componentWillUnmount() {
+    this.props.resetAlert();
+  }
+
   render() {
+    let alert = '';
+    if (this.props.displayAlert) {
+      alert = (
+        <Alert bsStyle={this.props.typeAlert}>
+          <strong>{`${this.props.groupName}`}</strong> {`${this.props.alertMsg}`}
+        </Alert>
+      );
+    }
+
     return (
-      <div container className={styles.groups}>
+      <div>
         <PageHeader>Groups</PageHeader>
-        <GroupTable
-          state={this.props.state}
-        />
+        {alert}
+        <GroupsButton />
+        <GroupTable />
       </div>
     );
   }
 }
 
 Groups.propTypes = {
-  state: React.PropTypes.object,
+  groupName: React.PropTypes.string,
+  alertMsg: React.PropTypes.string,
+  typeAlert: React.PropTypes.string,
+  displayAlert: React.PropTypes.bool,
   getGroupsRequest: React.PropTypes.func,
+  resetAlert: React.PropTypes.func,
 };

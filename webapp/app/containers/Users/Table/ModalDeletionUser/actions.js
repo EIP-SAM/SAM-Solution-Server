@@ -10,33 +10,34 @@
 //
 
 import request from 'utils/request';
+import { browserHistory } from 'react-router';
 import {
   getUsersRequest,
   removeAlert,
 } from 'containers/Users/actions';
 
 import {
-  SHOW_INSTANT_DELETE_MODAL,
-  USER_TO_DELETE,
+  USERS_SHOW_INSTANT_DELETE_MODAL,
+  USERS_USER_TO_DELETE,
 } from './constants';
 
 export function showInstantDeleteModal() {
   return {
-    type: SHOW_INSTANT_DELETE_MODAL,
+    type: USERS_SHOW_INSTANT_DELETE_MODAL,
     showModal: true,
   };
 }
 
 export function hideInstantDeleteModal() {
   return {
-    type: SHOW_INSTANT_DELETE_MODAL,
+    type: USERS_SHOW_INSTANT_DELETE_MODAL,
     showModal: false,
   };
 }
 
 export function userToDelete(username, userId) {
   return {
-    type: USER_TO_DELETE,
+    type: USERS_USER_TO_DELETE,
     username,
     userId,
   };
@@ -51,7 +52,11 @@ export function deleteUser(userId) {
     .post('/api/logged-in/admin/users/delete')
     .type('json')
     .send({ users })
-    .end(() => {
+    .end((err, res) => {
+      if (err && res.statusCode === 401) {
+        browserHistory.push('/login');
+      }
+
       dispatch(removeAlert());
       dispatch(getUsersRequest());
     });

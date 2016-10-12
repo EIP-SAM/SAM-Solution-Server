@@ -4,20 +4,20 @@
 
 import request from 'utils/request';
 import {
-  GROUPS,
-  CURRENT_GROUP,
+  SAVE_GROUPS,
+  SAVE_CURRENT_GROUP,
 } from './constants';
 
 export function getCurrentGroup(currentGroup) {
   return {
-    type: CURRENT_GROUP,
+    type: SAVE_CURRENT_GROUP,
     currentGroup,
   };
 }
 
 export function getGroups(groups) {
   return {
-    type: GROUPS,
+    type: SAVE_GROUPS,
     groups,
   };
 }

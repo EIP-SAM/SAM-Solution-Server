@@ -9,10 +9,10 @@
 //
 
 import {
-  RESET_STATE_FREQUENCY,
-  FREQUENCY,
-  FREQUENCY_ERROR,
-  FREQUENCY_DISABLED,
+  SAVE_CREATION_RESET_STATE_FREQUENCY,
+  SAVE_CREATION_FREQUENCY,
+  SAVE_CREATION_FREQUENCY_ERROR,
+  SAVE_CREATION_FREQUENCY_DISABLED,
 } from './constants';
 
 const initialState = {
@@ -23,17 +23,17 @@ const initialState = {
 
 function SaveCreationFormFrequencyReducer(state = initialState, action) {
   switch (action.type) {
-    case RESET_STATE_FREQUENCY:
+    case SAVE_CREATION_RESET_STATE_FREQUENCY:
       return Object.assign({}, initialState, {});
-    case FREQUENCY_DISABLED:
+    case SAVE_CREATION_FREQUENCY_DISABLED:
       return Object.assign({}, state, {
         isFrequencyDisabled: action.isFrequencyDisabled,
       });
-    case FREQUENCY:
+    case SAVE_CREATION_FREQUENCY:
       return Object.assign({}, state, {
         frequency: action.frequency,
       });
-    case FREQUENCY_ERROR:
+    case SAVE_CREATION_FREQUENCY_ERROR:
       return Object.assign({}, state, {
         frequencyError: action.frequencyError,
       });

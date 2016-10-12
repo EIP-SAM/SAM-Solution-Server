@@ -7,8 +7,9 @@ import { SaveHistory } from 'components/SaveHistory';
 import { getHistorySavesByUserRequest } from './actions';
 import { listUsers } from 'containers/SaveCreation/Form/Users/actions';
 
-function mapStateToProps() {
+function mapStateToProps(state) {
   return {
+    userInfo: state.get('login').userInfo,
   };
 }
 

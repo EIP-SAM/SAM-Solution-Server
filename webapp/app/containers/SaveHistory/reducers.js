@@ -13,7 +13,7 @@ import SaveHistoryTableDeletionModalReducer from './Table/ModalDeletionScheduled
 import SaveHistoryTableInstantSaveModalReducer from './Table/ModalInstantSave/reducer';
 import SaveHistoryTableInstantRestoreModalReducer from './Table/ModalInstantRestore/reducer';
 import {
-  GET_HISTORY_SAVES_BY_USER,
+  SAVE_HISTORY_GET_HISTORY_SAVES_BY_USER,
 } from './constants';
 
 const initialState = {
@@ -22,7 +22,7 @@ const initialState = {
 
 function SaveHistoryReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_HISTORY_SAVES_BY_USER:
+    case SAVE_HISTORY_GET_HISTORY_SAVES_BY_USER:
       return Object.assign({}, state, {
         saves: action.saves,
       });

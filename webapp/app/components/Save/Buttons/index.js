@@ -33,14 +33,14 @@ export class SaveButtons extends React.Component {
     return (
       <ButtonToolbar className={styles.toolbar}>
         <LinkContainerButton
-          buttonType="info"
+          buttonBsStyle="info"
           className={styles.button}
           buttonText="Launch save for all"
           link="/create-save"
           onClick={() => this.handleClickInstantSave()}
         />
         <LinkContainerButton
-          buttonType="info"
+          buttonBsStyle="info"
           className={styles.button}
           buttonText="Program save for all"
           link="/create-save"

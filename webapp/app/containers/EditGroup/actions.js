@@ -10,6 +10,7 @@
 //
 
 import request from 'utils/request';
+import { browserHistory } from 'react-router';
 
 import {
   EDIT_GROUP,
@@ -20,59 +21,47 @@ import {
 export function getGroup(group) {
   return {
     type: GET_GROUP,
-    group: group,
-  }
+    group,
+  };
 }
 
-export function getGroupRequest(groupname, callback) {
-  console.log('get : /api/logged-in/admin/groups :');
+export function getGroupRequest(id, callback) {
   return function returnGetGroupRequest(dispatch) {
     return request
-      .get('/api/logged-in/admin/groups')
+      .get('/api/logged-in/admin/group?id=' + id)
       .end((err, res) => {
-        console.log('reponse a /api/logged-in/admin/groups :');
-        console.log(res.body);
-        var i = 0;
-        while (i < res.body.groups.length && res.body.groups[i].name != groupname) {
-          ++i;
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
         }
-        console.log('group affiche sur la page : ');
-        if (!res.body.groups[i]) {
-          var group = {error: 'Error : Group ' + groupname + ' not found'};
-          console.log(group);
-          dispatch(getGroup(group));
-        } else {
-          console.log(res.body.groups[i]);
-          dispatch(getGroup(res.body.groups[i]));
-          callback(res.body.groups[i].users);
-        }
-    });
+        dispatch(getGroup(res.body));
+        callback(res.body.users);
+      });
   };
 }
 
 export function editGroup(group) {
   return {
     type: EDIT_GROUP,
-    group: group,
+    group,
   };
 }
 
-export function editGroupRequest(groups) {
-  console.log('requete envoyee a /api/logged-in/admin/groups/update :');
-  console.log(groups);
+export function editGroupRequest(group) {
   return function returnEditGroupRequest(dispatch) {
     return request
-      .post('/api/logged-in/admin/groups/update')
+      .post('/api/logged-in/admin/group/update')
       .type('json')
-      .send({ groups })
+      .send(group)
       .end((err, res) => {
-        console.log('reponse a /api/logged-in/admin/groups/update :');
-        console.log(res.body);
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(editGroup(res.body));
         if (res.body.name) {
-          browserHistory.push('/edit-group/' + groups[0].name);
+          browserHistory.push('/edit-group/' + group.id);
         }
-    });
+      });
   };
 }
 
@@ -97,20 +86,21 @@ export function getUsers(users, group) {
 
   return {
     type: GET_USERS,
-    users: users,
-    usersGroups: usersGroups,
-  }
+    users,
+    usersGroups,
+  };
 }
 
 export function getUsersRequest(users) {
-  console.log('get : /api/logged-in/admin/users :');
   return function returnGetUsersRequest(dispatch) {
     return request
       .get('/api/logged-in/admin/users')
       .end((err, res) => {
-        console.log('reponse a /api/logged-in/admin/users :');
-        console.log(res.body);
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(getUsers(res.body.users, users));
-    });
+      });
   };
 }

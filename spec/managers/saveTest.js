@@ -25,7 +25,7 @@ describe('lastUsersSaves', function () {
     spyOn(saveScheduledAdapter, 'lastUsersSaves').and.returnValue(
           new Promise(function (resolve, reject) {
       resolve(UserModel);
-    }));;
+    }));
     saveManager.lastUsersSaves(req, res);
     expect(saveScheduledAdapter.lastUsersSaves).toHaveBeenCalledTimes(1);
   });
@@ -52,7 +52,29 @@ describe('historySavesByUser', function () {
     saveManager.historySavesByUser(req, res);
     expect(saveScheduledAdapter.historySavesByUser).toHaveBeenCalledTimes(1);
   });
+});
 
+describe('historySucceededSavesByUser', function () {
+  var req;
+  var res;
+
+  beforeAll(function () {
+    req = { query: function() {
+      return 'admin';
+    }};
+    res = {};
+  });
+
+  it('should return a promise', function () {
+    var historySavesByUser = saveManager.historySucceededSavesByUser(req, res);
+    expect(typeof historySavesByUser.then === 'function').toBeTruthy();
+  });
+
+  it('should have called historySavesByUser once', function () {
+    spyOn(saveScheduledAdapter, 'historySucceededSavesByUser');
+    saveManager.historySucceededSavesByUser(req, res);
+    expect(saveScheduledAdapter.historySucceededSavesByUser).toHaveBeenCalledTimes(1);
+  });
 });
 
 describe('createSave', function () {
@@ -83,65 +105,67 @@ describe('createSave', function () {
   });
 });
 
-xdescribe('startSave', function () {
-  var save;
-  var req;
-  var res;
+describe('startSave', function () {
+  var saveId;
+  var saveScheduled;
 
   beforeAll(function () {
-    req = { body: { saveId: 1 } };
-    res = {};
+    saveId: 1;
   });
 
   beforeEach(function () {
-    save = saveManager.startSave(req, res);
+    saveScheduled = saveManager.startSave(saveId);
   });
 
   afterEach(function () {
-    save = null;
+    saveScheduled = null;
   });
 
   it('should not return null or undefined object', function () {
-    expect(save).not.toBeNull();
-    expect(save).toBeDefined();
+    expect(saveScheduled).not.toBeNull();
+    expect(saveScheduled).toBeDefined();
   });
 
   it('should return a promise', function () {
-    expect(typeof save.then === 'function').toBeTruthy();
+    expect(typeof saveScheduled.then === 'function').toBeTruthy();
   });
 
   it('should have called saveIsStart once', function () {
-    spyOn(saveAdapter, 'saveIsStart');
-    saveManager.startSave(req, res);
-    expect(saveAdapter.saveIsStart).toHaveBeenCalledTimes(1);
+    spyOn(saveScheduledAdapter, 'saveIsStart');
+    saveManager.startSave(saveId);
+    expect(saveScheduledAdapter.saveIsStart).toHaveBeenCalledTimes(1);
   });
 });
 
-xdescribe('saveFinish', function () {
-  var save;
-  var req;
-  var res;
+describe('saveFinish', function () {
+  var saveScheduled;
+  var saveScheduledId;
+  var saveId;
+  var username;
+  var files;
 
   beforeAll(function () {
-    req = { body: { saveId: 1, saveScheduledId: 1 } };
-    res = {};
+    saveScheduledId = 1;
+    saveId = 1;
+    username = 'admin';
+    files = 'test.txt';
   });
 
   beforeEach(function () {
-    save = saveManager.saveFinish(req, res);
+    saveScheduled = saveManager.saveFinish(saveScheduledId, saveId, username, files);
   });
 
   afterEach(function () {
-    save = null;
+    saveScheduled = null;
   });
 
   it('should not return null or undefined object', function () {
-    expect(save).not.toBeNull();
-    expect(save).toBeDefined();
+    expect(saveScheduled).not.toBeNull();
+    expect(saveScheduled).toBeDefined();
   });
 
   it('should return a promise', function () {
-    expect(typeof save.then === 'function').toBeTruthy();
+    expect(typeof saveScheduled.then === 'function').toBeTruthy();
   });
 
   it('should have called findSaveScheduledById once', function () {
@@ -150,14 +174,45 @@ xdescribe('saveFinish', function () {
       resolve(SaveScheduledModel);
     }));
 
-    saveManager.saveFinish(req, res);
+    saveManager.saveFinish(saveScheduledId, saveId, username, files);
     expect(saveScheduledAdapter.findSaveScheduledById).toHaveBeenCalledTimes(1);
   });
 
   it('should have called saveIsFinish once', function () {
-    spyOn(saveAdapter, 'saveIsFinish');
-    saveManager.saveFinish(req, res);
-    expect(saveAdapter.saveIsFinish).toHaveBeenCalledTimes(1);
+    spyOn(saveScheduledAdapter, 'saveIsFinish');
+    saveManager.saveFinish(saveScheduledId, saveId, username, files);
+    expect(saveScheduledAdapter.saveIsFinish).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('saveSuccess', function () {
+  var saveScheduled;
+  var saveId;
+  var branch;
+
+  beforeAll(function () {
+    saveId = 1;
+    branch = 'test';
+  });
+
+  beforeEach(function () {
+    saveScheduled = saveManager.saveSuccess(saveId, branch);
+  });
+
+  afterEach(function () {
+    saveScheduled = null;
+  });
+
+  it('should have called saveIsSuccess once', function () {
+    spyOn(saveScheduledAdapter, 'saveIsSuccess');
+    saveManager.saveSuccess(saveId, branch);
+    expect(saveScheduledAdapter.saveIsSuccess).toHaveBeenCalledTimes(1);
+  });
+
+  it('should have called branchSave once', function () {
+    spyOn(saveScheduledAdapter, 'branchSave');
+    saveManager.saveSuccess(saveId, branch);
+    expect(saveScheduledAdapter.branchSave).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -176,43 +231,3 @@ describe('cancelSave', function () {
       expect(cronManager.removeCron).toHaveBeenCalledTimes(1);
     });
 })
-
-xdescribe('saveSuccess', function () {
-  var save;
-  var req;
-  var res;
-
-  beforeAll(function () {
-    req = { body: { saveId: 1 } };
-    res = {};
-  });
-
-  beforeEach(function () {
-    save = saveManager.saveSuccess(req, res);
-  });
-
-  afterEach(function () {
-    save = null;
-  });
-
-  it('should not return null or undefined object', function () {
-    expect(save).not.toBeNull();
-    expect(save).toBeDefined();
-  });
-
-  it('should return a promise', function () {
-    expect(typeof save.then === 'function').toBeTruthy();
-  });
-
-  it('should have called saveIsSuccess once', function () {
-    spyOn(saveAdapter, 'saveIsSuccess');
-    saveManager.saveSuccess(req, res);
-    expect(saveAdapter.saveIsSuccess).toHaveBeenCalledTimes(1);
-  });
-
-  it('should have called hashSave once', function () {
-    spyOn(saveAdapter, 'hashSave');
-    saveManager.saveSuccess(req, res);
-    expect(saveAdapter.hashSave).toHaveBeenCalledTimes(1);
-  });
-});

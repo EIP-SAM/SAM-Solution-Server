@@ -10,36 +10,37 @@
 //
 
 import request from 'utils/request';
+import { browserHistory } from 'react-router';
 
 import {
-  SHOW_INSTANT_RESTORE_MODAL,
-  INSTANT_RESTORE,
-  RESET_RESTORE_STATE,
+  SAVE_SHOW_INSTANT_RESTORE_MODAL,
+  SAVE_INSTANT_RESTORE,
+  SAVE_RESET_RESTORE_STATE,
 } from './constants';
 
 export function resetRestoreState() {
   return {
-    type: RESET_RESTORE_STATE,
+    type: SAVE_RESET_RESTORE_STATE,
   };
 }
 
 export function showInstantRestoreModal() {
   return {
-    type: SHOW_INSTANT_RESTORE_MODAL,
+    type: SAVE_SHOW_INSTANT_RESTORE_MODAL,
     showInstantRestoreModal: true,
   };
 }
 
 export function hideInstantRestoreModal() {
   return {
-    type: SHOW_INSTANT_RESTORE_MODAL,
+    type: SAVE_SHOW_INSTANT_RESTORE_MODAL,
     showInstantRestoreModal: false,
   };
 }
 
 export function instantRestore(userId, files, saveId) {
   return {
-    type: INSTANT_RESTORE,
+    type: SAVE_INSTANT_RESTORE,
     userId,
     saveId,
     files,
@@ -56,7 +57,11 @@ export function createRestoreRequest(userId, files, saveId) {
         saveId,
         files,
       })
-      .end(() => {
+      .end((err, res) => {
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(resetRestoreState());
       });
   };

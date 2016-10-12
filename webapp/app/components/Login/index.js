@@ -5,6 +5,7 @@
 import React from 'react';
 import { FormGroup, FormControl, ControlLabel, Image } from 'react-bootstrap';
 import { LinkContainerButton } from '../Button';
+import { browserHistory } from 'react-router';
 import Logo from '../App/logo_sam_solution.png';
 import styles from './styles.css';
 
@@ -16,9 +17,12 @@ export class Login extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentWillMount() {
-    this.props.logoutRequest();
-    this.props.onLoginPage(true);
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.userInfo && nextProps.userInfo.logged) {
+      browserHistory.push(`/edit-user/${nextProps.userInfo.username}`);
+      return true;
+    }
+    return false;
   }
 
   onChangeUsername(event) {
@@ -29,13 +33,14 @@ export class Login extends React.Component {
     this.props.onChangeData(this.props.state.username, event.target.value);
   }
 
-  handleClick(event) {
+  handleClick() {
+    event.preventDefault();
     this.props.loginRequest(this.props.state.username, this.props.state.password);
   }
 
   render() {
     return (
-      <div container className={styles.login}>
+      <div className={styles.login}>
         <Image src={Logo} responsive className={styles.logo} />
         <form>
           <FormGroup controlId="formBasicText">
@@ -43,7 +48,7 @@ export class Login extends React.Component {
             <FormControl type="text" placeholder={this.props.state.username} onChange={this.onChangeUsername} />
             <ControlLabel>Password</ControlLabel>
             <FormControl type="password" placeholder={this.props.state.password} onChange={this.onChangePassword} />
-            <LinkContainerButton buttonType="default" buttonText="Log In" onClick={this.handleClick} />
+            <LinkContainerButton buttonType="submit" buttonBsStyle="default" buttonText="Log In" onClick={this.handleClick} />
           </FormGroup>
         </form>
         <a href="/register">Register</a><br />
@@ -55,8 +60,7 @@ export class Login extends React.Component {
 
 Login.propTypes = {
   state: React.PropTypes.object,
+  userInfo: React.PropTypes.object,
   loginRequest: React.PropTypes.func,
-  logoutRequest: React.PropTypes.func,
   onChangeData: React.PropTypes.func,
-  onLoginPage: React.PropTypes.func,
 };

@@ -93,7 +93,7 @@ export default function createRoutes() {
         .catch(errorLoading);
       },
     }, {
-      path: '/edit-user/:username',
+      path: '/edit-user/:id',
       name: 'edit user',
       getComponent(nextState, cb) {
         System.import('containers/EditUser')
@@ -101,7 +101,7 @@ export default function createRoutes() {
         .catch(errorLoading);
       },
     }, {
-      path: '/edit-group/:groupname',
+      path: '/edit-group/:id',
       name: 'edit group',
       getComponent(nextState, cb) {
         System.import('containers/EditGroup')
@@ -172,23 +172,15 @@ export default function createRoutes() {
         .then(loadModule(cb))
         .catch(errorLoading);
       },
-    }, {
-      path: '/admin-action',
-      name: 'adminAction',
-      getComponent(nextState, cb) {
-        System.import('containers/UsersAdminAction')
-        .then(loadModule(cb))
-        .catch(errorLoading);
-      },
     },
-     /* {
+    {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
-        System.import('components/NotFoundPage')
+        System.import('containers/PageNotFound')
           .then(loadModule(cb))
           .catch(errorLoading);
       },
-    }, */
+    },
   ];
 }

@@ -6,12 +6,13 @@ import styles from 'components/RestoreCreation/styles.css';
 /* eslint-disable react/prefer-stateless-function */
 export class RestoreCreationButtons extends React.Component {
 
-  handleFormClick() {
+  handleFormClick(event) {
+    event.preventDefault();
     if (this.props.userId !== ''
       && this.props.save !== []
       && this.props.selectedFiles.length > 0) {
       this.props.createRestoresRequest(this.props.userId, this.props.selectedFiles, this.props.save.value, true);
-    } if (this.props.save !== []) {
+    } if (this.props.save === []) {
       this.props.saveErrorMsg('No save selected');
     } if (this.props.selectedFiles.length === 0) {
       this.props.filesErrorMsg('No files selected');
@@ -25,8 +26,8 @@ export class RestoreCreationButtons extends React.Component {
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="info" buttonText="Restore" onClick={() => this.handleFormClick()} />
-        <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
+        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Restore" onClick={(event) => this.handleFormClick(event)} />
+        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
       </ButtonToolbar>
     );
   }

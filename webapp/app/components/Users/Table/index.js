@@ -9,13 +9,10 @@ import UserDeletionModal from 'containers/Users/Table/ModalDeletionUser';
 import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Td from 'components/Td';
+import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class UserTable extends React.Component {
-  componentWillUnmount() {
-    this.props.resetAlert();
-  }
-
   handleRebootClick(username) {
     this.props.rebootUser(username);
     // use only to set the username => will be remove with all the reboot management
@@ -28,7 +25,7 @@ export class UserTable extends React.Component {
   }
 
   render() {
-    const names = [{ isLink: false, value: 'id' },
+    const names = [{ isLink: false, value: '#' },
                   { isLink: false, value: 'Name' },
                   { isLink: false, value: 'Email' },
                   { isLink: false, value: 'Group(s)' },
@@ -45,16 +42,16 @@ export class UserTable extends React.Component {
             const action = [];
 
             let groupName = '';
-            groupName = user.groups.map((group, index2) => {
+            user.groups.map((group, index2) => {
               if (index2 > 0) {
                 groupName += ', ';
               }
               groupName += group.name;
-              return groupName;
+              return true;
             });
-            action.push(<ButtonPopover key={`action-${0}`} id="modify_user" trigger={['focus', 'hover']} placement="bottom" popoverContent="Edit User" buttonType="link" icon="pencil" link={`/edit-user/${user.name}`} />);
+            action.push(<ButtonPopover key={`action-${0}`} id="edit_user" trigger={['focus', 'hover']} placement="bottom" popoverContent="Edit User" buttonType="link" icon="pencil" link={`/edit-user/${user.id}`} />);
             action.push(<ButtonPopover key={`action-${1}`} id="reboot_user" trigger={['focus', 'hover']} placement="bottom" popoverContent="Reboot User" buttonType="link" icon="refresh" onClick={() => this.handleRebootClick(user.name)} />);
-            action.push(<ButtonPopover key={`action-${2}`} id="delete_user" trigger={['focus', 'hover']} placement="bottom" popoverContent="Delete User" buttonType="link" icon="trash" onClick={() => this.handleDeleteClick(user)} />);
+            action.push(<ButtonPopover key={`action-${2}`} id="delete_user" trigger={['focus', 'hover']} placement="bottom" popoverContent="Delete User" buttonType="link" icon="trash" onClick={() => this.handleDeleteClick(user)} buttonStyle={styles.trash} />);
             return (
               <Tr
                 key={`row-${index}`} items={[
@@ -79,5 +76,4 @@ UserTable.propTypes = {
   showInstantDeleteModal: React.PropTypes.func,
   rebootUser: React.PropTypes.func,
   userToDelete: React.PropTypes.func,
-  resetAlert: React.PropTypes.func,
 };

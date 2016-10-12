@@ -1,5 +1,5 @@
 //
-// Save Actions
+// Logs Actions
 //
 // To add a new Action:
 //  1) Import your constant
@@ -10,22 +10,22 @@
 //
 
 import {
-  SET_FILTERS,
-  RESET_FILTERS,
-  COLLAPSE_PANEL,
-  INC_KEY_RERENDER,
+  LOGS_SET_FILTERS,
+  LOGS_RESET_FILTERS,
+  LOGS_COLLAPSE_PANEL,
+  LOGS_INC_KEY_RERENDER,
 } from '../constants/filters';
 
 export function setFilters(filters) {
   return {
-    type: SET_FILTERS,
+    type: LOGS_SET_FILTERS,
     filters,
   };
 }
 
 export function resetFilters() {
   return {
-    type: RESET_FILTERS,
+    type: LOGS_RESET_FILTERS,
     filters: { findOpts: { force: true } },
   };
 }
@@ -48,13 +48,13 @@ export function collapsePanel(isCollapsed) {
   }
 
   return {
-    type: COLLAPSE_PANEL,
+    type: LOGS_COLLAPSE_PANEL,
     info,
   };
 }
 
 export function incKeyRerender() {
   return {
-    type: INC_KEY_RERENDER,
+    type: LOGS_INC_KEY_RERENDER,
   };
 }

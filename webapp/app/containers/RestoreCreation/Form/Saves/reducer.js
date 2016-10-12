@@ -9,10 +9,10 @@
 //
 
 import {
-  RESET_STATE_SAVES,
-  GET_HISTORY_SAVES_BY_USER,
-  SELECTED_SAVE,
-  SAVE_ERROR,
+  RESTORE_CREATION_RESET_STATE_SAVES,
+  RESTORE_CREATION_GET_HISTORY_SAVES_BY_USER_RESTORE,
+  RESTORE_CREATION_SELECTED_SAVE,
+  RESTORE_CREATION_SAVE_ERROR,
 } from './constants';
 
 const initialState = {
@@ -23,17 +23,17 @@ const initialState = {
 
 function SavesRestoreCreationReducer(state = initialState, action) {
   switch (action.type) {
-    case RESET_STATE_SAVES:
+    case RESTORE_CREATION_RESET_STATE_SAVES:
       return Object.assign({}, initialState, {});
-    case GET_HISTORY_SAVES_BY_USER:
+    case RESTORE_CREATION_GET_HISTORY_SAVES_BY_USER_RESTORE:
       return Object.assign({}, state, {
         allSaves: action.allSaves,
       });
-    case SELECTED_SAVE:
+    case RESTORE_CREATION_SELECTED_SAVE:
       return Object.assign({}, state, {
         save: action.save,
       });
-    case SAVE_ERROR:
+    case RESTORE_CREATION_SAVE_ERROR:
       return Object.assign({}, state, {
         saveError: action.saveError,
       });

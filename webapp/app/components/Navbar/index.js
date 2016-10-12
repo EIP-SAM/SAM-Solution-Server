@@ -4,16 +4,30 @@
 import React from 'react';
 import { Navbar, Nav, NavItem, Image } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { getUser } from 'utils/user';
 import Logo from 'components/Navbar/logo_sam_solution.png';
 import styles from 'components/Navbar/styles.css';
 
 
 /* eslint-disable react/prefer-stateless-function */
 export default class NavbarContainer extends React.Component {
+  getNavbarLinkContainer(item, i) {
+    if (item.value !== 'Logout') {
+      return (
+        <LinkContainer key={`navItem-${i}`} to={{ pathname: item.pathname }}>
+          <NavItem eventKey={i} className={styles.navBarMenuItem}>{item.value}</NavItem>
+        </LinkContainer>
+      );
+    }
+    return (
+      <LinkContainer onClick={() => this.props.logoutRequest()} key={`navItem-${i}`} to={{ pathname: item.pathname }}>
+        <NavItem eventKey={i} className={styles.navBarMenuItem}>{item.value}</NavItem>
+      </LinkContainer>
+    );
+  }
+
   render() {
     let navItems = [];
-    const userInfo = getUser();
+    const userInfo = this.props.userInfo;
 
     if (userInfo.isAdmin) {
       navItems = [
@@ -26,51 +40,42 @@ export default class NavbarContainer extends React.Component {
       { pathname: '/logs', value: 'Logs' },
       { pathname: '/statistics', value: 'Statistics' },
       { pathname: '#', value: 'Help' },
-      { pathname: '/login', value: 'Logout' },
       ];
     } else {
       navItems = [
-      { pathname: '#', value: 'Users' },
-      { pathname: `/save/${userInfo.username}`, value: 'Save' },
+      { pathname: `/edit-user/${userInfo.username}`, value: 'Users' },
+      { pathname: `/save/${userInfo.username}/${userInfo.userId}`, value: 'Save' },
       { pathname: `/restore/${userInfo.username}`, value: 'Restore' },
       { pathname: '#', value: 'Migration' },
       { pathname: '#', value: 'Software' },
-      { pathname: '/logs', value: 'Logs' },
-      { pathname: '/statistics', value: 'Statistics' },
       { pathname: '#', value: 'Help' },
-      { pathname: '/login', value: 'Logout' },
       ];
     }
 
-    const navBar = (
-      <Navbar inverse className={styles.position}>
-        <Navbar.Header className={styles.noFloat}>
-          <Navbar.Brand className={styles.noFloat}>
-            <Image src={Logo} responsive className={styles.logo} />
+    return (
+      <Navbar inverse fixedTop className={styles.navbarStyle} role="navigation">
+        <Navbar.Header>
+          <Navbar.Brand>
+            <Image src={Logo} responsive className={styles.navbarLogo} />
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
-        <Navbar.Collapse className={styles.collapse}>
-          <Nav className={styles.menu}>
+        <Nav pullRight className={styles.navBarRightButtonBlock}>
+          {this.getNavbarLinkContainer({ pathname: '/login', value: 'Logout' }, 1)}
+        </Nav>
+        <Navbar.Collapse className={styles.navBarSideBar}>
+          <Nav className={styles.navBarMenu}>
             {navItems.map((item, i) =>
-              <LinkContainer key={`navItem-${i}`} to={{ pathname: item.pathname }}>
-                <NavItem eventKey={i} className={styles.menuItem}>{item.value}</NavItem>
-              </LinkContainer>
+              this.getNavbarLinkContainer(item, i)
             )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
     );
-    const empty = (<span></span>);
-    const endNavBar = (!this.props.username.isLogin) ? navBar : empty;
-
-    return (
-      <span>{endNavBar}</span>
-    );
   }
 }
 
 NavbarContainer.propTypes = {
-  username: React.PropTypes.object,
-  onLoginPage: React.PropTypes.func,
+  userInfo: React.PropTypes.object,
+  logoutRequest: React.PropTypes.func,
 };

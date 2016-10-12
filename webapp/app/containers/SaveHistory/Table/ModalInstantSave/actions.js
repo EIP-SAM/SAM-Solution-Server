@@ -10,22 +10,23 @@
 //
 
 import request from 'utils/request';
+import { browserHistory } from 'react-router';
 import { resetStateForm } from 'containers/SaveCreation/Form/actions';
 import { getHistorySavesByUserRequest } from 'containers/SaveHistory/actions';
 import {
-  SHOW_INSTANT_SAVE_MODAL,
+  SAVE_HISTORY_SHOW_INSTANT_SAVE_MODAL,
 } from './constants';
 
 export function showInstantSaveModal() {
   return {
-    type: SHOW_INSTANT_SAVE_MODAL,
+    type: SAVE_HISTORY_SHOW_INSTANT_SAVE_MODAL,
     showInstantSaveModal: true,
   };
 }
 
 export function hideInstantSaveModal() {
   return {
-    type: SHOW_INSTANT_SAVE_MODAL,
+    type: SAVE_HISTORY_SHOW_INSTANT_SAVE_MODAL,
     showInstantSaveModal: false,
   };
 }
@@ -42,7 +43,11 @@ export function createSaveActionSaveHistory(users, date, time, frequency, files)
         frequency,
         files,
       })
-      .end(() => {
+      .end((err, res) => {
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
         dispatch(resetStateForm());
         dispatch(getHistorySavesByUserRequest(users[0].name));
       });

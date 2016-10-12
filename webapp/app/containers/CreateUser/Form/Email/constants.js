@@ -1,0 +1,7 @@
+//
+// Email form create user constants
+//
+
+export const CREATE_USER_EMAIL_CHANGE = 'CREATE_USER_EMAIL_CHANGE';
+export const CREATE_USER_RESET_STATE_EMAIL = 'CREATE_USER_RESET_STATE_EMAIL';
+export const CREATE_USER_EMAIL_ERROR = 'CREATE_USER_EMAIL_ERROR';

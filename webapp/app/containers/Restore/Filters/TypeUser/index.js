@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { TypeUserFormGroup } from 'components/Restore/Filters/TypeUserFormGroup';
+import { RestoreFiltersTypeUser } from 'components/Restore/Filters/TypeUser';
 import { getCurrentTypeUser } from './actions';
 import { filterUsers } from 'containers/Restore/Filters/actions';
 
@@ -24,4 +24,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(TypeUserFormGroup);
+)(RestoreFiltersTypeUser);
