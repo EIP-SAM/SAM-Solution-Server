@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { CreateUserFormUsernameFormGroup } from 'components/CreateUser/Form/UsernameFormGroup';
+import { CreateUserFormUsername } from 'components/CreateUser/Form/Username';
 import { usernameChange } from './actions';
 
 function mapStateToProps(state) {
@@ -22,4 +22,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(CreateUserFormUsernameFormGroup);
+)(CreateUserFormUsername);

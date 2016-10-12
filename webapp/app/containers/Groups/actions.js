@@ -13,14 +13,28 @@ import request from 'utils/request';
 import { browserHistory } from 'react-router';
 
 import {
-  GET_GROUPS,
+  GROUPS_GET_GROUPS,
+  GROUPS_REMOVE_ALERT,
+  GROUPS_RESET_ALERT,
 } from './constants';
+
+export function resetAlert() {
+  return {
+    type: GROUPS_RESET_ALERT,
+  };
+}
+
+export function removeAlert() {
+  return {
+    type: GROUPS_REMOVE_ALERT,
+  };
+}
 
 export function getGroups(groups) {
   return {
-    type: GET_GROUPS,
-    groups: groups,
-  }
+    type: GROUPS_GET_GROUPS,
+    groups,
+  };
 }
 
 export function getGroupsRequest() {
@@ -31,8 +45,7 @@ export function getGroupsRequest() {
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
-
-        dispatch(getGroups(res.body));
-    });
+        dispatch(getGroups(res.body.groups));
+      });
   };
 }

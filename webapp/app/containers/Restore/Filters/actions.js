@@ -3,12 +3,12 @@
 //
 import { getRestores } from 'containers/Restore/actions';
 import {
-  GET_ALL_USERS,
+  RESTORE_GET_ALL_USERS,
 } from './constants';
 
 export function getAllUsers(allUsers) {
   return {
-    type: GET_ALL_USERS,
+    type: RESTORE_GET_ALL_USERS,
     allUsers,
   };
 }

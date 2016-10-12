@@ -2,4 +2,4 @@
 // Save Constants
 //
 
-export const GET_SAVES = 'GET_SAVES';
+export const SAVE_GET_SAVES = 'SAVE_GET_SAVES';

@@ -9,7 +9,7 @@
 //
 
 import {
-  SHOW_INSTANT_RESTORE_MODAL,
+  RESTORE_SHOW_INSTANT_RESTORE_MODAL,
 } from './constants';
 
 const initialState = {
@@ -18,7 +18,7 @@ const initialState = {
 
 function InstantRestoreModalRestoreReducer(state = initialState, action) {
   switch (action.type) {
-    case SHOW_INSTANT_RESTORE_MODAL:
+    case RESTORE_SHOW_INSTANT_RESTORE_MODAL:
       return Object.assign({}, state, {
         showModal: action.showModal,
       });

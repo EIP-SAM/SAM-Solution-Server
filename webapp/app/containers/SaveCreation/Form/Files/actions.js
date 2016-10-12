@@ -10,43 +10,43 @@
 //
 
 import {
-  RESET_STATE_FILES,
-  ADD_FILE,
-  ADD_ALL_FILES,
-  CAN_ADD_FILE,
-  ADD_FILE_ERROR,
+  SAVE_CREATION_RESET_STATE_FILES,
+  SAVE_CREATION_ADD_FILE,
+  SAVE_CREATION_ADD_ALL_FILES,
+  SAVE_CREATION_CAN_ADD_FILE,
+  SAVE_CREATION_ADD_FILE_ERROR,
 } from './constants';
 
 export function resetStateFiles() {
   return {
-    type: RESET_STATE_FILES,
+    type: SAVE_CREATION_RESET_STATE_FILES,
   };
 }
 
 export function addFile(file) {
   return {
-    type: ADD_FILE,
+    type: SAVE_CREATION_ADD_FILE,
     file,
   };
 }
 
 export function addAllFiles(files) {
   return {
-    type: ADD_ALL_FILES,
+    type: SAVE_CREATION_ADD_ALL_FILES,
     files,
   };
 }
 
 export function displayAddFile(canAddFile) {
   return {
-    type: CAN_ADD_FILE,
+    type: SAVE_CREATION_CAN_ADD_FILE,
     canAddFile,
   };
 }
 
 export function fileErrorMsg(fileError) {
   return {
-    type: ADD_FILE_ERROR,
+    type: SAVE_CREATION_ADD_FILE_ERROR,
     fileError,
   };
 }

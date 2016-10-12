@@ -13,10 +13,10 @@ module.exports.numberSavesPerMonthByUser = function() {
       saves.rows.forEach(function(save) {
         i = save.dataValues.execDate.getMonth(save.dataValues.execDate);
         if (i == k){
-          restoresByMonth[i] += saves.count[j].count;
+          savesByMonth[i] += saves.count[j].count;
         }
         else {
-          restoresByMonth[i] = saves.count[j].count;
+          savesByMonth[i] = saves.count[j].count;
           k = i;
         }
         j++;
@@ -26,10 +26,10 @@ module.exports.numberSavesPerMonthByUser = function() {
         complete: 1,
         type: 'line',
         labels: months,
-        title: 'radar : Graphique des Sauvegardes',
+        title: 'radar : Saves graph',
         dataset: [
           {
-            title: 'Sauvegarde des utilisateurs',
+            title: 'Users save',
             data: savesByMonth,
           },
         ]

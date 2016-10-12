@@ -1,24 +1,17 @@
-.editUser {
-  width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+body {
+  overflow: visible;
 }
 
-.editUserRightLine {
-  margin-bottom: 10px;
-  padding: 0px;
+.form {
+  margin: auto!important;
 }
 
-.editUserName {
-  padding: 0px;
+::-webkit-inner-spin-button {
+  position: relative;
+  top: 7px;
 }
 
-.editUser FromControl {
-  margin-bottom: 10px;
-}
-
-@media (max-width: 991px) {
-  .editUser {
-    width: 495px;
-  }
+.toolbar {
+  margin-top: 20px;
+  text-align: right;
 }

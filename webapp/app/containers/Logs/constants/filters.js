@@ -2,7 +2,7 @@
 // Logs Filters constants
 //
 
-export const SET_FILTERS = 'SET_FILTERS';
-export const RESET_FILTERS = 'RESET_FILTERS';
-export const COLLAPSE_PANEL = 'COLLAPSE_PANEL';
-export const INC_KEY_RERENDER = 'ADD_KEY_RERENDER';
+export const LOGS_SET_FILTERS = 'LOGS_SET_FILTERS';
+export const LOGS_RESET_FILTERS = 'LOGS_RESET_FILTERS';
+export const LOGS_COLLAPSE_PANEL = 'LOGS_COLLAPSE_PANEL';
+export const LOGS_INC_KEY_RERENDER = 'LOGS_ADD_KEY_RERENDER';

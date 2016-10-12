@@ -10,27 +10,27 @@
 //
 
 import {
-  USERNAME_CHANGE,
-  RESET_STATE_USERNAME,
-  USERNAME_ERROR,
+  CREATE_USER_USERNAME_CHANGE,
+  CREATE_USER_RESET_STATE_USERNAME,
+  CREATE_USER_USERNAME_ERROR,
 } from './constants';
 
 export function resetStateUsername() {
   return {
-    type: RESET_STATE_USERNAME,
+    type: CREATE_USER_RESET_STATE_USERNAME,
   };
 }
 
 export function usernameChange(username) {
   return {
-    type: USERNAME_CHANGE,
+    type: CREATE_USER_USERNAME_CHANGE,
     username,
   };
 }
 
 export function usernameErrorMsg(usernameError) {
   return {
-    type: USERNAME_ERROR,
+    type: CREATE_USER_USERNAME_ERROR,
     usernameError,
   };
 }

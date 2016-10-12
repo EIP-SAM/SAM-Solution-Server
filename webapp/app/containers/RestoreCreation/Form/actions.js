@@ -16,7 +16,7 @@ import {
   setUserId,
   nameUser,
   resetStateUsers,
-} from './Users/actions';
+} from './User/actions';
 
 import {
   selectFiles,

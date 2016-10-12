@@ -14,12 +14,12 @@ import { browserHistory } from 'react-router';
 import { getAllUsers } from './Filters/actions';
 
 import {
-  GET_RESTORES,
+  RESTORE_GET_RESTORES,
 } from './constants';
 
 export function getRestores(restores) {
   return {
-    type: GET_RESTORES,
+    type: RESTORE_GET_RESTORES,
     restores,
   };
 }

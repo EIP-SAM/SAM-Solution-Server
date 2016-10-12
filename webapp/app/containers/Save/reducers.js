@@ -14,7 +14,7 @@ import SaveTableInstantRestoreModalReducer from './Table/ModalInstantRestore/red
 import SaveFiltersReducer from './Filters/reducers';
 
 import {
-  GET_SAVES,
+  SAVE_GET_SAVES,
 } from './constants';
 
 const initialState = {
@@ -23,7 +23,7 @@ const initialState = {
 
 function SaveReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_SAVES:
+    case SAVE_GET_SAVES:
       return Object.assign({}, state, {
         saves: action.saves,
       });

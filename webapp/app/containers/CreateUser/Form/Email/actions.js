@@ -10,27 +10,27 @@
 //
 
 import {
-  EMAIL_CHANGE,
-  RESET_STATE_EMAIL,
-  EMAIL_ERROR,
+  CREATE_USER_EMAIL_CHANGE,
+  CREATE_USER_RESET_STATE_EMAIL,
+  CREATE_USER_EMAIL_ERROR,
 } from './constants';
 
 export function resetStateEmail() {
   return {
-    type: RESET_STATE_EMAIL,
+    type: CREATE_USER_RESET_STATE_EMAIL,
   };
 }
 
 export function emailChange(email) {
   return {
-    type: EMAIL_CHANGE,
+    type: CREATE_USER_EMAIL_CHANGE,
     email,
   };
 }
 
 export function emailErrorMsg(emailError) {
   return {
-    type: EMAIL_ERROR,
+    type: CREATE_USER_EMAIL_ERROR,
     emailError,
   };
 }

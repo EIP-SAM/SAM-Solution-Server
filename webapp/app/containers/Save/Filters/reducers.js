@@ -12,7 +12,7 @@ import { combineReducers } from 'redux-immutable';
 import SaveGroupsFilterReducer from './Groups/reducer';
 import SaveTypeUserFilterReducer from './TypeUser/reducer';
 import {
-  GET_ALL_USERS,
+  SAVE_GET_ALL_USERS,
 } from './constants';
 
 const initialState = {
@@ -23,7 +23,7 @@ const initialState = {
 
 function SaveFiltersReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_ALL_USERS:
+    case SAVE_GET_ALL_USERS:
       return Object.assign({}, state, {
         allUsers: action.allUsers,
       });

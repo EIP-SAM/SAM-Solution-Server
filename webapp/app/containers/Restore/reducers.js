@@ -12,7 +12,7 @@ import InstantRestoreModalRestoreReducer from './Table/ModalInstantRestore/reduc
 import RestoreFiltersReducer from './Filters/reducers';
 
 import {
-  GET_RESTORES,
+  RESTORE_GET_RESTORES,
 } from './constants';
 
 const initialState = {
@@ -21,7 +21,7 @@ const initialState = {
 
 function RestoreReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_RESTORES:
+    case RESTORE_GET_RESTORES:
       return Object.assign({}, state, {
         restores: action.restores,
       });
