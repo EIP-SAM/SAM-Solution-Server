@@ -36,7 +36,7 @@ export class LoginFormUsernameFormGroup extends React.Component {
   }
 }
 
-EditUserFormUsernameFormGroup.propTypes = {
+LoginFormUsernameFormGroup.propTypes = {
   username: React.PropTypes.string,
   usernameError: React.PropTypes.string,
   usernameChange: React.PropTypes.func,

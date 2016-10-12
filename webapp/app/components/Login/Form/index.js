@@ -20,4 +20,4 @@ export class LoginForm extends React.Component {
   }
 }
 
-EditUserForm.propTypes = {};
+LoginForm.propTypes = {};

@@ -23,6 +23,6 @@ export class Login extends React.Component {
   }
 }
 
-EditUser.propTypes = {
+Login.propTypes = {
   resetStateForm: React.PropTypes.func,
 };

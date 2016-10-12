@@ -15,14 +15,8 @@ import { browserHistory } from 'react-router';
 
 import {
   LOGIN,
+  SET_USER_INFO,
 } from './constants';
-
-export function resetStateForm() {
-  return function resetState(dispatch) {
-    dispatch(resetStateUsername());
-    dispatch(resetStatePassword());
-  };
-}
 
 export function login(user) {
   return {
@@ -57,20 +51,6 @@ export function resetUserInfo() {
   };
 }
 
-export function getUserInfo() {
-  return function startAction(dispatch) {
-    return request
-      .get('/api/logged-in/user/profile')
-      .end((err, res) => {
-        if (!err) {
-          dispatch(setUserInfo(true, res.body));
-        } else {
-          dispatch(resetUserInfo());
-        }
-      });
-  };
-}
-
 export function loginRequest(username, password) {
   return function returnLoginRequest(dispatch) {
     return request
@@ -82,6 +62,20 @@ export function loginRequest(username, password) {
           dispatch(login(res.body));
           dispatch(setUserInfo(true, res.body));
           browserHistory.push('/edit-user/' + res.body.id);
+        }
+      });
+  };
+}
+
+export function getUserInfo() {
+  return function startAction(dispatch) {
+    return request
+      .get('/api/logged-in/user/profile')
+      .end((err, res) => {
+        if (!err) {
+          dispatch(setUserInfo(true, res.body));
+        } else {
+          dispatch(resetUserInfo());
         }
       });
   };
