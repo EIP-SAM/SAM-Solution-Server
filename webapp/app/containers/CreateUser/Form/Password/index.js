@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { CreateUserFormPasswordFormGroup } from 'components/CreateUser/Form/PasswordFormGroup';
+import { CreateUserFormPassword } from 'components/CreateUser/Form/Password';
 import { passwordChange } from './actions';
 
 function mapStateToProps(state) {
@@ -22,4 +22,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(CreateUserFormPasswordFormGroup);
+)(CreateUserFormPassword);

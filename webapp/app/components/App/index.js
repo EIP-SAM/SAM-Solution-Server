@@ -36,9 +36,9 @@ export default class App extends React.Component {
     return (
       <div>
         {navbar}
-        <Grid className={styles.padding}>
+        <Grid className={styles.appBlock}>
           <Row className="show-grid">
-            <Col xs={10} sm={7} md={8} lg={9}>
+            <Col xs={12} sm={12} md={12} lg={12}>
               {this.props.children}
             </Col>
           </Row>

@@ -9,10 +9,10 @@
 //
 
 import {
-  RESET_STATE_TIME,
-  TIME,
-  TIME_ERROR,
-  TIME_DISABLED,
+  SAVE_CREATION_RESET_STATE_TIME,
+  SAVE_CREATION_TIME,
+  SAVE_CREATION_TIME_ERROR,
+  SAVE_CREATION_TIME_DISABLED,
 } from './constants';
 
 const initialState = {
@@ -23,17 +23,17 @@ const initialState = {
 
 function SaveCreationFormTimeReducer(state = initialState, action) {
   switch (action.type) {
-    case RESET_STATE_TIME:
+    case SAVE_CREATION_RESET_STATE_TIME:
       return Object.assign({}, initialState, {});
-    case TIME_DISABLED:
+    case SAVE_CREATION_TIME_DISABLED:
       return Object.assign({}, state, {
         isTimeDisabled: action.isTimeDisabled,
       });
-    case TIME:
+    case SAVE_CREATION_TIME:
       return Object.assign({}, state, {
         time: action.time,
       });
-    case TIME_ERROR:
+    case SAVE_CREATION_TIME_ERROR:
       return Object.assign({}, state, {
         timeError: action.timeError,
       });

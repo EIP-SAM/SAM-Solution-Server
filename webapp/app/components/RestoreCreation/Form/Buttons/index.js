@@ -25,8 +25,8 @@ export class RestoreCreationButtons extends React.Component {
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="info" buttonText="Restore" onClick={() => this.handleFormClick()} />
-        <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
+        <LinkContainerButton buttonBsStyle="info" buttonText="Restore" onClick={() => this.handleFormClick()} />
+        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
       </ButtonToolbar>
     );
   }

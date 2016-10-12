@@ -4,7 +4,10 @@
 
 import { connect } from 'react-redux';
 import { Users } from 'components/Users';
-import { getUsersRequest } from './actions';
+import {
+  getUsersRequest,
+  resetAlert,
+} from './actions';
 
 function mapStateToProps(state) {
   return {
@@ -18,6 +21,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getUsersRequest: () => dispatch(getUsersRequest()),
+    resetAlert: () => dispatch(resetAlert()),
   };
 }
 

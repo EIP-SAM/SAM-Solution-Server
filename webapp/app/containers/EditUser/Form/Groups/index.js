@@ -3,8 +3,11 @@
 //
 
 import { connect } from 'react-redux';
-import { EditUserFormGroupsFormGroup } from 'components/EditUser/Form/GroupsFormGroup';
-import { getUserGroups } from './actions';
+import { EditUserFormGroups } from 'components/EditUser/Form/Groups';
+import {
+  getUserGroups,
+  resetStateGroups,
+} from './actions';
 
 function mapStateToProps(state) {
   return {
@@ -16,10 +19,11 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getUserGroups: (userGroups) => dispatch(getUserGroups(userGroups)),
+    resetStateGroups: () => dispatch(resetStateGroups()),
   };
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(EditUserFormGroupsFormGroup);
+)(EditUserFormGroups);

@@ -10,27 +10,27 @@
 //
 
 import {
-  PASSWORD_CHANGE,
-  RESET_STATE_PASSWORD,
-  PASSWORD_ERROR,
+  CREATE_USER_PASSWORD_CHANGE,
+  CREATE_USER_RESET_STATE_PASSWORD,
+  CREATE_USER_PASSWORD_ERROR,
 } from './constants';
 
 export function resetStatePassword() {
   return {
-    type: RESET_STATE_PASSWORD,
+    type: CREATE_USER_RESET_STATE_PASSWORD,
   };
 }
 
 export function passwordChange(password) {
   return {
-    type: PASSWORD_CHANGE,
+    type: CREATE_USER_PASSWORD_CHANGE,
     password,
   };
 }
 
 export function passwordErrorMsg(passwordError) {
   return {
-    type: PASSWORD_ERROR,
+    type: CREATE_USER_PASSWORD_ERROR,
     passwordError,
   };
 }

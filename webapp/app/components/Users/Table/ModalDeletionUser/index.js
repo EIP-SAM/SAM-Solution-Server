@@ -1,5 +1,5 @@
 //
-// Modal to delete a scheduled save in save history page
+// Modal to delete a user in users page
 //
 
 import React from 'react';
@@ -26,8 +26,8 @@ export class UserDeletionModal extends React.Component {
         </Modal.Body>
         <Modal.Footer>
           <ButtonToolbar>
-            <LinkContainerButton buttonType="danger" buttonText="Delete" onClick={() => this.handleDeleteClick()} />
-            <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={this.props.hideInstantDeleteModal} />
+            <LinkContainerButton buttonBsStyle="danger" buttonText="Delete" onClick={() => this.handleDeleteClick()} />
+            <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={this.props.hideInstantDeleteModal} />
           </ButtonToolbar>
         </Modal.Footer>
       </Modal>

@@ -10,15 +10,15 @@
 
 import { combineReducers } from 'redux-immutable';
 import {
-  SET_FILTERS,
-  RESET_FILTERS,
-  COLLAPSE_PANEL,
-  INC_KEY_RERENDER,
+  LOGS_SET_FILTERS,
+  LOGS_RESET_FILTERS,
+  LOGS_COLLAPSE_PANEL,
+  LOGS_INC_KEY_RERENDER,
 } from '../constants/filters';
 
 function keyRerender(state = 0, action) {
   switch (action.type) {
-    case INC_KEY_RERENDER:
+    case LOGS_INC_KEY_RERENDER:
       return state + 1;
     default:
       return state;
@@ -27,7 +27,7 @@ function keyRerender(state = 0, action) {
 
 function panel(state = {}, action) {
   switch (action.type) {
-    case COLLAPSE_PANEL:
+    case LOGS_COLLAPSE_PANEL:
       return Object.assign({}, state, {
         info: action.info,
       });
@@ -38,11 +38,11 @@ function panel(state = {}, action) {
 
 function fields(state = {}, action) {
   switch (action.type) {
-    case SET_FILTERS:
+    case LOGS_SET_FILTERS:
       return Object.assign({}, state, {
         filters: action.filters,
       });
-    case RESET_FILTERS:
+    case LOGS_RESET_FILTERS:
       return Object.assign({}, state, {
         filters: action.filters,
       });

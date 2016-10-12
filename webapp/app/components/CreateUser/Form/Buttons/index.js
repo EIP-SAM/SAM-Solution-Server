@@ -11,7 +11,9 @@ import styles from 'components/CreateUser/styles.css';
 /* eslint-disable react/prefer-stateless-function */
 export class CreateUserFormButtons extends React.Component {
 
-  handleCreateClick() {
+  handleCreateClick(event) {
+    event.preventDefault();
+
     if (this.props.username !== '' && this.props.email !== '' &&
         this.props.password !== '' && this.props.passwordConfirmation !== '') {
       this.props.createUserRequest(this.props.username, this.props.email, this.props.password, this.props.passwordConfirmation, this.props.selectedGroup);
@@ -37,8 +39,8 @@ export class CreateUserFormButtons extends React.Component {
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="info" buttonText="Create" onClick={() => this.handleCreateClick()} />
-        <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
+        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Create" onClick={(event) => this.handleCreateClick(event)} />
+        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={(event) => this.handleCancelClick(event)} />
       </ButtonToolbar>
     );
   }

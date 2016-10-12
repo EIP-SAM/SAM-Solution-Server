@@ -105,12 +105,14 @@ export class EditGroup extends React.Component {
   }
 
   render() {
-    this.group = this.props.state.group;
     var userForm = [];
 
     if (!this.props.state) {
       return(<p>loading...</p>);
     }
+
+    this.group = this.props.state.group;
+
     if (this.props.state.users) {
       var usersGroups = this.props.state.usersGroups;
       this.props.state.users.map((user, i) => {
@@ -124,7 +126,7 @@ export class EditGroup extends React.Component {
     }
 
     return (
-      <div container className={styles.editGroup}>
+      <div className={styles.editGroup}>
         <form>
           <PageHeader>Edit Group</PageHeader>
           <FormGroup controlId="formBasicText">
@@ -156,7 +158,7 @@ export class EditGroup extends React.Component {
             <ControlLabel>Users</ControlLabel>
             { userForm }
             <br />
-          <LinkContainerButton buttonType='default' buttonText='Edit' onClick={this.handleClick} />
+          <LinkContainerButton buttonBsStyle='default' buttonText='Edit' onClick={this.handleClick} />
           </FormGroup>
         </form>
       </div>

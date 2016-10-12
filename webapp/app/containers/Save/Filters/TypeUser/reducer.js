@@ -9,7 +9,7 @@
 //
 
 import {
-  CURRENT_TYPE_USER,
+  SAVE_CURRENT_TYPE_USER,
 } from './constants';
 
 const initialState = {
@@ -18,7 +18,7 @@ const initialState = {
 
 function SaveTypeUserFilterReducer(state = initialState, action) {
   switch (action.type) {
-    case CURRENT_TYPE_USER:
+    case SAVE_CURRENT_TYPE_USER:
       return Object.assign({}, state, {
         currentTypeUser: action.currentTypeUser,
       });

@@ -32,8 +32,8 @@ export class SaveInstantRestoreModal extends React.Component {
         </Modal.Body>
         <Modal.Footer>
           <ButtonToolbar>
-            <LinkContainerButton buttonType="info" buttonText="Launch" onClick={() => this.handleLaunchClick()} />
-            <LinkContainerButton buttonType="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
+            <LinkContainerButton buttonBsStyle="info" buttonText="Launch" onClick={() => this.handleLaunchClick()} />
+            <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
           </ButtonToolbar>
         </Modal.Footer>
       </Modal>

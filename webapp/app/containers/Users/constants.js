@@ -2,7 +2,7 @@
 // Users constants
 //
 
-export const GET_USERS = 'GET_USERS';
-export const REMOVE_ALERT = 'REMOVE_ALERT';
-export const REBOOT_ALERT = 'REBOOT_ALERT';
-export const RESET_ALERT = 'RESET_ALERT';
+export const USERS_GET_USERS = 'USERS_GET_USERS';
+export const USERS_REMOVE_ALERT = 'USERS_REMOVE_ALERT';
+export const USERS_REBOOT_ALERT = 'USERS_REBOOT_ALERT';
+export const USERS_RESET_ALERT = 'USERS_RESET_ALERT';

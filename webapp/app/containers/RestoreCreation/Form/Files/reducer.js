@@ -9,10 +9,10 @@
 //
 
 import {
-  RESET_STATE_FILES,
-  LIST_FILES,
-  SELECTED_FILES,
-  FILES_ERROR,
+  RESTORE_CREATION_RESET_STATE_FILES,
+  RESTORE_CREATION_LIST_FILES,
+  RESTORE_CREATION_SELECTED_FILES,
+  RESTORE_CREATION_FILES_ERROR,
 } from './constants';
 
 const initialState = {
@@ -23,17 +23,17 @@ const initialState = {
 
 function FilesRestoreCreationReducer(state = initialState, action) {
   switch (action.type) {
-    case RESET_STATE_FILES:
+    case RESTORE_CREATION_RESET_STATE_FILES:
       return Object.assign({}, initialState, {});
-    case LIST_FILES:
+    case RESTORE_CREATION_LIST_FILES:
       return Object.assign({}, state, {
         files: action.files,
       });
-    case SELECTED_FILES:
+    case RESTORE_CREATION_SELECTED_FILES:
       return Object.assign({}, state, {
         selectedFiles: action.selectedFiles,
       });
-    case FILES_ERROR:
+    case RESTORE_CREATION_FILES_ERROR:
       return Object.assign({}, state, {
         filesError: action.filesError,
       });

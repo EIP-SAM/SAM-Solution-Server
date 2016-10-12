@@ -9,9 +9,9 @@
 //
 
 import {
-  SHOW_INSTANT_RESTORE_MODAL,
-  INSTANT_RESTORE,
-  RESET_RESTORE_STATE,
+  SAVE_SHOW_INSTANT_RESTORE_MODAL,
+  SAVE_INSTANT_RESTORE,
+  SAVE_RESET_RESTORE_STATE,
 } from './constants';
 
 const initialState = {
@@ -23,13 +23,13 @@ const initialState = {
 
 function SaveTableInstantRestoreModalReducer(state = initialState, action) {
   switch (action.type) {
-    case RESET_RESTORE_STATE:
+    case SAVE_RESET_RESTORE_STATE:
       return Object.assign({}, initialState, {});
-    case SHOW_INSTANT_RESTORE_MODAL:
+    case SAVE_SHOW_INSTANT_RESTORE_MODAL:
       return Object.assign({}, state, {
         showInstantRestoreModal: action.showInstantRestoreModal,
       });
-    case INSTANT_RESTORE:
+    case SAVE_INSTANT_RESTORE:
       return Object.assign({}, state, {
         userId: action.userId,
         saveId: action.saveId,
