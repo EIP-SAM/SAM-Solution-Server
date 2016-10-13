@@ -31,7 +31,7 @@ export default class NavbarContainer extends React.Component {
 
     if (userInfo.isAdmin) {
       navItems = [
-        { pathname: '#', value: 'Dashboard', glyphicon: 'dashboard' },
+        { pathname: '/dashboard', value: 'Dashboard', glyphicon: 'dashboard' },
         { pathname: '/users', value: 'Users', glyphicon: 'user' },
         { pathname: '/groups', value: 'Groups', glyphicon: 'tags' },
         { pathname: '/save', value: 'Save', glyphicon: 'floppy-disk' },
@@ -44,7 +44,7 @@ export default class NavbarContainer extends React.Component {
       ];
     } else {
       navItems = [
-        { pathname: '#', value: 'Dashboard', glyphicon: 'dashboard' },
+        { pathname: '/dashboard', value: 'Dashboard', glyphicon: 'dashboard' },
         { pathname: `/edit-user/${userInfo.username}`, value: 'Users', glyphicon: 'user' },
         { pathname: `/save/${userInfo.username}/${userInfo.userId}`, value: 'Save', glyphicon: 'floppy-disk' },
         { pathname: `/restore/${userInfo.username}`, value: 'Restore', glyphicon: 'repeat' },

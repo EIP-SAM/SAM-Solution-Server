@@ -1,8 +1,14 @@
-.blockInfo {
-  padding: 10px;
+.blockInfoBlue {
+  /*background-color: #337ab7;*/
+  border: 1px solid #337ab7;
+  border-radius: 5px;
 }
 
-.blockInfoBlue {
+.blockInfoBlue .blockInfoHeader {
+  font-weight: bold;
+  font-size: 1.5em;
+  padding: 10px;
   background-color: #337ab7;
-  border-color: #337ab7;
+  color: #ffffff;
+  height: 100px;
 }
