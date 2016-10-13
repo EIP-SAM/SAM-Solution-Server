@@ -10,10 +10,12 @@
 
 import { combineReducers } from 'redux-immutable';
 import UsersDeletionModalReducer from './Table/ModalDeletionUser/reducer';
+import UsersRebootModalReducer from './Table/ModalRebootUser/reducer';
 import UsersFiltersReducer from './Filters/reducers';
 
 import {
   USERS_GET_USERS,
+  USERS_USERNAME,
   USERS_REMOVE_ALERT,
   USERS_REBOOT_ALERT,
   USERS_RESET_ALERT,
@@ -21,6 +23,7 @@ import {
 
 const initialState = {
   users: [],
+  username: '',
   alertMsg: '',
   typeAlert: '',
   displayAlert: false,
@@ -31,6 +34,10 @@ function UsersReducer(state = initialState, action) {
     case USERS_GET_USERS:
       return Object.assign({}, state, {
         users: action.users,
+      });
+    case USERS_USERNAME:
+      return Object.assign({}, state, {
+        username: action.username,
       });
     case USERS_RESET_ALERT:
       return Object.assign({}, state, {
@@ -46,7 +53,7 @@ function UsersReducer(state = initialState, action) {
       });
     case USERS_REBOOT_ALERT:
       return Object.assign({}, state, {
-        alertMsg: 'has been reboot',
+        alertMsg: 'will reboot',
         typeAlert: 'info',
         displayAlert: true,
       });
@@ -62,4 +69,5 @@ export default combineReducers({
   UsersReducer,
   UsersFiltersReducer,
   UsersDeletionModalReducer,
+  UsersRebootModalReducer,
 });

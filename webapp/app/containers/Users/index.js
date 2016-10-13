@@ -11,7 +11,7 @@ import {
 
 function mapStateToProps(state) {
   return {
-    username: state.get('users').get('UsersDeletionModalReducer').username,
+    username: state.get('users').get('UsersReducer').username,
     alertMsg: state.get('users').get('UsersReducer').alertMsg,
     typeAlert: state.get('users').get('UsersReducer').typeAlert,
     displayAlert: state.get('users').get('UsersReducer').displayAlert,
