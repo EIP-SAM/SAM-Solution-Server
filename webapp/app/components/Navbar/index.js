@@ -2,7 +2,7 @@
 // Navbar
 //
 import React from 'react';
-import { Navbar, Nav, NavItem, Image } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, Image, Glyphicon } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import Logo from 'components/Navbar/logo_sam_solution.png';
 import styles from 'components/Navbar/styles.css';
@@ -14,13 +14,13 @@ export default class NavbarContainer extends React.Component {
     if (item.value !== 'Logout') {
       return (
         <LinkContainer key={`navItem-${i}`} to={{ pathname: item.pathname }}>
-          <NavItem eventKey={i} className={styles.navBarMenuItem}>{item.value}</NavItem>
+          <NavItem eventKey={i} className={styles.navBarMenuItem}><Glyphicon glyph={item.glyphicon} className={styles.icon} />{item.value}</NavItem>
         </LinkContainer>
       );
     }
     return (
       <LinkContainer onClick={() => this.props.logoutRequest()} key={`navItem-${i}`} to={{ pathname: item.pathname }}>
-        <NavItem eventKey={i}>{item.value}</NavItem>
+        <NavItem eventKey={i}><Glyphicon glyph="off" className={styles.icon} />{item.value}</NavItem>
       </LinkContainer>
     );
   }
@@ -31,24 +31,26 @@ export default class NavbarContainer extends React.Component {
 
     if (userInfo.isAdmin) {
       navItems = [
-      { pathname: '/users', value: 'Users' },
-      { pathname: '/groups', value: 'Groups' },
-      { pathname: '/save', value: 'Save' },
-      { pathname: '/restore', value: 'Restore' },
-      { pathname: '#', value: 'Migration' },
-      { pathname: '#', value: 'Software' },
-      { pathname: '/logs', value: 'Logs' },
-      { pathname: '/statistics', value: 'Statistics' },
-      { pathname: '#', value: 'Help' },
+      { pathname: '#', value: 'Dashboard', glyphicon: 'dashboard' },
+      { pathname: '/users', value: 'Users', glyphicon: 'user' },
+      { pathname: '/groups', value: 'Groups', glyphicon: 'tags' },
+      { pathname: '/save', value: 'Save', glyphicon: 'floppy-disk' },
+      { pathname: '/restore', value: 'Restore', glyphicon: 'repeat' },
+      { pathname: '#', value: 'Migration', glyphicon: 'send' },
+      { pathname: '#', value: 'Software', glyphicon: 'cd' },
+      { pathname: '/logs', value: 'Logs', glyphicon: 'list' },
+      { pathname: '/statistics', value: 'Statistics', glyphicon: 'stats' },
+      { pathname: '#', value: 'Help', glyphicon: 'book' },
       ];
     } else {
       navItems = [
-      { pathname: `/edit-user/${userInfo.username}`, value: 'Users' },
-      { pathname: `/save/${userInfo.username}/${userInfo.userId}`, value: 'Save' },
-      { pathname: `/restore/${userInfo.username}`, value: 'Restore' },
-      { pathname: '#', value: 'Migration' },
-      { pathname: '#', value: 'Software' },
-      { pathname: '#', value: 'Help' },
+      { pathname: '#', value: 'Dashboard', glyphicon: 'dashboard' },
+      { pathname: `/edit-user/${userInfo.username}`, value: 'Users', glyphicon: 'user' },
+      { pathname: `/save/${userInfo.username}/${userInfo.userId}`, value: 'Save', glyphicon: 'floppy-disk' },
+      { pathname: `/restore/${userInfo.username}`, value: 'Restore', glyphicon: 'repeat' },
+      { pathname: '#', value: 'Migration', glyphicon: 'send' },
+      { pathname: '#', value: 'Software', glyphicon: 'list' },
+      { pathname: '#', value: 'Help', glyphicon: 'book' },
       ];
     }
 

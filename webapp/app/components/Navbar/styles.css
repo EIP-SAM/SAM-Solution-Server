@@ -1,6 +1,11 @@
 /*
-** NEW STYLE
+** Navbar style
 */
+
+.icon {
+  margin-right: 10px;
+  top: 2px;
+}
 
 .navbarStyle {
   border-radius: 0;
@@ -48,11 +53,6 @@ li > a {
 }
 
 @media (min-width: 768px) {
-  /*.navBarRightButtonBlock {
-    position: fixed;
-    right: 15px;
-  }*/
-
   .navBarSideBar {
     max-height: none !important;
     position: fixed;
@@ -69,7 +69,7 @@ li > a {
   }
 
   .navBarMenuItem {
-    font-size: 1.2em;
+    font-size: 1.1em;
     width: 225px;
   }
 }
