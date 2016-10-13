@@ -20,6 +20,12 @@ const mailManager = require('./mail');
 const logger = require('../libs/bunyan').setModuleName('Users & Rights');
 const enumModules = rightsManager.enumModules;
 
+const enumUserValues = {
+  NAME: 1,
+  EMAIL: 2,
+  PASSWORD: 3,
+};
+
 //
 // Load workers
 //
@@ -63,8 +69,12 @@ function checkNewUserPassword(password, confirmation) {
 function checkNewUserValues(name, email, password, confirmation) {
   var error = null;
 
-  if ((error = checkNewUserName(name)) || (error = checkNewUserEmail(email)) || (error = checkNewUserPassword(password, confirmation))) {
-    return error;
+  if ((error = checkNewUserName(name))) {
+    return { error: error, field: enumUserValues.NAME };
+  } else if ((error = checkNewUserEmail(email))) {
+    return { error: error, field: enumUserValues.EMAIL };
+  } else if ((error = checkNewUserPassword(password, confirmation))) {
+    return { error: error, field: enumUserValues.PASSWORD };
   }
 
   return null;
@@ -90,9 +100,10 @@ function checkAndCreateUser(name, email, password, confirmation) {
                   user.addGroups([group])
                   .then(function () {
                     gitWorker.initNewGitRepo(name)
-                    .catch(function(err){
+                    .catch(function (err) {
                       logger.info(err);
                     });
+
                     fulfill(user);
                   });
                 });
@@ -242,7 +253,7 @@ module.exports.createUser = function () {
           return res.status(500).json({ error: 'Internal server error' });
         } else {
           logger.warn('Error during user creation:' + userCreationError);
-          return res.status(405).json({ error: userCreationError });
+          return res.status(405).json(userCreationError);
         }
       }
     );
@@ -524,7 +535,7 @@ function createUsers(users) {
         }
       })
       .catch(function (error) {
-        logger.warn('Error during new user creation (by an administrator): ' + error);
+        logger.warn('Error during new user creation (by an administrator): ' + error.error);
         stopForEachPromise(obj, error, fulfill);
       });
     });
