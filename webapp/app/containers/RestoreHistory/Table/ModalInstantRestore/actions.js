@@ -15,19 +15,19 @@ import { resetStateForm } from 'containers/RestoreCreation/Form/actions';
 import { getHistoryRestoresByUserRequest } from 'containers/RestoreHistory/actions';
 
 import {
-  SHOW_INSTANT_RESTORE_MODAL,
+  RESTORE_HISTORY_SHOW_INSTANT_RESTORE_MODAL,
 } from './constants';
 
 export function showInstantRestoreModal() {
   return {
-    type: SHOW_INSTANT_RESTORE_MODAL,
+    type: RESTORE_HISTORY_SHOW_INSTANT_RESTORE_MODAL,
     showModal: true,
   };
 }
 
 export function hideInstantRestoreModal() {
   return {
-    type: SHOW_INSTANT_RESTORE_MODAL,
+    type: RESTORE_HISTORY_SHOW_INSTANT_RESTORE_MODAL,
     showModal: false,
   };
 }

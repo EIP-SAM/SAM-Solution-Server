@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveCreationFilesSelect } from 'components/SaveCreation/Form/FilesFormGroup/FilesSelect';
+import { SaveCreationFilesSelect } from 'components/SaveCreation/Form/Files/FilesSelect';
 
 function mapStateToProps(state) {
   return {

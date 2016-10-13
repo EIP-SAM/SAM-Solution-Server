@@ -27,10 +27,10 @@ module.exports.numberRestoresPerMonthByUser = function() {
         complete: 1,
         type: 'line',
         labels: months,
-        title: 'radar : Graphique des Restorations',
+        title: 'radar : Restorations graph',
         dataset: [
           {
-            title: 'Sauvegarde des utilisateurs',
+            title: 'Users save',
             data: restoresByMonth,
           },
         ]

@@ -1,11 +1,22 @@
-.createGroup {
-  width:350px;
-  margin-left: auto;
-  margin-right: auto;
+body {
+  overflow: visible;
 }
 
-.logo {
-  display: block;
-  height: 100%;
-  width: 100%;
+.form {
+  margin: auto!important;
+}
+
+::-webkit-inner-spin-button {
+  position: relative;
+  top: 7px;
+}
+
+.label + span >  span {
+  position: relative;
+  left: 26px;
+}
+
+.toolbar {
+  margin-top: 20px;
+  text-align: right;
 }

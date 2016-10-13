@@ -9,7 +9,7 @@
 //
 
 import { combineReducers } from 'redux-immutable';
-import UsersRestoreCreationReducer from './Users/reducer';
+import UsersRestoreCreationReducer from './User/reducer';
 import SavesRestoreCreationReducer from './Saves/reducer';
 import FilesRestoreCreationReducer from './Files/reducer';
 

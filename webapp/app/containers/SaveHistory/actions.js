@@ -12,12 +12,12 @@
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
 import {
-  GET_HISTORY_SAVES_BY_USER,
+  SAVE_HISTORY_GET_HISTORY_SAVES_BY_USER,
 } from './constants';
 
 export function getHistorySavesByUser(saves) {
   return {
-    type: GET_HISTORY_SAVES_BY_USER,
+    type: SAVE_HISTORY_GET_HISTORY_SAVES_BY_USER,
     saves,
   };
 }

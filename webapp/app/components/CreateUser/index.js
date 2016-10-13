@@ -14,7 +14,7 @@ export class CreateUser extends React.Component {
 
   render() {
     return (
-      <div container>
+      <div>
         <PageHeader>Create user</PageHeader>
         <CreateUserForm />
       </div>

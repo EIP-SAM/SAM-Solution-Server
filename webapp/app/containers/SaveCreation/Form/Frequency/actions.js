@@ -10,35 +10,35 @@
 //
 
 import {
-  RESET_STATE_FREQUENCY,
-  FREQUENCY,
-  FREQUENCY_ERROR,
-  FREQUENCY_DISABLED,
+  SAVE_CREATION_RESET_STATE_FREQUENCY,
+  SAVE_CREATION_FREQUENCY,
+  SAVE_CREATION_FREQUENCY_ERROR,
+  SAVE_CREATION_FREQUENCY_DISABLED,
 } from './constants';
 
 export function resetStateFrequency() {
   return {
-    type: RESET_STATE_FREQUENCY,
+    type: SAVE_CREATION_RESET_STATE_FREQUENCY,
   };
 }
 
 export function frequencyDisabled(isFrequencyDisabled) {
   return {
-    type: FREQUENCY_DISABLED,
+    type: SAVE_CREATION_FREQUENCY_DISABLED,
     isFrequencyDisabled,
   };
 }
 
 export function frequencySave(frequency) {
   return {
-    type: FREQUENCY,
+    type: SAVE_CREATION_FREQUENCY,
     frequency,
   };
 }
 
 export function frequencyErrorMsg(frequencyError) {
   return {
-    type: FREQUENCY_ERROR,
+    type: SAVE_CREATION_FREQUENCY_ERROR,
     frequencyError,
   };
 }

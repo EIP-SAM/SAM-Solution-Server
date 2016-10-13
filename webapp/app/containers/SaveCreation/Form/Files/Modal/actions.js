@@ -10,27 +10,27 @@
 //
 
 import {
-  SHOW_ADD_FILE_MODAL,
-  INPUT_FILE_CHANGE,
+  SAVE_CREATION_SHOW_ADD_FILE_MODAL,
+  SAVE_CREATION_INPUT_FILE_CHANGE,
 } from './constants';
 
 export function showModal() {
   return {
-    type: SHOW_ADD_FILE_MODAL,
+    type: SAVE_CREATION_SHOW_ADD_FILE_MODAL,
     showModal: true,
   };
 }
 
 export function hideModal() {
   return {
-    type: SHOW_ADD_FILE_MODAL,
+    type: SAVE_CREATION_SHOW_ADD_FILE_MODAL,
     showModal: false,
   };
 }
 
 export function inputFileChange(file) {
   return {
-    type: INPUT_FILE_CHANGE,
+    type: SAVE_CREATION_INPUT_FILE_CHANGE,
     inputFileChange: file,
   };
 }

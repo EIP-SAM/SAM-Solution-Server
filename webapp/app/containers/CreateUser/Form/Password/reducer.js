@@ -9,9 +9,9 @@
 //
 
 import {
-  PASSWORD_CHANGE,
-  RESET_STATE_PASSWORD,
-  PASSWORD_ERROR,
+  CREATE_USER_PASSWORD_CHANGE,
+  CREATE_USER_RESET_STATE_PASSWORD,
+  CREATE_USER_PASSWORD_ERROR,
 } from './constants';
 
 const initialState = {
@@ -21,13 +21,13 @@ const initialState = {
 
 function CreateUserFormPasswordReducer(state = initialState, action) {
   switch (action.type) {
-    case RESET_STATE_PASSWORD:
+    case CREATE_USER_RESET_STATE_PASSWORD:
       return Object.assign({}, initialState, {});
-    case PASSWORD_CHANGE:
+    case CREATE_USER_PASSWORD_CHANGE:
       return Object.assign({}, state, {
         password: action.password,
       });
-    case PASSWORD_ERROR:
+    case CREATE_USER_PASSWORD_ERROR:
       return Object.assign({}, state, {
         passwordError: action.passwordError,
       });

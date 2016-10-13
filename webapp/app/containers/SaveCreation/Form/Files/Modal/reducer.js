@@ -9,8 +9,8 @@
 //
 
 import {
-  SHOW_ADD_FILE_MODAL,
-  INPUT_FILE_CHANGE,
+  SAVE_CREATION_SHOW_ADD_FILE_MODAL,
+  SAVE_CREATION_INPUT_FILE_CHANGE,
 } from './constants';
 
 const initialState = {
@@ -20,11 +20,11 @@ const initialState = {
 
 function SaveCreationFormFilesModalReducer(state = initialState, action) {
   switch (action.type) {
-    case SHOW_ADD_FILE_MODAL:
+    case SAVE_CREATION_SHOW_ADD_FILE_MODAL:
       return Object.assign({}, state, {
         showModal: action.showModal,
       });
-    case INPUT_FILE_CHANGE:
+    case SAVE_CREATION_INPUT_FILE_CHANGE:
       return Object.assign({}, state, {
         inputFileChange: action.inputFileChange,
       });

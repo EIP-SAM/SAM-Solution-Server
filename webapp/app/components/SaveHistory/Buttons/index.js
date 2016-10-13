@@ -24,14 +24,14 @@ export class SaveHistoryButtons extends React.Component {
     return (
       <ButtonToolbar className={styles.toolbar}>
         <LinkContainerButton
-          buttonType="info"
+          buttonBsStyle="info"
           className={styles.button}
           buttonText="Launch save"
           link="/create-save"
           onClick={() => this.handleClick()}
         />
         <LinkContainerButton
-          buttonType="info"
+          buttonBsStyle="info"
           className={styles.button}
           buttonText="Program save"
           link="/create-save"

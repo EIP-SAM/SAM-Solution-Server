@@ -2,5 +2,5 @@
 // Groups filter restore Constants
 //
 
-export const USERS_GROUPS = 'USERS_GROUPS';
-export const CURRENT_GROUP = 'CURRENT_GROUP';
+export const RESTORE_USERS_GROUPS = 'RESTORE_USERS_GROUPS';
+export const RESTORE_CURRENT_GROUP = 'RESTORE_CURRENT_GROUP';

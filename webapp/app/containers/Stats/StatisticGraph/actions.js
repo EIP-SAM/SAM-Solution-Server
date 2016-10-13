@@ -6,9 +6,8 @@ import request from 'utils/request';
 import { browserHistory } from 'react-router';
 
 import {
-  GET_STATS_BY_TYPE_AND_NAME,
-  RESET_STATE_GRAPH_DATA,
-
+  STATS_GET_STATS_BY_TYPE_AND_NAME,
+  STATS_RESET_STATE_GRAPH_DATA,
 } from './constants';
 
 export function getStatInfos(type, statsInfo) {
@@ -73,7 +72,7 @@ export function getGraphFromServerByTypeAndName(type, name) {
         if (err || res.body.error) {
           console.log('Error occured in request to server for statistic type data : ', res);
         } else {
-          dispatch(getStats(GET_STATS_BY_TYPE_AND_NAME, res.body));
+          dispatch(getStats(STATS_GET_STATS_BY_TYPE_AND_NAME, res.body));
         }
       });
   };
@@ -81,6 +80,6 @@ export function getGraphFromServerByTypeAndName(type, name) {
 
 export function clearGraph() {
   return function startAction(dispatch) {
-    return dispatch({ type: RESET_STATE_GRAPH_DATA });
+    return dispatch({ type: STATS_RESET_STATE_GRAPH_DATA });
   };
 }

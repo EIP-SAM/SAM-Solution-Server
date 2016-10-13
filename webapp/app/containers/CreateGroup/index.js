@@ -1,21 +1,19 @@
 //
-// Container Login
+// Container create group
 //
 
 import { connect } from 'react-redux';
-import { createGroupRequest } from './actions';
-import { onChangeData } from './actions';
 import { CreateGroup } from 'components/CreateGroup';
+import { resetStateForm } from './Form/actions';
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {
-    state: state.get('createGroup'),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    createGroupRequest: (group) => dispatch(createGroupRequest(group)),
+    resetStateForm: () => dispatch(resetStateForm()),
   };
 }
 

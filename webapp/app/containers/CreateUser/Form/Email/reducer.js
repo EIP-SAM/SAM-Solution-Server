@@ -9,9 +9,9 @@
 //
 
 import {
-  EMAIL_CHANGE,
-  RESET_STATE_EMAIL,
-  EMAIL_ERROR,
+  CREATE_USER_EMAIL_CHANGE,
+  CREATE_USER_RESET_STATE_EMAIL,
+  CREATE_USER_EMAIL_ERROR,
 } from './constants';
 
 const initialState = {
@@ -21,13 +21,13 @@ const initialState = {
 
 function CreateUserFormEmailReducer(state = initialState, action) {
   switch (action.type) {
-    case RESET_STATE_EMAIL:
+    case CREATE_USER_RESET_STATE_EMAIL:
       return Object.assign({}, initialState, {});
-    case EMAIL_CHANGE:
+    case CREATE_USER_EMAIL_CHANGE:
       return Object.assign({}, state, {
         email: action.email,
       });
-    case EMAIL_ERROR:
+    case CREATE_USER_EMAIL_ERROR:
       return Object.assign({}, state, {
         emailError: action.emailError,
       });

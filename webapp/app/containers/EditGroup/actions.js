@@ -33,18 +33,8 @@ export function getGroupRequest(id, callback) {
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
-
-        var i = 0;
-        while (i < res.body.groups.length && res.body.groups[i].name != groupname) {
-          ++i;
-        }
-        if (!res.body.groups[i]) {
-          var group = { error: 'Error : Group ' + groupname + ' not found' };
-          dispatch(getGroup(group));
-        } else {
-          dispatch(getGroup(res.body));
-          callback(res.body.users);
-        }
+        dispatch(getGroup(res.body));
+        callback(res.body.users);
       });
   };
 }

@@ -13,7 +13,11 @@ import request from 'utils/request';
 import { browserHistory } from 'react-router';
 import { resetStatePassword } from './Password/actions';
 import { resetStatePasswordConfirmation } from './PasswordConfirmation/actions';
-import { getUserGroups } from './Groups/actions';
+import {
+  getUserGroups,
+  resetStateGroups,
+} from './Groups/actions';
+
 import {
   usernameChange,
   resetStateUsername,
@@ -36,6 +40,7 @@ export function resetStateForm() {
     dispatch(resetStateEmail());
     dispatch(resetStatePassword());
     dispatch(resetStatePasswordConfirmation());
+    dispatch(resetStateGroups());
   };
 }
 

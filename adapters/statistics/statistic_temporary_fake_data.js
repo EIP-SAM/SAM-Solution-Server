@@ -3,15 +3,15 @@ module.exports.TESTDEFONCTION = function () {
     var returnData = {
       complete: 1,
       type: 'radar',
-      labels: ['janvier', 'fevrier', 'mars'],
-      title: 'radar : Graphique radar sauvegarde',
+      labels: ['January', 'February', 'March'],
+      title: 'radar : Save radar graph',
       dataset: [
         {
-          title: 'Sauvegarde des utilisateurs',
+          title: 'Save users',
           data: [25, 10, 29]
         },
         {
-          title: 'Sauvegarde des enfants',
+          title: 'Save childrens',
           data: [25, 10, 29]
         }
       ]
@@ -26,15 +26,15 @@ module.exports.TESTDEFONCTION2 = function () {
     var returnData = {
       complete: 1,
       type: 'bar',
-      labels: ['janvier', 'fevrier', 'mars'],
-      title: 'bar : Graphique barre age',
+      labels: ['January', 'February', 'March'],
+      title: 'bar : Age bar graph',
       dataset: [
         {
-          title: 'Age des utilisateurs',
+          title: 'Users age',
           data: [65, 50, 79]
         },
         {
-          title: 'Age des enfants',
+          title: 'Childrens age',
           data: [35, 20, 49]
         },
       ]
@@ -49,10 +49,10 @@ module.exports.TESTDEFONCTION3 = function () {
     var returnData = {
       complete: 1,
       type: 'pie',
-      title: 'pie : Graphique type des ordinateurs',
+      title: 'pie : Computer types pie graph',
       dataset: [
         {
-          title: "portable",
+          title: "laptop",
           value: 200,
         },
         {
@@ -75,15 +75,15 @@ module.exports.TESTDEFONCTION4 = function () {
     var returnData = {
       complete: 1,
       type: 'radar',
-      labels: ['janvier', 'fevrier', 'mars'],
-      title: 'radar : Graphique radar age',
+      labels: ['January', 'February', 'March'],
+      title: 'radar : Age radar graph',
       dataset: [
         {
-          title: 'Age des utilisateurs',
+          title: 'Users age',
           data: [65, 50, 79]
         },
         {
-          title: 'Age des enfants',
+          title: 'Childrens age',
           data: [35, 20, 49]
         }
       ]
@@ -98,15 +98,15 @@ module.exports.TESTDEFONCTION5 = function () {
     var returnData = {
       complete: 1,
       type: 'line',
-      labels: ['janvier', 'fevrier', 'mars'],
-      title: 'line : Graphique ligne age',
+      labels: ['January', 'February', 'March'],
+      title: 'line : Age line graph',
       dataset: [
         {
-          title: 'Age des utilisateurs',
+          title: 'Users age',
           data: [65, 50, 79]
         },
         {
-          title: 'Age des enfants',
+          title: 'Childrens age',
           data: [35, 20, 49]
         }
       ]
@@ -121,10 +121,10 @@ module.exports.TESTDEFONCTION7 = function () {
     var returnData = {
       complete: 1,
       type: 'doughnut',
-      title: 'doughnut : Graphique type des Sauvegarde',
+      title: 'doughnut : Save graph type',
       dataset: [
         {
-          title: "portable",
+          title: "laptop",
           value: 200,
         },
         {
@@ -147,15 +147,15 @@ module.exports.TESTDEFONCTION8 = function () {
     var returnData = {
       complete: 1,
       type: 'radar',
-      labels: ['janvier', 'test', 'mars'],
-      title: 'radar : Graphique radar sauvegarde',
+      labels: ['January', 'February', 'March'],
+      title: 'radar : Save radar graph',
       dataset: [
         {
-          title: 'Sauvegarde des utilisateurs',
+          title: 'Users save',
           data: [25, 10, 29]
         },
         {
-          title: 'Sauvegarde des enfants',
+          title: 'Childrens save',
           data: [25, 10, 29]
         }
       ]
