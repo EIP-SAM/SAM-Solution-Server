@@ -13,7 +13,7 @@ import {
   SAVE_DATA,
 } from './constants';
 
-const initialState = {email: 'Email'};
+const initialState = { email: 'Email' };
 
 function forgottenPasswordReducer(state = initialState, action) {
   switch (action.type) {

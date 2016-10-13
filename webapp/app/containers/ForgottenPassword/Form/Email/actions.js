@@ -21,14 +21,14 @@ import {
 export function onChangeData(email) {
   return {
     type: SAVE_DATA,
-    email: email,
+    email,
   };
 }
 
 export function forgottenPassword(res) {
   return {
     type: FORGOTTEN_PASSWORD,
-    res: res,
+    res,
   };
 }
 
