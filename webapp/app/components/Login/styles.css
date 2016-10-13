@@ -1,13 +1,16 @@
 .login {
-  width:350px;
-  margin-left: auto;
-  margin-right: auto;
+  position: absolute;
+  left: 0;
+}
+
+.titre {
+  margin:auto;
 }
 
 .logo {
   display: block;
-  height: 100%;
-  width: 100%;
+  width: 400px;
+  margin: auto;
 }
 
 body {

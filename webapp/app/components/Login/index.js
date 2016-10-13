@@ -16,8 +16,8 @@ export class Login extends React.Component {
 
   render() {
     return (
-      <div>
-        <PageHeader>Login</PageHeader>
+      <div className={styles.login}>
+        <PageHeader className={styles.titre}>Login</PageHeader>
         <Image src={Logo} responsive className={styles.logo} />
         <LoginForm />
       </div>
