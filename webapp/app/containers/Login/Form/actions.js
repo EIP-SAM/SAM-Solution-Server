@@ -12,6 +12,9 @@
 import request from 'utils/request';
 
 import { browserHistory } from 'react-router';
+import { resetStateUsername } from './Username/actions';
+import { resetStatePassword } from './Password/actions';
+
 
 import {
   LOGIN,
@@ -22,6 +25,13 @@ export function login(user) {
   return {
     type: LOGIN,
     user,
+  };
+}
+
+export function resetStateForm() {
+  return function resetState(dispatch) {
+    dispatch(resetStateUsername());
+    dispatch(resetStatePassword());
   };
 }
 
@@ -53,6 +63,7 @@ export function resetUserInfo() {
 
 export function loginRequest(username, password) {
   return function returnLoginRequest(dispatch) {
+    console.log("TEST");
     return request
       .post('/api/public/user/login/')
       .type('form')
@@ -61,7 +72,8 @@ export function loginRequest(username, password) {
         if (!err && res.body.name) {
           dispatch(login(res.body));
           dispatch(setUserInfo(true, res.body));
-          browserHistory.push('/edit-user/' + res.body.id);
+          console.log(`/edit-user/${res.body.id}`);
+          browserHistory.push(`/edit-user/${res.body.id}`);
         }
       });
   };

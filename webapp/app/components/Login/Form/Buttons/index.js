@@ -3,7 +3,6 @@
 //
 
 import React from 'react';
-import { browserHistory } from 'react-router';
 import { ButtonToolbar } from 'react-bootstrap';
 import { LinkContainerButton } from 'components/Button';
 import styles from 'components/Login/styles.css';
@@ -11,9 +10,13 @@ import styles from 'components/Login/styles.css';
 /* eslint-disable react/prefer-stateless-function */
 export class LoginFormButtons extends React.Component {
 
-  handleLoginClick() {
+  handleLoginClick(event) {
+    event.preventDefault();
     if (this.props.username !== '' && this.props.password !== '') {
+      console.log(this.props.loginRequest);
       this.props.loginRequest(this.props.username, this.props.password);
+      console.log("username :" + this.props.username);
+      console.log("password :" + this.props.password);
     }
     if (this.props.username === '') {
       this.props.usernameErrorMsg('Empty username');
@@ -26,7 +29,7 @@ export class LoginFormButtons extends React.Component {
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="info" buttonText="Login" onClick={() => this.handleLoginClick()} />
+        <LinkContainerButton buttonType="info" buttonText="Login" onClick={(event) => this.handleLoginClick(event)} />
       </ButtonToolbar>
     );
   }
