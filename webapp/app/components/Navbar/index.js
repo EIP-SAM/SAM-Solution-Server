@@ -20,7 +20,7 @@ export default class NavbarContainer extends React.Component {
     }
     return (
       <LinkContainer onClick={() => this.props.logoutRequest()} key={`navItem-${i}`} to={{ pathname: item.pathname }}>
-        <NavItem eventKey={i} className={styles.navBarMenuItem}>{item.value}</NavItem>
+        <NavItem eventKey={i}>{item.value}</NavItem>
       </LinkContainer>
     );
   }
@@ -63,8 +63,8 @@ export default class NavbarContainer extends React.Component {
         <Nav pullRight className={styles.navBarRightButtonBlock}>
           {this.getNavbarLinkContainer({ pathname: '/login', value: 'Logout' }, 1)}
         </Nav>
-        <Navbar.Collapse className={styles.navBarSideBar}>
-          <Nav className={styles.navBarMenu}>
+        <Navbar.Collapse>
+          <Nav className={styles.navBarSideBar}>
             {navItems.map((item, i) =>
               this.getNavbarLinkContainer(item, i)
             )}

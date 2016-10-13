@@ -20,15 +20,10 @@ li > a {
 }
 
 @media (min-width: 768px) {
-
-  .navBarRightButtonBlock {
+  /*.navBarRightButtonBlock {
     position: fixed;
     right: 15px;
-  }
-
-  .navbarStyle {
-    height: 51px;
-  }
+  }*/
 
   .navBarSideBar {
     max-height: none !important;
@@ -46,22 +41,12 @@ li > a {
   }
 
   .navBarMenuItem {
-    border-bottom: 1px solid black;
-    font-size: 1.3em;
-    float: none!important;
-  }
-
-  .navBarMenu {
-    margin-top: 20%;
-    width: 100%;
-  }
-
-  .collapse {
-    padding: 0;
+    font-size: 1.1em;
+    width: 225px;
   }
 }
-@media (max-width: 768px) {
 
+@media (max-width: 768px) {
   .navbarLogo {
     left: 0px;
   }
