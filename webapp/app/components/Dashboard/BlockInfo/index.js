@@ -4,10 +4,7 @@
 
 import React from 'react';
 import { Jumbotron } from 'react-bootstrap';
-<<<<<<< 6d8ccc86983b5dce868e0e8c4b25d84fc58259ff
 import styles from './styles.css';
-=======
->>>>>>> #349: Create BlockInfo component/container and add actions/constants/reducers.js for Dashboard container
 
 export default class BlockInfo extends React.Component {
   componentWillMount() {
@@ -18,11 +15,7 @@ export default class BlockInfo extends React.Component {
   render() {
     const bsStyle = this.props.bsStyle !== undefined ? this.props.bsStyle : 'jumbotron';
     return (
-<<<<<<< 6d8ccc86983b5dce868e0e8c4b25d84fc58259ff
       <Jumbotron bsClass={bsStyle} className={styles.blockInfo}>
-=======
-      <Jumbotron bsClass={bsStyle}>
->>>>>>> #349: Create BlockInfo component/container and add actions/constants/reducers.js for Dashboard container
         <p>{this.props.msg}</p>
       </Jumbotron>
     );
