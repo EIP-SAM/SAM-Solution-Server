@@ -16,7 +16,7 @@ import forgottenPasswordReducer from 'containers/ForgottenPassword/reducers';
 import createUserReducer from 'containers/CreateUser/Form/reducers';
 import createGroupReducer from 'containers/CreateGroup/Form/reducers';
 import editUserReducer from 'containers/EditUser/Form/reducers';
-import editGroupReducer from 'containers/EditGroup/reducers';
+import editGroupReducer from 'containers/EditGroup/Form/reducers';
 import usersReducer from 'containers/Users/reducers';
 import groupsReducer from 'containers/Groups/reducers';
 
