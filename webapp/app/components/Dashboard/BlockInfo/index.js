@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { Jumbotron } from 'react-bootstrap';
+import styles from './styles.css';
 
 export default class BlockInfo extends React.Component {
   componentWillMount() {
@@ -14,7 +15,7 @@ export default class BlockInfo extends React.Component {
   render() {
     const bsStyle = this.props.bsStyle !== undefined ? this.props.bsStyle : 'jumbotron';
     return (
-      <Jumbotron bsClass={bsStyle}>
+      <Jumbotron bsClass={bsStyle} className={styles.blockInfo}>
         <p>{this.props.msg}</p>
       </Jumbotron>
     );
