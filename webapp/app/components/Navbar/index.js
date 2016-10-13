@@ -31,24 +31,25 @@ export default class NavbarContainer extends React.Component {
 
     if (userInfo.isAdmin) {
       navItems = [
-      { pathname: '/users', value: 'Users' },
-      { pathname: '/groups', value: 'Groups' },
-      { pathname: '/save', value: 'Save' },
-      { pathname: '/restore', value: 'Restore' },
-      { pathname: '#', value: 'Migration' },
-      { pathname: '#', value: 'Software' },
-      { pathname: '/logs', value: 'Logs' },
-      { pathname: '/statistics', value: 'Statistics' },
-      { pathname: '#', value: 'Help' },
+        { pathname: '/dashboard', value: 'Dashboard' },
+        { pathname: '/users', value: 'Users' },
+        { pathname: '/groups', value: 'Groups' },
+        { pathname: '/save', value: 'Save' },
+        { pathname: '/restore', value: 'Restore' },
+        { pathname: '#', value: 'Migration' },
+        { pathname: '#', value: 'Software' },
+        { pathname: '/logs', value: 'Logs' },
+        { pathname: '/statistics', value: 'Statistics' },
+        { pathname: '#', value: 'Help' },
       ];
     } else {
       navItems = [
-      { pathname: `/edit-user/${userInfo.username}`, value: 'Users' },
-      { pathname: `/save/${userInfo.username}/${userInfo.userId}`, value: 'Save' },
-      { pathname: `/restore/${userInfo.username}`, value: 'Restore' },
-      { pathname: '#', value: 'Migration' },
-      { pathname: '#', value: 'Software' },
-      { pathname: '#', value: 'Help' },
+        { pathname: `/edit-user/${userInfo.username}`, value: 'Users' },
+        { pathname: `/save/${userInfo.username}/${userInfo.userId}`, value: 'Save' },
+        { pathname: `/restore/${userInfo.username}`, value: 'Restore' },
+        { pathname: '#', value: 'Migration' },
+        { pathname: '#', value: 'Software' },
+        { pathname: '#', value: 'Help' },
       ];
     }
 

@@ -11,6 +11,7 @@ import logsReducer from 'containers/Logs/reducers';
 
 import StatsReducer from 'containers/Stats/reducers';
 
+import dashboardReducer from 'containers/Dashboard/reducers';
 import loginReducer from 'containers/Login/reducers';
 import forgottenPasswordReducer from 'containers/ForgottenPassword/reducers';
 import createUserReducer from 'containers/CreateUser/Form/reducers';
@@ -63,6 +64,7 @@ export default function createReducer(asyncReducers) {
     route: routeReducer,
     logs: logsReducer,
     stats: StatsReducer,
+    dashboard: dashboardReducer,
     login: loginReducer,
     forgottenPassword: forgottenPasswordReducer,
     createUser: createUserReducer,
