@@ -11,4 +11,6 @@ require('./models/init')().then(function () {
     logger.info('Listening on port ' + config.port);
   });
   var socket = require('./daemon/').init(server);
+}).catch(function(err) {
+  console.log(err);
 });
