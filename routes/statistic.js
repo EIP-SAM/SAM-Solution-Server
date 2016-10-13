@@ -13,12 +13,6 @@ module.exports = function initStatisticRoutes(app, conf) {
     res.json(data);
   });
 
-  app.get('/api/logged-in/admin/statistic_select_graph', function (req, res) {
-    var data = statController.getStatisticDataByType(req.query.type).then(function(data){
-      res.json(data);
-    })
-  });
-
   app.get('/api/logged-in/admin/statistic_data_by_type_name', function (req, res) {
     statController.getStatisticDataByTypeAndName(req.query.type, req.query.name).then(function(data){
         res.json(data);

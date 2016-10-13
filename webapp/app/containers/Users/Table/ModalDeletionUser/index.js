@@ -11,7 +11,7 @@ import {
 
 function mapStateToProps(state) {
   return {
-    username: state.get('users').get('UsersDeletionModalReducer').username,
+    username: state.get('users').get('UsersReducer').username,
     userId: state.get('users').get('UsersDeletionModalReducer').userId,
     showModal: state.get('users').get('UsersDeletionModalReducer').showModal,
   };

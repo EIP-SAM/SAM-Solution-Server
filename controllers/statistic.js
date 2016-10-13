@@ -5,14 +5,6 @@ module.exports.getStatisticFilters = function () {
   return statManagers.getStatisticFilters();
 }
 
-module.exports.getStatisticDataByType = function (type) {
-  return new Promise(function(fulfill, reject){
-    statManagers.getAllStatisticsByType(type).then(function(result){
-      fulfill(result);
-    });
-  });
-}
-
 module.exports.getStatisticTypeAndNameListByType = function (type) {
     statManagers.initiateGraphs();
 
