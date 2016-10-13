@@ -20,6 +20,13 @@ const mailManager = require('./mail');
 const logger = require('../libs/bunyan').setModuleName('Users & Rights');
 const enumModules = rightsManager.enumModules;
 
+const enumUserValues = {
+  ALL: 0,
+  NAME: 1,
+  EMAIL: 2,
+  PASSWORD: 3,
+};
+
 //
 // Load workers
 //
@@ -63,8 +70,12 @@ function checkNewUserPassword(password, confirmation) {
 function checkNewUserValues(name, email, password, confirmation) {
   var error = null;
 
-  if ((error = checkNewUserName(name)) || (error = checkNewUserEmail(email)) || (error = checkNewUserPassword(password, confirmation))) {
-    return error;
+  if ((error = checkNewUserName(name))) {
+    return { error: error, field: enumUserValues.NAME };
+  } else if ((error = checkNewUserEmail(email))) {
+    return { error: error, field: enumUserValues.EMAIL };
+  } else if ((error = checkNewUserPassword(password, confirmation))) {
+    return { error: error, field: enumUserValues.PASSWORD };
   }
 
   return null;
@@ -90,9 +101,10 @@ function checkAndCreateUser(name, email, password, confirmation) {
                   user.addGroups([group])
                   .then(function () {
                     gitWorker.initNewGitRepo(name)
-                    .catch(function(err){
+                    .catch(function (err) {
                       logger.info(err);
                     });
+
                     fulfill(user);
                   });
                 });
@@ -242,7 +254,7 @@ module.exports.createUser = function () {
           return res.status(500).json({ error: 'Internal server error' });
         } else {
           logger.warn('Error during user creation:' + userCreationError);
-          return res.status(405).json({ error: userCreationError });
+          return res.status(405).json(userCreationError);
         }
       }
     );
@@ -388,7 +400,7 @@ function prepareUserNameUpdate(userModel, userUpdateRequest, fieldsToUpdate, rej
       userModel.name = userUpdateRequest.name;
       fieldsToUpdate.push('name');
     } else {
-      reject(error);
+      reject({ error: error, field: enumUserValues.NAME });
     }
   }
 }
@@ -404,7 +416,7 @@ function prepareUserEmailUpdate(userModel, userUpdateRequest, fieldsToUpdate, re
       userModel.email = userUpdateRequest.email;
       fieldsToUpdate.push('email');
     } else {
-      reject(error);
+      reject({ error: error, field: enumUserValues.EMAIL });
     }
   }
 }
@@ -420,7 +432,7 @@ function prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate,
       userModel.password = crypto.createHmac('sha256', salt).update(userUpdateRequest.password).digest('hex');
       fieldsToUpdate.push('password');
     } else {
-      reject(error);
+      reject({ error: error, field: enumUserValues.PASSWORD });
     }
   }
 }
@@ -437,7 +449,7 @@ function updateUserProfile(userModel, userUpdateRequest) {
     prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
 
     if (!fieldsToUpdate.length) {
-      reject('No update needed');
+      reject({ error: 'No update needed', field: enumUserValues.ALL });
     }
 
     fulfill(userModel.save({ fields: fieldsToUpdate }));
@@ -462,7 +474,7 @@ module.exports.updateUserProfile = function () {
     })
     .catch(function (error) {
       logger.setUser({ id: req.user.id, name: req.user.name }).warn('User profile update error: ' + error);
-      return res.status(405).json({ error: error });
+      return res.status(405).json(error);
     });
   };
 };
@@ -524,7 +536,7 @@ function createUsers(users) {
         }
       })
       .catch(function (error) {
-        logger.warn('Error during new user creation (by an administrator): ' + error);
+        logger.warn('Error during new user creation (by an administrator): ' + error.error);
         stopForEachPromise(obj, error, fulfill);
       });
     });
@@ -570,7 +582,7 @@ function updateUsers(users) {
               }
             })
             .catch(function (error) {
-              logger.warn('Error during user update (by an administrator): ' + error);
+              logger.warn('Error during user update (by an administrator): ' + error.error);
               stopForEachPromise(obj, error, fulfill);
             });
           } else {
@@ -709,8 +721,8 @@ function updateUserFromId(user) {
             }
           })
           .catch(function (error) {
-            logger.warn('Error during user update', error);
-            reject({ code: 500, error: 'Internal server error' });
+            logger.warn('Error during user update', error.error);
+            reject({ code: 500, error: error });
           });
         } else {
           logger.warn('Error during user update', 'User id ' + user.id + ' not found');
