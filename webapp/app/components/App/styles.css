@@ -1,4 +1,5 @@
 body {
+  box-sizing: border-box;
   margin-top: 100px;
 }
 
@@ -7,7 +8,6 @@ body {
 }
 
 .pageWrapper {
-  box-sizing: border-box;
   padding: 0;
   width: 100%;
 }

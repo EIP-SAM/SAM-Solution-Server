@@ -6,10 +6,38 @@
   border-radius: 0;
 }
 
+.navbarStyle > div[class='container'] {
+  padding-left: 0;
+  width: auto!important;
+}
+
+div[class='navbar-header'] > li {
+  display: inline;
+}
+
+li[class='navbar-brand']  {
+  margin-left: 50px!important;
+}
+
+li[class='navbar-brand'] > a {
+  color: #9d9d9d;
+}
+
+li[class='navbar-brand'] > a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+li[class='navbar-brand'] > a:focus,
+li[class='navbar-brand'] > a:active,
+li[class='navbar-brand'] > a:visited {
+  text-decoration: none!important;
+}
+
 .navbarLogo {
+  cursor: pointer;
   position: fixed;
   width: 65px;
-  left: 15px;
   padding: 0;
 }
 
@@ -41,7 +69,7 @@ li > a {
   }
 
   .navBarMenuItem {
-    font-size: 1.1em;
+    font-size: 1.2em;
     width: 225px;
   }
 }

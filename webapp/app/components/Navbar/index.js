@@ -55,8 +55,13 @@ export default class NavbarContainer extends React.Component {
     return (
       <Navbar inverse fixedTop className={styles.navbarStyle} role="navigation">
         <Navbar.Header>
+          <LinkContainer key={'item-logo'} to={{ pathname: '/logs' }}>
+            <NavItem><Image src={Logo} responsive className={styles.navbarLogo} /></NavItem>
+          </LinkContainer>
           <Navbar.Brand>
-            <Image src={Logo} responsive className={styles.navbarLogo} />
+            <LinkContainer key={'item-name'} to={{ pathname: '/logs' }}>
+              <NavItem>SAM-Solution</NavItem>
+            </LinkContainer>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
