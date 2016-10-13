@@ -9,10 +9,3 @@ var gitWorker = require('../workers/git');
 module.exports.initNewGitRepo = function (userId, userName) {
   return gitWorker.initNewGitRepo(userId, userName);
 };
-
-//
-// Get last commit for a given repo
-//
-module.exports.getLastCommitInfo = function (userId, userName) {
-  return gitWorker.getLastCommitInfo(userId, userName);
-};

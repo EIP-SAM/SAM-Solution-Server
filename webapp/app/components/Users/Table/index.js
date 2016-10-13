@@ -6,6 +6,7 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 import { ButtonPopover } from 'components/ButtonPopover';
 import UserDeletionModal from 'containers/Users/Table/ModalDeletionUser';
+import UserRebootModal from 'containers/Users/Table/ModalRebootUser';
 import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Td from 'components/Td';
@@ -14,14 +15,14 @@ import styles from './styles.css';
 /* eslint-disable react/prefer-stateless-function */
 export class UserTable extends React.Component {
   handleRebootClick(username) {
-    this.props.rebootUser(username);
-    // use only to set the username => will be remove with all the reboot management
-    this.props.userToDelete(username, 0);
+    this.props.showInstantRebootModal();
+    this.props.getUsername(username);
   }
 
   handleDeleteClick(user) {
     this.props.showInstantDeleteModal();
-    this.props.userToDelete(user.name, user.id);
+    this.props.userToDelete(user.id);
+    this.props.getUsername(user.name);
   }
 
   render() {
@@ -66,6 +67,7 @@ export class UserTable extends React.Component {
           </tbody>
         </Table>
         <UserDeletionModal />
+        <UserRebootModal />
       </div>
     );
   }
@@ -74,6 +76,7 @@ export class UserTable extends React.Component {
 UserTable.propTypes = {
   users: React.PropTypes.array,
   showInstantDeleteModal: React.PropTypes.func,
-  rebootUser: React.PropTypes.func,
+  showInstantRebootModal: React.PropTypes.func,
   userToDelete: React.PropTypes.func,
+  getUsername: React.PropTypes.func,
 };

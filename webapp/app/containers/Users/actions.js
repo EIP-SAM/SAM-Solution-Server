@@ -11,8 +11,11 @@
 
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
+import { getAllUsers } from './Filters/actions';
+
 import {
   USERS_GET_USERS,
+  USERS_USERNAME,
   USERS_REMOVE_ALERT,
   USERS_REBOOT_ALERT,
   USERS_RESET_ALERT,
@@ -43,6 +46,13 @@ export function getUsers(users) {
   };
 }
 
+export function getUsername(username) {
+  return {
+    type: USERS_USERNAME,
+    username,
+  };
+}
+
 export function getUsersRequest() {
   return function returnGetUsersRequest(dispatch) {
     return request
@@ -53,6 +63,7 @@ export function getUsersRequest() {
         }
 
         dispatch(getUsers(res.body.users));
+        dispatch(getAllUsers(res.body.users));
       });
   };
 }

@@ -15,7 +15,6 @@ import {
 
 const initialState = {
   showModal: false,
-  username: '',
   userId: -1,
 };
 
@@ -27,7 +26,6 @@ function UsersDeletionModalReducer(state = initialState, action) {
       });
     case USERS_USER_TO_DELETE:
       return Object.assign({}, state, {
-        username: action.username,
         userId: action.userId,
       });
     default:

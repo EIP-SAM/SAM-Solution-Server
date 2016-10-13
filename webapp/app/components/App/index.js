@@ -34,15 +34,17 @@ export default class App extends React.Component {
     const navbar = (userInfo && userInfo.logged) ? <Navbar /> : (<span></span>);
 
     return (
-      <div>
+      <div className={styles.appBlock}>
         {navbar}
-        <Grid className={styles.appBlock}>
-          <Row className="show-grid">
-            <Col xs={12} sm={12} md={12} lg={12}>
-              {this.props.children}
-            </Col>
-          </Row>
-        </Grid>
+        <div className={styles.pageWrapper}>
+          <Grid fluid>
+            <Row>
+              <Col lg={12}>
+                {this.props.children}
+              </Col>
+            </Row>
+          </Grid>
+        </div>
       </div>
     );
   }

@@ -2,46 +2,36 @@
 // Worker Git
 //
 //
-var Git = require('../libs/nodegit');
-var conf = require('../config/git.config.json');
+const Git = require('git-wrapper');
+const fs = require('fs');
 
-//
-// Get last commit for a given repo
-//
-module.exports.getLastCommitInfo = function (userId, userName) {
-  var pathToRepo =  conf.baseDir + userName + '_' + userId + '/';
-  return Git.Repository.open(pathToRepo)
-
-  // Open the master branch.
-  .then(function (repo) {
-    return repo.getMasterCommit();
-  })
-
-  // Display information about commits on master.
-  .then(function (firstCommitOnMaster) {
-    return {
-      date:firstCommitOnMaster.date(),
-      sha:firstCommitOnMaster.sha(),
-      author: {
-        name: firstCommitOnMaster.author().name(),
-        mail: firstCommitOnMaster.author().email(),
-      },
-    };
-  });
-};
+const conf = require('../config/git.config.json');
+const logger = require('../libs/bunyan').setModuleName('Git');
 
 //
 // Create new repo for a user
 //
 module.exports.initNewGitRepo = function (userName) {
-  var pathToRepo =  conf.baseDir + userName + '/';
-  var isBare = 1; // lets make it bare, aka a .git folder
+  let pathToRepo =  conf.baseDir + userName + '/';
 
-  Git.Repository.init(pathToRepo, isBare).then(function (repo) {
-    console.log('Repo for ' + userName + ' created');
-  }).catch(function (err) {
-    console.log(err);
+  return new Promise(function(fullfill, reject) {
+    if (fs.existsSync(pathToRepo)){
+      reject("Save repo already exist for [" + userName + "] : " + pathToRepo);
+    } else {
+      fs.mkdirSync(pathToRepo);
+      let git = new Git({cwd: pathToRepo});
+
+      git.exec('init', {}, ['--bare']).then(function(stdout){
+        logger.info('Repo for user [' + userName + '] created');
+        fullfill('ok');
+      }).catch(function(err) {
+        console.log(err);
+        reject(err);
+      });
+
+      return pathToRepo;
+    }
+
   });
-
   return pathToRepo;
 };
