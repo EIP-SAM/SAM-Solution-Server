@@ -10,15 +10,17 @@ export default class Dashboard extends React.Component {
   componentWillMount() {
     this.username = this.props.userInfo.username;
     this.props.getSavesNumbers(this.username);
+    this.props.getRestoresNumbers(this.username);
   }
 
   componentWillUpdate() {
-    this.props.getSavesNumbers(this.username);
+    this.props.getRestoresNumbers(this.username);
   }
 
   render() {
     const username = this.props.userInfo.username;
     const saveStatus = `Save scheduled ${this.props.saveNumbers}`;
+    const restoreStatus = `Restore scheduled ${this.props.restoreNumbers}`;
 
     return (
       <div>
@@ -30,13 +32,13 @@ export default class Dashboard extends React.Component {
               <BlockInfo msg={saveStatus} />
             </Col>
             <Col md={6} lg={3}>
-              <BlockInfo msg={saveStatus} />
+              <BlockInfo msg={restoreStatus} />
             </Col>
             <Col md={6} lg={3}>
               <BlockInfo msg={saveStatus} />
             </Col>
             <Col md={6} lg={3}>
-              <BlockInfo msg={saveStatus} />
+              <BlockInfo msg={restoreStatus} />
             </Col>
           </Row>
         </Grid>
@@ -46,7 +48,9 @@ export default class Dashboard extends React.Component {
 }
 
 Dashboard.propTypes = {
-  saveNumbers: React.PropTypes.number,
   userInfo: React.PropTypes.object,
+  saveNumbers: React.PropTypes.number,
+  restoreNumbers: React.PropTypes.number,
   getSavesNumbers: React.PropTypes.func,
+  getRestoresNumbers: React.PropTypes.func,
 };
