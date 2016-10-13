@@ -6,6 +6,7 @@ import React from 'react';
 import { PageHeader, Alert } from 'react-bootstrap';
 import UserTable from 'containers/Users/Table';
 import UserButton from 'containers/Users/Button';
+import UserFilters from 'containers/Users/Filters';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Users extends React.Component {
@@ -31,6 +32,7 @@ export class Users extends React.Component {
       <div>
         <PageHeader>Users</PageHeader>
         {alert}
+        <UserFilters />
         <UserButton />
         <UserTable />
       </div>

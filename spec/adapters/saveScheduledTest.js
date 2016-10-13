@@ -38,6 +38,25 @@ describe('historySavesByUser', function () {
   });
 });
 
+describe('historySucceededSavesByUser', function () {
+  var username;
+
+  beforeAll(function () {
+    username = 'admin';
+  });
+
+  it('should return a promise', function () {
+    var historySavesByUser = saveScheduledAdapter.historySucceededSavesByUser(username);
+    expect(typeof historySavesByUser.then === 'function').toBeTruthy();
+  });
+
+  it('should have called findAll once', function () {
+    spyOn(SaveModel, 'findAll');
+    saveScheduledAdapter.historySucceededSavesByUser(username);
+    expect(SaveModel.findAll).toHaveBeenCalledTimes(1);
+  });
+});
+
 describe('createSaveScheduled', function () {
   var saveScheduled;
 
@@ -180,16 +199,205 @@ describe('cancelSave', function () {
   });
 });
 
-describe('findSaveScheduledById', function () {
+describe('findUserBySaveScheduledId', function () {
+  var saveScheduledId;
+
+  beforeAll(function () {
+    saveScheduledId = 1;
+  });
+
   it('should return a promise', function () {
-    var saveScheduled = saveScheduledAdapter.findSaveScheduledById(1);
+    var saveScheduled = saveScheduledAdapter.findUserBySaveScheduledId(saveScheduledId);
+    expect(typeof saveScheduled.then === 'function').toBeTruthy();
+  });
+
+  it('should have called findAll once', function () {
+    spyOn(UserModel, 'findAll');
+    saveScheduledAdapter.findUserBySaveScheduledId(saveScheduledId);
+    expect(UserModel.findAll).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('findSaveScheduledById', function () {
+  var saveScheduledId;
+
+  beforeAll(function () {
+    saveScheduledId = 1;
+  });
+
+  it('should return a promise', function () {
+    var saveScheduled = saveScheduledAdapter.findSaveScheduledById(saveScheduledId);
     expect(typeof saveScheduled.then === 'function').toBeTruthy();
   });
 
   it('should have called findById once', function () {
     spyOn(SaveScheduledModel, 'findById');
-    saveScheduledAdapter.findSaveScheduledById(1);
+    saveScheduledAdapter.findSaveScheduledById(saveScheduledId);
     expect(SaveScheduledModel.findById).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('saveIsStart', function () {
+  var saveId;
+  var saveScheduled;
+
+  beforeAll(function () {
+    saveId = 1;
+  });
+
+  beforeEach(function () {
+    saveScheduled = saveScheduledAdapter.saveIsStart(saveId);
+  });
+
+  afterEach(function () {
+    saveScheduled = null;
+  });
+
+  it('should not return null or undefined object', function () {
+    expect(saveScheduled).not.toBeNull();
+    expect(saveScheduled).toBeDefined();
+  });
+
+  it('should return a promise', function () {
+    expect(typeof saveScheduled.then === 'function').toBeTruthy();
+  });
+
+  it('should have called findById once', function () {
+    spyOn(SaveModel, 'findById').and.returnValue(new Promise(function (resolve, reject) {
+      resolve(SaveModel);
+    }));
+    saveScheduledAdapter.saveIsStart(saveId);
+    expect(SaveModel.findById).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('saveIsFinish', function () {
+  var saveId;
+  var saveScheduled;
+
+  beforeAll(function () {
+    saveId = 1;
+  });
+
+  beforeEach(function () {
+    saveScheduled = saveScheduledAdapter.saveIsFinish(saveId);
+  });
+
+  afterEach(function () {
+    saveScheduled = null;
+  });
+
+  it('should not return null or undefined object', function () {
+    expect(saveScheduled).not.toBeNull();
+    expect(saveScheduled).toBeDefined();
+  });
+
+  it('should return a promise', function () {
+    expect(typeof saveScheduled.then === 'function').toBeTruthy();
+  });
+
+  it('should have called findById once', function () {
+    spyOn(SaveModel, 'findById').and.returnValue(new Promise(function (resolve, reject) {
+      resolve(SaveModel);
+    }));
+    saveScheduledAdapter.saveIsFinish(saveId);
+    expect(SaveModel.findById).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('saveIsSuccess', function () {
+  var saveId;
+  var saveScheduled;
+
+  beforeAll(function () {
+    saveId = 1;
+  });
+
+  beforeEach(function () {
+    saveScheduled = saveScheduledAdapter.saveIsSuccess(saveId);
+  });
+
+  afterEach(function () {
+    saveScheduled = null;
+  });
+
+  it('should not return null or undefined object', function () {
+    expect(saveScheduled).not.toBeNull();
+    expect(saveScheduled).toBeDefined();
+  });
+
+  it('should return a promise', function () {
+    expect(typeof saveScheduled.then === 'function').toBeTruthy();
+  });
+
+  it('should have called findById once', function () {
+    spyOn(SaveModel, 'findById').and.returnValue(new Promise(function (resolve, reject) {
+      resolve(SaveModel);
+    }));
+    saveScheduledAdapter.saveIsSuccess(saveId);
+    expect(SaveModel.findById).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('branchSave', function () {
+  var saveId;
+  var branch;
+  var saveScheduled;
+
+  beforeAll(function () {
+    saveId = 1;
+    branch = 'spec';
+  });
+
+  beforeEach(function () {
+    saveScheduled = saveScheduledAdapter.branchSave(saveId, branch);
+  });
+
+  afterEach(function () {
+    saveScheduled = null;
+  });
+
+  it('should not return null or undefined object', function () {
+    expect(saveScheduled).not.toBeNull();
+    expect(saveScheduled).toBeDefined();
+  });
+
+  it('should return a promise', function () {
+    expect(typeof saveScheduled.then === 'function').toBeTruthy();
+  });
+
+  it('should have called findById once', function () {
+    spyOn(SaveModel, 'findById').and.returnValue(new Promise(function (resolve, reject) {
+      resolve(SaveModel);
+    }));
+    saveScheduledAdapter.branchSave(saveId, branch);
+    expect(SaveModel.findById).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('findSaveById', function () {
+  it('should return a promise', function () {
+    var save = saveScheduledAdapter.findSaveById();
+    expect(typeof save.then === 'function').toBeTruthy();
+  });
+
+  it('should have called findAll once', function () {
+    spyOn(SaveModel, 'findById');
+    saveScheduledAdapter.findSaveById();
+    expect(SaveModel.findById).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('getAllSaveBySaveSchedule', function () {
+  it('should return a promise', function () {
+    var saveScheduled = saveScheduledAdapter.getAllSaveBySaveSchedule();
+    expect(typeof saveScheduled.then === 'function').toBeTruthy();
+  });
+
+  it('should have called findAll once', function () {
+    spyOn(SaveModel, 'findAll');
+    saveScheduledAdapter.getAllSaveBySaveSchedule();
+    expect(SaveModel.findAll).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -203,5 +411,18 @@ describe('getAllSaveScheduleActive', function () {
     spyOn(SaveScheduledModel, 'findAll');
     saveScheduledAdapter.getAllSaveScheduleActive();
     expect(SaveScheduledModel.findAll).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('getSavesByDay', function () {
+  it('should return a promise', function () {
+    var nbSave = saveScheduledAdapter.getSavesByDay();
+    expect(typeof nbSave.then === 'function').toBeTruthy();
+  });
+
+  it('should have called findAndCountAll once', function () {
+    spyOn(SaveModel, 'findAndCountAll');
+    saveScheduledAdapter.getSavesByDay();
+    expect(SaveModel.findAndCountAll).toHaveBeenCalledTimes(1);
   });
 });

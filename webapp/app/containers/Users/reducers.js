@@ -11,6 +11,8 @@
 import { combineReducers } from 'redux-immutable';
 import UsersDeletionModalReducer from './Table/ModalDeletionUser/reducer';
 import UsersRebootModalReducer from './Table/ModalRebootUser/reducer';
+import UsersFiltersReducer from './Filters/reducers';
+
 import {
   USERS_GET_USERS,
   USERS_USERNAME,
@@ -65,6 +67,7 @@ function UsersReducer(state = initialState, action) {
 //
 export default combineReducers({
   UsersReducer,
+  UsersFiltersReducer,
   UsersDeletionModalReducer,
   UsersRebootModalReducer,
 });

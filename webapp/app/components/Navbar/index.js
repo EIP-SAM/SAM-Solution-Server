@@ -14,13 +14,13 @@ export default class NavbarContainer extends React.Component {
     if (item.value !== 'Logout') {
       return (
         <LinkContainer key={`navItem-${i}`} to={{ pathname: item.pathname }}>
-          <NavItem eventKey={i} className={styles.menuItem}>{item.value}</NavItem>
+          <NavItem eventKey={i} className={styles.navBarMenuItem}>{item.value}</NavItem>
         </LinkContainer>
       );
     }
     return (
       <LinkContainer onClick={() => this.props.logoutRequest()} key={`navItem-${i}`} to={{ pathname: item.pathname }}>
-        <NavItem eventKey={i} className={styles.menuItem}>{item.value}</NavItem>
+        <NavItem eventKey={i} className={styles.navBarMenuItem}>{item.value}</NavItem>
       </LinkContainer>
     );
   }
@@ -40,7 +40,6 @@ export default class NavbarContainer extends React.Component {
       { pathname: '/logs', value: 'Logs' },
       { pathname: '/statistics', value: 'Statistics' },
       { pathname: '#', value: 'Help' },
-      { pathname: '/login', value: 'Logout' },
       ];
     } else {
       navItems = [
@@ -50,20 +49,22 @@ export default class NavbarContainer extends React.Component {
       { pathname: '#', value: 'Migration' },
       { pathname: '#', value: 'Software' },
       { pathname: '#', value: 'Help' },
-      { pathname: '/login', value: 'Logout' },
       ];
     }
 
     return (
-      <Navbar inverse className={styles.position}>
-        <Navbar.Header className={styles.noFloat}>
-          <Navbar.Brand className={styles.noFloat}>
-            <Image src={Logo} responsive className={styles.logo} />
+      <Navbar inverse fixedTop className={styles.navbarStyle} role="navigation">
+        <Navbar.Header>
+          <Navbar.Brand>
+            <Image src={Logo} responsive className={styles.navbarLogo} />
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
-        <Navbar.Collapse className={styles.collapse}>
-          <Nav className={styles.menu}>
+        <Nav pullRight className={styles.navBarRightButtonBlock}>
+          {this.getNavbarLinkContainer({ pathname: '/login', value: 'Logout' }, 1)}
+        </Nav>
+        <Navbar.Collapse className={styles.navBarSideBar}>
+          <Nav className={styles.navBarMenu}>
             {navItems.map((item, i) =>
               this.getNavbarLinkContainer(item, i)
             )}
