@@ -18,6 +18,7 @@
   display: block;
   font-size: .7em;
   font-weight: 200;
+  max-width: 100px;
 }
 
 .blockInfoBlue {
@@ -32,7 +33,7 @@
   padding: 10px;
   background-color: #337ab7;
   color: #ffffff;
-  height: 100px;
+  height: 110px;
 }
 
 .blockInfoBlue button {
@@ -61,7 +62,7 @@
   padding: 10px;
   background-color: #5cb85c;
   color: #ffffff;
-  height: 100px;
+  height: 110px;
 }
 
 .blockInfoGreen button {
@@ -90,7 +91,7 @@
   padding: 10px;
   background-color: #f0ad4e;
   color: #ffffff;
-  height: 100px;
+  height: 110px;
 }
 
 .blockInfoOrange button {
@@ -119,7 +120,7 @@
   padding: 10px;
   background-color: #d9534f;
   color: #ffffff;
-  height: 100px;
+  height: 110px;
 }
 
 .blockInfoRed button {

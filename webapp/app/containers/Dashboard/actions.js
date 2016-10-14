@@ -66,7 +66,6 @@ export function getDeamonUsersConnected() {
       if (err && res.statusCode === 401) {
         browserHistory.push('/login');
       }
-      console.log(res);
       dispatch(deamonUsersConnected(res.body.nbrConnected));
     });
   };
