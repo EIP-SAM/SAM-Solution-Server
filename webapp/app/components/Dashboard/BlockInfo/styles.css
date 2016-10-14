@@ -13,6 +13,19 @@
   height: 100px;
 }
 
+.blockInfoBlue button {
+  color: #337ab7;
+  background-color: #efefef;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 100%;
+  text-align: left;
+}
+
+.blockInfoBlue button:hover {
+  color: #23527c;
+}
+
 .blockInfoGreen {
   margin-bottom: 20px;
   border: 1px solid #5cb85c;
@@ -30,6 +43,11 @@
 
 .blockInfoGreen button {
   color: #5cb85c;
+  background-color: #efefef;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 100%;
+  text-align: left;
 }
 
 .blockInfoGreen button:hover {
@@ -53,6 +71,11 @@
 
 .blockInfoOrange button {
   color: #f0ad4e;
+  background-color: #efefef;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 100%;
+  text-align: left;
 }
 
 .blockInfoOrange button:hover {
@@ -76,6 +99,11 @@
 
 .blockInfoRed button {
   color: #d9534f;
+  background-color: #efefef;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 100%;
+  text-align: left;
 }
 
 .blockInfoRed button:hover {
