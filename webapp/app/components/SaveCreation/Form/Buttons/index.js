@@ -42,6 +42,8 @@ export class SaveCreationButtons extends React.Component {
       <ButtonToolbar className={styles.toolbar}>
         <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Create" onClick={(event) => this.handleFormClick(event)} />
         <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
+
+        <LinkContainerButton buttonType="submit" buttonBsStyle="default" buttonText="Send" onClick={this.handleClick} />
       </ButtonToolbar>
     );
   }

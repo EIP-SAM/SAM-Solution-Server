@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { forgottenPasswordRequest, onChangeData } from './actions';
-import { ForgottenPasswordEmail } from 'components/ForgottenPassword/Form/Email';
+import { forgottenPasswordRequest } from 'containers/ForgottenPassword/Form/Email/actions';
+import { ForgottenPasswordButtons } from 'components/ForgottenPassword/Form/Buttons';
 
 function mapStateToProps(state) {
   return {
@@ -10,7 +10,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onChangeData: (email) => dispatch(onChangeData(email)),
     forgottenPasswordRequest: (email) => dispatch(forgottenPasswordRequest(email)),
   };
 }
@@ -18,4 +17,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ForgottenPasswordEmail);
+)(ForgottenPasswordButtons);

@@ -15,12 +15,12 @@ import { browserHistory } from 'react-router';
 
 import {
   FORGOTTEN_PASSWORD,
-  SAVE_DATA,
+  FORGOTTEN_PASSWORD_SAVE_DATA,
 } from './constants';
 
 export function onChangeData(email) {
   return {
-    type: SAVE_DATA,
+    type: FORGOTTEN_PASSWORD_SAVE_DATA,
     email,
   };
 }
