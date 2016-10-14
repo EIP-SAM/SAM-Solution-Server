@@ -15,30 +15,17 @@ import {
   Alert,
 } from 'react-bootstrap';
 
-const pageHeaderHeight = 130;
-const openFilterHeight = 345;
-let resultTableHeight = window.innerHeight - pageHeaderHeight - openFilterHeight;
-
 /* eslint-disable react/prefer-stateless-function */
 export default class LogResult extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleResize = this.handleResize.bind(this);
     this.sortByDate = this.sortByDate.bind(this);
     this.sortByLevel = this.sortByLevel.bind(this);
     this.sortByModule = this.sortByModule.bind(this);
     this.sortByMessage = this.sortByMessage.bind(this);
     this.getSortStyle = this.getSortStyle.bind(this);
     this.getRequestInfo = this.getRequestInfo.bind(this);
-  }
-
-  componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
   }
 
   getSortStyle(column) {
@@ -60,10 +47,6 @@ export default class LogResult extends React.Component {
       );
     }
     return '';
-  }
-
-  handleResize() {
-    resultTableHeight = window.innerHeight - pageHeaderHeight - openFilterHeight;
   }
 
   formatDate(ISODate) {
@@ -139,10 +122,8 @@ export default class LogResult extends React.Component {
   }
 
   render() {
-    const style = { height: resultTableHeight };
-
     return (
-      <div className={styles.divTabLogsResults} style={style}>
+      <div className={styles.divTabLogsResults}>
         <Table responsive hover className={styles.tableLogsResults}>
           <thead>
             <tr>

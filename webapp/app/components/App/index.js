@@ -24,7 +24,9 @@ export default class App extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if ((!nextProps.userInfo || !nextProps.userInfo.logged) && this.props.location.pathname !== '/login') {
+    if ((!nextProps.userInfo || !nextProps.userInfo.logged)
+      && this.props.location.pathname !== '/login'
+      && this.props.location.pathname !== '/forgotten-password') {
       browserHistory.push('/login');
     }
   }
