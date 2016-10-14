@@ -1,0 +1,89 @@
+//
+// Dashboard container
+//
+
+import React from 'react';
+import { Grid, Row, Col } from 'react-bootstrap';
+import BlockInfo from 'containers/Dashboard/BlockInfo';
+
+export default class Dashboard extends React.Component {
+  componentWillMount() {
+    this.username = this.props.userInfo.username;
+    this.props.getSavesNumbers(this.username);
+    this.props.getRestoresNumbers(this.username);
+    this.props.getDeamonUsersConnected();
+  }
+
+  componentWillUpdate() {
+    this.props.getSavesNumbers(this.username);
+    this.props.getRestoresNumbers(this.username);
+    this.props.getDeamonUsersConnected();
+  }
+
+  render() {
+    const username = this.props.userInfo.username;
+    const saveNumbers = this.props.saveNumbers || 0;
+    const restoreNumbers = this.props.restoreNumbers || 0;
+    const deamonUsersConnected = this.props.deamonUsersConnected || 0;
+
+    return (
+      <div>
+        <h1>Dashboard <small>Welcome {username}</small></h1>
+        <hr />
+        <Grid bsClass="">
+          <Row>
+            <Col md={6} lg={3}>
+              <BlockInfo
+                icon="floppy-disk"
+                title="Save"
+                msg={saveNumbers.toString()}
+                color="blue"
+                text="More details"
+                link="/save"
+              />
+            </Col>
+            <Col md={6} lg={3}>
+              <BlockInfo
+                icon="repeat"
+                title="Restore"
+                msg={restoreNumbers.toString()}
+                color="green"
+                text="More details"
+                link="/restore"
+              />
+            </Col>
+            <Col md={6} lg={3}>
+              <BlockInfo
+                icon="cd"
+                title="Deamon connected"
+                msg={deamonUsersConnected.toString()}
+                color="orange"
+                text="More details"
+              />
+            </Col>
+            <Col md={6} lg={3}>
+              <BlockInfo
+                icon="repeat"
+                title="Restore"
+                msg={restoreNumbers.toString()}
+                color="red"
+                text="More details"
+                link="/restore"
+              />
+            </Col>
+          </Row>
+        </Grid>
+      </div>
+    );
+  }
+}
+
+Dashboard.propTypes = {
+  userInfo: React.PropTypes.object,
+  saveNumbers: React.PropTypes.number,
+  restoreNumbers: React.PropTypes.number,
+  deamonUsersConnected: React.PropTypes.number,
+  getSavesNumbers: React.PropTypes.func,
+  getRestoresNumbers: React.PropTypes.func,
+  getDeamonUsersConnected: React.PropTypes.func,
+};

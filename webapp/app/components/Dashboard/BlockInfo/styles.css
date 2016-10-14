@@ -1,0 +1,150 @@
+.BlockInfoIcon {
+  font-size: 3.7em;
+  padding: 5px;
+}
+
+.BlockInfoTextBlock {
+  display: inline-block;
+  float: right;
+  text-align: right;
+}
+
+.BlockInfoMessage {
+  font-size: 1.8em;
+  text-align: right;
+}
+
+.BlockInfoTitle {
+  display: block;
+  font-size: .7em;
+  font-weight: 200;
+  max-width: 100px;
+}
+
+.blockInfoBlue {
+  margin-bottom: 20px;
+  border: 1px solid #337ab7;
+  border-radius: 5px;
+}
+
+.blockInfoBlue .blockInfoHeader {
+  font-weight: bold;
+  font-size: 1.5em;
+  padding: 10px;
+  background-color: #337ab7;
+  color: #ffffff;
+  height: 110px;
+}
+
+.blockInfoBlue button {
+  color: #337ab7;
+  font-weight: 500;
+  background-color: #efefef;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 100%;
+  text-align: left;
+}
+
+.blockInfoBlue button:hover,
+.blockInfoBlue button:focus,
+.blockInfoBlue button:focus:active {
+  color: #23527c;
+  outline: none;
+}
+
+.blockInfoGreen {
+  margin-bottom: 20px;
+  border: 1px solid #5cb85c;
+  border-radius: 5px;
+}
+
+.blockInfoGreen .blockInfoHeader {
+  font-weight: bold;
+  font-size: 1.5em;
+  padding: 10px;
+  background-color: #5cb85c;
+  color: #ffffff;
+  height: 110px;
+}
+
+.blockInfoGreen button {
+  color: #5cb85c;
+  font-weight: 500;
+  background-color: #efefef;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 100%;
+  text-align: left;
+}
+
+.blockInfoGreen button:hover,
+.blockInfoGreen button:focus,
+.blockInfoGreen button:focus:active {
+  color: #3d8b3d;
+  outline: none;
+}
+
+.blockInfoOrange {
+  margin-bottom: 20px;
+  border: 1px solid #f0ad4e;
+  border-radius: 5px;
+}
+
+.blockInfoOrange .blockInfoHeader {
+  font-weight: bold;
+  font-size: 1.5em;
+  padding: 10px;
+  background-color: #f0ad4e;
+  color: #ffffff;
+  height: 110px;
+}
+
+.blockInfoOrange button {
+  color: #f0ad4e;
+  font-weight: 500;
+  background-color: #efefef;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 100%;
+  text-align: left;
+}
+
+.blockInfoOrange button:hover,
+.blockInfoOrange button:focus,
+.blockInfoOrange button:focus:active {
+  color: #df8a13;
+  outline: none;
+}
+
+.blockInfoRed {
+  margin-bottom: 20px;
+  border: 1px solid #d9534f;
+  border-radius: 5px;
+}
+
+.blockInfoRed .blockInfoHeader {
+  font-weight: bold;
+  font-size: 1.5em;
+  padding: 10px;
+  background-color: #d9534f;
+  color: #ffffff;
+  height: 110px;
+}
+
+.blockInfoRed button {
+  color: #d9534f;
+  font-weight: 500;
+  background-color: #efefef;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 100%;
+  text-align: left;
+}
+
+.blockInfoRed button:hover,
+.blockInfoRed button:focus,
+.blockInfoRed button:focus:active  {
+  color: #b52b27;
+  outline: none;
+}

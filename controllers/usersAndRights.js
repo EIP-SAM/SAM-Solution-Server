@@ -77,6 +77,10 @@ module.exports.deleteUser = function () {
   return usersManager.deleteUser();
 };
 
+module.exports.getNbrUserConnectedDeamon = function() {
+  return usersManager.getNbrUserConnectedDeamon();
+}
+
 //
 // Groups administration
 //

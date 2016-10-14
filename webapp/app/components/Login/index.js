@@ -19,7 +19,7 @@ export class Login extends React.Component {
 
   shouldComponentUpdate(nextProps) {
     if (nextProps.userInfo && nextProps.userInfo.logged) {
-      browserHistory.push('/logs');
+      browserHistory.push('/dashboard');
       return true;
     }
     return false;

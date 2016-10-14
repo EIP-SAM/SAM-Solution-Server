@@ -177,6 +177,10 @@ module.exports = function initBaseRoutes(app, conf, passport) {
     usersAndRightsController.deleteUser()
   );
 
+  app.get('/api/logged-in/admin/deamon/connected',
+    usersAndRightsController.getNbrUserConnectedDeamon()
+  );
+
   //
   // Groups administration
   //
