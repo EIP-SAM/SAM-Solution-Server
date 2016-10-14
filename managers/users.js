@@ -110,11 +110,11 @@ function checkAndCreateUser(name, email, password, confirmation) {
                 });
               });
             } else {
-              reject('A user already exists with this name', null);
+              reject({ error: 'A user already exists with this name', field: enumUserValues.NAME }, null);
             }
           });
         } else {
-          reject('A user already exists with this email', null);
+          reject({ error: 'A user already exists with this email', field: enumUserValues.EMAIL }, null);
         }
       });
     }
