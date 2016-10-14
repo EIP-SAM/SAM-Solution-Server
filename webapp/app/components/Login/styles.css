@@ -26,3 +26,8 @@
   float: none!important;
   margin: auto;
 }
+
+.forgottenLink {
+  float: right;
+  margin-top: -7px;
+}

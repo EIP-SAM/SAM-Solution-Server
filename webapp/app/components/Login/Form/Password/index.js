@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap';
+import { LinkContainerButton } from 'components/Button';
 import styles from 'components/Login/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -29,6 +30,7 @@ export class LoginFormPassword extends React.Component {
     return (
       <FormGroup controlId="password" className={styles.form} validationState={validationState}>
         <ControlLabel>Password</ControlLabel>
+        <LinkContainerButton buttonStyle={styles.forgottenLink} buttonBsStyle="link" buttonText="Forgotten?" link="/forgotten-password" />
         <FormControl type="password" value={this.props.password} placeholder="Password" onChange={this.onChangePassword} />
         <HelpBlock>{errorMessage}</HelpBlock>
       </FormGroup>
