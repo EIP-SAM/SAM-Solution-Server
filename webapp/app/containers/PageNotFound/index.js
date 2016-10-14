@@ -8,7 +8,7 @@ import { PageNotFound } from 'components/PageNotFound';
 
 function mapStateToProps(state) {
   return {
-    userInfo: state.get('login').userInfo,
+    userInfo: state.get('app').userInfo,
   };
 }
 

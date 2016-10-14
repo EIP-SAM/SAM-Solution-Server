@@ -11,6 +11,7 @@ import logsReducer from 'containers/Logs/reducers';
 
 import StatsReducer from 'containers/Stats/reducers';
 
+import appReducer from 'containers/App/reducers';
 import loginReducer from 'containers/Login/Form/reducers';
 import forgottenPasswordReducer from 'containers/ForgottenPassword/reducers';
 import createUserReducer from 'containers/CreateUser/Form/reducers';
@@ -61,6 +62,7 @@ function routeReducer(state = routeInitialState, action) {
 export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
+    app: appReducer,
     logs: logsReducer,
     stats: StatsReducer,
     login: loginReducer,
