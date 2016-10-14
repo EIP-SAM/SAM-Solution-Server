@@ -46,7 +46,8 @@
   text-align: left;
 }
 
-.blockInfoBlue button:hover {
+.blockInfoBlue button:hover
+.blockInfoBlue button:focus {
   color: #23527c;
 }
 
@@ -75,7 +76,8 @@
   text-align: left;
 }
 
-.blockInfoGreen button:hover {
+.blockInfoGreen button:hover,
+.blockInfoGreen button:focus {
   color: #3d8b3d;
 }
 
@@ -104,7 +106,8 @@
   text-align: left;
 }
 
-.blockInfoOrange button:hover {
+.blockInfoOrange button:hover,
+.blockInfoOrange button:focus {
   color: #df8a13;
 }
 
@@ -133,6 +136,7 @@
   text-align: left;
 }
 
-.blockInfoRed button:hover {
+.blockInfoRed button:hover,
+.blockInfoRed button:focus {
   color: #b52b27;
 }
