@@ -7,7 +7,7 @@ import { RestoreCreationUser } from 'components/RestoreCreation/Form/User';
 
 function mapStateToProps(state) {
   return {
-    userInfo: state.get('login').userInfo,
+    userInfo: state.get('app').userInfo,
     username: state.get('restoreCreation').get('UsersRestoreCreationReducer').username,
   };
 }
