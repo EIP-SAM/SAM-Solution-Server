@@ -7,7 +7,7 @@ import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap
 import styles from 'components/Login/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class LoginFormUsernameFormGroup extends React.Component {
+export class LoginFormUsername extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeUsername = this.onChangeUsername.bind(this);
@@ -36,7 +36,7 @@ export class LoginFormUsernameFormGroup extends React.Component {
   }
 }
 
-LoginFormUsernameFormGroup.propTypes = {
+LoginFormUsername.propTypes = {
   username: React.PropTypes.string,
   usernameError: React.PropTypes.string,
   usernameChange: React.PropTypes.func,

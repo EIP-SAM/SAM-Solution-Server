@@ -14,7 +14,6 @@ import LoginFormPasswordReducer from './Password/reducer';
 
 import {
   LOGIN,
-  SET_USER_INFO,
 } from './constants';
 
 const initialState = {};
@@ -24,10 +23,6 @@ function LoginFormReducer(state = initialState, action) {
     case LOGIN:
       return Object.assign({}, state, {
         user: action.user,
-      });
-    case SET_USER_INFO:
-      return Object.assign({}, state, {
-        userInfo: action.userInfo,
       });
     default:
       return state;

@@ -3,7 +3,7 @@
 //
 
 import React from 'react';
-import { PageHeader, Image } from 'react-bootstrap';
+import { PageHeader, Image, Col } from 'react-bootstrap';
 import LoginForm from 'containers/Login/Form';
 import Logo from 'components/App/logo_sam_solution.png';
 import styles from './styles.css';
@@ -16,11 +16,11 @@ export class Login extends React.Component {
 
   render() {
     return (
-      <div className={styles.login}>
+      <Col lg={6} className={styles.colLogin} id="colLogin">
         <PageHeader className={styles.titre}>Login</PageHeader>
         <Image src={Logo} responsive className={styles.logo} />
         <LoginForm />
-      </div>
+      </Col>
     );
   }
 }

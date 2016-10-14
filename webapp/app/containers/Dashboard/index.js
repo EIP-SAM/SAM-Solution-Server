@@ -11,7 +11,7 @@ import {
  } from './actions';
 
 function mapStateToProps(state) {
-  const userInfoObject = state.get('login').userInfo || {};
+  const userInfoObject = state.get('app').userInfo || {};
 
   return {
     saveNumbers: state.get('dashboard').saveNumbers,

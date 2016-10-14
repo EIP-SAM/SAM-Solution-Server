@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { LoginFormPasswordFormGroup } from 'components/Login/Form/PasswordFormGroup';
+import { LoginFormPassword } from 'components/Login/Form/Password';
 import { passwordChange } from './actions';
 
 function mapStateToProps(state) {
@@ -22,4 +22,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(LoginFormPasswordFormGroup);
+)(LoginFormPassword);
