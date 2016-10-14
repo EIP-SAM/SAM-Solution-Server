@@ -46,9 +46,11 @@
   text-align: left;
 }
 
-.blockInfoBlue button:hover
-.blockInfoBlue button:focus {
+.blockInfoBlue button:hover,
+.blockInfoBlue button:focus,
+.blockInfoBlue button:focus:active {
   color: #23527c;
+  outline: none;
 }
 
 .blockInfoGreen {
@@ -77,8 +79,10 @@
 }
 
 .blockInfoGreen button:hover,
-.blockInfoGreen button:focus {
+.blockInfoGreen button:focus,
+.blockInfoGreen button:focus:active {
   color: #3d8b3d;
+  outline: none;
 }
 
 .blockInfoOrange {
@@ -107,8 +111,10 @@
 }
 
 .blockInfoOrange button:hover,
-.blockInfoOrange button:focus {
+.blockInfoOrange button:focus,
+.blockInfoOrange button:focus:active {
   color: #df8a13;
+  outline: none;
 }
 
 .blockInfoRed {
@@ -137,6 +143,8 @@
 }
 
 .blockInfoRed button:hover,
-.blockInfoRed button:focus {
+.blockInfoRed button:focus,
+.blockInfoRed button:focus:active  {
   color: #b52b27;
+  outline: none;
 }
