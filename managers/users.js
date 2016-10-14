@@ -789,3 +789,19 @@ module.exports.deleteUser = function () {
     }
   };
 };
+
+//
+// Get number of user connected to deamon
+//
+module.exports.getNbrUserConnectedDeamon = function () {
+  return function (req, res) {
+    let promise = UsersAdapter.getNbrUserConnectedDeamon();
+
+    promise.then(function(nbr) {
+      return res.status(200).json({ nbrConnected: nbr });
+    }).catch(function (err) {
+      logger.error('Error when trying to get numbers of deamons connected: ' + err);
+      return res.status(404).json({ error: 'Error when trying to get numbers of deamons connected' });
+    });
+  }
+}

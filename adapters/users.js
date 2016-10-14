@@ -3,6 +3,7 @@ const UsersModel = require('../models/users');
 const GroupsModel = require('../models/groups');
 require('../models/usersGroupsRelations');
 const GroupsAdapter = require('./groups');
+const socketIo = require('../libs/socket-io');
 
 module.exports.findAll = function () {
   return UsersModel.findAll({
@@ -117,5 +118,11 @@ module.exports.reassignUsersToGroup = function (group, users) {
         });
       });
     });
+  });
+};
+
+module.exports.getNbrUserConnectedDeamon = function () {
+  return new Promise(function (fulfill, reject) {
+    fulfill(socketIo.getNbrUserConnected(socketIo.CLIENT_TYPE_DEAMON));
   });
 };
