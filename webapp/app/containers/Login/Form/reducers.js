@@ -26,9 +26,9 @@ function LoginFormReducer(state = initialState, action) {
         user: action.user,
       });
     case SET_USER_INFO:
-     return Object.assign({}, state, {
-       userInfo: action.userInfo,
-     });
+      return Object.assign({}, state, {
+        userInfo: action.userInfo,
+      });
     default:
       return state;
   }

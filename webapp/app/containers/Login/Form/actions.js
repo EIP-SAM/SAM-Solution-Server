@@ -63,7 +63,7 @@ export function resetUserInfo() {
 
 export function loginRequest(username, password) {
   return function returnLoginRequest(dispatch) {
-    console.log("TEST");
+    console.log('LOGIN REQUEST');
     return request
       .post('/api/public/user/login/')
       .type('form')
@@ -72,7 +72,6 @@ export function loginRequest(username, password) {
         if (!err && res.body.name) {
           dispatch(login(res.body));
           dispatch(setUserInfo(true, res.body));
-          console.log(`/edit-user/${res.body.id}`);
           browserHistory.push(`/edit-user/${res.body.id}`);
         }
       });
@@ -98,9 +97,7 @@ export function logoutRequest() {
     return request
       .post('/api/logged-in/user/logout')
       .end((err) => {
-        if (err) {
-          console.log(err);
-        } else {
+        if (!err) {
           dispatch(resetUserInfo());
           browserHistory.push('/login');
         }
