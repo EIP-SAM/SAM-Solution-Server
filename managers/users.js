@@ -441,7 +441,7 @@ function prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate,
 // Update user profile, if possible, or reject with error
 //
 function updateUserProfile(userModel, userUpdateRequest) {
-  return new Promise(function (fulfill, reject) {
+  const promise = new Promise(function (fulfill, reject) {
     const fieldsToUpdate = [];
 
     prepareUserNameUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
@@ -452,8 +452,8 @@ function updateUserProfile(userModel, userUpdateRequest) {
       reject({ error: 'No update needed', field: enumUserValues.ALL });
     }
 
-    const promise = userModel.save({ fields: fieldsToUpdate }).then(function (user) {
-      fulfill(promise);
+    userModel.save({ fields: fieldsToUpdate }).then(function (user) {
+      fulfill(user);
     }).catch(function (error) {
       const failure = error.errors[0];
 
@@ -467,6 +467,8 @@ function updateUserProfile(userModel, userUpdateRequest) {
       }
     });
   });
+
+  return promise;
 }
 
 //
