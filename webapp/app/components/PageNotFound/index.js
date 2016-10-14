@@ -24,7 +24,7 @@ export class PageNotFound extends React.Component {
     let page = this.isLogged !== undefined ? 'login' : 'dashboard';
 
     return (
-      <Alert container bsStyle="info" className={styles.pageNotFoundAlert}>
+      <Alert bsStyle="info" className={styles.pageNotFoundAlert}>
         The page you are trying to access does not exist, you will be redirect to the {page} page soon ...
       </Alert>
     );

@@ -21,20 +21,9 @@ export default function createRoutes() {
       path: '/',
       name: 'home',
       getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          // System.import('containers/Logs'),
-          // System.import('components/HomePage'),
-          // System.import('components/Login'),
-          // System.import('components/Navbar'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([component]) => {
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
+        System.import('containers/Dashboard')
+          .then(loadModule(cb))
+          .catch(errorLoading);
       },
     }, {
       path: '/dashboard',
