@@ -4,7 +4,7 @@
 
 import React from 'react';
 import Email from 'containers/ForgottenPassword/Form/Email';
-import ForgottenPasswordButtons from 'containers/ForgottenPassword/Form/Buttons';
+import Buttons from 'containers/ForgottenPassword/Form/Buttons';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ForgottenPasswordForm extends React.Component {
@@ -13,7 +13,7 @@ export class ForgottenPasswordForm extends React.Component {
     return (
       <form>
         <Email />
-        <ForgottenPasswordButtons />
+        <Buttons />
       </form>
     );
   }

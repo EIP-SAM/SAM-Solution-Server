@@ -1,5 +1,5 @@
 //
-// ForgottenPassword reducer
+// ForgottenPassword email form reducer
 //
 // To add a new action:
 //

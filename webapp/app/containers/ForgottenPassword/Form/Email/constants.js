@@ -1,5 +1,5 @@
 //
-// ForgottenPassword constants
+// ForgottenPassword email form constants
 //
 
 export const FORGOTTEN_PASSWORD = 'FORGOTTEN_PASSWORD';
