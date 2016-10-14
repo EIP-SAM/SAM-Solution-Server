@@ -45,9 +45,5 @@ module.exports.isConnected = function isConnected(username, clientType) {
 }
 
 module.exports.getNbrUserConnected = function getNbrUserConnected(clientType) {
-  console.log("clientType", clientType);
-  console.log("socketArray[clientType]", socketArray[clientType]);
-  console.log("socketArray[clientType]|[0]", socketArray[clientType]["jeremy"]);
-  console.log("socketArray[clientType].length", Object.keys(socketArray[clientType]).length);
   return Object.keys(socketArray[clientType]).length;
 }
