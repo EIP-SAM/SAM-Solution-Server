@@ -13,7 +13,7 @@ import StatsReducer from 'containers/Stats/reducers';
 
 import dashboardReducer from 'containers/Dashboard/reducers';
 import loginReducer from 'containers/Login/reducers';
-import forgottenPasswordReducer from 'containers/ForgottenPassword/reducers';
+import forgottenPasswordReducer from 'containers/ForgottenPassword/Form/Email/reducer';
 import createUserReducer from 'containers/CreateUser/Form/reducers';
 import createGroupReducer from 'containers/CreateGroup/Form/reducers';
 import editUserReducer from 'containers/EditUser/Form/reducers';

@@ -1,9 +1,9 @@
 //
-// Container ForgottenPassword
+// Container ForgottenPassword form
 //
 
 import { connect } from 'react-redux';
-import { ForgottenPassword } from 'components/ForgottenPassword';
+import { ForgottenPasswordForm } from 'components/ForgottenPassword/Form';
 
 function mapStateToProps() {
   return {
@@ -18,4 +18,4 @@ function mapDispatchToProps() {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ForgottenPassword);
+)(ForgottenPasswordForm);

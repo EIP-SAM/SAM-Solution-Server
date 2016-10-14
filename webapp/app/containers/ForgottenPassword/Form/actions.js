@@ -1,5 +1,5 @@
 //
-// ForgottenPassword actions
+// ForgottenPassword form actions
 //
 // To add a new Action :
 // 1) Import you constant
@@ -12,25 +12,7 @@
 import request from 'utils/request';
 import { push } from 'react-router-redux';
 import { browserHistory } from 'react-router';
-
-import {
-  FORGOTTEN_PASSWORD,
-  SAVE_DATA,
-} from './constants';
-
-export function onChangeData(email) {
-  return {
-    type: SAVE_DATA,
-    email: email,
-  };
-}
-
-export function forgottenPassword(res) {
-  return {
-    type: FORGOTTEN_PASSWORD,
-    res: res,
-  };
-}
+import { forgottenPassword } from './Email/actions.js';
 
 export function forgottenPasswordRequest(email) {
   return function returnForgottenPasswordRequest(dispatch) {

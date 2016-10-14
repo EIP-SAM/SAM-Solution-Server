@@ -1,5 +1,5 @@
 //
-// ForgottenPassword reducer
+// ForgottenPassword email form reducer
 //
 // To add a new action:
 //
@@ -10,16 +10,16 @@
 
 import {
   FORGOTTEN_PASSWORD,
-  SAVE_DATA,
+  FORGOTTEN_PASSWORD_SAVE_DATA,
 } from './constants';
 
-const initialState = {email: 'Email'};
+const initialState = { email: '' };
 
 function forgottenPasswordReducer(state = initialState, action) {
   switch (action.type) {
     case FORGOTTEN_PASSWORD:
       return Object.assign({}, state, {});
-    case SAVE_DATA:
+    case FORGOTTEN_PASSWORD_SAVE_DATA:
       return Object.assign({}, state, {
         email: action.email,
       });

@@ -1,40 +1,21 @@
 //
-// Login
+// Component ForgottenPassword
 //
 
 import React from 'react';
-import { FormGroup, FormControl, ControlLabel, PageHeader } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import ForgottenPasswordForm from 'containers/ForgottenPassword/Form';
 import styles from './styles.css';
+import { PageHeader } from 'react-bootstrap';
 
+
+/* eslint-disable react/prefer-stateless-function */
 export class ForgottenPassword extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onChangeEmail = this.onChangeEmail.bind(this);
-    this.handleClick = this.handleClick.bind(this)
-  }
-
-  onChangeEmail(event) {
-    this.props.onChangeData(event.target.value);
-  }
-
-  handleClick(event) {
-    event.preventDefault();
-    this.props.forgottenPasswordRequest(this.props.state.email);
-  }
-
   render() {
     return (
-      <div container className={styles.forgotten}>
-        <form>
-          <PageHeader>Forgotten password</PageHeader>
-          <p>You will receive an email with your new password.</p>
-          <FormGroup controlId="formBasicText">
-            <ControlLabel>Email</ControlLabel>
-            <FormControl type="text" value={this.props.state.email} onChange={this.onChangeEmail} />
-            <LinkContainerButton buttonType="submit" buttonBsStyle="default" buttonText="Send" onClick={this.handleClick} />
-          </FormGroup>
-        </form>
+      <div className={styles.forgotten}>
+        <PageHeader>Forgotten password</PageHeader>
+        <p>You will receive an email with your new password.</p>
+        <ForgottenPasswordForm />
       </div>
     );
   }
