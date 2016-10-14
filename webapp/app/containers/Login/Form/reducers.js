@@ -1,5 +1,5 @@
 //
-// Login reducer
+// Login form reducer
 //
 // To add a new action:
 //
@@ -8,22 +8,22 @@
 //    return state.set('yourStateVariable', true);
 //
 
+import { combineReducers } from 'redux-immutable';
+import LoginFormUsernameReducer from './Username/reducer';
+import LoginFormPasswordReducer from './Password/reducer';
+
 import {
   LOGIN,
-  SAVE_DATA,
   SET_USER_INFO,
 } from './constants';
 
-const initialState = { username: 'Enter your username', password: 'Enter your password' };
+const initialState = {};
 
-function loginReducer(state = initialState, action) {
+function LoginFormReducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN:
-      return Object.assign({}, state, {});
-    case SAVE_DATA:
       return Object.assign({}, state, {
-        username: action.username,
-        password: action.password,
+        user: action.user,
       });
     case SET_USER_INFO:
       return Object.assign({}, state, {
@@ -34,4 +34,8 @@ function loginReducer(state = initialState, action) {
   }
 }
 
-export default loginReducer;
+export default combineReducers({
+  LoginFormReducer,
+  LoginFormUsernameReducer,
+  LoginFormPasswordReducer,
+});

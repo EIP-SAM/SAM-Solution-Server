@@ -4,11 +4,11 @@
 
 import { connect } from 'react-redux';
 import Navbar from 'components/Navbar';
-import { logoutRequest } from 'containers/Login/actions';
+import { logoutRequest } from 'containers/App/actions';
 
 function mapStateToProps(state) {
   return {
-    userInfo: state.get('login').userInfo,
+    userInfo: state.get('app').userInfo,
   };
 }
 

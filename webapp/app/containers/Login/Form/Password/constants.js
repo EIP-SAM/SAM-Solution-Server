@@ -1,0 +1,7 @@
+//
+// Password form edit user constants
+//
+
+export const LOGIN_PASSWORD_CHANGE = 'LOGIN_PASSWORD_CHANGE';
+export const LOGIN_RESET_STATE_PASSWORD = 'LOGIN_RESET_STATE_PASSWORD';
+export const LOGIN_PASSWORD_ERROR = 'LOGIN_PASSWORD_ERROR';

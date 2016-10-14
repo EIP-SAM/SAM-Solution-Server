@@ -9,7 +9,7 @@ import { listUsers } from 'containers/SaveCreation/Form/Users/actions';
 
 function mapStateToProps(state) {
   return {
-    userInfo: state.get('login').userInfo,
+    userInfo: state.get('app').userInfo,
   };
 }
 
