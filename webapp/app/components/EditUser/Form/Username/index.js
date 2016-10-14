@@ -19,18 +19,16 @@ export class EditUserFormUsername extends React.Component {
 
   render() {
     let validationState = null;
-    let errorMessage = '';
 
     if (this.props.usernameError !== '') {
       validationState = 'error';
-      errorMessage = this.props.usernameError;
     }
 
     return (
       <FormGroup controlId="username" className={styles.form} validationState={validationState}>
         <ControlLabel>Username</ControlLabel>
         <FormControl type="text" value={this.props.username} placeholder="Enter username" onChange={this.onChangeUsername} />
-        <HelpBlock>{errorMessage}</HelpBlock>
+        <HelpBlock>{this.props.usernameError}</HelpBlock>
       </FormGroup>
     );
   }
