@@ -452,7 +452,20 @@ function updateUserProfile(userModel, userUpdateRequest) {
       reject({ error: 'No update needed', field: enumUserValues.ALL });
     }
 
-    fulfill(userModel.save({ fields: fieldsToUpdate }));
+    const promise = userModel.save({ fields: fieldsToUpdate }).then(function (user) {
+      fulfill(promise);
+    }).catch(function (error) {
+      const failure = error.errors[0];
+
+      if (failure.type == 'unique violation') {
+        var enumField = enumUserValues.ALL;
+        const errorMessage = 'A user with this ' + failure.path + ' already exists';
+
+        enumField = failure.path == 'name' ? enumUserValues.NAME : enumField;
+        enumField = failure.path == 'email' ? enumUserValues.EMAIL : enumField;
+        reject({ error: errorMessage, field: enumField });
+      }
+    });
   });
 }
 
