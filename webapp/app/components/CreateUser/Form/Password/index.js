@@ -19,18 +19,16 @@ export class CreateUserFormPassword extends React.Component {
 
   render() {
     let validationState = null;
-    let errorMessage = '';
 
     if (this.props.passwordError !== '') {
       validationState = 'error';
-      errorMessage = this.props.passwordError;
     }
 
     return (
       <FormGroup controlId="password" className={styles.form} validationState={validationState}>
         <ControlLabel>Password</ControlLabel>
         <FormControl type="password" value={this.props.password} placeholder="Enter password" onChange={this.onChangePassword} />
-        <HelpBlock>{errorMessage}</HelpBlock>
+        <HelpBlock>{this.props.passwordError}</HelpBlock>
       </FormGroup>
     );
   }
