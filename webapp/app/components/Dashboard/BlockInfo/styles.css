@@ -1,5 +1,5 @@
 .blockInfoBlue {
-  /*background-color: #337ab7;*/
+  margin-bottom: 20px;
   border: 1px solid #337ab7;
   border-radius: 5px;
 }
@@ -11,4 +11,73 @@
   background-color: #337ab7;
   color: #ffffff;
   height: 100px;
+}
+
+.blockInfoGreen {
+  margin-bottom: 20px;
+  border: 1px solid #5cb85c;
+  border-radius: 5px;
+}
+
+.blockInfoGreen .blockInfoHeader {
+  font-weight: bold;
+  font-size: 1.5em;
+  padding: 10px;
+  background-color: #5cb85c;
+  color: #ffffff;
+  height: 100px;
+}
+
+.blockInfoGreen button {
+  color: #5cb85c;
+}
+
+.blockInfoGreen button:hover {
+  color: #3d8b3d;
+}
+
+.blockInfoOrange {
+  margin-bottom: 20px;
+  border: 1px solid #f0ad4e;
+  border-radius: 5px;
+}
+
+.blockInfoOrange .blockInfoHeader {
+  font-weight: bold;
+  font-size: 1.5em;
+  padding: 10px;
+  background-color: #f0ad4e;
+  color: #ffffff;
+  height: 100px;
+}
+
+.blockInfoOrange button {
+  color: #f0ad4e;
+}
+
+.blockInfoOrange button:hover {
+  color: #df8a13;
+}
+
+.blockInfoRed {
+  margin-bottom: 20px;
+  border: 1px solid #d9534f;
+  border-radius: 5px;
+}
+
+.blockInfoRed .blockInfoHeader {
+  font-weight: bold;
+  font-size: 1.5em;
+  padding: 10px;
+  background-color: #d9534f;
+  color: #ffffff;
+  height: 100px;
+}
+
+.blockInfoRed button {
+  color: #d9534f;
+}
+
+.blockInfoRed button:hover {
+  color: #b52b27;
 }

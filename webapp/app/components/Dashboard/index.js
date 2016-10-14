@@ -29,16 +29,36 @@ export default class Dashboard extends React.Component {
         <Grid bsClass="">
           <Row>
             <Col md={6} lg={3}>
-              <BlockInfo msg={saveStatus} />
+              <BlockInfo
+                msg={saveStatus}
+                color="blue"
+                text="Save"
+                link="/save"
+              />
             </Col>
             <Col md={6} lg={3}>
-              <BlockInfo msg={restoreStatus} />
+              <BlockInfo
+                msg={restoreStatus}
+                color="green"
+                text="Restore"
+                link="/restore"
+              />
             </Col>
             <Col md={6} lg={3}>
-              <BlockInfo msg={saveStatus} />
+              <BlockInfo
+                msg={saveStatus}
+                color="orange"
+                text="Save"
+                link="/save"
+              />
             </Col>
             <Col md={6} lg={3}>
-              <BlockInfo msg={restoreStatus} />
+              <BlockInfo
+                msg={restoreStatus}
+                color="red"
+                text="Restore"
+                link="/restore"
+              />
             </Col>
           </Row>
         </Grid>
