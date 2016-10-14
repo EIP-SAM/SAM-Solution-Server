@@ -13,6 +13,7 @@ import StatsReducer from 'containers/Stats/reducers';
 
 import dashboardReducer from 'containers/Dashboard/reducers';
 import forgottenPasswordReducer from 'containers/ForgottenPassword/Form/Email/reducer';
+import appReducer from 'containers/App/reducers';
 import loginReducer from 'containers/Login/Form/reducers';
 import createUserReducer from 'containers/CreateUser/Form/reducers';
 import createGroupReducer from 'containers/CreateGroup/Form/reducers';
@@ -62,6 +63,7 @@ function routeReducer(state = routeInitialState, action) {
 export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
+    app: appReducer,
     logs: logsReducer,
     stats: StatsReducer,
     dashboard: dashboardReducer,
