@@ -1,3 +1,25 @@
+.BlockInfoIcon {
+  font-size: 3.7em;
+  padding: 5px;
+}
+
+.BlockInfoTextBlock {
+  display: inline-block;
+  float: right;
+  text-align: right;
+}
+
+.BlockInfoMessage {
+  font-size: 2em;
+  text-align: right;
+}
+
+.BlockInfoTitle {
+  display: block;
+  font-size: .7em;
+  font-weight: 200;
+}
+
 .blockInfoBlue {
   margin-bottom: 20px;
   border: 1px solid #337ab7;
@@ -15,6 +37,7 @@
 
 .blockInfoBlue button {
   color: #337ab7;
+  font-weight: 500;
   background-color: #efefef;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -43,6 +66,7 @@
 
 .blockInfoGreen button {
   color: #5cb85c;
+  font-weight: 500;
   background-color: #efefef;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -71,6 +95,7 @@
 
 .blockInfoOrange button {
   color: #f0ad4e;
+  font-weight: 500;
   background-color: #efefef;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -99,6 +124,7 @@
 
 .blockInfoRed button {
   color: #d9534f;
+  font-weight: 500;
   background-color: #efefef;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;

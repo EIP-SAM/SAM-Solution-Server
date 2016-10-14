@@ -19,8 +19,8 @@ export default class Dashboard extends React.Component {
 
   render() {
     const username = this.props.userInfo.username;
-    const saveStatus = `Save scheduled ${this.props.saveNumbers}`;
-    const restoreStatus = `Restore scheduled ${this.props.restoreNumbers}`;
+    const saveNumbers = this.props.saveNumbers || 0;
+    const restoreNumbers = this.props.restoreNumbers || 0;
 
     return (
       <div>
@@ -30,33 +30,41 @@ export default class Dashboard extends React.Component {
           <Row>
             <Col md={6} lg={3}>
               <BlockInfo
-                msg={saveStatus}
+                icon="floppy-disk"
+                title="Save"
+                msg={saveNumbers.toString()}
                 color="blue"
-                text="Save"
+                text="More details"
                 link="/save"
               />
             </Col>
             <Col md={6} lg={3}>
               <BlockInfo
-                msg={restoreStatus}
+                icon="repeat"
+                title="Restore"
+                msg={restoreNumbers.toString()}
                 color="green"
-                text="Restore"
+                text="More details"
                 link="/restore"
               />
             </Col>
             <Col md={6} lg={3}>
               <BlockInfo
-                msg={saveStatus}
+                icon="floppy-disk"
+                title="Save"
+                msg={saveNumbers.toString()}
                 color="orange"
-                text="Save"
+                text="More details"
                 link="/save"
               />
             </Col>
             <Col md={6} lg={3}>
               <BlockInfo
-                msg={restoreStatus}
+                icon="repeat"
+                title="Restore"
+                msg={restoreNumbers.toString()}
                 color="red"
-                text="Restore"
+                text="More details"
                 link="/restore"
               />
             </Col>
