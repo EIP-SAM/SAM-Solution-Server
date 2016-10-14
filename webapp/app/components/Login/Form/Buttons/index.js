@@ -13,10 +13,7 @@ export class LoginFormButtons extends React.Component {
   handleLoginClick(event) {
     event.preventDefault();
     if (this.props.username !== '' && this.props.password !== '') {
-      console.log(this.props.loginRequest);
       this.props.loginRequest(this.props.username, this.props.password);
-      console.log("username :" + this.props.username);
-      console.log("password :" + this.props.password);
     }
     if (this.props.username === '') {
       this.props.usernameErrorMsg('Empty username');
