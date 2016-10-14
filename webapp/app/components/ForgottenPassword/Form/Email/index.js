@@ -1,3 +1,7 @@
+//
+// Component email form in forgotten password page
+//
+
 import React from 'react';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 

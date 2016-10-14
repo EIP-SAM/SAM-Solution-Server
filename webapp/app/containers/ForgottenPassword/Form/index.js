@@ -1,5 +1,5 @@
 //
-// Container ForgottenPassword
+// Container ForgottenPassword form
 //
 
 import { connect } from 'react-redux';

@@ -1,3 +1,7 @@
+//
+// Container email form forgotten password
+//
+
 import { connect } from 'react-redux';
 import { forgottenPasswordRequest, onChangeData } from './actions';
 import { ForgottenPasswordEmail } from 'components/ForgottenPassword/Form/Email';

@@ -1,3 +1,7 @@
+//
+// Component form page forgotten password
+//
+
 import React from 'react';
 import Email from 'containers/ForgottenPassword/Form/Email';
 import ForgottenPasswordButtons from 'containers/ForgottenPassword/Form/Buttons';

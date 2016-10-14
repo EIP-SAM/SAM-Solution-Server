@@ -1,5 +1,5 @@
 //
-// List Buttons form page SaveCreation
+// List Buttons form page Forgotten Password
 //
 
 import React from 'react';
@@ -19,8 +19,8 @@ export class ForgottenPasswordButtons extends React.Component {
   handleClick(event) {
     event.preventDefault();
 
-    if (this.props.state.email.length > 0) {
-      this.props.forgottenPasswordRequest(this.props.state.email);
+    if (this.props.email.length > 0) {
+      this.props.forgottenPasswordRequest(this.props.email);
     }
   }
 

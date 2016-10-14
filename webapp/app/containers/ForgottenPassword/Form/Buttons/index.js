@@ -1,3 +1,7 @@
+//
+// Container buttons form forgotten password
+//
+
 import { connect } from 'react-redux';
 import { forgottenPasswordRequest } from 'containers/ForgottenPassword/Form/Email/actions';
 import { ForgottenPasswordButtons } from 'components/ForgottenPassword/Form/Buttons';

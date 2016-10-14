@@ -1,3 +1,7 @@
+//
+// Component ForgottenPassword
+//
+
 import React from 'react';
 import ForgottenPasswordForm from 'containers/ForgottenPassword/Form';
 import styles from './styles.css';

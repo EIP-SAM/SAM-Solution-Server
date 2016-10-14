@@ -1,5 +1,5 @@
 //
-// Container buttons form create user
+// Container buttons form edit user
 //
 
 import { connect } from 'react-redux';
