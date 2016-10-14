@@ -56,7 +56,6 @@ export default class BlockInfo extends React.Component {
   }
 
   handleClick() {
-    console.log('PROPS: ', this.props);
     browserHistory.push(this.props.link);
   }
 
