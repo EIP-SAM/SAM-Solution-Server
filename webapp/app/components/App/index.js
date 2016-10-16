@@ -34,7 +34,7 @@ export default class App extends React.Component {
   render() {
     const userInfo = this.props.userInfo;
     const navbar = (userInfo && userInfo.logged) ? <Navbar /> : (<span></span>);
-    const appClass = (userInfo && userInfo.logged) ? 'appBlock' : '';
+    const appClass = (userInfo && userInfo.logged) ? styles.appBlock : '';
 
     return (
       <div className={appClass}>
