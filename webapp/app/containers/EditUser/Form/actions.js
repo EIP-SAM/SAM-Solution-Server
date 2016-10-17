@@ -11,8 +11,12 @@
 
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
-import { resetStatePassword } from './Password/actions';
 import { resetStatePasswordConfirmation } from './PasswordConfirmation/actions';
+import {
+  resetStatePassword,
+  passwordErrorMsg,
+} from './Password/actions';
+
 import {
   getUserGroups,
   resetStateGroups,
@@ -21,11 +25,13 @@ import {
 import {
   usernameChange,
   resetStateUsername,
+  usernameErrorMsg,
  } from './Username/actions';
 
 import {
   emailChange,
   resetStateEmail,
+  emailErrorMsg,
 } from './Email/actions';
 
 import {
@@ -96,9 +102,24 @@ export function editUserRequest(userId, username, email, password, passwordConfi
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
-
-        browserHistory.goBack();
-        dispatch(resetStateForm());
+        if (res.body.error) {
+          switch (res.body.field) {
+            case 1:
+              dispatch(usernameErrorMsg(res.body.error));
+              break;
+            case 2:
+              dispatch(emailErrorMsg(res.body.error));
+              break;
+            case 3:
+              dispatch(passwordErrorMsg(res.body.error));
+              break;
+            default:
+              break;
+          }
+        } else {
+          browserHistory.goBack();
+          dispatch(resetStateForm());
+        }
       });
   };
 }

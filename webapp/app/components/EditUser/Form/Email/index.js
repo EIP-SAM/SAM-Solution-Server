@@ -19,18 +19,16 @@ export class EditUserFormEmail extends React.Component {
 
   render() {
     let validationState = null;
-    let errorMessage = '';
 
     if (this.props.emailError !== '') {
       validationState = 'error';
-      errorMessage = this.props.emailError;
     }
 
     return (
       <FormGroup controlId="email" className={styles.form} validationState={validationState}>
         <ControlLabel>Email</ControlLabel>
         <FormControl type="email" value={this.props.email} placeholder="Enter email address" onChange={this.onChangeEmail} />
-        <HelpBlock>{errorMessage}</HelpBlock>
+        <HelpBlock>{this.props.emailError}</HelpBlock>
       </FormGroup>
     );
   }
