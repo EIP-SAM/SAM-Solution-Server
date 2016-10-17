@@ -1,13 +1,14 @@
 //
-// Container password confirmation form create user
+// Container password confirmation form edit user
 //
 
 import { connect } from 'react-redux';
 import { EditUserFormPasswordConfirmation } from 'components/EditUser/Form/PasswordConfirmation';
-import { passwordConfirmationChange } from './actions';
+import { checkPasswordConfirmation } from './actions';
 
 function mapStateToProps(state) {
   return {
+    password: state.get('editUser').get('EditUserFormPasswordReducer').password,
     passwordConfirmation: state.get('editUser').get('EditUserFormPasswordConfirmationReducer').passwordConfirmation,
     passwordConfirmationError: state.get('editUser').get('EditUserFormPasswordConfirmationReducer').passwordConfirmationError,
   };
@@ -15,7 +16,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    passwordConfirmationChange: (passwordConfirmation) => dispatch(passwordConfirmationChange(passwordConfirmation)),
+    checkPasswordConfirmation: (password, passwordConfirmation) => dispatch(checkPasswordConfirmation(password, passwordConfirmation)),
   };
 }
 
