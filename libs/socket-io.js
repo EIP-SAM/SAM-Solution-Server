@@ -5,8 +5,8 @@ const CLIENT_TYPE_DEAMON = "daemon";
 const CLIENT_TYPE_WEBAPP = "webapp";
 
 let socketArray = {
-  "webapp": [],
-  "daemon": [],
+  "webapp": {},
+  "daemon": {},
 };
 module.exports.socketArray = socketArray;
 
@@ -45,5 +45,5 @@ module.exports.isConnected = function isConnected(username, clientType) {
 }
 
 module.exports.getNbrUserConnected = function getNbrUserConnected(clientType) {
-  return socketArray[clientType].length;
+  return Object.keys(socketArray[clientType]).length;
 }
