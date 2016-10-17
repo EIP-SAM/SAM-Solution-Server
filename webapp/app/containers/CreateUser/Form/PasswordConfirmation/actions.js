@@ -34,3 +34,24 @@ export function passwordConfirmationErrorMsg(passwordConfirmationError) {
     passwordConfirmationError,
   };
 }
+
+export function checkPasswordConfirmation(password, passwordConfirmation) {
+  return function returnCheckPasswordConfirmation(dispatch) {
+    if (password.length < passwordConfirmation.length) {
+      dispatch(passwordConfirmationErrorMsg('It should be the same password'));
+    } else {
+      let i = 0;
+      while (i < passwordConfirmation.length) {
+        if (password[i] !== passwordConfirmation[i]) {
+          dispatch(passwordConfirmationErrorMsg('It should be the same password'));
+          break;
+        }
+        i++;
+      }
+      if (i >= passwordConfirmation.length) {
+        dispatch(passwordConfirmationErrorMsg(''));
+      }
+    }
+    dispatch(passwordConfirmationChange(passwordConfirmation));
+  };
+}

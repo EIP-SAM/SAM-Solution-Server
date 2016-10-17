@@ -110,11 +110,11 @@ function checkAndCreateUser(name, email, password, confirmation) {
                 });
               });
             } else {
-              reject('A user already exists with this name', null);
+              reject({ error: 'A user already exists with this name', field: enumUserValues.NAME }, null);
             }
           });
         } else {
-          reject('A user already exists with this email', null);
+          reject({ error: 'A user already exists with this email', field: enumUserValues.EMAIL }, null);
         }
       });
     }
@@ -441,7 +441,7 @@ function prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate,
 // Update user profile, if possible, or reject with error
 //
 function updateUserProfile(userModel, userUpdateRequest) {
-  return new Promise(function (fulfill, reject) {
+  const promise = new Promise(function (fulfill, reject) {
     const fieldsToUpdate = [];
 
     prepareUserNameUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
@@ -452,8 +452,23 @@ function updateUserProfile(userModel, userUpdateRequest) {
       reject({ error: 'No update needed', field: enumUserValues.ALL });
     }
 
-    fulfill(userModel.save({ fields: fieldsToUpdate }));
+    userModel.save({ fields: fieldsToUpdate }).then(function (user) {
+      fulfill(user);
+    }).catch(function (error) {
+      const failure = error.errors[0];
+
+      if (failure.type == 'unique violation') {
+        var enumField = enumUserValues.ALL;
+        const errorMessage = 'A user with this ' + failure.path + ' already exists';
+
+        enumField = failure.path == 'name' ? enumUserValues.NAME : enumField;
+        enumField = failure.path == 'email' ? enumUserValues.EMAIL : enumField;
+        reject({ error: errorMessage, field: enumField });
+      }
+    });
   });
+
+  return promise;
 }
 
 //

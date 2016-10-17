@@ -4,10 +4,11 @@
 
 import { connect } from 'react-redux';
 import { CreateUserFormPasswordConfirmation } from 'components/CreateUser/Form/PasswordConfirmation';
-import { passwordConfirmationChange } from './actions';
+import { checkPasswordConfirmation } from './actions';
 
 function mapStateToProps(state) {
   return {
+    password: state.get('createUser').get('CreateUserFormPasswordReducer').password,
     passwordConfirmation: state.get('createUser').get('CreateUserFormPasswordConfirmationReducer').passwordConfirmation,
     passwordConfirmationError: state.get('createUser').get('CreateUserFormPasswordConfirmationReducer').passwordConfirmationError,
   };
@@ -15,7 +16,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    passwordConfirmationChange: (passwordConfirmation) => dispatch(passwordConfirmationChange(passwordConfirmation)),
+    checkPasswordConfirmation: (password, passwordConfirmation) => dispatch(checkPasswordConfirmation(password, passwordConfirmation)),
   };
 }
 
