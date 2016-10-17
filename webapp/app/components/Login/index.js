@@ -3,64 +3,28 @@
 //
 
 import React from 'react';
-import { FormGroup, FormControl, ControlLabel, Image } from 'react-bootstrap';
-import { LinkContainerButton } from '../Button';
-import { browserHistory } from 'react-router';
-import Logo from '../App/logo_sam_solution.png';
+import { PageHeader, Image, Col } from 'react-bootstrap';
+import LoginForm from 'containers/Login/Form';
+import Logo from 'components/App/logo_sam_solution.png';
 import styles from './styles.css';
 
+/* eslint-disable react/prefer-stateless-function */
 export class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.userInfo && nextProps.userInfo.logged) {
-      browserHistory.push('/dashboard');
-      return true;
-    }
-    return false;
-  }
-
-  onChangeUsername(event) {
-    this.props.onChangeData(event.target.value, this.props.state.password);
-  }
-
-  onChangePassword(event) {
-    this.props.onChangeData(this.props.state.username, event.target.value);
-  }
-
-  handleClick() {
-    event.preventDefault();
-    this.props.loginRequest(this.props.state.username, this.props.state.password);
+  componentWillUnmount() {
+    this.props.resetStateForm();
   }
 
   render() {
     return (
-      <div className={styles.login}>
+      <Col lg={6} className={styles.colLogin} id="colLogin">
+        <PageHeader className={styles.titre}>Login</PageHeader>
         <Image src={Logo} responsive className={styles.logo} />
-        <form>
-          <FormGroup controlId="formBasicText">
-            <ControlLabel>Username</ControlLabel>
-            <FormControl type="text" placeholder={this.props.state.username} onChange={this.onChangeUsername} />
-            <ControlLabel>Password</ControlLabel>
-            <FormControl type="password" placeholder={this.props.state.password} onChange={this.onChangePassword} />
-            <LinkContainerButton buttonType="submit" buttonBsStyle="default" buttonText="Log In" onClick={this.handleClick} />
-          </FormGroup>
-        </form>
-        <a href="/register">Register</a><br />
-        <a href="/forgotten-password">Forget password</a>
-      </div>
+        <LoginForm />
+      </Col>
     );
   }
 }
 
 Login.propTypes = {
-  state: React.PropTypes.object,
-  userInfo: React.PropTypes.object,
-  loginRequest: React.PropTypes.func,
-  onChangeData: React.PropTypes.func,
+  resetStateForm: React.PropTypes.func,
 };

@@ -1,5 +1,5 @@
 //
-// Login actions
+// App actions
 //
 // To add a new Action :
 // 1) Import you constant
@@ -9,30 +9,12 @@
 //    }
 //
 
+import { browserHistory } from 'react-router';
 import request from 'utils/request';
 
-import { browserHistory } from 'react-router';
-
 import {
-  LOGIN,
-  SAVE_DATA,
   SET_USER_INFO,
 } from './constants';
-
-export function onChangeData(username, password) {
-  return {
-    type: SAVE_DATA,
-    username,
-    password,
-  };
-}
-
-export function login(user) {
-  return {
-    type: LOGIN,
-    user,
-  };
-}
 
 export function setUserInfo(logged, user) {
   return {
@@ -57,22 +39,6 @@ export function resetUserInfo() {
       email: '',
       isAdmin: '',
     },
-  };
-}
-
-export function loginRequest(username, password) {
-  return function returnLoginRequest(dispatch) {
-    return request
-      .post('/api/public/user/login/')
-      .type('form')
-      .send({ username, password })
-      .end((err, res) => {
-        if (!err && res.body.name) {
-          dispatch(login(res.body));
-          dispatch(setUserInfo(true, res.body));
-          browserHistory.push('/edit-user/' + res.body.id);
-        }
-      });
   };
 }
 
