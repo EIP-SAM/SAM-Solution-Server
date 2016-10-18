@@ -54,7 +54,7 @@
   line-height: 1.4em;
 }
 
-.logsResultLoader {
+.logsResultSpinner {
   margin-top: 15px;
-  text-align: center;
+  margin: auto;
 }

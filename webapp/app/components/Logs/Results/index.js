@@ -7,7 +7,7 @@ import React from 'react';
 import moment from 'moment';
 import styles from './styles.css';
 import levels from './levels.json';
-import Loader from 'halogen';
+import Spinner from 'components/Spinner';
 import {
   Table,
   Label,
@@ -37,7 +37,7 @@ export default class LogResult extends React.Component {
 
   getRequestInfo() {
     if (this.props.isLoading) {
-      return <Loader.PulseLoader className={styles.logsResultLoader} color="#006dcc" />;
+      return <Spinner className={styles.logsResultSpinner} />;
     } else if (this.props.logs.error) {
       return (
         <Alert bsStyle="danger">
