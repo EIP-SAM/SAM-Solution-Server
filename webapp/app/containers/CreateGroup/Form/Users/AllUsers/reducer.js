@@ -13,8 +13,7 @@ import {
 } from './constants';
 
 const initialState = {
-  groups: [],
-  selectedGroup: [],
+  users: [],
 };
 
 function CreateUserFormUsersAllUsersReducer(state = initialState, action) {
