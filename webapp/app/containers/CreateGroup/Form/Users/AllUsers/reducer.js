@@ -16,7 +16,7 @@ const initialState = {
   users: [],
 };
 
-function CreateUserFormUsersAllUsersReducer(state = initialState, action) {
+function CreateGroupFormUsersAllUsersReducer(state = initialState, action) {
   switch (action.type) {
     case GET_USERS:
       return Object.assign({}, state, {
@@ -27,4 +27,4 @@ function CreateUserFormUsersAllUsersReducer(state = initialState, action) {
   }
 }
 
-export default CreateUserFormUsersAllUsersReducer;
+export default CreateGroupFormUsersAllUsersReducer;

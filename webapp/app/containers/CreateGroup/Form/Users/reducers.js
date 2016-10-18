@@ -9,8 +9,8 @@
 //
 
 import { combineReducers } from 'redux-immutable';
-import CreateUserFormUsersAllUsersReducer from './AllUsers/reducer';
+import CreateGroupFormUsersAllUsersReducer from './AllUsers/reducer';
 
 export default combineReducers({
-  CreateUserFormUsersAllUsersReducer,
+  CreateGroupFormUsersAllUsersReducer,
 });

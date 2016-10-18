@@ -35,7 +35,6 @@ export class CreateGroupFormUsersAllUsers extends React.Component {
         <Option object={item} key={`item-${index}`} />
       ));
     }
-
     return (
       <FormGroup controlId="allUsers" className={styles.form} >
         <ControlLabel>All Users</ControlLabel>
