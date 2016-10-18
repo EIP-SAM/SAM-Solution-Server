@@ -6,14 +6,14 @@ import { connect } from 'react-redux';
 import { getUsersRequest } from './actions';
 import { CreateGroupFormAllUsers } from 'components/CreateGroup/Form/Users/AllUsers';
 
-function mapStateToProps(dispatch) {
+function mapStateToProps() {
   return {
-    getUsersRequest: () => dispatch(getUsersRequest()),
   };
 }
 
-function mapDispatchToProps() {
+function mapDispatchToProps(dispatch) {
   return {
+    getUsersRequest: () => dispatch(getUsersRequest()),
   };
 }
 
