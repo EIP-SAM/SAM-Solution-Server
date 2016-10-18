@@ -155,7 +155,6 @@
     "compression": "^1.6.1",
     "express": "^4.13.4",
     "fontfaceobserver": "^1.7.1",
-    "halogen": "^0.2.0",
     "history": "^2.1.0",
     "immutable": "^3.8.1",
     "moment": "^2.14.1",
