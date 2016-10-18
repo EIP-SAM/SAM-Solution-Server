@@ -16,6 +16,10 @@ body {
   left: 26px;
 }
 
+.users {
+    overflow: hidden;
+}
+
 .toolbar {
   margin-top: 20px;
   text-align: right;
