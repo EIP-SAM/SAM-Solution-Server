@@ -9,13 +9,25 @@
 //    }
 //
 import request from 'utils/request';
+import {
+  GET_USERS,
+} from './constants';
+
+export function getUsers(users) {
+  return {
+    type: GET_USERS,
+    users,
+  };
+}
 
 export function getUsersRequest() {
-  return function returnGetUsersRequest() {
+  return function returnGetUsersRequest(dispatch) {
     return request
     .get('/api/logged-in/admin/users')
     .end((err, res) => {
-      console.log(res.body);
+      if (res.body.users) {
+        dispatch(getUsers(res.body.users));
+      }
     });
   };
 }

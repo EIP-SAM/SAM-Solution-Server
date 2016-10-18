@@ -9,7 +9,7 @@ import Option from 'components/Option';
 import styles from 'components/CreateGroup/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class CreateGroupFormAllUsers extends React.Component {
+export class CreateGroupFormUsersAllUsers extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeAllUsers = this.onChangeAllUsers.bind(this);
@@ -24,6 +24,18 @@ export class CreateGroupFormAllUsers extends React.Component {
   }
 
   render() {
+    let users = [];
+    let usersOption = [];
+
+    if (this.props.users.length > 0) {
+      users = this.props.users.map((user) => (
+        { value: user.id, text: user.name }
+      ));
+      usersOption = users.map((item, index) => (
+        <Option object={item} key={`item-${index}`} />
+      ));
+    }
+
     return (
       <FormGroup controlId="allUsers" className={styles.form} >
         <ControlLabel>All Users</ControlLabel>
@@ -36,15 +48,14 @@ export class CreateGroupFormAllUsers extends React.Component {
           placement="right"
         />
         <FormControl componentClass="select" onChange={this.onChangeAllUsers} multiple>
-          <Option object={{ value: 1, text: 'Users 1' }} key={'item-1'} />
-          <Option object={{ value: 2, text: 'Users 2' }} key={'item-2'} />
-          <Option object={{ value: 3, text: 'Users 3' }} key={'item-3'} />
+          {usersOption}
         </FormControl>
       </FormGroup>
     );
   }
 }
 
-CreateGroupFormAllUsers.propTypes = {
+CreateGroupFormUsersAllUsers.propTypes = {
+  users: React.PropTypes.array,
   getUsersRequest: React.PropTypes.func,
 };

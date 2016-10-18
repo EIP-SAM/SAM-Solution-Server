@@ -4,10 +4,11 @@
 
 import { connect } from 'react-redux';
 import { getUsersRequest } from './actions';
-import { CreateGroupFormAllUsers } from 'components/CreateGroup/Form/Users/AllUsers';
+import { CreateGroupFormUsersAllUsers } from 'components/CreateGroup/Form/Users/AllUsers';
 
-function mapStateToProps() {
+function mapStateToProps(state) {
   return {
+    users: state.get('createGroup').get('CreateGroupFormUsersReducer').get('CreateGroupFormUsersAllUsersReducer').users,
   };
 }
 
@@ -20,4 +21,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(CreateGroupFormAllUsers);
+)(CreateGroupFormUsersAllUsers);
