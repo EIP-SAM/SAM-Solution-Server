@@ -15,6 +15,10 @@ export class CreateGroupFormAllUsers extends React.Component {
     this.onChangeAllUsers = this.onChangeAllUsers.bind(this);
   }
 
+  componentWillMount() {
+    this.props.getUsersRequest();
+  }
+
   onChangeAllUsers(event) {
     console.log(event.target.value);
   }
@@ -40,3 +44,7 @@ export class CreateGroupFormAllUsers extends React.Component {
     );
   }
 }
+
+CreateGroupFormAllUsers.propTypes = {
+  getUsersRequest: React.PropTypes.func,
+};
