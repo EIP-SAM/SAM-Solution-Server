@@ -1,10 +1,13 @@
 //
-// Container users form create group
+// Container all users form create group
 //
 
 import { connect } from 'react-redux';
-import { getUsersRequest } from './actions';
 import { CreateGroupFormUsersAllUsers } from 'components/CreateGroup/Form/Users/AllUsers';
+import {
+  getUsersRequest,
+  preSelectedUsersOnChange,
+} from './actions';
 
 function mapStateToProps(state) {
   return {
@@ -15,6 +18,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getUsersRequest: () => dispatch(getUsersRequest()),
+    preSelectedUsersOnChange: (preSelectedUsers) => dispatch(preSelectedUsersOnChange(preSelectedUsers)),
   };
 }
 

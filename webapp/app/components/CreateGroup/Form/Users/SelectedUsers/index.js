@@ -16,10 +16,28 @@ export class CreateGroupFormSelectedUsers extends React.Component {
   }
 
   onChangeSelectedUsers(event) {
-    console.log(event.target.value);
+    const options = event.target.options;
+    const value = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
+    }
+    this.props.unselectedUsersOnChange(value);
   }
 
   render() {
+    let selectedUsers = [];
+    let selectedUsersOption = [];
+
+    if (this.props.selectedUsers.length > 0) {
+      selectedUsers = this.props.selectedUsers.map((username) => (
+        { value: username, text: username }
+      ));
+      selectedUsersOption = selectedUsers.map((item, index) => (
+        <Option object={item} key={`item-${index}`} />
+      ));
+    }
     return (
       <FormGroup controlId="selectedUsers" className={styles.form} >
         <ControlLabel>Selected Users</ControlLabel>
@@ -32,11 +50,14 @@ export class CreateGroupFormSelectedUsers extends React.Component {
           placement="right"
         />
         <FormControl componentClass="select" onChange={this.onChangeSelectedUsers} multiple>
-          <Option object={{ value: 1, text: 'Users 1' }} key={'item-1'} />
-          <Option object={{ value: 2, text: 'Users 2' }} key={'item-2'} />
-          <Option object={{ value: 3, text: 'Users 3' }} key={'item-3'} />
+          {selectedUsersOption}
         </FormControl>
       </FormGroup>
     );
   }
 }
+
+CreateGroupFormSelectedUsers.propTypes = {
+  selectedUsers: React.PropTypes.array,
+  unselectedUsersOnChange: React.PropTypes.func,
+};

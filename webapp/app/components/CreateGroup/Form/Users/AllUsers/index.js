@@ -20,7 +20,14 @@ export class CreateGroupFormUsersAllUsers extends React.Component {
   }
 
   onChangeAllUsers(event) {
-    console.log(event.target.value);
+    const options = event.target.options;
+    const value = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
+    }
+    this.props.preSelectedUsersOnChange(value);
   }
 
   render() {
@@ -29,7 +36,7 @@ export class CreateGroupFormUsersAllUsers extends React.Component {
 
     if (this.props.users.length > 0) {
       users = this.props.users.map((user) => (
-        { value: user.id, text: user.name }
+        { value: user, text: user }
       ));
       usersOption = users.map((item, index) => (
         <Option object={item} key={`item-${index}`} />
@@ -43,7 +50,7 @@ export class CreateGroupFormUsersAllUsers extends React.Component {
           trigger={['hover', 'focus']}
           buttonType="link"
           icon="question-sign"
-          popoverContent="Select one or several users and add them to the group"
+          popoverContent="Select one or several users and add them to the group using CTRL^ key"
           placement="right"
         />
         <FormControl componentClass="select" onChange={this.onChangeAllUsers} multiple>
@@ -57,4 +64,5 @@ export class CreateGroupFormUsersAllUsers extends React.Component {
 CreateGroupFormUsersAllUsers.propTypes = {
   users: React.PropTypes.array,
   getUsersRequest: React.PropTypes.func,
+  preSelectedUsersOnChange: React.PropTypes.func,
 };

@@ -4,14 +4,17 @@
 
 import { connect } from 'react-redux';
 import { CreateGroupFormSelectedUsers } from 'components/CreateGroup/Form/Users/SelectedUsers';
+import { unselectedUsersOnChange } from './actions';
 
-function mapStateToProps() {
+function mapStateToProps(state) {
   return {
+    selectedUsers: state.get('createGroup').get('CreateGroupFormUsersReducer').get('CreateGroupFormUsersSelectedUsersReducer').selectedUsers,
   };
 }
 
-function mapDispatchToProps() {
+function mapDispatchToProps(dispatch) {
   return {
+    unselectedUsersOnChange: (unselectedUsers) => dispatch(unselectedUsersOnChange(unselectedUsers)),
   };
 }
 

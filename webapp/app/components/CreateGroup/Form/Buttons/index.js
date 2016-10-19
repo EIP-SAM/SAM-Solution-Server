@@ -27,7 +27,7 @@ export class CreateGroupFormButtons extends React.Component {
     return (
       <ButtonToolbar className={styles.toolbar}>
         <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Create" onClick={(event) => this.handleCreateClick(event)} />
-        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={(event) => this.handleCancelClick(event)} />
+        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
       </ButtonToolbar>
     );
   }
