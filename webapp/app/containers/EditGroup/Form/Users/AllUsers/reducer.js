@@ -35,7 +35,7 @@ function EditGroupFormUsersAllUsersReducer(state = initialState, action) {
           ...state.users.slice(0, action.index),
           ...state.users.slice(action.index + 1),
         ],
-        preSelectedUsers: (action.index + 1 < state.users.length) ? [state.users[action.index + 1]] : [],
+        preSelectedUsers: (action.nextIndex !== -1) ? [state.users[action.nextIndex]] : [],
       });
     default:
       return state;

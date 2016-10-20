@@ -31,11 +31,11 @@ export function unselectedUsersOnChange(unselectedUsers) {
   };
 }
 
-
-function removeSelectedUserFromGroup(index) {
+function removeSelectedUserFromGroup(index, nextIndex) {
   return {
     type: EDIT_GROUP_REMOVE_SELECTED_USERS,
     index,
+    nextIndex,
   };
 }
 
@@ -44,7 +44,20 @@ export function removeUsersFromGroup(selectedUsers, unselectedUsers) {
     for (let unselectedUser of unselectedUsers) {
       for (let selectedUser of selectedUsers) {
         if (selectedUser.id === unselectedUser.id) {
-          dispatch(removeSelectedUserFromGroup(selectedUsers.indexOf(selectedUser)));
+          const index = selectedUsers.indexOf(selectedUser);
+          let nextIndex = index + 1;
+          let newSelectedUsers = selectedUsers.slice(0, index);
+          newSelectedUsers = selectedUsers.slice(index + 1);
+
+          if (newSelectedUsers.length === 0 && selectedUsers.length > 1) {
+            nextIndex = index - 1;
+          } else if (newSelectedUsers.length === 0) {
+            nextIndex = -1;
+          }
+
+          dispatch(removeSelectedUserFromGroup(index, nextIndex));
+          selectedUsers = newSelectedUsers;
+          break;
         }
       }
     }

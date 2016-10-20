@@ -29,10 +29,11 @@ export function preSelectedUsersOnChange(preSelectedUsers) {
   };
 }
 
-function removeUser(index) {
+function removeUser(index, nextIndex) {
   return {
     type: EDIT_GROUP_REMOVE_USERS,
     index,
+    nextIndex,
   };
 }
 
@@ -41,24 +42,22 @@ export function removeUsers(users, preSelectedUsers) {
     for (let preSelectedUser of preSelectedUsers) {
       for (let user of users) {
         if (user.id === preSelectedUser.id) {
-          dispatch(removeUser(users.indexOf(user)));
+          const index = users.indexOf(user);
+          let nextIndex = index + 1;
+          let newUsers = users.slice(0, index);
+          newUsers = users.slice(index + 1);
+
+          if (newUsers.length === 0 && users.length > 1) {
+            nextIndex = index - 1;
+          } else if (newUsers.length === 0) {
+            nextIndex = -1;
+          }
+
+          dispatch(removeUser(index, nextIndex));
+          users = newUsers;
+          break;
         }
       }
     }
-  };
-}
-
-export function getUsersRequest() {
-  return function returnGetUsersRequest(dispatch) {
-    return request
-    .get('/api/logged-in/admin/users')
-    .end((err, res) => {
-      if (res.body.users) {
-        const users = res.body.users.map((user) => {
-          return { id: user.id, name: user.name };
-        });
-        dispatch(getUsers(users));
-      }
-    });
   };
 }
