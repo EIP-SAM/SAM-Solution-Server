@@ -14,6 +14,7 @@ import { getUsers } from 'containers/CreateGroup/Form/Users/AllUsers/actions';
 import {
   CREATE_GROUP_ADD_USERS_IN_GROUP,
   CREATE_GROUP_UNSELECTED_USERS,
+  CREATE_GROUP_REMOVE_SELECTED_USERS,
 } from './constants';
 
 export function addUsersToGroup(selectedUsers) {
@@ -30,15 +31,22 @@ export function unselectedUsersOnChange(unselectedUsers) {
   };
 }
 
+
+function removeSelectedUserFromGroup(index) {
+  return {
+    type: CREATE_GROUP_REMOVE_SELECTED_USERS,
+    index,
+  };
+}
+
 export function removeUsersFromGroup(selectedUsers, unselectedUsers) {
   return function returnRemoveUsers(dispatch) {
     for (let unselectedUser of unselectedUsers) {
       for (let selectedUser of selectedUsers) {
-        if (selectedUser === unselectedUser) {
-          selectedUsers.splice(selectedUsers.indexOf(selectedUser), 1);
+        if (selectedUser.id === unselectedUser.id) {
+          dispatch(removeSelectedUserFromGroup(selectedUsers.indexOf(selectedUser)));
         }
       }
     }
-    dispatch(getUsers(selectedUsers));
   };
 }

@@ -11,6 +11,7 @@
 import {
   CREATE_GROUP_ADD_USERS_IN_GROUP,
   CREATE_GROUP_UNSELECTED_USERS,
+  CREATE_GROUP_REMOVE_SELECTED_USERS,
 } from './constants';
 
 const initialState = {
@@ -27,6 +28,14 @@ function CreateGroupFormUsersSelectedUsersReducer(state = initialState, action) 
     case CREATE_GROUP_UNSELECTED_USERS:
       return Object.assign({}, state, {
         unselectedUsers: action.unselectedUsers,
+      });
+    case CREATE_GROUP_REMOVE_SELECTED_USERS:
+      return Object.assign({}, state, {
+        selectedUsers: [
+          ...state.selectedUsers.slice(0, action.index),
+          ...state.selectedUsers.slice(action.index + 1),
+        ],
+        unselectedUsers: [],
       });
     default:
       return state;

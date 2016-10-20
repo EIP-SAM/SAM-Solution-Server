@@ -24,7 +24,7 @@ export class CreateGroupFormUsersAllUsers extends React.Component {
     const value = [];
     for (let i = 0; i < options.length; i++) {
       if (options[i].selected) {
-        value.push(options[i].value);
+        value.push({ id: parseInt(options[i].value), name: options[i].text });
       }
     }
     this.props.preSelectedUsersOnChange(value);
@@ -36,7 +36,7 @@ export class CreateGroupFormUsersAllUsers extends React.Component {
 
     if (this.props.users.length > 0) {
       users = this.props.users.map((user) => (
-        { value: user, text: user }
+        { value: user.id, text: user.name }
       ));
       usersOption = users.map((item, index) => (
         <Option object={item} key={`item-${index}`} />

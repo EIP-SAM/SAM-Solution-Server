@@ -20,7 +20,7 @@ export class CreateGroupFormSelectedUsers extends React.Component {
     const value = [];
     for (let i = 0; i < options.length; i++) {
       if (options[i].selected) {
-        value.push(options[i].value);
+        value.push({ id: parseInt(options[i].value), name: options[i].text });
       }
     }
     this.props.unselectedUsersOnChange(value);
@@ -31,8 +31,8 @@ export class CreateGroupFormSelectedUsers extends React.Component {
     let selectedUsersOption = [];
 
     if (this.props.selectedUsers.length > 0) {
-      selectedUsers = this.props.selectedUsers.map((username) => (
-        { value: username, text: username }
+      selectedUsers = this.props.selectedUsers.map((user) => (
+        { value: user.id, text: user.name }
       ));
       selectedUsersOption = selectedUsers.map((item, index) => (
         <Option object={item} key={`item-${index}`} />
@@ -46,7 +46,7 @@ export class CreateGroupFormSelectedUsers extends React.Component {
           trigger={['hover', 'focus']}
           buttonType="link"
           icon="question-sign"
-          popoverContent="Select one or several users and remove them from the group"
+          popoverContent="Select one or several users and remove them from the group using CTRL^ key"
           placement="right"
         />
         <FormControl componentClass="select" onChange={this.onChangeSelectedUsers} multiple>

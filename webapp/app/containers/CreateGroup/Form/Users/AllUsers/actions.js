@@ -12,10 +12,10 @@ import request from 'utils/request';
 import {
   CREATE_GROUP_GET_USERS,
   CREATE_GROUP_PRE_SELECTED_USERS,
+  CREATE_GROUP_REMOVE_USERS,
 } from './constants';
 
 export function getUsers(users) {
-  console.log(users);
   return {
     type: CREATE_GROUP_GET_USERS,
     users,
@@ -29,17 +29,22 @@ export function preSelectedUsersOnChange(preSelectedUsers) {
   };
 }
 
+function removeUser(index) {
+  return {
+    type: CREATE_GROUP_REMOVE_USERS,
+    index,
+  };
+}
+
 export function removeUsers(users, preSelectedUsers) {
   return function returnRemoveUsers(dispatch) {
     for (let preSelectedUser of preSelectedUsers) {
       for (let user of users) {
-        if (user === preSelectedUser) {
-          users.splice(users.indexOf(user), 1);
+        if (user.id === preSelectedUser.id) {
+          dispatch(removeUser(users.indexOf(user)));
         }
       }
     }
-    console.log(users);
-    dispatch(getUsers(users));
   };
 }
 
@@ -50,7 +55,7 @@ export function getUsersRequest() {
     .end((err, res) => {
       if (res.body.users) {
         const users = res.body.users.map((user) => {
-          return user.name;
+          return { id: user.id, name: user.name };
         });
         dispatch(getUsers(users));
       }

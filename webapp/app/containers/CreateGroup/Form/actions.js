@@ -22,12 +22,13 @@ export function resetStateForm() {
   };
 }
 
-export function createGroupRequest(groupName, saveRestoreMode, migrationMode, softwareMode) {
+export function createGroupRequest(groupName, saveRestoreMode, migrationMode, softwareMode, selectedUsers) {
   const groups = [{
     name: groupName,
     saveAndRestoreMode: saveRestoreMode,
     migrationMode,
     softwarePackagesMode: softwareMode,
+    users: selectedUsers,
   }];
 
   return function returnCreateGroupRequest(dispatch) {
