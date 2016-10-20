@@ -16,10 +16,12 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import Navbar from 'containers/Navbar';
 import styles from './styles.css';
 import { browserHistory } from 'react-router';
+import Spinner from 'components/Spinner';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class App extends React.Component {
   componentWillMount() {
+    this.props.setAppLoadingState(true);
     this.props.getUserInfo();
   }
 
@@ -28,12 +30,35 @@ export default class App extends React.Component {
       && this.props.location.pathname !== '/login'
       && this.props.location.pathname !== '/forgotten-password') {
       browserHistory.push('/login');
+    } else if (nextProps.userInfo && nextProps.userInfo.logged
+      && this.props.location.pathname === '/login') {
+      browserHistory.push('/dashboard');
     }
   }
 
+  componentDidUpdate() {
+    if (this.props.userInfo && this.props.userInfo.logged
+      && this.props.location.pathname !== '/login') {
+      this.props.setAppLoadingState(false);
+    } else if ((!this.props.userInfo || !this.props.userInfo.logged)
+      && this.props.location.pathname === '/login') {
+      this.props.setAppLoadingState(false);
+    }
+  }
+
+  getAppContent() {
+    if (this.props.isLoading) {
+      return (
+        <Spinner size={300} className={styles.spinner} />
+      );
+    }
+    return (this.props.children);
+  }
+
   render() {
+    const content = this.getAppContent();
     const userInfo = this.props.userInfo;
-    const navbar = (userInfo && userInfo.logged) ? <Navbar /> : (<span></span>);
+    const navbar = (!this.props.isLoading && userInfo && userInfo.logged) ? <Navbar /> : (<span></span>);
     const appClass = (userInfo && userInfo.logged) ? styles.appBlock : '';
 
     return (
@@ -43,7 +68,7 @@ export default class App extends React.Component {
           <Grid fluid>
             <Row>
               <Col lg={12}>
-                {this.props.children}
+                {content}
               </Col>
             </Row>
           </Grid>
@@ -55,7 +80,10 @@ export default class App extends React.Component {
 
 App.propTypes = {
   children: React.PropTypes.node,
+  isLoading: React.PropTypes.bool,
   userInfo: React.PropTypes.object,
   location: React.PropTypes.object,
   getUserInfo: React.PropTypes.func,
+  setAppLoadingState: React.PropTypes.func,
+  setAppRedirectState: React.PropTypes.func,
 };

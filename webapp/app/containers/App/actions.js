@@ -13,12 +13,20 @@ import { browserHistory } from 'react-router';
 import request from 'utils/request';
 
 import {
-  SET_USER_INFO,
+  APP_SET_USER_INFO,
+  APP_SET_APP_LOADING_STATE,
 } from './constants';
+
+export function setAppLoadingState(isLoading) {
+  return {
+    type: APP_SET_APP_LOADING_STATE,
+    isLoading,
+  };
+}
 
 export function setUserInfo(logged, user) {
   return {
-    type: SET_USER_INFO,
+    type: APP_SET_USER_INFO,
     userInfo: {
       logged,
       userId: user.id,
@@ -31,7 +39,7 @@ export function setUserInfo(logged, user) {
 
 export function resetUserInfo() {
   return {
-    type: SET_USER_INFO,
+    type: APP_SET_USER_INFO,
     userInfo: {
       logged: false,
       userId: '',
@@ -58,6 +66,7 @@ export function getUserInfo() {
 
 export function logoutRequest() {
   return function startAction(dispatch) {
+    dispatch(setAppLoadingState(true));
     return request
       .post('/api/logged-in/user/logout')
       .end((err) => {
