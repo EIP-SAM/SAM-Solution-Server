@@ -79,13 +79,16 @@ module.exports.linkGroupToUser = function (group, user) {
 module.exports.unlinkAllUsersOfGroup = function (group) {
   return new Promise(function (fulfill, reject) {
     const brokenUsers = [];
-    group.users.forEach(function (user) {
-      module.exports.findById(user.id).then(function (user) {
-        if (user.groups.length === 1) {
-          brokenUsers.push(user);
-        }
+
+    if (group.users) {
+      group.users.forEach(function (user) {
+        module.exports.findById(user.id).then(function (user) {
+          if (user.groups.length === 1) {
+            brokenUsers.push(user);
+          }
+        });
       });
-    });
+    }
 
     group.setUsers([]).then(function () {
       if (brokenUsers.length > 0) {
@@ -102,6 +105,7 @@ module.exports.unlinkAllUsersOfGroup = function (group) {
         fulfill(group);
       }
     });
+
   });
 };
 
@@ -111,6 +115,10 @@ module.exports.reassignUsersToGroup = function (group, users) {
       var i = 0;
 
       users.forEach(function (user) {
+        if (typeof user !== 'number') {
+          reject('Invalid user id');
+        }
+
         module.exports.linkGroupToUser(group, user).then(function (group, user) {
           if (++i >= users.length) {
             fulfill(group);
