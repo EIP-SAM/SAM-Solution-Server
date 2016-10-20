@@ -1,9 +1,9 @@
 //
-// Container users form create group
+// Container users form edit group
 //
 
 import { connect } from 'react-redux';
-import { CreateGroupFormUsers } from 'components/CreateGroup/Form/Users';
+import { EditGroupFormUsers } from 'components/EditGroup/Form/Users';
 import { getUsersRequest } from './actions';
 
 function mapStateToProps() {
@@ -13,11 +13,11 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUsersRequest: () => dispatch(getUsersRequest()),
+    getUsersRequest: (name) => dispatch(getUsersRequest(name)),
   };
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(CreateGroupFormUsers);
+)(EditGroupFormUsers);

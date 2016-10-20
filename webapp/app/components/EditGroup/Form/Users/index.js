@@ -1,18 +1,19 @@
 //
-// Component users form create group
+// Component users form edit group
 //
 
 import React from 'react';
 import { Col } from 'react-bootstrap';
-import AllUsers from 'containers/CreateGroup/Form/Users/AllUsers';
-import SelectedUsers from 'containers/CreateGroup/Form/Users/SelectedUsers';
-import Buttons from 'containers/CreateGroup/Form/Users/Buttons';
-import styles from 'components/CreateGroup/styles.css';
+import AllUsers from 'containers/EditGroup/Form/Users/AllUsers';
+import SelectedUsers from 'containers/EditGroup/Form/Users/SelectedUsers';
+import Buttons from 'containers/EditGroup/Form/Users/Buttons';
+import styles from 'components/EditGroup/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class CreateGroupFormUsers extends React.Component {
+export class EditGroupFormUsers extends React.Component {
   componentWillMount() {
-    this.props.getUsersRequest();
+    const name = window.location.pathname.split('/')[2];
+    this.props.getUsersRequest(name);
   }
 
   render() {
@@ -32,6 +33,6 @@ export class CreateGroupFormUsers extends React.Component {
   }
 }
 
-CreateGroupFormUsers.propTypes = {
+EditGroupFormUsers.propTypes = {
   getUsersRequest: React.PropTypes.func,
 };

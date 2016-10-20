@@ -63,13 +63,18 @@ export function getGroupRequest(groupId) {
   };
 }
 
-export function editGroupRequest(groupId, groupName, saveRestoreMode, migrationMode, softwareMode) {
+export function editGroupRequest(groupId, groupName, saveRestoreMode, migrationMode, softwareMode, selectedUsers) {
+  const users = selectedUsers.map((user) => {
+    return user.id;
+  });
+
   const group = {
     id: groupId,
     name: groupName,
     saveAndRestoreMode: saveRestoreMode,
     migrationMode,
     softwarePackagesMode: softwareMode,
+    users,
   };
 
   return function returnEditGroupRequest(dispatch) {

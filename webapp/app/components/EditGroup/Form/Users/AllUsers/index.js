@@ -1,15 +1,15 @@
 //
-// Component all users form create group
+// Component all users form edit group
 //
 
 import React from 'react';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import { ButtonPopover } from 'components/ButtonPopover';
 import Option from 'components/Option';
-import styles from 'components/CreateGroup/styles.css';
+import styles from 'components/EditGroup/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class CreateGroupFormUsersAllUsers extends React.Component {
+export class EditGroupFormUsersAllUsers extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeAllUsers = this.onChangeAllUsers.bind(this);
@@ -57,7 +57,7 @@ export class CreateGroupFormUsersAllUsers extends React.Component {
   }
 }
 
-CreateGroupFormUsersAllUsers.propTypes = {
+EditGroupFormUsersAllUsers.propTypes = {
   users: React.PropTypes.array,
   preSelectedUsersOnChange: React.PropTypes.func,
 };

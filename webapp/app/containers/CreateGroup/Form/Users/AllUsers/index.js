@@ -17,7 +17,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUsersRequest: () => dispatch(getUsersRequest()),
     preSelectedUsersOnChange: (preSelectedUsers) => dispatch(preSelectedUsersOnChange(preSelectedUsers)),
   };
 }
