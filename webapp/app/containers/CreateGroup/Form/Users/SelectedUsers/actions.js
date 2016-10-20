@@ -15,7 +15,14 @@ import {
   CREATE_GROUP_ADD_USERS_IN_GROUP,
   CREATE_GROUP_UNSELECTED_USERS,
   CREATE_GROUP_REMOVE_SELECTED_USERS,
+  CREATE_GROUP_RESET_STATE_UNSELECTED_USERS,
 } from './constants';
+
+export function resetStateSelectedUsers() {
+  return {
+    type: CREATE_GROUP_RESET_STATE_UNSELECTED_USERS,
+  };
+}
 
 export function addUsersToGroup(selectedUsers) {
   return {

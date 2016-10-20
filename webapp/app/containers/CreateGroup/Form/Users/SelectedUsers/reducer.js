@@ -12,6 +12,7 @@ import {
   CREATE_GROUP_ADD_USERS_IN_GROUP,
   CREATE_GROUP_UNSELECTED_USERS,
   CREATE_GROUP_REMOVE_SELECTED_USERS,
+  CREATE_GROUP_RESET_STATE_UNSELECTED_USERS,
 } from './constants';
 
 const initialState = {
@@ -21,6 +22,8 @@ const initialState = {
 
 function CreateGroupFormUsersSelectedUsersReducer(state = initialState, action) {
   switch (action.type) {
+    case CREATE_GROUP_RESET_STATE_UNSELECTED_USERS:
+      return Object.assign({}, initialState, {});
     case CREATE_GROUP_ADD_USERS_IN_GROUP:
       return Object.assign({}, state, {
         selectedUsers: action.selectedUsers,

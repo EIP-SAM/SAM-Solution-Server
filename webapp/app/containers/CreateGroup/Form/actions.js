@@ -11,6 +11,8 @@
 
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
+import { resetStateAllUsers } from './Users/AllUsers/actions';
+import { resetStateSelectedUsers } from './Users/SelectedUsers/actions';
 import {
   resetStateGroupName,
   groupNameErrorMsg,
@@ -19,6 +21,8 @@ import {
 export function resetStateForm() {
   return function resetState(dispatch) {
     dispatch(resetStateGroupName());
+    dispatch(resetStateAllUsers());
+    dispatch(resetStateSelectedUsers());
   };
 }
 

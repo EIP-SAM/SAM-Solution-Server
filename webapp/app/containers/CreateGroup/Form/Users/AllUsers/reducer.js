@@ -12,6 +12,7 @@ import {
   CREATE_GROUP_GET_USERS,
   CREATE_GROUP_PRE_SELECTED_USERS,
   CREATE_GROUP_REMOVE_USERS,
+  CREATE_GROUP_RESET_STATE_ALL_USERS,
 } from './constants';
 
 const initialState = {
@@ -21,6 +22,8 @@ const initialState = {
 
 function CreateGroupFormUsersAllUsersReducer(state = initialState, action) {
   switch (action.type) {
+    case CREATE_GROUP_RESET_STATE_ALL_USERS:
+      return Object.assign({}, initialState, {});
     case CREATE_GROUP_GET_USERS:
       return Object.assign({}, state, {
         users: action.users,

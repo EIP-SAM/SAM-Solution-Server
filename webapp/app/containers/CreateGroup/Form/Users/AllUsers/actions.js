@@ -13,7 +13,14 @@ import {
   CREATE_GROUP_GET_USERS,
   CREATE_GROUP_PRE_SELECTED_USERS,
   CREATE_GROUP_REMOVE_USERS,
+  CREATE_GROUP_RESET_STATE_ALL_USERS,
 } from './constants';
+
+export function resetStateAllUsers() {
+  return {
+    type: CREATE_GROUP_RESET_STATE_ALL_USERS,
+  };
+}
 
 export function getUsers(users) {
   return {
