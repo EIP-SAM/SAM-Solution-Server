@@ -30,8 +30,8 @@ export class LoginFormPassword extends React.Component {
     return (
       <FormGroup controlId="password" className={styles.form} validationState={validationState}>
         <ControlLabel>Password</ControlLabel>
-        <LinkContainerButton buttonStyle={styles.forgottenLink} buttonBsStyle="link" buttonText="Forgotten?" link="/forgotten-password" />
         <FormControl type="password" value={this.props.password} placeholder="Password" onChange={this.onChangePassword} />
+        <LinkContainerButton buttonStyle={styles.forgottenLink} buttonBsStyle="link" buttonText="Forgotten?" link="/forgotten-password" />
         <HelpBlock>{errorMessage}</HelpBlock>
       </FormGroup>
     );
