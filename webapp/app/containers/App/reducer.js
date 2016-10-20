@@ -9,12 +9,17 @@
 //
 
 import {
-  SET_USER_INFO,
+  APP_SET_USER_INFO,
+  APP_SET_APP_LOADING_STATE,
 } from './constants';
 
-export default function AppReducer(state = {}, action) {
+export default function AppReducer(state = { isLoading: true }, action) {
   switch (action.type) {
-    case SET_USER_INFO:
+    case APP_SET_APP_LOADING_STATE:
+      return Object.assign({}, state, {
+        isLoading: action.isLoading,
+      });
+    case APP_SET_USER_INFO:
       return Object.assign({}, state, {
         userInfo: action.userInfo,
       });
