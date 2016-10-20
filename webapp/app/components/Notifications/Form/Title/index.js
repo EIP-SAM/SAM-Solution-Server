@@ -21,7 +21,7 @@ export class NotificationsFormTitle extends React.Component {
     return (
       <FormGroup controlId="title" className={styles.form}>
         <ControlLabel>Title</ControlLabel>
-        <FormControl type="textarea" value={this.props.title} placeholder="Enter title" onChange={this.onChangeTitle} />
+        <FormControl type="text" value={this.props.title} placeholder="Enter title" onChange={this.onChangeTitle} />
       </FormGroup>
     );
   }
