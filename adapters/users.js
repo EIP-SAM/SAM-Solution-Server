@@ -114,17 +114,21 @@ module.exports.reassignUsersToGroup = function (group, users) {
     module.exports.unlinkAllUsersOfGroup(group).then(function (group) {
       var i = 0;
 
-      users.forEach(function (user) {
-        if (typeof user !== 'number') {
-          reject('Invalid user id');
-        }
-
-        module.exports.linkGroupToUser(group, user).then(function (group, user) {
-          if (++i >= users.length) {
-            fulfill(group);
+      if (users.length > 0) {
+        users.forEach(function (user) {
+          if (typeof user !== 'number') {
+            reject('Invalid user id');
           }
+
+          module.exports.linkGroupToUser(group, user).then(function (group, user) {
+            if (++i >= users.length) {
+              fulfill(group);
+            }
+          });
         });
-      });
+      } else {
+        fulfill(group);
+      }
     });
   });
 };
