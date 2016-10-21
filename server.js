@@ -11,7 +11,14 @@ require('./models/init')().then(function () {
   var server = app.listen(config.port, function () {
     logger.info('Listening on port ' + config.port);
   });
+
   var socket = SocketIO.init(server);
-}).catch(function(err) {
+}).catch(function (err) {
   console.log(err);
 });
+
+//
+// Fore testing purposes
+// DELETE ME
+//
+const softwareManager = require('./managers/software');
