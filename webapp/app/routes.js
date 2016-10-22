@@ -170,14 +170,6 @@ export default function createRoutes() {
         .catch(errorLoading);
       },
     }, {
-      path: '/software',
-      name: 'software',
-      getComponent(nextState, cb) {
-        System.import('containers/software')
-        .then(loadModule(cb))
-        .catch(errorLoading)
-      },
-    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
