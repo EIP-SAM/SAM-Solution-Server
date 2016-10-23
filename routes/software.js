@@ -7,7 +7,7 @@ var softwareController = require('../controllers/software');
 module.exports = function initSaveRoutes(app) {
 
   app.get('/api/logged-in/admin/software', function (req, res) {
-    softwareController.allUsers().then(function(users) {
+    softwareController.launchAnInstall().then(function(users) {
       res.json(users);
     })
   });
