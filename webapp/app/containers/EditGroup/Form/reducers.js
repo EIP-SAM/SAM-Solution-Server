@@ -13,6 +13,7 @@ import EditGroupFormGroupNameReducer from './GroupName/reducer';
 import EditGroupFormGroupRightsSaveRestoreModeReducer from './GroupRights/SaveRestoreMode/reducer';
 import EditGroupFormGroupRightsMigrationModeReducer from './GroupRights/MigrationMode/reducer';
 import EditGroupFormGroupRightsSoftwareModeReducer from './GroupRights/SoftwareMode/reducer';
+import EditGroupFormUsersReducer from './Users/reducers';
 import {
   EDIT_GROUP_RESET_USER_ID,
   EDIT_GROUP_ID,
@@ -43,4 +44,5 @@ export default combineReducers({
   EditGroupFormGroupRightsSaveRestoreModeReducer,
   EditGroupFormGroupRightsMigrationModeReducer,
   EditGroupFormGroupRightsSoftwareModeReducer,
+  EditGroupFormUsersReducer,
 });

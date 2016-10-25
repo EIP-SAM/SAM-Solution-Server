@@ -36,7 +36,7 @@ export class GroupTable extends React.Component {
           {this.props.groups.map((group, index) => {
             const actions = [];
 
-            actions.push(<ButtonPopover key={`action-${0}`} id="edit_group" trigger={['focus', 'hover']} placement="bottom" popoverContent="Edit Group" buttonType="link" icon="pencil" link={`/edit-group/${group.id}`} />);
+            actions.push(<ButtonPopover key={`action-${0}`} id="edit_group" trigger={['focus', 'hover']} placement="bottom" popoverContent="Edit Group" buttonType="link" icon="pencil" link={`/edit-group/${group.name}/${group.id}`} />);
             actions.push(<ButtonPopover key={`action-${1}`} id="delete_group" trigger={['focus', 'hover']} placement="bottom" popoverContent="Delete Group" buttonType="link" icon="trash" buttonStyle={styles.trash} onClick={() => this.handleDeleteClick(group)} />);
             return (
               <Tr

@@ -13,7 +13,7 @@ export class EditGroupFormButtons extends React.Component {
   handleEditClick(event) {
     event.preventDefault();
     if (this.props.groupName !== '') {
-      this.props.editGroupRequest(this.props.groupId, this.props.groupName, this.props.saveRestoreMode, this.props.migrationMode, this.props.softwareMode);
+      this.props.editGroupRequest(this.props.groupId, this.props.groupName, this.props.saveRestoreMode, this.props.migrationMode, this.props.softwareMode, this.props.selectedUsers);
     } else {
       this.props.groupNameErrorMsg('A group must have a name');
     }
@@ -39,6 +39,7 @@ EditGroupFormButtons.propTypes = {
   saveRestoreMode: React.PropTypes.number,
   migrationMode: React.PropTypes.number,
   softwareMode: React.PropTypes.number,
+  selectedUsers: React.PropTypes.array,
   editGroupRequest: React.PropTypes.func,
   groupNameErrorMsg: React.PropTypes.func,
 };
