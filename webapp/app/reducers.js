@@ -8,9 +8,7 @@ import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 import logsReducer from 'containers/Logs/reducers';
-
 import StatsReducer from 'containers/Stats/reducers';
-
 import dashboardReducer from 'containers/Dashboard/reducers';
 import forgottenPasswordReducer from 'containers/ForgottenPassword/Form/Email/reducer';
 import appReducer from 'containers/App/reducer';
@@ -21,13 +19,13 @@ import editUserReducer from 'containers/EditUser/Form/reducers';
 import editGroupReducer from 'containers/EditGroup/Form/reducers';
 import usersReducer from 'containers/Users/reducers';
 import groupsReducer from 'containers/Groups/reducers';
-
 import saveReducer from 'containers/Save/reducers';
 import saveHistoryReducer from 'containers/SaveHistory/reducers';
 import saveCreationReducer from 'containers/SaveCreation/Form/reducers';
 import RestoreReducer from 'containers/Restore/reducers';
 import RestoreHistoryReducer from 'containers/RestoreHistory/reducers';
 import RestoreCreationReducer from 'containers/RestoreCreation/Form/reducers';
+import softwaresByUserReducer from 'containers/SoftwaresByUser/reducers';
 
 /*
  * routeReducer
@@ -81,6 +79,7 @@ export default function createReducer(asyncReducers) {
     restore: RestoreReducer,
     restoreHistory: RestoreHistoryReducer,
     restoreCreation: RestoreCreationReducer,
+    softwaresByUser: softwaresByUserReducer,
     ...asyncReducers,
   });
 }

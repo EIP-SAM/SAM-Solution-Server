@@ -170,6 +170,14 @@ export default function createRoutes() {
         .catch(errorLoading);
       },
     }, {
+      path: '/software/:username',
+      name: 'softwareByUser',
+      getComponent(nextState, cb) {
+        System.import('containers/SoftwaresByUser')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
