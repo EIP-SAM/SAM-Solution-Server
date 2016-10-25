@@ -13,7 +13,7 @@ import {
   APP_SET_APP_LOADING_STATE,
 } from './constants';
 
-export default function AppReducer(state = { isLoading: true }, action) {
+export default function AppReducer(state = {}, action) {
   switch (action.type) {
     case APP_SET_APP_LOADING_STATE:
       return Object.assign({}, state, {

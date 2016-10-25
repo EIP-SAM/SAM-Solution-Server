@@ -6,15 +6,19 @@ import { connect } from 'react-redux';
 import {
   getUserInfo,
   setAppLoadingState,
-  setAppRedirectState,
 } from './actions';
 
 import App from 'components/App';
 
+function getSafeIsLoading(state) {
+  const isLoading = state.get('app').isLoading;
+  return isLoading === undefined ? true : isLoading;
+}
+
 function mapStateToProps(state) {
   return {
     userInfo: state.get('app').userInfo,
-    isLoading: state.get('app').isLoading,
+    isLoading: getSafeIsLoading(state),
   };
 }
 

@@ -26,22 +26,14 @@ export default class App extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if ((!nextProps.userInfo || !nextProps.userInfo.logged)
+    if (nextProps.userInfo && !nextProps.userInfo.logged
       && this.props.location.pathname !== '/login'
       && this.props.location.pathname !== '/forgotten-password') {
       browserHistory.push('/login');
     } else if (nextProps.userInfo && nextProps.userInfo.logged
       && this.props.location.pathname === '/login') {
       browserHistory.push('/dashboard');
-    }
-  }
-
-  componentDidUpdate() {
-    if (this.props.userInfo && this.props.userInfo.logged
-      && this.props.location.pathname !== '/login') {
-      this.props.setAppLoadingState(false);
-    } else if ((!this.props.userInfo || !this.props.userInfo.logged)
-      && this.props.location.pathname === '/login') {
+    } else {
       this.props.setAppLoadingState(false);
     }
   }
