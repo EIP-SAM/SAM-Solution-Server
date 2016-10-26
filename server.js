@@ -15,3 +15,5 @@ require('./models/init')().then(function () {
 }).catch(function(err) {
   console.log(err);
 });
+
+require('./adapters/software');
