@@ -4,6 +4,9 @@
 
 import { connect } from 'react-redux';
 import { SoftwaresByUserTable } from 'components/SoftwaresByUser/Table';
+import { showAddSoftwareModal } from './ModalAddSoftware/actions';
+import { showUpdateSoftwareModal } from './ModalUpdateSoftware/actions';
+import { showDeleteSoftwareModal } from './ModalDeleteSoftware/actions';
 
 function mapStateToProps(state) {
   return {
@@ -11,8 +14,11 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps() {
+function mapDispatchToProps(dispatch) {
   return {
+    showAddSoftwareModal: () => dispatch(showAddSoftwareModal()),
+    showUpdateSoftwareModal: () => dispatch(showUpdateSoftwareModal()),
+    showDeleteSoftwareModal: () => dispatch(showDeleteSoftwareModal()),
   };
 }
 

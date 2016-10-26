@@ -9,7 +9,9 @@
 //
 
 import { combineReducers } from 'redux-immutable';
-
+import SoftwaresByUserAddSoftwareModalReducer from './Table/ModalAddSoftware/reducer';
+import SoftwaresByUserUpdateSoftwareModalReducer from './Table/ModalUpdateSoftware/reducer';
+import SoftwaresByUserDeleteSoftwareModalReducer from './Table/ModalDeleteSoftware/reducer';
 import {
   SOFTWARES_BY_USER_GET_SOFTWARES,
   SOFTWARES_BY_USER_USERNAME,
@@ -77,4 +79,7 @@ function SoftwaresByUserReducer(state = initialState, action) {
 //
 export default combineReducers({
   SoftwaresByUserReducer,
+  SoftwaresByUserAddSoftwareModalReducer,
+  SoftwaresByUserUpdateSoftwareModalReducer,
+  SoftwaresByUserDeleteSoftwareModalReducer,
 });

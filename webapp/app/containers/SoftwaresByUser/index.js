@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { SoftwaresByUser } from 'components/SoftwaresByUser';
 import {
   getInstalledSoftwaresRequest,
+  getUsername,
   resetAlert,
 } from './actions';
 
@@ -21,6 +22,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    getUsername: (username) => dispatch(getUsername(username)),
     getInstalledSoftwaresRequest: () => dispatch(getInstalledSoftwaresRequest()),
     resetAlert: () => dispatch(resetAlert()),
   };

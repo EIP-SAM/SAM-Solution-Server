@@ -9,6 +9,8 @@ import SoftwaresByUserTable from 'containers/SoftwaresByUser/Table';
 /* eslint-disable react/prefer-stateless-function */
 export class SoftwaresByUser extends React.Component {
   componentWillMount() {
+    const username = window.location.pathname.split('/')[2];
+    this.props.getUsername(username);
     this.props.getInstalledSoftwaresRequest();
   }
 
@@ -42,6 +44,7 @@ SoftwaresByUser.propTypes = {
   alertMsg: React.PropTypes.string,
   typeAlert: React.PropTypes.string,
   displayAlert: React.PropTypes.bool,
+  getUsername: React.PropTypes.func,
   getInstalledSoftwaresRequest: React.PropTypes.func,
   resetAlert: React.PropTypes.func,
 };
