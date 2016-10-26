@@ -1,0 +1,46 @@
+.plus {
+  color: #5bc0de;
+}
+
+.plus:hover {
+  color: #2aabd2;
+}
+
+.open {
+  color: #f0ad4e;
+}
+
+.open:hover {
+  color: #eb9316;
+}
+
+.trash {
+  color: #d9534f;
+}
+
+.trash:hover {
+  color: #c9302c;
+}
+
+.p {
+  font-size: 1.2em;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.iconAdd {
+  color: #5bc0de;
+  margin-right: 10px;
+}
+
+.iconUpdate {
+  color: #f0ad4e;
+  margin-right: 10px;
+}
+
+.iconDelete {
+  color: #d9534f;
+  margin-right: 10px;
+}
