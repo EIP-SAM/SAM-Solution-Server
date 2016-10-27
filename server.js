@@ -16,9 +16,3 @@ require('./models/init')().then(function () {
 }).catch(function (err) {
   console.log(err);
 });
-
-//
-// Fore testing purposes
-// DELETE ME
-//
-const softwareManager = require('./managers/software');
