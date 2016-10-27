@@ -16,8 +16,8 @@ const Migration = sequelize.define('migration', {
     unique: false,
   },
   status: {
-    type: Sequelize.ENUM,
-    values: ['done', 'cancelled', 'pending', 'in progress'],
+    type: Sequelize.STRING,
+    allowNull: false,
   }
 }, {
   freezeTableName: true,

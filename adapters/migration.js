@@ -16,7 +16,9 @@ module.exports.getMigrations = function () {
 // Get migration by his id
 //
 module.exports.getMigrationById = function(migrationId) {
-  return MigrationModel.findById(migrationId);
+  return MigrationModel.findById(migrationId, {
+    order: [['migrationDate', 'DESC']],
+  });
 }
 
 //
@@ -33,20 +35,9 @@ module.exports.createMigration = function(userId, migrationDate, status) {
 //
 // Edit migration by his id
 //
-module.exports.editMigrationById = function(migrationId, userId, migrationDate, status) {
-  let toUpdate = {};
-
-  if (userId) {
-    toUpdate.userId = userId;
-  }
-  if (migrationDate) {
-    toUpdate.migrationDate = migrationDate;
-  }
-  if (status) {
-    toUpdate.status = status;
-  }
-  return MigrationModel.update(toUpdate, {
-    where: { id: migrationId },
+module.exports.editMigrationById = function(migrationObj) {
+  return MigrationModel.update(migrationObj, {
+    where: { id: migrationObj.migrationId },
   });
 }
 
