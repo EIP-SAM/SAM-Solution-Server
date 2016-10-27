@@ -1,21 +1,21 @@
 //
 // Unit test for migration manager
 //
-const migrationAdapter = require('../../adapters/migration');
 const migrationManager = require('../../managers/migration');
+const migrationController = require('../../controllers/migration');
 const MigrationModel = require('../../models/migration');
 
 describe('getMigrations', function () {
   it('should return a promise', function () {
-    let migrations = migrationManager.getMigrations();
+    let migrations = migrationController.getMigrations();
 
     expect(typeof migrations.then === 'function').toBeTruthy();
   });
 
   it('should have called getMigrations once', function () {
-    spyOn(migrationAdapter, 'getMigrations');
-    migrationManager.getMigrations()
-    expect(migrationAdapter.getMigrations).toHaveBeenCalledTimes(1);
+    spyOn(migrationManager, 'getMigrations');
+    migrationController.getMigrations()
+    expect(migrationManager.getMigrations).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -27,15 +27,15 @@ describe('getMigrationById', function () {
   });
 
   it('should return a promise', function () {
-    let migrations = migrationManager.getMigrationById(migrationId);
+    let migrations = migrationController.getMigrationById(migrationId);
 
     expect(typeof migrations.then === 'function').toBeTruthy();
   });
 
   it('should have called getMigrationById once', function () {
-    spyOn(migrationAdapter, 'getMigrationById');
-    migrationManager.getMigrationById(migrationId)
-    expect(migrationAdapter.getMigrationById).toHaveBeenCalledTimes(1);
+    spyOn(migrationManager, 'getMigrationById');
+    migrationController.getMigrationById(migrationId)
+    expect(migrationManager.getMigrationById).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -52,15 +52,15 @@ describe('editMigrationById', function () {
   });
 
   it('should return a promise', function () {
-    let migrations = migrationManager.editMigrationById(migrationObj);
+    let migrations = migrationController.editMigrationById(migrationObj);
 
     expect(typeof migrations.then === 'function').toBeTruthy();
   });
 
   it('should have called editMigrationById once', function () {
-    spyOn(migrationAdapter, 'editMigrationById');
-    migrationManager.editMigrationById(migrationObj)
-    expect(migrationAdapter.editMigrationById).toHaveBeenCalledTimes(1);
+    spyOn(migrationManager, 'editMigrationById');
+    migrationController.editMigrationById(migrationObj)
+    expect(migrationManager.editMigrationById).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -72,14 +72,14 @@ describe('deleteMigrationById', function () {
   });
 
   it('should return a promise', function () {
-    let migrations = migrationManager.deleteMigrationById(migrationId);
+    let migrations = migrationController.deleteMigrationById(migrationId);
 
     expect(typeof migrations.then === 'function').toBeTruthy();
   });
 
   it('should have called deleteMigrationById once', function () {
-    spyOn(migrationAdapter, 'deleteMigrationById');
-    migrationManager.deleteMigrationById(migrationId)
-    expect(migrationAdapter.deleteMigrationById).toHaveBeenCalledTimes(1);
+    spyOn(migrationManager, 'deleteMigrationById');
+    migrationController.deleteMigrationById(migrationId)
+    expect(migrationManager.deleteMigrationById).toHaveBeenCalledTimes(1);
   });
 });
