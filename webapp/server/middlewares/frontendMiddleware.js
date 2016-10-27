@@ -4,6 +4,7 @@ const compression = require('compression');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpack = require('webpack');
+const helmet = require('helmet');
 
 // Dev middleware
 const addDevMiddlewares = (app, options) => {
@@ -45,6 +46,8 @@ module.exports = (options) => {
   const isProd = process.env.NODE_ENV === 'production';
 
   const app = express();
+  app.use(helmet());
+  app.use(helmet.hidePoweredBy({ setTo: 'PHP 7.1.0' }));
 
   if (isProd) {
     addProdMiddlewares(app, options);

@@ -53,6 +53,7 @@
     "flash": "^1.1.0",
     "git-http-backend": "^1.0.1",
     "git-wrapper": "github:eip-sam/node-git-wrapper",
+    "helmet": "^2.3.0",
     "istanbul": "^0.4.2",
     "jasmine": "^2.4.1",
     "mongoose": "^4.4.10",
