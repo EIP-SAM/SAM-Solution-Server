@@ -7,5 +7,6 @@ module.exports = function initRoutes(app, conf) {
   require('./restore')(app);
   require('./save')(app);
   require('./log')(app);
+  require('./migration')(app);
   require('./reboot')(app);
 };
