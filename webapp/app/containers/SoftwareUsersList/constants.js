@@ -1,0 +1,5 @@
+//
+// SoftwareUsersList Constants
+//
+
+export const SOFTWARE_USER_LIST_RECEIVE_SOCKET_DATA = 'SOFTWARE_USER_LIST_RECEIVE_SOCKET_DATA';
