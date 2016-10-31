@@ -28,10 +28,10 @@ module.exports = function initMigrationRoutes(app) {
       res.json({
         migration,
       });
-    }, function (reason) {
+    }).catch(function (err) {
       res.json({
         error: true,
-        data: reason,
+        data: err,
       });
     });
   });

@@ -1,7 +1,9 @@
 //
 // Migration adapter
 //
-const MigrationModel = require('../models/migration');
+const Sequelize = require('sequelize');
+const UsersModel = require('../models/users');
+MigrationModel = require('../models/migration');
 
 //
 // Get all the migration order by migrationDate DESC
@@ -9,6 +11,12 @@ const MigrationModel = require('../models/migration');
 module.exports.getMigrations = function () {
   return MigrationModel.findAll({
     order: [['migrationDate', 'DESC']],
+    include: [{
+      model: UsersModel,
+      as: 'user',
+      attributes: ['id', 'name', 'email', 'isAdmin'],
+      where: { userId: Sequelize.col('user.id') },
+    }],
   });
 };
 
@@ -18,6 +26,12 @@ module.exports.getMigrations = function () {
 module.exports.getMigrationById = function(migrationId) {
   return MigrationModel.findById(migrationId, {
     order: [['migrationDate', 'DESC']],
+    include: [{
+      model: UsersModel,
+      as: 'user',
+      attributes: ['id', 'name', 'email', 'isAdmin'],
+      where: { userId: Sequelize.col('user.id') },
+    }],
   });
 }
 

@@ -4,9 +4,11 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../libs/sequelize');
 
+var UserModel = require('./users');
+
 const Migration = sequelize.define('migration', {
   userId: {
-    type: Sequelize.INTEGER.UNSIGNED,
+    type: Sequelize.INTEGER,
     allowNull: false,
     unique: false,
   },
@@ -22,6 +24,11 @@ const Migration = sequelize.define('migration', {
 }, {
   freezeTableName: true,
 });
+
+//
+// Setup foreignKeys
+//
+Migration.belongsTo(UserModel, { foreignKey: 'userId' });
 
 Migration.sync();
 
