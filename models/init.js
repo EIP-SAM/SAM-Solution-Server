@@ -8,7 +8,9 @@ module.exports = function init() {
             require('./groups').sync().then(function () {
               require('./usersGroupsRelations').sync().then(function () {
                 require('./migration').sync().then(function() {
-                  fulfill();
+                  require('./image').sync().then(function() {
+                    fulfill();
+                  });
                 });
               });
             });
