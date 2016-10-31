@@ -29,40 +29,40 @@ describe('historyRestoreByUser', function () {
   });
 });
 
-describe('createRestore', function () {
-  var restore;
-
-  beforeEach(function () {
-    restore = restoreAdapter.createRestore(1, 'test.txt');
-  });
-
-  afterEach(function () {
-    restore = null;
-  });
-
-  it('should not return null or undefined object', function () {
-    expect(restore).not.toBeNull();
-    expect(restore).toBeDefined();
-  });
-
-  it('should return a promise', function () {
-    expect(typeof restore.then === 'function').toBeTruthy();
-  });
-
-  it('should return a RestoreModel object with right values', function () {
-    restoreAdapter.createRestore(1, 'test.txt').then(function (asyncRestore) {
-      expect(asyncRestore.userId).toEqual(1);
-      expect(asyncRestore.files).toEqual('test.txt');
-      expect(asyncRestore.execDate).toEqual(new Date());
-    });
-  });
-
-  it('should have called create once', function () {
-    spyOn(RestoreModel, 'create');
-    restoreAdapter.createRestore(1, 'test.txt');
-    expect(RestoreModel.create).toHaveBeenCalledTimes(1);
-  });
-});
+// describe('createRestore', function () {
+//   var restore;
+//
+//   beforeEach(function () {
+//     restore = restoreAdapter.createRestore(1, 'test.txt');
+//   });
+//
+//   afterEach(function () {
+//     restore = null;
+//   });
+//
+//   it('should not return null or undefined object', function () {
+//     expect(restore).not.toBeNull();
+//     expect(restore).toBeDefined();
+//   });
+//
+//   it('should return a promise', function () {
+//     expect(typeof restore.then === 'function').toBeTruthy();
+//   });
+//
+//   it('should return a RestoreModel object with right values', function () {
+//     restoreAdapter.createRestore(1, 'test.txt').then(function (asyncRestore) {
+//       expect(asyncRestore.userId).toEqual(1);
+//       expect(asyncRestore.files).toEqual('test.txt');
+//       expect(asyncRestore.execDate).toEqual(new Date());
+//     });
+//   });
+//
+//   it('should have called create once', function () {
+//     spyOn(RestoreModel, 'create');
+//     restoreAdapter.createRestore(1, 'test.txt');
+//     expect(RestoreModel.create).toHaveBeenCalledTimes(1);
+//   });
+// });
 
 describe('findUserByRestoreId', function () {
   var restoreId;

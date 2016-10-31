@@ -8,7 +8,7 @@ const ImageModel = require('../models/image');
 //
 // Get all images
 //
-module.exports.getAllImages = function () {
+module.exports.getImages = function () {
   return ImageModel.findAll({
     order: [['createdAt', 'DESC']],
   });
@@ -27,14 +27,14 @@ module.exports.getImageById = function (imageId) {
 // Create image
 //
 module.exports.createImage = function (imageObj) {
-  return Image.create(imageObj);
+  return ImageModel.create(imageObj);
 };
 
 //
 // Update image by his id
 //
 module.exports.updateImageById = function (imageObj) {
-  return Image.update(imageObj, {
+  return ImageModel.update(imageObj, {
     where: { id: imageObj.migrationId },
   });
 };
@@ -43,7 +43,7 @@ module.exports.updateImageById = function (imageObj) {
 // Delete image by his id
 //
 module.exports.deleteImageById = function (imageId) {
-  return Image.destroy({
+  return ImageModel.destroy({
     where: { id: imageObj.migrationId },
   });
 };
