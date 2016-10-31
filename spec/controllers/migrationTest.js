@@ -39,6 +39,32 @@ describe('getMigrationById', function () {
   });
 });
 
+describe('createMigration', function () {
+  var migrationObj;
+
+  beforeAll(function () {
+    migrationObj = {
+      migrationId: 0,
+      userId: 0,
+      migrationDate: new Date(),
+      status: 'done',
+      comment: '',
+    };
+  });
+
+  it('should return a promise', function () {
+    let migrations = migrationController.createMigration(migrationObj);
+
+    expect(typeof migrations.then === 'function').toBeTruthy();
+  });
+
+  it('should have called createMigration once', function () {
+    spyOn(migrationManager, 'createMigration');
+    migrationController.createMigration(migrationObj)
+    expect(migrationManager.createMigration).toHaveBeenCalledTimes(1);
+  });
+});
+
 describe('editMigrationById', function () {
   var migrationObj;
 
@@ -48,6 +74,7 @@ describe('editMigrationById', function () {
       userId: 0,
       migrationDate: new Date(),
       status: 'done',
+      comment: '',
     };
   });
 

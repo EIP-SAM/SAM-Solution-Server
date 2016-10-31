@@ -38,12 +38,8 @@ module.exports.getMigrationById = function(migrationId) {
 //
 // Create a migration
 //
-module.exports.createMigration = function(userId, migrationDate, status) {
-  return MigrationModel.create({
-    userId,
-    migrationDate,
-    status,
-  });
+module.exports.createMigration = function(migrationObj) {
+  return MigrationModel.create(migrationObj);
 }
 
 //

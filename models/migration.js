@@ -20,6 +20,12 @@ const Migration = sequelize.define('migration', {
   status: {
     type: Sequelize.STRING,
     allowNull: false,
+    unique: false,
+  },
+  comment: {
+    type: Sequelize.STRING,
+    allowNull: true,
+    unique: false,
   }
 }, {
   freezeTableName: true,

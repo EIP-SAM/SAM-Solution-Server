@@ -18,6 +18,19 @@ module.exports.getMigrationById = function (migrationId) {
 }
 
 //
+// Launch createMigration method from managers
+// Get an object as parameters with properties:
+// - migrationId
+// - userId
+// - migrationDate
+// - status
+// - comment
+//
+module.exports.createMigration = function (migrationObj) {
+  return migrationManager.createMigration(migrationObj);
+}
+
+//
 // Launch getMigrationById method from managers
 // Get an object as parameters with properties:
 // - migrationId

@@ -18,12 +18,26 @@ module.exports.getMigrationById = function (migrationId) {
 }
 
 //
+// Launch createMigration method from adapters
+// Get an object as parameters with properties:
+// - migrationId
+// - userId
+// - migrationDate
+// - status
+// - comment
+//
+module.exports.createMigration = function (migrationObj) {
+  return migrationAdapter.createMigration(migrationObj);
+}
+
+//
 // Launch getMigrationById method from adapters
 // Get an object as parameters with properties:
 // - migrationId
 // - userId
 // - migrationDate
 // - status
+// - comment
 // Except for the migrationId, each property can be undefined
 //
 module.exports.editMigrationById = function (migrationObj) {

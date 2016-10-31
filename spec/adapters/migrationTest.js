@@ -37,11 +37,15 @@ describe('getMigrationById', function () {
 
 describe('createMigration', function () {
   it('should return a promise', function () {
-    let userId = 0;
-    let migrationDate = new Date();
-    let status = 'done';
+    let migrationObj = {
+      migrationId: 0,
+      userId: 0,
+      migrationDate: new Date(),
+      status: 'done',
+      comment: '',
+    }
 
-    let migrations = migrationAdapter.createMigration(userId, migrationDate, status);
+    let migrations = migrationAdapter.createMigration(migrationObj);
 
     expect(typeof migrations.then === 'function').toBeTruthy();
   });
@@ -57,6 +61,36 @@ describe('createMigration', function () {
   });
 });
 
+describe('createMigration', function () {
+  it('should return a promise', function () {
+    let migrationObj = {
+      migrationId: 0,
+      userId: 0,
+      migrationDate: new Date(),
+      status: 'done',
+      comment: '',
+    }
+
+    let migrations = migrationAdapter.createMigration(migrationObj);
+
+    expect(typeof migrations.then === 'function').toBeTruthy();
+  });
+
+  it('should have called update once', function () {
+    let migrationObj = {
+      migrationId: 0,
+      userId: 0,
+      migrationDate: new Date(),
+      status: 'done',
+      comment: '',
+    }
+
+    spyOn(MigrationModel, 'create');
+    let migrations = migrationAdapter.createMigration(migrationObj);
+    expect(MigrationModel.create).toHaveBeenCalledTimes(1);
+  });
+});
+
 describe('editMigrationById', function () {
   it('should return a promise', function () {
     let migrationObj = {
@@ -64,6 +98,7 @@ describe('editMigrationById', function () {
       userId: 0,
       migrationDate: new Date(),
       status: 'done',
+      comment: '',
     }
 
     let migrations = migrationAdapter.editMigrationById(migrationObj);
@@ -77,6 +112,7 @@ describe('editMigrationById', function () {
       userId: 0,
       migrationDate: new Date(),
       status: 'done',
+      comment: '',
     }
 
     spyOn(MigrationModel, 'update');
