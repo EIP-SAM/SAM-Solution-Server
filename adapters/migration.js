@@ -33,14 +33,14 @@ module.exports.getMigrationById = function(migrationId) {
       where: { userId: Sequelize.col('user.id') },
     }],
   });
-}
+};
 
 //
 // Create a migration
 //
 module.exports.createMigration = function(migrationObj) {
   return MigrationModel.create(migrationObj);
-}
+};
 
 //
 // Edit migration by his id
@@ -49,7 +49,7 @@ module.exports.editMigrationById = function(migrationObj) {
   return MigrationModel.update(migrationObj, {
     where: { id: migrationObj.migrationId },
   });
-}
+};
 
 //
 // Delete migration by id
@@ -58,4 +58,4 @@ module.exports.deleteMigrationById = function(migrationId) {
   return MigrationModel.destroy({
     where: { id: migrationId },
   });
-}
+};

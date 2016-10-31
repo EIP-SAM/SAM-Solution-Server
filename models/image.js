@@ -4,14 +4,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../libs/sequelize');
 
-var MigrationModel = require('./migration');
-
 const Image = sequelize.define('image', {
-  migrationId: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    unique: false,
-  },
   name: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -30,11 +23,6 @@ const Image = sequelize.define('image', {
 }, {
   freezeTableName: true,
 });
-
-//
-// Setup foreignKeys
-//
-Image.belongsTo(MigrationModel, { foreignKey: 'migrationId' });
 
 //
 // Synchronise with database
