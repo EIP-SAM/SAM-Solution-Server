@@ -15,35 +15,6 @@ import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SoftwaresByUserTable extends React.Component {
-  onChangeCheckboxLegend(event) {
-    if (event.target.checked) {
-      this.props.getSelectedSoftware(this.props.softwares);
-      this.props.isAllCheckboxChecked(true);
-    } else {
-      this.props.getSelectedSoftware([]);
-      this.props.isAllCheckboxChecked(false);
-    }
-    this.forceUpdate();
-  }
-
-  onChangeCheckbox(event, soft) {
-    let selectedSoftwares = [];
-    if (event.target.checked) {
-      selectedSoftwares = this.props.selectedSoftwares;
-      selectedSoftwares.push(soft);
-    } else {
-      for (const software of this.props.selectedSoftwares) {
-        if (software === soft) {
-          continue;
-        }
-        selectedSoftwares.push(software);
-      }
-    }
-    this.props.getSelectedSoftware(selectedSoftwares);
-    this.props.isAllCheckboxChecked(false);
-    this.forceUpdate();
-  }
-
   handleInstallClick() {
     this.props.showAddSoftwareModal();
   }
@@ -59,7 +30,7 @@ export class SoftwaresByUserTable extends React.Component {
   render() {
     const checkboxLegend = (
       <FormGroup>
-        <Checkbox onChange={(event => this.onChangeCheckboxLegend(event))} checked={(this.props.allChecked ? 'checked' : '')} />
+        <Checkbox></Checkbox>
       </FormGroup>);
     const names = [{ isLink: false, value: checkboxLegend },
                   { isLink: false, value: 'Name' },
@@ -76,7 +47,7 @@ export class SoftwaresByUserTable extends React.Component {
           {this.props.softwares.map((soft, index) => {
             const checkbox = (
               <FormGroup>
-                <Checkbox onChange={(event) => this.onChangeCheckbox(event, soft)} checked={(this.props.selectedSoftwares.indexOf(soft) !== -1 ? 'checked' : '')} />
+                <Checkbox></Checkbox>
               </FormGroup>);
 
             const actions = [];
@@ -105,11 +76,7 @@ export class SoftwaresByUserTable extends React.Component {
 
 SoftwaresByUserTable.propTypes = {
   softwares: React.PropTypes.array,
-  selectedSoftwares: React.PropTypes.array,
-  allChecked: React.PropTypes.bool,
-  getSelectedSoftware: React.PropTypes.func,
   showAddSoftwareModal: React.PropTypes.func,
   showUpdateSoftwareModal: React.PropTypes.func,
   showDeleteSoftwareModal: React.PropTypes.func,
-  isAllCheckboxChecked: React.PropTypes.func,
 };
