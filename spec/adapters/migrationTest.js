@@ -45,35 +45,8 @@ describe('createMigration', function () {
 
   beforeAll(function () {
     migrationObj = {
-      migrationId: 0,
       userId: 0,
-      migrationDate: new Date(),
-      status: 'done',
-      comment: '',
-    };
-  });
-
-  it('should return a promise', function () {
-    let migrations = migrationAdapter.createMigration(migrationObj);
-
-    expect(typeof migrations.then === 'function').toBeTruthy();
-  });
-
-  it('should have called create once', function () {
-    spyOn(MigrationModel, 'create');
-    migrationAdapter.createMigration(migrationObj);
-    expect(MigrationModel.create).toHaveBeenCalledTimes(1);
-  });
-});
-
-describe('createMigration', function () {
-
-  var migrationObj;
-
-  beforeAll(function () {
-    migrationObj = {
-      migrationId: 0,
-      userId: 0,
+      imageId: 0,
       migrationDate: new Date(),
       status: 'done',
       comment: '',
@@ -101,6 +74,7 @@ describe('editMigrationById', function () {
     migrationObj = {
       migrationId: 0,
       userId: 0,
+      imageId: 0,
       migrationDate: new Date(),
       status: 'done',
       comment: '',

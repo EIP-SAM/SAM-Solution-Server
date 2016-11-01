@@ -5,9 +5,15 @@ const Sequelize = require('sequelize');
 const sequelize = require('../libs/sequelize');
 
 var UserModel = require('./users');
+var ImageModel = require('./image');
 
 const Migration = sequelize.define('migration', {
   userId: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    unique: false,
+  },
+  imageId: {
     type: Sequelize.INTEGER,
     allowNull: false,
     unique: false,
@@ -35,6 +41,7 @@ const Migration = sequelize.define('migration', {
 // Setup foreignKeys
 //
 Migration.belongsTo(UserModel, { foreignKey: 'userId' });
+Migration.belongsTo(ImageModel, { foreignKey: 'imageId' });
 
 Migration.sync();
 

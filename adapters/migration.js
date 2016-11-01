@@ -3,7 +3,8 @@
 //
 const Sequelize = require('sequelize');
 const UsersModel = require('../models/users');
-MigrationModel = require('../models/migration');
+var MigrationModel = require('../models/migration');
+var ImageModel = require('../models/image');
 
 //
 // Get all the migration order by migrationDate DESC
@@ -16,6 +17,11 @@ module.exports.getMigrations = function () {
       as: 'user',
       attributes: ['id', 'name', 'email', 'isAdmin'],
       where: { userId: Sequelize.col('user.id') },
+    }, {
+      model: ImageModel,
+      as: 'image',
+      attributes: ['id', 'name', 'operatingSystem', 'version'],
+      where: { imageId: Sequelize.col('image.id') },
     }],
   });
 };
@@ -31,6 +37,11 @@ module.exports.getMigrationById = function(migrationId) {
       as: 'user',
       attributes: ['id', 'name', 'email', 'isAdmin'],
       where: { userId: Sequelize.col('user.id') },
+    }, {
+      model: ImageModel,
+      as: 'image',
+      attributes: ['id', 'name', 'operatingSystem', 'version'],
+      where: { imageId: Sequelize.col('image.id') },
     }],
   });
 };

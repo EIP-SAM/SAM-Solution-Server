@@ -44,8 +44,8 @@ describe('createMigration', function () {
 
   beforeAll(function () {
     migrationObj = {
-      migrationId: 0,
       userId: 0,
+      imageId: 0,
       migrationDate: new Date(),
       status: 'done',
       comment: '',
@@ -72,6 +72,7 @@ describe('editMigrationById', function () {
     migrationObj = {
       migrationId: 0,
       userId: 0,
+      imageId: 0,
       migrationDate: new Date(),
       status: 'done',
       comment: '',

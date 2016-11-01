@@ -22,6 +22,7 @@ module.exports.getMigrationById = function (migrationId) {
 // Get an object as parameters with properties:
 // - migrationId
 // - userId
+// - imageId
 // - migrationDate
 // - status
 // - comment
@@ -35,6 +36,7 @@ module.exports.createMigration = function (migrationObj) {
 // Get an object as parameters with properties:
 // - migrationId
 // - userId
+// - imageId
 // - migrationDate
 // - status
 // - comment
