@@ -9,4 +9,5 @@ module.exports = function initRoutes(app, conf) {
   require('./log')(app);
   require('./migration')(app);
   require('./reboot')(app);
+  require('./image')(app);
 };

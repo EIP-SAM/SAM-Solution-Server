@@ -8,7 +8,7 @@ const Image = sequelize.define('image', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true,
+    unique: false,
   },
   operatingSystem: {
     type: Sequelize.STRING,
