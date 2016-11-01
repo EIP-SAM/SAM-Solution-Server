@@ -9,6 +9,7 @@
 //
 
 import { combineReducers } from 'redux-immutable';
+import SoftwaresByUserTableReducer from './Table/reducer';
 import SoftwaresByUserAddSoftwareModalReducer from './Table/ModalAddSoftware/reducer';
 import SoftwaresByUserUpdateSoftwareModalReducer from './Table/ModalUpdateSoftware/reducer';
 import SoftwaresByUserDeleteSoftwareModalReducer from './Table/ModalDeleteSoftware/reducer';
@@ -79,6 +80,7 @@ function SoftwaresByUserReducer(state = initialState, action) {
 //
 export default combineReducers({
   SoftwaresByUserReducer,
+  SoftwaresByUserTableReducer,
   SoftwaresByUserAddSoftwareModalReducer,
   SoftwaresByUserUpdateSoftwareModalReducer,
   SoftwaresByUserDeleteSoftwareModalReducer,
