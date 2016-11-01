@@ -1,5 +1,5 @@
 //
-// User deletion modal Users reducer
+// Software update modal software by user reducer
 //
 // To add a new action:
 //
