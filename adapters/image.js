@@ -25,6 +25,10 @@ module.exports.getImageById = function (imageId) {
 
 //
 // Create image
+// Parameter imageObj got properties:
+// - name (String)
+// - operatingSystem (String)
+// - version (String)
 //
 module.exports.createImage = function (imageObj) {
   return ImageModel.create(imageObj);
@@ -35,7 +39,7 @@ module.exports.createImage = function (imageObj) {
 //
 module.exports.updateImageById = function (imageObj) {
   return ImageModel.update(imageObj, {
-    where: { id: imageObj.migrationId },
+    where: { id: imageObj.imageId },
   });
 };
 
@@ -44,6 +48,6 @@ module.exports.updateImageById = function (imageObj) {
 //
 module.exports.deleteImageById = function (imageId) {
   return ImageModel.destroy({
-    where: { id: imageObj.migrationId },
+    where: { id: imageId },
   });
 };
