@@ -1,5 +1,5 @@
 //
-// Software addition modal software by user reducer
+// User addition modal Users reducer
 //
 // To add a new action:
 //
