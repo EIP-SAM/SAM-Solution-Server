@@ -27,6 +27,7 @@ import RestoreHistoryReducer from 'containers/RestoreHistory/reducers';
 import RestoreCreationReducer from 'containers/RestoreCreation/Form/reducers';
 import softwaresByUserReducer from 'containers/SoftwaresByUser/reducers';
 import SoftwareReducer from 'containers/Software/reducers';
+import NotificationsReducer from 'containers/Notifications/Form/reducers';
 
 /*
  * routeReducer
@@ -82,6 +83,7 @@ export default function createReducer(asyncReducers) {
     restoreCreation: RestoreCreationReducer,
     softwaresByUser: softwaresByUserReducer,
     software: SoftwareReducer,
+    notifications: NotificationsReducer,
     ...asyncReducers,
   });
 }
