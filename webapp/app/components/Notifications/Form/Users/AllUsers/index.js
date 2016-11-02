@@ -9,14 +9,10 @@ import Option from 'components/Option';
 import styles from 'components/Notifications/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class NotificationsFormUsersAllUsers extends React.Component {
+export class NotificationsFormAllUsers extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeAllUsers = this.onChangeAllUsers.bind(this);
-  }
-
-  componentWillMount() {
-    this.props.getUsersRequest();
   }
 
   onChangeAllUsers(event) {
@@ -61,8 +57,7 @@ export class NotificationsFormUsersAllUsers extends React.Component {
   }
 }
 
-NotificationsFormUsersAllUsers.propTypes = {
+NotificationsFormAllUsers.propTypes = {
   users: React.PropTypes.array,
-  getUsersRequest: React.PropTypes.func,
   preSelectedUsersOnChange: React.PropTypes.func,
 };

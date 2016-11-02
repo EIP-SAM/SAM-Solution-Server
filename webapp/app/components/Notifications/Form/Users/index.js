@@ -11,6 +11,9 @@ import styles from 'components/Notifications/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class NotificationsFormUsers extends React.Component {
+  componentWillMount() {
+    this.props.getUsersRequest();
+  }
 
   render() {
     return (
@@ -28,3 +31,7 @@ export class NotificationsFormUsers extends React.Component {
     );
   }
 }
+
+NotificationsFormUsers.propTypes = {
+  getUsersRequest: React.PropTypes.func,
+};
