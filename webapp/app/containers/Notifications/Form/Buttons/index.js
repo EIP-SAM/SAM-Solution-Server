@@ -5,7 +5,7 @@
 
 import { connect } from 'react-redux';
 import { NotificationsFormButtons } from 'components/Notifications/Form/Buttons';
-import { notificationRequest } from 'containers/Notifications/Form/actions';
+import { notificationsRequest } from 'containers/Notifications/Form/actions';
 
 function mapStateToProps(state) {
   return {
@@ -17,7 +17,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    notificationRequest: (title, description, selectedUsers) => dispatch(notificationRequest(title, description, selectedUsers)),
+    notificationsRequest: (title, description, selectedUsers) => dispatch(notificationsRequest(title, description, selectedUsers)),
   };
 }
 
