@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { PageHeader } from 'react-bootstrap';
-import NotificationsForm from 'containers/EditGroup/Form';
+import NotificationsForm from 'containers/Notifications/Form';
 
 export class Notifications extends React.Component {
   render() {

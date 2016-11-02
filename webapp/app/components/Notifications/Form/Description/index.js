@@ -21,7 +21,7 @@ export class NotificationsFormDescription extends React.Component {
     return (
       <FormGroup controlId="description" className={styles.form}>
         <ControlLabel>Description</ControlLabel>
-        <FormControl type="text" value={this.props.description} placeholder="Enter description" onChange={this.onChangeDescription} />
+        <FormControl type="textarea" value={this.props.description} placeholder="Enter description" onChange={this.onChangeDescription} />
       </FormGroup>
     );
   }
