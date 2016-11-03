@@ -5,13 +5,13 @@
 import React from 'react';
 import { Table, FormGroup, Checkbox } from 'react-bootstrap';
 import { ButtonPopover } from 'components/ButtonPopover';
-import SoftwaresByUserAddSoftwareModal from 'containers/SoftwaresByUser/Table/ModalAddSoftware';
-import SoftwaresByUserUpdateSoftwareModal from 'containers/SoftwaresByUser/Table/ModalUpdateSoftware';
-import SoftwaresByUserDeleteSoftwareModal from 'containers/SoftwaresByUser/Table/ModalDeleteSoftware';
+import AddSoftwareModal from 'containers/SoftwaresByUser/Table/ModalAddSoftware';
+import UpdateSoftwareModal from 'containers/SoftwaresByUser/Table/ModalUpdateSoftware';
+import DeleteSoftwareModal from 'containers/SoftwaresByUser/Table/ModalDeleteSoftware';
 import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Td from 'components/Td';
-import styles from './styles.css';
+import styles from 'components/SoftwaresByUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SoftwaresByUserTable extends React.Component {
@@ -44,16 +44,19 @@ export class SoftwaresByUserTable extends React.Component {
     this.forceUpdate();
   }
 
-  handleInstallClick() {
+  handleInstallClick(softName) {
     this.props.showAddSoftwareModal();
+    this.props.getSoftName(softName);
   }
 
-  handleUpdateClick() {
+  handleUpdateClick(softName) {
     this.props.showUpdateSoftwareModal();
+    this.props.getSoftName(softName);
   }
 
-  handleDeleteClick() {
+  handleDeleteClick(softName) {
     this.props.showDeleteSoftwareModal();
+    this.props.getSoftName(softName);
   }
 
   render() {
@@ -80,9 +83,9 @@ export class SoftwaresByUserTable extends React.Component {
               </FormGroup>);
 
             const actions = [];
-            actions.push(<ButtonPopover key={`action-${0}`} id="install_software" trigger={['focus', 'hover']} placement="bottom" popoverContent="Install software" buttonType="link" icon="plus" onClick={() => this.handleInstallClick()} buttonStyle={styles.plus} />);
-            actions.push(<ButtonPopover key={`action-${1}`} id="update_software" trigger={['focus', 'hover']} placement="bottom" popoverContent="Update software" buttonType="link" icon="open" onClick={() => this.handleUpdateClick()} buttonStyle={styles.open} />);
-            actions.push(<ButtonPopover key={`action-${2}`} id="delete_software" trigger={['focus', 'hover']} placement="bottom" popoverContent="Delete software" buttonType="link" icon="trash" onClick={() => this.handleDeleteClick()} buttonStyle={styles.trash} />);
+            actions.push(<ButtonPopover key={`action-${0}`} id="install_software" trigger={['focus', 'hover']} placement="bottom" popoverContent="Install software" buttonType="link" icon="plus" onClick={() => this.handleInstallClick(soft.name)} buttonStyle={styles.plus} />);
+            actions.push(<ButtonPopover key={`action-${1}`} id="update_software" trigger={['focus', 'hover']} placement="bottom" popoverContent="Update software" buttonType="link" icon="open" onClick={() => this.handleUpdateClick(soft.name)} buttonStyle={styles.open} />);
+            actions.push(<ButtonPopover key={`action-${2}`} id="delete_software" trigger={['focus', 'hover']} placement="bottom" popoverContent="Delete software" buttonType="link" icon="trash" onClick={() => this.handleDeleteClick(soft.name)} buttonStyle={styles.trash} />);
             return (
               <Tr
                 key={`row-${index}`} items={[
@@ -95,9 +98,9 @@ export class SoftwaresByUserTable extends React.Component {
           })}
           </tbody>
         </Table>
-        <SoftwaresByUserAddSoftwareModal />
-        <SoftwaresByUserUpdateSoftwareModal />
-        <SoftwaresByUserDeleteSoftwareModal />
+        <AddSoftwareModal />
+        <UpdateSoftwareModal />
+        <DeleteSoftwareModal />
       </div>
     );
   }
@@ -112,4 +115,5 @@ SoftwaresByUserTable.propTypes = {
   showUpdateSoftwareModal: React.PropTypes.func,
   showDeleteSoftwareModal: React.PropTypes.func,
   isAllCheckboxChecked: React.PropTypes.func,
+  getSoftName: React.PropTypes.func,
 };

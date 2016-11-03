@@ -6,6 +6,19 @@ div[class='checkbox'] {
   margin: 0!important;
 }
 
+.p {
+  font-size: 1.2em;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.toolbar {
+  margin: 30px 0px 15px 0px;
+  text-align: right;
+}
+
 .plus {
   color: #5bc0de;
 }
@@ -30,14 +43,6 @@ div[class='checkbox'] {
   color: #c9302c;
 }
 
-.p {
-  font-size: 1.2em;
-}
-
-.bold {
-  font-weight: bold;
-}
-
 .iconAdd {
   color: #5bc0de;
   margin-right: 10px;
@@ -51,4 +56,8 @@ div[class='checkbox'] {
 .iconDelete {
   color: #d9534f;
   margin-right: 10px;
+}
+
+.listSoftNameModal {
+  padding-left: 5%;
 }
