@@ -178,6 +178,14 @@ export default function createRoutes() {
         .catch(errorLoading);
       },
     }, {
+      path: '/software/users-list',
+      name: 'softwareUsersList',
+      getComponent(nextState, cb) {
+        System.import('containers/SoftwareUsersList')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
