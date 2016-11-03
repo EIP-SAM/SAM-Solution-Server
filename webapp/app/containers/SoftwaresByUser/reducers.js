@@ -9,6 +9,7 @@
 //
 
 import { combineReducers } from 'redux-immutable';
+import SoftwaresByUserSearchbarReducer from './Searchbar/reducer';
 import SoftwaresByUserTableReducer from './Table/reducer';
 import SoftwaresByUserAddSoftwareModalReducer from './Table/ModalAddSoftware/reducer';
 import SoftwaresByUserUpdateSoftwareModalReducer from './Table/ModalUpdateSoftware/reducer';
@@ -76,10 +77,11 @@ function SoftwaresByUserReducer(state = initialState, action) {
 }
 
 //
-// Combine all reducers of users page
+// Combine all reducers of software page
 //
 export default combineReducers({
   SoftwaresByUserReducer,
+  SoftwaresByUserSearchbarReducer,
   SoftwaresByUserTableReducer,
   SoftwaresByUserAddSoftwareModalReducer,
   SoftwaresByUserUpdateSoftwareModalReducer,

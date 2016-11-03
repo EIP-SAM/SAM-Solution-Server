@@ -4,7 +4,8 @@
 
 import React from 'react';
 import { PageHeader, Alert } from 'react-bootstrap';
-import SoftwaresByUserTable from 'containers/SoftwaresByUser/Table';
+import Searchbar from 'containers/SoftwaresByUser/Searchbar';
+import Table from 'containers/SoftwaresByUser/Table';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SoftwaresByUser extends React.Component {
@@ -32,7 +33,8 @@ export class SoftwaresByUser extends React.Component {
       <div>
         <PageHeader>{this.props.username}</PageHeader>
         {alert}
-        <SoftwaresByUserTable />
+        <Searchbar />
+        <Table />
       </div>
     );
   }
