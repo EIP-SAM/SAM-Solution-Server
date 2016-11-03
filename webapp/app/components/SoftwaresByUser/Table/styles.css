@@ -1,3 +1,11 @@
+div[class='form-group'] {
+  margin-bottom: 0!important;
+}
+
+div[class='checkbox'] {
+  margin: 0!important;
+}
+
 .plus {
   color: #5bc0de;
 }
