@@ -36,7 +36,7 @@ export default class NavbarContainer extends React.Component {
         { pathname: '/groups', value: 'Groups', glyphicon: 'tags' },
         { pathname: '/save', value: 'Save', glyphicon: 'floppy-disk' },
         { pathname: '/restore', value: 'Restore', glyphicon: 'repeat' },
-        { pathname: '#', value: 'Migration', glyphicon: 'send' },
+        { pathname: '/migration/history', value: 'Migration', glyphicon: 'send' },
         { pathname: '#', value: 'Software', glyphicon: 'cd' },
         { pathname: '/logs', value: 'Logs', glyphicon: 'list' },
         { pathname: '/statistics', value: 'Statistics', glyphicon: 'stats' },
@@ -48,7 +48,7 @@ export default class NavbarContainer extends React.Component {
         { pathname: `/edit-user/${userInfo.username}`, value: 'Users', glyphicon: 'user' },
         { pathname: `/save/${userInfo.username}/${userInfo.userId}`, value: 'Save', glyphicon: 'floppy-disk' },
         { pathname: `/restore/${userInfo.username}`, value: 'Restore', glyphicon: 'repeat' },
-        { pathname: '#', value: 'Migration', glyphicon: 'send' },
+        { pathname: '/migration/history', value: 'Migration', glyphicon: 'send' },
         { pathname: '#', value: 'Software', glyphicon: 'list' },
         { pathname: '#', value: 'Help', glyphicon: 'book' },
       ];
