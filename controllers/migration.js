@@ -19,12 +19,12 @@ module.exports.getMigrationById = function (migrationId) {
 
 //
 // Launch createMigration method from managers
-// Get an object as parameters with properties:
-// - migrationId
+// @properties:
 // - userId
 // - imageId
 // - migrationDate
 // - status
+// - path
 // - comment
 //
 module.exports.createMigration = function (migrationObj) {
@@ -33,12 +33,14 @@ module.exports.createMigration = function (migrationObj) {
 
 //
 // Launch getMigrationById method from managers
-// Get an object as parameters with properties:
+// @properties:
 // - migrationId
 // - userId
 // - imageId
 // - migrationDate
 // - status
+// - path
+// - comment
 // Except for the migrationId, each property can be undefined
 //
 module.exports.editMigrationById = function (migrationObj) {

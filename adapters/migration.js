@@ -48,6 +48,13 @@ module.exports.getMigrationById = function(migrationId) {
 
 //
 // Create a migration
+// @properties:
+// - userId
+// - imageId
+// - migrationDate
+// - status
+// - path
+// - comment
 //
 module.exports.createMigration = function(migrationObj) {
   return MigrationModel.create(migrationObj);
@@ -55,6 +62,15 @@ module.exports.createMigration = function(migrationObj) {
 
 //
 // Edit migration by his id
+// @properties:
+// - migrationId
+// - userId
+// - imageId
+// - migrationDate
+// - status
+// - path
+// - comment
+// Except for the migrationId, each property can be undefined
 //
 module.exports.editMigrationById = function(migrationObj) {
   return MigrationModel.update(migrationObj, {
