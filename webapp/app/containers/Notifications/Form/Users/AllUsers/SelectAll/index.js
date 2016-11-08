@@ -1,10 +1,10 @@
 //
-// Container all users form notifications
+// Container select all users form notifications
 //
 
 import { connect } from 'react-redux';
-import { NotificationsFormAllUsers } from 'components/Notifications/Form/Users/AllUsers';
-import { preSelectedUsersOnChange } from './actions';
+import { NotificationsFormAllUsersSelectAll } from 'components/Notifications/Form/Users/AllUsers';
+import { deleteUsers } from '../actions';
 
 function mapStateToProps(state) {
   return {
@@ -14,11 +14,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    preSelectedUsersOnChange: (preSelectedUsers) => dispatch(preSelectedUsersOnChange(preSelectedUsers)),
+    deleteUsers: (users, preSelectedUsers) => dispatch(deleteUsers(users, preSelectedUsers)),
   };
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(NotificationsFormAllUsers);
+)(NotificationsFormAllUsersSelectAll);
