@@ -11,7 +11,7 @@ import styles from 'components/Notifications/styles.css';
 /* eslint-disable react/prefer-stateless-function */
 export class NotificationsFormButtons extends React.Component {
   handleCreateClick(event) {
-    // Creates notifications if title is defined and at least one user is selected
+    this.props.notificationRequest(this.props.title, this.props.description, this.props.selectedUsers);
   }
 
   handleCancelClick() {
@@ -29,4 +29,8 @@ export class NotificationsFormButtons extends React.Component {
 }
 
 NotificationsFormButtons.propTypes = {
+  title: React.PropTypes.string,
+  description: React.PropTypes.string,
+  selectedUsers: React.PropTypes.array,
+  notificationRequest: React.PropTypes.func,
 };
