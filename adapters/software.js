@@ -13,57 +13,57 @@ function onStatusChange(status) {
   console.log('status changed:', status);
 }
 
-module.exports.launchAnInstall = function () {
+module.exports.launchAnInstall = function (user, package) {
   return new Promise(function (fulfill, reject) {
-    softwareDaemon.installPackages('admin', ['foo', 'bar', 'baz'], onStatusChange)
+    softwareDaemon.installPackages(user, package, onStatusChange)
     .then(function (returnStatus) {
-      console.log(returnStatus);
+      fulfill(returnStatus);
     }).catch(function (error) {
-      console.log(error);
+      reject(error);
     });
   });
 }
 
-module.exports.launchAnUpdate = function () {
+module.exports.launchAnUpdate = function (user, package) {
   return new Promise(function (fulfill, reject) {
-    softwareDaemon.updatePackages('admin', ['foo', 'bar', 'baz'], onStatusChange)
+    softwareDaemon.updatePackages(user, package, onStatusChange)
     .then(function (returnStatus) {
-      console.log(returnStatus);
+      fulfill(returnStatus);
     }).catch(function (error) {
-      console.log(error);
+      reject(error);
     });
   });
 }
 
-module.exports.launchARemove = function () {
+module.exports.launchARemove = function (user, package) {
   return new Promise(function (fulfill, reject) {
-    softwareDaemon.removePackages('admin', ['foo', 'bar', 'baz'], onStatusChange)
+    softwareDaemon.removePackages(user, package, onStatusChange)
     .then(function (returnStatus) {
-      console.log(returnStatus);
+      fulfill(returnStatus);
     }).catch(function (error) {
-      console.log(error);
+      reject(error);
     });
   });
 }
 
-module.exports.launchAQuery = function () {
+module.exports.launchAQuery = function (user, package) {
   return new Promise(function (fulfill, reject) {
-    softwareDaemon.queryPackage('admin', 'foo', onStatusChange)
+    softwareDaemon.queryPackage(user, package, onStatusChange)
     .then(function (returnStatus) {
-      console.log(returnStatus);
+      fulfill(returnStatus);
     }).catch(function (error) {
-      console.log(error);
+      reject(error);
     });
   });
 }
 
-module.exports.launchListPackages = function () {
+module.exports.launchListPackages = function (user) {
   return new Promise(function (fulfill, reject) {
-    softwareDaemon.listInstalledPackages('admin', onStatusChange)
+    softwareDaemon.listInstalledPackages(user, onStatusChange)
     .then(function (returnStatus) {
-      console.log(returnStatus);
+      fulfill(returnStatus);
     }).catch(function (error) {
-      console.log(error);
+      reject(error);
     });
   });
 }
@@ -78,12 +78,3 @@ module.exports.launchGetOperatingSystem = function (user) {
     });
   });
 }
-
-
-
-setTimeout(module.exports.launchAnInstall, 4 * 1000);
-setTimeout(module.exports.launchAnUpdate, 6 * 1000);
-setTimeout(module.exports.launchARemove, 8 * 1000);
-setTimeout(module.exports.launchAQuery, 10 * 1000);
-setTimeout(module.exports.launchListPackages, 12 * 1000);
-setTimeout(module.exports.launchGetOperatingSystem, 14 * 1000);
