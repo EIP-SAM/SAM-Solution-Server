@@ -10,6 +10,7 @@
 //
 
 import {
+  SOFTWARES_BY_USER_SOFT_NAME,
   SOFTWARES_BY_USER_SELECTED_SOFTWARES,
   SOFTWARES_BY_USER_ALL_CHECKED,
 } from './constants';
@@ -25,5 +26,12 @@ export function isAllCheckboxChecked(allChecked) {
   return {
     type: SOFTWARES_BY_USER_ALL_CHECKED,
     allChecked,
+  };
+}
+
+export function getSoftName(softName) {
+  return {
+    type: SOFTWARES_BY_USER_SOFT_NAME,
+    softName,
   };
 }

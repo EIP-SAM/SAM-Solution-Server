@@ -10,8 +10,8 @@ import {
 
 function mapStateToProps(state) {
   return {
-    name: state.get('softwaresByUser').get('SoftwaresByUserReducer').name,
-    showModal: state.get('softwaresByUser').get('SoftwaresByUserAddSoftwareModalReducer').showModal,
+    softName: state.get('softwaresByUser').get('SoftwaresByUserTableReducers').get('SoftwaresByUserTableReducer').softName,
+    showModal: state.get('softwaresByUser').get('SoftwaresByUserTableReducers').get('SoftwaresByUserAddSoftwareModalReducer').showModal,
   };
 }
 

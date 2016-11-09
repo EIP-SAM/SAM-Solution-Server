@@ -15,7 +15,6 @@ import { browserHistory } from 'react-router';
 import {
   SOFTWARES_BY_USER_GET_SOFTWARES,
   SOFTWARES_BY_USER_USERNAME,
-  SOFTWARES_BY_USER_SOFT_NAME,
   SOFTWARES_BY_USER_ADDITION_ALERT,
   SOFTWARES_BY_USER_UPDATE_ALERT,
   SOFTWARES_BY_USER_DELETION_ALERT,
@@ -57,13 +56,6 @@ export function getUsername(username) {
   return {
     type: SOFTWARES_BY_USER_USERNAME,
     username,
-  };
-}
-
-export function getSoftName(softName) {
-  return {
-    type: SOFTWARES_BY_USER_SOFT_NAME,
-    softName,
   };
 }
 

@@ -10,14 +10,12 @@
 
 import { combineReducers } from 'redux-immutable';
 import SoftwaresByUserSearchbarReducer from './Searchbar/reducer';
-import SoftwaresByUserTableReducer from './Table/reducer';
-import SoftwaresByUserAddSoftwareModalReducer from './Table/ModalAddSoftware/reducer';
-import SoftwaresByUserUpdateSoftwareModalReducer from './Table/ModalUpdateSoftware/reducer';
-import SoftwaresByUserDeleteSoftwareModalReducer from './Table/ModalDeleteSoftware/reducer';
+import SoftwaresByUserButtonsReducers from './Buttons/reducers';
+import SoftwaresByUserTableReducers from './Table/reducers';
+
 import {
   SOFTWARES_BY_USER_GET_SOFTWARES,
   SOFTWARES_BY_USER_USERNAME,
-  SOFTWARES_BY_USER_SOFT_NAME,
   SOFTWARES_BY_USER_ADDITION_ALERT,
   SOFTWARES_BY_USER_UPDATE_ALERT,
   SOFTWARES_BY_USER_DELETION_ALERT,
@@ -26,7 +24,6 @@ import {
 
 const initialState = {
   softwares: [],
-  softName: '',
   username: '',
   alertMsg: '',
   typeAlert: '',
@@ -42,10 +39,6 @@ function SoftwaresByUserReducer(state = initialState, action) {
     case SOFTWARES_BY_USER_USERNAME:
       return Object.assign({}, state, {
         username: action.username,
-      });
-    case SOFTWARES_BY_USER_SOFT_NAME:
-      return Object.assign({}, state, {
-        softName: action.softName,
       });
     case SOFTWARES_BY_USER_RESET_ALERT:
       return Object.assign({}, state, {
@@ -82,8 +75,6 @@ function SoftwaresByUserReducer(state = initialState, action) {
 export default combineReducers({
   SoftwaresByUserReducer,
   SoftwaresByUserSearchbarReducer,
-  SoftwaresByUserTableReducer,
-  SoftwaresByUserAddSoftwareModalReducer,
-  SoftwaresByUserUpdateSoftwareModalReducer,
-  SoftwaresByUserDeleteSoftwareModalReducer,
+  SoftwaresByUserButtonsReducers,
+  SoftwaresByUserTableReducers,
 });

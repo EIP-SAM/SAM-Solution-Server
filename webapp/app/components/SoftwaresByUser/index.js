@@ -5,6 +5,7 @@
 import React from 'react';
 import { PageHeader, Alert } from 'react-bootstrap';
 import Searchbar from 'containers/SoftwaresByUser/Searchbar';
+import Buttons from 'containers/SoftwaresByUser/Buttons';
 import Table from 'containers/SoftwaresByUser/Table';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -34,6 +35,7 @@ export class SoftwaresByUser extends React.Component {
         <PageHeader>{this.props.username}</PageHeader>
         {alert}
         <Searchbar />
+        <Buttons />
         <Table />
       </div>
     );
