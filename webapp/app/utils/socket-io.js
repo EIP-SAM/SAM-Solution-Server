@@ -3,8 +3,9 @@
 //
 
 import io from 'socket.io-client';
+import manifest from '../manifest.json';
 
-const socket = io('http://localhost:8080');
+const socket = io(manifest.url_server_api);
 
 export default {
   socket,
