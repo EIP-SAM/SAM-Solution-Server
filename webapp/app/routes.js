@@ -178,7 +178,7 @@ export default function createRoutes() {
         .catch(errorLoading);
       },
     }, {
-      path: '/software/users',
+      path: '/software',
       name: 'software',
       getComponent(nextState, cb) {
         System.import('containers/Software')
