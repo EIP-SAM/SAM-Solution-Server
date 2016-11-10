@@ -49,7 +49,6 @@ describe('createMigration', function () {
       imageId: 0,
       migrationDate: new Date(),
       status: 'done',
-      path: 'path/to/image',
       comment: '',
     };
   });
@@ -78,7 +77,6 @@ describe('editMigrationById', function () {
       imageId: 0,
       migrationDate: new Date(),
       status: 'done',
-      path: 'path/to/image',
       comment: '',
     };
   });

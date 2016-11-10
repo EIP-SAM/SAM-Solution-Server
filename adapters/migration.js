@@ -53,7 +53,6 @@ module.exports.getMigrationById = function(migrationId) {
 // - imageId
 // - migrationDate
 // - status
-// - path
 // - comment
 //
 module.exports.createMigration = function(migrationObj) {
@@ -68,7 +67,6 @@ module.exports.createMigration = function(migrationObj) {
 // - imageId
 // - migrationDate
 // - status
-// - path
 // - comment
 // Except for the migrationId, each property can be undefined
 //

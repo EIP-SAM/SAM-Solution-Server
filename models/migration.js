@@ -28,11 +28,6 @@ const Migration = sequelize.define('migration', {
     allowNull: false,
     unique: false,
   },
-  path: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: true,
-  },
   comment: {
     type: Sequelize.STRING,
     allowNull: true,
