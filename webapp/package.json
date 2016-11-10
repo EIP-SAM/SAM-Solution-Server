@@ -178,7 +178,9 @@
     "sanitize.css": "^3.3.0",
     "socket.io-client": "^1.5.1",
     "superagent": "^2.0.0",
-    "whatwg-fetch": "^1.0.0"
+    "whatwg-fetch": "^1.0.0",
+    "socket.io-client": "^1.4.6"
+
   },
   "devDependencies": {
     "babel-core": "^6.7.7",

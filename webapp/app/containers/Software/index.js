@@ -1,10 +1,10 @@
 //
-// Container page SoftwareUsersList
+// Container page Software
 //
 
 import { connect } from 'react-redux';
 import { getUsersRequest } from './actions';
-import { SoftwareUsersListComponent } from 'components/SoftwareUsersList';
+import { Software } from 'components/Software';
 
 function mapStateToProps() {
   return {
@@ -20,4 +20,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(SoftwareUsersListComponent);
+)(Software);
