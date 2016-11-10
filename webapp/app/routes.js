@@ -178,10 +178,10 @@ export default function createRoutes() {
         .catch(errorLoading);
       },
     }, {
-      path: '/software/users-list',
-      name: 'softwareUsersList',
+      path: '/software/users',
+      name: 'software',
       getComponent(nextState, cb) {
-        System.import('containers/SoftwareUsersList')
+        System.import('containers/Software')
         .then(loadModule(cb))
         .catch(errorLoading);
       },
