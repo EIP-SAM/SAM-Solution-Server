@@ -10,4 +10,5 @@ module.exports = function initRoutes(app, conf) {
   require('./migration')(app);
   require('./reboot')(app);
   require('./image')(app);
+  require('./notification')(app);
 };

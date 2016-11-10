@@ -3,8 +3,9 @@
 //
 
 import superagent from 'superagent';
+import manifest from '../manifest.json';
 
-const baseUrl = 'http://localhost:8080';
+const baseUrl = manifest.url_server_api;
 
 function get(url) {
   return superagent.get(baseUrl + url).withCredentials();
