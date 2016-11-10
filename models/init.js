@@ -7,7 +7,11 @@ module.exports = function init() {
           require('./restore').sync().then(function () {
             require('./groups').sync().then(function () {
               require('./usersGroupsRelations').sync().then(function () {
-                fulfill();
+                require('./migration').sync().then(function() {
+                  require('./image').sync().then(function() {
+                    fulfill();
+                  });
+                });
               });
             });
           });

@@ -1,4 +1,4 @@
-  const logger = require('../libs/bunyan').setModuleName('Reboot');
+const logger = require('../libs/bunyan').setModuleName('Reboot');
 
 const daemonReboot = require('../daemon/reboot');
 

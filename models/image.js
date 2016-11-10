@@ -1,0 +1,32 @@
+//
+// Image model
+//
+const Sequelize = require('sequelize');
+const sequelize = require('../libs/sequelize');
+
+const Image = sequelize.define('image', {
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: false,
+  },
+  operatingSystem: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: false,
+  },
+  version: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: false,
+  }
+}, {
+  freezeTableName: true,
+});
+
+//
+// Synchronise with database
+//
+Image.sync();
+
+module.exports = Image;

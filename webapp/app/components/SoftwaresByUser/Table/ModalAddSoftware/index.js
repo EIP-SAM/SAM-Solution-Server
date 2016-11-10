@@ -5,7 +5,7 @@
 import React from 'react';
 import { Modal, ButtonToolbar, Glyphicon } from 'react-bootstrap';
 import { LinkContainerButton } from 'components/Button';
-import styles from 'components/SoftwaresByUser/Table/styles.css';
+import styles from 'components/SoftwaresByUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SoftwaresByUserAddSoftwareModal extends React.Component {
@@ -20,7 +20,7 @@ export class SoftwaresByUserAddSoftwareModal extends React.Component {
           <Modal.Title><Glyphicon glyph="plus" className={styles.iconAdd} />Install software</Modal.Title>
         </Modal.Header>
         <Modal.Body className={styles.p}>
-          <p>You are about to install the software {this.props.softName}.</p>
+          <p>You are about to install the software <span className={styles.bold}>{this.props.softName}</span>.</p>
           <p className={styles.bold}>Are you sure that you want to install it?</p>
         </Modal.Body>
         <Modal.Footer>

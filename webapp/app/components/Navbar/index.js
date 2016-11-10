@@ -37,7 +37,7 @@ export default class NavbarContainer extends React.Component {
         { pathname: '/save', value: 'Save', glyphicon: 'floppy-disk' },
         { pathname: '/restore', value: 'Restore', glyphicon: 'repeat' },
         { pathname: '#', value: 'Migration', glyphicon: 'send' },
-        { pathname: '#', value: 'Software', glyphicon: 'cd' },
+        { pathname: '/software', value: 'Software', glyphicon: 'cd' },
         { pathname: '/logs', value: 'Logs', glyphicon: 'list' },
         { pathname: '/statistics', value: 'Statistics', glyphicon: 'stats' },
         { pathname: '#', value: 'Help', glyphicon: 'book' },
@@ -57,11 +57,11 @@ export default class NavbarContainer extends React.Component {
     return (
       <Navbar inverse fixedTop className={styles.navbarStyle} role="navigation">
         <Navbar.Header>
-          <LinkContainer key={'item-logo'} to={{ pathname: '/logs' }}>
+          <LinkContainer key={'item-logo'} to={{ pathname: '/dashboard' }}>
             <NavItem><Image src={Logo} responsive className={styles.navbarLogo} /></NavItem>
           </LinkContainer>
           <Navbar.Brand>
-            <LinkContainer key={'item-name'} to={{ pathname: '/logs' }}>
+            <LinkContainer key={'item-name'} to={{ pathname: '/dashboard' }}>
               <NavItem>SAM-Solution</NavItem>
             </LinkContainer>
           </Navbar.Brand>
