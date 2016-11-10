@@ -3,7 +3,7 @@
 //
 
 import React from 'react';
-import DashboardByUserHeaderPage from 'containers/DashboardByUser/';
+import DashboardByUserHeaderPage from 'containers/DashboardByUser/HeaderPage';
 
 /* eslint-disable react/prefer-stateless-function */
 export class DashboardByUser extends React.Component {
