@@ -11,7 +11,11 @@ import styles from 'components/Notifications/styles.css';
 /* eslint-disable react/prefer-stateless-function */
 export class NotificationsFormButtons extends React.Component {
   handleCreateClick(event) {
-    this.props.notificationRequest(this.props.title, this.props.description, this.props.selectedUsers);
+    const username = this.props.selectedUsers.map((user) => (
+      user.name
+    ));
+    console.log(username);
+    this.props.notificationRequest(this.props.title, this.props.description, username);
   }
 
   handleCancelClick() {
@@ -21,7 +25,7 @@ export class NotificationsFormButtons extends React.Component {
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Create" onClick={(event) => this.handleCreateClick(event)} />
+        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Display" onClick={(event) => this.handleCreateClick(event)} />
         <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={(event) => this.handleCancelClick(event)} />
       </ButtonToolbar>
     );

@@ -16,6 +16,7 @@ export class NotificationsFormAllUsersSelectAll extends React.Component {
 
   selectAll(event) {
     this.props.removeUsers(this.props.users, this.props.users);
+    this.props.addUsers(this.props.users);
   }
 
   render() {
@@ -30,4 +31,5 @@ export class NotificationsFormAllUsersSelectAll extends React.Component {
 NotificationsFormAllUsersSelectAll.propTypes = {
   users: React.PropTypes.array,
   removeUsers: React.PropTypes.func,
+  addUsers: React.PropTypes.func,
 };
