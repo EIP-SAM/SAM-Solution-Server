@@ -32,8 +32,7 @@ export class SoftwareTable extends React.Component {
                 key={`item-${index}`} items={[
                   { isLink: false, value: user.id },
                   { isLink: true, link: `/software/${user.name}/${user.id}`, value: user.name },
-                  { isLink: false, value: 'Windows' },
-                  { isLink: false, value: 'none' }]} component={Td}
+                  { isLink: false, value: 'Windows' }]} component={Td}
               />
             )}
           </tbody>
