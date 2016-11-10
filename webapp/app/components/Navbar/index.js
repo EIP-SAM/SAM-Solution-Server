@@ -37,7 +37,7 @@ export default class NavbarContainer extends React.Component {
         { pathname: '/save', value: 'Save', glyphicon: 'floppy-disk' },
         { pathname: '/restore', value: 'Restore', glyphicon: 'repeat' },
         { pathname: '#', value: 'Migration', glyphicon: 'send' },
-        { pathname: '#', value: 'Software', glyphicon: 'cd' },
+        { pathname: '/software', value: 'Software', glyphicon: 'cd' },
         { pathname: '/logs', value: 'Logs', glyphicon: 'list' },
         { pathname: '/statistics', value: 'Statistics', glyphicon: 'stats' },
         { pathname: '#', value: 'Help', glyphicon: 'book' },
