@@ -52,7 +52,7 @@ module.exports = function initMigrationRoutes(app) {
   app.post('/api/logged-in/admin/migration/add', function (req, res) {
     let migrationObj = req.body.migrationObj;
     let promise = migrationController.createMigration(migrationObj);
-    console.log(migrationObj);
+
     promise.then(function (migration) {
       res.json({
         migration,
@@ -94,7 +94,7 @@ module.exports = function initMigrationRoutes(app) {
   //
   // Delete migration by id
   //
-  app.delete('/api/logged-in/migration/admin/:migration_id/delete', function (req, res) {
+  app.delete('/api/logged-in/admin/:migration_id/delete', function (req, res) {
     let promise = migrationController.deleteMigrationById(req.params.migration_id);
 
     promise.then(function (migration) {

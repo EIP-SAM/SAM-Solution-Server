@@ -31,11 +31,6 @@ export function getAllMigrationsRequest() {
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
-        request
-          .post('/api/logged-in/admin/migration/add')
-          .send({ migrationObj: { userId: 1, imageId: 5, migrationDate: new Date(), status: 'done', comment: 'test comment' } })
-          .end((end, res) => console.log(res.migration));
-        console.log(res);
         if (err || res.body.error) {
           dispatch(getAllMigrations({ migrations: [] }));
         } else {
