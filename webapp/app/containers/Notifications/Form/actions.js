@@ -25,26 +25,22 @@ export function resetStateForm() {
   };
 }
 
-export function notificationRequest(title, description, selectedUsers) {
-  const users = selectedUsers.map((user) => {
-    return user.id;
-  });
-
+export function notificationRequest(title, description, username) {
   const notification = [{
     title,
     description,
-    users,
+    username,
   }];
 
   return function returnNotificationRequest(dispatch) {
     return request
-      .post('/api/logged-in/admin/notification')
-      .type('json')
+      .post('/api/logged-in/admin/notification/display')
+      .type('form')
       .send({ notification })
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
+        // if (err && res.statusCode === 401) {
+        //   browserHistory.push('/login');
+        // }
         dispatch(resetStateForm());
         browserHistory.goBack();
       });
