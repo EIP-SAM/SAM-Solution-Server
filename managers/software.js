@@ -4,7 +4,7 @@
 
 const softwareAdapter = require('../adapters/software');
 const usersAdapter = require('../adapters/users');
-const socket = require('../libs/socket-io');
+const socket = require('socket.io');
 const usersManager = require('../managers/users');
 
 //
@@ -30,6 +30,7 @@ module.exports.allUsersInfo = function (req, res) {
 // Get all softwares infos of an user
 //
 module.exports.allSoftwaresByUser = function (req, res) {
+  req.user.id = 1;
   usersAdapter.findById(req.user.id).then(function (user){
     softwareAdapter.launchListPackages(user.name)
       .then(function (listpackage) {
@@ -37,9 +38,9 @@ module.exports.allSoftwaresByUser = function (req, res) {
         listpackage.result.forEach (function (package){
           softwareAdapter.launchAnUpdate(user.name, package.packageName).then(function (listupdate){
             listupdate.result.forEach (function (updates) {
-              if (package.packageName == updates.packageName)
+              if (package.packageName == updates.packageName) {
                 package.updated = updates.updated;
-              console.log(package);
+              }
             });
           });
         });

@@ -11,6 +11,8 @@
 
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
+import socket from 'utils/socket-io';
+import { store } from 'app.js';
 
 import {
   SOFTWARES_BY_USER_GET_SOFTWARES,
@@ -60,14 +62,15 @@ export function getUsername(username) {
 }
 
 export function getInstalledSoftwaresRequest() {
+  const softwares = [{
+    name: 'tutu',
+    version: '1.0.5',
+  }, {
+    name: 'test',
+    version: '10.0.0',
+  }];
+  socket.emit('webapp_package');
   return function returnGetInstalledSoftwaresRequest(dispatch) {
-    const softwares = [{
-      name: 'tutu',
-      version: '1.0.5',
-    }, {
-      name: 'test',
-      version: '10.0.0',
-    }];
     dispatch(getSoftwares(softwares));
   };
 }
