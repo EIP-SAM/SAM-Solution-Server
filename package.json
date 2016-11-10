@@ -64,7 +64,8 @@
     "passport-local": "^1.0.0",
     "password-generator": "^2.0.2",
     "sequelize": "^3.24.7",
-    "socket.io": "^1.5.1"
+    "socket.io": "^1.5.1",
+    "uid": "0.0.2"
   },
   "jshintConfig": {
     "esversion": 6

@@ -1,4 +1,6 @@
-let socketio = require('socket.io');
+const socketio = require('socket.io');
+const uid = require('uid');
+
 const logger = require('../libs/bunyan').setModuleName('socket.io');
 
 const CLIENT_TYPE_DEAMON = "daemon";
@@ -8,6 +10,7 @@ let socketArray = {
   "webapp": {},
   "daemon": {},
 };
+
 module.exports.socketArray = socketArray;
 
 module.exports.CLIENT_TYPE_DEAMON = CLIENT_TYPE_DEAMON;
@@ -18,9 +21,9 @@ module.exports.init = function init(server) {
     io.on('connection', function (socket) {
         logger.info('New connection from socket-io');
 
-        socket.emit('server_GetData');
+        socket.emit('server_GetUserData');
 
-        socket.on('daemon_GetData', function (info) {
+        socket.on('daemon_GetUserData', function (info) {
           socketArray[CLIENT_TYPE_DEAMON][info.username] = socket;
           logger.info('New client from daemon connected :', info.username)
 
@@ -30,13 +33,14 @@ module.exports.init = function init(server) {
           });
         });
 
-        socket.on('webapp_GetData', function (info) {
-          socketArray[CLIENT_TYPE_DEAMON][info.username] = socket;
-          logger.info('New client from webapp connected :', info.username)
+        socket.on('webapp_GetUserData', function (info) {
+          let id = uid();
+          socketArray[CLIENT_TYPE_WEBAPP][id]= socket;
+          logger.info('New client from webapp connected : #' + id)
 
           socket.on('disconnect', function() {
-            logger.info('Client disconnected from webapp :', info.username)
-            delete socketArray[CLIENT_TYPE_DEAMON][info.username];
+            logger.info('Client disconnected from webapp : #' + id)
+            delete socketArray[CLIENT_TYPE_WEBAPP][id];
           });
         });
 
