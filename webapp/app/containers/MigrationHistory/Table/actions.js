@@ -24,12 +24,23 @@ export function getAllMigrations(migrations) {
 }
 
 export function getAllMigrationsRequest() {
-  const fakeMigrations = [
-    { status: 'done', userId: 1, userName: 'alex', image: 'Debian', date: Date(), comment: 'test' },
-    { status: 'in progress', userId: 2, userName: 'jean', image: 'Windows 10', date: Date(), comment: 'test 2' },
-    { status: 'planned', userId: 3, userName: 'fernand', image: 'Ubuntu', date: Date(), comment: 'test 3' },
-  ];
   return (dispatch) => (
-    dispatch(getAllMigrations(fakeMigrations))
+    request
+      .get('/api/logged-in/admin/migrations/')
+      .end((err, res) => {
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+        request
+          .post('/api/logged-in/admin/migration/add')
+          .send({ migrationObj: { userId: 1, imageId: 5, migrationDate: new Date(), status: 'done', comment: 'test comment' } })
+          .end((end, res) => console.log(res.migration));
+        console.log(res);
+        if (err || res.body.error) {
+          dispatch(getAllMigrations({ migrations: [] }));
+        } else {
+          dispatch(getAllMigrations(res.body.migrations));
+        }
+      })
   );
 }

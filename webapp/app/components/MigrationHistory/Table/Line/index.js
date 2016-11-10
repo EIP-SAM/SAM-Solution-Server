@@ -27,7 +27,7 @@ export default class Line extends React.Component {
   }
 
   getFormatedDate() {
-    return moment(this.props.values.date).format('YYYY MMMM Do HH:mm:ss');
+    return moment(this.props.values.migrationDate).format('YYYY MMMM Do HH:mm:ss');
   }
 
   getActions() {
@@ -79,8 +79,8 @@ export default class Line extends React.Component {
           { isLink: false, value: this.props.index },
           { isLink: false, value: this.getStatusLabel() },
           { isLink: false, value: this.getFormatedDate() },
-          { isLink: false, value: this.props.values.userName },
-          { isLink: false, value: this.props.values.image },
+          { isLink: false, value: this.props.values.user.name },
+          { isLink: false, value: this.props.values.image.name },
           { isLink: false, value: this.props.values.comment },
           { isLink: false, value: this.getActions() },
         ]}

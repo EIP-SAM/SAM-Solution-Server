@@ -5,7 +5,7 @@
 import React from 'react';
 import { Modal, ButtonToolbar, Glyphicon } from 'react-bootstrap';
 import { LinkContainerButton } from 'components/Button';
-import styles from 'components/SoftwaresByUser/Table/styles.css';
+import styles from 'components/SoftwaresByUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class SoftwaresByUserUpdateSoftwareModal extends React.Component {
@@ -20,7 +20,7 @@ export class SoftwaresByUserUpdateSoftwareModal extends React.Component {
           <Modal.Title><Glyphicon glyph="open" className={styles.iconUpdate} />Update software</Modal.Title>
         </Modal.Header>
         <Modal.Body className={styles.p}>
-          <p>You are about to update the software {this.props.softName}.</p>
+          <p>You are about to update the software <span className={styles.bold}>{this.props.softName}</span>.</p>
           <p className={styles.bold}>Are you sure that you want to update it?</p>
         </Modal.Body>
         <Modal.Footer>
