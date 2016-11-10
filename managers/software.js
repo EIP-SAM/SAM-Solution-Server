@@ -17,11 +17,13 @@ module.exports.allUsersInfo = function (req, res) {
       softwareAdapter.launchGetOperatingSystem(user.name)
       .then(function (listpackages) {
           var username = {"name":user.name};
-          result.username = user.name;
+          listpackages.username = user.name;
           console.log(listpackages);
         });
     });
+    return users;
   });
+  return users;
 }
 
 //
