@@ -1,5 +1,5 @@
 {
-  "name": "React Boilerplate",
+  "name": "SAM-Solution",
   "icons": [
     {
       "src": "favicon.png",
@@ -26,6 +26,7 @@
       "density": 4.0
     }
   ],
+  "url_server_api": "http://localhost:8080",
   "start_url": "index.html",
   "display": "standalone",
   "orientation": "portrait",
