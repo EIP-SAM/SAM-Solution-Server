@@ -61,6 +61,10 @@ export function getUsername(username) {
   };
 }
 
+socket.on('webapp_package', () => {
+  console.log('IN');
+});
+
 export function getInstalledSoftwaresRequest() {
   const softwares = [{
     name: 'tutu',
