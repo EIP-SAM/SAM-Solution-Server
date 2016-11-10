@@ -5,7 +5,6 @@
   "private": true,
   "main": "server.js",
   "scripts": {
-    "install": "cd webapp && npm install ; cd -",
     "start": "node server.js | ./node_modules/bunyan/bin/bunyan",
     "test": "node_modules/.bin/istanbul cover -x server.js -x **/webapp/** -x **/routes/** -x **/spec/** --include-all-sources node_modules/jasmine/bin/jasmine.js",
     "log_file": "cat ./log/error.log | ./node_modules/bunyan/bin/bunyan"
