@@ -57,7 +57,7 @@ export class UserTable extends React.Component {
               <Tr
                 key={`row-${index}`} items={[
                   { isLink: false, value: user.id },
-                  { isLink: false, value: user.name },
+                  { isLink: true, link: `/dashboard/${user.name}/${user.id}`, value: user.name },
                   { isLink: false, value: user.email },
                   { isLink: false, value: groupName },
                   { isLink: false, value: action }]} component={Td}
