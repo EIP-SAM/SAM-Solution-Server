@@ -13,12 +13,13 @@ function mapStateToProps(state) {
     saveRestoreMode: state.get('createGroup').get('CreateGroupFormGroupRightsSaveRestoreModeReducer').saveRestoreMode,
     migrationMode: state.get('createGroup').get('CreateGroupFormGroupRightsMigrationReducer').migrationMode,
     softwareMode: state.get('createGroup').get('CreateGroupFormGroupRightsSoftwareModeReducer').softwareMode,
+    selectedUsers: state.get('createGroup').get('CreateGroupFormUsersReducer').get('CreateGroupFormUsersSelectedUsersReducer').selectedUsers,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    createGroupRequest: (groupName, saveRestoreMode, migrationMode, softwareMode) => dispatch(createGroupRequest(groupName, saveRestoreMode, migrationMode, softwareMode)),
+    createGroupRequest: (groupName, saveRestoreMode, migrationMode, softwareMode, users) => dispatch(createGroupRequest(groupName, saveRestoreMode, migrationMode, softwareMode, users)),
     groupNameErrorMsg: (groupNameError) => dispatch(groupNameErrorMsg(groupNameError)),
   };
 }

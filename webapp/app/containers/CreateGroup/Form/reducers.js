@@ -13,10 +13,12 @@ import CreateGroupFormGroupNameReducer from './GroupName/reducer';
 import CreateGroupFormGroupRightsSaveRestoreModeReducer from './GroupRights/SaveRestoreMode/reducer';
 import CreateGroupFormGroupRightsMigrationReducer from './GroupRights/MigrationMode/reducer';
 import CreateGroupFormGroupRightsSoftwareModeReducer from './GroupRights/SoftwareMode/reducer';
+import CreateGroupFormUsersReducer from './Users/reducers';
 
 export default combineReducers({
   CreateGroupFormGroupNameReducer,
   CreateGroupFormGroupRightsSaveRestoreModeReducer,
   CreateGroupFormGroupRightsMigrationReducer,
   CreateGroupFormGroupRightsSoftwareModeReducer,
+  CreateGroupFormUsersReducer,
 });

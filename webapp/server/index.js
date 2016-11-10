@@ -3,6 +3,7 @@
 const express = require('express');
 const logger = require('./logger');
 const ngrok = require('ngrok');
+const helmet = require('helmet');
 
 const frontend = require('./middlewares/frontendMiddleware');
 const isDev = process.env.NODE_ENV !== 'production';
@@ -17,6 +18,7 @@ const webpackConfig = isDev
   ? require('../internals/webpack/webpack.dev.babel')
   : require('../internals/webpack/webpack.prod.babel');
 
+app.use(helmet());
 app.use(frontend(webpackConfig));
 
 const port = process.env.PORT || 3000;

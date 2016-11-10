@@ -3,37 +3,18 @@
 //
 
 import React from 'react';
-import { Alert } from 'react-bootstrap';
-import styles from './styles.css';
+import { Alert, PageHeader } from 'react-bootstrap';
 
+/* eslint-disable react/prefer-stateless-function */
 export class PageNotFound extends React.Component {
-
-  componentDidMount() {
-    this.isLogged = this.props.userInfo;
-
-    setTimeout(() => {
-      if (this.isLogged) {
-        this.props.redirectToLoginPage();
-      } else {
-        this.props.redirectToDashboardPage();
-      }
-    }, 5000);
-  }
-
   render() {
-    let page = this.isLogged !== undefined ? 'login' : 'dashboard';
-
     return (
-      <Alert bsStyle="info" className={styles.pageNotFoundAlert}>
-        The page you are trying to access does not exist, you will be redirect to the {page} page soon ...
-      </Alert>
+      <div>
+        <PageHeader>Page not found</PageHeader>
+        <Alert bsStyle="info">
+          The page you are trying to access does not exist...
+        </Alert>
+      </div>
     );
   }
 }
-
-PageNotFound.propTypes = {
-  userInfo: React.PropTypes.object,
-  redirectToLoginPage: React.PropTypes.func,
-  redirectToDashboardPage: React.PropTypes.func,
-  redirectToPageNotFound: React.PropTypes.func,
-};

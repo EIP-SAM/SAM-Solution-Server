@@ -98,7 +98,7 @@ export default function createRoutes() {
         .catch(errorLoading);
       },
     }, {
-      path: '/edit-group/:id',
+      path: '/edit-group/:name/:id',
       name: 'edit group',
       getComponent(nextState, cb) {
         System.import('containers/EditGroup')
@@ -166,6 +166,14 @@ export default function createRoutes() {
       name: 'createRestore',
       getComponent(nextState, cb) {
         System.import('containers/RestoreCreation')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      },
+    }, {
+      path: '/software/:username/:id',
+      name: 'softwareByUser',
+      getComponent(nextState, cb) {
+        System.import('containers/SoftwaresByUser')
         .then(loadModule(cb))
         .catch(errorLoading);
       },
