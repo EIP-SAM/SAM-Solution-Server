@@ -14,8 +14,7 @@ export class SoftwareTable extends React.Component {
   render() {
     const names = [{ isLink: 'false', link: '#', value: '#' },
                   { isLink: 'false', value: 'Username' },
-                  { isLink: 'false', value: 'OS' },
-                  { isLink: 'false', value: 'Package manager' }];
+                  { isLink: 'false', value: 'OS' }];
 
     if (!this.props.users) {
       return null;
@@ -32,7 +31,7 @@ export class SoftwareTable extends React.Component {
               <Tr
                 key={`item-${index}`} items={[
                   { isLink: false, value: user.id },
-                  { isLink: true, link: '/software/users', value: user.name },
+                  { isLink: true, link: `/software/${user.name}/${user.id}`, value: user.name },
                   { isLink: false, value: 'Windows' },
                   { isLink: false, value: 'none' }]} component={Td}
               />

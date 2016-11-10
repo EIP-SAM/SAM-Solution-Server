@@ -1,5 +1,5 @@
 //
-// Software Reducer
+// Software Reducers
 //
 
 import { combineReducers } from 'redux-immutable';

@@ -1,5 +1,5 @@
 //
-// Component page SoftwareUsersList
+// Component page Software
 //
 
 import React from 'react';
