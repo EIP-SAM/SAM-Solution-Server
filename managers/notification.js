@@ -1,6 +1,6 @@
 const logger = require('../libs/bunyan').setModuleName('Notification');
 
-const daemonNotification = require('../daemon/notification');
+const daemonNotification = require('../websocket/daemon/notification');
 
 module.exports.displayNotificationByUsername = function (req, res) {
   let username = req.body.username;

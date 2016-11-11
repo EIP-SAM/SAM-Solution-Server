@@ -6,7 +6,7 @@ var cronParser = require('cron-parser');
 var saveManager = require('./save');
 var saveScheduledAdapter = require('../adapters/saveScheduled');
 var userAdapter = require('../adapters/users');
-var daemonSave = require('../daemon/save');
+var daemonSave = require('../websocket/daemon/save');
 var logger = require('../libs/bunyan');
 
 initAllSaveCron();

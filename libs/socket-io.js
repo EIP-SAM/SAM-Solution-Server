@@ -3,6 +3,8 @@ const uid = require('uid');
 
 const logger = require('../libs/bunyan').setModuleName('socket.io');
 
+const initWebappSocket = require('../websocket/webapp/index');
+
 const CLIENT_TYPE_DEAMON = "daemon";
 const CLIENT_TYPE_WEBAPP = "webapp";
 
@@ -37,6 +39,8 @@ module.exports.init = function init(server) {
           let id = uid();
           socketArray[CLIENT_TYPE_WEBAPP][id]= socket;
           logger.info('New client from webapp connected : #' + id)
+
+          initWebappSocket(socket);
 
           socket.on('disconnect', function() {
             logger.info('Client disconnected from webapp : #' + id)

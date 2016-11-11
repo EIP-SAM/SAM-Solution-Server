@@ -1,7 +1,7 @@
-const logger = require('../libs/bunyan').setModuleName('Daemon');
+const logger = require('../../libs/bunyan').setModuleName('Daemon');
 
 module.exports.exec = function exec(username, files, cb) {
-  let socketArray = require('../libs/socket-io').socketArray.daemon;
+  let socketArray = require('../../libs/socket-io').socketArray.daemon;
   let socket = socketArray[username];
 
   if (typeof socket !== 'undefined') {
