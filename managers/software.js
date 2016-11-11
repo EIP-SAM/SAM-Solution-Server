@@ -4,45 +4,41 @@
 
 const softwareAdapter = require('../adapters/software');
 const usersAdapter = require('../adapters/users');
-const socket = require('socket.io');
 const usersManager = require('../managers/users');
 
 //
 // Get all users with their OS and package name
 //
-module.exports.allUsersInfo = function (req, res) {
-  const users = usersAdapter.findAll()
+module.exports.allUsersInfo = function (socket) {
+  usersAdapter.findAll()
     .then(function (users) {
       users.forEach(function (user) {
       softwareAdapter.launchGetOperatingSystem(user.name)
       .then(function (listpackages) {
           var username = {"name":user.name};
           listpackages.username = user.name;
-          console.log(listpackages);
+          socket.emit('server_all_software', listpackages);
         });
     });
-    return users;
   });
-  return users;
 }
 
 //
 // Get all softwares infos of an user
 //
-module.exports.allSoftwaresByUser = function (req, res) {
-  req.user.id = 1;
-  usersAdapter.findById(req.user.id).then(function (user){
-    softwareAdapter.launchListPackages(user.name)
-      .then(function (listpackage) {
-        var package = [];
-        listpackage.result.forEach (function (package){
-          softwareAdapter.launchAnUpdate(user.name, package.packageName).then(function (listupdate){
-            listupdate.result.forEach (function (updates) {
-              if (package.packageName == updates.packageName) {
-                package.updated = updates.updated;
-              }
-            });
+module.exports.allSoftwaresByUser = function (user, socket) {
+  softwareAdapter.launchListPackages(user)
+    .then(function (listpackage) {
+      listpackage.result.forEach (function (package){
+        softwareAdapter.launchAnUpdate(user, package.packageName).then(function (listupdate){
+          listupdate.result.forEach (function (updates) {
+            if (package.packageName == updates.packageName) {
+              package.updated = updates.updated;
+              socket.emit('server_all_software_by_user', package);
+            }
           });
+        }).catch(function (err){
+          console.log(err);
         });
       });
   });
@@ -51,32 +47,26 @@ module.exports.allSoftwaresByUser = function (req, res) {
 //
 // Search a package
 //
-module.exports.searchSoftwareByUser = function (req, res) {
-  usersAdapter.findById(req.user.id).then(function (user){
-    softwareAdapter.launchAQuery(user.name, req.package.name).then(function (package) {
-      console.log(package);
-    });
+module.exports.searchSoftwareByUser = function (user, package, socket) {
+  softwareAdapter.launchAQuery(user, package).then(function (listpackage) {
+    socket.emit('server_search_software_by_user', listpackage);
   });
 }
 
 //
 // Install a package
 //
-module.exports.installSoftwareByUser = function (req, res) {
-  usersAdapter.findById(req.user.id).then(function (user){
-    softwareAdapter.launchAnInstall(user.name, req.package.name).then(function (package) {
-      console.log(package);
-    });
+module.exports.installSoftwareByUser = function (user, package, socket) {
+  softwareAdapter.launchAnInstall(user, package).then(function (listpackage) {
+    socket.emit('server_install_software_by_user', listpackage);
   });
 }
 
 //
 // Remove package
 //
-module.exports.removeSoftwareByUser = function (req, res) {
-  usersAdapter.findById(req.user.id).then(function (user){
-    softwareAdapter.launchARemove(user.name, req.package.name).then(function (package) {
-      console.log(package);
-    });
+module.exports.removeSoftwareByUser = function (user, package, socket) {
+  softwareAdapter.launchARemove(user, package).then(function (listpackage) {
+    socket.emit('server_remove_software_by_user', listpackage);
   });
 }
