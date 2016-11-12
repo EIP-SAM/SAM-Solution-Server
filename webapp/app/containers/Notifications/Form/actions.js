@@ -31,12 +31,15 @@ export function notificationRequest(title, description, username) {
     description,
     username,
   }];
-
   return function returnNotificationRequest(dispatch) {
     return request
       .post('/api/logged-in/admin/notification/display')
       .type('form')
-      .send({ notification })
+      .send({
+        title,
+        description,
+        username,
+      })
       .end((err, res) => {
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');

@@ -11,10 +11,10 @@ import styles from 'components/Notifications/styles.css';
 /* eslint-disable react/prefer-stateless-function */
 export class NotificationsFormButtons extends React.Component {
   handleCreateClick(event) {
+    event.preventDefault();
     const username = this.props.selectedUsers.map((user) => (
       user.name
     ));
-    console.log(username);
     this.props.notificationRequest(this.props.title, this.props.description, username);
   }
 
