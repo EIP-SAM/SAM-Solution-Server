@@ -30,6 +30,16 @@ module.exports.init = function init(server) {
           });
         });
 
+        socket.on('webapp_GetData', function (info) {
+          socketArray[CLIENT_TYPE_DEAMON][info.username] = socket;
+          logger.info('New client from webapp connected :', info.username)
+
+          socket.on('disconnect', function() {
+            logger.info('Client disconnected from webapp :', info.username)
+            delete socketArray[CLIENT_TYPE_DEAMON][info.username];
+          });
+        });
+
         return io;
     });
 

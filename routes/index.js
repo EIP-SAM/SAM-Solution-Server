@@ -8,4 +8,5 @@ module.exports = function initRoutes(app, conf) {
   require('./save')(app);
   require('./log')(app);
   require('./reboot')(app);
+  require('./notification')(app);
 };

@@ -155,6 +155,7 @@
     "compression": "^1.6.1",
     "express": "^4.13.4",
     "fontfaceobserver": "^1.7.1",
+    "helmet": "^2.3.0",
     "history": "^2.1.0",
     "immutable": "^3.8.1",
     "moment": "^2.14.1",
@@ -175,6 +176,7 @@
     "redux-thunk": "^2.1.0",
     "reselect": "^2.5.1",
     "sanitize.css": "^3.3.0",
+    "socket.io-client": "^1.5.1",
     "superagent": "^2.0.0",
     "whatwg-fetch": "^1.0.0"
   },

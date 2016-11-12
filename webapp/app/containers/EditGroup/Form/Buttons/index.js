@@ -14,12 +14,13 @@ function mapStateToProps(state) {
     saveRestoreMode: state.get('editGroup').get('EditGroupFormGroupRightsSaveRestoreModeReducer').saveRestoreMode,
     migrationMode: state.get('editGroup').get('EditGroupFormGroupRightsMigrationModeReducer').migrationMode,
     softwareMode: state.get('editGroup').get('EditGroupFormGroupRightsSoftwareModeReducer').softwareMode,
+    selectedUsers: state.get('editGroup').get('EditGroupFormUsersReducer').get('EditGroupFormUsersSelectedUsersReducer').selectedUsers,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    editGroupRequest: (groupId, groupName, saveRestoreMode, migrationMode, softwareMode) => dispatch(editGroupRequest(groupId, groupName, saveRestoreMode, migrationMode, softwareMode)),
+    editGroupRequest: (groupId, groupName, saveRestoreMode, migrationMode, softwareMode, selectedUsers) => dispatch(editGroupRequest(groupId, groupName, saveRestoreMode, migrationMode, softwareMode, selectedUsers)),
     groupNameErrorMsg: (groupNameError) => dispatch(groupNameErrorMsg(groupNameError)),
   };
 }

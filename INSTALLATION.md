@@ -112,6 +112,10 @@ Configuration file: `config/mail.config.json`
 ```
 $ npm start
 ```
+#### Configure url server in webapp
+Configuration file `webapp/app/manifest.json`
+* Update url server `url_server_api` to match server address & port (default: http://localhost:8080/)
+
 #### Launch web application server
 ```
 $ cd webapp && npm start

@@ -11,6 +11,8 @@
 
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
+import { resetStateAllUsers } from './Users/AllUsers/actions';
+import { resetStateSelectedUsers } from './Users/SelectedUsers/actions';
 import {
   resetStateGroupName,
   groupNameErrorMsg,
@@ -19,15 +21,22 @@ import {
 export function resetStateForm() {
   return function resetState(dispatch) {
     dispatch(resetStateGroupName());
+    dispatch(resetStateAllUsers());
+    dispatch(resetStateSelectedUsers());
   };
 }
 
-export function createGroupRequest(groupName, saveRestoreMode, migrationMode, softwareMode) {
+export function createGroupRequest(groupName, saveRestoreMode, migrationMode, softwareMode, selectedUsers) {
+  const users = selectedUsers.map((user) => {
+    return user.id;
+  });
+
   const groups = [{
     name: groupName,
     saveAndRestoreMode: saveRestoreMode,
     migrationMode,
     softwarePackagesMode: softwareMode,
+    users,
   }];
 
   return function returnCreateGroupRequest(dispatch) {

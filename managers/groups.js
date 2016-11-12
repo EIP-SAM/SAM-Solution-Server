@@ -104,7 +104,7 @@ function createGroups(groups) {
             stopForEachPromise(obj, null, fulfill);
           }).catch(function (error) {
             logger.warn({ error: error }, 'Error during group creation (by an administrator)');
-            stopForEachPromise(obj, null, fulfill);
+            stopForEachPromise(obj, error, fulfill);
           });
         } else {
           logger.info({ group: { id: newGroup.id, name: newGroup.name } }, 'New group created (by an administrator)');

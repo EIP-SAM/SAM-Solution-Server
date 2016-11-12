@@ -38,11 +38,10 @@ export function notificationRequest(title, description, username) {
       .type('form')
       .send({ notification })
       .end((err, res) => {
-        // if (err && res.statusCode === 401) {
-        //   browserHistory.push('/login');
-        // }
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
         dispatch(resetStateForm());
-        browserHistory.goBack();
       });
   };
 }

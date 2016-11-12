@@ -12,6 +12,15 @@ body {
   width: 100%;
 }
 
+.spinner {
+  margin: auto;
+  background-image: url('./logo_sam_solution.png');
+}
+
+td {
+  vertical-align: middle!important;
+}
+
 @media (min-width: 768px) {
   body {
     margin-top: 50px;
