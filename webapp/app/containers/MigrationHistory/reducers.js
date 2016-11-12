@@ -10,7 +10,9 @@
 
 import { combineReducers } from 'redux-immutable';
 import TableReducer from './Table/reducers';
+import FiltersReducer from './Filters/reducers';
 
 export default combineReducers({
   table: TableReducer,
+  filters: FiltersReducer,
 });

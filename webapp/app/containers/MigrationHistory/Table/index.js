@@ -9,6 +9,7 @@ import { getAllMigrationsRequest } from './actions';
 function mapStateToProps(state) {
   return {
     migrations: state.get('migrationHistory').get('table').migrations,
+    statusFilter: state.get('migrationHistory').get('filters').statusFilter,
   };
 }
 

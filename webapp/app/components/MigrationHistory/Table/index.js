@@ -25,6 +25,11 @@ export default class Table extends React.Component {
   }
 
   render() {
+    let statusFilter = this.props.statusFilter;
+    if (!statusFilter) {
+      statusFilter = 'all';
+    }
+
     return (
       <div>
         <TableBS responsive hover striped>
@@ -33,9 +38,12 @@ export default class Table extends React.Component {
           </thead>
           <tbody>
             {
-              this.props.migrations.map((migration, index) => (
-                <Line key={index} index={index} values={migration} />
-              ))
+              this.props.migrations.map((migration, index) => {
+                if (statusFilter === 'all' || migration.status === statusFilter) {
+                  return <Line key={index} index={index} values={migration} />;
+                }
+                return undefined;
+              }, this)
             }
           </tbody>
         </TableBS>
@@ -46,5 +54,6 @@ export default class Table extends React.Component {
 
 Table.propTypes = {
   migrations: React.PropTypes.array,
+  statusFilter: React.PropTypes.string,
   getAllMigrations: React.PropTypes.func,
 };
