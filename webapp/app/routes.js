@@ -178,6 +178,14 @@ export default function createRoutes() {
         .catch(errorLoading);
       },
     }, {
+      path: '/migration/history',
+      name: 'migrationHistory',
+      getComponent(nextState, cb) {
+        System.import('components/MigrationHistory')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      },
+    }, {
       path: '/software',
       name: 'software',
       getComponent(nextState, cb) {

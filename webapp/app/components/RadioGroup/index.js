@@ -53,7 +53,7 @@ export default class RadioGroup extends React.Component {
 
 RadioGroup.propTypes = {
   className: React.PropTypes.string,
-  placeholder: React.PropTypes.string,
+  placeholder: React.PropTypes.node,
   block: React.PropTypes.bool,
   inline: React.PropTypes.bool,
   values: React.PropTypes.array.isRequired,
