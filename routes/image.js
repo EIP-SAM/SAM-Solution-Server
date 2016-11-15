@@ -3,6 +3,11 @@
 //
 const imageController = require('../controllers/image');
 
+//
+// Logger configuration
+//
+const logger = require('../libs/bunyan').setModuleName('image');
+
 module.exports = function initImageRoutes(app) {
 
   //
@@ -14,6 +19,7 @@ module.exports = function initImageRoutes(app) {
     promise.then(function (images) {
       res.json({ images });
     }).catch(function (err) {
+      logger.error(err);
       res.json({
         error: true,
         data: err,
@@ -30,6 +36,7 @@ module.exports = function initImageRoutes(app) {
     promise.then(function (image) {
       res.json({ image });
     }).catch(function (err) {
+      logger.error(err);
       res.json({
         error: true,
         data: err,
@@ -51,6 +58,7 @@ module.exports = function initImageRoutes(app) {
     promise.then(function (image) {
       res.json({ image });
     }).catch(function (err) {
+      logger.error(err);
       res.json({
         error: true,
         data: err,
@@ -73,6 +81,7 @@ module.exports = function initImageRoutes(app) {
     promise.then(function (image) {
       res.json({ image });
     }).catch(function (err) {
+      logger.error(err);
       res.json({
         error: true,
         data: err,
@@ -89,6 +98,7 @@ module.exports = function initImageRoutes(app) {
     promise.then(function (image) {
       res.json({ image });
     }).catch(function (err) {
+      logger.error(err);
       res.json({
         error: true,
         data: err,

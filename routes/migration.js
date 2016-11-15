@@ -3,6 +3,11 @@
 //
 const migrationController = require('../controllers/migration');
 
+//
+// Logger configuration
+//
+const logger = require('../libs/bunyan').setModuleName('migration');
+
 module.exports = function initMigrationRoutes(app) {
 
   //
@@ -16,6 +21,7 @@ module.exports = function initMigrationRoutes(app) {
         migrations,
       });
     }).catch(function (err) {
+      logger.error(err);
       res.json({
         error: true,
         err,
@@ -34,6 +40,7 @@ module.exports = function initMigrationRoutes(app) {
         migration,
       });
     }).catch(function (err) {
+      logger.error(err);
       res.json({
         error: true,
         err,
@@ -58,6 +65,7 @@ module.exports = function initMigrationRoutes(app) {
         migration,
       });
     }).catch(function (err) {
+      logger.error(err);
       res.json({
         error: true,
         err,
@@ -84,6 +92,7 @@ module.exports = function initMigrationRoutes(app) {
         migration,
       });
     }).catch(function (err) {
+      logger.error(err);
       res.json({
         error: true,
         err,
@@ -102,6 +111,7 @@ module.exports = function initMigrationRoutes(app) {
         migration,
       });
     }).catch(function (err) {
+      logger.error(err);
       res.json({
         error: true,
         err,
