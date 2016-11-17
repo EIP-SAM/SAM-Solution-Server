@@ -12,6 +12,7 @@
 import {
   NOTIFICATIONS_TITLE_CHANGE,
   NOTIFICATIONS_RESET_STATE_TITLE,
+  NOTIFICATIONS_TITLE_ERROR,
 } from './constants';
 
 export function resetStateTitle() {
@@ -24,5 +25,12 @@ export function titleChange(title) {
   return {
     type: NOTIFICATIONS_TITLE_CHANGE,
     title,
+  };
+}
+
+export function titleErrorMsg(titleError) {
+  return {
+    type: NOTIFICATIONS_TITLE_ERROR,
+    titleError,
   };
 }

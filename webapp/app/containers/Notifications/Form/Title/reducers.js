@@ -11,6 +11,7 @@
 import {
   NOTIFICATIONS_TITLE_CHANGE,
   NOTIFICATIONS_RESET_STATE_TITLE,
+  NOTIFICATIONS_TITLE_ERROR,
 } from './constants';
 
 const initialState = {
@@ -24,6 +25,10 @@ function NotificationsFormTitleReducer(state = initialState, action) {
     case NOTIFICATIONS_TITLE_CHANGE:
       return Object.assign({}, state, {
         title: action.title,
+      });
+    case NOTIFICATIONS_TITLE_ERROR:
+      return Object.assign({}, state, {
+        titleError: action.titleError,
       });
     default:
       return state;
