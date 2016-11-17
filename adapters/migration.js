@@ -47,31 +47,32 @@ module.exports.getMigrationById = function(migrationId) {
 };
 
 //
-// Get migration ordered by status
+// Get migration order by filter
+// @parameters:
+// - filterObj, object containing:
+//   - filterObj.modelName, if there is a foreignKey you have to put the model name
+//   - filterObj.name, name of the filter
+//   - filterObj.order, ASC or DESC
 //
-module.exports.getMigrationOrderedByStatus = function(order) {
-  return MigrationModel.findAll({
-    order: [['status', order]],
-    include: [{
-      model: UsersModel,
-      as: 'user',
-      attributes: ['id', 'name', 'email', 'isAdmin'],
-      where: { userId: Sequelize.col('user.id') },
-    }, {
-      model: ImageModel,
-      as: 'image',
-      attributes: ['id', 'name', 'operatingSystem', 'version'],
-      where: { imageId: Sequelize.col('image.id') },
-    }],
-  });
-}
+module.exports.getMigrationOrderByFilter = function(filterObj) {
+  let orderObj = [];
 
-//
-// Get migration ordered by image name
-//
-module.exports.getMigrationOrderedByImageName = function(order) {
+  switch (filterObj.modelName) {
+    case 'user':
+      orderObj.push(UserModel);
+      break;
+    case 'image':
+      orderObj.push(ImageModel);
+      break;
+    default:
+      break;
+
+  }
+  orderObj.push(filterObj.name);
+  orderObj.push(filterObj.order);
+
   return MigrationModel.findAll({
-    order: [[ImageModel, 'name', order]],
+    order: [orderObj],
     include: [{
       model: UsersModel,
       as: 'user',
@@ -84,7 +85,8 @@ module.exports.getMigrationOrderedByImageName = function(order) {
       where: { imageId: Sequelize.col('image.id') },
     }],
   });
-}
+};
+
 
 //
 // Create a migration

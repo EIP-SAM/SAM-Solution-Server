@@ -18,17 +18,10 @@ module.exports.getMigrationById = function (migrationId) {
 }
 
 //
-// Launch getMigrationOrderedByStatus method from managers
+// Launch getMigrationOrderByFilter method from managers
 //
-module.exports.getMigrationOrderedByStatus = function (order) {
-  return migrationManager.getMigrationOrderedByStatus(order);
-}
-
-//
-// Launch getMigrationOrderedByImageName method from managers
-//
-module.exports.getMigrationOrderedByImageName = function (order) {
-  return migrationManager.getMigrationOrderedByImageName(order);
+module.exports.getMigrationOrderByFilter = function (order) {
+  return migrationManager.getMigrationOrderByFilter(order);
 }
 
 //

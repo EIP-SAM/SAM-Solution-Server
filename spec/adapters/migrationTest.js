@@ -2,6 +2,7 @@
 // Unit test for migration adapter
 //
 const MigrationModel = require('../../models/migration');
+const ImageModel = require('../../models/image');
 const migrationAdapter = require('../../adapters/migration');
 
 describe('getMigrations', function () {
@@ -39,44 +40,23 @@ describe('getMigrationById', function () {
   });
 });
 
-describe('getMigrationOrderedByStatus', function () {
+describe('getMigrationOrderByFilter', function () {
 
-  var order;
+  var filterObj;
 
   beforeAll(function () {
-    order = 'DESC';
+    filterObj = [ImageModel, 'name', 'DESC'];
   });
 
   it('should return a promise', function () {
-    let migrations = migrationAdapter.getMigrationOrderedByStatus(order);
+    let migrations = migrationAdapter.getMigrationOrderByFilter(filterObj);
 
     expect(typeof migrations.then === 'function').toBeTruthy();
   });
 
   it('should have called findAll once', function () {
     spyOn(MigrationModel, 'findAll');
-    migrationAdapter.getMigrationOrderedByStatus(order);
-    expect(MigrationModel.findAll).toHaveBeenCalledTimes(1);
-  });
-});
-
-describe('getMigrationOrderedByImageName', function () {
-
-  var order;
-
-  beforeAll(function () {
-    order = 'DESC';
-  });
-
-  it('should return a promise', function () {
-    let migrations = migrationAdapter.getMigrationOrderedByImageName(order);
-
-    expect(typeof migrations.then === 'function').toBeTruthy();
-  });
-
-  it('should have called findAll once', function () {
-    spyOn(MigrationModel, 'findAll');
-    migrationAdapter.getMigrationOrderedByImageName(order);
+    migrationAdapter.getMigrationOrderByFilter(filterObj);
     expect(MigrationModel.findAll).toHaveBeenCalledTimes(1);
   });
 });

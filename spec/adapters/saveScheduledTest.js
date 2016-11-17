@@ -77,15 +77,6 @@ describe('createSaveScheduled', function () {
     expect(typeof saveScheduled.then === 'function').toBeTruthy();
   });
 
-  it('should return a SaveScheduledModel object with right values', function () {
-    saveScheduledAdapter.createSaveScheduled(1, '*/1 * * * *', 'test.txt')
-                        .then(function (asyncSaveScheduled) {
-      expect(asyncSaveScheduled.userId).toEqual(1);
-      expect(asyncSaveScheduled.cron).toEqual('*/1 * * * *');
-      expect(asyncSaveScheduled.files).toEqual('test.txt');
-    });
-  });
-
   it('should have called create once', function () {
     spyOn(SaveScheduledModel, 'create');
     saveScheduledAdapter.createSaveScheduled(1, '*/1 * * * *', 'test.txt');
@@ -113,13 +104,6 @@ describe('createSave', function () {
     expect(typeof save.then === 'function').toBeTruthy();
   });
 
-  it('should return a SaveModel object with right values', function () {
-    saveScheduledAdapter.createSave(1, new Date()).then(function (asyncSave) {
-      expect(asyncSave.saveScheduledId).toEqual(1);
-      expect(asyncSave.execDate).toEqual(new Date());
-    });
-  });
-
   it('should have called create once', function () {
     spyOn(SaveModel, 'create');
     saveScheduledAdapter.createSave(1, new Date());
@@ -145,12 +129,6 @@ describe('disableSaveScheduled', function () {
 
   it('should return a promise', function () {
     expect(typeof saveScheduled.then === 'function').toBeTruthy();
-  });
-
-  it('should return a SaveScheduledModel with isActive boolean at true', function () {
-    saveScheduledAdapter.disableSaveScheduled(1).then(function (asyncSaveScheduled) {
-      expect(asyncSaveScheduled.isActive).toBe(true);
-    });
   });
 
   it('should have called findById once', function () {

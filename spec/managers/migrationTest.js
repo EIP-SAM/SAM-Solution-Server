@@ -4,6 +4,7 @@
 const migrationAdapter = require('../../adapters/migration');
 const migrationManager = require('../../managers/migration');
 const MigrationModel = require('../../models/migration');
+const ImageModel = require('../../models/image');
 
 describe('getMigrations', function () {
   it('should return a promise', function () {
@@ -39,43 +40,23 @@ describe('getMigrationById', function () {
   });
 });
 
-describe('getMigrationOrderedByStatus', function () {
-  var order;
+describe('getMigrationOrderByFilter', function () {
+  var filterObj;
 
   beforeAll(function () {
-    order = 'done';
+    filterObj = [ImageModel, 'name', 'DESC'];
   });
 
   it('should return a promise', function () {
-    let migrations = migrationManager.getMigrationOrderedByStatus(order);
+    let migrations = migrationManager.getMigrationOrderByFilter(filterObj);
 
     expect(typeof migrations.then === 'function').toBeTruthy();
   });
 
-  it('should have called getMigrationOrderedByStatus once', function () {
-    spyOn(migrationAdapter, 'getMigrationOrderedByStatus');
-    migrationManager.getMigrationOrderedByStatus(order)
-    expect(migrationAdapter.getMigrationOrderedByStatus).toHaveBeenCalledTimes(1);
-  });
-});
-
-describe('getMigrationOrderedByImageName', function () {
-  var order;
-
-  beforeAll(function () {
-    order = 'done';
-  });
-
-  it('should return a promise', function () {
-    let migrations = migrationManager.getMigrationOrderedByImageName(order);
-
-    expect(typeof migrations.then === 'function').toBeTruthy();
-  });
-
-  it('should have called getMigrationOrderedByImageName once', function () {
-    spyOn(migrationAdapter, 'getMigrationOrderedByImageName');
-    migrationManager.getMigrationOrderedByImageName(order)
-    expect(migrationAdapter.getMigrationOrderedByImageName).toHaveBeenCalledTimes(1);
+  it('should have called getMigrationOrderByFilter once', function () {
+    spyOn(migrationAdapter, 'getMigrationOrderByFilter');
+    migrationManager.getMigrationOrderByFilter(filterObj)
+    expect(migrationAdapter.getMigrationOrderByFilter).toHaveBeenCalledTimes(1);
   });
 });
 
