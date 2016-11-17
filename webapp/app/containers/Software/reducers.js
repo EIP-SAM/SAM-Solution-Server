@@ -3,6 +3,7 @@
 //
 
 import { combineReducers } from 'redux-immutable';
+import SoftwareFiltersReducer from './Filters/reducers';
 
 import {
   SOFTWARE_USERS_GET_USERS,
@@ -28,4 +29,5 @@ function SoftwareReducer(state = initialState, action) {
 //
 export default combineReducers({
   SoftwareReducer,
+  SoftwareFiltersReducer,
 });

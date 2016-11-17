@@ -4,6 +4,7 @@
 
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
+import { getAllUsers } from './Filters/actions';
 
 import {
   SOFTWARE_USERS_GET_USERS,
@@ -26,6 +27,7 @@ export function getUsersRequest() {
         }
 
         dispatch(getUsers(res.body));
+        dispatch(getAllUsers(res.body));
       });
   };
 }
