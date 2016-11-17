@@ -11,6 +11,7 @@
 import {
   NOTIFICATIONS_DESCRIPTION_CHANGE,
   NOTIFICATIONS_RESET_STATE_DESCRIPTION,
+  NOTIFICATIONS_DESCRIPTION_ERROR,
 } from './constants';
 
 const initialState = {
@@ -24,6 +25,10 @@ function NotificationsFormDescriptionReducer(state = initialState, action) {
     case NOTIFICATIONS_DESCRIPTION_CHANGE:
       return Object.assign({}, state, {
         description: action.description,
+      });
+    case NOTIFICATIONS_DESCRIPTION_ERROR:
+      return Object.assign({}, state, {
+        descriptionError: action.descriptionError,
       });
     default:
       return state;

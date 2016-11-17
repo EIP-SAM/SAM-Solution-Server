@@ -14,7 +14,13 @@ export class NotificationsFormButtons extends React.Component {
     const username = this.props.selectedUsers.map((user) => (
       user.name
     ));
-    this.props.notificationRequest(this.props.title, this.props.description, username);
+    if (this.props.title !== '' && this.props.description !== '') {
+      this.props.notificationRequest(this.props.title, this.props.description, username);
+    } else if (this.props.title !== '') {
+      this.props.descriptionErrorMsg('A notification must have a description');
+    } else {
+      this.props.titleErrorMsg('A notification must have a title');
+    }
   }
 
   handleCancelClick() {
@@ -36,4 +42,6 @@ NotificationsFormButtons.propTypes = {
   description: React.PropTypes.string,
   selectedUsers: React.PropTypes.array,
   notificationRequest: React.PropTypes.func,
+  titleErrorMsg: React.PropTypes.func,
+  descriptionErrorMsg: React.PropTypes.func,
 };

@@ -3,7 +3,7 @@
 //
 
 import React from 'react';
-import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap';
 import styles from 'components/Notifications/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -18,10 +18,18 @@ export class NotificationsFormDescription extends React.Component {
   }
 
   render() {
+    let validationState = null;
+    let errorMessage = '';
+
+    if (this.props.descriptionError !== '') {
+      validationState = 'error';
+      errorMessage = this.props.descriptionError;
+    }
     return (
-      <FormGroup controlId="description" className={styles.form}>
+      <FormGroup controlId="description" className={styles.form} validationState={validationState}>
         <ControlLabel>Description</ControlLabel>
-        <FormControl type="textarea" value={this.props.description} placeholder="Enter description" onChange={this.onChangeDescription}/>
+        <FormControl type="textarea" value={this.props.description} placeholder="Enter description" onChange={this.onChangeDescription} />
+        <HelpBlock>{errorMessage}</HelpBlock>
       </FormGroup>
     );
   }
@@ -30,4 +38,5 @@ export class NotificationsFormDescription extends React.Component {
 NotificationsFormDescription.propTypes = {
   description: React.PropTypes.string,
   descriptionChange: React.PropTypes.func,
+  descriptionError: React.PropTypes.string,
 };

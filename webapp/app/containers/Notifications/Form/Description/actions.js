@@ -12,6 +12,7 @@
 import {
   NOTIFICATIONS_DESCRIPTION_CHANGE,
   NOTIFICATIONS_RESET_STATE_DESCRIPTION,
+  NOTIFICATIONS_DESCRIPTION_ERROR,
 } from './constants';
 
 export function resetStateDescription() {
@@ -24,5 +25,12 @@ export function descriptionChange(description) {
   return {
     type: NOTIFICATIONS_DESCRIPTION_CHANGE,
     description,
+  };
+}
+
+export function descriptionErrorMsg(descriptionError) {
+  return {
+    type: NOTIFICATIONS_DESCRIPTION_ERROR,
+    descriptionError,
   };
 }

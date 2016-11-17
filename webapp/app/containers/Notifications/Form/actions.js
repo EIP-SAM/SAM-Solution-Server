@@ -11,8 +11,8 @@
 
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
-import { resetStateDescription } from './Description/actions';
-import { resetStateTitle } from './Title/actions';
+import { resetStateDescription, descriptionErrorMsg } from './Description/actions';
+import { resetStateTitle, titleErrorMsg } from './Title/actions';
 import { resetStateAllUsers } from './Users/AllUsers/actions';
 import { resetStateSelectedUsers } from './Users/SelectedUsers/actions';
 
@@ -26,11 +26,6 @@ export function resetStateForm() {
 }
 
 export function notificationRequest(title, description, username) {
-  const notification = [{
-    title,
-    description,
-    username,
-  }];
   return function returnNotificationRequest(dispatch) {
     return request
       .post('/api/logged-in/admin/notification/display')
@@ -41,11 +36,17 @@ export function notificationRequest(title, description, username) {
         username,
       })
       .end((err, res) => {
-        // if (err && res.statusCode === 401) {
-        //   browserHistory.push('/login');
-        // }
-        dispatch(resetStateForm());
-        browserHistory.goBack();
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+
+        if (res.body.errors && res.body.errors[0].error.includes('title')) {
+          dispatch(titleErrorMsg(res.body.errors[0].error));
+        } else if (res.body.errors && res.body.errors[0].error.includes('description')) {
+          dispatch(descriptionErrorMsg(res.body.errors[0].error));
+        } else {
+          dispatch(resetStateForm());
+        }
       });
   };
 }

@@ -10,6 +10,7 @@ import { descriptionChange } from './actions';
 function mapStateToProps(state) {
   return {
     description: state.get('notifications').get('NotificationsFormDescriptionReducer').description,
+    descriptionError: state.get('notifications').get('NotificationsFormDescriptionReducer').descriptionError,
   };
 }
 
