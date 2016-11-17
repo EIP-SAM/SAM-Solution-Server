@@ -65,7 +65,10 @@ export function getUsername(username) {
 // });
 
 export function getInstalledSoftwaresRequest(username) {
-  socket.emit('webapp_all_software_by_user', username);
+  const data = {
+    username,
+  };
+  socket.emit('webapp_all_software_by_user', data);
 }
 
 socket.on('server_all_software_by_user', (data) => {

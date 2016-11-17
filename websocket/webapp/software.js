@@ -14,6 +14,10 @@ module.exports = function (socket) {
     softwareManager.installSoftwareByUser(data.username, data.package, socket);
   });
 
+  socket.on('webapp_update_software_by_user', function(data) {
+    softwareManager.updateSoftwareByUser(data.username, data.package, socket);
+  });
+
   socket.on('webapp_search_software_by_user', function(data) {
     softwareManager.searchSoftwareByUser(data.username, data.package, socket);
   });
