@@ -4,12 +4,12 @@
 
 import { connect } from 'react-redux';
 import { SoftwaresByUserAddSoftwareModal } from 'components/SoftwaresByUser/Table/ModalAddSoftware';
-import {
-  hideAddSoftwareModal,
-} from './actions';
+import { installSoftwares } from 'containers/SoftwaresByUser/actions';
+import { hideAddSoftwareModal } from './actions';
 
 function mapStateToProps(state) {
   return {
+    username: state.get('softwaresByUser').get('SoftwaresByUserReducer').username,
     softName: state.get('softwaresByUser').get('SoftwaresByUserTableReducers').get('SoftwaresByUserTableReducer').softName,
     showModal: state.get('softwaresByUser').get('SoftwaresByUserTableReducers').get('SoftwaresByUserAddSoftwareModalReducer').showModal,
   };
@@ -18,6 +18,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     hideAddSoftwareModal: () => dispatch(hideAddSoftwareModal()),
+    installSoftwares: (username, packages) => installSoftwares(username, packages),
   };
 }
 

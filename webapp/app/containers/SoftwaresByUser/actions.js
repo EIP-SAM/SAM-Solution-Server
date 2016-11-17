@@ -9,8 +9,6 @@
 //    }
 //
 
-import request from 'utils/request';
-import { browserHistory } from 'react-router';
 import socket from 'utils/socket-io';
 import { store } from 'app.js';
 
@@ -61,16 +59,6 @@ export function getUsername(username) {
   };
 }
 
-// socket.on('server_all_users', function(data) {
-//   console.log('server_all_users');
-//   console.log(data);
-// });
-
-// socket.on('server_install_software_by_user', (data) => {
-//   console.log('server_install_software_by_user');
-//   console.log(data);
-// });
-
 // socket.on('server_search_software_by_user', function(data) {
 //   console.log('server_search_software_by_user');
 //   console.log(data);
@@ -82,10 +70,23 @@ export function getUsername(username) {
 // });
 //
 
+export function getInstalledSoftwaresRequest(username) {
+  socket.emit('webapp_all_software_by_user', username);
+}
+
 socket.on('server_all_software_by_user', (data) => {
   store.dispatch(getSoftwares(data));
 });
 
-export function getInstalledSoftwaresRequest(username) {
-  socket.emit('webapp_all_software_by_user', username);
+export function installSoftwares(username, packages) {
+  const data = {
+    username,
+    package: packages,
+  };
+  socket.emit('webapp_install_software_by_user', data);
 }
+
+socket.on('server_install_software_by_user', (data) => {
+  console.log('server_install_software_by_user');
+  console.log(data);
+});
