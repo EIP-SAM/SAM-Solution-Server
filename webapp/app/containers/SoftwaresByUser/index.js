@@ -23,7 +23,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getUsername: (username) => dispatch(getUsername(username)),
-    getInstalledSoftwaresRequest: () => getInstalledSoftwaresRequest(),
+    getInstalledSoftwaresRequest: (username) => getInstalledSoftwaresRequest(username),
     resetAlert: () => dispatch(resetAlert()),
   };
 }
