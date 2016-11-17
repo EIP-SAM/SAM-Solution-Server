@@ -1,0 +1,8 @@
+.buttonHandle {
+  display: inline-block;
+  float: right;
+}
+
+.toolbar {
+  text-align: right;
+}

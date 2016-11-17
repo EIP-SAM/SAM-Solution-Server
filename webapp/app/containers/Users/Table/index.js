@@ -5,7 +5,6 @@
 import { connect } from 'react-redux';
 import { UserTable } from 'components/Users/Table';
 import { getUsername } from 'containers/Users/actions';
-import { showInstantRebootModal } from './ModalRebootUser/actions';
 import {
   showInstantDeleteModal,
   userToDelete,
@@ -20,7 +19,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     showInstantDeleteModal: () => dispatch(showInstantDeleteModal()),
-    showInstantRebootModal: () => dispatch(showInstantRebootModal()),
     userToDelete: (userId) => dispatch(userToDelete(userId)),
     getUsername: (username) => dispatch(getUsername(username)),
   };
