@@ -10,7 +10,6 @@
 
 import { combineReducers } from 'redux-immutable';
 import UsersDeletionModalReducer from './Table/ModalDeletionUser/reducer';
-import UsersRebootModalReducer from './Table/ModalRebootUser/reducer';
 import UsersFiltersReducer from './Filters/reducers';
 
 import {
@@ -69,5 +68,4 @@ export default combineReducers({
   UsersReducer,
   UsersFiltersReducer,
   UsersDeletionModalReducer,
-  UsersRebootModalReducer,
 });
