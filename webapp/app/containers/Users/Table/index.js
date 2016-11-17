@@ -19,13 +19,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     showInstantDeleteModal: () => dispatch(showInstantDeleteModal()),
-<<<<<<< HEAD
     userToDelete: userId => dispatch(userToDelete(userId)),
     getUsername: username => dispatch(getUsername(username)),
-=======
-    userToDelete: (userId) => dispatch(userToDelete(userId)),
-    getUsername: (username) => dispatch(getUsername(username)),
->>>>>>> #359: add reboot button in dashboard by user + remove reboot action button in users page
   };
 }
 
