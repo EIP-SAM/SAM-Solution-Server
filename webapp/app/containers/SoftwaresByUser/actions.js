@@ -63,12 +63,6 @@ export function getUsername(username) {
 //   console.log('server_search_software_by_user');
 //   console.log(data);
 // });
-//
-// socket.on('server_remove_software_by_user', function(data) {
-//   console.log('server_remove_software_by_user');
-//   console.log(data);
-// });
-//
 
 export function getInstalledSoftwaresRequest(username) {
   socket.emit('webapp_all_software_by_user', username);
@@ -101,5 +95,18 @@ export function updateSoftwares(username, packages) {
 
 socket.on('server_update_software_by_user', (data) => {
   console.log('server_update_software_by_user');
+  console.log(data);
+});
+
+export function deleteSoftwares(username, packages) {
+  const data = {
+    username,
+    package: packages,
+  };
+  socket.emit('webapp_remove_software_by_user', data);
+}
+
+socket.on('server_remove_software_by_user', (data) => {
+  console.log('server_remove_software_by_user');
   console.log(data);
 });

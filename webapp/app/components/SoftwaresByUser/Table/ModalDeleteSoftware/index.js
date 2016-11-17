@@ -11,6 +11,7 @@ import styles from 'components/SoftwaresByUser/styles.css';
 export class SoftwaresByUserDeleteSoftwareModal extends React.Component {
   handleDeleteClick() {
     this.props.hideDeleteSoftwareModal();
+    this.props.deleteSoftwares(this.props.username, this.props.softName);
   }
 
   render() {
@@ -35,7 +36,9 @@ export class SoftwaresByUserDeleteSoftwareModal extends React.Component {
 }
 
 SoftwaresByUserDeleteSoftwareModal.propTypes = {
+  username: React.PropTypes.string,
   softName: React.PropTypes.string,
   showModal: React.PropTypes.bool,
   hideDeleteSoftwareModal: React.PropTypes.func,
+  deleteSoftwares: React.PropTypes.func,
 };
