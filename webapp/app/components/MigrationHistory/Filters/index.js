@@ -22,15 +22,19 @@ const status = [
 
 /* eslint-disable react/prefer-stateless-function */
 export default class Filters extends React.Component {
+  componentWillMount() {
+    this.props.setStatusFilter('all');
+  }
+
   render() {
     return (
       <Grid className={styles.filters}>
+      placeholder={status[0]}
         <Col xs={9} md={6}>
           Show:
           <RadioGroup
             className={styles.statusFilter}
             onChange={(e) => this.props.setStatusFilter(e.props.children)}
-            placeholder={status[0]}
             values={status}
             inline
           />
