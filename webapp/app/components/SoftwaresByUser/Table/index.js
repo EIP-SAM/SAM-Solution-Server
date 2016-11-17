@@ -66,7 +66,7 @@ export class SoftwaresByUserTable extends React.Component {
       </FormGroup>);
     const names = [{ isLink: false, value: checkboxLegend },
                   { isLink: false, value: 'Name' },
-                  { isLink: false, value: 'Version' },
+                  { isLink: false, value: 'Description' },
                   { isLink: false, value: 'Actions' }];
 
     return (
@@ -83,15 +83,18 @@ export class SoftwaresByUserTable extends React.Component {
               </FormGroup>);
 
             const actions = [];
-            actions.push(<ButtonPopover key={`action-${0}`} id="install_software" trigger={['focus', 'hover']} placement="bottom" popoverContent="Install software" buttonType="link" icon="plus" onClick={() => this.handleInstallClick(soft.name)} buttonStyle={styles.plus} />);
-            actions.push(<ButtonPopover key={`action-${1}`} id="update_software" trigger={['focus', 'hover']} placement="bottom" popoverContent="Update software" buttonType="link" icon="open" onClick={() => this.handleUpdateClick(soft.name)} buttonStyle={styles.open} />);
-            actions.push(<ButtonPopover key={`action-${2}`} id="delete_software" trigger={['focus', 'hover']} placement="bottom" popoverContent="Delete software" buttonType="link" icon="trash" onClick={() => this.handleDeleteClick(soft.name)} buttonStyle={styles.trash} />);
+            if (!soft.installed) {
+              actions.push(<ButtonPopover key={`action-${0}`} id="install_software" trigger={['focus', 'hover']} placement="bottom" popoverContent="Install software" buttonType="link" icon="plus" onClick={() => this.handleInstallClick(soft.packageName)} buttonStyle={styles.plus} />);
+            } else {
+              actions.push(<ButtonPopover key={`action-${1}`} id="update_software" trigger={['focus', 'hover']} placement="bottom" popoverContent="Update software" buttonType="link" icon="open" onClick={() => this.handleUpdateClick(soft.packageName)} buttonStyle={styles.open} />);
+              actions.push(<ButtonPopover key={`action-${2}`} id="delete_software" trigger={['focus', 'hover']} placement="bottom" popoverContent="Delete software" buttonType="link" icon="trash" onClick={() => this.handleDeleteClick(soft.packageName)} buttonStyle={styles.trash} />);
+            }
             return (
               <Tr
                 key={`row-${index}`} items={[
                   { isLink: false, value: checkbox },
-                  { isLink: false, value: soft.name },
-                  { isLink: false, value: soft.version },
+                  { isLink: false, value: soft.packageName },
+                  { isLink: false, value: soft.description },
                   { isLink: false, value: actions }]} component={Td}
               />
             );
