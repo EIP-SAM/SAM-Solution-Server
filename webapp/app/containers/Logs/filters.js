@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import {
   setFilters,
   resetFilters,
+  resetPanel,
   collapsePanel,
   incKeyRerender,
 } from './actions/filters';
@@ -51,6 +52,7 @@ function mapDispatchToProps(dispatch) {
     collapsePanel: (isCollapsed) => dispatch(collapsePanel(isCollapsed)),
     incKeyRerender: () => dispatch(incKeyRerender()),
     setSorts: (sort) => dispatch(setSorts(sort)),
+    resetPanel: () => dispatch(resetPanel()),
   };
 }
 
