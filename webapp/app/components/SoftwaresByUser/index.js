@@ -13,7 +13,7 @@ export class SoftwaresByUser extends React.Component {
   componentWillMount() {
     const username = window.location.pathname.split('/')[2];
     this.props.getUsername(username);
-    this.props.getInstalledSoftwaresRequest();
+    this.props.getInstalledSoftwaresRequest(username);
   }
 
   componentWillUnmount() {

@@ -1,6 +1,6 @@
 const logger = require('../libs/bunyan').setModuleName('Reboot');
 
-const daemonReboot = require('../daemon/reboot');
+const daemonReboot = require('../websocket/daemon/reboot');
 
 module.exports.execRebootByUsername = function (req, res) {
   const username = req.query.username;

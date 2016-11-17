@@ -5,7 +5,7 @@ var restoreAdapter = require('../adapters/restore');
 var saveScheduledAdapter = require('../adapters/saveScheduled');
 var usersAdapter = require('../adapters/users');
 var logger = require('../libs/bunyan');
-var daemon = require('../daemon/restore');
+var daemon = require('../websocket/daemon/restore');
 
 //
 // Get all users with their last restoration

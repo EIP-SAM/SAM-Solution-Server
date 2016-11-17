@@ -9,8 +9,8 @@
 //    }
 //
 
-import request from 'utils/request';
-import { browserHistory } from 'react-router';
+import socket from 'utils/socket-io';
+import { store } from 'app.js';
 
 import {
   SOFTWARES_BY_USER_GET_SOFTWARES,
@@ -59,15 +59,57 @@ export function getUsername(username) {
   };
 }
 
-export function getInstalledSoftwaresRequest() {
-  return function returnGetInstalledSoftwaresRequest(dispatch) {
-    const softwares = [{
-      name: 'tutu',
-      version: '1.0.5',
-    }, {
-      name: 'test',
-      version: '10.0.0',
-    }];
-    dispatch(getSoftwares(softwares));
+// socket.on('server_search_software_by_user', function(data) {
+//   console.log('server_search_software_by_user');
+//   console.log(data);
+// });
+
+export function getInstalledSoftwaresRequest(username) {
+  const data = {
+    username,
   };
+  socket.emit('webapp_all_software_by_user', data);
 }
+
+socket.on('server_all_software_by_user', (data) => {
+  store.dispatch(getSoftwares(data));
+});
+
+export function installSoftwares(username, packages) {
+  const data = {
+    username,
+    package: packages,
+  };
+  socket.emit('webapp_install_software_by_user', data);
+}
+
+socket.on('server_install_software_by_user', (data) => {
+  console.log('server_install_software_by_user');
+  console.log(data);
+});
+
+export function updateSoftwares(username, packages) {
+  const data = {
+    username,
+    package: packages,
+  };
+  socket.emit('webapp_update_software_by_user', data);
+}
+
+socket.on('server_update_software_by_user', (data) => {
+  console.log('server_update_software_by_user');
+  console.log(data);
+});
+
+export function deleteSoftwares(username, packages) {
+  const data = {
+    username,
+    package: packages,
+  };
+  socket.emit('webapp_remove_software_by_user', data);
+}
+
+socket.on('server_remove_software_by_user', (data) => {
+  console.log('server_remove_software_by_user');
+  console.log(data);
+});

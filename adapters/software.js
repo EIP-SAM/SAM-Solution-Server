@@ -1,4 +1,4 @@
-const softwareDaemon = require('../daemon/software');
+const softwareDaemon = require('../websocket/daemon/software');
 
 //
 // Software daemon usage example

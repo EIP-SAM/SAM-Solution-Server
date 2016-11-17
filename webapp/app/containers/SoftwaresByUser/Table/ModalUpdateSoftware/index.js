@@ -4,12 +4,14 @@
 
 import { connect } from 'react-redux';
 import { SoftwaresByUserUpdateSoftwareModal } from 'components/SoftwaresByUser/Table/ModalUpdateSoftware';
+import { updateSoftwares } from 'containers/SoftwaresByUser/actions';
 import {
   hideUpdateSoftwareModal,
 } from './actions';
 
 function mapStateToProps(state) {
   return {
+    username: state.get('softwaresByUser').get('SoftwaresByUserReducer').username,
     softName: state.get('softwaresByUser').get('SoftwaresByUserTableReducers').get('SoftwaresByUserTableReducer').softName,
     showModal: state.get('softwaresByUser').get('SoftwaresByUserTableReducers').get('SoftwaresByUserUpdateSoftwareModalReducer').showModal,
   };
@@ -18,6 +20,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     hideUpdateSoftwareModal: () => dispatch(hideUpdateSoftwareModal()),
+    updateSoftwares: (username, packages) => updateSoftwares(username, packages),
   };
 }
 

@@ -11,6 +11,7 @@ import styles from 'components/SoftwaresByUser/styles.css';
 export class SoftwaresByUserAddSoftwareModal extends React.Component {
   handleAddClick() {
     this.props.hideAddSoftwareModal();
+    this.props.installSoftwares(this.props.username, this.props.softName);
   }
 
   render() {
@@ -35,7 +36,9 @@ export class SoftwaresByUserAddSoftwareModal extends React.Component {
 }
 
 SoftwaresByUserAddSoftwareModal.propTypes = {
+  username: React.PropTypes.string,
   softName: React.PropTypes.string,
   showModal: React.PropTypes.bool,
   hideAddSoftwareModal: React.PropTypes.func,
+  installSoftwares: React.PropTypes.func,
 };

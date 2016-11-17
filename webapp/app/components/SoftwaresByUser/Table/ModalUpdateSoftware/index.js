@@ -11,6 +11,7 @@ import styles from 'components/SoftwaresByUser/styles.css';
 export class SoftwaresByUserUpdateSoftwareModal extends React.Component {
   handleUpdateClick() {
     this.props.hideUpdateSoftwareModal();
+    this.props.updateSoftwares(this.props.username, this.props.softName);
   }
 
   render() {
@@ -35,7 +36,9 @@ export class SoftwaresByUserUpdateSoftwareModal extends React.Component {
 }
 
 SoftwaresByUserUpdateSoftwareModal.propTypes = {
+  username: React.PropTypes.string,
   softName: React.PropTypes.string,
   showModal: React.PropTypes.bool,
   hideUpdateSoftwareModal: React.PropTypes.func,
+  updateSoftwares: React.PropTypes.func,
 };
