@@ -31,6 +31,7 @@ export class UserTable extends React.Component {
           <tbody>
             {this.props.users.map((user, index) => {
               const action = [];
+
               let groupName = '';
               user.groups.map((group, index2) => {
                 if (index2 > 0) {
