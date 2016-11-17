@@ -39,6 +39,27 @@ describe('getMigrationById', function () {
   });
 });
 
+
+describe('getMigrationOrderedByStatus', function () {
+  var order;
+
+  beforeAll(function () {
+    order = 0;
+  });
+
+  it('should return a promise', function () {
+    let migrations = migrationController.getMigrationOrderedByStatus(order);
+
+    expect(typeof migrations.then === 'function').toBeTruthy();
+  });
+
+  it('should have called getMigrationOrderedByStatus once', function () {
+    spyOn(migrationManager, 'getMigrationOrderedByStatus');
+    migrationController.getMigrationOrderedByStatus(order)
+    expect(migrationManager.getMigrationOrderedByStatus).toHaveBeenCalledTimes(1);
+  });
+});
+
 describe('createMigration', function () {
   var migrationObj;
 

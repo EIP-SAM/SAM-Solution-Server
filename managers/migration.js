@@ -18,6 +18,13 @@ module.exports.getMigrationById = function (migrationId) {
 }
 
 //
+// Launch getMigrationOrderedByStatus method from adapters
+//
+module.exports.getMigrationOrderedByStatus = function (order) {
+  return migrationAdapter.getMigrationOrderedByStatus(order);
+}
+
+//
 // Launch createMigration method from adapters
 // @properties:
 // - userId

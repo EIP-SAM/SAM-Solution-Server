@@ -9,7 +9,7 @@ var ImageModel = require('../models/image');
 //
 // Get all the migration order by migrationDate DESC
 //
-module.exports.getMigrations = function () {
+module.exports.getMigrations = function() {
   return MigrationModel.findAll({
     order: [['migrationDate', 'DESC']],
     include: [{
@@ -45,6 +45,26 @@ module.exports.getMigrationById = function(migrationId) {
     }],
   });
 };
+
+//
+// Get migration ordered by status
+//
+module.exports.getMigrationOrderedByStatus = function(order) {
+  return MigrationModel.findAll({
+    order: [['status', order]],
+    include: [{
+      model: UsersModel,
+      as: 'user',
+      attributes: ['id', 'name', 'email', 'isAdmin'],
+      where: { userId: Sequelize.col('user.id') },
+    }, {
+      model: ImageModel,
+      as: 'image',
+      attributes: ['id', 'name', 'operatingSystem', 'version'],
+      where: { imageId: Sequelize.col('image.id') },
+    }],
+  });
+}
 
 //
 // Create a migration
