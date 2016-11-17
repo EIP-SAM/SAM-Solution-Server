@@ -4,14 +4,13 @@
 
 import React from 'react';
 import {
+  Form,
   Label,
-  ButtonToolbar,
   Col,
-  Grid,
+  FormGroup,
+  ControlLabel,
 } from 'react-bootstrap';
-import { LinkContainerButton as Button } from 'components/Button';
 import RadioGroup from 'components/RadioGroup';
-import styles from './styles.css';
 
 const status = [
   <Label>all</Label>,
@@ -28,27 +27,21 @@ export default class Filters extends React.Component {
 
   render() {
     return (
-      <Grid className={styles.filters}>
-      placeholder={status[0]}
-        <Col xs={9} md={6}>
-          Show:
-          <RadioGroup
-            className={styles.statusFilter}
-            onChange={(e) => this.props.setStatusFilter(e.props.children)}
-            values={status}
-            inline
-          />
-        </Col>
-        <Col xs={9} md={6}>
-          <ButtonToolbar className={styles.createButton}>
-            <Button
-              buttonBsStyle="info"
-              buttonText="Create Migration"
-              link="#"
+      <Form horizontal>
+        <FormGroup controlId="migrationStatus" bsSize="small">
+          <Col componentClass={ControlLabel} sm={2}>
+            Show :
+          </Col>
+          <Col sm={4}>
+            <RadioGroup
+              onChange={(e) => this.props.setStatusFilter(e.props.children)}
+              placeholder={status[0]}
+              values={status}
+              inline
             />
-          </ButtonToolbar>
-        </Col>
-      </Grid>
+          </Col>
+        </FormGroup>
+      </Form>
     );
   }
 }
