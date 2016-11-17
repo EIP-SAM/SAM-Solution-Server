@@ -90,3 +90,16 @@ socket.on('server_install_software_by_user', (data) => {
   console.log('server_install_software_by_user');
   console.log(data);
 });
+
+export function updateSoftwares(username, packages) {
+  const data = {
+    username,
+    package: packages,
+  };
+  socket.emit('webapp_update_software_by_user', data);
+}
+
+socket.on('server_update_software_by_user', (data) => {
+  console.log('server_update_software_by_user');
+  console.log(data);
+});
