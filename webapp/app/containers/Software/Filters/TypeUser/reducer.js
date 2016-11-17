@@ -1,5 +1,5 @@
 //
-// Type user filter restore page software
+// Type user filter software page
 //
 // To add a new action:
 //

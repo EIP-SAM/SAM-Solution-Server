@@ -31,7 +31,7 @@ function SoftwareFiltersReducer(state = initialState, action) {
 }
 
 //
-// Combine all reducers of filters in restore page
+// Combine all reducers of filters in software page
 //
 export default combineReducers({
   SoftwareFiltersReducer,
