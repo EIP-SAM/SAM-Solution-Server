@@ -67,6 +67,26 @@ module.exports.getMigrationOrderedByStatus = function(order) {
 }
 
 //
+// Get migration ordered by image name
+//
+module.exports.getMigrationOrderedByImageName = function(order) {
+  return MigrationModel.findAll({
+    order: [[ImageModel, 'name', order]],
+    include: [{
+      model: UsersModel,
+      as: 'user',
+      attributes: ['id', 'name', 'email', 'isAdmin'],
+      where: { userId: Sequelize.col('user.id') },
+    }, {
+      model: ImageModel,
+      as: 'image',
+      attributes: ['id', 'name', 'operatingSystem', 'version'],
+      where: { imageId: Sequelize.col('image.id') },
+    }],
+  });
+}
+
+//
 // Create a migration
 // @properties:
 // - userId

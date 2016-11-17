@@ -25,6 +25,13 @@ module.exports.getMigrationOrderedByStatus = function (order) {
 }
 
 //
+// Launch getMigrationOrderedByImageName method from adapters
+//
+module.exports.getMigrationOrderedByImageName = function (order) {
+  return migrationAdapter.getMigrationOrderedByImageName(order);
+}
+
+//
 // Launch createMigration method from adapters
 // @properties:
 // - userId

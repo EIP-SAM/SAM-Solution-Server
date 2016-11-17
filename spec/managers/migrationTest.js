@@ -59,6 +59,26 @@ describe('getMigrationOrderedByStatus', function () {
   });
 });
 
+describe('getMigrationOrderedByImageName', function () {
+  var order;
+
+  beforeAll(function () {
+    order = 'done';
+  });
+
+  it('should return a promise', function () {
+    let migrations = migrationManager.getMigrationOrderedByImageName(order);
+
+    expect(typeof migrations.then === 'function').toBeTruthy();
+  });
+
+  it('should have called getMigrationOrderedByImageName once', function () {
+    spyOn(migrationAdapter, 'getMigrationOrderedByImageName');
+    migrationManager.getMigrationOrderedByImageName(order)
+    expect(migrationAdapter.getMigrationOrderedByImageName).toHaveBeenCalledTimes(1);
+  });
+});
+
 describe('createMigration', function () {
   var migrationObj;
 

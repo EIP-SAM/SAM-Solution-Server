@@ -60,6 +60,27 @@ describe('getMigrationOrderedByStatus', function () {
   });
 });
 
+describe('getMigrationOrderedByImageName', function () {
+
+  var order;
+
+  beforeAll(function () {
+    order = 'DESC';
+  });
+
+  it('should return a promise', function () {
+    let migrations = migrationAdapter.getMigrationOrderedByImageName(order);
+
+    expect(typeof migrations.then === 'function').toBeTruthy();
+  });
+
+  it('should have called findAll once', function () {
+    spyOn(MigrationModel, 'findAll');
+    migrationAdapter.getMigrationOrderedByImageName(order);
+    expect(MigrationModel.findAll).toHaveBeenCalledTimes(1);
+  });
+});
+
 describe('createMigration', function () {
 
   var migrationObj;
