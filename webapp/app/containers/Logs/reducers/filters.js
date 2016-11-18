@@ -14,6 +14,7 @@ import {
   LOGS_RESET_FILTERS,
   LOGS_COLLAPSE_PANEL,
   LOGS_INC_KEY_RERENDER,
+  LOGS_RESET_PANEL,
 } from '../constants/filters';
 
 function keyRerender(state = 0, action) {
@@ -28,6 +29,10 @@ function keyRerender(state = 0, action) {
 function panel(state = {}, action) {
   switch (action.type) {
     case LOGS_COLLAPSE_PANEL:
+      return Object.assign({}, state, {
+        info: action.info,
+      });
+    case LOGS_RESET_PANEL:
       return Object.assign({}, state, {
         info: action.info,
       });

@@ -27,6 +27,11 @@ export default class LogFilter extends React.Component {
     this.resetFilters = this.resetFilters.bind(this);
   }
 
+  componentWillMount() {
+    this.props.resetFilters();
+    this.props.resetPanel();
+  }
+
   getLogs() {
     this.props.setSorts('none');
     this.props.getFilteredLogs(this.props.filters);
@@ -152,4 +157,5 @@ LogFilter.propTypes = {
   getFilteredLogs: React.PropTypes.func.isRequired,
   clearLogs: React.PropTypes.func.isRequired,
   setSorts: React.PropTypes.func.isRequired,
+  resetPanel: React.PropTypes.func.isRequired,
 };
