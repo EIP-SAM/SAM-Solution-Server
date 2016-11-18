@@ -42,7 +42,7 @@ module.exports.allSoftwaresByUser = function (user, socket) {
           });
         }).catch(function (err){
           console.log(err);
-          socket.emit('server_all_software_by_user', package);
+          socket.emit('server_all_software_by_user', err);
         });
       });
   });
@@ -68,19 +68,19 @@ module.exports.installSoftwareByUser = function (user, package, socket) {
     socket.emit('server_install_software_by_user', listpackage);
   }).catch(function (err){
     console.log(err);
-    socket.emit('server_install_software_by_user');
+    socket.emit('server_install_software_by_user', err);
   });
 }
 
 //
 // Update a package
 //
-module.exports.updateSoftwareByUser = function (user, package, socket) {
+module.exports.installSoftwareByUser = function (user, package, socket) {
   softwareAdapter.launchAnUpdate(user, package).then(function (listpackage) {
     socket.emit('server_update_software_by_user', listpackage);
   }).catch(function (err){
     console.log(err);
-    socket.emit('server_update_software_by_user');
+    socket.emit('server_update_software_by_user', err);
   });
 }
 
@@ -92,6 +92,6 @@ module.exports.removeSoftwareByUser = function (user, package, socket) {
     socket.emit('server_remove_software_by_user', listpackage);
   }).catch(function (err){
     console.log(err);
-    socket.emit('server_remove_software_by_user');
+    socket.emit('server_remove_software_by_user', err);
   });
 }
