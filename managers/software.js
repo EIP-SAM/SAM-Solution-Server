@@ -5,6 +5,7 @@
 const softwareAdapter = require('../adapters/software');
 const usersAdapter = require('../adapters/users');
 const usersManager = require('../managers/users');
+const logger = require('../libs/bunyan');
 
 //
 // Get all users with their OS and package name
@@ -75,7 +76,7 @@ module.exports.installSoftwareByUser = function (user, package, socket) {
 //
 // Update a package
 //
-module.exports.installSoftwareByUser = function (user, package, socket) {
+module.exports.updateSoftwareByUser = function (user, package, socket) {
   softwareAdapter.launchAnUpdate(user, package).then(function (listpackage) {
     socket.emit('server_update_software_by_user', listpackage);
   }).catch(function (err){
