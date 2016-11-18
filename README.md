@@ -18,6 +18,8 @@ This repository contains the web server part of the SAM-Solution project. It inc
 ## Install and run
 See [INSTALLATION.md](/INSTALLATION.md)
 
+See [DOCKER.md](/DOCKER.md) for Docker information
+
 ## Contributing
 See [CONTRIBUTING.md](/CONTRIBUTING.md)
 
