@@ -14,7 +14,7 @@ module.exports = (options) => ({
   module: {
     loaders: [{
       test: /\.js$/, // Transform all .js files required somewhere with Babel
-      loader: 'babel',
+      loader: 'babel-loader',
       exclude: /node_modules/,
       query: options.babelQuery,
     }, {
