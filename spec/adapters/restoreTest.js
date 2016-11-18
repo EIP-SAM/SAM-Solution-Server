@@ -40,7 +40,7 @@ describe('createRestore', function () {
     restore = null;
   });
 
-  xit('should not return null or undefined object', function () {
+  it('should not return null or undefined object', function () {
     expect(restore).not.toBeNull();
     expect(restore).toBeDefined();
   });
@@ -49,15 +49,7 @@ describe('createRestore', function () {
     expect(typeof restore.then === 'function').toBeTruthy();
   });
 
-  xit('should return a RestoreModel object with right values', function () {
-    restoreAdapter.createRestore(1, 'test.txt').then(function (asyncRestore) {
-      expect(asyncRestore.userId).toEqual(1);
-      expect(asyncRestore.files).toEqual('test.txt');
-      expect(asyncRestore.execDate).toEqual(new Date());
-    });
-  });
-
-  xit('should have called create once', function () {
+  it('should have called create once', function () {
     spyOn(RestoreModel, 'create');
     restoreAdapter.createRestore(1, 'test.txt');
     expect(RestoreModel.create).toHaveBeenCalledTimes(1);
@@ -104,12 +96,6 @@ describe('restoreIsStart', function () {
     expect(typeof restore.then === 'function').toBeTruthy();
   });
 
-  it('should return a RestoreModel with isStart boolean at true', function () {
-    restoreAdapter.restoreIsStart(restoreId).then(function (asyncRestore) {
-      expect(asyncRestore.isStart).toBe(true);
-    });
-  });
-
   it('should have called findById once', function () {
     spyOn(RestoreModel, 'findById').and.returnValue(new Promise(function (resolve, reject) {
       resolve(RestoreModel);
@@ -142,12 +128,6 @@ describe('restoreIsFinish', function () {
     expect(typeof restore.then === 'function').toBeTruthy();
   });
 
-  it('should return a RestoreModel with isFinish boolean at true', function () {
-    restoreAdapter.restoreIsFinish(restoreId).then(function (asyncRestore) {
-      expect(asyncRestore.isFinish).toBe(true);
-    });
-  });
-
   it('should have called findById once', function () {
     spyOn(RestoreModel, 'findById').and.returnValue(new Promise(function (resolve, reject) {
       resolve(RestoreModel);
@@ -178,12 +158,6 @@ describe('restoreIsSuccess', function () {
 
   it('should return a promise', function () {
     expect(typeof restore.then === 'function').toBeTruthy();
-  });
-
-  it('should return a RestoreModel with isSuccess boolean at true', function () {
-    restoreAdapter.restoreIsSuccess(restoreId).then(function (asyncRestore) {
-      expect(asyncRestore.isSuccess).toBe(true);
-    });
   });
 
   it('should have called findById once', function () {

@@ -2,6 +2,7 @@
 // Unit test for migration adapter
 //
 const MigrationModel = require('../../models/migration');
+const ImageModel = require('../../models/image');
 const migrationAdapter = require('../../adapters/migration');
 
 describe('getMigrations', function () {
@@ -36,6 +37,27 @@ describe('getMigrationById', function () {
     spyOn(MigrationModel, 'findById');
     migrationAdapter.getMigrationById(migrationId);
     expect(MigrationModel.findById).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('getMigrationOrderByFilter', function () {
+
+  var filterObj;
+
+  beforeAll(function () {
+    filterObj = [ImageModel, 'name', 'DESC'];
+  });
+
+  it('should return a promise', function () {
+    let migrations = migrationAdapter.getMigrationOrderByFilter(filterObj);
+
+    expect(typeof migrations.then === 'function').toBeTruthy();
+  });
+
+  it('should have called findAll once', function () {
+    spyOn(MigrationModel, 'findAll');
+    migrationAdapter.getMigrationOrderByFilter(filterObj);
+    expect(MigrationModel.findAll).toHaveBeenCalledTimes(1);
   });
 });
 

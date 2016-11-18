@@ -4,6 +4,7 @@
 const migrationAdapter = require('../../adapters/migration');
 const migrationManager = require('../../managers/migration');
 const MigrationModel = require('../../models/migration');
+const ImageModel = require('../../models/image');
 
 describe('getMigrations', function () {
   it('should return a promise', function () {
@@ -36,6 +37,26 @@ describe('getMigrationById', function () {
     spyOn(migrationAdapter, 'getMigrationById');
     migrationManager.getMigrationById(migrationId)
     expect(migrationAdapter.getMigrationById).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('getMigrationOrderByFilter', function () {
+  var filterObj;
+
+  beforeAll(function () {
+    filterObj = [ImageModel, 'name', 'DESC'];
+  });
+
+  it('should return a promise', function () {
+    let migrations = migrationManager.getMigrationOrderByFilter(filterObj);
+
+    expect(typeof migrations.then === 'function').toBeTruthy();
+  });
+
+  it('should have called getMigrationOrderByFilter once', function () {
+    spyOn(migrationAdapter, 'getMigrationOrderByFilter');
+    migrationManager.getMigrationOrderByFilter(filterObj)
+    expect(migrationAdapter.getMigrationOrderByFilter).toHaveBeenCalledTimes(1);
   });
 });
 

@@ -9,7 +9,7 @@ var ImageModel = require('../models/image');
 //
 // Get all the migration order by migrationDate DESC
 //
-module.exports.getMigrations = function () {
+module.exports.getMigrations = function() {
   return MigrationModel.findAll({
     order: [['migrationDate', 'DESC']],
     include: [{
@@ -45,6 +45,48 @@ module.exports.getMigrationById = function(migrationId) {
     }],
   });
 };
+
+//
+// Get migration order by filter
+// @parameters:
+// - filterObj, object containing:
+//   - filterObj.modelName, if there is a foreignKey you have to put the model name
+//   - filterObj.name, name of the filter
+//   - filterObj.order, ASC or DESC
+//
+module.exports.getMigrationOrderByFilter = function(filterObj) {
+  let orderObj = [];
+
+  switch (filterObj.modelName) {
+    case 'user':
+      orderObj.push(UserModel);
+      break;
+    case 'image':
+      orderObj.push(ImageModel);
+      break;
+    default:
+      break;
+
+  }
+  orderObj.push(filterObj.name);
+  orderObj.push(filterObj.order);
+
+  return MigrationModel.findAll({
+    order: [orderObj],
+    include: [{
+      model: UsersModel,
+      as: 'user',
+      attributes: ['id', 'name', 'email', 'isAdmin'],
+      where: { userId: Sequelize.col('user.id') },
+    }, {
+      model: ImageModel,
+      as: 'image',
+      attributes: ['id', 'name', 'operatingSystem', 'version'],
+      where: { imageId: Sequelize.col('image.id') },
+    }],
+  });
+};
+
 
 //
 // Create a migration
