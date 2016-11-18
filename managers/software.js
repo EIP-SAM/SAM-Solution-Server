@@ -18,6 +18,9 @@ module.exports.allUsersInfo = function (socket) {
           var username = {"name":user.name};
           listpackages.username = user.name;
           socket.emit('server_all_software', listpackages);
+        }).catch(function (err){
+          console.log(err);
+          socket.emit('server_all_software', err);
         });
     });
   });
@@ -39,6 +42,7 @@ module.exports.allSoftwaresByUser = function (user, socket) {
           });
         }).catch(function (err){
           console.log(err);
+          socket.emit('server_all_software_by_user', package);
         });
       });
   });
@@ -50,6 +54,9 @@ module.exports.allSoftwaresByUser = function (user, socket) {
 module.exports.searchSoftwareByUser = function (user, package, socket) {
   softwareAdapter.launchAQuery(user, package).then(function (listpackage) {
     socket.emit('server_search_software_by_user', listpackage);
+  }).catch(function (err){
+    console.log(err);
+    socket.emit('server_search_software_by_user', err);
   });
 }
 
@@ -59,15 +66,21 @@ module.exports.searchSoftwareByUser = function (user, package, socket) {
 module.exports.installSoftwareByUser = function (user, package, socket) {
   softwareAdapter.launchAnInstall(user, package).then(function (listpackage) {
     socket.emit('server_install_software_by_user', listpackage);
+  }).catch(function (err){
+    console.log(err);
+    socket.emit('server_install_software_by_user');
   });
 }
 
 //
 // Update a package
 //
-module.exports.updateSoftwareByUser = function (user, package, socket) {
+module.exports.installSoftwareByUser = function (user, package, socket) {
   softwareAdapter.launchAnUpdate(user, package).then(function (listpackage) {
     socket.emit('server_update_software_by_user', listpackage);
+  }).catch(function (err){
+    console.log(err);
+    socket.emit('server_update_software_by_user');
   });
 }
 
@@ -77,5 +90,8 @@ module.exports.updateSoftwareByUser = function (user, package, socket) {
 module.exports.removeSoftwareByUser = function (user, package, socket) {
   softwareAdapter.launchARemove(user, package).then(function (listpackage) {
     socket.emit('server_remove_software_by_user', listpackage);
+  }).catch(function (err){
+    console.log(err);
+    socket.emit('server_remove_software_by_user');
   });
 }
