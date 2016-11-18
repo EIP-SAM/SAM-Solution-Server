@@ -5,6 +5,7 @@
 import { connect } from 'react-redux';
 import { SoftwaresByUserDeleteSoftwareModal } from 'components/SoftwaresByUser/Table/ModalDeleteSoftware';
 import { deleteSoftwares } from 'containers/SoftwaresByUser/actions';
+import { resetStateTable } from 'containers/SoftwaresByUser/Table/actions';
 import {
   hideDeleteSoftwareModal,
 } from './actions';
@@ -21,6 +22,7 @@ function mapDispatchToProps(dispatch) {
   return {
     hideDeleteSoftwareModal: () => dispatch(hideDeleteSoftwareModal()),
     deleteSoftwares: (username, packages) => deleteSoftwares(username, packages),
+    resetStateTable: () => dispatch(resetStateTable()),
   };
 }
 

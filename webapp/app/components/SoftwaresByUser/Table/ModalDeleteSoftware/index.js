@@ -12,6 +12,7 @@ export class SoftwaresByUserDeleteSoftwareModal extends React.Component {
   handleDeleteClick() {
     this.props.hideDeleteSoftwareModal();
     this.props.deleteSoftwares(this.props.username, this.props.softName);
+    this.props.resetStateTable();
   }
 
   render() {
@@ -41,4 +42,5 @@ SoftwaresByUserDeleteSoftwareModal.propTypes = {
   showModal: React.PropTypes.bool,
   hideDeleteSoftwareModal: React.PropTypes.func,
   deleteSoftwares: React.PropTypes.func,
+  resetStateTable: React.PropTypes.func,
 };

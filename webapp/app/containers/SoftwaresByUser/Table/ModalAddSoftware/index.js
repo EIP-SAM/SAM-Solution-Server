@@ -5,6 +5,7 @@
 import { connect } from 'react-redux';
 import { SoftwaresByUserAddSoftwareModal } from 'components/SoftwaresByUser/Table/ModalAddSoftware';
 import { installSoftwares } from 'containers/SoftwaresByUser/actions';
+import { resetStateTable } from 'containers/SoftwaresByUser/Table/actions';
 import { hideAddSoftwareModal } from './actions';
 
 function mapStateToProps(state) {
@@ -19,6 +20,7 @@ function mapDispatchToProps(dispatch) {
   return {
     hideAddSoftwareModal: () => dispatch(hideAddSoftwareModal()),
     installSoftwares: (username, packages) => installSoftwares(username, packages),
+    resetStateTable: () => dispatch(resetStateTable()),
   };
 }
 

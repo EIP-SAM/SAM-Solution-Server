@@ -14,6 +14,7 @@ import SoftwaresByUserUpdateSoftwareModalReducer from './ModalUpdateSoftware/red
 import SoftwaresByUserDeleteSoftwareModalReducer from './ModalDeleteSoftware/reducer';
 
 import {
+  SOFTWARES_BY_USER_RESET_STATE_TABLE,
   SOFTWARES_BY_USER_SOFT_NAME,
   SOFTWARES_BY_USER_SELECTED_SOFTWARES,
   SOFTWARES_BY_USER_ALL_CHECKED,
@@ -27,6 +28,8 @@ const initialState = {
 
 function SoftwaresByUserTableReducer(state = initialState, action) {
   switch (action.type) {
+    case SOFTWARES_BY_USER_RESET_STATE_TABLE:
+      return Object.assign({}, initialState, {});
     case SOFTWARES_BY_USER_SELECTED_SOFTWARES:
       return Object.assign({}, state, {
         selectedSoftwares: action.selectedSoftwares,

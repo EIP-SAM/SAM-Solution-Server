@@ -9,6 +9,7 @@
 //    }
 //
 
+import 'utils/socket-io';
 import { browserHistory } from 'react-router';
 import request from 'utils/request';
 
