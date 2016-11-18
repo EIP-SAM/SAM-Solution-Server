@@ -40,7 +40,7 @@ module.exports = {
         loader: 'imports?define=>false,require=>false',
       },
       { test: /\.js$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         exclude: [/node_modules/],
       },
       { test: /\.jpe?g$|\.gif$|\.png$/i,
