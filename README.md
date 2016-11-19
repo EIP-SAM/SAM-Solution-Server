@@ -10,7 +10,7 @@ SAM-Solution is a __management tool__ for __IT-infrastructures__, intended for c
 It allows to centralize __system and software migrations__, as well as __backup and restoration__ of __user data__.
 This tool design goal is to __help the system adminstrator__ of a company in his work, and to be __easily usable by the final user__.
 
-This project fits into the [Epitech Innovative Projects](http://www.epitech.eu/epitech-innovative-projects.aspx) program *(link in french)*. You can find our showcase website [here](https://eip-sam.github.io/index.html).
+This project fits into the [Epitech Innovative Projects](http://www.epitech.eu/epitech-innovative-projects.aspx) program *(link in french)*. You can find our showcase website [here](https://eip-sam.github.io/).
 
 ### Repository
 This repository contains the web server part of the SAM-Solution project. It includes the serve of the back and front end.
