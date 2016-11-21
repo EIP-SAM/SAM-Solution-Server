@@ -11,6 +11,8 @@ import styles from 'components/SoftwaresByUser/styles.css';
 export class SoftwaresByUserDeleteAllSoftwaresModal extends React.Component {
   handleDeleteAllClick() {
     this.props.hideDeleteAllSoftwaresModal();
+    this.props.installSoftwares(this.props.username, this.props.selectedSoftwares);
+    this.props.resetStateTable();
   }
 
   render() {
@@ -23,7 +25,7 @@ export class SoftwaresByUserDeleteAllSoftwaresModal extends React.Component {
           <p>You are about to delete the following softwares:</p>
           <ul className={styles.listSoftNameModal}>
             {this.props.selectedSoftwares.map((soft, index) =>
-              <li key={`action-${index}`}>{soft.name}</li>
+              <li key={`action-${index}`}>{soft.packageName}</li>
             )}
           </ul>
           <p className={styles.bold}>Are you sure that you want to delete them?</p>
@@ -40,7 +42,10 @@ export class SoftwaresByUserDeleteAllSoftwaresModal extends React.Component {
 }
 
 SoftwaresByUserDeleteAllSoftwaresModal.propTypes = {
+  username: React.PropTypes.string,
   selectedSoftwares: React.PropTypes.array,
   showModal: React.PropTypes.bool,
   hideDeleteAllSoftwaresModal: React.PropTypes.func,
+  installSoftwares: React.PropTypes.func,
+  resetStateTable: React.PropTypes.func,
 };

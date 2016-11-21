@@ -12,6 +12,7 @@ export class SoftwaresByUserAddSoftwareModal extends React.Component {
   handleAddClick() {
     this.props.hideAddSoftwareModal();
     this.props.installSoftwares(this.props.username, this.props.softName);
+    this.props.resetStateTable();
   }
 
   render() {
@@ -41,4 +42,5 @@ SoftwaresByUserAddSoftwareModal.propTypes = {
   showModal: React.PropTypes.bool,
   hideAddSoftwareModal: React.PropTypes.func,
   installSoftwares: React.PropTypes.func,
+  resetStateTable: React.PropTypes.func,
 };

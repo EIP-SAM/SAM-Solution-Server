@@ -12,6 +12,7 @@ export class SoftwaresByUserUpdateSoftwareModal extends React.Component {
   handleUpdateClick() {
     this.props.hideUpdateSoftwareModal();
     this.props.updateSoftwares(this.props.username, this.props.softName);
+    this.props.resetStateTable();
   }
 
   render() {
@@ -41,4 +42,5 @@ SoftwaresByUserUpdateSoftwareModal.propTypes = {
   showModal: React.PropTypes.bool,
   hideUpdateSoftwareModal: React.PropTypes.func,
   updateSoftwares: React.PropTypes.func,
+  resetStateTable: React.PropTypes.func,
 };

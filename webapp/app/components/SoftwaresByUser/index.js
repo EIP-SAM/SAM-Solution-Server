@@ -18,6 +18,7 @@ export class SoftwaresByUser extends React.Component {
 
   componentWillUnmount() {
     this.props.resetAlert();
+    this.props.resetStateTable();
   }
 
   render() {
@@ -51,4 +52,5 @@ SoftwaresByUser.propTypes = {
   getUsername: React.PropTypes.func,
   getInstalledSoftwaresRequest: React.PropTypes.func,
   resetAlert: React.PropTypes.func,
+  resetStateTable: React.PropTypes.func,
 };

@@ -4,12 +4,13 @@
 
 import { connect } from 'react-redux';
 import { SoftwaresByUserDeleteAllSoftwaresModal } from 'components/SoftwaresByUser/Buttons/ModalDeleteAllSoftwares';
-import {
-  hideDeleteAllSoftwaresModal,
-} from './actions';
+import { installSoftwares } from 'containers/SoftwaresByUser/actions';
+import { resetStateTable } from 'containers/SoftwaresByUser/Table/actions';
+import { hideDeleteAllSoftwaresModal } from './actions';
 
 function mapStateToProps(state) {
   return {
+    username: state.get('softwaresByUser').get('SoftwaresByUserReducer').username,
     selectedSoftwares: state.get('softwaresByUser').get('SoftwaresByUserTableReducers').get('SoftwaresByUserTableReducer').selectedSoftwares,
     showModal: state.get('softwaresByUser').get('SoftwaresByUserButtonsReducers').get('SoftwaresByUserDeleteAllSoftwaresModalReducer').showModal,
   };
@@ -18,6 +19,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     hideDeleteAllSoftwaresModal: () => dispatch(hideDeleteAllSoftwaresModal()),
+    installSoftwares: (username, packages) => installSoftwares(username, packages),
+    resetStateTable: () => dispatch(resetStateTable()),
   };
 }
 

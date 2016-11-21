@@ -75,7 +75,13 @@ socket.on('server_all_software_by_user', (data) => {
   store.dispatch(getSoftwares(data));
 });
 
-export function installSoftwares(username, packages) {
+export function installSoftwares(username, softwares) {
+  let packages = softwares;
+
+  if (typeof softwares === 'string') {
+    packages = [softwares];
+  }
+
   const data = {
     username,
     package: packages,
@@ -88,7 +94,13 @@ socket.on('server_install_software_by_user', (data) => {
   console.log(data);
 });
 
-export function updateSoftwares(username, packages) {
+export function updateSoftwares(username, softwares) {
+  let packages = softwares;
+
+  if (typeof softwares === 'string') {
+    packages = [softwares];
+  }
+
   const data = {
     username,
     package: packages,
@@ -101,7 +113,13 @@ socket.on('server_update_software_by_user', (data) => {
   console.log(data);
 });
 
-export function deleteSoftwares(username, packages) {
+export function deleteSoftwares(username, softwares) {
+  let packages = softwares;
+
+  if (typeof softwares === 'string') {
+    packages = [softwares];
+  }
+
   const data = {
     username,
     package: packages,
