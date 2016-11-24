@@ -1,5 +1,5 @@
 //
-// Selected users form create group actions
+// Selected users form notifications actions
 //
 // To add a new Action :
 // 1) Import you constant

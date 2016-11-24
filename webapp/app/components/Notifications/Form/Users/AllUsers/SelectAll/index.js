@@ -22,7 +22,7 @@ export class NotificationsFormAllUsersSelectAll extends React.Component {
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonBsStyle="default" buttonText="Select all" onClick={(event) => this.selectAll(event)} />
+        <LinkContainerButton buttonBsStyle="info" buttonText="Select all" onClick={(event) => this.selectAll(event)} />
       </ButtonToolbar>
     );
   }

@@ -1,6 +1,6 @@
 
 //
-// Container users form create group
+// Container users form notifications
 //
 
 import { connect } from 'react-redux';

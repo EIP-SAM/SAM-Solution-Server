@@ -1,5 +1,5 @@
 //
-// title form notifications reducer
+// Title form notifications reducer
 //
 // To add a new action:
 //

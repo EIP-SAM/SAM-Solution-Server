@@ -1,5 +1,5 @@
 //
-// Component create group form
+// Component notifications form
 //
 
 import React from 'react';

@@ -1,5 +1,5 @@
 //
-// Component selected users form nitifications
+// Component selected users form notifications
 //
 
 import React from 'react';

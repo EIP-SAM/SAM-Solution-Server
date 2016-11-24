@@ -3,7 +3,6 @@
 //
 
 import React from 'react';
-import { browserHistory } from 'react-router';
 import { ButtonToolbar } from 'react-bootstrap';
 import { LinkContainerButton } from 'components/Button';
 import styles from 'components/Notifications/styles.css';
@@ -16,7 +15,7 @@ export class NotificationsFormButtons extends React.Component {
       user.name
     ));
     if (this.props.title !== '' && this.props.description !== '') {
-      this.props.notificationRequest(this.props.title, this.props.description, this.props.persistance, username);
+      this.props.notificationRequest(this.props.title, this.props.description, this.props.persistence, username);
     } else if (this.props.title !== '') {
       this.props.descriptionErrorMsg('A notification must have a description');
     } else if (this.props.description !== '') {
@@ -27,15 +26,10 @@ export class NotificationsFormButtons extends React.Component {
     }
   }
 
-  handleCancelClick() {
-    browserHistory.goBack();
-  }
-
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Display" onClick={(event) => this.handleCreateClick(event)} />
-        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={(event) => this.handleCancelClick(event)} />
+        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Send" onClick={(event) => this.handleCreateClick(event)} />
       </ButtonToolbar>
     );
   }
@@ -44,7 +38,7 @@ export class NotificationsFormButtons extends React.Component {
 NotificationsFormButtons.propTypes = {
   title: React.PropTypes.string,
   description: React.PropTypes.string,
-  persistance: React.PropTypes.bool,
+  persistence: React.PropTypes.bool,
   selectedUsers: React.PropTypes.array,
   notificationRequest: React.PropTypes.func,
   titleErrorMsg: React.PropTypes.func,

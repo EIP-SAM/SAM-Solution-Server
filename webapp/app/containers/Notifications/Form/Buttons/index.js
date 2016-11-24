@@ -1,6 +1,6 @@
 
 //
-// Container create group form buttons
+// Container notifications form buttons
 //
 
 import { connect } from 'react-redux';
