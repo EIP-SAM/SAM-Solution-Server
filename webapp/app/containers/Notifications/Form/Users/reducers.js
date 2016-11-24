@@ -9,8 +9,8 @@
 //
 
 import { combineReducers } from 'redux-immutable';
-import NotificationsFormAllUsersReducer from './AllUsers/reducers';
-import NotificationsFormSelectedUsersReducer from './SelectedUsers/reducers';
+import NotificationsFormAllUsersReducer from './AllUsers/reducer';
+import NotificationsFormSelectedUsersReducer from './SelectedUsers/reducer';
 
 export default combineReducers({
   NotificationsFormAllUsersReducer,
