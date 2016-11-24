@@ -9,9 +9,9 @@
 //
 
 import { combineReducers } from 'redux-immutable';
-import NotificationsFormDescriptionReducer from './Description/reducers';
-import NotificationsFormPersistanceReducer from './Persistance/reducers';
-import NotificationsFormTitleReducer from './Title/reducers';
+import NotificationsFormDescriptionReducer from './Description/reducer';
+import NotificationsFormPersistanceReducer from './Persistance/reducer';
+import NotificationsFormTitleReducer from './Title/reducer';
 import NotificationsFormUsersReducer from './Users/reducers';
 
 export default combineReducers({
