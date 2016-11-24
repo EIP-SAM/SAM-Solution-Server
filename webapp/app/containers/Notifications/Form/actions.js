@@ -25,7 +25,7 @@ export function resetStateForm() {
   };
 }
 
-export function notificationRequest(title, description, username) {
+export function notificationRequest(title, description, persistance, username) {
   return function returnNotificationRequest(dispatch) {
     return request
       .post('/api/logged-in/admin/notification/display')
@@ -33,6 +33,7 @@ export function notificationRequest(title, description, username) {
       .send({
         title,
         description,
+        persistance,
         username,
       })
       .end((err, res) => {

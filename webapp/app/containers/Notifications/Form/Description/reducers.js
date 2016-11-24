@@ -16,6 +16,7 @@ import {
 
 const initialState = {
   description: '',
+  descriptionError: '',
 };
 
 function NotificationsFormDescriptionReducer(state = initialState, action) {

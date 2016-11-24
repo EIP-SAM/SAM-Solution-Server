@@ -16,6 +16,7 @@ import {
 
 const initialState = {
   title: '',
+  titleError: '',
 };
 
 function NotificationsFormTitleReducer(state = initialState, action) {
