@@ -40,6 +40,7 @@ export default class NavbarContainer extends React.Component {
         { pathname: '/software', value: 'Software', glyphicon: 'cd' },
         { pathname: '/logs', value: 'Logs', glyphicon: 'list' },
         { pathname: '/statistics', value: 'Statistics', glyphicon: 'stats' },
+        { pathname: '/notifications', value: 'Notifications', glyphicon: 'envelope' },
         { pathname: '#', value: 'Help', glyphicon: 'book' },
       ];
     } else {

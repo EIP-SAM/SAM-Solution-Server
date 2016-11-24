@@ -1,0 +1,42 @@
+body {
+  overflow: visible;
+}
+
+.form {
+  margin: auto!important;
+}
+
+::-webkit-inner-spin-button {
+  position: relative;
+  top: 7px;
+}
+
+.label + span >  span {
+  position: relative;
+  left: 26px;
+}
+
+.users {
+    overflow: hidden;
+}
+
+.toolbar {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.usersToolbar {
+  margin-top: 35px;
+}
+
+.usersButtons {
+  display: block;
+  float: none!important;
+  font-weight: bold;
+  margin-left: 0!important;
+  margin: auto!important;
+}
+
+.usersButtons:first-child {
+  margin-bottom: 10px!important;
+}
