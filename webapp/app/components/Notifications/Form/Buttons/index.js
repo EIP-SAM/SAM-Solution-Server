@@ -19,7 +19,10 @@ export class NotificationsFormButtons extends React.Component {
       this.props.notificationRequest(this.props.title, this.props.description, this.props.persistance, username);
     } else if (this.props.title !== '') {
       this.props.descriptionErrorMsg('A notification must have a description');
+    } else if (this.props.description !== '') {
+      this.props.titleErrorMsg('A notification must have a title');
     } else {
+      this.props.descriptionErrorMsg('A notification must have a description');
       this.props.titleErrorMsg('A notification must have a title');
     }
   }

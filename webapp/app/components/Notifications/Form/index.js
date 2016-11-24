@@ -5,7 +5,7 @@
 import React from 'react';
 import Title from 'containers/Notifications/Form/Title';
 import Description from 'containers/Notifications/Form/Description';
-import Persistance from 'containers/Notifications/Form/Persistance';
+import Persistence from 'containers/Notifications/Form/Persistence';
 import Users from 'containers/Notifications/Form/Users';
 import Buttons from 'containers/Notifications/Form/Buttons';
 
@@ -16,7 +16,7 @@ export class NotificationsForm extends React.Component {
       <form>
         <Title />
         <Description />
-        <Persistance />
+        <Persistence />
         <Users />
         <Buttons />
       </form>
