@@ -34,7 +34,7 @@ module.exports.allSoftwaresByUser = function (user, socket) {
   softwareAdapter.launchListPackages(user)
     .then(function (listpackage) {
       listpackage.result.forEach (function (package){
-        softwareAdapter.launchAnUpdate(user, package.packageName).then(function (listupdate){
+        softwareAdapter.launchAnUpdate(user, [package.packageName]).then(function (listupdate){
           listupdate.result.forEach (function (updates) {
             if (package.packageName == updates.packageName) {
               package.updated = updates.updated;
@@ -66,7 +66,7 @@ module.exports.searchSoftwareByUser = function (user, package, socket) {
 // Install a package
 //
 module.exports.installSoftwareByUser = function (user, package, socket) {
-  softwareAdapter.launchAnInstall(user, package).then(function (listpackage) {
+  softwareAdapter.launchAnInstall(user, [package]).then(function (listpackage) {
     socket.emit('server_install_software_by_user', listpackage);
     logger.setUser({ id: '', name: user }).info(`${user} has installed ${package}`);
   }).catch(function (err){
@@ -79,7 +79,7 @@ module.exports.installSoftwareByUser = function (user, package, socket) {
 // Update a package
 //
 module.exports.updateSoftwareByUser = function (user, package, socket) {
-  softwareAdapter.launchAnUpdate(user, package).then(function (listpackage) {
+  softwareAdapter.launchAnUpdate(user, [package]).then(function (listpackage) {
     socket.emit('server_update_software_by_user', listpackage);
     logger.setUser({ id: '', name: user }).info(`${user} has updated ${package}`);
   }).catch(function (err){
@@ -92,7 +92,7 @@ module.exports.updateSoftwareByUser = function (user, package, socket) {
 // Remove package
 //
 module.exports.removeSoftwareByUser = function (user, package, socket) {
-  softwareAdapter.launchARemove(user, package).then(function (listpackage) {
+  softwareAdapter.launchARemove(user, [package]).then(function (listpackage) {
     socket.emit('server_remove_software_by_user', listpackage);
     logger.setUser({ id: '', name: user }).info(`${user} has removed ${package}`);
   }).catch(function (err){

@@ -13,29 +13,29 @@ function onStatusChange(status) {
   console.log('status changed:', status);
 }
 
-module.exports.launchAnInstall = function (user, package) {
-  return callSoftWareDaemonWithPackage(user, package, "installPackages");
-}
+module.exports.launchAnInstall = function (user, packages) {
+  return callSoftWareDaemonWithPackage(user, packages, 'installPackages');
+};
 
-module.exports.launchAnUpdate = function (user, package) {
-  return callSoftWareDaemonWithPackage(user, package, "updatePackages");
-}
+module.exports.launchAnUpdate = function (user, packages) {
+  return callSoftWareDaemonWithPackage(user, packages, 'updatePackages');
+};
 
-module.exports.launchARemove = function (user, package) {
-  return callSoftWareDaemonWithPackage(user, package, "removePackages");
-}
+module.exports.launchARemove = function (user, packages) {
+  return callSoftWareDaemonWithPackage(user, packages, 'removePackages');
+};
 
-module.exports.launchAQuery = function (user, package) {
-  return callSoftWareDaemonWithPackage(user, package, "queryPackage");
-}
+module.exports.launchAQuery = function (user, packages) {
+  return callSoftWareDaemonWithPackage(user, packages, 'queryPackage');
+};
 
 module.exports.launchListPackages = function (user) {
-  return callSoftWareDaemon(user, "listInstalledPackages");
-}
+  return callSoftWareDaemon(user, 'listInstalledPackages');
+};
 
 module.exports.launchGetOperatingSystem = function (user) {
-  return callSoftWareDaemon(user, "getOperatingSystem");
-}
+  return callSoftWareDaemon(user, 'getOperatingSystem');
+};
 
 function callSoftWareDaemon(user, fctToCall, cb = onStatusChange) {
   return new Promise(function (fulfill, reject) {
@@ -48,9 +48,9 @@ function callSoftWareDaemon(user, fctToCall, cb = onStatusChange) {
   });
 }
 
-function callSoftWareDaemonWithPackage(user, package, fctToCall, cb = onStatusChange) {
+function callSoftWareDaemonWithPackage(user, packages, fctToCall, cb = onStatusChange) {
   return new Promise(function (fulfill, reject) {
-    softwareDaemon[fctToCall](user, package, cb)
+    softwareDaemon[fctToCall](user, packages, cb)
     .then(function (returnStatus) {
       fulfill(returnStatus);
     }).catch(function (error) {
