@@ -34,7 +34,10 @@ function SoftwaresByUserReducer(state = initialState, action) {
   switch (action.type) {
     case SOFTWARES_BY_USER_GET_SOFTWARES:
       return Object.assign({}, state, {
-        softwares: action.softwares,
+        softwares: [
+          ...state.softwares,
+          action.softwares,
+        ],
       });
     case SOFTWARES_BY_USER_USERNAME:
       return Object.assign({}, state, {
