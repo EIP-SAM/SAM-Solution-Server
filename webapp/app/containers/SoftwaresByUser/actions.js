@@ -72,6 +72,7 @@ export function getInstalledSoftwaresRequest(username) {
 }
 
 socket.on('server_all_software_by_user', (data) => {
+  console.log(data);
   store.dispatch(getSoftwares(data));
 });
 
