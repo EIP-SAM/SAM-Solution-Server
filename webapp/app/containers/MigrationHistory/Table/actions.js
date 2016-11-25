@@ -32,7 +32,7 @@ export function getAllMigrationsRequest() {
           browserHistory.push('/login');
         }
         if (err || res.body.error) {
-          dispatch(getAllMigrations({ migrations: [] }));
+          dispatch(getAllMigrations([]));
         } else {
           dispatch(getAllMigrations(res.body.migrations));
         }

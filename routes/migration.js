@@ -110,8 +110,8 @@ module.exports = function initMigrationRoutes(app) {
   // - status
   // Except for the migrationId, each property can be undefined
   //
-  app.post('/api/logged-in/migration/admin/:migration_id/edit', function (req, res) {
-    let migrationObj = JSON.parse(req.body.migrationObj);
+  app.post('/api/logged-in/admin/migration/:migration_id/edit', function (req, res) {
+    let migrationObj = req.body.migrationObj;
 
     let promise = migrationController.editMigrationById(migrationObj);
 
@@ -131,7 +131,7 @@ module.exports = function initMigrationRoutes(app) {
   //
   // Delete migration by id
   //
-  app.delete('/api/logged-in/admin/:migration_id/delete', function (req, res) {
+  app.delete('/api/logged-in/admin/migration/:migration_id/delete', function (req, res) {
     let promise = migrationController.deleteMigrationById(req.params.migration_id);
 
     promise.then(function (migration) {

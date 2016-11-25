@@ -27,7 +27,7 @@ export default class Line extends React.Component {
   }
 
   getFormatedDate() {
-    return moment(this.props.values.migrationDate).format('YYYY MMMM Do HH:mm:ss');
+    return moment(this.props.values.migrationDate).format('YYYY MMMM Do HH:mm');
   }
 
   getActions() {
@@ -52,6 +52,7 @@ export default class Line extends React.Component {
             buttonType="link"
             icon="pencil"
             link=""
+            onClick={() => this.editMigration()}
           />
         </span>
       );
@@ -70,6 +71,12 @@ export default class Line extends React.Component {
       );
     }
     return (<span></span>);
+  }
+
+  editMigration() {
+    this.props.setSelectedUser(this.props.values.userId);
+    this.props.setSelectedImage(this.props.values.imageId);
+    this.props.showCreateMigrationPopup(true, this.props.values);
   }
 
   render() {
@@ -93,4 +100,7 @@ export default class Line extends React.Component {
 Line.propTypes = {
   index: React.PropTypes.number,
   values: React.PropTypes.object,
+  setSelectedUser: React.PropTypes.func,
+  setSelectedImage: React.PropTypes.func,
+  showCreateMigrationPopup: React.PropTypes.func,
 };
