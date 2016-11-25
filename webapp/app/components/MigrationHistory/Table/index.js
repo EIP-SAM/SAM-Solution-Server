@@ -6,7 +6,7 @@ import React from 'react';
 import { Table as TableBS } from 'react-bootstrap';
 import Tr from 'components/Tr';
 import Th from 'components/Th';
-import Line from './Line';
+import Line from 'containers/MigrationHistory/Table/Line';
 
 const columns = [
   { isLink: false, value: '#' },
@@ -25,10 +25,8 @@ export default class Table extends React.Component {
   }
 
   render() {
-    let statusFilter = this.props.statusFilter;
-    if (!statusFilter) {
-      statusFilter = 'all';
-    }
+    const migrations = (this.props.migrations) ? this.props.migrations : [];
+    const statusFilter = (this.props.statusFilter) ? this.props.statusFilter : 'all';
 
     return (
       <div>
@@ -38,7 +36,7 @@ export default class Table extends React.Component {
           </thead>
           <tbody>
             {
-              this.props.migrations.map((migration, index) => {
+              migrations.map((migration, index) => {
                 if (statusFilter === 'all' || migration.status === statusFilter) {
                   return <Line key={index} index={index} values={migration} />;
                 }

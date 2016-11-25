@@ -9,6 +9,10 @@ import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class Buttons extends React.Component {
+  onClick() {
+    this.props.showCreateMigrationPopup(true);
+  }
+
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
@@ -16,8 +20,14 @@ export default class Buttons extends React.Component {
           buttonBsStyle="info"
           buttonText="Create Migration"
           link="#"
+          onClick={() => this.onClick()}
         />
       </ButtonToolbar>
     );
   }
 }
+
+Buttons.propTypes = {
+  showCreateMigrationPopup: React.PropTypes.func,
+  setPopupToCreate: React.PropTypes.func,
+};

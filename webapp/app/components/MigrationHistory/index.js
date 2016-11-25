@@ -5,8 +5,9 @@
 import React from 'react';
 import { PageHeader } from 'react-bootstrap';
 import Filters from 'containers/MigrationHistory/Filters';
-import Buttons from 'components/MigrationHistory/Buttons';
+import Buttons from 'containers/MigrationHistory/Buttons';
 import Table from 'containers/MigrationHistory/Table';
+import Create from 'containers/MigrationHistory/Create';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class MigrationHistory extends React.Component {
@@ -17,6 +18,7 @@ export default class MigrationHistory extends React.Component {
         <Filters />
         <Buttons />
         <Table />
+        <Create />
       </div>
     );
   }
