@@ -157,3 +157,19 @@ module.exports.getNumberOfLogsGroupByLevel = function() {
     });
   });
 };
+
+//
+// Get the numbers of software actions group by action name
+//
+module.exports.getNumberOfSoftwareGroupByActionName = function() {
+  return new Promise(function (fulfill) {
+    logModel.find({moduleName: "Software"}, function(err, logs) {
+      if (err) {
+        logger.error(err);
+        fulfill({ error: true, data: err });
+      } else {
+        fulfill({ error: false, data: logs });
+      }
+    });
+  });
+};

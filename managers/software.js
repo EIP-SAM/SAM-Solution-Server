@@ -68,10 +68,10 @@ module.exports.searchSoftwareByUser = function (user, package, socket) {
 module.exports.installSoftwareByUser = function (user, package, socket) {
   softwareAdapter.launchAnInstall(user, package).then(function (listpackage) {
     socket.emit('server_install_software_by_user', listpackage);
-    logger.setUser({ id: '', name: user }).info(`${user} has installed ${package}`);
+    logger.setUser({ id: '', name: user }).info(`${user} has successfuly installed ${package}`);
   }).catch(function (err){
     socket.emit('server_install_software_by_user', err);
-    logger.setUser({ id: '', name: user }).error(`${user} failed to install ${package}`);
+    logger.setUser({ id: '', name: user }).error(`${user} has failed to install ${package}`);
   });
 }
 
@@ -81,10 +81,10 @@ module.exports.installSoftwareByUser = function (user, package, socket) {
 module.exports.updateSoftwareByUser = function (user, package, socket) {
   softwareAdapter.launchAnUpdate(user, package).then(function (listpackage) {
     socket.emit('server_update_software_by_user', listpackage);
-    logger.setUser({ id: '', name: user }).info(`${user} has updated ${package}`);
+    logger.setUser({ id: '', name: user }).info(`${user} has successfuly updated ${package}`);
   }).catch(function (err){
     socket.emit('server_update_software_by_user', err);
-    logger.setUser({ id: '', name: user }).error(`${user} failed to update ${package}`);
+    logger.setUser({ id: '', name: user }).error(`${user} has failed to update ${package}`);
   });
 }
 
@@ -94,9 +94,9 @@ module.exports.updateSoftwareByUser = function (user, package, socket) {
 module.exports.removeSoftwareByUser = function (user, package, socket) {
   softwareAdapter.launchARemove(user, package).then(function (listpackage) {
     socket.emit('server_remove_software_by_user', listpackage);
-    logger.setUser({ id: '', name: user }).info(`${user} has removed ${package}`);
+    logger.setUser({ id: '', name: user }).info(`${user} has successfuly removed ${package}`);
   }).catch(function (err){
     socket.emit('server_remove_software_by_user', err);
-    logger.setUser({ id: '', name: user }).error(`${user} failed to remove ${package}`);
+    logger.setUser({ id: '', name: user }).error(`${user} has failed to remove ${package}`);
   });
 }
