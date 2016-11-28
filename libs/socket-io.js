@@ -4,6 +4,7 @@ const uid = require('uid');
 const logger = require('../libs/bunyan').setModuleName('socket.io');
 
 const initWebappSocket = require('../websocket/webapp/index');
+const daemonCommandChecker = require('../websocket/daemon/daemonCommand');
 
 const CLIENT_TYPE_DEAMON = "daemon";
 const CLIENT_TYPE_WEBAPP = "webapp";
@@ -28,6 +29,8 @@ module.exports.init = function init(server) {
         socket.on('daemon_GetUserData', function (info) {
           socketArray[CLIENT_TYPE_DEAMON][info.username] = socket;
           logger.info('New client from daemon connected :', info.username)
+
+          daemonCommandChecker.check(info.username);
 
           socket.on('disconnect', function() {
             logger.info('Client disconnected from daemon :', info.username)

@@ -9,7 +9,9 @@ module.exports = function init() {
               require('./usersGroupsRelations').sync().then(function () {
                 require('./migration').sync().then(function() {
                   require('./image').sync().then(function() {
-                    fulfill();
+                    require('./daemonCommand').sync().then(function() {
+                      fulfill();
+                    });
                   });
                 });
               });
