@@ -34,19 +34,12 @@ module.exports.allSoftwaresByUser = function (user, socket) {
   softwareAdapter.launchListPackages(user)
     .then(function (listpackage) {
       listpackage.result.forEach (function (package){
-        softwareAdapter.launchAnUpdate(user, [package.packageName]).then(function (listupdate){
-          listupdate.result.forEach (function (updates) {
-            if (package.packageName == updates.packageName) {
-              package.updated = updates.updated;
-              socket.emit('server_all_software_by_user', package);
-            }
-          });
-        }).catch(function (err){
-          socket.emit('server_all_software_by_user', err);
-          logger.setUser({ id: '', name: user }).error(`${user} failed to update ${package}`);
-        });
+        socket.emit('server_all_software_by_user', package);
       });
-  });
+    }).catch(function (err){
+      socket.emit('server_all_software_by_user', err);
+      logger.setUser({ id: '', name: user }).error(`${user} failed to get all packages`);
+    });
 };
 
 //
