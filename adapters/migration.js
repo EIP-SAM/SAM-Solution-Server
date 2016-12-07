@@ -96,6 +96,7 @@ module.exports.getMigrationsGroupByStatus = function() {
     attributes: ['status'],
   })
 }
+
 //
 // Create a migration
 // @properties:
