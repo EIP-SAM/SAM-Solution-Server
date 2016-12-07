@@ -8,12 +8,13 @@ const migrationAdapter = require('../migration');
 //
 module.exports.getMigrations = function () {
   return new Promise(function(fulfill, reject) {
-    migrationAdapter.getMigrations().then(function (migrations) {
-      let dataset = migrations.map((elem, index) => (
+    migrationAdapter.getMigrationsGroupByStatus().then(function (migrations) {
+      let dataset = migrations.map((elem) => (
         {
-          status: elem.status,
+          title: elem.status,
+          value: elem.count,
         }
-      ));
+      ))
 
       let returnData = {
         complete: 1,
@@ -21,6 +22,8 @@ module.exports.getMigrations = function () {
         title: 'Pie: Migrations numbers by status',
         dataset: dataset,
       };
+
+      // console.log('dataset => ', returnData)
 
       fulfill(returnData);
     }).catch(function(err) {

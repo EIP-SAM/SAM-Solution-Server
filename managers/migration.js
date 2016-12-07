@@ -25,6 +25,13 @@ module.exports.getMigrationOrderByFilter = function (filterObj) {
 }
 
 //
+// Launch getMigrationsGroupByStatus method from adapters
+//
+module.exports.getMigrationsGroupByStatus = function () {
+  return migrationAdapter.getMigrationsGroupByStatus();
+}
+
+//
 // Launch createMigration method from adapters
 // @properties:
 // - userId

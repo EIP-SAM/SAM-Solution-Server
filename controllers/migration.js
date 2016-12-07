@@ -25,6 +25,13 @@ module.exports.getMigrationOrderByFilter = function (order) {
 }
 
 //
+// Launch getMigrationsGroupByStatus method from managers
+//
+module.exports.getMigrationsGroupByStatus = function () {
+  return migrationManager.getMigrationsGroupByStatus();
+}
+
+//
 // Launch createMigration method from managers
 // @properties:
 // - userId

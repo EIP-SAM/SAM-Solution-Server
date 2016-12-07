@@ -63,9 +63,28 @@ module.exports = function initMigrationRoutes(app) {
   });
 
   //
+  // Get migrations group by status
+  //
+  app.get('/api/logged-in/admin/migrations/statistics/status', function (req, res) {
+    let promise = migrationController.getMigrationsGroupByStatus();
+
+    promise.then(function (migrations) {
+      res.json({
+        migrations,
+      });
+    }).catch(function (err) {
+      logger.error(err);
+      res.json({
+        error: true,
+        err,
+      })
+    });
+  });
+
+  //
   // Get migration by id
   //
-  app.get('/api/logged-in/migration/admin/:migration_id', function (req, res) {
+  app.get('/api/logged-in/admin/migration/:migration_id', function (req, res) {
     let promise = migrationController.getMigrationById(req.params.migration_id);
 
     promise.then(function (migration) {
