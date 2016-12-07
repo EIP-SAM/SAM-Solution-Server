@@ -33,9 +33,7 @@ module.exports.allUsersInfo = function (socket) {
 module.exports.allSoftwaresByUser = function (user, socket) {
   softwareAdapter.launchListPackages(user)
     .then(function (listpackage) {
-      listpackage.result.forEach (function (package){
-        socket.emit('server_all_software_by_user', package);
-      });
+      socket.emit('server_all_software_by_user', listpackage);
     }).catch(function (err){
       socket.emit('server_all_software_by_user', err);
       logger.setUser({ id: '', name: user }).error(`${user} failed to get all packages`);
