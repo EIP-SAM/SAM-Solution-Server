@@ -11,16 +11,9 @@ import styles from 'components/Navbar/styles.css';
 /* eslint-disable react/prefer-stateless-function */
 export default class NavbarContainer extends React.Component {
   getNavbarLinkContainer(item, i) {
-    if (item.value !== 'Logout') {
-      return (
-        <LinkContainer key={`navItem-${i}`} to={{ pathname: item.pathname }}>
-          <NavItem eventKey={i} className={styles.navBarMenuItem}><Glyphicon glyph={item.glyphicon} className={styles.icon} />{item.value}</NavItem>
-        </LinkContainer>
-      );
-    }
     return (
-      <LinkContainer onClick={() => this.props.logoutRequest()} key={`navItem-${i}`} to={{ pathname: item.pathname }}>
-        <NavItem eventKey={i}><Glyphicon glyph="off" className={styles.icon} />{item.value}</NavItem>
+      <LinkContainer key={`navItem-${i}`} to={{ pathname: item.pathname }}>
+        <NavItem eventKey={i} className={styles.navBarMenuItem}><Glyphicon glyph={item.glyphicon} className={styles.icon} />{item.value}</NavItem>
       </LinkContainer>
     );
   }
