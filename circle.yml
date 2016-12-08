@@ -6,6 +6,12 @@ machine:
 ## Customize test commands
 test:
   pre:
+    - npm run lint
     - for f in *config.json.example; do cp "$f" "`echo $f | sed s/json.example/json/`"; done:
         pwd:
           config/
+  post:
+    - mkdir $CIRCLE_ARTIFACTS/json_output
+    - mv coverage/coverage.json $CIRCLE_ARTIFACTS/json_output
+    - mkdir $CIRCLE_ARTIFACTS/html_output
+    - mv coverage/lcov-report/* $CIRCLE_ARTIFACTS/html_output

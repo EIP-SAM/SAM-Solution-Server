@@ -1,5 +1,6 @@
 const daemonCmdAdapter = require('../../adapters/daemonCommand');
 const userAdapter = require('../../adapters/users');
+const logger = require('../../libs/bunyan').setModuleName('Daemon');
 
 const notificationDaemon = require('../../websocket/daemon/notification');
 

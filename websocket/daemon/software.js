@@ -40,8 +40,8 @@ module.exports.removePackages = function (userName, packages, onStatusChange) {
   return exec(userName, 'remove_packages', packages, onStatusChange);
 };
 
-module.exports.queryPackage = function (userName, package, onStatusChange) {
-  return exec(userName, 'query_package', package, onStatusChange);
+module.exports.queryPackage = function (userName, packageName, onStatusChange) {
+  return exec(userName, 'query_package', packageName, onStatusChange);
 };
 
 module.exports.listInstalledPackages = function (userName, onStatusChange) {

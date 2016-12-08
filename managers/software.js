@@ -43,51 +43,51 @@ module.exports.allSoftwaresByUser = function (user, socket) {
 //
 // Search a package
 //
-module.exports.searchSoftwareByUser = function (user, package, socket) {
-  softwareAdapter.launchAQuery(user, package).then(function (listpackage) {
+module.exports.searchSoftwareByUser = function (user, packageName, socket) {
+  softwareAdapter.launchAQuery(user, packageName).then(function (listpackage) {
     socket.emit('server_search_software_by_user', listpackage);
-    logger.setUser({ id: '', name: user }).info(`${user} has searched ${package}`);
+    logger.setUser({ id: '', name: user }).info(`${user} has searched ${packageName}`);
   }).catch(function (err){
     socket.emit('server_search_software_by_user', err);
-    logger.setUser({ id: '', name: user }).error(`${user} failed to search ${package}`);
+    logger.setUser({ id: '', name: user }).error(`${user} failed to search ${packageName}`);
   });
 }
 
 //
 // Install a package
 //
-module.exports.installSoftwareByUser = function (user, package, socket) {
-  softwareAdapter.launchAnInstall(user, [package]).then(function (listpackage) {
+module.exports.installSoftwareByUser = function (user, packageName, socket) {
+  softwareAdapter.launchAnInstall(user, [packageName]).then(function (listpackage) {
     socket.emit('server_install_software_by_user', listpackage);
-    logger.setUser({ id: '', name: user }).info(`${user} has successfuly installed ${package}`);
+    logger.setUser({ id: '', name: user }).info(`${user} has successfuly installed ${packageName}`);
   }).catch(function (err){
     socket.emit('server_install_software_by_user', err);
-    logger.setUser({ id: '', name: user }).error(`${user} has failed to install ${package}`);
+    logger.setUser({ id: '', name: user }).error(`${user} has failed to install ${packageName}`);
   });
 }
 
 //
 // Update a package
 //
-module.exports.updateSoftwareByUser = function (user, package, socket) {
-  softwareAdapter.launchAnUpdate(user, [package]).then(function (listpackage) {
+module.exports.updateSoftwareByUser = function (user, packageName, socket) {
+  softwareAdapter.launchAnUpdate(user, [packageName]).then(function (listpackage) {
     socket.emit('server_update_software_by_user', listpackage);
-    logger.setUser({ id: '', name: user }).info(`${user} has successfuly updated ${package}`);
+    logger.setUser({ id: '', name: user }).info(`${user} has successfuly updated ${packageName}`);
   }).catch(function (err){
     socket.emit('server_update_software_by_user', err);
-    logger.setUser({ id: '', name: user }).error(`${user} has failed to update ${package}`);
+    logger.setUser({ id: '', name: user }).error(`${user} has failed to update ${packageName}`);
   });
 }
 
 //
 // Remove package
 //
-module.exports.removeSoftwareByUser = function (user, package, socket) {
-  softwareAdapter.launchARemove(user, [package]).then(function (listpackage) {
+module.exports.removeSoftwareByUser = function (user, packageName, socket) {
+  softwareAdapter.launchARemove(user, [packageName]).then(function (listpackage) {
     socket.emit('server_remove_software_by_user', listpackage);
-    logger.setUser({ id: '', name: user }).info(`${user} has successfuly removed ${package}`);
+    logger.setUser({ id: '', name: user }).info(`${user} has successfuly removed ${packageName}`);
   }).catch(function (err){
     socket.emit('server_remove_software_by_user', err);
-    logger.setUser({ id: '', name: user }).error(`${user} has failed to remove ${package}`);
+    logger.setUser({ id: '', name: user }).error(`${user} has failed to remove ${packageName}`);
   });
 }

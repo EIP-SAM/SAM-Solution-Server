@@ -62,7 +62,7 @@ module.exports.initiateGraphs = function () {
 
 function generateColorBar(order, type)
 {
-  typeTable = [];
+  let typeTable = [];
   typeTable[0] = [];
   typeTable[1] = [];
 
@@ -85,7 +85,7 @@ function generateColorBar(order, type)
 
 function generateColorPie(order, type)
 {
-  typeTable = [];
+  let typeTable = [];
   typeTable[0] = [];
   typeTable[1] = [];
   typeTable[2] = [];
@@ -107,7 +107,7 @@ function generateColorPie(order, type)
 
 function generateColorDoughnut(order, type)
 {
-  typeTable = [];
+  let typeTable = [];
   typeTable[0] = [];
   typeTable[1] = [];
   typeTable[2] = [];
@@ -129,7 +129,7 @@ function generateColorDoughnut(order, type)
 
 function generateColorRadar(order, type)
 {
-  typeTable = [];
+  let typeTable = [];
   typeTable[0] = [];
   typeTable[1] = [];
 
@@ -158,7 +158,7 @@ function generateColorRadar(order, type)
 
 function generateColorRadar(order, type)
 {
-  typeTable = [];
+  let typeTable = [];
   typeTable[0] = [];
   typeTable[1] = [];
 
@@ -187,7 +187,7 @@ function generateColorRadar(order, type)
 
 // function generateColorPolar(order, type)
 // {
-//   typeTable = [];
+//   let typeTable = [];
 //   typeTable[0] = [];
 //   typeTable[1] = [];
 //   typeTable[2] = [];

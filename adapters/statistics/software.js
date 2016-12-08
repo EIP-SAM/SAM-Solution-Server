@@ -20,7 +20,7 @@ module.exports.numberOfSoftwaresFailActions = function() {
 //
 // Return the numbers of logs group by action name
 //
-numberOfSoftwaresGroupByActionName = function (status, title) {
+let numberOfSoftwaresGroupByActionName = function (status, title) {
   return new Promise(function(fulfill) {
     logsAdapters.getNumberOfSoftwareGroupByActionName().then(function (logs) {
       let logsData = logs.data;
@@ -42,7 +42,7 @@ numberOfSoftwaresGroupByActionName = function (status, title) {
   });
 };
 
-getNbSoftwareActions = function(logsData, action, status, dataset) {
+let getNbSoftwareActions = function(logsData, action, status, dataset) {
   var total = 0;
   logsData.forEach(function(curVal, index, logsData) {
     if (curVal.msg.indexOf(action) != -1 && curVal.msg.indexOf(status) != -1)
