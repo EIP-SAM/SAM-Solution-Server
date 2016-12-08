@@ -63,7 +63,7 @@ export default class NavbarContainer extends React.Component {
     }
 
     const dropdownItems = [
-      { pathname: `/edit-user/${userInfo.username}`, value: 'Profile', glyphicon: 'user' },
+      { pathname: `/edit-user/${userInfo.userId}`, value: 'Profile', glyphicon: 'user' },
       { pathname: '/login', value: 'Logout', glyphicon: 'off' },
     ];
 
