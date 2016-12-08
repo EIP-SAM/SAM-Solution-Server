@@ -43,6 +43,7 @@ export default class Line extends React.Component {
             buttonType="link"
             icon="trash"
             link=""
+            onClick={() => this.deleteMigration()}
           />
           <ButtonPopover
             id="edit_migration"
@@ -67,10 +68,15 @@ export default class Line extends React.Component {
           buttonType="link"
           icon="trash"
           link=""
+          onClick={() => this.deleteMigration()}
         />
       );
     }
     return (<span></span>);
+  }
+
+  deleteMigration() {
+    this.props.deleteMigration(this.props.values);
   }
 
   editMigration() {
@@ -103,4 +109,5 @@ Line.propTypes = {
   setSelectedUser: React.PropTypes.func,
   setSelectedImage: React.PropTypes.func,
   showCreateMigrationPopup: React.PropTypes.func,
+  deleteMigration: React.PropTypes.func,
 };
