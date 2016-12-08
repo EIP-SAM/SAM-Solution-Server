@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import Delete from 'components/MigrationHistory/Delete';
 import {
   setStatusDeleteMigrationModal,
+  deleteMigration,
 } from './actions';
 
 function mapStateToProps(state) {
@@ -18,6 +19,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     closeDeleteMigrationModal: () => dispatch(setStatusDeleteMigrationModal(false, null)),
+    deleteMigration: (migrationId) => dispatch(deleteMigration(migrationId)),
   };
 }
 

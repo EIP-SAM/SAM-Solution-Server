@@ -4,26 +4,58 @@
 
 import React from 'react';
 import {
-  Modal,
-  Button,
+  Row,
+  Col,
+  Label,
 } from 'react-bootstrap';
 import moment from 'moment';
+import styles from './styles.css';
+import statusLabel from 'components/MigrationHistory/statusToLabel.json';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class MigrationInfos extends React.Component {
-  getFormatedDate() {
-    return moment(this.props.migration.migrationDate).format('YYYY MMMM Do HH:mm');
+  getFormatedDate(migration) {
+    return moment(migration.migrationDate).format('YYYY MMMM Do HH:mm');
   }
+
+  getStatusLabel(migration) {
+    return (
+      <Label bsStyle={statusLabel[migration.status]}>
+        {migration.status}
+      </Label>
+    );
+  }
+
   render() {
     const migration = this.props.migration;
+
+    if (!migration) {
+      return (<div></div>);
+    }
+
     return (
-      <p>
-        <strong>Date:</strong>{this.getFormatedDate()}<br />
-        <strong>Status:</strong>{migration.status}<br />
-        <strong>User:</strong>{migration.user.name}<br />
-        <strong>Image:</strong>{migration.image.name}<br />
-        <strong>Comment:</strong>{migration.comment}<br />
-      </p>
+      <div>
+        <Row className={styles.infosRow}>
+          <Col sm={3} className={styles.infosLeft}>Date:</Col>
+          <Col sm={9}>{this.getFormatedDate(migration)}</Col>
+        </Row>
+        <Row className={styles.infosRow}>
+          <Col sm={3} className={styles.infosLeft}>Status:</Col>
+          <Col sm={9}>{this.getStatusLabel(migration)}</Col>
+        </Row>
+        <Row className={styles.infosRow}>
+          <Col sm={3} className={styles.infosLeft}>User:</Col>
+          <Col sm={9}>{migration.user.name}</Col>
+        </Row>
+        <Row className={styles.infosRow}>
+          <Col sm={3} className={styles.infosLeft}>Image:</Col>
+          <Col sm={9}>{migration.image.name}</Col>
+        </Row>
+        <Row className={styles.infosRow}>
+          <Col sm={3} className={styles.infosLeft}>Comment:</Col>
+          <Col sm={9}>{migration.comment}</Col>
+        </Row>
+      </div>
     );
   }
 }

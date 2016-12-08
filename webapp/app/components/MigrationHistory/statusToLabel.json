@@ -1,0 +1,5 @@
+{
+  "done": "success",
+  "in progress": "warning",
+  "planned": "primary"
+}
