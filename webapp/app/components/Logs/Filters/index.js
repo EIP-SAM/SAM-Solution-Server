@@ -99,10 +99,9 @@ export default class LogFilter extends React.Component {
               delete newFilters.findOpts.afterDate;
             }
             if (event.dateTwo !== null) {
-              const nextDay = moment(event.dateTwo, 'ddd MMM DD YYYY HH:mm:ss');
-              nextDay.set({ hour: 23, minute: 59, second: 59 });
+              const nextDay = moment(event.dateTwo).add(1, 'days').startOf('date').subtract(1,'second').utcOffset(event.dateTwo).toISOString();
 
-              newFilters.findOpts.beforeDate = nextDay.toDate().toString();
+              newFilters.findOpts.beforeDate = nextDay;
             } else {
               delete newFilters.findOpts.beforeDate;
             }
