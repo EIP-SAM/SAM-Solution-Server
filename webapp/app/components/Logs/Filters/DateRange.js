@@ -21,8 +21,8 @@ export default class DateRange extends React.Component {
     super(props);
     this.state = {
       specific: true,
-      dateOne: moment().startOf('day').toISOString(),
-      dateTwo: moment().startOf('day').toISOString(),
+      dateOne: moment().utcOffset(moment().toISOString()).startOf('date').toISOString(),
+      dateTwo: moment().utcOffset(moment().toISOString()).startOf('date').toISOString(),
     };
   }
 

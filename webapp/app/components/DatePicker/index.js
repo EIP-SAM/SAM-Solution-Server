@@ -42,7 +42,7 @@ export default class DatePicker extends React.Component {
       let newDate = e;
 
       if (newDate != null) {
-        newDate = moment(e).set({ hour: 0, minute: 0, seconde: 0 }).toISOString();
+        newDate = moment(newDate).utcOffset(newDate).startOf('date').toISOString();
       }
 
       if (this.state.date !== newDate) {
