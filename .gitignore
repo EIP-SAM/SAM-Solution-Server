@@ -44,5 +44,8 @@ tramp
 *.swp
 *.swo
 
+# VSCode workspace files
+.vscode
+
 # config
 *.config.json

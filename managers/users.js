@@ -541,7 +541,7 @@ function createUsers(users) {
             logger.setUser({ id: newUser.id, name: newUser.name }).info('New user created (by an administrator)');
             stopForEachPromise(obj, null, fulfill);
 
-          }).catch(function () {
+          }).catch(function (error) {
             logger.warn({ error: error }, 'Error during user update (by an administrator)');
             stopForEachPromise(obj, null, fulfill);
           });
@@ -587,7 +587,7 @@ function updateUsers(users) {
                 GroupsAdapter.reassignGroupsToUser(foundUser, user.groups).then(function () {
                   logger.setUser({ id: updatedUser.id, name: updatedUser.name }).info('User updated (by an administrator)');
                   stopForEachPromise(obj, null, fulfill);
-                }).catch(function () {
+                }).catch(function (error) {
                   logger.warn({ error: error }, 'Error during user update (by an administrator)');
                   stopForEachPromise(obj, null, fulfill);
                 });
@@ -665,7 +665,7 @@ module.exports.deleteUsers = function () {
   };
 };
 
-function retrieveUserFromId(id) {
+function retrieveUserFromId(req, id) {
   return new Promise(function (fulfill, reject) {
     UsersAdapter.findById(id).then(function (user) {
       if (user) {
@@ -692,14 +692,14 @@ module.exports.retrieveUser = function (errors) {
   return function (req, res) {
     if (req.query.id) {
       if (req.user.id == req.query.id) {
-        retrieveUserFromId(req.query.id).then(function (user) {
+        retrieveUserFromId(req, req.query.id).then(function (user) {
           return res.status(200).json(user);
         }).catch(function (code, error) {
           logger.setUser({ id: req.user.id, name: req.user.name }).error(error);
           return res.status(code).json({ error: error });
         });
       } else if (req.user.isAdmin) {
-        retrieveUserFromId(req.query.id).then(function (user) {
+        retrieveUserFromId(req, req.query.id).then(function (user) {
           return res.status(200).json(user);
         }).catch(function (code, error) {
           logger.setUser({ id: req.user.id, name: req.user.name }).error(error);
@@ -726,7 +726,7 @@ function updateUserFromId(user) {
               GroupsAdapter.reassignGroupsToUser(foundUser, user.groups).then(function () {
                 logger.setUser({ id: updatedUser.id, name: updatedUser.name }).info('User updated');
                 fulfill(updatedUser);
-              }).catch(function () {
+              }).catch(function (error) {
                 logger.warn({ error: error }, 'Error during user update');
                 reject({ code: 500, error: 'Internal server error' });
               });

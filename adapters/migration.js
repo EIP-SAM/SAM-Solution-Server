@@ -59,7 +59,7 @@ module.exports.getMigrationOrderByFilter = function(filterObj) {
 
   switch (filterObj.modelName) {
     case 'user':
-      orderObj.push(UserModel);
+      orderObj.push(UsersModel);
       break;
     case 'image':
       orderObj.push(ImageModel);

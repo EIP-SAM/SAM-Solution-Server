@@ -1,10 +1,10 @@
 //
 // Adapter SaveScheduled
 //
-SaveScheduledModel = require('../models/saveScheduled');
-UserModel = require('../models/users');
-SaveModel = require('../models/save');
-GroupModel = require('../models/groups');
+const SaveScheduledModel = require('../models/saveScheduled');
+const UserModel = require('../models/users');
+const SaveModel = require('../models/save');
+const GroupModel = require('../models/groups');
 
 //
 // Get all users with their last saves (savesScheduleds & saves)
@@ -206,7 +206,6 @@ module.exports.getSavesByDay = function () {
  var currentYear = new Date().getFullYear();
  var firstDay = new Date("Jan 01, "+ currentYear +" 01:00:00");
  var lastDay = new Date("Dec 31, " + currentYear + " 11:59:59");
- var date = new Date();
  return SaveModel.findAndCountAll({
      where: {
        isFinish: true,

@@ -1,9 +1,9 @@
 //
 // Adapter Restore
 //
-RestoreModel = require('../models/restore');
-UserModel = require('../models/users');
-GroupModel = require('../models/groups');
+const RestoreModel = require('../models/restore');
+const UserModel = require('../models/users');
+const GroupModel = require('../models/groups');
 
 //
 // Get all users with their last restoration

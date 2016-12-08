@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node server.js | ./node_modules/bunyan/bin/bunyan",
     "test": "node_modules/.bin/istanbul cover -x server.js -x '**/webapp/**' -x '**/routes/**' -x '**/spec/**' --include-all-sources node_modules/jasmine/bin/jasmine.js",
+    "lint": "node_modules/.bin/eslint .",
     "log_file": "cat ./log/error.log | ./node_modules/bunyan/bin/bunyan"
   },
   "repository": {
@@ -53,8 +54,6 @@
     "git-http-backend": "^1.0.2",
     "git-wrapper": "github:eip-sam/node-git-wrapper",
     "helmet": "^2.3.0",
-    "istanbul": "^0.4.2",
-    "jasmine": "^2.4.1",
     "mongoose": "^4.6.5",
     "mysql": "^2.12.0",
     "node-schedule": "^1.2.0",
@@ -68,5 +67,14 @@
   },
   "jshintConfig": {
     "esversion": 6
+  },
+  "devDependencies": {
+    "eslint": "^3.11.1",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.8.0",
+    "istanbul": "^0.4.2",
+    "jasmine": "^2.4.1"
   }
 }
