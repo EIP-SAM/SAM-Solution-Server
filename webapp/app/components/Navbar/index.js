@@ -2,7 +2,7 @@
 // Navbar
 //
 import React from 'react';
-import { Navbar, Nav, NavItem, Image, Glyphicon } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, Image, Glyphicon, NavDropdown, MenuItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import Logo from 'components/Navbar/logo_sam_solution.png';
 import styles from 'components/Navbar/styles.css';
@@ -21,6 +21,21 @@ export default class NavbarContainer extends React.Component {
     return (
       <LinkContainer onClick={() => this.props.logoutRequest()} key={`navItem-${i}`} to={{ pathname: item.pathname }}>
         <NavItem eventKey={i}><Glyphicon glyph="off" className={styles.icon} />{item.value}</NavItem>
+      </LinkContainer>
+    );
+  }
+
+  getNavbarDropDownMenu(item, i) {
+    if (item.value !== 'Logout') {
+      return (
+        <LinkContainer key={`dropdownItem-${i}`} to={{ pathname: item.pathname }}>
+          <MenuItem eventKey={`1.${i}`} className={styles.itemDropDown}><Glyphicon glyph={item.glyphicon} className={styles.icon} />{item.value}</MenuItem>
+        </LinkContainer>
+      );
+    }
+    return (
+      <LinkContainer onClick={() => this.props.logoutRequest()} key={`dropdownItem-${i}`} to={{ pathname: item.pathname }}>
+        <MenuItem eventKey={`1.${i}`} className={styles.itemDropDown}><Glyphicon glyph={item.glyphicon} className={styles.icon} />{item.value}</MenuItem>
       </LinkContainer>
     );
   }
@@ -46,7 +61,6 @@ export default class NavbarContainer extends React.Component {
     } else {
       navItems = [
         { pathname: '/dashboard', value: 'Dashboard', glyphicon: 'dashboard' },
-        { pathname: `/edit-user/${userInfo.username}`, value: 'Users', glyphicon: 'user' },
         { pathname: `/save/${userInfo.username}/${userInfo.userId}`, value: 'Save', glyphicon: 'floppy-disk' },
         { pathname: `/restore/${userInfo.username}`, value: 'Restore', glyphicon: 'repeat' },
         { pathname: '/migration/history', value: 'Migration', glyphicon: 'send' },
@@ -54,6 +68,11 @@ export default class NavbarContainer extends React.Component {
         { pathname: '#', value: 'Help', glyphicon: 'book' },
       ];
     }
+
+    const dropdownItems = [
+      { pathname: `/edit-user/${userInfo.username}`, value: 'Profile', glyphicon: 'user' },
+      { pathname: '/login', value: 'Logout', glyphicon: 'off' },
+    ];
 
     return (
       <Navbar inverse fixedTop className={styles.navbarStyle} role="navigation">
@@ -69,7 +88,11 @@ export default class NavbarContainer extends React.Component {
           <Navbar.Toggle />
         </Navbar.Header>
         <Nav pullRight className={styles.navBarRightButtonBlock}>
-          {this.getNavbarLinkContainer({ pathname: '/login', value: 'Logout' }, 1)}
+          <NavDropdown title={userInfo.username} eventKey={1}>
+            {dropdownItems.map((item, i) =>
+              this.getNavbarDropDownMenu(item, i)
+            )}
+          </NavDropdown>
         </Nav>
         <Navbar.Collapse>
           <Nav className={styles.navBarSideBar}>
