@@ -31,6 +31,11 @@ module.exports = function initMigrationRoutes(app) {
 
   //
   // Get migration order by filter
+  // @parameters:
+  // - filterObj, object containing:
+  //   - filterObj.modelName, if there is a foreignKey you have to put the model name
+  //   - filterObj.name, name of the filter
+  //   - filterObj.order, ASC or DESC
   //
   app.get('/api/logged-in/admin/migrations/filter', function (req, res) {
     if (req.query.filterObj === undefined) {
@@ -58,9 +63,28 @@ module.exports = function initMigrationRoutes(app) {
   });
 
   //
+  // Get migrations group by status
+  //
+  app.get('/api/logged-in/admin/migrations/statistics/status', function (req, res) {
+    let promise = migrationController.getMigrationsGroupByStatus();
+
+    promise.then(function (migrations) {
+      res.json({
+        migrations,
+      });
+    }).catch(function (err) {
+      logger.error(err);
+      res.json({
+        error: true,
+        err,
+      })
+    });
+  });
+
+  //
   // Get migration by id
   //
-  app.get('/api/logged-in/migration/admin/:migration_id', function (req, res) {
+  app.get('/api/logged-in/admin/migration/:migration_id', function (req, res) {
     let promise = migrationController.getMigrationById(req.params.migration_id);
 
     promise.then(function (migration) {
@@ -80,8 +104,10 @@ module.exports = function initMigrationRoutes(app) {
   // Create migration
   // @parameters:
   // - userId
+  // - imageId
   // - migrationDate
   // - status
+  // - comment
   // Except for the migrationId, each property can be undefined
   //
   app.post('/api/logged-in/admin/migration/add', function (req, res) {
@@ -106,8 +132,10 @@ module.exports = function initMigrationRoutes(app) {
   // @parameters:
   // - migrationId
   // - userId
+  // - imageId
   // - migrationDate
   // - status
+  // - comment
   // Except for the migrationId, each property can be undefined
   //
   app.post('/api/logged-in/admin/migration/:migration_id/edit', function (req, res) {

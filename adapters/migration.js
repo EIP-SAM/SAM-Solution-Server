@@ -87,6 +87,15 @@ module.exports.getMigrationOrderByFilter = function(filterObj) {
   });
 };
 
+//
+// Get migrations group by status
+//
+module.exports.getMigrationsGroupByStatus = function() {
+  return MigrationModel.count({
+    group: 'status',
+    attributes: ['status'],
+  })
+}
 
 //
 // Create a migration
