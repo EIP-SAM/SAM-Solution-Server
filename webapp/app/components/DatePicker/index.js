@@ -30,9 +30,9 @@ export default class DatePicker extends React.Component {
         this.props.onChange(this.props.value);
       }
     } else {
-      this.setState({ date: moment().toDate().toString() });
+      this.setState({ date: moment().toDate().toISOString() });
       if (this.props.onChange) {
-        this.props.onChange(moment().toDate().toString());
+        this.props.onChange(moment().toDate().toISOString());
       }
     }
   }
@@ -42,7 +42,7 @@ export default class DatePicker extends React.Component {
       let newDate = e;
 
       if (newDate != null) {
-        newDate = moment(e).set({ hour: 0, minute: 0, seconde: 0 }).toString();
+        newDate = moment(newDate).utcOffset(newDate).startOf('date').toISOString();
       }
 
       if (this.state.date !== newDate) {
