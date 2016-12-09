@@ -21,6 +21,7 @@ module.exports = function initExpress(conf) {
   app.use(function(req, res, next) {
     if (req.get('origin'))
       res.setHeader('Access-Control-Allow-Origin', req.get('origin'));
+    res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();

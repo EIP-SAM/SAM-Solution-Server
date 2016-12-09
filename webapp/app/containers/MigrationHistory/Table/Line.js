@@ -9,6 +9,9 @@ import {
   setSelectedUser,
   showCreateMigrationPopup,
 } from '../Create/actions';
+import {
+  setStatusDeleteMigrationModal,
+} from '../Delete/actions';
 
 function mapStateToProps() {
   return {
@@ -20,6 +23,7 @@ function mapDispatchToProps(dispatch) {
     setSelectedUser: (userId) => dispatch(setSelectedUser(userId)),
     setSelectedImage: (imageId) => dispatch(setSelectedImage(imageId)),
     showCreateMigrationPopup: (isPoppedUp, migrationEdited) => dispatch(showCreateMigrationPopup(isPoppedUp, migrationEdited)),
+    deleteMigration: (migration) => dispatch(setStatusDeleteMigrationModal(true, migration)),
   };
 }
 

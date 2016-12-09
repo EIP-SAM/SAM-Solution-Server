@@ -8,6 +8,7 @@ import Filters from 'containers/MigrationHistory/Filters';
 import Buttons from 'containers/MigrationHistory/Buttons';
 import Table from 'containers/MigrationHistory/Table';
 import Create from 'containers/MigrationHistory/Create';
+import Delete from 'containers/MigrationHistory/Delete';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class MigrationHistory extends React.Component {
@@ -19,6 +20,7 @@ export default class MigrationHistory extends React.Component {
         <Buttons />
         <Table />
         <Create />
+        <Delete />
       </div>
     );
   }
