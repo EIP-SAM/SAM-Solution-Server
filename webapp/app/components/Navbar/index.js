@@ -81,7 +81,7 @@ export default class NavbarContainer extends React.Component {
           <Navbar.Toggle />
         </Navbar.Header>
         <Nav pullRight className={styles.navBarRightButtonBlock}>
-          <NavDropdown title={userInfo.username} eventKey={1}>
+          <NavDropdown title={userInfo.username} eventKey={1} id="navbar-user-dropdown">
             {dropdownItems.map((item, i) =>
               this.getNavbarDropDownMenu(item, i)
             )}
