@@ -59,11 +59,6 @@ export function getUsername(username) {
   };
 }
 
-// socket.on('server_search_software_by_user', function(data) {
-//   console.log('server_search_software_by_user');
-//   console.log(data);
-// });
-
 export function getInstalledSoftwaresRequest(username) {
   const data = {
     username,
@@ -72,7 +67,9 @@ export function getInstalledSoftwaresRequest(username) {
 }
 
 socket.on('server_all_software_by_user', (data) => {
-  store.dispatch(getSoftwares(data));
+  if (!data.error) {
+    store.dispatch(getSoftwares(data));
+  }
 });
 
 export function installSoftwares(username, softwares) {

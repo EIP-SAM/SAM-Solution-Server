@@ -9,9 +9,12 @@
 //    }
 //
 
+import socket from 'utils/socket-io';
+import { store } from 'app.js';
 import {
   SOFTWARES_BY_USER_SEARCHBAR_CHANGE,
 } from './constants';
+import { getSoftwares } from 'containers/SoftwaresByUser/actions.js'
 
 export function searchbarChange(searchbar) {
   return {
@@ -19,3 +22,18 @@ export function searchbarChange(searchbar) {
     searchbar,
   };
 }
+
+export function searchSoftwareRequest(username, packageName) {
+  const data = {
+    username,
+    package: packageName,
+  };
+  socket.emit('webapp_search_software_by_user', data);
+}
+
+
+socket.on('server_search_software_by_user', function(data) {
+  if (!data.error) {
+    store.dispatch(getSoftwares(data));
+  }
+});

@@ -4,7 +4,6 @@
 
 const softwareAdapter = require('../adapters/software');
 const usersAdapter = require('../adapters/users');
-const usersManager = require('../managers/users');
 const logger = require('../libs/bunyan').setModuleName('Software');
 
 //
@@ -16,7 +15,6 @@ module.exports.allUsersInfo = function (socket) {
       users.forEach(function (user) {
       softwareAdapter.launchGetOperatingSystem(user.name)
       .then(function (listpackages) {
-          var username = {"name":user.name};
           listpackages.username = user.name;
           socket.emit('server_all_software', listpackages);
         }).catch(function (err){
