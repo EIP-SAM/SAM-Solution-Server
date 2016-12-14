@@ -63,7 +63,7 @@ export default class NavbarContainer extends React.Component {
     }
 
     const dropdownItems = [
-      { pathname: `/edit-user/${userInfo.username}`, value: 'Profile', glyphicon: 'user' },
+      { pathname: `/edit-user/${userInfo.userId}`, value: 'Profile', glyphicon: 'user' },
       { pathname: '/login', value: 'Logout', glyphicon: 'off' },
     ];
 
@@ -81,7 +81,7 @@ export default class NavbarContainer extends React.Component {
           <Navbar.Toggle />
         </Navbar.Header>
         <Nav pullRight className={styles.navBarRightButtonBlock}>
-          <NavDropdown title={userInfo.username} eventKey={1}>
+          <NavDropdown title={userInfo.username} eventKey={1} id="navbar-user-dropdown">
             {dropdownItems.map((item, i) =>
               this.getNavbarDropDownMenu(item, i)
             )}
