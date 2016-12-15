@@ -5,7 +5,7 @@
 import React from 'react';
 import { PageHeader } from 'react-bootstrap';
 import SoftwareTable from 'containers/Software/Table';
-import SoftwareFilters from 'containers/Software/Filters'
+import SoftwareFilters from 'containers/Software/Filters';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Software extends React.Component {

@@ -22,17 +22,17 @@ export class SoftwareTable extends React.Component {
 
     return (
       <div>
-        <Table responsive hover striped>
+        <Table responsive hover striped key={this.props.refresh}>
           <thead>
             <Tr items={names} component={Th} />
           </thead>
           <tbody>
             {this.props.users.map((user, index) =>
               <Tr
-                key={`item-${index}`} items={[
+                key={`item-${index}-${user.os}`} items={[
                   { isLink: false, value: user.id },
                   { isLink: true, link: `/software/${user.name}/${user.id}`, value: user.name },
-                  { isLink: false, value: 'Windows' }]} component={Td}
+                  { isLink: false, value: user.os }]} component={Td}
               />
             )}
           </tbody>
@@ -44,4 +44,5 @@ export class SoftwareTable extends React.Component {
 
 SoftwareTable.propTypes = {
   users: React.PropTypes.array,
+  refresh: React.PropTypes.number,
 };

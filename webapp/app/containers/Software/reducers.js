@@ -7,10 +7,12 @@ import SoftwareFiltersReducer from './Filters/reducers';
 
 import {
   SOFTWARE_USERS_GET_USERS,
+  SOFTWARE_USERS_REFRESH,
 } from './constants';
 
 const initialState = {
-  restores: [],
+  users: [],
+  refresh: 0,
 };
 
 function SoftwareReducer(state = initialState, action) {
@@ -18,6 +20,10 @@ function SoftwareReducer(state = initialState, action) {
     case SOFTWARE_USERS_GET_USERS:
       return Object.assign({}, state, {
         users: action.users,
+      });
+    case SOFTWARE_USERS_REFRESH:
+      return Object.assign({}, state, {
+        refresh: action.refresh,
       });
     default:
       return state;
