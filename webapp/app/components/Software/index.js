@@ -12,6 +12,7 @@ export class Software extends React.Component {
 
   componentDidMount() {
     this.props.getUsersRequest();
+    // this.props.getUsersOsRequest();
   }
 
   render() {
@@ -27,4 +28,5 @@ export class Software extends React.Component {
 
 Software.propTypes = {
   getUsersRequest: React.PropTypes.func,
+  getUsersOsRequest: React.PropTypes.func,
 };
