@@ -28,8 +28,8 @@ export default class Create extends React.Component {
         <Modal.Header closeButton>
           <Modal.Title>Create Migration</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <Form className={styles.form}>
+        <Modal.Body className="clearfix">
+          <Form>
             <Col sm={12} className={styles.isPlannedCol}>
               <StatusSelect />
             </Col>
