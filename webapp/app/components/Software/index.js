@@ -5,14 +5,13 @@
 import React from 'react';
 import { PageHeader } from 'react-bootstrap';
 import SoftwareTable from 'containers/Software/Table';
-import SoftwareFilters from 'containers/Software/Filters'
+import SoftwareFilters from 'containers/Software/Filters';
 
 /* eslint-disable react/prefer-stateless-function */
 export class Software extends React.Component {
 
   componentDidMount() {
     this.props.getUsersRequest();
-    // this.props.getUsersOsRequest();
   }
 
   render() {
@@ -28,5 +27,4 @@ export class Software extends React.Component {
 
 Software.propTypes = {
   getUsersRequest: React.PropTypes.func,
-  getUsersOsRequest: React.PropTypes.func,
 };
