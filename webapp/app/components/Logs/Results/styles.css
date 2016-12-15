@@ -4,8 +4,6 @@
 }
 
 .divTabLogsResults {
-  margin-bottom: 100px !important;
-  height: 700px;
   overflow-y: auto;
   border-radius: 4px !important;
 }
