@@ -37,13 +37,10 @@ export function getUsersOsRequest() {
 socket.on('server_all_software', (data) => {
   const users = store.getState().get('software').get('SoftwareReducer').users;
 
-  let i = 0;
-
   users.forEach((user) => {
     if (user.name === data.username) {
       user.os = data.operatingSystem;
     }
-    i++;
   });
 
   store.dispatch(getUsers(users));
