@@ -10,7 +10,6 @@ import { store } from 'app.js';
 
 import {
   SOFTWARE_USERS_GET_USERS,
-  SOFTWARE_USERS_GET_USERS_OS,
   SOFTWARE_USERS_REFRESH,
 } from './constants';
 
@@ -18,14 +17,6 @@ export function getUsers(users) {
   return {
     type: SOFTWARE_USERS_GET_USERS,
     users,
-  };
-}
-
-export function getUsersOs(os, userIndex) {
-  return {
-    type: SOFTWARE_USERS_GET_USERS_OS,
-    os,
-    userIndex,
   };
 }
 
