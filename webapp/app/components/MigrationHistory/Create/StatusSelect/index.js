@@ -18,26 +18,30 @@ export default class StatusSelect extends React.Component {
   render() {
     return (
       <div>
-        <FormGroup className={ styles.headerModal } controlId="migrationCreateIsPlanned" bsSize="small">
-          <ControlLabel>Time :</ControlLabel>
-          <RadioGroup
-            className={styles.isPlannedRadio}
-            placeholder={'Now'}
-            values={['Now', 'Planned']}
-            inline
-            block={false}
-          />
-        </FormGroup>
-        <FormGroup controlId="time" className="clearfix">
-          <Col sm={6}>
-            <ControlLabel>Date</ControlLabel>
-            <DatePicker />
-          </Col>
-          <Col sm={6}>
-            <ControlLabel>Time</ControlLabel>
-            <FormControl type="time" value={this.props.time} />
-          </Col>
-        </FormGroup>
+        <div className={ styles.headerModal }>
+          <FormGroup controlId="migrationCreateIsPlanned" bsSize="small">
+            <ControlLabel>Time :</ControlLabel>
+            <RadioGroup
+              className={styles.isPlannedRadio}
+              placeholder={'Now'}
+              values={['Now', 'Planned']}
+              inline
+              block={false}
+            />
+          </FormGroup>
+        </div>
+        <div>
+          <FormGroup controlId="time" className="clearfix">
+            <Col sm={6}>
+              <ControlLabel>Date</ControlLabel>
+              <DatePicker />
+            </Col>
+            <Col sm={6}>
+              <ControlLabel>Time</ControlLabel>
+              <FormControl type="time" value={this.props.time} />
+            </Col>
+          </FormGroup>
+        </div>
       </div>
     );
   }
