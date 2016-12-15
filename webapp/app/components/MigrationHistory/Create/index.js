@@ -30,7 +30,7 @@ export default class Create extends React.Component {
         </Modal.Header>
         <Modal.Body className="clearfix">
           <Form>
-            <Col sm={12} className={styles.isPlannedCol}>
+            <Col className={styles.isPlannedCol}>
               <StatusSelect />
             </Col>
             <Col sm={6}>
