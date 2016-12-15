@@ -14,9 +14,7 @@ import {
 function mapStateToProps(state) {
   return {
     username: state.get('softwaresByUser').get('SoftwaresByUserReducer').username,
-    softName: state.get('softwaresByUser').get('SoftwaresByUserReducer').softName,
-    alertMsg: state.get('softwaresByUser').get('SoftwaresByUserReducer').alertMsg,
-    typeAlert: state.get('softwaresByUser').get('SoftwaresByUserReducer').typeAlert,
+    alerts: state.get('softwaresByUser').get('SoftwaresByUserReducer').alerts,
     displayAlert: state.get('softwaresByUser').get('SoftwaresByUserReducer').displayAlert,
   };
 }

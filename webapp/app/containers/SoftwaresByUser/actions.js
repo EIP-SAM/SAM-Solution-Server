@@ -15,9 +15,7 @@ import store from 'app';
 import {
   SOFTWARES_BY_USER_GET_SOFTWARES,
   SOFTWARES_BY_USER_USERNAME,
-  SOFTWARES_BY_USER_ADDITION_ALERT,
-  SOFTWARES_BY_USER_UPDATE_ALERT,
-  SOFTWARES_BY_USER_DELETION_ALERT,
+  SOFTWARES_BY_USER_ALERT,
   SOFTWARES_BY_USER_RESET_ALERT,
 } from './constants';
 
@@ -27,21 +25,10 @@ export function resetAlert() {
   };
 }
 
-export function additionAlert() {
+export function createAlert(alert) {
   return {
-    type: SOFTWARES_BY_USER_ADDITION_ALERT,
-  };
-}
-
-export function updateAlert() {
-  return {
-    type: SOFTWARES_BY_USER_UPDATE_ALERT,
-  };
-}
-
-export function deletionAlert() {
-  return {
-    type: SOFTWARES_BY_USER_DELETION_ALERT,
+    type: SOFTWARES_BY_USER_ALERT,
+    alert,
   };
 }
 
@@ -69,6 +56,18 @@ export function getInstalledSoftwaresRequest(username) {
 socket.on('server_all_software_by_user', (data) => {
   if (!data.error) {
     store.dispatch(getSoftwares(data));
+  } else {
+    if (!data.error.err) {
+      store.dispatch(createAlert({
+        typeAlert: "danger",
+        alertMsg: 'An undefined error occured',
+      }));
+    } else {
+      store.dispatch(createAlert({
+        typeAlert: "danger",
+        alertMsg: data.error.err,
+      }));
+    }
   }
 });
 

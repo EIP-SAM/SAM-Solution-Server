@@ -34,6 +34,11 @@ module.exports.allSoftwaresByUser = (user, socket) => {
       socket.emit('server_all_software_by_user', listpackage);
     }).catch((err) => {
       socket.emit('server_all_software_by_user', err);
+      if (err === 'undefined') {
+        socket.emit('server_all_software_by_user', {error: {}});
+      } else {
+        socket.emit('server_all_software_by_user', {error: {err}});
+      }
       logger.setUser({ id: '', name: user }).error(`${user} failed to get all packages`);
     });
 };
