@@ -83,4 +83,8 @@ li > a {
   .navbarLogo {
     left: 0px;
   }
+
+  .navBarRightButtonBlock {
+    margin: 0px;
+  }
 }
