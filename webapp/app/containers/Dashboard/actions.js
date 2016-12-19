@@ -7,7 +7,6 @@ import { browserHistory } from 'react-router';
 import {
   DASHBOARD_GET_SAVE_NUMBER,
   DASHBOARD_GET_RESTORE_NUMBER,
-  DASHBOARD_GET_DEAMON_USER_CONNECTED,
 } from './constants';
 
 export function savesNumbers(saveNumbers) {
@@ -21,13 +20,6 @@ export function restoresNumbers(restoreNumbers) {
   return {
     type: DASHBOARD_GET_RESTORE_NUMBER,
     restoreNumbers,
-  };
-}
-
-export function deamonUsersConnected(deamonUserConnected) {
-  return {
-    type: DASHBOARD_GET_DEAMON_USER_CONNECTED,
-    deamonUserConnected,
   };
 }
 
@@ -55,18 +47,6 @@ export function getRestoresNumbers(username) {
       }
 
       dispatch(restoresNumbers(res.body.length));
-    });
-  };
-}
-
-export function getDeamonUsersConnected() {
-  return function returnDeamonUsersConnected(dispatch) {
-    return request.get('/api/logged-in/admin/deamon/connected')
-    .end((err, res) => {
-      if (err && res.statusCode === 401) {
-        browserHistory.push('/login');
-      }
-      dispatch(deamonUsersConnected(res.body.nbrConnected));
     });
   };
 }

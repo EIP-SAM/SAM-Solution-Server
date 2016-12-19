@@ -20,10 +20,6 @@ function dashboardReducer(state = initialState, action) {
       return Object.assign({}, state, {
         restoreNumbers: action.restoreNumbers,
       });
-    case DASHBOARD_GET_DEAMON_USER_CONNECTED:
-      return Object.assign({}, state, {
-        deamonUsersConnected: action.deamonUsersConnected,
-      });
     default:
       return state;
 
