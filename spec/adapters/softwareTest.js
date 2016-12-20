@@ -71,7 +71,7 @@ describe('launchARemove', function () {
   });
 });
 
-describe('queryPackage', function () {
+describe('launchAQuery', function () {
   var user;
   var packages;
 
@@ -81,7 +81,7 @@ describe('queryPackage', function () {
   });
 
   it('should return a promise', function () {
-    let software = softwareAdapter.queryPackage(user, packages);
+    let software = softwareAdapter.launchAQuery(user, packages);
 
     expect(typeof software.then === 'function').toBeTruthy();
   });
