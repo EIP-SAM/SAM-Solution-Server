@@ -26,11 +26,15 @@ export default class StatusSelect extends React.Component {
   }
 
   handleTimeChange(e) {
-    this.props.setCreateTime(moment(e.target.value, ['h:mm A']).format('HH:mm'));
+    if (!moment(e.target.value, ['h:mm A']).isValid()) {
+      this.props.setCreateTime('');
+    } else {
+      this.props.setCreateTime(moment(e.target.value, ['h:mm A']).format('HH:mm'));
+    }
   }
 
   render() {
-    const time = (this.props.time) ? this.props.time: moment().format('HH:mm');
+    const time = (this.props.time !== undefined) ? this.props.time: moment().format('HH:mm');
 
     return (
       <FormGroup controlId="time" className="clearfix">

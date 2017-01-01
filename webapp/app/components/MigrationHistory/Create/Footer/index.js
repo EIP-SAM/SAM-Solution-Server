@@ -67,8 +67,12 @@ export default class Footer extends React.Component {
     this.props.resetForm();
   }
 
-  isDisabled() {
+  isMigrateDisabled() {
     return (!this.props.userId || !this.props.imageId);
+  }
+
+  isCreateDisabled() {
+    return (!this.props.userId || !this.props.imageId || !this.props.date || this.props.time === '');
   }
 
   render() {
@@ -77,14 +81,14 @@ export default class Footer extends React.Component {
         <Button
           bsStyle="warning"
           onClick={() => this.onMigrateClick()}
-          disabled={this.isDisabled()}
+          disabled={this.isMigrateDisabled()}
         >
           Migrate now !
         </Button>
         <Button
           bsStyle="info"
           onClick={() => this.onCreateClick()}
-          disabled={this.isDisabled()}
+          disabled={this.isCreateDisabled()}
         >
           {this.getMainButtonText()}
         </Button>
