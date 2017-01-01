@@ -10,7 +10,7 @@ import moment from 'moment';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class Footer extends React.Component {
-  onClick() {
+  onCreateClick() {
     const timeSplit = this.props.time.split(':');
 
     if (!this.props.migrationEdited) {
@@ -33,6 +33,27 @@ export default class Footer extends React.Component {
     this.closeCreatePopup();
   }
 
+  onMigrateClick() {
+    if (!this.props.migrationEdited) {
+      this.props.createMigration({
+        userId: this.props.userId,
+        imageId: this.props.imageId,
+        status: 'in progress',
+        migrationDate: moment(),
+      });
+    } else {
+      this.props.editMigration({
+        migrationId: this.props.migrationEdited.id,
+        userId: this.props.userId,
+        imageId: this.props.imageId,
+        status: 'in progress',
+        migrationDate: moment(),
+      });
+    }
+
+    this.closeCreatePopup();
+  }
+
   getMainButtonText() {
     return (this.props.migrationEdited) ? 'Save Change' : 'Create';
   }
@@ -47,13 +68,18 @@ export default class Footer extends React.Component {
   }
 
   render() {
-    console.log(this.props.time);
     return (
       <div>
-        <Button bsStyle="warning" disabled={this.isDisabled()}>Migrate now !</Button>
+        <Button
+          bsStyle="warning"
+          onClick={() => this.onMigrateClick()}
+          disabled={this.isDisabled()}
+        >
+          Migrate now !
+        </Button>
         <Button
           bsStyle="info"
-          onClick={() => this.onClick()}
+          onClick={() => this.onCreateClick()}
           disabled={this.isDisabled()}
         >
           {this.getMainButtonText()}
