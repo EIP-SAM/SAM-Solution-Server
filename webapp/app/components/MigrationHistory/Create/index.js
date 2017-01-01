@@ -37,7 +37,6 @@ export default class Create extends React.Component {
   }
 
   render() {
-    const title =(<h3>warning</h3>)
     return (
       <Modal show={this.props.isPoppedUp} onHide={() => this.onHide()}>
         <Modal.Header closeButton>
