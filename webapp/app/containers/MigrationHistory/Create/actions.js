@@ -18,6 +18,8 @@ import {
   MIGRATION_HISTORY_GET_ALL_USERS,
   MIGRATION_HISTORY_CREATE_SET_USER,
   MIGRATION_HISTORY_CREATE_SET_IMAGE,
+  MIGRATION_HISTORY_CREATE_SET_TIME,
+  MIGRATION_HISTORY_CREATE_SET_DATE,
 } from './constants';
 
 export function showCreateMigrationPopup(isPoppedUp, migrationEdited) {
@@ -132,4 +134,19 @@ export function editMigration(migrationObj) {
         }
       })
   );
+}
+
+
+export function setCreateDate(date) {
+  return {
+    type: MIGRATION_HISTORY_CREATE_SET_DATE,
+    date,
+  };
+}
+
+export function setCreateTime(time) {
+  return {
+    type: MIGRATION_HISTORY_CREATE_SET_TIME,
+    time,
+  };
 }

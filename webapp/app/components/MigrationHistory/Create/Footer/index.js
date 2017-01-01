@@ -6,16 +6,19 @@ import React from 'react';
 import {
   Button,
 } from 'react-bootstrap';
+import moment from 'moment';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class Footer extends React.Component {
   onClick() {
+    const timeSplit = this.props.time.split(':');
+
     if (!this.props.migrationEdited) {
       this.props.createMigration({
         userId: this.props.userId,
         imageId: this.props.imageId,
-        status: 'done',
-        migrationDate: Date.now(),
+        status: 'planned',
+        migrationDate: moment(this.props.date).hours(timeSplit[0]).minutes(timeSplit[1]),
       });
     } else {
       this.props.editMigration({
@@ -23,9 +26,10 @@ export default class Footer extends React.Component {
         userId: this.props.userId,
         imageId: this.props.imageId,
         status: this.props.migrationEdited.status,
-        migrationDate: this.props.migrationEdited.migrationDate,
+        migrationDate: moment(this.props.date).hours(timeSplit[0]).minutes(timeSplit[1]),
       });
     }
+
     this.closeCreatePopup();
   }
 
@@ -45,6 +49,7 @@ export default class Footer extends React.Component {
   render() {
     return (
       <div>
+        <Button bsStyle="warning" disabled={this.isDisabled()}>Migrate now !</Button>
         <Button
           bsStyle="info"
           onClick={() => this.onClick()}
@@ -63,6 +68,8 @@ export default class Footer extends React.Component {
 Footer.propTypes = {
   userId: React.PropTypes.number,
   imageId: React.PropTypes.number,
+  date: React.PropTypes.string,
+  time: React.PropTypes.string,
   migrationEdited: React.PropTypes.object,
   createMigration: React.PropTypes.func,
   editMigration: React.PropTypes.func,

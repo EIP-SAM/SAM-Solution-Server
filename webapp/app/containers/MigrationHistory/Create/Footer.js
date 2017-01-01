@@ -15,6 +15,8 @@ function mapStateToProps(state) {
   return {
     userId: state.get('migrationHistory').get('create').userId,
     imageId: state.get('migrationHistory').get('create').imageId,
+    date: state.get('migrationHistory').get('create').date,
+    time: state.get('migrationHistory').get('create').time,    
     migrationEdited: state.get('migrationHistory').get('create').migrationEdited,
   };
 }
