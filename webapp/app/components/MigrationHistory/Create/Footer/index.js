@@ -47,6 +47,7 @@ export default class Footer extends React.Component {
   }
 
   render() {
+    console.log(this.props.time);
     return (
       <div>
         <Button bsStyle="warning" disabled={this.isDisabled()}>Migrate now !</Button>
