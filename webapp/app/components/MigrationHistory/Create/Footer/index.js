@@ -12,25 +12,29 @@ import moment from 'moment';
 export default class Footer extends React.Component {
   onCreateClick() {
     const timeSplit = this.props.time.split(':');
+    const newDate = moment(this.props.date).hours(timeSplit[0]).minutes(timeSplit[1]);
 
-    if (!this.props.migrationEdited) {
+    if (moment(newDate).isBefore(moment())) {
+      this.props.showPasteDateWarning();
+    }
+    else if (!this.props.migrationEdited) {
       this.props.createMigration({
         userId: this.props.userId,
         imageId: this.props.imageId,
         status: 'planned',
-        migrationDate: moment(this.props.date).hours(timeSplit[0]).minutes(timeSplit[1]),
+        migrationDate: newDate,
       });
+      this.closeCreatePopup();
     } else {
       this.props.editMigration({
         migrationId: this.props.migrationEdited.id,
         userId: this.props.userId,
         imageId: this.props.imageId,
         status: this.props.migrationEdited.status,
-        migrationDate: moment(this.props.date).hours(timeSplit[0]).minutes(timeSplit[1]),
+        migrationDate: newDate,
       });
+      this.closeCreatePopup();
     }
-
-    this.closeCreatePopup();
   }
 
   onMigrateClick() {
@@ -102,4 +106,6 @@ Footer.propTypes = {
   editMigration: React.PropTypes.func,
   showCreateMigrationPopup: React.PropTypes.func,
   resetForm: React.PropTypes.func,
+  showPasteDateWarning: React.PropTypes.func,
+  pasteDateWarning: React.PropTypes.bool,
 };
