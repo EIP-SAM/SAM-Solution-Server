@@ -32,7 +32,7 @@ export default class Filters extends React.Component {
           <Col componentClass={ControlLabel} sm={2}>
             Show :
           </Col>
-          <Col sm={4}>
+          <Col sm={10}>
             <RadioGroup
               onChange={(e) => this.props.setStatusFilter(e.props.children)}
               placeholder={status[0]}
