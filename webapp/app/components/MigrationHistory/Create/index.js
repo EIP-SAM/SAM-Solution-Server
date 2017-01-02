@@ -7,6 +7,7 @@ import {
   Modal,
   Form,
   Col,
+  Alert,
 } from 'react-bootstrap';
 
 import StatusSelect from 'containers/MigrationHistory/Create/StatusSelect';
@@ -22,6 +23,19 @@ export default class Create extends React.Component {
     this.props.resetForm();
   }
 
+  getPasteDateWarning() {
+    if (this.props.pasteDateWarning) {
+      return (
+        <Alert bsStyle="danger" onDismiss={() => this.props.hidePasteDateWarning()}>
+          <h4>Error !</h4>
+          <p>Date and time should be set in the future</p>
+        </Alert>
+      );
+    } else {
+      return (<span></span>);
+    }
+  }
+
   render() {
     return (
       <Modal show={this.props.isPoppedUp} onHide={() => this.onHide()}>
@@ -29,6 +43,7 @@ export default class Create extends React.Component {
           <Modal.Title>Create Migration</Modal.Title>
         </Modal.Header>
         <Modal.Body className="clearfix">
+          {this.getPasteDateWarning()}
           <Form>
             <Col className={styles.isPlannedCol}>
               <StatusSelect />
@@ -51,6 +66,8 @@ export default class Create extends React.Component {
 
 Create.propTypes = {
   isPoppedUp: React.PropTypes.bool,
+  pasteDateWarning: React.PropTypes.bool,
   showCreateMigrationPopup: React.PropTypes.func,
   resetForm: React.PropTypes.func,
+  hidePasteDateWarning: React.PropTypes.func,
 };

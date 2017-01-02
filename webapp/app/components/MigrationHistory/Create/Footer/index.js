@@ -6,26 +6,55 @@ import React from 'react';
 import {
   Button,
 } from 'react-bootstrap';
+import moment from 'moment';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class Footer extends React.Component {
-  onClick() {
-    if (!this.props.migrationEdited) {
+  onCreateClick() {
+    const timeSplit = this.props.time.split(':');
+    const newDate = moment(this.props.date).hours(timeSplit[0]).minutes(timeSplit[1]);
+
+    if (moment(newDate).isBefore(moment())) {
+      this.props.showPasteDateWarning();
+    }
+    else if (!this.props.migrationEdited) {
       this.props.createMigration({
         userId: this.props.userId,
         imageId: this.props.imageId,
-        status: 'done',
-        migrationDate: Date.now(),
+        status: 'planned',
+        migrationDate: newDate,
       });
+      this.closeCreatePopup();
     } else {
       this.props.editMigration({
         migrationId: this.props.migrationEdited.id,
         userId: this.props.userId,
         imageId: this.props.imageId,
         status: this.props.migrationEdited.status,
-        migrationDate: this.props.migrationEdited.migrationDate,
+        migrationDate: newDate,
+      });
+      this.closeCreatePopup();
+    }
+  }
+
+  onMigrateClick() {
+    if (!this.props.migrationEdited) {
+      this.props.createMigration({
+        userId: this.props.userId,
+        imageId: this.props.imageId,
+        status: 'in progress',
+        migrationDate: moment(),
+      });
+    } else {
+      this.props.editMigration({
+        migrationId: this.props.migrationEdited.id,
+        userId: this.props.userId,
+        imageId: this.props.imageId,
+        status: 'in progress',
+        migrationDate: moment(),
       });
     }
+
     this.closeCreatePopup();
   }
 
@@ -38,17 +67,28 @@ export default class Footer extends React.Component {
     this.props.resetForm();
   }
 
-  isDisabled() {
+  isMigrateDisabled() {
     return (!this.props.userId || !this.props.imageId);
+  }
+
+  isCreateDisabled() {
+    return (!this.props.userId || !this.props.imageId || !this.props.date || this.props.time === '');
   }
 
   render() {
     return (
       <div>
         <Button
+          bsStyle="warning"
+          onClick={() => this.onMigrateClick()}
+          disabled={this.isMigrateDisabled()}
+        >
+          Migrate now !
+        </Button>
+        <Button
           bsStyle="info"
-          onClick={() => this.onClick()}
-          disabled={this.isDisabled()}
+          onClick={() => this.onCreateClick()}
+          disabled={this.isCreateDisabled()}
         >
           {this.getMainButtonText()}
         </Button>
@@ -63,9 +103,13 @@ export default class Footer extends React.Component {
 Footer.propTypes = {
   userId: React.PropTypes.number,
   imageId: React.PropTypes.number,
+  date: React.PropTypes.string,
+  time: React.PropTypes.string,
   migrationEdited: React.PropTypes.object,
   createMigration: React.PropTypes.func,
   editMigration: React.PropTypes.func,
   showCreateMigrationPopup: React.PropTypes.func,
   resetForm: React.PropTypes.func,
+  showPasteDateWarning: React.PropTypes.func,
+  pasteDateWarning: React.PropTypes.bool,
 };

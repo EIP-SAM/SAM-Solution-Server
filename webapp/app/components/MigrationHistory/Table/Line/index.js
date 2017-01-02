@@ -75,6 +75,8 @@ export default class Line extends React.Component {
   }
 
   editMigration() {
+    this.props.setCreateDate(this.props.values.migrationDate);
+    this.props.setCreateTime(moment(this.props.values.migrationDate).format('HH:mm'));
     this.props.setSelectedUser(this.props.values.userId);
     this.props.setSelectedImage(this.props.values.imageId);
     this.props.showCreateMigrationPopup(true, this.props.values);
@@ -103,6 +105,8 @@ Line.propTypes = {
   values: React.PropTypes.object,
   setSelectedUser: React.PropTypes.func,
   setSelectedImage: React.PropTypes.func,
+  setCreateDate: React.PropTypes.func,
+  setCreateTime: React.PropTypes.func,
   showCreateMigrationPopup: React.PropTypes.func,
   deleteMigration: React.PropTypes.func,
 };

@@ -18,6 +18,9 @@ import {
   MIGRATION_HISTORY_GET_ALL_USERS,
   MIGRATION_HISTORY_CREATE_SET_USER,
   MIGRATION_HISTORY_CREATE_SET_IMAGE,
+  MIGRATION_HISTORY_CREATE_SET_TIME,
+  MIGRATION_HISTORY_CREATE_SET_DATE,
+  MIGRATION_HISTORY_SET_PASTEDATE_WARNING,
 } from './constants';
 
 export function showCreateMigrationPopup(isPoppedUp, migrationEdited) {
@@ -113,6 +116,9 @@ export function resetForm() {
     dispatch(setSelectedUser(undefined));
     dispatch(setSelectedImage(undefined));
     dispatch(showCreateMigrationPopup(false, undefined));
+    dispatch(setCreateTime(undefined));
+    dispatch(setCreateDate(undefined));
+    dispatch(setPasteDateWarning(false));
   };
 }
 
@@ -132,4 +138,26 @@ export function editMigration(migrationObj) {
         }
       })
   );
+}
+
+
+export function setCreateDate(date) {
+  return {
+    type: MIGRATION_HISTORY_CREATE_SET_DATE,
+    date,
+  };
+}
+
+export function setCreateTime(time) {
+  return {
+    type: MIGRATION_HISTORY_CREATE_SET_TIME,
+    time,
+  };
+}
+
+export function setPasteDateWarning(pasteDateWarning) {
+  return {
+    type: MIGRATION_HISTORY_SET_PASTEDATE_WARNING,
+    pasteDateWarning,
+  };
 }

@@ -14,6 +14,9 @@ import {
   MIGRATION_HISTORY_GET_ALL_USERS,
   MIGRATION_HISTORY_CREATE_SET_USER,
   MIGRATION_HISTORY_CREATE_SET_IMAGE,
+  MIGRATION_HISTORY_CREATE_SET_TIME,
+  MIGRATION_HISTORY_CREATE_SET_DATE,
+  MIGRATION_HISTORY_SET_PASTEDATE_WARNING,
 } from './constants';
 
 export default function MigrationHistoryCreateReducer(state = {}, action) {
@@ -38,6 +41,18 @@ export default function MigrationHistoryCreateReducer(state = {}, action) {
     case MIGRATION_HISTORY_CREATE_SET_IMAGE:
       return Object.assign({}, state, {
         imageId: action.imageId,
+      });
+    case MIGRATION_HISTORY_CREATE_SET_DATE:
+      return Object.assign({}, state, {
+        date: action.date,
+      });
+    case MIGRATION_HISTORY_CREATE_SET_TIME:
+      return Object.assign({}, state, {
+        time: action.time,
+      });
+    case MIGRATION_HISTORY_SET_PASTEDATE_WARNING:
+      return Object.assign({}, state, {
+        pasteDateWarning: action.pasteDateWarning,
       });
     default:
       return state;
