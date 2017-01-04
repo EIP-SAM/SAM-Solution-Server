@@ -34,6 +34,12 @@ li[class='navbar-brand'] > a:hover {
   text-decoration: none;
 }
 
+ul[class='dropdown-menu'] > li[class='active'] > a,
+ul[class='dropdown-menu'] > li[class='active'] > a:focus,
+ul[class='dropdown-menu'] > li[class='active'] > a:hover {
+  color: #333;
+}
+
 li[class='navbar-brand'] > a:focus,
 li[class='navbar-brand'] > a:active,
 li[class='navbar-brand'] > a:visited {
