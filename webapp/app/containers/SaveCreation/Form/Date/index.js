@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveCreationDate } from 'components/SaveCreation/Form/Date';
+import SaveCreationDate from 'components/SaveCreation/Form/Date';
 import { dateSave } from './actions';
 
 function mapStateToProps(state) {

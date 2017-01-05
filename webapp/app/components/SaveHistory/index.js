@@ -9,7 +9,7 @@ import SaveHistoryTable from 'containers/SaveHistory/Table';
 import styles from 'components/SaveHistory/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveHistory extends React.Component {
+export default class SaveHistory extends React.Component {
 
   componentDidMount() {
     const url = window.location.pathname.split('/');

@@ -9,7 +9,7 @@ import RestoreHistoryTable from 'containers/RestoreHistory/Table';
 import styles from 'components/RestoreHistory/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class RestoreHistory extends React.Component {
+export default class RestoreHistory extends React.Component {
 
   componentDidMount() {
     const username = window.location.pathname.split('/')[2];

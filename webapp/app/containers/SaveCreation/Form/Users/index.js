@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveCreationUsers } from 'components/SaveCreation/Form/Users';
+import SaveCreationUsers from 'components/SaveCreation/Form/Users';
 import {
   listUsers,
 } from './actions';

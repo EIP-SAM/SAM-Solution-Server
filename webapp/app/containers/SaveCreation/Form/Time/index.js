@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveCreationTime } from 'components/SaveCreation/Form/Time';
+import SaveCreationTime from 'components/SaveCreation/Form/Time';
 import {
   timeSave,
 } from './actions';

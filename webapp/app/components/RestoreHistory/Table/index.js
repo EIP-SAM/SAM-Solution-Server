@@ -13,7 +13,7 @@ import styles from './styles.css';
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
-export class RestoreHistoryTable extends React.Component {
+export default class RestoreHistoryTable extends React.Component {
 
   handleRestoreClick(restore) {
     const files = restore.files.split(',');

@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveHistoryTable } from 'components/SaveHistory/Table';
+import SaveHistoryTable from 'components/SaveHistory/Table';
 import { listUsers } from 'containers/SaveCreation/Form/Users/actions';
 import { dateSave } from 'containers/SaveCreation/Form/Date/actions';
 import { timeSave } from 'containers/SaveCreation/Form/Time/actions';

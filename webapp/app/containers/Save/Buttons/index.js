@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveButtons } from 'components/Save/Buttons';
+import SaveButtons from 'components/Save/Buttons';
 import { listUsers } from 'containers/SaveCreation/Form/Users/actions';
 import {
   timeSave,

@@ -7,7 +7,7 @@ import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveCreationTime extends React.Component {
+export default class SaveCreationTime extends React.Component {
   constructor(props) {
     super(props);
     this.handleTimeChange = this.handleTimeChange.bind(this);

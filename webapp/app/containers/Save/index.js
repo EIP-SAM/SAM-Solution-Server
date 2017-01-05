@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { Save } from 'components/Save';
+import Save from 'components/Save';
 import { getSavesRequest } from './actions';
 
 function mapStateToProps() {

@@ -3,8 +3,9 @@ import { ButtonToolbar } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
 import { LinkContainerButton } from 'components/Button';
 import styles from 'components/RestoreCreation/styles.css';
+
 /* eslint-disable react/prefer-stateless-function */
-export class RestoreCreationButtons extends React.Component {
+export default class RestoreCreationButtons extends React.Component {
 
   handleFormClick(event) {
     event.preventDefault();

@@ -10,7 +10,7 @@ import SaveCreationFilesSelect from 'containers/SaveCreation/Form/Files/Select';
 import styles from 'components/SaveCreation/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveCreationFiles extends React.Component {
+export default class SaveCreationFiles extends React.Component {
 
   componentDidMount() {
     if (this.props.files.length > 0) {

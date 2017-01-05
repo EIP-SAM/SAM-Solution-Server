@@ -14,7 +14,7 @@ import styles from './styles.css';
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveTable extends React.Component {
+export default class SaveTable extends React.Component {
 
   handleSaveClick(save) {
     this.props.showInstantSaveModal();

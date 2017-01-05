@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { RestoreCreationButtons } from 'components/RestoreCreation/Form/Buttons';
+import RestoreCreationButtons from 'components/RestoreCreation/Form/Buttons';
 import { saveErrorMsg } from 'containers/RestoreCreation/Form/Saves/actions';
 import { filesErrorMsg } from 'containers/RestoreCreation/Form/Files/actions';
 import {

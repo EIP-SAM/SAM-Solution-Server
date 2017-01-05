@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { RestoreCreationForm } from 'components/RestoreCreation/Form';
+import RestoreCreationForm from 'components/RestoreCreation/Form';
 import { getHistorySavesByUserRequest } from './actions';
 
 function mapStateToProps() {

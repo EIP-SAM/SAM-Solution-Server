@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveCreationButtons } from 'components/SaveCreation/Form/Buttons';
+import SaveCreationButtons from 'components/SaveCreation/Form/Buttons';
 import { userErrorMsg } from 'containers/SaveCreation/Form/Users/actions';
 import { dateErrorMsg } from 'containers/SaveCreation/Form/Date/actions';
 import { timeErrorMsg } from 'containers/SaveCreation/Form/Time/actions';

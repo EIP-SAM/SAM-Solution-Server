@@ -4,7 +4,7 @@
 
 import { connect } from 'react-redux';
 import { listFiles } from 'containers/RestoreCreation/Form/Files/actions';
-import { RestoreCreationSaves } from 'components/RestoreCreation/Form/Saves';
+import RestoreCreationSaves from 'components/RestoreCreation/Form/Saves';
 import { selectSave } from './actions';
 
 function mapStateToProps(state) {

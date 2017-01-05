@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveHistoryButtons } from 'components/SaveHistory/Buttons';
+import SaveHistoryButtons from 'components/SaveHistory/Buttons';
 import {
   timeSave,
   timeDisabled,

@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveCreationFiles } from 'components/SaveCreation/Form/Files';
+import SaveCreationFiles from 'components/SaveCreation/Form/Files';
 import { displayAddFile } from './actions';
 import { showModal } from './Modal/actions';
 

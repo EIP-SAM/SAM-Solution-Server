@@ -11,7 +11,7 @@ import Files from 'containers/SaveCreation/Form/Files';
 import Buttons from 'containers/SaveCreation/Form/Buttons';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveCreationForm extends React.Component {
+export default class SaveCreationForm extends React.Component {
   render() {
     return (
       <form>

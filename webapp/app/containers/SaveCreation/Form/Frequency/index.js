@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveCreationFrequency } from 'components/SaveCreation/Form/Frequency';
+import SaveCreationFrequency from 'components/SaveCreation/Form/Frequency';
 import { frequencySave } from './actions';
 
 function mapStateToProps(state) {

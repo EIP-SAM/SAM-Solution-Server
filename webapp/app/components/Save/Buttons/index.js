@@ -9,7 +9,7 @@ import styles from 'components/Save/Buttons/styles.css';
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveButtons extends React.Component {
+export default class SaveButtons extends React.Component {
 
   handleClickInstantSave() {
     this.props.listUsers(this.props.saves.map(save => (

@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveFiltersGroups } from 'components/Save/Filters/Groups';
+import SaveFiltersGroups from 'components/Save/Filters/Groups';
 import { filterUsers } from 'containers/Save/Filters/actions';
 import {
   getGroupsRequest,

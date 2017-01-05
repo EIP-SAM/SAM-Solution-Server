@@ -6,7 +6,7 @@ import styles from 'components/RestoreCreation/styles.css';
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
-export class RestoreCreationSaves extends React.Component {
+export default class RestoreCreationSaves extends React.Component {
   constructor(props) {
     super(props);
     this.handleFilesChange = this.handleFilesChange.bind(this);

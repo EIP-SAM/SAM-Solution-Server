@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveInstantSaveModal } from 'components/Save/Table/ModalInstantSave';
+import SaveInstantSaveModal from 'components/Save/Table/ModalInstantSave';
 import {
   resetStateForm,
   createSave,

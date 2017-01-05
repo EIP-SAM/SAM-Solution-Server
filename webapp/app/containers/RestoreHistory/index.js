@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { RestoreHistory } from 'components/RestoreHistory';
+import RestoreHistory from 'components/RestoreHistory';
 import { getHistoryRestoresByUserRequest } from './actions';
 
 function mapStateToProps(state) {

@@ -8,7 +8,7 @@ import { LinkContainerButton } from 'components/Button';
 import styles from 'components/SaveHistory/Table/ModalInstantSave/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveHistoryInstantSaveModal extends React.Component {
+export default class SaveHistoryInstantSaveModal extends React.Component {
 
   handleLaunchClick() {
     this.props.createSaveActionSaveHistory(this.props.users, this.props.date, this.props.time, this.props.frequency, this.props.files);

@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveFiltersTypeUser } from 'components/Save/Filters/TypeUser';
+import SaveFiltersTypeUser from 'components/Save/Filters/TypeUser';
 import { filterUsers } from 'containers/Save/Filters/actions';
 import getCurrentTypeUser from './actions';
 

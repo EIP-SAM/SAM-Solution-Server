@@ -5,7 +5,7 @@ import Option from 'components/Option';
 import styles from 'components/RestoreCreation/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class RestoreCreationFiles extends React.Component {
+export default class RestoreCreationFiles extends React.Component {
   constructor(props) {
     super(props);
     this.handleSelectedFiles = this.handleSelectedFiles.bind(this);

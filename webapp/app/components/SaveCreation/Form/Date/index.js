@@ -9,7 +9,7 @@ import styles from 'components/SaveCreation/styles.css';
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveCreationDate extends React.Component {
+export default class SaveCreationDate extends React.Component {
   constructor(props) {
     super(props);
     this.handleDateChange = this.handleDateChange.bind(this);

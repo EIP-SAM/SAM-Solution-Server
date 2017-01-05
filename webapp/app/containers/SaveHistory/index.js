@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveHistory } from 'components/SaveHistory';
+import SaveHistory from 'components/SaveHistory';
 import { listUsers } from 'containers/SaveCreation/Form/Users/actions';
 import { getHistorySavesByUserRequest } from './actions';
 

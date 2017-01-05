@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { RestoreCreationFiles } from 'components/RestoreCreation/Form/Files';
+import RestoreCreationFiles from 'components/RestoreCreation/Form/Files';
 import { selectFiles } from './actions';
 
 function mapStateToProps(state) {

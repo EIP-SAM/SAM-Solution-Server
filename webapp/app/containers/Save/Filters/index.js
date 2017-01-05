@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveFilters } from 'components/Save/Filters';
+import SaveFilters from 'components/Save/Filters';
 
 function mapStateToProps() {
   return {
