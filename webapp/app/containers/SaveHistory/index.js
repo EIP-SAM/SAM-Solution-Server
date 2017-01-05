@@ -4,8 +4,8 @@
 
 import { connect } from 'react-redux';
 import { SaveHistory } from 'components/SaveHistory';
-import { getHistorySavesByUserRequest } from './actions';
 import { listUsers } from 'containers/SaveCreation/Form/Users/actions';
+import { getHistorySavesByUserRequest } from './actions';
 
 function mapStateToProps(state) {
   return {

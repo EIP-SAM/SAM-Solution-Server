@@ -12,7 +12,7 @@
 import request from 'utils/request';
 import { push } from 'react-router-redux';
 import { browserHistory } from 'react-router';
-import { forgottenPassword } from './Email/actions.js';
+import { forgottenPassword } from './Email/actions';
 
 export function forgottenPasswordRequest(email) {
   return function returnForgottenPasswordRequest(dispatch) {

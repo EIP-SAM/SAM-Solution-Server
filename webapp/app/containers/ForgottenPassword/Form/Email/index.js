@@ -3,9 +3,9 @@
 //
 
 import { connect } from 'react-redux';
-import { onChangeData } from './actions';
 import { forgottenPasswordRequest } from 'containers/ForgottenPassword/Form/actions';
 import { ForgottenPasswordEmail } from 'components/ForgottenPassword/Form/Email';
+import { onChangeData } from './actions';
 
 function mapStateToProps(state) {
   return {

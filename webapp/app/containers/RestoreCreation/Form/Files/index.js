@@ -3,8 +3,8 @@
 //
 
 import { connect } from 'react-redux';
-import { selectFiles } from './actions';
 import { RestoreCreationFiles } from 'components/RestoreCreation/Form/Files';
+import { selectFiles } from './actions';
 
 function mapStateToProps(state) {
   return {

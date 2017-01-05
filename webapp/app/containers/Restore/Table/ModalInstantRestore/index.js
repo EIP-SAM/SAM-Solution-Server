@@ -4,11 +4,11 @@
 
 import { connect } from 'react-redux';
 import { RestoreInstantRestoreModal } from 'components/Restore/Table/ModalInstantRestore';
-import { hideInstantRestoreModal } from './actions';
 import {
   createRestoresRequest,
   resetStateForm,
 } from 'containers/RestoreCreation/Form/actions';
+import { hideInstantRestoreModal } from './actions';
 
 function mapStateToProps(state) {
   return {

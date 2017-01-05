@@ -3,6 +3,7 @@
 //
 
 import { connect } from 'react-redux';
+import LogFilters from 'components/Logs/Filters/';
 import {
   setFilters,
   resetFilters,
@@ -15,7 +16,6 @@ import {
   clearLogs,
   setSorts,
 } from './actions/result';
-import LogFilters from 'components/Logs/Filters/';
 
 function getDefaultKeyRerender(state) {
   return state.get('logs').get('filters').get('keyRerender') || 0;
