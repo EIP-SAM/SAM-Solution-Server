@@ -4,7 +4,7 @@
 //
 
 import { connect } from 'react-redux';
-import { NotificationsFormUsersButtons } from 'components/Notifications/Form/Users/Buttons';
+import NotificationsFormUsersButtons from 'components/Notifications/Form/Users/Buttons';
 import {
   addUsers,
   removeUsersSelected,

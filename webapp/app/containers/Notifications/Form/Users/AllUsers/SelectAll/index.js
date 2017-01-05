@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { NotificationsFormAllUsersSelectAll } from 'components/Notifications/Form/Users/AllUsers/SelectAll';
+import NotificationsFormAllUsersSelectAll from 'components/Notifications/Form/Users/AllUsers/SelectAll';
 import { removeUsers } from '../actions';
 import { addUsers } from '../../SelectedUsers/actions';
 

@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { StatisticFilterComponent } from 'components/Stats/StatisticFilter';
+import StatisticFilterComponent from 'components/Stats/StatisticFilter';
 import { getGraphListByType, clearGraph } from 'containers/Stats/StatisticGraph/actions';
 import { getFiltersFromServer } from './actions';
 

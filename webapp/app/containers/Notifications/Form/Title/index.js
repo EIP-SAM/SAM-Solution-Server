@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { NotificationsFormTitle } from 'components/Notifications/Form/Title';
+import NotificationsFormTitle from 'components/Notifications/Form/Title';
 import { titleChange } from './actions';
 
 

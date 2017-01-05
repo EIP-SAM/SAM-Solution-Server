@@ -2,8 +2,8 @@ import React from 'react';
 import styles from 'components/Stats/StatisticGraph/styles.css';
 const chartJs = require('react-chartjs');
 
-export class StatisticGraphComponent extends React.Component {
-
+/* eslint-disable react/prefer-stateless-function */
+export default class StatisticGraphComponent extends React.Component {
   componentDidMount() {
     this.props.getGraphListByType('User');
   }

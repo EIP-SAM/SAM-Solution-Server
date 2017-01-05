@@ -10,7 +10,7 @@ import NotificationsFormAllUsersSelectAll from 'containers/Notifications/Form/Us
 import styles from 'components/Notifications/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class NotificationsFormAllUsers extends React.Component {
+export default class NotificationsFormAllUsers extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeAllUsers = this.onChangeAllUsers.bind(this);

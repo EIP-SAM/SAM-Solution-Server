@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { NotificationsFormDescription } from 'components/Notifications/Form/Description';
+import NotificationsFormDescription from 'components/Notifications/Form/Description';
 import { descriptionChange } from './actions';
 
 

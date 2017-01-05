@@ -7,7 +7,7 @@ import { PageHeader } from 'react-bootstrap';
 import NotificationsForm from 'containers/Notifications/Form';
 
 /* eslint-disable react/prefer-stateless-function */
-export class Notifications extends React.Component {
+export default class Notifications extends React.Component {
   render() {
     return (
       <div>

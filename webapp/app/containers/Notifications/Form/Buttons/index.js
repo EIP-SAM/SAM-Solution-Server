@@ -4,7 +4,7 @@
 //
 
 import { connect } from 'react-redux';
-import { NotificationsFormButtons } from 'components/Notifications/Form/Buttons';
+import NotificationsFormButtons from 'components/Notifications/Form/Buttons';
 import { notificationRequest } from 'containers/Notifications/Form/actions';
 import { titleErrorMsg } from 'containers/Notifications/Form/Title/actions';
 import { descriptionErrorMsg } from 'containers/Notifications/Form/Description/actions';

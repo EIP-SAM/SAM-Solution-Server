@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { NotificationsFormAllUsers } from 'components/Notifications/Form/Users/AllUsers';
+import NotificationsFormAllUsers from 'components/Notifications/Form/Users/AllUsers';
 import { preSelectedUsersOnChange } from './actions';
 
 function mapStateToProps(state) {
