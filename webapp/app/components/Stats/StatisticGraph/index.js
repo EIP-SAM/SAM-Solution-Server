@@ -10,7 +10,7 @@ export class StatisticGraphComponent extends React.Component {
 
   render() {
     const graphs = [];
-    const allGraph = this.props.stats.stats;
+    const allGraph = this.props.stats;
 
     if (!allGraph) {
       return null;
@@ -69,5 +69,5 @@ export class StatisticGraphComponent extends React.Component {
 
 StatisticGraphComponent.propTypes = {
   getGraphListByType: React.PropTypes.func.isRequired,
-  stats: React.PropTypes.object.isRequired,
+  stats: React.PropTypes.array.isRequired,
 };
