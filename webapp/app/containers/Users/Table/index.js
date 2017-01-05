@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { UserTable } from 'components/Users/Table';
+import UserTable from 'components/Users/Table';
 import { getUsername } from 'containers/Users/actions';
 import { showInstantRebootModal } from './ModalRebootUser/actions';
 import {

@@ -7,7 +7,7 @@ import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap
 import styles from 'components/CreateUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class CreateUserFormEmail extends React.Component {
+export default class CreateUserFormEmail extends React.Component {
   constructor(props) {
     super(props);
     this.user = {};

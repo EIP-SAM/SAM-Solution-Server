@@ -9,7 +9,7 @@ import { LinkContainerButton } from 'components/Button';
 import styles from 'components/EditUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class EditUserFormButtons extends React.Component {
+export default class EditUserFormButtons extends React.Component {
 
   handleEditClick(event) {
     event.preventDefault();

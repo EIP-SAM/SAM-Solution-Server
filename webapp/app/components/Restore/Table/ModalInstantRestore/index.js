@@ -8,7 +8,7 @@ import { LinkContainerButton } from 'components/Button';
 import styles from 'components/RestoreHistory/Table/ModalInstantRestore/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class RestoreInstantRestoreModal extends React.Component {
+export default class RestoreInstantRestoreModal extends React.Component {
 
   handleLaunchClick() {
     this.props.createRestoresRequest(this.props.userId, this.props.selectedFiles, this.props.save.value, false);

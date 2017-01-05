@@ -8,7 +8,7 @@ import { LinkContainerButton } from 'components/Button';
 import styles from 'components/EditGroup/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class EditGroupFormUsersButtons extends React.Component {
+export default class EditGroupFormUsersButtons extends React.Component {
   handleAddClick() {
     this.props.removeUsers(this.props.users, this.props.preSelectedUsers);
     this.props.addUsersToGroup(this.props.selectedUsers.concat(this.props.preSelectedUsers));

@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { Restore } from 'components/Restore';
+import Restore from 'components/Restore';
 import { getRestoresRequest } from './actions';
 
 function mapStateToProps() {

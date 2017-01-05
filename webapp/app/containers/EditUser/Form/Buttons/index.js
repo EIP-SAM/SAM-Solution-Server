@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { EditUserFormButtons } from 'components/EditUser/Form/Buttons';
+import EditUserFormButtons from 'components/EditUser/Form/Buttons';
 import { editUserRequest } from 'containers/EditUser/Form/actions';
 import { usernameErrorMsg } from 'containers/EditUser/Form/Username/actions';
 import { emailErrorMsg } from 'containers/EditUser/Form/Email/actions';

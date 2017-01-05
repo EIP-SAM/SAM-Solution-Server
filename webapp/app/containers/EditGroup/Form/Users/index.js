@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { EditGroupFormUsers } from 'components/EditGroup/Form/Users';
+import EditGroupFormUsers from 'components/EditGroup/Form/Users';
 import getUsersRequest from './actions';
 
 function mapStateToProps() {

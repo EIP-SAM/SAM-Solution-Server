@@ -9,7 +9,7 @@ import { LinkContainerButton } from 'components/Button';
 import styles from 'components/EditGroup/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class EditGroupFormButtons extends React.Component {
+export default class EditGroupFormButtons extends React.Component {
   handleEditClick(event) {
     event.preventDefault();
     if (this.props.groupName !== '') {

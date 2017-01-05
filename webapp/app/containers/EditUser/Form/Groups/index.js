@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { EditUserFormGroups } from 'components/EditUser/Form/Groups';
+import EditUserFormGroups from 'components/EditUser/Form/Groups';
 import {
   getUserGroups,
   resetStateGroups,

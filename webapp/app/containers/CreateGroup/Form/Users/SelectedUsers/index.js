@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { CreateGroupFormSelectedUsers } from 'components/CreateGroup/Form/Users/SelectedUsers';
+import CreateGroupFormSelectedUsers from 'components/CreateGroup/Form/Users/SelectedUsers';
 import { unselectedUsersOnChange } from './actions';
 
 function mapStateToProps(state) {

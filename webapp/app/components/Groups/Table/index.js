@@ -12,7 +12,7 @@ import Td from 'components/Td';
 import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class GroupTable extends React.Component {
+export default class GroupTable extends React.Component {
   handleDeleteClick(group) {
     this.props.groupToDelete(group.name, group.id);
     this.props.showInstantDeleteModal();

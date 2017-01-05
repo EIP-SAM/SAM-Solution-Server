@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { UserRebootModal } from 'components/Users/Table/ModalRebootUser';
+import UserRebootModal from 'components/Users/Table/ModalRebootUser';
 import {
   hideInstantRebootModal,
   rebootUser,

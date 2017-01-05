@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { EditUserFormPasswordConfirmation } from 'components/EditUser/Form/PasswordConfirmation';
+import EditUserFormPasswordConfirmation from 'components/EditUser/Form/PasswordConfirmation';
 import { checkPasswordConfirmation } from './actions';
 
 function mapStateToProps(state) {

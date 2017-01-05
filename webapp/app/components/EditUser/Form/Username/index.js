@@ -7,7 +7,7 @@ import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap
 import styles from 'components/EditUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class EditUserFormUsername extends React.Component {
+export default class EditUserFormUsername extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeUsername = this.onChangeUsername.bind(this);

@@ -9,7 +9,7 @@ import { LinkContainerButton } from 'components/Button';
 import styles from 'components/CreateUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class CreateUserFormButtons extends React.Component {
+export default class CreateUserFormButtons extends React.Component {
 
   handleCreateClick(event) {
     event.preventDefault();

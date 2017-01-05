@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { CreateUserFormGroups } from 'components/CreateUser/Form/Groups';
+import CreateUserFormGroups from 'components/CreateUser/Form/Groups';
 import {
   getGroupsRequest,
   getSelectedGroup,

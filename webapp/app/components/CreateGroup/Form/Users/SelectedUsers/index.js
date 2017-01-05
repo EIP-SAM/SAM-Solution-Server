@@ -9,7 +9,7 @@ import Option from 'components/Option';
 import styles from 'components/CreateGroup/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class CreateGroupFormSelectedUsers extends React.Component {
+export default class CreateGroupFormSelectedUsers extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeSelectedUsers = this.onChangeSelectedUsers.bind(this);

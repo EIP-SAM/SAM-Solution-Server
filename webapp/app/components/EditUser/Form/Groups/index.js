@@ -8,7 +8,7 @@ import RadioGroup from 'components/RadioGroup';
 import styles from 'components/EditUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class EditUserFormGroups extends React.Component {
+export default class EditUserFormGroups extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeGroups = this.onChangeGroups.bind(this);

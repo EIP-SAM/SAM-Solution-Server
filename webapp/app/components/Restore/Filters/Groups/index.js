@@ -7,7 +7,7 @@ import { FormGroup, ControlLabel, FormControl, Col } from 'react-bootstrap';
 import styles from 'components/Restore/Filters/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class RestoreFiltersGroups extends React.Component {
+export default class RestoreFiltersGroups extends React.Component {
   constructor(props) {
     super(props);
     this.selectGroup = this.selectGroup.bind(this);

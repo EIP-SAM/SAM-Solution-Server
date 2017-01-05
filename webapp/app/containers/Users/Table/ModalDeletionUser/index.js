@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { UserDeletionModal } from 'components/Users/Table/ModalDeletionUser';
+import UserDeletionModal from 'components/Users/Table/ModalDeletionUser';
 import {
   deleteUser,
   hideInstantDeleteModal,

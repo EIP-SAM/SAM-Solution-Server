@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { CreateGroupFormGroupName } from 'components/CreateGroup/Form/GroupName';
+import CreateGroupFormGroupName from 'components/CreateGroup/Form/GroupName';
 import { groupNameChange } from './actions';
 
 function mapStateToProps(state) {

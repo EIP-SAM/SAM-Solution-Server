@@ -8,7 +8,7 @@ import { LinkContainerButton } from 'components/Button';
 import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class GroupsButton extends React.Component {
+export default class GroupsButton extends React.Component {
 
   render() {
     return (

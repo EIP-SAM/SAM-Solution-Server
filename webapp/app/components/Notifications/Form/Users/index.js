@@ -10,7 +10,7 @@ import Buttons from 'containers/Notifications/Form/Users/Buttons';
 import styles from 'components/Notifications/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class NotificationsFormUsers extends React.Component {
+export default class NotificationsFormUsers extends React.Component {
   componentWillMount() {
     this.props.getUsersRequest();
   }

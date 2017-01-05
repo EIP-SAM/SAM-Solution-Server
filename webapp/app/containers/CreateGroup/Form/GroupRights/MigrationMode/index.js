@@ -3,8 +3,8 @@
 //
 
 import { connect } from 'react-redux';
-import { CreateGroupFormGroupRightsMigrationMode } from 'components/CreateGroup/Form/GroupRights/MigrationMode';
-import { migrationModeChange } from './actions';
+import CreateGroupFormGroupRightsMigrationMode from 'components/CreateGroup/Form/GroupRights/MigrationMode';
+import migrationModeChange from './actions';
 
 function mapStateToProps() {
   return {

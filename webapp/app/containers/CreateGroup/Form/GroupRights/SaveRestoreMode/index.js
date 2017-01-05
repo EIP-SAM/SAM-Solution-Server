@@ -3,8 +3,8 @@
 //
 
 import { connect } from 'react-redux';
-import { CreateGroupFormGroupRightsSaveRestoreMode } from 'components/CreateGroup/Form/GroupRights/SaveRestoreMode';
-import { saveRestoreModeChange } from './actions';
+import CreateGroupFormGroupRightsSaveRestoreMode from 'components/CreateGroup/Form/GroupRights/SaveRestoreMode';
+import saveRestoreModeChange from './actions';
 
 function mapStateToProps() {
   return {

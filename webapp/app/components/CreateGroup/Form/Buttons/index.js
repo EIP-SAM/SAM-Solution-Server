@@ -9,7 +9,7 @@ import { LinkContainerButton } from 'components/Button';
 import styles from 'components/CreateGroup/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class CreateGroupFormButtons extends React.Component {
+export default class CreateGroupFormButtons extends React.Component {
   handleCreateClick(event) {
     event.preventDefault();
     if (this.props.groupName !== '') {

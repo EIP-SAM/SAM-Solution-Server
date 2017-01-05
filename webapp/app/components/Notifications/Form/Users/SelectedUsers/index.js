@@ -9,7 +9,7 @@ import Option from 'components/Option';
 import styles from 'components/Notifications/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class NotificationsFormSelectedUsers extends React.Component {
+export default class NotificationsFormSelectedUsers extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeSelectedUsers = this.onChangeSelectedUsers.bind(this);

@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { CreateGroupFormButtons } from 'components/CreateGroup/Form/Buttons';
+import CreateGroupFormButtons from 'components/CreateGroup/Form/Buttons';
 import { createGroupRequest } from 'containers/CreateGroup/Form/actions';
 import { groupNameErrorMsg } from 'containers/CreateGroup/Form/GroupName/actions';
 

@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { EditGroupFormUsersAllUsers } from 'components/EditGroup/Form/Users/AllUsers';
+import EditGroupFormUsersAllUsers from 'components/EditGroup/Form/Users/AllUsers';
 import { preSelectedUsersOnChange } from './actions';
 
 function mapStateToProps(state) {

@@ -7,7 +7,7 @@ import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap
 import styles from 'components/EditGroup/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class EditGroupFormGroupName extends React.Component {
+export default class EditGroupFormGroupName extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeGroupName = this.onChangeGroupName.bind(this);

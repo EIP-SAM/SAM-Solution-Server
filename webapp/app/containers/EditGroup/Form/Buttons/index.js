@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { EditGroupFormButtons } from 'components/EditGroup/Form/Buttons';
+import EditGroupFormButtons from 'components/EditGroup/Form/Buttons';
 import { editGroupRequest } from 'containers/EditGroup/Form/actions';
 import { groupNameErrorMsg } from 'containers/EditGroup/Form/GroupName/actions';
 

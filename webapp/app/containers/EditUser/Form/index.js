@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { EditUserForm } from 'components/EditUser/Form';
+import EditUserForm from 'components/EditUser/Form';
 import { getUserRequest } from './actions';
 import { getGroupsRequest } from './Groups/actions';
 

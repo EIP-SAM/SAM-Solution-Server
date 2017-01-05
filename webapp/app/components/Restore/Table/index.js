@@ -12,7 +12,7 @@ import RestoreInstantRestoreModal from 'containers/Restore/Table/ModalInstantRes
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
-export class RestoreTable extends React.Component {
+export default class RestoreTable extends React.Component {
 
   handleRestoreClick(restore) {
     const files = restore.restores[0].files.split(',');

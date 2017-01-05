@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { CreateUserFormEmail } from 'components/CreateUser/Form/Email';
+import CreateUserFormEmail from 'components/CreateUser/Form/Email';
 import { emailChange } from './actions';
 
 function mapStateToProps(state) {

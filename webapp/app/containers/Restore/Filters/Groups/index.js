@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { RestoreFiltersGroups } from 'components/Restore/Filters/Groups';
+import RestoreFiltersGroups from 'components/Restore/Filters/Groups';
 import { filterUsers } from 'containers/Restore/Filters/actions';
 import {
   getGroupsRequest,

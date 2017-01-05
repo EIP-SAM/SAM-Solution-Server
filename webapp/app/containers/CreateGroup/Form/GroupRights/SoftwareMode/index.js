@@ -3,8 +3,8 @@
 //
 
 import { connect } from 'react-redux';
-import { CreateGroupFormGroupRightsSoftwareMode } from 'components/CreateGroup/Form/GroupRights/SoftwareMode';
-import { softwareModeChange } from './actions';
+import CreateGroupFormGroupRightsSoftwareMode from 'components/CreateGroup/Form/GroupRights/SoftwareMode';
+import softwareModeChange from './actions';
 
 function mapStateToProps() {
   return {

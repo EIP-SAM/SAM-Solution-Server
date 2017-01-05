@@ -11,7 +11,7 @@
 
 import CREATE_GROUP_SAVE_RESTORE_MODE_CHANGE from './constants';
 
-export function saveRestoreModeChange(saveRestoreMode) {
+export default function saveRestoreModeChange(saveRestoreMode) {
   return {
     type: CREATE_GROUP_SAVE_RESTORE_MODE_CHANGE,
     saveRestoreMode,

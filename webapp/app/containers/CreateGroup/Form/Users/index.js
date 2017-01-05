@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { CreateGroupFormUsers } from 'components/CreateGroup/Form/Users';
+import CreateGroupFormUsers from 'components/CreateGroup/Form/Users';
 import { getUsersRequest } from './actions';
 
 function mapStateToProps() {
