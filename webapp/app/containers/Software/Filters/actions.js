@@ -11,6 +11,7 @@ export function getAllUsers(allUsers) {
   };
 }
 
+/* eslint no-restricted-syntax: ["off", "ForOfStatement"] */
 export function filterUsers(currentTypeUser, currentGroup, allUsers) {
   return function returnGetSoftwareRequest(dispatch) {
     let filteredUser = allUsers.map((user) => {

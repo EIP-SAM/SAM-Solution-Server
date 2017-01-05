@@ -26,6 +26,7 @@ export class SoftwaresByUserTable extends React.Component {
     this.forceUpdate();
   }
 
+  /* eslint no-restricted-syntax: ["off", "ForOfStatement"] */
   onChangeCheckbox(event, soft) {
     let selectedSoftwares = [];
     if (event.target.checked) {
