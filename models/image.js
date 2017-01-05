@@ -10,6 +10,11 @@ const Image = sequelize.define('image', {
     allowNull: false,
     unique: false,
   },
+  fileName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: false,
+  },
   operatingSystem: {
     type: Sequelize.STRING,
     allowNull: false,

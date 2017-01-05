@@ -40,8 +40,8 @@ module.exports.getMigrationsGroupByStatus = function () {
 // - status
 // - comment
 //
-module.exports.createMigration = function (migrationObj) {
-  return migrationManager.createMigration(migrationObj);
+module.exports.createMigration = function (migrationObj, isInstant) {
+  return migrationManager.createMigration(migrationObj, isInstant);
 }
 
 //
@@ -64,4 +64,11 @@ module.exports.editMigrationById = function (migrationObj) {
 //
 module.exports.deleteMigrationById = function (migrationId) {
   return migrationManager.deleteMigrationById(migrationId);
+}
+
+//
+// Handle regular migration check in database 
+//
+module.exports.initCheckMigration = function () {
+  migrationManager.initCheckMigration();
 }

@@ -112,7 +112,8 @@ module.exports = function initMigrationRoutes(app) {
   //
   app.post('/api/logged-in/admin/migration/add', function (req, res) {
     let migrationObj = req.body.migrationObj;
-    let promise = migrationController.createMigration(migrationObj);
+    let isInstant = req.body.isInstant;
+    let promise = migrationController.createMigration(migrationObj, isInstant);
 
     promise.then(function (migration) {
       res.json({

@@ -135,3 +135,30 @@ module.exports.deleteMigrationById = function(migrationId) {
     where: { id: migrationId },
   });
 };
+
+//
+// Get planned migration before now
+// @parameters:
+// - date
+//
+module.exports.getPlannedMigrationBeforeNow = function() {
+  return MigrationModel.findAll({
+    include: [{
+      model: UsersModel,
+      as: 'user',
+      attributes: ['id', 'name', 'email', 'isAdmin'],
+      where: { userId: Sequelize.col('user.id') },
+    }, {
+      model: ImageModel,
+      as: 'image',
+      attributes: ['id', 'name', 'fileName', 'operatingSystem', 'version'],
+      where: { imageId: Sequelize.col('image.id') },
+    }],
+    where: {
+      status: 'planned',
+      migrationDate: {
+        $lte: new Date(),
+      }
+    }
+  });
+};
