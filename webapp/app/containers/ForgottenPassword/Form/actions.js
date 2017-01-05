@@ -14,7 +14,7 @@ import { push } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 import { forgottenPassword } from './Email/actions';
 
-export function forgottenPasswordRequest(email) {
+export default function forgottenPasswordRequest(email) {
   return function returnForgottenPasswordRequest(dispatch) {
     return request
       .post('/api/public/user/recover_password')

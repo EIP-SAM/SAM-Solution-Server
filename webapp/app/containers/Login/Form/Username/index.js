@@ -3,8 +3,8 @@
 //
 
 import { connect } from 'react-redux';
-import { usernameChange } from './actions';
 import { LoginFormUsername } from 'components/Login/Form/Username';
+import { usernameChange } from './actions';
 
 function mapStateToProps(state) {
   return {
