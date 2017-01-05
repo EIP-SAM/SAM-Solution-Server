@@ -18,7 +18,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    searchbarChange: (searchbar) => dispatch(searchbarChange(searchbar)),
+    searchbarChange: searchbar => dispatch(searchbarChange(searchbar)),
     searchSoftwareRequest: (username, packageName) => searchSoftwareRequest(username, packageName),
   };
 }

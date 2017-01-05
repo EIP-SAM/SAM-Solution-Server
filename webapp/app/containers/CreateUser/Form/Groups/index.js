@@ -19,7 +19,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getGroupsRequest: () => dispatch(getGroupsRequest()),
-    getSelectedGroup: (group) => dispatch(getSelectedGroup(group)),
+    getSelectedGroup: group => dispatch(getSelectedGroup(group)),
   };
 }
 

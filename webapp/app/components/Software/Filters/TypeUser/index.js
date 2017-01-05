@@ -34,7 +34,7 @@ export class SoftwareFiltersTypeUser extends React.Component {
           />
         </Col>
       </FormGroup>
-   );
+    );
   }
 }
 

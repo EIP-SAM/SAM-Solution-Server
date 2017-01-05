@@ -32,7 +32,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setSorts: (sorts) => dispatch(setSorts(sorts)),
+    setSorts: sorts => dispatch(setSorts(sorts)),
   };
 }
 

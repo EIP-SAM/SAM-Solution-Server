@@ -30,7 +30,7 @@ export default class MigrationInfos extends React.Component {
     const migration = this.props.migration;
 
     if (!migration) {
-      return (<div></div>);
+      return (<div />);
     }
 
     return (

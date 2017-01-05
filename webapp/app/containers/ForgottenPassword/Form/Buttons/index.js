@@ -14,7 +14,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    forgottenPasswordRequest: (email) => dispatch(forgottenPasswordRequest(email)),
+    forgottenPasswordRequest: email => dispatch(forgottenPasswordRequest(email)),
   };
 }
 

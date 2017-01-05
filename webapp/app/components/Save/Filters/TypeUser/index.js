@@ -34,7 +34,7 @@ export class SaveFiltersTypeUser extends React.Component {
           />
         </Col>
       </FormGroup>
-   );
+    );
   }
 }
 

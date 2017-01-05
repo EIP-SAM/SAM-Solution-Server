@@ -16,8 +16,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    selectSave: (save) => dispatch(selectSave(save)),
-    listFiles: (files) => dispatch(listFiles(files)),
+    selectSave: save => dispatch(selectSave(save)),
+    listFiles: files => dispatch(listFiles(files)),
   };
 }
 

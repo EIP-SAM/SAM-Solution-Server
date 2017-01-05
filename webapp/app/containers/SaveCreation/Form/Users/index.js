@@ -19,7 +19,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    listUsers: (users) => dispatch(listUsers(users)),
+    listUsers: users => dispatch(listUsers(users)),
   };
 }
 

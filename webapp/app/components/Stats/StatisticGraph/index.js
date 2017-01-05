@@ -18,7 +18,7 @@ export class StatisticGraphComponent extends React.Component {
 
     const graphNumber = allGraph.length;
 
-    let graphOptions = {
+    const graphOptions = {
       animatable: true,
     };
 

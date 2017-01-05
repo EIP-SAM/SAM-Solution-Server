@@ -16,7 +16,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    displayAddFile: (canAddFile) => dispatch(displayAddFile(canAddFile)),
+    displayAddFile: canAddFile => dispatch(displayAddFile(canAddFile)),
     showAddFileModal: () => dispatch(showModal()),
   };
 }

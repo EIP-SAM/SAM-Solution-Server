@@ -32,7 +32,7 @@ export default class Create extends React.Component {
         </Alert>
       );
     } else {
-      return (<span></span>);
+      return (<span />);
     }
   }
 

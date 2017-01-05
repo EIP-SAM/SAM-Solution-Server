@@ -15,7 +15,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    persistenceChange: (persistence) => dispatch(persistenceChange(persistence)),
+    persistenceChange: persistence => dispatch(persistenceChange(persistence)),
   };
 }
 

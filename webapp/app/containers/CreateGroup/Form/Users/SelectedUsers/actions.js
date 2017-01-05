@@ -48,8 +48,8 @@ function removeSelectedUserFromGroup(index, nextIndex) {
 
 export function removeUsersFromGroup(selectedUsers, unselectedUsers) {
   return function returnRemoveUsers(dispatch) {
-    for (let unselectedUser of unselectedUsers) {
-      for (let selectedUser of selectedUsers) {
+    for (const unselectedUser of unselectedUsers) {
+      for (const selectedUser of selectedUsers) {
         if (selectedUser.id === unselectedUser.id) {
           const index = selectedUsers.indexOf(selectedUser);
           let nextIndex = index + 1;

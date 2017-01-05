@@ -19,8 +19,8 @@ export class SoftwaresByUserSearchbar extends React.Component {
     return (
       <FormGroup controlId="searchbar">
         <InputGroup>
-          <FormControl type="text" value={this.props.searchbar} placeholder="Search..." onChange={(event) => this.handleChangeSearchbar(event)}/>
-          <InputGroup.Addon onClick={(event) => this.handleValidationSearchbar(event)}><Glyphicon glyph="search" /></InputGroup.Addon>
+          <FormControl type="text" value={this.props.searchbar} placeholder="Search..." onChange={event => this.handleChangeSearchbar(event)} />
+          <InputGroup.Addon onClick={event => this.handleValidationSearchbar(event)}><Glyphicon glyph="search" /></InputGroup.Addon>
         </InputGroup>
       </FormGroup>
     );

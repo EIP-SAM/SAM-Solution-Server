@@ -36,20 +36,20 @@ export class RestoreHistoryTable extends React.Component {
             <Tr items={names} component={Th} />
           </thead>
           <tbody>
-          {this.props.restores.map((restore, index) => {
-            const displayButton = (restore.isFinish) ? '' : styles.undisplay;
-            const actions = [];
-            actions.push(<ButtonPopover key={`action-${0}`} id="relaunch-restore" trigger={['focus', 'hover']} placement="bottom" popoverContent="Relaunch Restore" buttonType="link" icon="repeat" buttonStyle={displayButton} onClick={() => this.handleRestoreClick(restore)} />);
-            return (
-              <Tr
-                key={`row-${index}`} items={[
+            {this.props.restores.map((restore, index) => {
+              const displayButton = (restore.isFinish) ? '' : styles.undisplay;
+              const actions = [];
+              actions.push(<ButtonPopover key={`action-${0}`} id="relaunch-restore" trigger={['focus', 'hover']} placement="bottom" popoverContent="Relaunch Restore" buttonType="link" icon="repeat" buttonStyle={displayButton} onClick={() => this.handleRestoreClick(restore)} />);
+              return (
+                <Tr
+                  key={`row-${index}`} items={[
                   { isLink: false, value: moment(restore.execDate).format('DD/MM/YYYY HH:mm') },
                   { isLink: false, value: (restore.isStart) ? ((restore.isFinish) ? ((restore.isSuccess) ? 'Succeeded' : 'Failed') : 'In progress') : 'Has been launch' },
                   { isLink: false, value: restore.files },
                   { isLink: false, value: actions }]} component={Td}
-              />
-            );
-          })}
+                />
+              );
+            })}
           </tbody>
         </Table>
         <RestoreHistoryInstantRestoreModal />

@@ -25,7 +25,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getUserInfo: () => dispatch(getUserInfo()),
-    setAppLoadingState: (isLoading) => dispatch(setAppLoadingState(isLoading)),
+    setAppLoadingState: isLoading => dispatch(setAppLoadingState(isLoading)),
   };
 }
 

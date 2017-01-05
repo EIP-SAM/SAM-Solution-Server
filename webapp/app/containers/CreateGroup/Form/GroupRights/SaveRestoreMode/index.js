@@ -13,7 +13,7 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
   return {
-    saveRestoreModeChange: (saveRestoreMode) => dispatch(saveRestoreModeChange(saveRestoreMode)),
+    saveRestoreModeChange: saveRestoreMode => dispatch(saveRestoreModeChange(saveRestoreMode)),
   };
 }
 

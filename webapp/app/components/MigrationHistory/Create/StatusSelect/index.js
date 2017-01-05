@@ -7,7 +7,7 @@ import {
   FormGroup,
   FormControl,
   ControlLabel,
-  Col
+  Col,
 } from 'react-bootstrap';
 import RadioGroup from 'components/RadioGroup';
 import DatePicker from 'components/DatePicker';
@@ -34,7 +34,7 @@ export default class StatusSelect extends React.Component {
   }
 
   render() {
-    const time = (this.props.time !== undefined) ? this.props.time: moment().format('HH:mm');
+    const time = (this.props.time !== undefined) ? this.props.time : moment().format('HH:mm');
 
     return (
       <FormGroup controlId="time" className="clearfix">
@@ -56,4 +56,4 @@ StatusSelect.propTypes = {
   time: React.PropTypes.string,
   setCreateDate: React.PropTypes.func,
   setCreateTime: React.PropTypes.func,
-}
+};

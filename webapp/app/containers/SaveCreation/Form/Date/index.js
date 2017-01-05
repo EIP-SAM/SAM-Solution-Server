@@ -16,7 +16,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    dateSave: (date) => dispatch(dateSave(date)),
+    dateSave: date => dispatch(dateSave(date)),
   };
 }
 

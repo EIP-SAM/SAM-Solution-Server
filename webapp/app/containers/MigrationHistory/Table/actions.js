@@ -24,7 +24,7 @@ export function getAllMigrations(migrations) {
 }
 
 export function getAllMigrationsRequest() {
-  return (dispatch) => (
+  return dispatch => (
     request
       .get('/api/logged-in/admin/migrations/')
       .end((err, res) => {

@@ -20,7 +20,7 @@ export function getUsersRequest(currentGroup) {
       if (res.body.users) {
         const selectedUsers = [];
         let users = res.body.users.map((user) => {
-          for (let group of user.groups) {
+          for (const group of user.groups) {
             if (group.name === currentGroup) {
               selectedUsers.push({ id: user.id, name: user.name });
               return undefined;
@@ -28,7 +28,7 @@ export function getUsersRequest(currentGroup) {
           }
           return { id: user.id, name: user.name };
         });
-        users = users.filter((n) => n !== undefined);
+        users = users.filter(n => n !== undefined);
         dispatch(getUsers(users));
         dispatch(addUsersToGroup(selectedUsers));
       }

@@ -46,8 +46,8 @@ function removeUser(index, nextIndex) {
 
 export function removeUsers(users, preSelectedUsers) {
   return function returnRemoveUsers(dispatch) {
-    for (let preSelectedUser of preSelectedUsers) {
-      for (let user of users) {
+    for (const preSelectedUser of preSelectedUsers) {
+      for (const user of users) {
         if (user.id === preSelectedUser.id) {
           const index = users.indexOf(user);
           let nextIndex = index + 1;

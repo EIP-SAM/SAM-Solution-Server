@@ -26,7 +26,7 @@ export class EditGroupFormButtons extends React.Component {
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Edit" onClick={(event) => this.handleEditClick(event)} />
+        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Edit" onClick={event => this.handleEditClick(event)} />
         <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
       </ButtonToolbar>
     );

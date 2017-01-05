@@ -76,7 +76,7 @@ export function getUserRequest(id) {
         dispatch(emailChange(res.body.email));
         let groupsName = [];
         if (res.body.groups.length > 0) {
-          groupsName = res.body.groups.map((group) => group.name);
+          groupsName = res.body.groups.map(group => group.name);
         }
         dispatch(getUserGroups(groupsName));
       });

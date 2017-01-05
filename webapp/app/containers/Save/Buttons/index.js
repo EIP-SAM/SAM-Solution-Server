@@ -28,13 +28,13 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    listUsers: (users) => dispatch(listUsers(users)),
-    dateSave: (date) => dispatch(dateSave(date)),
-    dateDisabled: (isDateDisabled) => dispatch(dateDisabled(isDateDisabled)),
-    timeSave: (time) => dispatch(timeSave(time)),
-    timeDisabled: (isTimeDisabled) => dispatch(timeDisabled(isTimeDisabled)),
-    frequencySave: (frequency) => dispatch(frequencySave(frequency)),
-    frequencyDisabled: (isFrequencyDisabled) => dispatch(frequencyDisabled(isFrequencyDisabled)),
+    listUsers: users => dispatch(listUsers(users)),
+    dateSave: date => dispatch(dateSave(date)),
+    dateDisabled: isDateDisabled => dispatch(dateDisabled(isDateDisabled)),
+    timeSave: time => dispatch(timeSave(time)),
+    timeDisabled: isTimeDisabled => dispatch(timeDisabled(isTimeDisabled)),
+    frequencySave: frequency => dispatch(frequencySave(frequency)),
+    frequencyDisabled: isFrequencyDisabled => dispatch(frequencyDisabled(isFrequencyDisabled)),
   };
 }
 

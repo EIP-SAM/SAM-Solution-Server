@@ -15,7 +15,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    frequencySave: (frequency) => dispatch(frequencySave(frequency)),
+    frequencySave: frequency => dispatch(frequencySave(frequency)),
   };
 }
 

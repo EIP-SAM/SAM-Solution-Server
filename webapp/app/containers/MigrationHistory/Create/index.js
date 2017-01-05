@@ -19,7 +19,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    showCreateMigrationPopup: (isPoppedUp) => dispatch(showCreateMigrationPopup(isPoppedUp)),
+    showCreateMigrationPopup: isPoppedUp => dispatch(showCreateMigrationPopup(isPoppedUp)),
     resetForm: () => dispatch(resetForm()),
     hidePasteDateWarning: () => dispatch(setPasteDateWarning(false)),
   };

@@ -18,7 +18,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUserGroups: (userGroups) => dispatch(getUserGroups(userGroups)),
+    getUserGroups: userGroups => dispatch(getUserGroups(userGroups)),
     resetStateGroups: () => dispatch(resetStateGroups()),
   };
 }

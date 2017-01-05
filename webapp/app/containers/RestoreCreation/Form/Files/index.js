@@ -16,7 +16,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    selectFiles: (selectedFiles) => dispatch(selectFiles(selectedFiles)),
+    selectFiles: selectedFiles => dispatch(selectFiles(selectedFiles)),
   };
 }
 

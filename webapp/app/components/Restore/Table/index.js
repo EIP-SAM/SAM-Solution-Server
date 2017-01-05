@@ -63,7 +63,7 @@ export class RestoreTable extends React.Component {
                     { isLink: false, value: '' },
                     { isLink: false, value: actions }]} component={Td}
                 />
-            );
+              );
             })}
           </tbody>
         </Table>

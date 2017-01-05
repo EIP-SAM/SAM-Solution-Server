@@ -34,7 +34,7 @@ export class UsersFiltersTypeUser extends React.Component {
           />
         </Col>
       </FormGroup>
-   );
+    );
   }
 }
 

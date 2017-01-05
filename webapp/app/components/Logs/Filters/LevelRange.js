@@ -58,7 +58,7 @@ export default class DateRange extends React.Component {
   }
 
   handleChange(name) {
-    return event => {
+    return (event) => {
       switch (name) {
         case 'mode':
           this.setStateAndNotify({ specific: event === 'Specific' });
@@ -87,7 +87,7 @@ export default class DateRange extends React.Component {
             values={['Specific', 'Range']}
             placeholder="Specific"
             onChange={this.handleChange('mode')}
-            />
+          />
         </FormGroup>
         <FormGroup validationState={this.setStatusStyle()}>
           <FormControl componentClass="select" onChange={this.handleChange('rangeMin')} placeholder={this.state.levelOne}>

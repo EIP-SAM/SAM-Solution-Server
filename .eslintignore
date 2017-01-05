@@ -1,3 +1,6 @@
-webapp/
+webapp/node_modules/
+webapp/docs/
+webapp/internals/
+webapp/server/
 spec/
 coverage/

@@ -30,7 +30,7 @@ export class RestoreCreationSaves extends React.Component {
     let savesOption = [];
     let errorMessage = '';
     if (this.props.allSaves.length > 0) {
-      saves = this.props.allSaves.map((save) => (
+      saves = this.props.allSaves.map(save => (
         { value: save.id, text: moment(save.execDate).format('DD/MM/YYYY HH:mm') }
       ));
       savesOption = saves.map((item, index) => (

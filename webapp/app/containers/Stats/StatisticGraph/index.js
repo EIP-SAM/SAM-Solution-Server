@@ -14,7 +14,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getGraphListByType: (type) => dispatch(getGraphListByType(type)),
+    getGraphListByType: type => dispatch(getGraphListByType(type)),
     getGraphFromServerByTypeAndName: (type, name) => dispatch(getGraphFromServerByTypeAndName(type, name)),
     clearGraph: () => dispatch(clearGraph()),
   };

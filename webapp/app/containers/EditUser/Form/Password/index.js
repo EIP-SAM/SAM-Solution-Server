@@ -15,7 +15,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    passwordChange: (password) => dispatch(passwordChange(password)),
+    passwordChange: password => dispatch(passwordChange(password)),
   };
 }
 

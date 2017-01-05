@@ -45,13 +45,13 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setFilters: (filters) => dispatch(setFilters(filters)),
+    setFilters: filters => dispatch(setFilters(filters)),
     resetFilters: () => dispatch(resetFilters()),
-    getFilteredLogs: (filters) => dispatch(getFilteredLogs(filters)),
+    getFilteredLogs: filters => dispatch(getFilteredLogs(filters)),
     clearLogs: () => dispatch(clearLogs()),
-    collapsePanel: (isCollapsed) => dispatch(collapsePanel(isCollapsed)),
+    collapsePanel: isCollapsed => dispatch(collapsePanel(isCollapsed)),
     incKeyRerender: () => dispatch(incKeyRerender()),
-    setSorts: (sort) => dispatch(setSorts(sort)),
+    setSorts: sort => dispatch(setSorts(sort)),
     resetPanel: () => dispatch(resetPanel()),
   };
 }

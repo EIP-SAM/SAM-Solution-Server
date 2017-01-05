@@ -23,11 +23,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    listUsers: (users) => dispatch(listUsers(users)),
-    dateSave: (date) => dispatch(dateSave(date)),
-    timeSave: (time) => dispatch(timeSave(time)),
-    frequencySave: (frequency) => dispatch(frequencySave(frequency)),
-    addAllFiles: (files) => dispatch(addAllFiles(files)),
+    listUsers: users => dispatch(listUsers(users)),
+    dateSave: date => dispatch(dateSave(date)),
+    timeSave: time => dispatch(timeSave(time)),
+    frequencySave: frequency => dispatch(frequencySave(frequency)),
+    addAllFiles: files => dispatch(addAllFiles(files)),
     showInstantSaveModal: () => dispatch(showInstantSaveModal()),
     showInstantRestoreModal: () => dispatch(showInstantRestoreModal()),
     instantRestore: (userId, files, saveId) => dispatch(instantRestore(userId, files, saveId)),

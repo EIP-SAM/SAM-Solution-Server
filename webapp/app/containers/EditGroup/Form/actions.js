@@ -64,9 +64,7 @@ export function getGroupRequest(groupId) {
 }
 
 export function editGroupRequest(groupId, groupName, saveRestoreMode, migrationMode, softwareMode, selectedUsers) {
-  const users = selectedUsers.map((user) => {
-    return user.id;
-  });
+  const users = selectedUsers.map(user => user.id);
 
   const group = {
     id: groupId,

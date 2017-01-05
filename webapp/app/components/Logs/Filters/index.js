@@ -50,7 +50,7 @@ export default class LogFilter extends React.Component {
   }
 
   handleChange(name) {
-    return event => {
+    return (event) => {
       const newFilters = this.props.filters;
       switch (name) {
         case 'number':
@@ -99,7 +99,7 @@ export default class LogFilter extends React.Component {
               delete newFilters.findOpts.afterDate;
             }
             if (event.dateTwo !== null) {
-              const nextDay = moment(event.dateTwo).add(1, 'days').startOf('date').subtract(1,'second').utcOffset(event.dateTwo).toISOString();
+              const nextDay = moment(event.dateTwo).add(1, 'days').startOf('date').subtract(1, 'second').utcOffset(event.dateTwo).toISOString();
 
               newFilters.findOpts.beforeDate = nextDay;
             } else {

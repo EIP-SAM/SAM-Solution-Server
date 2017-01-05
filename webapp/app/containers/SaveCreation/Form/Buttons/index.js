@@ -24,11 +24,11 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     createSave: (redirect, users, date, time, frequency, files) => dispatch(createSave(redirect, users, date, time, frequency, files)),
-    userErrorMsg: (userError) => dispatch(userErrorMsg(userError)),
-    dateErrorMsg: (dateError) => dispatch(dateErrorMsg(dateError)),
-    timeErrorMsg: (timeError) => dispatch(timeErrorMsg(timeError)),
-    frequencyErrorMsg: (frequencyError) => dispatch(frequencyErrorMsg(frequencyError)),
-    fileErrorMsg: (fileError) => dispatch(fileErrorMsg(fileError)),
+    userErrorMsg: userError => dispatch(userErrorMsg(userError)),
+    dateErrorMsg: dateError => dispatch(dateErrorMsg(dateError)),
+    timeErrorMsg: timeError => dispatch(timeErrorMsg(timeError)),
+    frequencyErrorMsg: frequencyError => dispatch(frequencyErrorMsg(frequencyError)),
+    fileErrorMsg: fileError => dispatch(fileErrorMsg(fileError)),
   };
 }
 

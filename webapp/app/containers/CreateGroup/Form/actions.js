@@ -27,9 +27,7 @@ export function resetStateForm() {
 }
 
 export function createGroupRequest(groupName, saveRestoreMode, migrationMode, softwareMode, selectedUsers) {
-  const users = selectedUsers.map((user) => {
-    return user.id;
-  });
+  const users = selectedUsers.map(user => user.id);
 
   const groups = [{
     name: groupName,

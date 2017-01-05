@@ -14,7 +14,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    migrationModeChange: (migrationMode) => dispatch(migrationModeChange(migrationMode)),
+    migrationModeChange: migrationMode => dispatch(migrationModeChange(migrationMode)),
   };
 }
 

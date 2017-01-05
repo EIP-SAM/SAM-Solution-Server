@@ -16,7 +16,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    descriptionChange: (description) => dispatch(descriptionChange(description)),
+    descriptionChange: description => dispatch(descriptionChange(description)),
   };
 }
 

@@ -15,7 +15,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    usernameChange: (username) => dispatch(usernameChange(username)),
+    usernameChange: username => dispatch(usernameChange(username)),
   };
 }
 

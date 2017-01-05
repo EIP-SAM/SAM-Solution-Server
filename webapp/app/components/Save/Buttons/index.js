@@ -12,7 +12,7 @@ const moment = require('moment');
 export class SaveButtons extends React.Component {
 
   handleClickInstantSave() {
-    this.props.listUsers(this.props.saves.map((save) => (
+    this.props.listUsers(this.props.saves.map(save => (
       { id: save.id, name: save.name }
     )));
     this.props.dateSave(moment().format('DD/MM/YYYY'));
@@ -24,7 +24,7 @@ export class SaveButtons extends React.Component {
   }
 
   handleClickSaveScheduled() {
-    this.props.listUsers(this.props.saves.map((save) => (
+    this.props.listUsers(this.props.saves.map(save => (
       { id: save.id, name: save.name }
     )));
   }

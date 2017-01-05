@@ -31,7 +31,7 @@ export class NotificationsFormSelectedUsers extends React.Component {
     let selectedUsersOption = [];
 
     if (this.props.selectedUsers.length > 0) {
-      selectedUsers = this.props.selectedUsers.map((user) => (
+      selectedUsers = this.props.selectedUsers.map(user => (
         { value: user.id, text: user.name }
       ));
       selectedUsersOption = selectedUsers.map((item, index) => (

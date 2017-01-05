@@ -23,8 +23,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getSavesNumbers: (username) => dispatch(getSavesNumbers(username)),
-    getRestoresNumbers: (username) => dispatch(getRestoresNumbers(username)),
+    getSavesNumbers: username => dispatch(getSavesNumbers(username)),
+    getRestoresNumbers: username => dispatch(getRestoresNumbers(username)),
     getDeamonUsersConnected: () => dispatch(getDeamonUsersConnected()),
   };
 }

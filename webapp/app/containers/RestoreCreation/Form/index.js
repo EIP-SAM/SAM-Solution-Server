@@ -13,7 +13,7 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getHistorySavesByUserRequest: (username) => dispatch(getHistorySavesByUserRequest(username)),
+    getHistorySavesByUserRequest: username => dispatch(getHistorySavesByUserRequest(username)),
   };
 }
 

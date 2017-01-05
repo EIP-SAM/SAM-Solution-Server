@@ -13,7 +13,7 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
   return {
-    softwareModeChange: (softwareMode) => dispatch(softwareModeChange(softwareMode)),
+    softwareModeChange: softwareMode => dispatch(softwareModeChange(softwareMode)),
   };
 }
 

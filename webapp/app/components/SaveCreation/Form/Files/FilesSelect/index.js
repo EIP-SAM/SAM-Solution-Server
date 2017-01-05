@@ -20,7 +20,7 @@ export class SaveCreationFilesSelect extends React.Component {
     let options = [];
 
     if (this.props.files) {
-      const files = this.props.files.map((file) => (
+      const files = this.props.files.map(file => (
         { isActive: false, value: file, text: file }
       ));
 

@@ -16,7 +16,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     removeUsers: (users, preSelectedUsers) => dispatch(removeUsers(users, preSelectedUsers)),
-    addUsers: (users) => dispatch(addUsers(users)),
+    addUsers: users => dispatch(addUsers(users)),
   };
 }
 

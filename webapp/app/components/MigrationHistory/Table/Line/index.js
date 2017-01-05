@@ -67,7 +67,7 @@ export default class Line extends React.Component {
         />
       );
     }
-    return (<span></span>);
+    return (<span />);
   }
 
   deleteMigration() {

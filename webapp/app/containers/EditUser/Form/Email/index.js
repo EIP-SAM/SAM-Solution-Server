@@ -15,7 +15,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    emailChange: (email) => dispatch(emailChange(email)),
+    emailChange: email => dispatch(emailChange(email)),
   };
 }
 

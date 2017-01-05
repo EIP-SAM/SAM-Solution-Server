@@ -22,8 +22,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     createRestoresRequest: (userId, selectedFiles, saveId, redirect) => dispatch(createRestoresRequest(userId, selectedFiles, saveId, redirect)),
-    saveErrorMsg: (saveError) => dispatch(saveErrorMsg(saveError)),
-    filesErrorMsg: (filesError) => dispatch(filesErrorMsg(filesError)),
+    saveErrorMsg: saveError => dispatch(saveErrorMsg(saveError)),
+    filesErrorMsg: filesError => dispatch(filesErrorMsg(filesError)),
     resetStateForm: () => dispatch(resetStateForm()),
   };
 }

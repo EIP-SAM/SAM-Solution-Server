@@ -32,7 +32,7 @@ export class NotificationsFormAllUsers extends React.Component {
     let usersOption = [];
 
     if (this.props.users.length > 0) {
-      users = this.props.users.map((user) => (
+      users = this.props.users.map(user => (
         { value: user.id, text: user.name }
       ));
       usersOption = users.map((item, index) => (

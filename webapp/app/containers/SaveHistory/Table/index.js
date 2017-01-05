@@ -32,11 +32,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    listUsers: (users) => dispatch(listUsers(users)),
-    dateSave: (date) => dispatch(dateSave(date)),
-    timeSave: (time) => dispatch(timeSave(time)),
-    frequencySave: (frequency) => dispatch(frequencySave(frequency)),
-    addAllFiles: (files) => dispatch(addAllFiles(files)),
+    listUsers: users => dispatch(listUsers(users)),
+    dateSave: date => dispatch(dateSave(date)),
+    timeSave: time => dispatch(timeSave(time)),
+    frequencySave: frequency => dispatch(frequencySave(frequency)),
+    addAllFiles: files => dispatch(addAllFiles(files)),
     deleteScheduledSaveInfo: (saveId, saveScheduledId, username) => dispatch(deleteScheduledSaveInfo(saveId, saveScheduledId, username)),
     showDeletionScheduledSaveModal: () => dispatch(showDeletionScheduledSaveModal()),
     showInstantSaveModal: () => dispatch(showInstantSaveModal()),

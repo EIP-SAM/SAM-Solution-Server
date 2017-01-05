@@ -39,7 +39,7 @@ export function getAllImagesResult(images) {
 }
 
 export function getAllImages() {
-  return (dispatch) => (
+  return dispatch => (
     request
       .get('/api/logged-in/admin/images/')
       .end((err, res) => {
@@ -63,7 +63,7 @@ export function getAllUsersResult(users) {
 }
 
 export function getAllUsers() {
-  return (dispatch) => (
+  return dispatch => (
     request
       .get('/api/logged-in/admin/users/')
       .end((err, res) => {
@@ -94,7 +94,7 @@ export function setSelectedImage(imageId) {
 }
 
 export function createMigration(migrationObj) {
-  return (dispatch) => (
+  return dispatch => (
     request
       .post('/api/logged-in/admin/migration/add')
       .send({ migrationObj })
@@ -123,7 +123,7 @@ export function resetForm() {
 }
 
 export function editMigration(migrationObj) {
-  return (dispatch) => (
+  return dispatch => (
     request
       .post(`/api/logged-in/admin/migration/${migrationObj.migrationId}/edit`)
       .send({ migrationObj })

@@ -19,7 +19,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    deleteUser: (userId) => dispatch(deleteUser(userId)),
+    deleteUser: userId => dispatch(deleteUser(userId)),
     hideInstantDeleteModal: () => dispatch(hideInstantDeleteModal()),
   };
 }

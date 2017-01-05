@@ -39,31 +39,31 @@ export class UserTable extends React.Component {
             <Tr items={names} component={Th} />
           </thead>
           <tbody>
-          {this.props.users.map((user, index) => {
-            const action = [];
+            {this.props.users.map((user, index) => {
+              const action = [];
 
-            let groupName = '';
-            user.groups.map((group, index2) => {
-              if (index2 > 0) {
-                groupName += ', ';
-              }
-              groupName += group.name;
-              return true;
-            });
-            action.push(<ButtonPopover key={`action-${0}`} id="edit_user" trigger={['focus', 'hover']} placement="bottom" popoverContent="Edit User" buttonType="link" icon="pencil" link={`/edit-user/${user.id}`} />);
-            action.push(<ButtonPopover key={`action-${1}`} id="reboot_user" trigger={['focus', 'hover']} placement="bottom" popoverContent="Reboot User" buttonType="link" icon="refresh" onClick={() => this.handleRebootClick(user.name)} />);
-            action.push(<ButtonPopover key={`action-${2}`} id="delete_user" trigger={['focus', 'hover']} placement="bottom" popoverContent="Delete User" buttonType="link" icon="trash" onClick={() => this.handleDeleteClick(user)} buttonStyle={styles.trash} />);
-            return (
-              <Tr
-                key={`row-${index}`} items={[
+              let groupName = '';
+              user.groups.map((group, index2) => {
+                if (index2 > 0) {
+                  groupName += ', ';
+                }
+                groupName += group.name;
+                return true;
+              });
+              action.push(<ButtonPopover key={`action-${0}`} id="edit_user" trigger={['focus', 'hover']} placement="bottom" popoverContent="Edit User" buttonType="link" icon="pencil" link={`/edit-user/${user.id}`} />);
+              action.push(<ButtonPopover key={`action-${1}`} id="reboot_user" trigger={['focus', 'hover']} placement="bottom" popoverContent="Reboot User" buttonType="link" icon="refresh" onClick={() => this.handleRebootClick(user.name)} />);
+              action.push(<ButtonPopover key={`action-${2}`} id="delete_user" trigger={['focus', 'hover']} placement="bottom" popoverContent="Delete User" buttonType="link" icon="trash" onClick={() => this.handleDeleteClick(user)} buttonStyle={styles.trash} />);
+              return (
+                <Tr
+                  key={`row-${index}`} items={[
                   { isLink: false, value: user.id },
                   { isLink: false, value: user.name },
                   { isLink: false, value: user.email },
                   { isLink: false, value: groupName },
                   { isLink: false, value: action }]} component={Td}
-              />
-            );
-          })}
+                />
+              );
+            })}
           </tbody>
         </Table>
         <UserDeletionModal />

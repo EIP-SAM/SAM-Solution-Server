@@ -15,7 +15,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    groupNameChange: (groupName) => dispatch(groupNameChange(groupName)),
+    groupNameChange: groupName => dispatch(groupNameChange(groupName)),
   };
 }
 

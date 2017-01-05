@@ -6,7 +6,7 @@ import styles from 'components/RestoreCreation/styles.css';
 export class RestoreCreationUser extends React.Component {
   render() {
     if (!this.props.userInfo.isAdmin) {
-      return (<div></div>);
+      return (<div />);
     }
 
     const user = this.props.username;

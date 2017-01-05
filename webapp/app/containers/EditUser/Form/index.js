@@ -14,7 +14,7 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUserRequest: (id) => dispatch(getUserRequest(id)),
+    getUserRequest: id => dispatch(getUserRequest(id)),
     getGroupsRequest: () => dispatch(getGroupsRequest()),
   };
 }

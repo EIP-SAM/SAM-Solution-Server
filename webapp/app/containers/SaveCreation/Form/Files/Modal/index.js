@@ -19,8 +19,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addFile: (file) => dispatch(addFile(file)),
-    inputFileChange: (file) => dispatch(inputFileChange(file)),
+    addFile: file => dispatch(addFile(file)),
+    inputFileChange: file => dispatch(inputFileChange(file)),
     cancelAddingFile: () => dispatch(hideModal()),
   };
 }

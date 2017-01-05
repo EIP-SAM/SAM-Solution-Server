@@ -18,7 +18,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    timeSave: (time) => dispatch(timeSave(time)),
+    timeSave: time => dispatch(timeSave(time)),
   };
 }
 

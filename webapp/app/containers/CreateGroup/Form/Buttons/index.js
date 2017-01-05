@@ -20,7 +20,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     createGroupRequest: (groupName, saveRestoreMode, migrationMode, softwareMode, users) => dispatch(createGroupRequest(groupName, saveRestoreMode, migrationMode, softwareMode, users)),
-    groupNameErrorMsg: (groupNameError) => dispatch(groupNameErrorMsg(groupNameError)),
+    groupNameErrorMsg: groupNameError => dispatch(groupNameErrorMsg(groupNameError)),
   };
 }
 

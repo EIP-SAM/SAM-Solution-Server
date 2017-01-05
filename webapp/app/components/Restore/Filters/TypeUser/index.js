@@ -34,7 +34,7 @@ export class RestoreFiltersTypeUser extends React.Component {
           />
         </Col>
       </FormGroup>
-   );
+    );
   }
 }
 

@@ -13,7 +13,7 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getGroupRequest: (groupId) => dispatch(getGroupRequest(groupId)),
+    getGroupRequest: groupId => dispatch(getGroupRequest(groupId)),
   };
 }
 

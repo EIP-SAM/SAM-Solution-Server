@@ -13,7 +13,7 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUsersRequest: (name) => dispatch(getUsersRequest(name)),
+    getUsersRequest: name => dispatch(getUsersRequest(name)),
   };
 }
 

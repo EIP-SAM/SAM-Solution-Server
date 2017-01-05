@@ -8,7 +8,7 @@ import { setStatusFilter } from './actions';
 
 function mapDispatchToProps(dispatch) {
   return {
-    setStatusFilter: (statusFilter) => dispatch(setStatusFilter(statusFilter)),
+    setStatusFilter: statusFilter => dispatch(setStatusFilter(statusFilter)),
   };
 }
 

@@ -11,7 +11,7 @@ import styles from 'components/SaveCreation/styles.css';
 export class SaveCreationUsers extends React.Component {
   render() {
     if (!this.props.userInfo.isAdmin) {
-      return (<div></div>);
+      return (<div />);
     }
 
     let validationState = null;

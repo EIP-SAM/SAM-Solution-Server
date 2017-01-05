@@ -23,10 +23,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     createUserRequest: (username, email, password, passwordConfirmation, selectedGroup) => dispatch(createUserRequest(username, email, password, passwordConfirmation, selectedGroup)),
-    usernameErrorMsg: (usernameError) => dispatch(usernameErrorMsg(usernameError)),
-    emailErrorMsg: (emailError) => dispatch(emailErrorMsg(emailError)),
-    passwordErrorMsg: (passwordError) => dispatch(passwordErrorMsg(passwordError)),
-    passwordConfirmationErrorMsg: (passwordConfirmationError) => dispatch(passwordConfirmationErrorMsg(passwordConfirmationError)),
+    usernameErrorMsg: usernameError => dispatch(usernameErrorMsg(usernameError)),
+    emailErrorMsg: emailError => dispatch(emailErrorMsg(emailError)),
+    passwordErrorMsg: passwordError => dispatch(passwordErrorMsg(passwordError)),
+    passwordConfirmationErrorMsg: passwordConfirmationError => dispatch(passwordConfirmationErrorMsg(passwordConfirmationError)),
   };
 }
 

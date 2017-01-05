@@ -21,8 +21,8 @@ function mapDispatchToProps(dispatch) {
   return {
     showInstantDeleteModal: () => dispatch(showInstantDeleteModal()),
     showInstantRebootModal: () => dispatch(showInstantRebootModal()),
-    userToDelete: (userId) => dispatch(userToDelete(userId)),
-    getUsername: (username) => dispatch(getUsername(username)),
+    userToDelete: userId => dispatch(userToDelete(userId)),
+    getUsername: username => dispatch(getUsername(username)),
   };
 }
 

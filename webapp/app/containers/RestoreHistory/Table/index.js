@@ -18,9 +18,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     showInstantRestoreModal: () => dispatch(showInstantRestoreModal()),
-    selectFiles: (selectedFiles) => dispatch(selectFiles(selectedFiles)),
-    setUserId: (userId) => dispatch(setUserId(userId)),
-    selectSave: (save) => dispatch(selectSave(save)),
+    selectFiles: selectedFiles => dispatch(selectFiles(selectedFiles)),
+    setUserId: userId => dispatch(setUserId(userId)),
+    selectSave: save => dispatch(selectSave(save)),
   };
 }
 
