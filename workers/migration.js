@@ -19,7 +19,6 @@ function getMacAdress(userName) {
   return new Promise((fullfill, reject) => {
     getMacAdressCommand.exec(userName, (data) => {
       logger.info('Mac adress for ' + userName);
-      console.log('DATA RECEIVED FROM GET MAC ADDRESS service : ' + data);
       fullfill(data.macAddress)
     });
   });
@@ -27,7 +26,7 @@ function getMacAdress(userName) {
 
 function execCommandDrbl(imagePath, macAddress) {
   return new Promise((fullfill, reject) => {
-    
+    reject('not implemented yet');
   });
 }
 
@@ -39,10 +38,13 @@ module.exports.execMigration = function (userName, imagePath) {
     logger.info(`Exec migration for ${userName} with image [${imagePath}]`);
 
     getMacAdress(userName).then((macAddress) => {
-      console.log("FINAL MACADDRESS : " + macAddress);
+      if (macAddress === null) {
+        return reject(`Unable to perform migration for ${userName}, Mac Address unavailable`);
+      }
+      logger.info(`Address Mac for ${userName} : ${macAddress}`);
       rebootDaemon(userName).then(() => {
+        fullfill(`Migration started for ${userName}`);
         /*execCommandDrbl(imagePath, macAddress).then(() => {
-          
         });*/
       });
     });
