@@ -11,7 +11,7 @@
 
 import EDIT_GROUP_MIGRATION_MODE_CHANGE from './constants';
 
-export function migrationModeChange(migrationMode) {
+export default function migrationModeChange(migrationMode) {
   return {
     type: EDIT_GROUP_MIGRATION_MODE_CHANGE,
     migrationMode,

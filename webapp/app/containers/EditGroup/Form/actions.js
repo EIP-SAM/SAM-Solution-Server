@@ -11,9 +11,9 @@
 
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
-import { saveRestoreModeChange } from './GroupRights/SaveRestoreMode/actions';
-import { migrationModeChange } from './GroupRights/MigrationMode/actions';
-import { softwareModeChange } from './GroupRights/SoftwareMode/actions';
+import saveRestoreModeChange from './GroupRights/SaveRestoreMode/actions';
+import migrationModeChange from './GroupRights/MigrationMode/actions';
+import softwareModeChange from './GroupRights/SoftwareMode/actions';
 import {
   resetStateGroupName,
   groupNameErrorMsg,

@@ -4,7 +4,7 @@
 
 import { connect } from 'react-redux';
 import { EditGroupFormGroupRightsSoftwareMode } from 'components/EditGroup/Form/GroupRights/SoftwareMode';
-import { softwareModeChange } from './actions';
+import softwareModeChange from './actions';
 
 function mapStateToProps(state) {
   return {

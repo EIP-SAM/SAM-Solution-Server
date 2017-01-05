@@ -5,7 +5,7 @@
 import { connect } from 'react-redux';
 import { RestoreFiltersTypeUser } from 'components/Restore/Filters/TypeUser';
 import { filterUsers } from 'containers/Restore/Filters/actions';
-import { getCurrentTypeUser } from './actions';
+import getCurrentTypeUser from './actions';
 
 function mapStateToProps(state) {
   return {

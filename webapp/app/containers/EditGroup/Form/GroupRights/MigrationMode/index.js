@@ -4,7 +4,7 @@
 
 import { connect } from 'react-redux';
 import { EditGroupFormGroupRightsMigrationMode } from 'components/EditGroup/Form/GroupRights/MigrationMode';
-import { migrationModeChange } from './actions';
+import migrationModeChange from './actions';
 
 function mapStateToProps(state) {
   return {

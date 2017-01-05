@@ -4,7 +4,7 @@
 
 import { connect } from 'react-redux';
 import Filters from 'components/MigrationHistory/Filters';
-import { setStatusFilter } from './actions';
+import setStatusFilter from './actions';
 
 function mapDispatchToProps(dispatch) {
   return {

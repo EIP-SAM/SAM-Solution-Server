@@ -4,7 +4,7 @@
 
 import { connect } from 'react-redux';
 import { EditGroupFormGroupRightsSaveRestoreMode } from 'components/EditGroup/Form/GroupRights/SaveRestoreMode';
-import { saveRestoreModeChange } from './actions';
+import saveRestoreModeChange from './actions';
 
 function mapStateToProps(state) {
   return {

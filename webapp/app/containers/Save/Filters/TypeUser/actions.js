@@ -4,7 +4,7 @@
 
 import SAVE_CURRENT_TYPE_USER from './constants';
 
-export function getCurrentTypeUser(currentTypeUser) {
+export default function getCurrentTypeUser(currentTypeUser) {
   return {
     type: SAVE_CURRENT_TYPE_USER,
     currentTypeUser,
