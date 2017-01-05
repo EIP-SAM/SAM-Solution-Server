@@ -3,12 +3,12 @@
 //
 
 import { connect } from 'react-redux';
-import { getGraphListByType, getGraphFromServerByTypeAndName, clearGraph } from './actions';
 import { StatisticGraphComponent } from 'components/Stats/StatisticGraph';
+import { getGraphListByType, getGraphFromServerByTypeAndName, clearGraph } from './actions';
 
 function mapStateToProps(state) {
   return {
-    stats: state.get('stats').get('statGraphs'),
+    stats: state.get('stats').get('statGraphs').stats,
   };
 }
 

@@ -1,4 +1,4 @@
-import createReducer from 'reducers.js';
+import createReducer from 'reducers';
 
 /**
  * Inject an asynchronously loaded reducer

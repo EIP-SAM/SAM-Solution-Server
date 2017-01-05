@@ -9,8 +9,6 @@
 //    }
 //
 
-import request from 'utils/request';
-import { getUsers } from 'containers/EditGroup/Form/Users/AllUsers/actions';
 import {
   EDIT_GROUP_ADD_USERS_IN_GROUP,
   EDIT_GROUP_UNSELECTED_USERS,

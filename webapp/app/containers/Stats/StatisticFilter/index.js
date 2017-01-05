@@ -3,9 +3,9 @@
 //
 
 import { connect } from 'react-redux';
-import { getFiltersFromServer } from './actions';
 import { StatisticFilterComponent } from 'components/Stats/StatisticFilter';
 import { getGraphListByType, clearGraph } from 'containers/Stats/StatisticGraph/actions';
+import { getFiltersFromServer } from './actions';
 
 function mapStateToProps(state) {
   return {

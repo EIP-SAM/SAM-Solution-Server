@@ -3,8 +3,8 @@
 //
 
 import { connect } from 'react-redux';
-import { getUsersRequest } from './actions';
 import { Software } from 'components/Software';
+import { getUsersRequest } from './actions';
 
 function mapStateToProps() {
   return {
