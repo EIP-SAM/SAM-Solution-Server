@@ -9,9 +9,7 @@
 //    }
 //
 
-import {
-  CREATE_GROUP_SAVE_RESTORE_MODE_CHANGE,
-} from './constants';
+import CREATE_GROUP_SAVE_RESTORE_MODE_CHANGE from './constants';
 
 export function saveRestoreModeChange(saveRestoreMode) {
   return {

@@ -2,9 +2,7 @@
 // users filters Actions
 //
 import { getUsers } from 'containers/Users/actions';
-import {
-  USERS_GET_ALL_USERS,
-} from './constants';
+import USERS_GET_ALL_USERS from './constants';
 
 export function getAllUsers(allUsers) {
   return {

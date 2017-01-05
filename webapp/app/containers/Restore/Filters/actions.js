@@ -2,9 +2,7 @@
 // restore filters Actions
 //
 import { getRestores } from 'containers/Restore/actions';
-import {
-  RESTORE_GET_ALL_USERS,
-} from './constants';
+import RESTORE_GET_ALL_USERS from './constants';
 
 export function getAllUsers(allUsers) {
   return {

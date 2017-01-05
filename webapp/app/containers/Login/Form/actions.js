@@ -14,10 +14,7 @@ import { browserHistory } from 'react-router';
 import { resetStateUsername } from './Username/actions';
 import { resetStatePassword } from './Password/actions';
 import { setUserInfo } from 'containers/App/actions';
-
-import {
-  LOGIN,
-} from './constants';
+import LOGIN from './constants';
 
 export function resetStateForm() {
   return function resetState(dispatch) {

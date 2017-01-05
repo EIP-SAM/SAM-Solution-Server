@@ -8,9 +8,7 @@
 //    return state.set('yourStateVariable', true);
 //
 
-import {
-  USERS_SHOW_INSTANT_REBOOT_MODAL,
-} from './constants';
+import USERS_SHOW_INSTANT_REBOOT_MODAL from './constants';
 
 const initialState = {
   showModal: false,

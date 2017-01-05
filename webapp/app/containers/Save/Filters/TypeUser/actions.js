@@ -2,9 +2,7 @@
 // Type user filter save actions
 //
 
-import {
-  SAVE_CURRENT_TYPE_USER,
-} from './constants';
+import SAVE_CURRENT_TYPE_USER from './constants';
 
 export function getCurrentTypeUser(currentTypeUser) {
   return {

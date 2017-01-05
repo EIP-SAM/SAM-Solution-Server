@@ -2,9 +2,7 @@
 // Type user filter software actions
 //
 
-import {
-  SOFTWARE_CURRENT_TYPE_USER,
-} from './constants';
+import SOFTWARE_CURRENT_TYPE_USER from './constants';
 
 export function getCurrentTypeUser(currentTypeUser) {
   return {

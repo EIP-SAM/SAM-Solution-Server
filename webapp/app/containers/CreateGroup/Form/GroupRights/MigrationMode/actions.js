@@ -9,9 +9,7 @@
 //    }
 //
 
-import {
-  CREATE_GROUP_MIGRATION_MODE_CHANGE,
-} from './constants';
+import CREATE_GROUP_MIGRATION_MODE_CHANGE from './constants';
 
 export function migrationModeChange(migrationMode) {
   return {

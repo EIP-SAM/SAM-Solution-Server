@@ -2,4 +2,5 @@
 // Type user filter users constants
 //
 
-export const USERS_CURRENT_TYPE_USER = 'USERS_CURRENT_TYPE_USER';
+const USERS_CURRENT_TYPE_USER = 'USERS_CURRENT_TYPE_USER';
+export default USERS_CURRENT_TYPE_USER;

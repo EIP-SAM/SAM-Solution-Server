@@ -11,10 +11,7 @@
 
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
-
-import {
-  MIGRATION_HISTORY_GET_ALL_MIGRATIONS,
-} from './constants';
+import MIGRATION_HISTORY_GET_ALL_MIGRATIONS from './constants';
 
 export function getAllMigrations(migrations) {
   return {

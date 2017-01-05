@@ -2,9 +2,7 @@
 // Save filters Actions
 //
 import { getSaves } from 'containers/Save/actions';
-import {
-  SAVE_GET_ALL_USERS,
-} from './constants';
+import SAVE_GET_ALL_USERS from './constants';
 
 export function getAllUsers(allUsers) {
   return {

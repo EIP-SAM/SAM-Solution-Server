@@ -8,9 +8,7 @@
 //    return state.set('yourStateVariable', true);
 //
 
-import {
-  EDIT_GROUP_SAVE_RESTORE_MODE_CHANGE,
-} from './constants';
+import EDIT_GROUP_SAVE_RESTORE_MODE_CHANGE from './constants';
 
 const initialState = {
   saveRestoreMode: 0,

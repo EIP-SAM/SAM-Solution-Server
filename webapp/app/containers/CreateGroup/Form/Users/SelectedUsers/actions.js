@@ -9,8 +9,6 @@
 //    }
 //
 
-import request from 'utils/request';
-import { getUsers } from 'containers/CreateGroup/Form/Users/AllUsers/actions';
 import {
   CREATE_GROUP_ADD_USERS_IN_GROUP,
   CREATE_GROUP_UNSELECTED_USERS,

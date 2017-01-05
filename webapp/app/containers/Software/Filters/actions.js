@@ -2,9 +2,7 @@
 // software filters Actions
 //
 import { getUsers } from 'containers/Software/actions';
-import {
-  SOFTWARE_GET_ALL_USERS,
-} from './constants';
+import SOFTWARE_GET_ALL_USERS from './constants';
 
 export function getAllUsers(allUsers) {
   return {

@@ -10,9 +10,7 @@
 
 import { combineReducers } from 'redux-immutable';
 import InstantRestoreModalRestoreHistoryReducer from 'containers/RestoreHistory/Table/ModalInstantRestore/reducer';
-import {
-  RESTORE_HISTORY_GET_HISTORY_RESTORES_BY_USER,
-} from './constants';
+import RESTORE_HISTORY_GET_HISTORY_RESTORES_BY_USER from './constants';
 
 const initialState = {
   restores: [],

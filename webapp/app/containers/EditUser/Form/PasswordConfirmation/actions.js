@@ -46,7 +46,7 @@ export function checkPasswordConfirmation(password, passwordConfirmation) {
           dispatch(passwordConfirmationErrorMsg('It should be the same password'));
           break;
         }
-        i++;
+        i += 1;
       }
       if (i >= passwordConfirmation.length) {
         dispatch(passwordConfirmationErrorMsg(''));

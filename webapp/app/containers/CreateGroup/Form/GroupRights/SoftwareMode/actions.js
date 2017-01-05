@@ -9,9 +9,7 @@
 //    }
 //
 
-import {
-  CREATE_GROUP_SOFTWARE_MODE_CHANGE,
-} from './constants';
+import CREATE_GROUP_SOFTWARE_MODE_CHANGE from './constants';
 
 export function softwareModeChange(softwareMode) {
   return {

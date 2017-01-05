@@ -8,7 +8,7 @@
 //        return { type: YOUR_ACTION_CONSTANT, var: var }
 //    }
 //
-import request from 'utils/request';
+
 import {
   CREATE_GROUP_GET_USERS,
   CREATE_GROUP_PRE_SELECTED_USERS,

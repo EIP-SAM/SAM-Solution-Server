@@ -9,9 +9,7 @@
 //    }
 //
 
-import {
-  SOFTWARES_BY_USER_SHOW_DELETE_SOFTWARE_MODAL,
-} from './constants';
+import SOFTWARES_BY_USER_SHOW_DELETE_SOFTWARE_MODAL from './constants';
 
 export function showDeleteSoftwareModal() {
   return {
