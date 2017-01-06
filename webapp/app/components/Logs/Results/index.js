@@ -5,15 +5,10 @@
 
 import React from 'react';
 import moment from 'moment';
+import Spinner from 'components/Spinner';
+import { Table, Label, Glyphicon, Alert } from 'react-bootstrap';
 import styles from './styles.css';
 import levels from './levels.json';
-import Spinner from 'components/Spinner';
-import {
-  Table,
-  Label,
-  Glyphicon,
-  Alert,
-} from 'react-bootstrap';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class LogResult extends React.Component {
