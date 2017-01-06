@@ -8,7 +8,7 @@ import RadioGroup from 'components/RadioGroup';
 import styles from 'components/Software/Filters/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SoftwareFiltersTypeUser extends React.Component {
+export default class SoftwareFiltersTypeUser extends React.Component {
   constructor(props) {
     super(props);
     this.selectTypeUser = this.selectTypeUser.bind(this);

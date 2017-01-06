@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SoftwaresByUserSearchbar } from 'components/SoftwaresByUser/Searchbar';
+import SoftwaresByUserSearchbar from 'components/SoftwaresByUser/Searchbar';
 import {
   searchbarChange,
   searchSoftwareRequest,

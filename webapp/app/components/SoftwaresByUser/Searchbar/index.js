@@ -6,7 +6,7 @@ import React from 'react';
 import { FormGroup, InputGroup, FormControl, Glyphicon } from 'react-bootstrap';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SoftwaresByUserSearchbar extends React.Component {
+export default class SoftwaresByUserSearchbar extends React.Component {
   handleChangeSearchbar(event) {
     this.props.searchbarChange(event.target.value);
   }

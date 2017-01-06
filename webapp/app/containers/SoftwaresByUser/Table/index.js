@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SoftwaresByUserTable } from 'components/SoftwaresByUser/Table';
+import SoftwaresByUserTable from 'components/SoftwaresByUser/Table';
 import { showAddSoftwareModal } from './ModalAddSoftware/actions';
 import { showUpdateSoftwareModal } from './ModalUpdateSoftware/actions';
 import { showDeleteSoftwareModal } from './ModalDeleteSoftware/actions';

@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SoftwareFiltersTypeUser } from 'components/Software/Filters/TypeUser';
+import SoftwareFiltersTypeUser from 'components/Software/Filters/TypeUser';
 import { filterUsers } from 'containers/Software/Filters/actions';
 import getCurrentTypeUser from './actions';
 

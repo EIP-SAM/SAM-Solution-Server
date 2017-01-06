@@ -8,7 +8,7 @@ import { LinkContainerButton } from 'components/Button';
 import styles from 'components/SoftwaresByUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SoftwaresByUserAddAllSoftwaresModal extends React.Component {
+export default class SoftwaresByUserAddAllSoftwaresModal extends React.Component {
   handleAddAllClick() {
     this.props.hideAddAllSoftwaresModal();
     this.props.installSoftwares(this.props.username, this.props.selectedSoftwares);

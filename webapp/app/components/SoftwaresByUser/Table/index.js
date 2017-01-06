@@ -14,7 +14,7 @@ import Td from 'components/Td';
 import styles from 'components/SoftwaresByUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SoftwaresByUserTable extends React.Component {
+export default class SoftwaresByUserTable extends React.Component {
   onChangeCheckboxLegend(event) {
     if (event.target.checked) {
       this.props.getSelectedSoftware(this.props.softwares);

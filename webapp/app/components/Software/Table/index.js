@@ -9,7 +9,7 @@ import Th from 'components/Th';
 import Td from 'components/Td';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SoftwareTable extends React.Component {
+export default class SoftwareTable extends React.Component {
 
   render() {
     const names = [{ isLink: 'false', link: '#', value: '#' },

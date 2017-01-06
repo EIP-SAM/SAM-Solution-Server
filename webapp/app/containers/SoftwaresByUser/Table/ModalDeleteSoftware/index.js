@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SoftwaresByUserDeleteSoftwareModal } from 'components/SoftwaresByUser/Table/ModalDeleteSoftware';
+import SoftwaresByUserDeleteSoftwareModal from 'components/SoftwaresByUser/Table/ModalDeleteSoftware';
 import { deleteSoftwares } from 'containers/SoftwaresByUser/actions';
 import { resetStateTable } from 'containers/SoftwaresByUser/Table/actions';
 import {

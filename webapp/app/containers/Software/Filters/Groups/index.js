@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SoftwareFiltersGroups } from 'components/Software/Filters/Groups';
+import SoftwareFiltersGroups from 'components/Software/Filters/Groups';
 import { filterUsers } from 'containers/Software/Filters/actions';
 import {
   getGroupsRequest,

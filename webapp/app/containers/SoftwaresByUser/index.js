@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SoftwaresByUser } from 'components/SoftwaresByUser';
+import SoftwaresByUser from 'components/SoftwaresByUser';
 import { resetStateTable } from './Table/actions';
 import {
   getInstalledSoftwaresRequest,
