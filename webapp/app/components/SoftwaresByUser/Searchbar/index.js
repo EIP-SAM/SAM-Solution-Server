@@ -11,7 +11,7 @@ export class SoftwaresByUserSearchbar extends React.Component {
     this.props.searchbarChange(event.target.value);
   }
 
-  handleValidationSearchbar(event) {
+  handleValidationSearchbar() {
     this.props.searchSoftwareRequest(this.props.username, this.props.searchbar);
   }
 
@@ -20,7 +20,7 @@ export class SoftwaresByUserSearchbar extends React.Component {
       <FormGroup controlId="searchbar">
         <InputGroup>
           <FormControl type="text" value={this.props.searchbar} placeholder="Search..." onChange={event => this.handleChangeSearchbar(event)} />
-          <InputGroup.Addon onClick={event => this.handleValidationSearchbar(event)}><Glyphicon glyph="search" /></InputGroup.Addon>
+          <InputGroup.Addon onClick={() => this.handleValidationSearchbar()}><Glyphicon glyph="search" /></InputGroup.Addon>
         </InputGroup>
       </FormGroup>
     );

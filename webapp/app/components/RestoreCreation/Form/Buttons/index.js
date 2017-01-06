@@ -38,7 +38,6 @@ RestoreCreationButtons.propTypes = {
   userId: React.PropTypes.number,
   save: React.PropTypes.object,
   selectedFiles: React.PropTypes.array,
-  resetStateForm: React.PropTypes.func,
   createRestoresRequest: React.PropTypes.func,
   saveErrorMsg: React.PropTypes.func,
   filesErrorMsg: React.PropTypes.func,

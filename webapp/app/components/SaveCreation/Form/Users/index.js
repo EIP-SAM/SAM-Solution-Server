@@ -42,7 +42,5 @@ export default class SaveCreationUsers extends React.Component {
 SaveCreationUsers.propTypes = {
   userInfo: React.PropTypes.object,
   users: React.PropTypes.array,
-  listAllUsers: React.PropTypes.array,
   userError: React.PropTypes.string,
-  listUsers: React.PropTypes.func,
 };

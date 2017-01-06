@@ -110,5 +110,4 @@ Footer.propTypes = {
   showCreateMigrationPopup: React.PropTypes.func,
   resetForm: React.PropTypes.func,
   showPasteDateWarning: React.PropTypes.func,
-  pasteDateWarning: React.PropTypes.bool,
 };

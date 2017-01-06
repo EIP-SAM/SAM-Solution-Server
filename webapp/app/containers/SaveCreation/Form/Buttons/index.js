@@ -7,7 +7,6 @@ import SaveCreationButtons from 'components/SaveCreation/Form/Buttons';
 import { userErrorMsg } from 'containers/SaveCreation/Form/Users/actions';
 import { dateErrorMsg } from 'containers/SaveCreation/Form/Date/actions';
 import { timeErrorMsg } from 'containers/SaveCreation/Form/Time/actions';
-import { frequencyErrorMsg } from 'containers/SaveCreation/Form/Frequency/actions';
 import { fileErrorMsg } from 'containers/SaveCreation/Form/Files/actions';
 import { createSave } from 'containers/SaveCreation/Form/actions';
 
@@ -27,7 +26,6 @@ function mapDispatchToProps(dispatch) {
     userErrorMsg: userError => dispatch(userErrorMsg(userError)),
     dateErrorMsg: dateError => dispatch(dateErrorMsg(dateError)),
     timeErrorMsg: timeError => dispatch(timeErrorMsg(timeError)),
-    frequencyErrorMsg: frequencyError => dispatch(frequencyErrorMsg(frequencyError)),
     fileErrorMsg: fileError => dispatch(fileErrorMsg(fileError)),
   };
 }

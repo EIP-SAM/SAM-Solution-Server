@@ -8,7 +8,6 @@ import { dateSave } from './actions';
 
 function mapStateToProps(state) {
   return {
-    date: state.get('saveCreation').get('SaveCreationFormDateReducer').date,
     dateError: state.get('saveCreation').get('SaveCreationFormDateReducer').dateError,
     isDateDisabled: state.get('saveCreation').get('SaveCreationFormDateReducer').isDateDisabled,
   };

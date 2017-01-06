@@ -55,7 +55,6 @@ export default class SaveCreationFilesSelect extends React.Component {
 }
 
 SaveCreationFilesSelect.propTypes = {
-  test: React.PropTypes.string,
   files: React.PropTypes.array,
   fileError: React.PropTypes.string,
 };

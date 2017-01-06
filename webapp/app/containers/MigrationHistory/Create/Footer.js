@@ -19,7 +19,6 @@ function mapStateToProps(state) {
     date: state.get('migrationHistory').get('create').date,
     time: state.get('migrationHistory').get('create').time,
     migrationEdited: state.get('migrationHistory').get('create').migrationEdited,
-    pasteDateWarning: state.get('migrationHistory').get('create').pasteDateWarning,
   };
 }
 

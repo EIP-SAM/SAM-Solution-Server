@@ -9,10 +9,8 @@ import {
   ControlLabel,
   Col,
 } from 'react-bootstrap';
-import RadioGroup from 'components/RadioGroup';
 import DatePicker from 'components/DatePicker';
 import moment from 'moment';
-import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class StatusSelect extends React.Component {

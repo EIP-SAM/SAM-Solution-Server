@@ -9,7 +9,6 @@ import {
   Col,
   Alert,
 } from 'react-bootstrap';
-
 import StatusSelect from 'containers/MigrationHistory/Create/StatusSelect';
 import UserSelect from 'containers/MigrationHistory/Create/UserSelect';
 import ImageSelect from 'containers/MigrationHistory/Create/ImageSelect';
@@ -31,9 +30,8 @@ export default class Create extends React.Component {
           <p>Date and time should be set in the future</p>
         </Alert>
       );
-    } else {
-      return (<span />);
     }
+    return (<span />);
   }
 
   render() {

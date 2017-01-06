@@ -12,6 +12,7 @@ import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Td from 'components/Td';
 import styles from './styles.css';
+
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
@@ -88,7 +89,6 @@ export default class SaveHistoryTable extends React.Component {
 
 SaveHistoryTable.propTypes = {
   saves: React.PropTypes.array,
-  listUsers: React.PropTypes.func,
   dateSave: React.PropTypes.func,
   timeSave: React.PropTypes.func,
   frequencySave: React.PropTypes.func,
