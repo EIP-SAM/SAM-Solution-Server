@@ -9,7 +9,6 @@ import { notificationRequest } from 'containers/Notifications/Form/actions';
 import { titleErrorMsg } from 'containers/Notifications/Form/Title/actions';
 import { descriptionErrorMsg } from 'containers/Notifications/Form/Description/actions';
 
-
 function mapStateToProps(state) {
   return {
     title: state.get('notifications').get('NotificationsFormTitleReducer').title,
