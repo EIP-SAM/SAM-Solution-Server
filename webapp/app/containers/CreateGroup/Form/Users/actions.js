@@ -11,7 +11,7 @@
 import request from 'utils/request';
 import { getUsers } from './AllUsers/actions';
 
-export function getUsersRequest() {
+export default function getUsersRequest() {
   return function returnGetUsersRequest(dispatch) {
     return request
     .get('/api/logged-in/admin/users')

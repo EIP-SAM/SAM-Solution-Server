@@ -14,6 +14,7 @@
     "rules": {
         "no-eval" : "error",
         "no-const-assign": "error",
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
         "no-this-before-super": "warn",
         "no-undef": "error",
         "no-unreachable": "warn",
