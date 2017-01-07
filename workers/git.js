@@ -12,26 +12,25 @@ const logger = require('../libs/bunyan').setModuleName('Git');
 // Create new repo for a user
 //
 module.exports.initNewGitRepo = function (userName) {
-  let pathToRepo =  conf.baseDir + userName + '/';
+  const pathToRepo = `${conf.baseDir + userName}/`;
 
-  return new Promise(function(fullfill, reject) {
-    if (fs.existsSync(pathToRepo)){
-      reject("Save repo already exist for [" + userName + "] : " + pathToRepo);
+  return new Promise((fullfill, reject) => {
+    if (fs.existsSync(pathToRepo)) {
+      reject(`Save repo already exist for [${userName}] : ${pathToRepo}`);
     } else {
       fs.mkdirSync(pathToRepo);
-      let git = new Git({cwd: pathToRepo});
+      const git = new Git({ cwd: pathToRepo });
 
-      git.exec('init', {}, ['--bare']).then(function(stdout){
-        logger.info('Repo for user [' + userName + '] created');
+      git.exec('init', {}, ['--bare']).then((stdout) => {
+        logger.info(`Repo for user [${userName}] created`);
         fullfill('ok');
-      }).catch(function(err) {
+      }).catch((err) => {
         console.log(err);
         reject(err);
       });
 
       return pathToRepo;
     }
-
   });
   return pathToRepo;
 };
