@@ -111,6 +111,27 @@ export function createMigration(migrationObj) {
   );
 }
 
+export function setCreateDate(date) {
+  return {
+    type: MIGRATION_HISTORY_CREATE_SET_DATE,
+    date,
+  };
+}
+
+export function setCreateTime(time) {
+  return {
+    type: MIGRATION_HISTORY_CREATE_SET_TIME,
+    time,
+  };
+}
+
+export function setPasteDateWarning(pasteDateWarning) {
+  return {
+    type: MIGRATION_HISTORY_SET_PASTEDATE_WARNING,
+    pasteDateWarning,
+  };
+}
+
 export function resetForm() {
   return (dispatch) => {
     dispatch(setSelectedUser(undefined));
@@ -138,26 +159,4 @@ export function editMigration(migrationObj) {
         }
       })
   );
-}
-
-
-export function setCreateDate(date) {
-  return {
-    type: MIGRATION_HISTORY_CREATE_SET_DATE,
-    date,
-  };
-}
-
-export function setCreateTime(time) {
-  return {
-    type: MIGRATION_HISTORY_CREATE_SET_TIME,
-    time,
-  };
-}
-
-export function setPasteDateWarning(pasteDateWarning) {
-  return {
-    type: MIGRATION_HISTORY_SET_PASTEDATE_WARNING,
-    pasteDateWarning,
-  };
 }

@@ -25,16 +25,16 @@ import {
   EDIT_GROUP_RESET_USER_ID,
 } from './constants';
 
+export function resetStateGroupId() {
+  return {
+    type: EDIT_GROUP_RESET_USER_ID,
+  };
+}
+
 export function resetStateForm() {
   return function resetState(dispatch) {
     dispatch(resetStateGroupId());
     dispatch(resetStateGroupName());
-  };
-}
-
-export function resetStateGroupId() {
-  return {
-    type: EDIT_GROUP_RESET_USER_ID,
   };
 }
 

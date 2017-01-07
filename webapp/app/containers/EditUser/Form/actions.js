@@ -39,6 +39,12 @@ import {
   EDIT_USER_RESET_USER_ID,
 } from './constants';
 
+export function resetStateUserId() {
+  return {
+    type: EDIT_USER_RESET_USER_ID,
+  };
+}
+
 export function resetStateForm() {
   return function resetState(dispatch) {
     dispatch(resetStateUserId());
@@ -47,12 +53,6 @@ export function resetStateForm() {
     dispatch(resetStatePassword());
     dispatch(resetStatePasswordConfirmation());
     dispatch(resetStateGroups());
-  };
-}
-
-export function resetStateUserId() {
-  return {
-    type: EDIT_USER_RESET_USER_ID,
   };
 }
 
