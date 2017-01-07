@@ -1,11 +1,11 @@
 const logger = require('../../libs/bunyan').setModuleName('Daemon');
 
 module.exports.exec = function exec(username, cb) {
-  let socketArray = require('../../libs/socket-io').socketArray.daemon;
-  let socket = socketArray[username];
+  const socketArray = require('../../libs/socket-io').socketArray.daemon;
+  const socket = socketArray[username];
 
   if (typeof socket !== 'undefined') {
-    logger.info('Send reboot exec command for', username)
+    logger.info('Send reboot exec command for', username);
     socket.emit('server_reboot_Exec');
     if (typeof cb !== 'undefined') {
       socket.on('daemon_reboot_Exec', cb);
@@ -13,8 +13,8 @@ module.exports.exec = function exec(username, cb) {
 
     return 1;
   } else {
-    logger.info(username + "'s daemon is not connected")
+    logger.info(`${username}'s daemon is not connected`);
   }
 
   return 0;
-}
+};

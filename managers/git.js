@@ -1,7 +1,7 @@
 //
 // Manager Git
 //
-var gitAdapter = require('../adapters/git');
+const gitAdapter = require('../adapters/git');
 
 //
 // Create new repo for a user

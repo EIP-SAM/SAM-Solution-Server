@@ -10,26 +10,26 @@ module.exports.NOTIFICATION_DISPLAY = 'notification.display';
 // Check if any persisted command are save for the user
 //
 module.exports.check = function check(username) {
-  userAdapter.findByName(username).then(function(user) {
-    daemonCmdAdapter.getCommandById(user.id).then(function(commands) {
+  userAdapter.findByName(username).then((user) => {
+    daemonCmdAdapter.getCommandById(user.id).then((commands) => {
       for (let i = 0; i < commands.length; ++i) {
         commandFunction[commands[i].commandName](commands[i]);
         daemonCmdAdapter.deleteById(commands[i].id);
       }
-    }).catch(function() {
-      logger.info("Unable to retrieve persist notification for " + username);
+    }).catch(() => {
+      logger.info(`Unable to retrieve persist notification for ${username}`);
     });
-  }).catch(function(err) {
-    logger.info("Unable to retrieve " + username + "for persisted commands");
+  }).catch((err) => {
+    logger.info(`Unable to retrieve ${username}for persisted commands`);
   });
-}
+};
 
 let commandFunction = [];
-commandFunction[module.exports.NOTIFICATION_DISPLAY] = function(command) {
-  userAdapter.findById(command.userId).then(function(user) {
-    let data = JSON.parse(command.content);
+commandFunction[module.exports.NOTIFICATION_DISPLAY] = function (command) {
+  userAdapter.findById(command.userId).then((user) => {
+    const data = JSON.parse(command.content);
     notificationDaemon.display(user.name, data.title, data.description);
-  }).catch(function(err) {
-    logger.info("Unable to retrieve user " + command.userId + "for persisted commands");
+  }).catch((err) => {
+    logger.info(`Unable to retrieve user ${command.userId}for persisted commands`);
   });
-}
+};

@@ -7,29 +7,29 @@ const migrationManager = require('../managers/migration');
 // Launch getMigrations method from managers
 //
 module.exports.getMigrations = function () {
-    return migrationManager.getMigrations();
-}
+  return migrationManager.getMigrations();
+};
 
 //
 // Launch getMigrationById method from managers
 //
 module.exports.getMigrationById = function (migrationId) {
   return migrationManager.getMigrationById(migrationId);
-}
+};
 
 //
 // Launch getMigrationOrderByFilter method from managers
 //
 module.exports.getMigrationOrderByFilter = function (order) {
   return migrationManager.getMigrationOrderByFilter(order);
-}
+};
 
 //
 // Launch getMigrationsGroupByStatus method from managers
 //
 module.exports.getMigrationsGroupByStatus = function () {
   return migrationManager.getMigrationsGroupByStatus();
-}
+};
 
 //
 // Launch createMigration method from managers
@@ -42,7 +42,7 @@ module.exports.getMigrationsGroupByStatus = function () {
 //
 module.exports.createMigration = function (migrationObj) {
   return migrationManager.createMigration(migrationObj);
-}
+};
 
 //
 // Launch getMigrationById method from managers
@@ -57,11 +57,11 @@ module.exports.createMigration = function (migrationObj) {
 //
 module.exports.editMigrationById = function (migrationObj) {
   return migrationManager.editMigrationById(migrationObj);
-}
+};
 
 //
 // Launch deleteMigrationById method from managers
 //
 module.exports.deleteMigrationById = function (migrationId) {
   return migrationManager.deleteMigrationById(migrationId);
-}
+};

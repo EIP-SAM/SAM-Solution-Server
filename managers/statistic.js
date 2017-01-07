@@ -1,4 +1,4 @@
-var statAdapters = require('../adapters/statistic');
+const statAdapters = require('../adapters/statistic');
 
 module.exports.statisticFunctions = [];
 module.exports.statisticFilters = [];
@@ -13,175 +13,173 @@ module.exports.statisticRegisterMethodForEntity = function (entity, functionName
 };
 
 module.exports.statisticGetMethodForEntity = function (entity, functionName) {
-  if (module.exports.statisticFunctions[entity])
-  {
-    if (module.exports.statisticFunctions[entity][functionName])
+  if (module.exports.statisticFunctions[entity]) {
+    if (module.exports.statisticFunctions[entity][functionName]) {
       return (module.exports.statisticFunctions[entity][functionName]());
+    }
   }
-}
+};
 
-module.exports.addFilter = function (entity)
-{
-  if (module.exports.statisticFilters.indexOf(entity) == -1)
+module.exports.addFilter = function (entity) {
+  if (module.exports.statisticFilters.indexOf(entity) == -1) {
     module.exports.statisticFilters.push(entity);
-}
+  }
+};
 
 module.exports.getStatisticFilters = function () {
   return module.exports.statisticFilters;
-}
+};
 
 module.exports.getStatisticByTypeAndName = function (type, name) {
-    return new Promise(function(fulfill, reject){
-        module.exports.statisticFunctions[type][name]().then(function(data) {
-            fulfill( module.exports.prepareDataForGraph(data));
-        })
+  return new Promise((fulfill, reject) => {
+    module.exports.statisticFunctions[type][name]().then((data) => {
+      fulfill(module.exports.prepareDataForGraph(data));
     });
-}
+  });
+};
 
 module.exports.getStatisticTypeAndNameListByType = function (type) {
-    var functions = module.exports.statisticFunctions[type];
-    var data = [];
+  const functions = module.exports.statisticFunctions[type];
+  const data = [];
 
-    for (var i in functions) {
-        data.push(i);
-    }
+  for (const i in functions) {
+    data.push(i);
+  }
 
-    var return_data = {
-        type: type,
-        data: data,
-    }
+  const return_data = {
+    type,
+    data,
+  };
 
-    return return_data;
-}
+  return return_data;
+};
 
 module.exports.initiateGraphs = function () {
   statAdapters.registerGraphs();
-}
+};
 
 // COLOR GENERATOR FUNCTIONS
 
-function generateColorBar(order, type)
-{
-  let typeTable = [];
+function generateColorBar(order, type) {
+  const typeTable = [];
   typeTable[0] = [];
   typeTable[1] = [];
 
-  typeTable[0][0] = "rgba(220,220,220,0.5)";
-  typeTable[1][0] = "rgba(151,187,205,0.5)";
+  typeTable[0][0] = 'rgba(220,220,220,0.5)';
+  typeTable[1][0] = 'rgba(151,187,205,0.5)';
 
-  typeTable[0][1] = "rgba(220,220,220,0.8)";
-  typeTable[1][1] = "rgba(151,187,205,0.8)";
+  typeTable[0][1] = 'rgba(220,220,220,0.8)';
+  typeTable[1][1] = 'rgba(151,187,205,0.8)';
 
-  typeTable[0][2] = "rgba(220,220,220,0.75)";
-  typeTable[1][2] = "rgba(151,187,205,0.75)";
+  typeTable[0][2] = 'rgba(220,220,220,0.75)';
+  typeTable[1][2] = 'rgba(151,187,205,0.75)';
 
-  typeTable[0][3] = "rgba(220,220,220,1)";
-  typeTable[1][3] = "rgba(151,187,205,1)";
+  typeTable[0][3] = 'rgba(220,220,220,1)';
+  typeTable[1][3] = 'rgba(151,187,205,1)';
 
-  if (order % 2 == 0)
+  if (order % 2 == 0) {
     return typeTable[1][type];
+  }
   return typeTable[0][type];
 }
 
-function generateColorPie(order, type)
-{
-  let typeTable = [];
+function generateColorPie(order, type) {
+  const typeTable = [];
   typeTable[0] = [];
   typeTable[1] = [];
   typeTable[2] = [];
 
-  typeTable[0][0] = "#F7464A";
-  typeTable[1][0] = "#46BFBD";
-  typeTable[2][0] = "#FDB45C";
+  typeTable[0][0] = '#F7464A';
+  typeTable[1][0] = '#46BFBD';
+  typeTable[2][0] = '#FDB45C';
 
-  typeTable[0][1] = "#FF5A5E";
-  typeTable[1][1] = "#5AD3D1";
-  typeTable[2][1] = "#FFC870";
+  typeTable[0][1] = '#FF5A5E';
+  typeTable[1][1] = '#5AD3D1';
+  typeTable[2][1] = '#FFC870';
 
-  if (order % 3 == 0)
+  if (order % 3 == 0) {
     return typeTable[2][type];
-  else if (order % 2 == 0)
+  } else if (order % 2 == 0) {
     return typeTable[1][type];
+  }
   return typeTable[0][type];
 }
 
-function generateColorDoughnut(order, type)
-{
-  let typeTable = [];
+function generateColorDoughnut(order, type) {
+  const typeTable = [];
   typeTable[0] = [];
   typeTable[1] = [];
   typeTable[2] = [];
 
-  typeTable[0][0] = "#F7464A";
-  typeTable[1][0] = "#46BFBD";
-  typeTable[2][0] = "#FDB45C";
+  typeTable[0][0] = '#F7464A';
+  typeTable[1][0] = '#46BFBD';
+  typeTable[2][0] = '#FDB45C';
 
-  typeTable[0][1] = "#FF5A5E";
-  typeTable[1][1] = "#5AD3D1";
-  typeTable[2][1] = "#FFC870";
+  typeTable[0][1] = '#FF5A5E';
+  typeTable[1][1] = '#5AD3D1';
+  typeTable[2][1] = '#FFC870';
 
-  if (order % 3 == 0)
+  if (order % 3 == 0) {
     return typeTable[2][type];
-  else if (order % 2 == 0)
-    return typeTable[1][type];
+  } else if (order % 2 == 0) { return typeTable[1][type]; }
   return typeTable[0][type];
 }
 
-function generateColorRadar(order, type)
-{
-  let typeTable = [];
+function generateColorRadar(order, type) {
+  const typeTable = [];
   typeTable[0] = [];
   typeTable[1] = [];
 
-  typeTable[0][0] = "rgba(220,220,220,0.2)";
-  typeTable[1][0] = "rgba(151,187,205,0.2)";
+  typeTable[0][0] = 'rgba(220,220,220,0.2)';
+  typeTable[1][0] = 'rgba(151,187,205,0.2)';
 
-  typeTable[0][1] = "rgba(220,220,220,1)";
-  typeTable[1][1] = "rgba(151,187,205,1)";
+  typeTable[0][1] = 'rgba(220,220,220,1)';
+  typeTable[1][1] = 'rgba(151,187,205,1)';
 
-  typeTable[0][2] = "rgba(220,220,220,1)";
-  typeTable[1][2] = "rgba(151,187,205,1)";
+  typeTable[0][2] = 'rgba(220,220,220,1)';
+  typeTable[1][2] = 'rgba(151,187,205,1)';
 
-  typeTable[0][3] = "#fff";
-  typeTable[1][3] = "#fff";
+  typeTable[0][3] = '#fff';
+  typeTable[1][3] = '#fff';
 
-  typeTable[0][4] = "#fff";
-  typeTable[1][4] = "#fff";
+  typeTable[0][4] = '#fff';
+  typeTable[1][4] = '#fff';
 
-  typeTable[0][5] = "rgba(220,220,220,1)";
-  typeTable[1][5] = "rgba(151,187,205,1)";
+  typeTable[0][5] = 'rgba(220,220,220,1)';
+  typeTable[1][5] = 'rgba(151,187,205,1)';
 
-  if (order % 2 == 0)
+  if (order % 2 == 0) {
     return typeTable[1][type];
+  }
   return typeTable[0][type];
 }
 
-function generateColorRadar(order, type)
-{
-  let typeTable = [];
+function generateColorRadar(order, type) {
+  const typeTable = [];
   typeTable[0] = [];
   typeTable[1] = [];
 
-  typeTable[0][0] = "rgba(220,220,220,0.2)";
-  typeTable[1][0] = "rgba(151,187,205,0.2)";
+  typeTable[0][0] = 'rgba(220,220,220,0.2)';
+  typeTable[1][0] = 'rgba(151,187,205,0.2)';
 
-  typeTable[0][1] = "rgba(220,220,220,1)";
-  typeTable[1][1] = "rgba(151,187,205,1)";
+  typeTable[0][1] = 'rgba(220,220,220,1)';
+  typeTable[1][1] = 'rgba(151,187,205,1)';
 
-  typeTable[0][2] = "rgba(220,220,220,1)";
-  typeTable[1][2] = "rgba(151,187,205,1)";
+  typeTable[0][2] = 'rgba(220,220,220,1)';
+  typeTable[1][2] = 'rgba(151,187,205,1)';
 
-  typeTable[0][3] = "#fff";
-  typeTable[1][3] = "#fff";
+  typeTable[0][3] = '#fff';
+  typeTable[1][3] = '#fff';
 
-  typeTable[0][4] = "#fff";
-  typeTable[1][4] = "#fff";
+  typeTable[0][4] = '#fff';
+  typeTable[1][4] = '#fff';
 
-  typeTable[0][5] = "rgba(220,220,220,1)";
-  typeTable[1][5] = "rgba(151,187,205,1)";
+  typeTable[0][5] = 'rgba(220,220,220,1)';
+  typeTable[1][5] = 'rgba(151,187,205,1)';
 
-  if (order % 2 == 0)
+  if (order % 2 == 0) {
     return typeTable[1][type];
+  }
   return typeTable[0][type];
 }
 
@@ -210,132 +208,132 @@ function generateColorRadar(order, type)
 // DATA CREATION, FILL AND PUSH TO CANVAS FUNCTIONS
 
 function prepareBarDataForGraph(graphData) {
-  var datasets = [];
-  for (var i = 0; i < graphData.dataset.length; i++) {
-      datasets.push({
-          label: graphData.dataset[i].title,
-          fillColor: generateColorBar(i, 0),
-          strokeColor: generateColorBar(i, 1),
-          highlightFill: generateColorBar(i, 2),
-          highlightStroke: generateColorBar(i, 3),
-          data: graphData.dataset[i].data,
-      });
-  };
-
-  var dataSets = {
-    labels: graphData.labels,
-    datasets: datasets,
+  const datasets = [];
+  for (let i = 0; i < graphData.dataset.length; i++) {
+    datasets.push({
+      label: graphData.dataset[i].title,
+      fillColor: generateColorBar(i, 0),
+      strokeColor: generateColorBar(i, 1),
+      highlightFill: generateColorBar(i, 2),
+      highlightStroke: generateColorBar(i, 3),
+      data: graphData.dataset[i].data,
+    });
   }
 
-  var dataToChart = {
-      complete: graphData.complete,
-      datasets: dataSets,
-      type: graphData.type,
-      title: graphData.title,
+  const dataSets = {
+    labels: graphData.labels,
+    datasets,
+  };
+
+  const dataToChart = {
+    complete: graphData.complete,
+    datasets: dataSets,
+    type: graphData.type,
+    title: graphData.title,
   };
 
   return dataToChart;
 }
 
 function preparePieDataForGraph(graphData) {
-  var datasets = [];
+  const datasets = [];
 
-  for (var i = 0; i < graphData.dataset.length; i++) {
-      datasets.push({
-          color: generateColorPie(i, 0),
-          highlight: generateColorPie(i, 1),
-          value: graphData.dataset[i].value,
-          label: graphData.dataset[i].title,
-      });
+  for (let i = 0; i < graphData.dataset.length; i++) {
+    datasets.push({
+      color: generateColorPie(i, 0),
+      highlight: generateColorPie(i, 1),
+      value: graphData.dataset[i].value,
+      label: graphData.dataset[i].title,
+    });
+  }
+
+  const dataToChart = {
+    complete: graphData.complete,
+    datasets,
+    type: graphData.type,
+    title: graphData.title,
   };
-
-  var dataToChart = {
-     complete: graphData.complete,
-     datasets: datasets,
-     type: graphData.type,
-     title: graphData.title,
- };
 
   return dataToChart;
 }
 
 function prepareDoughnutDataForGraph(graphData) {
-  var datasets = [];
+  const datasets = [];
 
-  for (var i = 0; i < graphData.dataset.length; i++) {
-      datasets.push({
-          color: generateColorPie(i, 0),
-          highlight: generateColorPie(i, 1),
-          value: graphData.dataset[i].value,
-          label: graphData.dataset[i].title,
-      });
+  for (let i = 0; i < graphData.dataset.length; i++) {
+    datasets.push({
+      color: generateColorPie(i, 0),
+      highlight: generateColorPie(i, 1),
+      value: graphData.dataset[i].value,
+      label: graphData.dataset[i].title,
+    });
+  }
+
+  const dataToChart = {
+    complete: graphData.complete,
+    datasets,
+    type: graphData.type,
+    title: graphData.title,
   };
-
-  var dataToChart = {
-     complete: graphData.complete,
-     datasets: datasets,
-     type: graphData.type,
-     title: graphData.title,
- };
 
   return dataToChart;
 }
 
 function prepareRadarDataForGraph(graphData, ctx) {
-  var datasets = [];
-  for (var i = 0; i < graphData.dataset.length; i++) {
-      datasets.push({
-          label: graphData.dataset[i].title,
-          fillColor: generateColorRadar(i, 0),
-          strokeColor: generateColorRadar(i, 1),
-          pointColor: generateColorRadar(i, 2),
-          pointStrokeColor: generateColorRadar(i, 3),
-          pointHighlightFill: generateColorRadar(i, 4),
-          pointHighlightStroke: generateColorRadar(i, 5),
-          data: graphData.dataset[i].data,
-      });
-  };
-
-  var dataSets = {
-    labels: graphData.labels,
-    datasets: datasets,
+  const datasets = [];
+  for (let i = 0; i < graphData.dataset.length; i++) {
+    datasets.push({
+      label: graphData.dataset[i].title,
+      fillColor: generateColorRadar(i, 0),
+      strokeColor: generateColorRadar(i, 1),
+      pointColor: generateColorRadar(i, 2),
+      pointStrokeColor: generateColorRadar(i, 3),
+      pointHighlightFill: generateColorRadar(i, 4),
+      pointHighlightStroke: generateColorRadar(i, 5),
+      data: graphData.dataset[i].data,
+    });
   }
 
-  var dataToChart = {
-      complete: graphData.complete,
-      datasets: dataSets,
-      type: graphData.type,
-      title: graphData.title,
+  const dataSets = {
+    labels: graphData.labels,
+    datasets,
+  };
+
+  const dataToChart = {
+    complete: graphData.complete,
+    datasets: dataSets,
+    type: graphData.type,
+    title: graphData.title,
   };
 
   return dataToChart;
 }
 
 function prepareLineDataForGraph(graphData, ctx) {
-  var datasets = [];
-  for (var i = 0; i < graphData.dataset.length; i++) {
-      datasets.push({
-          label: graphData.dataset[i].title,
-          fillColor: generateColorRadar(i, 0),
-          strokeColor: generateColorRadar(i, 1),
-          pointColor: generateColorRadar(i, 2),
-          pointStrokeColor: generateColorRadar(i, 3),
-          pointHighlightFill: generateColorRadar(i, 4),
-          pointHighlightStroke: generateColorRadar(i, 5),
-          data: graphData.dataset[i].data,
-      });
-  };
-
-  var dataSets = {
-    labels: graphData.labels,
-    datasets: datasets,
+  const datasets = [];
+  for (let i = 0; i < graphData.dataset.length; i++) {
+    datasets.push({
+      label: graphData.dataset[i].title,
+      fillColor: generateColorRadar(i, 0),
+      strokeColor: generateColorRadar(i, 1),
+      pointColor: generateColorRadar(i, 2),
+      pointStrokeColor: generateColorRadar(i, 3),
+      pointHighlightFill: generateColorRadar(i, 4),
+      pointHighlightStroke: generateColorRadar(i, 5),
+      data: graphData.dataset[i].data,
+    });
   }
 
-  var dataToChart = {
-      complete: graphData.complete,
-      datasets: dataSets,
-      type: graphData.type,
-      title: graphData.title,
+  const dataSets = {
+    labels: graphData.labels,
+    datasets,
+  };
+
+  const dataToChart = {
+    complete: graphData.complete,
+    datasets: dataSets,
+    type: graphData.type,
+    title: graphData.title,
   };
 
   return dataToChart;
@@ -366,17 +364,14 @@ function prepareLineDataForGraph(graphData, ctx) {
 //   return dataToChart;
 // }
 
-module.exports.prepareDataForGraph = function(graphData) {
-  if (graphData.type == "bar")
+module.exports.prepareDataForGraph = function (graphData) {
+  if (graphData.type == 'bar') {
     return (prepareBarDataForGraph(graphData));
-  else if (graphData.type == "pie")
+  } else if (graphData.type == 'pie') {
     return (preparePieDataForGraph(graphData));
-  else if (graphData.type == "doughnut")
-    return (prepareDoughnutDataForGraph(graphData));
-  else if (graphData.type == "radar")
+  } else if (graphData.type == 'doughnut') { return (prepareDoughnutDataForGraph(graphData)); } else if (graphData.type == 'radar') {
     return prepareRadarDataForGraph(graphData);
-  else if (graphData.type == "line")
-    return prepareLineDataForGraph(graphData);
+  } else if (graphData.type == 'line') { return prepareLineDataForGraph(graphData); }
   // else if (graphData.type == "polar")
   //   return preparePolarDataForGraph(graphData);
-}
+};

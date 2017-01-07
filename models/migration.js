@@ -4,8 +4,8 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../libs/sequelize');
 
-var UserModel = require('./users');
-var ImageModel = require('./image');
+const UserModel = require('./users');
+const ImageModel = require('./image');
 
 const Migration = sequelize.define('migration', {
   userId: {
@@ -32,7 +32,7 @@ const Migration = sequelize.define('migration', {
     type: Sequelize.STRING,
     allowNull: true,
     unique: false,
-  }
+  },
 }, {
   freezeTableName: true,
 });

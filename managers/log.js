@@ -7,12 +7,10 @@ const logAdapter = require('../adapters/log');
 // Launch getLogsWithMultipleCriteria from adapters and return the result
 //
 module.exports.getLogsWithMultipleCriteria = function (criteria) {
+  return new Promise((fulfill) => {
+    const promise = logAdapter.getLogsWithMultipleCriteria(criteria);
 
-  return new Promise(function (fulfill) {
-
-    var promise = logAdapter.getLogsWithMultipleCriteria(criteria);
-
-    promise.then(function (logs) {
+    promise.then((logs) => {
       fulfill(logs);
     });
   });
@@ -22,24 +20,24 @@ module.exports.getLogsWithMultipleCriteria = function (criteria) {
 // Launch getNumberOfLogsGroupByModuleName adapters and return the result
 //
 module.exports.getNumberOfLogsGroupByModuleName = function () {
-  return new Promise(function (fulfill) {
-    var promise = logAdapter.getNumberOfLogsGroupByModuleName();
+  return new Promise((fulfill) => {
+    const promise = logAdapter.getNumberOfLogsGroupByModuleName();
 
-    promise.then(function (logs) {
+    promise.then((logs) => {
       fulfill(logs);
-    })
+    });
   });
-}
+};
 
 //
 // Launch getNumberOfLogsGroupByModuleName adapters and return the result
 //
 module.exports.getNumberOfLogsGroupByLevel = function () {
-  return new Promise(function (fulfill) {
-    var promise = logAdapter.getNumberOfLogsGroupByLevel();
+  return new Promise((fulfill) => {
+    const promise = logAdapter.getNumberOfLogsGroupByLevel();
 
-    promise.then(function (logs) {
+    promise.then((logs) => {
       fulfill(logs);
-    })
+    });
   });
-}
+};

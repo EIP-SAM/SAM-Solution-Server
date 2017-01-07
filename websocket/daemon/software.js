@@ -1,17 +1,17 @@
 const logger = require('../../libs/bunyan').setModuleName('Daemon-software');
 
-var commandIndex = 0;
+let commandIndex = 0;
 
 function exec(userName, method, params, onStatusChange) {
-  return new Promise(function (fulfill, reject) {
-    let socket = require('../../libs/socket-io').socketArray.daemon[userName];
+  return new Promise((fulfill, reject) => {
+    const socket = require('../../libs/socket-io').socketArray.daemon[userName];
 
-    method = 'daemon_software_' + method;
+    method = `daemon_software_${method}`;
     if (typeof socket !== 'undefined') {
-      if (socket._events[method + '_status'] === undefined) {
-        socket.on(method + '_status', onStatusChange);
+      if (socket._events[`${method}_status`] === undefined) {
+        socket.on(`${method}_status`, onStatusChange);
       }
-      socket.on(method + '_finished_' + commandIndex, function (returnStatus) {
+      socket.on(`${method}_finished_${commandIndex}`, (returnStatus) => {
         if (!returnStatus.error) {
           fulfill(returnStatus);
         } else {
@@ -19,11 +19,11 @@ function exec(userName, method, params, onStatusChange) {
         }
       });
 
-      logger.info('Send ' + method + ' command for user ' + userName);
+      logger.info(`Send ${method} command for user ${userName}`);
       socket.emit(method, params, commandIndex++);
     } else {
-      logger.warn('Daemon of user ' + userName + ' is not connected');
-      reject('Daemon of user ' + userName + ' is not connected');
+      logger.warn(`Daemon of user ${userName} is not connected`);
+      reject(`Daemon of user ${userName} is not connected`);
     }
   });
 }

@@ -35,9 +35,9 @@ module.exports.getModuleRightForUser = function (moduleName, user) {
     return null;
   }
 
-  var mode = 0;
-  user.groups.forEach(function (group) {
-    const moduleMode = group[moduleName + 'Mode'];
+  let mode = 0;
+  user.groups.forEach((group) => {
+    const moduleMode = group[`${moduleName}Mode`];
     mode = moduleMode > mode ? moduleMode : mode;
   });
 

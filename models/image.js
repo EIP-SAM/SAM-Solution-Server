@@ -19,7 +19,7 @@ const Image = sequelize.define('image', {
     type: Sequelize.STRING,
     allowNull: false,
     unique: false,
-  }
+  },
 }, {
   freezeTableName: true,
 });
