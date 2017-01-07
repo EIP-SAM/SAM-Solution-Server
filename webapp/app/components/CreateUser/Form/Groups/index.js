@@ -51,7 +51,6 @@ export default class CreateUserFormGroups extends React.Component {
 
 CreateUserFormGroups.propTypes = {
   groups: React.PropTypes.array,
-  selectedGroup: React.PropTypes.array,
   getGroupsRequest: React.PropTypes.func,
   getSelectedGroup: React.PropTypes.func,
 };

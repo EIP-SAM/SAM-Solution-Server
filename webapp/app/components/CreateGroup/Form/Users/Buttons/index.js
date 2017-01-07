@@ -33,7 +33,7 @@ CreateGroupFormUsersButtons.propTypes = {
   users: React.PropTypes.array,
   preSelectedUsers: React.PropTypes.array,
   selectedUsers: React.PropTypes.array,
-  unselectedUser: React.PropTypes.array,
+  unselectedUsers: React.PropTypes.array,
   getUsers: React.PropTypes.func,
   addUsersToGroup: React.PropTypes.func,
   removeUsers: React.PropTypes.func,

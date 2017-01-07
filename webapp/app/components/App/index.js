@@ -77,5 +77,4 @@ App.propTypes = {
   location: React.PropTypes.object,
   getUserInfo: React.PropTypes.func,
   setAppLoadingState: React.PropTypes.func,
-  setAppRedirectState: React.PropTypes.func,
 };

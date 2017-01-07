@@ -37,8 +37,8 @@ export default class DateRange extends React.Component {
     if (this.state.specific) {
       return undefined;
     }
-    if (this.state.levelOne != 'all' && this.state.levelTwo != 'all') {
-      if (parseInt(this.state.levelOne) > parseInt(this.state.levelTwo)) {
+    if (this.state.levelOne !== 'all' && this.state.levelTwo !== 'all') {
+      if (parseInt(this.state.levelOne, 10) > parseInt(this.state.levelTwo, 10)) {
         return 'error';
       }
     }
@@ -49,8 +49,8 @@ export default class DateRange extends React.Component {
     if (this.state.specific) {
       return undefined;
     }
-    if (this.state.levelOne != 'all' && this.state.levelTwo != 'all') {
-      if (parseInt(this.state.levelOne) > parseInt(this.state.levelTwo)) {
+    if (this.state.levelOne !== 'all' && this.state.levelTwo !== 'all') {
+      if (parseInt(this.state.levelOne, 10) > parseInt(this.state.levelTwo, 10)) {
         return 'First level must be higher than second level';
       }
     }

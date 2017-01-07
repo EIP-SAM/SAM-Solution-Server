@@ -12,7 +12,6 @@ import {
 function mapStateToProps(state) {
   return {
     groups: state.get('createUser').get('CreateUserFormGroupsReducer').groups,
-    selectedGroup: state.get('createUser').get('CreateUserFormGroupsReducer').selectedGroup,
   };
 }
 
