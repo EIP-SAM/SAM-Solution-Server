@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from 'components/Stats/StatisticGraph/styles.css';
+
 const chartJs = require('react-chartjs');
 
 /* eslint-disable react/prefer-stateless-function */
