@@ -3,10 +3,6 @@
 //
 
 import React from 'react';
-import styles from './styles.css';
-import DateRange from './DateRange';
-import LevelRange from './LevelRange';
-import NumberLogs from './NumberLogs';
 import moment from 'moment';
 import {
   Panel,
@@ -17,6 +13,10 @@ import {
   Row,
   Col,
 } from 'react-bootstrap';
+import styles from './styles.css';
+import DateRange from './DateRange';
+import LevelRange from './LevelRange';
+import NumberLogs from './NumberLogs';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class LogFilter extends React.Component {

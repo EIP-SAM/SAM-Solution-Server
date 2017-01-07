@@ -36,7 +36,6 @@
       "prefer-template": 2,
       "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
       "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx"] }],
-      "no-use-before-define": 0,
       "newline-per-chained-call": 0,
       "arrow-body-style": [
         2,

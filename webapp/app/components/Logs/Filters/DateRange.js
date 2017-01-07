@@ -6,7 +6,6 @@ import React from 'react';
 import moment from 'moment';
 import DatePicker from 'components/DatePicker';
 import RadioGroup from 'components/RadioGroup';
-import styles from './styles.css';
 import {
   FormGroup,
   ControlLabel,
@@ -14,6 +13,7 @@ import {
   Label,
   Collapse,
 } from 'react-bootstrap';
+import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class DateRange extends React.Component {

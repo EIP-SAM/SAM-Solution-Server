@@ -14,9 +14,9 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import Navbar from 'containers/Navbar';
-import styles from './styles.css';
 import { browserHistory } from 'react-router';
 import Spinner from 'components/Spinner';
+import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class App extends React.Component {
