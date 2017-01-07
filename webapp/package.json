@@ -21,7 +21,7 @@
     "setup": "node ./internals/scripts/setup.js",
     "clean": "shjs ./internals/scripts/clean.js",
     "generate": "plop --plopfile internals/generators/index.js",
-    "lint": "npm run lint:js && npm run lint:css",
+    "lint": "node_modules/.bin/eslint .",
     "lint:js": "npm run lint:eslint && npm run lint:jscs",
     "lint:js:staged": "npm run lint:eslint:staged && npm run lint:jscs:staged",
     "lint:eslint": "break",
@@ -57,95 +57,6 @@
           "transform-react-inline-elements"
         ]
       }
-    }
-  },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "extends": "airbnb",
-    "env": {
-      "browser": true,
-      "node": true,
-      "mocha": true,
-      "es6": true
-    },
-    "plugins": [
-      "react",
-      "jsx-a11y"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 6,
-      "sourceType": "module",
-      "ecmaFeatures": {
-        "jsx": true
-      }
-    },
-    "rules": {
-      "import/no-unresolved": 2,
-      "comma-dangle": [
-        2,
-        "always-multiline"
-      ],
-      "indent": [
-        2,
-        2,
-        {
-          "SwitchCase": 1
-        }
-      ],
-      "no-console": 1,
-      "max-len": 0,
-      "prefer-template": 2,
-      "no-use-before-define": 0,
-      "newline-per-chained-call": 0,
-      "arrow-body-style": [
-        2,
-        "as-needed"
-      ],
-      "jsx-a11y/href-no-hash": 2,
-      "jsx-a11y/label-has-for": 2,
-      "jsx-a11y/mouse-events-have-key-events": 2,
-      "jsx-a11y/role-has-required-aria-props": 2,
-      "jsx-a11y/role-supports-aria-props": 2,
-      "jsx-a11y/aria-props": 2
-    },
-    "settings": {
-      "import/resolver": {
-        "webpack": {
-          "config": "./internals/webpack/webpack.test.babel.js"
-        }
-      }
-    }
-  },
-  "jscsConfig": {
-    "preset": "airbnb",
-    "validateQuoteMarks": null,
-    "requireTrailingComma": null,
-    "maximumLineLength": null,
-    "maxErrors": null,
-    "requireCamelCaseOrUpperCaseIdentifiers": null,
-    "requireShorthandArrowFunctions": null,
-    "excludeFiles": [
-      "build/**",
-      "coverage/**",
-      "docs/**",
-      "node_modules/**"
-    ]
-  },
-  "stylelint": {
-    "extends": "stylelint-config-standard",
-    "rules": {
-      "color-hex-case": "upper",
-      "string-quotes": "single",
-      "font-family-name-quotes": "always-where-recommended",
-      "selector-pseudo-class-no-unknown": [
-        true,
-        {
-          "ignorePseudoClasses": [
-            "global"
-          ]
-        }
-      ],
-      "indentation": 2
     }
   },
   "dependencies": {

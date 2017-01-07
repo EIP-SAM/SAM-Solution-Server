@@ -6,7 +6,7 @@ machine:
 ## Customize test commands
 test:
   pre:
-    - npm run lint
+    - npm run lint:all
     - for f in *config.json.example; do cp "$f" "`echo $f | sed s/json.example/json/`"; done:
         pwd:
           config/
