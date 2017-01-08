@@ -1,14 +1,14 @@
 module.exports = function initExpress(conf) {
-  var express = require('express');
-  var cookieParser = require('cookie-parser');
-  var bodyParser = require('body-parser');
-  var flash = require('connect-flash');
-  var helmet = require('helmet');
-  var gitMiddleware = require('./expressGit')
+  const express = require('express');
+  const cookieParser = require('cookie-parser');
+  const bodyParser = require('body-parser');
+  const flash = require('connect-flash');
+  const helmet = require('helmet');
+  const gitMiddleware = require('./expressGit');
 
 
   // init express
-  var app = express();
+  const app = express();
 
   // init global middleware
   app.use(cookieParser(conf.secret));
@@ -16,12 +16,13 @@ module.exports = function initExpress(conf) {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(flash());
   app.use(helmet());
-  app.use("/git", gitMiddleware());
+  app.use('/git', gitMiddleware());
 
-  app.use(function(req, res, next) {
-    if (req.get('origin'))
+  app.use((req, res, next) => {
+    if (req.get('origin')) {
       res.setHeader('Access-Control-Allow-Origin', req.get('origin'));
-    res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+    }
+    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE');
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
