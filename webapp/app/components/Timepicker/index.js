@@ -3,7 +3,10 @@
 //
 
 import React from 'react';
+<<<<<<< HEAD
 import * as ReactDOM from 'react-dom';
+=======
+>>>>>>> #526: First implementation of custom Timerpicker in migration page
 
 //
 // Modules
@@ -68,6 +71,7 @@ export default class Timepicker extends React.Component {
 
         let time = this.convertTimeToArray(this.state.time);
 
+<<<<<<< HEAD
         const timeButton = !this.state.isDisabled ? (
           <div>
             <span className={removeStyle} onClick={this.props.handleRemove}></span>

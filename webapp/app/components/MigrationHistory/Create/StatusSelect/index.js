@@ -63,7 +63,6 @@ export default class StatusSelect extends React.Component {
       </FormGroup>
     );
   }
-
 }
 
 StatusSelect.propTypes = {
