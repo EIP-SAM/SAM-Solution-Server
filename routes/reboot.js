@@ -4,7 +4,7 @@
 
 const rebootController = require('../controllers/reboot');
 
-module.exports = function initRebootRoutes(app, conf) {
+module.exports = function initRebootRoutes(app) {
   //
   // GET requests
   //

@@ -17,7 +17,7 @@ module.exports = function initRestoreRoutes(app) {
   });
 
   app.post('/api/logged-in/create_restore', (req, res) => {
-    restoreController.createRestore(req, res).then((newRestore) => {
+    restoreController.createRestore(req, res).then(() => {
       res.json('Your restoration has been created');
     });
   });

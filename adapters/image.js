@@ -1,7 +1,6 @@
 //
 // Image adapter
 //
-const Sequelize = require('sequelize');
 
 const ImageModel = require('../models/image');
 

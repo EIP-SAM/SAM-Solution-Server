@@ -64,7 +64,7 @@ function checkNewUserEmail(email) {
 }
 
 function checkNewUserPassword(password, confirmation) {
-  return (!password || !confirmation || !password.length || password != confirmation ? 'Invalid user password/confirmation' : null);
+  return (!password || !confirmation || !password.length || password !== confirmation ? 'Invalid user password/confirmation' : null);
 }
 
 function checkNewUserValues(name, email, password, confirmation) {
@@ -125,7 +125,7 @@ function checkAndCreateUser(name, email, password, confirmation) {
 // Security check for each url of this kind : /api/public/*
 //
 module.exports.ensureLoggedOut = (req, res, next) => {
-  if (req.method == 'OPTIONS') {
+  if (req.method === 'OPTIONS') {
     res.end();
   } else if (req.user) {
     logger.setUser({ id: req.user.id, name: req.user.name }).warn('Logged user is trying to access a public (logged-out) ressource');
@@ -139,7 +139,7 @@ module.exports.ensureLoggedOut = (req, res, next) => {
 // Security check for each url of this kind : /api/logged-in/*
 //
 module.exports.ensureLoggedIn = (req, res, next) => {
-  if (req.method == 'OPTIONS') {
+  if (req.method === 'OPTIONS') {
     res.end();
   } else if (req.user) {
     next();
@@ -153,7 +153,7 @@ module.exports.ensureLoggedIn = (req, res, next) => {
 // Security check for each url of this kind : /api/logged-in/admin/*
 //
 module.exports.ensureAdminLoggedIn = (req, res, next) => {
-  if (req.method == 'OPTIONS') {
+  if (req.method === 'OPTIONS') {
     res.end();
   } else if (req.user.isAdmin) {
     next();
@@ -169,7 +169,7 @@ module.exports.ensureAdminLoggedIn = (req, res, next) => {
 module.exports.identifyUser = (name, password) => new Promise((fulfill, reject) => {
   UsersAdapter.findByName(name).then((user) => {
     if (user) {
-      if (password && user.password == crypto.createHmac('sha256', salt).update(password).digest('hex')) {
+      if (password && user.password === crypto.createHmac('sha256', salt).update(password).digest('hex')) {
         fulfill(user);
       } else {
         reject('Invalid password', null);
@@ -186,7 +186,7 @@ module.exports.identifyUser = (name, password) => new Promise((fulfill, reject) 
 // Log the user in the system and create a session for him
 // Entry point from the login POST route
 //
-module.exports.login = passport => function (req, res, next) {
+module.exports.login = passport => (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
       logger.setUser(user).error(`User login failure, internal server error: ${err}`);
@@ -198,7 +198,7 @@ module.exports.login = passport => function (req, res, next) {
       return res.status(401).json({ error: info.message });
     }
 
-    req.logIn(user, (err) => {
+    req.logIn(user, () => {
       if (err) {
         logger.setUser(user).error(`User login failure, internal server error${err}`);
         return res.status(500).json({ error: 'Internal server error' });
@@ -216,7 +216,7 @@ module.exports.login = passport => function (req, res, next) {
 // Logout the user and destroy his current session
 // Entry point from the logout POST route
 //
-module.exports.logout = () => function (req, res) {
+module.exports.logout = () => (req, res) => {
   const user = req.user;
 
   req.logout();
@@ -229,7 +229,7 @@ module.exports.logout = () => function (req, res) {
 //
 // Create user entry point from its POST route
 //
-module.exports.createUser = () => function (req, res) {
+module.exports.createUser = () => (req, res) => {
   checkAndCreateUser(req.body.username, req.body.email, req.body.password, req.body.confirmation)
       .then((user) => {
         logger.setUser({ id: user.id, name: user.name }).info('New user created');
@@ -249,7 +249,7 @@ module.exports.createUser = () => function (req, res) {
 // Construct a safe and showable user profile from a user (for client side)
 //
 function constructUserProfile(user) {
-  return new Promise((fulfill, reject) => {
+  return new Promise((fulfill) => {
     const userProfile = {
       id: user.id,
       name: user.name,
@@ -310,13 +310,13 @@ function recoverUserPassword(userEmail) {
         const passwordAndMessageBody = generatePasswordAndMessageBody();
 
         mailManager.send(userEmail, '[SAM-Solution] Password recovery', passwordAndMessageBody.messageBody)
-        .then((mailInfo) => {
+        .then(() => {
           updateUserProfile(user, passwordAndMessageBody).then((user) => {
             fulfill(user);
-          }).catch((error) => {
+          }).catch(() => {
             reject(null, 'Internal server error');
           });
-        }).catch((error) => {
+        }).catch(() => {
           reject('Unable to send an email to this email', null);
         });
       } else {
@@ -364,7 +364,7 @@ module.exports.retrieveUserProfile = () => (req, res) => {
     } else {
       res.status(500).json({ error: 'Internal server error' });
     }
-  }).catch((error) => {
+  }).catch(() => {
     res.status(500).json({ error: 'Internal server error' });
   });
 };
@@ -437,12 +437,12 @@ function updateUserProfile(userModel, userUpdateRequest) {
     }).catch((error) => {
       const failure = error.errors[0];
 
-      if (failure.type == 'unique violation') {
+      if (failure.type === 'unique violation') {
         let enumField = enumUserValues.ALL;
         const errorMessage = `A user with this ${failure.path} already exists`;
 
-        enumField = failure.path == 'name' ? enumUserValues.NAME : enumField;
-        enumField = failure.path == 'email' ? enumUserValues.EMAIL : enumField;
+        enumField = failure.path === 'name' ? enumUserValues.NAME : enumField;
+        enumField = failure.path === 'email' ? enumUserValues.EMAIL : enumField;
         reject({ error: errorMessage, field: enumField });
       }
     });
@@ -462,7 +462,7 @@ module.exports.updateUserProfile = () => (req, res) => {
   userUpdate.password = req.body.password ? req.body.password : null;
   userUpdate.confirmation = req.body.confirmation ? req.body.confirmation : null;
 
-  updateUserProfile(req.user, userUpdate).then((user) => {
+  updateUserProfile(req.user, userUpdate).then(() => {
     logger.setUser({ id: req.user.id, name: req.user.name }).info('Successfull user profile update');
     return res.status(200).json({ success: 'Your profile has been successfully updated' });
   })
@@ -490,7 +490,7 @@ module.exports.retrieveAllUsers = errors => (req, res) => {
     }
 
     return res.status(200).json(output);
-  }).catch(error => res.status(500).json({ error: 'Internal server error' }));
+  }).catch(() => res.status(500).json({ error: 'Internal server error' }));
 };
 
 function stopForEachPromise(obj, newError, fulfill) {
@@ -498,19 +498,19 @@ function stopForEachPromise(obj, newError, fulfill) {
     obj.errors.push({ error: newError });
   }
 
-  if (++obj.i == obj.array.length) {
+  if (++obj.i === obj.array.length) {
     fulfill(obj.errors.length ? obj.errors : null);
   }
 }
 
 function createUsers(users) {
-  return new Promise((fulfill, reject) => {
+  return new Promise((fulfill) => {
     const obj = { errors: [], i: 0, array: users };
 
     users.forEach((user) => {
       checkAndCreateUser(user.name, user.email, user.password, user.confirmation)
       .then((newUser) => {
-        if (user.groups && user.groups.constructor == Array) {
+        if (user.groups && user.groups.constructor === Array) {
           GroupsAdapter.reassignGroupsToUser(newUser, user.groups).then(() => {
             logger.setUser({ id: newUser.id, name: newUser.name }).info('New user created (by an administrator)');
             stopForEachPromise(obj, null, fulfill);
@@ -535,7 +535,7 @@ function createUsers(users) {
 // Create users entry point from its POST route
 //
 module.exports.createUsers = () => (req, res) => {
-  if (req.body.users && req.body.users.constructor == Array) {
+  if (req.body.users && req.body.users.constructor === Array) {
     createUsers(req.body.users).then(errors => module.exports.retrieveAllUsers(errors)(req, res));
   } else {
     logger.error('Error during new user creation (by an administrator): Invalid request');
@@ -544,7 +544,7 @@ module.exports.createUsers = () => (req, res) => {
 };
 
 function updateUsers(users) {
-  return new Promise((fulfill, reject) => {
+  return new Promise((fulfill) => {
     const obj = { errors: [], i: 0, array: users };
 
     users.forEach((user) => {
@@ -552,7 +552,7 @@ function updateUsers(users) {
         UsersAdapter.findById(user.id).then((foundUser) => {
           if (foundUser) {
             updateUserProfile(foundUser, user).then((updatedUser) => {
-              if (user.groups && user.groups.constructor == Array) {
+              if (user.groups && user.groups.constructor === Array) {
                 GroupsAdapter.reassignGroupsToUser(foundUser, user.groups).then(() => {
                   logger.setUser({ id: updatedUser.id, name: updatedUser.name }).info('User updated (by an administrator)');
                   stopForEachPromise(obj, null, fulfill);
@@ -586,7 +586,7 @@ function updateUsers(users) {
 // Update users entry point from its POST route
 //
 module.exports.updateUsers = () => (req, res) => {
-  if (req.body.users && req.body.users.constructor == Array) {
+  if (req.body.users && req.body.users.constructor === Array) {
     updateUsers(req.body.users).then(errors => module.exports.retrieveAllUsers(errors)(req, res));
   } else {
     logger.error('Error during user update (by an administrator): Invalid request');
@@ -595,7 +595,7 @@ module.exports.updateUsers = () => (req, res) => {
 };
 
 function deleteUsers(users) {
-  return new Promise((fulfill, reject) => {
+  return new Promise((fulfill) => {
     const obj = { errors: [], i: 0, array: users };
 
     users.forEach((userId) => {
@@ -647,9 +647,9 @@ function retrieveUserFromId(req, id) {
 //
 // Retrieve user for its GET route
 //
-module.exports.retrieveUser = errors => (req, res) => {
+module.exports.retrieveUser = () => (req, res) => {
   if (req.query.id) {
-    if (req.user.id == req.query.id) {
+    if (req.user.id === req.query.id) {
       retrieveUserFromId(req, req.query.id).then(user => res.status(200).json(user)).catch((code, error) => {
         logger.setUser({ id: req.user.id, name: req.user.name }).error(error);
         return res.status(code).json({ error });
@@ -675,7 +675,7 @@ function updateUserFromId(user) {
       UsersAdapter.findById(user.id).then((foundUser) => {
         if (foundUser) {
           updateUserProfile(foundUser, user).then((updatedUser) => {
-            if (user.groups && user.groups.constructor == Array) {
+            if (user.groups && user.groups.constructor === Array) {
               GroupsAdapter.reassignGroupsToUser(foundUser, user.groups).then(() => {
                 logger.setUser({ id: updatedUser.id, name: updatedUser.name }).info('User updated');
                 fulfill(updatedUser);

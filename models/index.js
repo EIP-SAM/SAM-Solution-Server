@@ -1,8 +1,8 @@
-module.exports = function initModels(libs, conf) {
+module.exports = function initModels(libs) {
   const models = {};
 
-  require('./User')(libs, models);
-  require('./saveSchedule')(libs, models);
+  require('./users')(libs, models);
+  require('./saveScheduled')(libs, models);
   require('./save')(libs, models);
   require('./restore')(libs, models);
   require('./migration')(libs, models);

@@ -10,7 +10,7 @@ module.exports.getStatisticTypeAndNameListByType = (type) => {
   return statManagers.getStatisticTypeAndNameListByType(type);
 };
 
-module.exports.getStatisticDataByTypeAndName = (type, name) => new Promise((fulfill, reject) => {
+module.exports.getStatisticDataByTypeAndName = (type, name) => new Promise((fulfill) => {
   statManagers.initiateGraphs();
   statManagers.getStatisticByTypeAndName(type, name).then((result) => {
     fulfill(result);

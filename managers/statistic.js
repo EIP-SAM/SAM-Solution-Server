@@ -21,14 +21,14 @@ module.exports.statisticGetMethodForEntity = (entity, functionName) => {
 };
 
 module.exports.addFilter = (entity) => {
-  if (module.exports.statisticFilters.indexOf(entity) == -1) {
+  if (module.exports.statisticFilters.indexOf(entity) === -1) {
     module.exports.statisticFilters.push(entity);
   }
 };
 
 module.exports.getStatisticFilters = () => module.exports.statisticFilters;
 
-module.exports.getStatisticByTypeAndName = (type, name) => new Promise((fulfill, reject) => {
+module.exports.getStatisticByTypeAndName = (type, name) => new Promise((fulfill) => {
   module.exports.statisticFunctions[type][name]().then((data) => {
     fulfill(module.exports.prepareDataForGraph(data));
   });
@@ -73,7 +73,7 @@ function generateColorBar(order, type) {
   typeTable[0][3] = 'rgba(220,220,220,1)';
   typeTable[1][3] = 'rgba(151,187,205,1)';
 
-  if (order % 2 == 0) {
+  if (order % 2 === 0) {
     return typeTable[1][type];
   }
   return typeTable[0][type];
@@ -93,9 +93,9 @@ function generateColorPie(order, type) {
   typeTable[1][1] = '#5AD3D1';
   typeTable[2][1] = '#FFC870';
 
-  if (order % 3 == 0) {
+  if (order % 3 === 0) {
     return typeTable[2][type];
-  } else if (order % 2 == 0) {
+  } else if (order % 2 === 0) {
     return typeTable[1][type];
   }
   return typeTable[0][type];
@@ -115,9 +115,9 @@ function generateColorDoughnut(order, type) {
   typeTable[1][1] = '#5AD3D1';
   typeTable[2][1] = '#FFC870';
 
-  if (order % 3 == 0) {
+  if (order % 3 === 0) {
     return typeTable[2][type];
-  } else if (order % 2 == 0) { return typeTable[1][type]; }
+  } else if (order % 2 === 0) { return typeTable[1][type]; }
   return typeTable[0][type];
 }
 
@@ -144,7 +144,7 @@ function generateColorRadar(order, type) {
   typeTable[0][5] = 'rgba(220,220,220,1)';
   typeTable[1][5] = 'rgba(151,187,205,1)';
 
-  if (order % 2 == 0) {
+  if (order % 2 === 0) {
     return typeTable[1][type];
   }
   return typeTable[0][type];
@@ -173,7 +173,7 @@ function generateColorRadar(order, type) {
   typeTable[0][5] = 'rgba(220,220,220,1)';
   typeTable[1][5] = 'rgba(151,187,205,1)';
 
-  if (order % 2 == 0) {
+  if (order % 2 === 0) {
     return typeTable[1][type];
   }
   return typeTable[0][type];
@@ -275,7 +275,7 @@ function prepareDoughnutDataForGraph(graphData) {
   return dataToChart;
 }
 
-function prepareRadarDataForGraph(graphData, ctx) {
+function prepareRadarDataForGraph(graphData) {
   const datasets = [];
   for (let i = 0; i < graphData.dataset.length; i++) {
     datasets.push({
@@ -305,7 +305,7 @@ function prepareRadarDataForGraph(graphData, ctx) {
   return dataToChart;
 }
 
-function prepareLineDataForGraph(graphData, ctx) {
+function prepareLineDataForGraph(graphData) {
   const datasets = [];
   for (let i = 0; i < graphData.dataset.length; i++) {
     datasets.push({
@@ -361,13 +361,13 @@ function prepareLineDataForGraph(graphData, ctx) {
 // }
 
 module.exports.prepareDataForGraph = (graphData) => {
-  if (graphData.type == 'bar') {
+  if (graphData.type === 'bar') {
     return (prepareBarDataForGraph(graphData));
-  } else if (graphData.type == 'pie') {
+  } else if (graphData.type === 'pie') {
     return (preparePieDataForGraph(graphData));
-  } else if (graphData.type == 'doughnut') { return (prepareDoughnutDataForGraph(graphData)); } else if (graphData.type == 'radar') {
+  } else if (graphData.type === 'doughnut') { return (prepareDoughnutDataForGraph(graphData)); } else if (graphData.type === 'radar') {
     return prepareRadarDataForGraph(graphData);
-  } else if (graphData.type == 'line') { return prepareLineDataForGraph(graphData); }
+  } else if (graphData.type === 'line') { return prepareLineDataForGraph(graphData); }
   // else if (graphData.type == "polar")
   //   return preparePolarDataForGraph(graphData);
 };

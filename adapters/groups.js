@@ -68,13 +68,13 @@ module.exports.createGroup = (name, saveAndRestoreMode, migrationMode, softwareP
   softwarePackagesMode,
 });
 
-module.exports.linkUserAndGroup = (user, group) => new Promise((fulfill, reject) => {
+module.exports.linkUserAndGroup = (user, group) => new Promise((fulfill) => {
   user.addGroups([group]).then((user) => {
     fulfill(user, group);
   });
 });
 
-module.exports.unlinkUsersGroups = user => new Promise((fulfill, reject) => {
+module.exports.unlinkUsersGroups = user => new Promise((fulfill) => {
   user.setGroups([]).then(() => {
     fulfill(user);
   });
@@ -88,7 +88,7 @@ module.exports.createAndLinkGroupAndUser = (user, group) => new Promise((fulfill
   });
 });
 
-module.exports.reassignGroupToUser = (user, group) => new Promise((fulfill, reject) => {
+module.exports.reassignGroupToUser = (user, group) => new Promise((fulfill) => {
   module.exports.findByName(group).then((foundGroup) => {
     if (foundGroup) {
       module.exports.linkUserAndGroup(user, foundGroup).then((user, group) => {
@@ -102,7 +102,7 @@ module.exports.reassignGroupToUser = (user, group) => new Promise((fulfill, reje
   });
 });
 
-module.exports.reassignGroupsToUser = (user, groups) => new Promise((fulfill, reject) => {
+module.exports.reassignGroupsToUser = (user, groups) => new Promise((fulfill) => {
   module.exports.unlinkUsersGroups(user).then((user) => {
     let i = 0;
 

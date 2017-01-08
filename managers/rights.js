@@ -29,9 +29,9 @@ module.exports.enumModules = enumModules;
 //  });
 //
 module.exports.getModuleRightForUser = (moduleName, user) => {
-  if (moduleName != enumModules.SAVE_AND_RESTORE &&
-    moduleName != enumModules.MIGRATION &&
-    moduleName != enumModules.SOFTWARE_PACKAGES) {
+  if (moduleName !== enumModules.SAVE_AND_RESTORE &&
+    moduleName !== enumModules.MIGRATION &&
+    moduleName !== enumModules.SOFTWARE_PACKAGES) {
     return null;
   }
 
@@ -41,7 +41,7 @@ module.exports.getModuleRightForUser = (moduleName, user) => {
     mode = moduleMode > mode ? moduleMode : mode;
   });
 
-  if (mode == enumMode.SIMPLE || mode == enumMode.ADVANCED) {
+  if (mode === enumMode.SIMPLE || mode === enumMode.ADVANCED) {
     return mode;
   }
 

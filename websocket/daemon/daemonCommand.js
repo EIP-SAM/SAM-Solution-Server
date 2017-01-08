@@ -19,7 +19,7 @@ module.exports.check = function check(username) {
     }).catch(() => {
       logger.info(`Unable to retrieve persist notification for ${username}`);
     });
-  }).catch((err) => {
+  }).catch(() => {
     logger.info(`Unable to retrieve ${username}for persisted commands`);
   });
 };
@@ -29,7 +29,7 @@ commandFunction[module.exports.NOTIFICATION_DISPLAY] = (command) => {
   userAdapter.findById(command.userId).then((user) => {
     const data = JSON.parse(command.content);
     notificationDaemon.display(user.name, data.title, data.description);
-  }).catch((err) => {
+  }).catch(() => {
     logger.info(`Unable to retrieve user ${command.userId}for persisted commands`);
   });
 };

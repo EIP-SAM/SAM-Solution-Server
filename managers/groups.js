@@ -35,15 +35,15 @@ module.exports.retrieveAllGroups = errors => (req, res) => {
     }
 
     return res.status(200).json(output);
-  }).catch(error => res.status(500).json({ error: 'Internal server error' }));
+  }).catch(() => res.status(500).json({ error: 'Internal server error' }));
 };
 
 function newGroupIsInvalid(group) {
   const name = group.name ? group.name : '';
   const rights = [group.saveAndRestoreMode, group.migrationMode, group.softwarePackagesMode];
 
-  for (let i = 0; i != rights.length; ++i) {
-    if (rights[i] != enumMode.SIMPLE && rights[i] != enumMode.ADVANCED) {
+  for (let i = 0; i !== rights.length; ++i) {
+    if (rights[i] !== enumMode.SIMPLE && rights[i] !== enumMode.ADVANCED) {
       return `Invalid right ${rights[i]}`;
     }
   }
@@ -83,18 +83,18 @@ function stopForEachPromise(obj, newError, fulfill) {
     obj.errors.push({ error: newError });
   }
 
-  if (++obj.i == obj.array.length) {
+  if (++obj.i === obj.array.length) {
     fulfill(obj.errors.length ? obj.errors : null);
   }
 }
 
 function createGroups(groups) {
-  return new Promise((fulfill, reject) => {
+  return new Promise((fulfill) => {
     const obj = { errors: [], i: 0, array: groups };
 
     groups.forEach((group) => {
       createGroup(group).then((newGroup) => {
-        if (group.users && group.users.constructor == Array) {
+        if (group.users && group.users.constructor === Array) {
           UsersAdapter.reassignUsersToGroup(newGroup, group.users).then(() => {
             logger.info({ group: { id: newGroup.id, name: newGroup.name } }, 'New group created (by an administrator)');
             stopForEachPromise(obj, null, fulfill);
@@ -114,8 +114,8 @@ function createGroups(groups) {
   });
 }
 
-module.exports.createGroups = () => function (req, res) {
-  if (req.body.groups && req.body.groups.constructor == Array) {
+module.exports.createGroups = () => (req, res) => {
+  if (req.body.groups && req.body.groups.constructor === Array) {
     createGroups(req.body.groups).then(errors => module.exports.retrieveAllGroups(errors)(req, res));
   } else {
     logger.error('Error during new group creation (by an administrator): ' + 'Invalid request');
@@ -124,7 +124,7 @@ module.exports.createGroups = () => function (req, res) {
 };
 
 function updateGroups(groups) {
-  return new Promise((fulfill, reject) => {
+  return new Promise((fulfill) => {
     const obj = { errors: [], i: 0, array: groups };
 
     groups.forEach((groupUpdate) => {
@@ -135,7 +135,7 @@ function updateGroups(groups) {
           group.migrationMode = groupUpdate.migrationMode ? groupUpdate.migrationMode : group.migrationMode;
           group.softwarePackagesMode = groupUpdate.softwarePackagesMode ? groupUpdate.softwarePackagesMode : group.softwarePackagesMode;
           group.save().then((group) => {
-            if (groupUpdate.users && groupUpdate.users.constructor == Array) {
+            if (groupUpdate.users && groupUpdate.users.constructor === Array) {
               UsersAdapter.reassignUsersToGroup(group, groupUpdate.users).then(() => {
                 logger.info({ group: { id: group.id, name: group.name } }, 'Group updated (by an administrator)');
                 stopForEachPromise(obj, null, fulfill);
@@ -158,7 +158,7 @@ function updateGroups(groups) {
 }
 
 module.exports.updateGroups = () => (req, res) => {
-  if (req.body.groups && req.body.groups.constructor == Array) {
+  if (req.body.groups && req.body.groups.constructor === Array) {
     updateGroups(req.body.groups).then(errors => module.exports.retrieveAllGroups(errors)(req, res));
   } else {
     logger.error('Error during group update (by an administrator): Invalid request');
@@ -167,7 +167,7 @@ module.exports.updateGroups = () => (req, res) => {
 };
 
 function deleteGroups(groups) {
-  return new Promise((fulfill, reject) => {
+  return new Promise((fulfill) => {
     const obj = { errors: [], i: 0, array: groups };
 
     groups.forEach((groupId) => {
@@ -190,7 +190,7 @@ function deleteGroups(groups) {
 }
 
 module.exports.deleteGroups = () => (req, res) => {
-  if (req.body.groups && req.body.groups.constructor == Array) {
+  if (req.body.groups && req.body.groups.constructor === Array) {
     deleteGroups(req.body.groups).then(errors => module.exports.retrieveAllGroups(errors)(req, res));
   } else {
     logger.warn('Error during group deletion (by an administrator): Invalid request');
@@ -227,7 +227,7 @@ function addUsersToGroup(groupId, users) {
 }
 
 module.exports.addUsersToGroup = () => (req, res) => {
-  if (req.body.group && req.body.users && req.body.users.constructor == Array) {
+  if (req.body.group && req.body.users && req.body.users.constructor === Array) {
     addUsersToGroup(req.body.group, req.body.users).then((errors) => {
       logger.info(`Users added to group (by an administrator): id: ${req.body.group}`);
       return module.exports.retrieveAllGroups(errors)(req, res);
@@ -269,7 +269,7 @@ module.exports.updateGroup = () => (req, res) => {
         group.migrationMode = req.body.migrationMode ? req.body.migrationMode : group.migrationMode;
         group.softwarePackagesMode = req.body.softwarePackagesMode ? req.body.softwarePackagesMode : group.softwarePackagesMode;
         group.save().then((group) => {
-          if (req.body.users && req.body.users.constructor == Array) {
+          if (req.body.users && req.body.users.constructor === Array) {
             UsersAdapter.reassignUsersToGroup(group, req.body.users).then(() => {
               logger.info({ group: { id: group.id, name: group.name } }, 'Group updated (by an administrator)');
               req.query.id = req.body.id;
@@ -306,7 +306,7 @@ module.exports.deleteGroup = () => (req, res) => {
         logger.warn(`Error during group deletion (by an administrator): id: ${req.body.id} not found`);
         return res.status(404).json({ error: `Group id ${req.body.id} not found` });
       }
-    }).catch((error) => {
+    }).catch(() => {
       logger.warn(`Error during group deletion (by an administrator): id: ${req.body.id} not found`);
       return res.status(404).json({ error: `Group id ${req.body.id} not found` });
     });

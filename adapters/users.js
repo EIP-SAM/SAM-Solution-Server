@@ -60,7 +60,7 @@ module.exports.linkGroupToUser = (group, user) => new Promise((fulfill, reject) 
   });
 });
 
-module.exports.unlinkAllUsersOfGroup = group => new Promise((fulfill, reject) => {
+module.exports.unlinkAllUsersOfGroup = group => new Promise((fulfill) => {
   const brokenUsers = [];
 
   if (group.users) {
@@ -112,6 +112,6 @@ module.exports.reassignUsersToGroup = (group, users) => new Promise((fulfill, re
   });
 });
 
-module.exports.getNbrUserConnectedDeamon = () => new Promise((fulfill, reject) => {
+module.exports.getNbrUserConnectedDeamon = () => new Promise((fulfill) => {
   fulfill(socketIo.getNbrUserConnected(socketIo.CLIENT_TYPE_DEAMON));
 });

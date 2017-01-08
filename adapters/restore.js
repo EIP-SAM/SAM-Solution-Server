@@ -104,7 +104,7 @@ module.exports.getRestoresByDay = () => {
   const currentYear = new Date().getFullYear();
   const firstDay = new Date(`Jan 01, ${currentYear} 01:00:00`);
   const lastDay = new Date(`Dec 31, ${currentYear} 11:59:59`);
-  const date = new Date();
+
   return RestoreModel.findAndCountAll({
     where: {
       isFinish: true,

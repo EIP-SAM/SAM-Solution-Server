@@ -9,7 +9,7 @@ const logger = require('../libs/bunyan');
 //
 // Get all users with their last save
 //
-module.exports.lastUsersSaves = (req, res) => saveScheduledAdapter.lastUsersSaves().then((results) => {
+module.exports.lastUsersSaves = () => saveScheduledAdapter.lastUsersSaves().then((results) => {
   for (const user of results) {
     let lastSaveScheduled = [];
     if (user.save_scheduleds.length === 0) {
@@ -34,7 +34,7 @@ module.exports.lastUsersSaves = (req, res) => saveScheduledAdapter.lastUsersSave
 // Get username from request
 // Get all saves of a user (past & scheduled)
 //
-module.exports.historySavesByUser = (req, res) => {
+module.exports.historySavesByUser = (req) => {
   const username = req.query.username;
   return saveScheduledAdapter.historySavesByUser(username);
 };
@@ -43,12 +43,12 @@ module.exports.historySavesByUser = (req, res) => {
 // Get username from request
 // Get all succeeded saves of a user
 //
-module.exports.historySucceededSavesByUser = (req, res) => {
+module.exports.historySucceededSavesByUser = (req) => {
   const username = req.query.username;
   return saveScheduledAdapter.historySucceededSavesByUser(username);
 };
 
-module.exports.createSave = (req, res) => {
+module.exports.createSave = (req) => {
   let usersId = req.body.usersId;
   const date = req.body.date;
   const time = req.body.time;
@@ -130,7 +130,7 @@ module.exports.saveSuccess = (saveId, branch) => {
 // Cancel save
 // Call adapter
 //
-module.exports.cancelSave = (req, res) => {
+module.exports.cancelSave = (req) => {
   const saveScheduledId = req.body.saveScheduledId;
   const saveId = req.body.saveId;
   cronManager.removeCron(saveScheduledId);

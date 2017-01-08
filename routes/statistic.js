@@ -4,7 +4,7 @@
 
 const statController = require('../controllers/statistic');
 
-module.exports = function initStatisticRoutes(app, conf) {
+module.exports = function initStatisticRoutes(app) {
   //
   // // GET requests
 
