@@ -13,6 +13,7 @@
         "sourceType": "module"
     },
     "rules": {
+        "max-len": 0,
         "no-eval" : "error",
         "no-const-assign": "error",
         "no-this-before-super": "warn",
