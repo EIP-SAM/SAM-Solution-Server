@@ -20,7 +20,7 @@ function exec(userName, method, params, onStatusChange) {
       });
 
       logger.info(`Send ${method} command for user ${userName}`);
-      socket.emit(method, params, commandIndex++);
+      socket.emit(method, params, commandIndex += 1);
     } else {
       logger.warn(`Daemon of user ${userName} is not connected`);
       reject(`Daemon of user ${userName} is not connected`);
