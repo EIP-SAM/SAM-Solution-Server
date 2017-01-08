@@ -2,9 +2,9 @@
 // Adapter Log
 //
 
-var logModel = require('../models/log');
-var logger  = require('../libs/bunyan');
-var moment = require('../libs/moment');
+const logModel = require('../models/log');
+const logger = require('../libs/bunyan');
+const moment = require('../libs/moment');
 
 //
 // Get the logs from multiple options.
@@ -12,13 +12,12 @@ var moment = require('../libs/moment');
 // instead of using several method to get all the critetia you need.
 //
 module.exports.getLogsWithMultipleCriteria = function (queryCriteria) {
-  return new Promise(function (fulfill) {
-
+  return new Promise((fulfill) => {
     if (queryCriteria === undefined) {
       fulfill({ error: false, data: {} });
     }
 
-    var criteria = queryCriteria;
+    let criteria = queryCriteria;
 
     if (typeof criteria === 'string') {
       criteria = JSON.parse(queryCriteria);
@@ -26,8 +25,8 @@ module.exports.getLogsWithMultipleCriteria = function (queryCriteria) {
       criteria = queryCriteria;
     }
 
-    var findOpts = {};
-    var key;
+    const findOpts = {};
+    let key;
 
     for (key in criteria) {
       if (criteria.hasOwnProperty(key)) {
@@ -61,7 +60,7 @@ module.exports.getLogsWithMultipleCriteria = function (queryCriteria) {
       }
 
       if (criteria.findOpts.day !== undefined) {
-        var day = moment.makeDayFromString(criteria.findOpts.day);
+        const day = moment.makeDayFromString(criteria.findOpts.day);
 
         findOpts.time = {
           $gte: moment.getMomentToDate(day.startDate),
@@ -80,10 +79,10 @@ module.exports.getLogsWithMultipleCriteria = function (queryCriteria) {
       }
     }
 
-    var query = logModel.find(findOpts);
+    const query = logModel.find(findOpts);
 
     if (criteria.limit !== undefined) {
-      if (typeof criteria.limit == 'string') {
+      if (typeof criteria.limit === 'string') {
         var limit = parseInt(criteria.limit);
       } else {
         var limit = criteria.limit;
@@ -92,8 +91,7 @@ module.exports.getLogsWithMultipleCriteria = function (queryCriteria) {
       query.limit(limit);
     }
 
-    query.sort('-time').exec(function (err, logs) {
-
+    query.sort('-time').exec((err, logs) => {
       if (err) {
         logger.error(err);
         fulfill({ error: true, data: err });
@@ -107,20 +105,20 @@ module.exports.getLogsWithMultipleCriteria = function (queryCriteria) {
 //
 // Get the numbers of logs group by module name
 //
-module.exports.getNumberOfLogsGroupByModuleName = function() {
-  var aggregate = [
+module.exports.getNumberOfLogsGroupByModuleName = function () {
+  const aggregate = [
     {
       $group: {
         _id: '$moduleName',
         total: {
-          $sum: 1
-        }
-      }
-    }
+          $sum: 1,
+        },
+      },
+    },
   ];
 
-  return new Promise(function (fulfill) {
-    logModel.aggregate(aggregate, function(err, logs) {
+  return new Promise((fulfill) => {
+    logModel.aggregate(aggregate, (err, logs) => {
       if (err) {
         logger.error(err);
         fulfill({ error: true, data: err });
@@ -134,20 +132,20 @@ module.exports.getNumberOfLogsGroupByModuleName = function() {
 //
 // Get the numbers of logs group by level
 //
-module.exports.getNumberOfLogsGroupByLevel = function() {
-  var aggregate = [
+module.exports.getNumberOfLogsGroupByLevel = function () {
+  const aggregate = [
     {
       $group: {
         _id: '$level',
         total: {
-          $sum: 1
-        }
-      }
-    }
+          $sum: 1,
+        },
+      },
+    },
   ];
 
-  return new Promise(function (fulfill) {
-    logModel.aggregate(aggregate, function(err, logs) {
+  return new Promise((fulfill) => {
+    logModel.aggregate(aggregate, (err, logs) => {
       if (err) {
         logger.error(err);
         fulfill({ error: true, data: err });
@@ -161,9 +159,9 @@ module.exports.getNumberOfLogsGroupByLevel = function() {
 //
 // Get the numbers of software actions group by action name
 //
-module.exports.getNumberOfSoftwareGroupByActionName = function() {
-  return new Promise(function (fulfill) {
-    logModel.find({moduleName: "Software"}, function(err, logs) {
+module.exports.getNumberOfSoftwareGroupByActionName = function () {
+  return new Promise((fulfill) => {
+    logModel.find({ moduleName: 'Software' }, (err, logs) => {
       if (err) {
         logger.error(err);
         fulfill({ error: true, data: err });

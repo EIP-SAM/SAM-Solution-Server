@@ -1,7 +1,7 @@
 //
 // Adapter Git
 //
-var gitWorker = require('../workers/git');
+const gitWorker = require('../workers/git');
 
 //
 // Create new repo for a user

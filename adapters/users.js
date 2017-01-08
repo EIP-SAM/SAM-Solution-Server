@@ -10,63 +10,63 @@ module.exports.findAll = function () {
     attributes: ['id', 'name', 'email', 'isAdmin'],
     order: [['id', 'ASC']],
     include: [{
-        model: GroupsModel,
-        where: { userId: Sequelize.col('users.id') },
-      },
+      model: GroupsModel,
+      where: { userId: Sequelize.col('users.id') },
+    },
     ],
   });
 };
 
 module.exports.findById = function (id) {
   return UsersModel.findOne({
-    where: { id: id },
+    where: { id },
     include: [{
-        model: GroupsModel,
-        where: { userId: Sequelize.col('users.id') },
-      },
+      model: GroupsModel,
+      where: { userId: Sequelize.col('users.id') },
+    },
     ],
   });
 };
 
 module.exports.findByIdWithoutGroupRelation = function (id) {
-  return UsersModel.findOne({ where: { id: id } });
+  return UsersModel.findOne({ where: { id } });
 };
 
 module.exports.findByName = function (name) {
   return UsersModel.findOne({
-    where: { name: name },
+    where: { name },
     include: [{
-        model: GroupsModel,
-        where: { userId: Sequelize.col('users.id') },
-      },
+      model: GroupsModel,
+      where: { userId: Sequelize.col('users.id') },
+    },
     ],
   });
 };
 
 module.exports.findByEmail = function (email) {
   return UsersModel.findOne({
-    where: { email: email },
+    where: { email },
     include: [{
-        model: GroupsModel,
-        where: { userId: Sequelize.col('users.id') },
-      },
+      model: GroupsModel,
+      where: { userId: Sequelize.col('users.id') },
+    },
     ],
   });
 };
 
 module.exports.createAdminUser = function (name, email, password) {
-  return UsersModel.create({ name: name, email: email, password: password, isAdmin: true });
+  return UsersModel.create({ name, email, password, isAdmin: true });
 };
 
 module.exports.createUser = function (name, email, password) {
-  return UsersModel.create({ name: name, email: email, password: password, isAdmin: false });
+  return UsersModel.create({ name, email, password, isAdmin: false });
 };
 
 module.exports.linkGroupToUser = function (group, user) {
-  return new Promise(function (fulfill, reject) {
-    module.exports.findByIdWithoutGroupRelation(user).then(function (foundUser) {
+  return new Promise((fulfill, reject) => {
+    module.exports.findByIdWithoutGroupRelation(user).then((foundUser) => {
       if (foundUser) {
-        group.addUsers([foundUser]).then(function (group) {
+        group.addUsers([foundUser]).then((group) => {
           fulfill(group, foundUser);
         });
       } else {
@@ -77,12 +77,12 @@ module.exports.linkGroupToUser = function (group, user) {
 };
 
 module.exports.unlinkAllUsersOfGroup = function (group) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise((fulfill, reject) => {
     const brokenUsers = [];
 
     if (group.users) {
-      group.users.forEach(function (user) {
-        module.exports.findById(user.id).then(function (user) {
+      group.users.forEach((user) => {
+        module.exports.findById(user.id).then((user) => {
           if (user.groups.length === 1) {
             brokenUsers.push(user);
           }
@@ -90,12 +90,12 @@ module.exports.unlinkAllUsersOfGroup = function (group) {
       });
     }
 
-    group.setUsers([]).then(function () {
+    group.setUsers([]).then(() => {
       if (brokenUsers.length > 0) {
-        var i = 0;
+        let i = 0;
 
-        brokenUsers.forEach(function (brokenUser) {
-          GroupsAdapter.reassignGroupToUser(brokenUser, brokenUser.isAdmin ? 'admin_default' : 'user_default').then(function () {
+        brokenUsers.forEach((brokenUser) => {
+          GroupsAdapter.reassignGroupToUser(brokenUser, brokenUser.isAdmin ? 'admin_default' : 'user_default').then(() => {
             if (++i >= brokenUsers.length) {
               fulfill(group);
             }
@@ -105,22 +105,21 @@ module.exports.unlinkAllUsersOfGroup = function (group) {
         fulfill(group);
       }
     });
-
   });
 };
 
 module.exports.reassignUsersToGroup = function (group, users) {
-  return new Promise(function (fulfill, reject) {
-    module.exports.unlinkAllUsersOfGroup(group).then(function (group) {
-      var i = 0;
+  return new Promise((fulfill, reject) => {
+    module.exports.unlinkAllUsersOfGroup(group).then((group) => {
+      let i = 0;
 
       if (users.length > 0) {
-        users.forEach(function (user) {
+        users.forEach((user) => {
           if (typeof user !== 'number') {
             reject('Invalid user id');
           }
 
-          module.exports.linkGroupToUser(group, user).then(function (group, user) {
+          module.exports.linkGroupToUser(group, user).then((group, user) => {
             if (++i >= users.length) {
               fulfill(group);
             }
@@ -134,7 +133,7 @@ module.exports.reassignUsersToGroup = function (group, users) {
 };
 
 module.exports.getNbrUserConnectedDeamon = function () {
-  return new Promise(function (fulfill, reject) {
+  return new Promise((fulfill, reject) => {
     fulfill(socketIo.getNbrUserConnected(socketIo.CLIENT_TYPE_DEAMON));
   });
 };

@@ -14,25 +14,25 @@ module.exports.lastUsersRestores = function () {
       model: GroupModel,
     }, {
       model: RestoreModel,
-      where: { isFinish : true},
+      where: { isFinish: true },
       order: [['execDate', 'DESC']],
       limit: 1,
-    }]
+    }],
   });
-}
+};
 
 //
 // Get all restorations of a user
 //
-module.exports.historyRestoreByUser = function(username) {
+module.exports.historyRestoreByUser = function (username) {
   return RestoreModel.findAll({
     order: [['execDate', 'DESC']],
     include: [{
       model: UserModel,
       where: { name: username },
-    }]
-  })
-}
+    }],
+  });
+};
 
 
 //
@@ -40,10 +40,10 @@ module.exports.historyRestoreByUser = function(username) {
 //
 module.exports.createRestore = function (userId, files, saveId) {
   return RestoreModel.create({
-    userId: userId,
-    files: files,
+    userId,
+    files,
     execDate: new Date(),
-    saveId: saveId,
+    saveId,
   });
 };
 
@@ -51,20 +51,20 @@ module.exports.createRestore = function (userId, files, saveId) {
 // Find user with restoreId
 //
 module.exports.findUserByRestoreId = function (restoreId) {
-    return UserModel.findAll({
-      include: [{
-        model: RestoreModel,
-        where: { id: restoreId },
-      }],
-    });
-}
+  return UserModel.findAll({
+    include: [{
+      model: RestoreModel,
+      where: { id: restoreId },
+    }],
+  });
+};
 
 //
 // Search in the database a restore instance with id = restoreId
 // Update boolean isStart
 //
 module.exports.restoreIsStart = function (restoreId) {
-  return RestoreModel.findById(restoreId).then(function (restore) {
+  return RestoreModel.findById(restoreId).then((restore) => {
     restore.isStart = true;
     restore.save();
     return restore;
@@ -76,7 +76,7 @@ module.exports.restoreIsStart = function (restoreId) {
 // Update boolean isFinish
 //
 module.exports.restoreIsFinish = function (restoreId) {
-  return RestoreModel.findById(restoreId).then(function (restore) {
+  return RestoreModel.findById(restoreId).then((restore) => {
     restore.isFinish = true;
     restore.save();
     return restore;
@@ -88,7 +88,7 @@ module.exports.restoreIsFinish = function (restoreId) {
 // Update boolean isSucess
 //
 module.exports.restoreIsSuccess = function (restoreId) {
-  return RestoreModel.findById(restoreId).then(function (restore) {
+  return RestoreModel.findById(restoreId).then((restore) => {
     restore.isSuccess = true;
     restore.save();
     return restore;
@@ -119,18 +119,18 @@ module.exports.getRestoreByUser = function (userId) {
 // Get number restores by day (savesScheduleds)
 //
 module.exports.getRestoresByDay = function () {
- var currentYear = new Date().getFullYear();
- var firstDay = new Date("Jan 01, "+ currentYear +" 01:00:00");
- var lastDay = new Date("Dec 31, " + currentYear + " 11:59:59");
- var date = new Date();
- return RestoreModel.findAndCountAll({
-     where: {
-       isFinish: true,
-       execDate: {
-         $between: [firstDay, lastDay]
-       }
+  const currentYear = new Date().getFullYear();
+  const firstDay = new Date(`Jan 01, ${currentYear} 01:00:00`);
+  const lastDay = new Date(`Dec 31, ${currentYear} 11:59:59`);
+  const date = new Date();
+  return RestoreModel.findAndCountAll({
+    where: {
+      isFinish: true,
+      execDate: {
+        $between: [firstDay, lastDay],
       },
-     order: [['execDate', 'ASC']],
-     group: ['execDate'],
- });
+    },
+    order: [['execDate', 'ASC']],
+    group: ['execDate'],
+  });
 };

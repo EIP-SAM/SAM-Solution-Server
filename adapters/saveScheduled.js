@@ -16,14 +16,14 @@ module.exports.lastUsersSaves = function () {
     }, {
       model: SaveScheduledModel,
       include: [{
-          model: SaveModel,
-          where: { isFinish: true },
-          order: [['execDate', 'DESC']],
-          limit: 1,
-      }]
+        model: SaveModel,
+        where: { isFinish: true },
+        order: [['execDate', 'DESC']],
+        limit: 1,
+      }],
     }],
   });
-}
+};
 
 //
 // Get all saves of a user (past & scheduled)
@@ -36,10 +36,10 @@ module.exports.historySavesByUser = function (username) {
       include: [{
         model: UserModel,
         where: { name: username },
-      }]
-    }]
-  })
-}
+      }],
+    }],
+  });
+};
 
 //
 // Get all succeeded saves of a user
@@ -53,19 +53,19 @@ module.exports.historySucceededSavesByUser = function (username) {
       include: [{
         model: UserModel,
         where: { name: username },
-      }]
-    }]
-  })
-}
+      }],
+    }],
+  });
+};
 
 //
 // Create new SaveScheduled instance
 //
 module.exports.createSaveScheduled = function (userId, cron, files) {
   return SaveScheduledModel.create({
-    userId: userId,
-    cron: cron,
-    files: files,
+    userId,
+    cron,
+    files,
   });
 };
 
@@ -74,7 +74,7 @@ module.exports.createSaveScheduled = function (userId, cron, files) {
 //
 module.exports.createSave = function (saveScheduledId, date) {
   return SaveModel.create({
-    saveScheduledId: saveScheduledId,
+    saveScheduledId,
     execDate: date,
   });
 };
@@ -83,7 +83,7 @@ module.exports.createSave = function (saveScheduledId, date) {
 // Disable saveScheduled instance
 //
 module.exports.disableSaveScheduled = function (saveScheduledId) {
-  return SaveScheduledModel.findById(saveScheduledId).then(function (saveScheduled) {
+  return SaveScheduledModel.findById(saveScheduledId).then((saveScheduled) => {
     saveScheduled.isActive = false;
     saveScheduled.save();
     return saveScheduled;
@@ -94,7 +94,7 @@ module.exports.disableSaveScheduled = function (saveScheduledId) {
 // Cancel a save
 //
 module.exports.cancelSave = function (saveId) {
-  return SaveModel.findById(saveId).then(function (save) {
+  return SaveModel.findById(saveId).then((save) => {
     save.canceled = true;
     save.save();
     return save;
@@ -105,13 +105,13 @@ module.exports.cancelSave = function (saveId) {
 // Find user with savesScheduledId
 //
 module.exports.findUserBySaveScheduledId = function (saveScheduledId) {
-    return UserModel.findAll({
-      include: [{
-        model: SaveScheduledModel,
-        where: { id: saveScheduledId },
-      }],
-    });
-}
+  return UserModel.findAll({
+    include: [{
+      model: SaveScheduledModel,
+      where: { id: saveScheduledId },
+    }],
+  });
+};
 
 //
 // Find saveScheduled by find
@@ -125,7 +125,7 @@ module.exports.findSaveScheduledById = function (saveScheduledId) {
 // Update boolean isStart
 //
 module.exports.saveIsStart = function (saveId) {
-  return SaveModel.findById(saveId).then(function (save) {
+  return SaveModel.findById(saveId).then((save) => {
     save.isStart = true;
     save.save();
     return save;
@@ -137,7 +137,7 @@ module.exports.saveIsStart = function (saveId) {
 // Update boolean isFinish & isActive
 //
 module.exports.saveIsFinish = function (saveId) {
-  return SaveModel.findById(saveId).then(function (save) {
+  return SaveModel.findById(saveId).then((save) => {
     save.isFinish = true;
     save.save();
     return save;
@@ -149,7 +149,7 @@ module.exports.saveIsFinish = function (saveId) {
 // Update boolean isSuccess
 //
 module.exports.saveIsSuccess = function (saveId) {
-  return SaveModel.findById(saveId).then(function (save) {
+  return SaveModel.findById(saveId).then((save) => {
     save.isSuccess = true;
     save.save();
     return save;
@@ -161,7 +161,7 @@ module.exports.saveIsSuccess = function (saveId) {
 // Save the name of the branch
 //
 module.exports.branchSave = function (saveId, branch) {
-  return SaveModel.findById(saveId).then(function (save) {
+  return SaveModel.findById(saveId).then((save) => {
     save.hash = branch;
     save.save();
     return save;
@@ -173,7 +173,7 @@ module.exports.branchSave = function (saveId, branch) {
 //
 module.exports.findSaveById = function (saveId) {
   return SaveModel.findById(saveId);
-}
+};
 
 //
 // Get all saves of one/several users
@@ -203,17 +203,17 @@ module.exports.getAllSaveScheduleActive = function () {
 // Get number saves by day (savesScheduleds)
 //
 module.exports.getSavesByDay = function () {
- var currentYear = new Date().getFullYear();
- var firstDay = new Date("Jan 01, "+ currentYear +" 01:00:00");
- var lastDay = new Date("Dec 31, " + currentYear + " 11:59:59");
- return SaveModel.findAndCountAll({
-     where: {
-       isFinish: true,
-       execDate: {
-         $between: [firstDay, lastDay]
-       }
+  const currentYear = new Date().getFullYear();
+  const firstDay = new Date(`Jan 01, ${currentYear} 01:00:00`);
+  const lastDay = new Date(`Dec 31, ${currentYear} 11:59:59`);
+  return SaveModel.findAndCountAll({
+    where: {
+      isFinish: true,
+      execDate: {
+        $between: [firstDay, lastDay],
       },
-     order: [['execDate', 'ASC']],
-     group: ['execDate'],
- });
+    },
+    order: [['execDate', 'ASC']],
+    group: ['execDate'],
+  });
 };

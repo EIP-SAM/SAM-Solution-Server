@@ -38,22 +38,22 @@ module.exports.launchGetOperatingSystem = function (user) {
 };
 
 function callSoftWareDaemon(user, fctToCall, cb = onStatusChange) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise((fulfill, reject) => {
     softwareDaemon[fctToCall](user, cb)
-    .then(function (returnStatus) {
+    .then((returnStatus) => {
       fulfill(returnStatus);
-    }).catch(function (error) {
+    }).catch((error) => {
       reject(error);
     });
   });
 }
 
 function callSoftWareDaemonWithPackage(user, packages, fctToCall, cb = onStatusChange) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise((fulfill, reject) => {
     softwareDaemon[fctToCall](user, packages, cb)
-    .then(function (returnStatus) {
+    .then((returnStatus) => {
       fulfill(returnStatus);
-    }).catch(function (error) {
+    }).catch((error) => {
       reject(error);
     });
   });

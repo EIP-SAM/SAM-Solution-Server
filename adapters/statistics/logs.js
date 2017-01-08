@@ -7,24 +7,23 @@ const logsAdapters = require('../log');
 // Return the numbers of logs group by module name
 //
 module.exports.numberOfLogsGroupByModuleName = function () {
-  return new Promise(function(fulfill) {
-    logsAdapters.getNumberOfLogsGroupByModuleName().then(function (logs) {
+  return new Promise((fulfill) => {
+    logsAdapters.getNumberOfLogsGroupByModuleName().then((logs) => {
+      const logsData = logs.data;
+      const dataset = [];
 
-      let logsData = logs.data;
-      let dataset = [];
-
-      logsData.forEach(function(curVal, index, logsData) {
+      logsData.forEach((curVal, index, logsData) => {
         dataset.push({
           title: curVal._id || 'Other',
           value: [curVal.total],
         });
       });
 
-      let returnData = {
+      const returnData = {
         complete: 1,
         type: 'pie',
         title: 'Pie: Logs numbers by module name',
-        dataset: dataset,
+        dataset,
       };
 
       fulfill(returnData);
@@ -36,13 +35,12 @@ module.exports.numberOfLogsGroupByModuleName = function () {
 // Return the numbers of logs group by level
 //
 module.exports.numberOfLogsGroupByLevel = function () {
-  return new Promise(function(fulfill) {
-    logsAdapters.getNumberOfLogsGroupByLevel().then(function (logs) {
+  return new Promise((fulfill) => {
+    logsAdapters.getNumberOfLogsGroupByLevel().then((logs) => {
+      const logsData = logs.data;
+      const dataset = [];
 
-      let logsData = logs.data;
-      let dataset = [];
-
-      logsData.forEach(function(curVal, index, logsData) {
+      logsData.forEach((curVal, index, logsData) => {
         let levelName = '';
         switch (curVal._id) {
           case 10:
@@ -74,11 +72,11 @@ module.exports.numberOfLogsGroupByLevel = function () {
         });
       });
 
-      let returnData = {
+      const returnData = {
         complete: 1,
         type: 'pie',
         title: 'Pie: Logs numbers by level',
-        dataset: dataset,
+        dataset,
       };
 
       fulfill(returnData);

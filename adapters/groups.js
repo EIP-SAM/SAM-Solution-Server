@@ -5,18 +5,18 @@ require('../models/usersGroupsRelations');
 const enumMode = require('../managers/rights').enumMode;
 
 module.exports.findAll = function () {
-  return new Promise(function (fulfill, reject) {
+  return new Promise((fulfill, reject) => {
     GroupsModel.findAll({
       attributes: ['id', 'name', 'saveAndRestoreMode', 'migrationMode', 'softwarePackagesMode'],
-    }).then(function (allGroups) {
+    }).then((allGroups) => {
       module.exports.findAllAssociatedWithUsers()
-      .then(function (groupsWithUsers) {
-        allGroups.forEach(function (group) {
-          groupsWithUsers.forEach(function (groupWithUser) {
+      .then((groupsWithUsers) => {
+        allGroups.forEach((group) => {
+          groupsWithUsers.forEach((groupWithUser) => {
             if (groupWithUser.id == group.id) {
               const users = [];
 
-              groupWithUser.users.forEach(function (user) {
+              groupWithUser.users.forEach((user) => {
                 const curratedUser = {};
 
                 curratedUser.id = user.id;
@@ -30,10 +30,10 @@ module.exports.findAll = function () {
         });
 
         fulfill(allGroups);
-      }).catch(function (error) {
+      }).catch((error) => {
         reject(error);
       });
-    }).catch(function (error) {
+    }).catch((error) => {
       reject(error);
     });
   });
@@ -49,57 +49,57 @@ module.exports.findAllAssociatedWithUsers = function () {
   return GroupsModel.findAll({
     attributes: ['id', 'name', 'saveAndRestoreMode', 'migrationMode', 'softwarePackagesMode'],
     include: [{
-        model: UsersModel,
-        where: { groupId: Sequelize.col('groups.id') },
-      },
+      model: UsersModel,
+      where: { groupId: Sequelize.col('groups.id') },
+    },
     ],
   });
 };
 
 module.exports.findById = function (id) {
   return GroupsModel.findOne({
-    where: { id: id },
+    where: { id },
     include: [{
-        model: UsersModel,
-        attributes: ['id', 'name'],
-      },
+      model: UsersModel,
+      attributes: ['id', 'name'],
+    },
     ],
   });
 };
 
 module.exports.findByName = function (name) {
-  return GroupsModel.findOne({ where: { name: name } });
+  return GroupsModel.findOne({ where: { name } });
 };
 
 module.exports.createGroup = function (name, saveAndRestoreMode, migrationMode, softwarePackagesMode) {
   return GroupsModel.create({
-    name: name,
-    saveAndRestoreMode: saveAndRestoreMode,
-    migrationMode: migrationMode,
-    softwarePackagesMode: softwarePackagesMode,
+    name,
+    saveAndRestoreMode,
+    migrationMode,
+    softwarePackagesMode,
   });
 };
 
 module.exports.linkUserAndGroup = function (user, group) {
-  return new Promise(function (fulfill, reject) {
-    user.addGroups([group]).then(function (user) {
+  return new Promise((fulfill, reject) => {
+    user.addGroups([group]).then((user) => {
       fulfill(user, group);
     });
   });
 };
 
 module.exports.unlinkUsersGroups = function (user) {
-  return new Promise(function (fulfill, reject) {
-    user.setGroups([]).then(function () {
+  return new Promise((fulfill, reject) => {
+    user.setGroups([]).then(() => {
       fulfill(user);
     });
   });
 };
 
 module.exports.createAndLinkGroupAndUser = function (user, group) {
-  return new Promise(function (fulfill, reject) {
-    module.exports.createGroup(group, enumMode.SIMPLE, enumMode.SIMPLE, enumMode.SIMPLE).then(function (group) {
-      module.exports.linkUserAndGroup(user, group).then(function (user, group) {
+  return new Promise((fulfill, reject) => {
+    module.exports.createGroup(group, enumMode.SIMPLE, enumMode.SIMPLE, enumMode.SIMPLE).then((group) => {
+      module.exports.linkUserAndGroup(user, group).then((user, group) => {
         fulfill(user, group);
       });
     });
@@ -107,14 +107,14 @@ module.exports.createAndLinkGroupAndUser = function (user, group) {
 };
 
 module.exports.reassignGroupToUser = function (user, group) {
-  return new Promise(function (fulfill, reject) {
-    module.exports.findByName(group).then(function (foundGroup) {
+  return new Promise((fulfill, reject) => {
+    module.exports.findByName(group).then((foundGroup) => {
       if (foundGroup) {
-        module.exports.linkUserAndGroup(user, foundGroup).then(function (user, group) {
+        module.exports.linkUserAndGroup(user, foundGroup).then((user, group) => {
           fulfill(user, group);
         });
       } else {
-        module.exports.createAndLinkGroupAndUser(user, group).then(function (user, group) {
+        module.exports.createAndLinkGroupAndUser(user, group).then((user, group) => {
           fulfill(user, group);
         });
       }
@@ -123,17 +123,17 @@ module.exports.reassignGroupToUser = function (user, group) {
 };
 
 module.exports.reassignGroupsToUser = function (user, groups) {
-  return new Promise(function (fulfill, reject) {
-    module.exports.unlinkUsersGroups(user).then(function (user) {
-      var i = 0;
+  return new Promise((fulfill, reject) => {
+    module.exports.unlinkUsersGroups(user).then((user) => {
+      let i = 0;
 
       if (groups.length === 0) {
-        module.exports.reassignGroupToUser(user, user.isAdmin ? 'admin_default' : 'user_default').then(function (user, group) {
+        module.exports.reassignGroupToUser(user, user.isAdmin ? 'admin_default' : 'user_default').then((user, group) => {
           fulfill(user);
         });
       } else {
-        groups.forEach(function (group) {
-          module.exports.reassignGroupToUser(user, group).then(function (user, group) {
+        groups.forEach((group) => {
+          module.exports.reassignGroupToUser(user, group).then((user, group) => {
             if (++i >= groups.length) {
               fulfill(user);
             }
