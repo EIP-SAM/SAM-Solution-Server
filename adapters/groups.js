@@ -12,7 +12,7 @@ module.exports.findAll = () => new Promise((fulfill, reject) => {
       .then((groupsWithUsers) => {
         allGroups.forEach((group) => {
           groupsWithUsers.forEach((groupWithUser) => {
-            if (groupWithUser.id == group.id) {
+            if (groupWithUser.id === group.id) {
               const users = [];
 
               groupWithUser.users.forEach((user) => {

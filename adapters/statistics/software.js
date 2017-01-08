@@ -39,8 +39,8 @@ let numberOfSoftwaresGroupByActionName = (status, title) => new Promise((fulfill
 let getNbSoftwareActions = (logsData, action, status, dataset) => {
   let total = 0;
   logsData.forEach((curVal, index, logsData) => {
-    if (curVal.msg.indexOf(action) != -1 && curVal.msg.indexOf(status) != -1) {
-      total++;
+    if (curVal.msg.indexOf(action) !== -1 && curVal.msg.indexOf(status) !== -1) {
+      total += 1;
     }
   });
   dataset.push({

@@ -48,7 +48,7 @@ module.exports.createAdminUser = (name, email, password) => UsersModel.create({ 
 
 module.exports.createUser = (name, email, password) => UsersModel.create({ name, email, password, isAdmin: false });
 
-module.exports.linkGroupToUser = (group, user) => new Promise((fulfill, reject) => {
+module.exports.linkGroupToUser = (group, user) => new Promise((fulfill) => {
   module.exports.findByIdWithoutGroupRelation(user).then((foundUser) => {
     if (foundUser) {
       group.addUsers([foundUser]).then((group) => {

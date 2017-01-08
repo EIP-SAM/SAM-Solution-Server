@@ -1,6 +1,6 @@
 const saveAdapter = require('../saveScheduled.js');
 
-module.exports.numberSavesPerMonthByUser = () => new Promise((fulfill, reject) => {
+module.exports.numberSavesPerMonthByUser = () => new Promise((fulfill) => {
   saveAdapter.getSavesByDay().then((saves) => {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const savesByMonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -10,13 +10,13 @@ module.exports.numberSavesPerMonthByUser = () => new Promise((fulfill, reject) =
     let k = 0;
     saves.rows.forEach((save) => {
       i = save.dataValues.execDate.getMonth(save.dataValues.execDate);
-      if (i == k) {
+      if (i === k) {
         savesByMonth[i] += saves.count[j].count;
       } else {
         savesByMonth[i] = saves.count[j].count;
         k = i;
       }
-      j++;
+      j += 1;
     });
 
     const returnData = {

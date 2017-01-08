@@ -81,10 +81,11 @@ module.exports.getLogsWithMultipleCriteria = queryCriteria => new Promise((fulfi
   const query = logModel.find(findOpts);
 
   if (criteria.limit !== undefined) {
+    let limit;
     if (typeof criteria.limit === 'string') {
-      var limit = parseInt(criteria.limit);
+      limit = parseInt(criteria.limit, 10);
     } else {
-      var limit = criteria.limit;
+      limit = criteria.limit;
     }
 
     query.limit(limit);

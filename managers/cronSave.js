@@ -25,7 +25,7 @@ function initAllSaveCron() {
       savesScheduled.forEach((ss) => {
         userAdapter.findById(ss.userId).then((user) => {
           for (const s of saves) {
-            if (ss.id == s.saveScheduledId) {
+            if (ss.id === s.saveScheduledId) {
               let date = s.execDate;
               if (date < new Date()) {
                 date = new Date(new Date().getTime() + 60000);

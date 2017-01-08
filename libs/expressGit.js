@@ -7,7 +7,7 @@ const gitConf = require('../config/git.config.json');
 
 module.exports = function init() {
   logger.info(`Server git repository in ${gitConf.baseDir}`);
-  return function (req, res) {
+  return (req, res) => {
     const urlArray = req.url.split('/');
     const repo = urlArray[1].replace('.git', '');
     const dir = path.join(gitConf.baseDir, repo);

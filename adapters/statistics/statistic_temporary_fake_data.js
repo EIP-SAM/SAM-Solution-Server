@@ -1,4 +1,4 @@
-module.exports.TESTDEFONCTION = () => new Promise((fulfill, reject) => {
+module.exports.TESTDEFONCTION = () => new Promise((fulfill) => {
   const returnData = {
     complete: 1,
     type: 'radar',
@@ -19,7 +19,7 @@ module.exports.TESTDEFONCTION = () => new Promise((fulfill, reject) => {
   fulfill(returnData);
 });
 
-module.exports.TESTDEFONCTION2 = () => new Promise((fulfill, reject) => {
+module.exports.TESTDEFONCTION2 = () => new Promise((fulfill) => {
   const returnData = {
     complete: 1,
     type: 'bar',
@@ -40,7 +40,7 @@ module.exports.TESTDEFONCTION2 = () => new Promise((fulfill, reject) => {
   fulfill(returnData);
 });
 
-module.exports.TESTDEFONCTION3 = () => new Promise((fulfill, reject) => {
+module.exports.TESTDEFONCTION3 = () => new Promise((fulfill) => {
   const returnData = {
     complete: 1,
     type: 'pie',
@@ -64,7 +64,7 @@ module.exports.TESTDEFONCTION3 = () => new Promise((fulfill, reject) => {
   fulfill(returnData);
 });
 
-module.exports.TESTDEFONCTION4 = () => new Promise((fulfill, reject) => {
+module.exports.TESTDEFONCTION4 = () => new Promise((fulfill) => {
   const returnData = {
     complete: 1,
     type: 'radar',
@@ -85,7 +85,7 @@ module.exports.TESTDEFONCTION4 = () => new Promise((fulfill, reject) => {
   fulfill(returnData);
 });
 
-module.exports.TESTDEFONCTION5 = () => new Promise((fulfill, reject) => {
+module.exports.TESTDEFONCTION5 = () => new Promise((fulfill) => {
   const returnData = {
     complete: 1,
     type: 'line',
@@ -106,7 +106,7 @@ module.exports.TESTDEFONCTION5 = () => new Promise((fulfill, reject) => {
   fulfill(returnData);
 });
 
-module.exports.TESTDEFONCTION7 = () => new Promise((fulfill, reject) => {
+module.exports.TESTDEFONCTION7 = () => new Promise((fulfill) => {
   const returnData = {
     complete: 1,
     type: 'doughnut',
@@ -130,7 +130,7 @@ module.exports.TESTDEFONCTION7 = () => new Promise((fulfill, reject) => {
   fulfill(returnData);
 });
 
-module.exports.TESTDEFONCTION8 = () => new Promise((fulfill, reject) => {
+module.exports.TESTDEFONCTION8 = () => new Promise((fulfill) => {
   const returnData = {
     complete: 1,
     type: 'radar',

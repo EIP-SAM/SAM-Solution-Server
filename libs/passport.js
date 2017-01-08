@@ -34,9 +34,8 @@ module.exports = function initPassport(app) {
     .then((user) => {
       if (user) {
         return done(null, user);
-      } else {
-        return done({ message: 'Passport deserializer: User not found' }, null);
       }
+      return done({ message: 'Passport deserializer: User not found' }, null);
     });
   });
 

@@ -1,7 +1,7 @@
 const conf = require('../config/base.config.json');
-const dbConf = conf.dbConfig;
-
 const Sequelize = require('sequelize');
+
+const dbConf = conf.dbConfig;
 const sequelize = new Sequelize(
   dbConf.database,
   dbConf.username,

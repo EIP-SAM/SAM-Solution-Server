@@ -4,7 +4,7 @@
 
 const moment = require('moment');
 
-module.exports.makeDayFromString = function (dateString) {
+module.exports.makeDayFromString = (dateString) => {
   const startDate = moment(new Date(dateString));
   const endDate = moment(new Date(dateString));
 
@@ -14,6 +14,4 @@ module.exports.makeDayFromString = function (dateString) {
   return { startDate, endDate };
 };
 
-module.exports.getMomentToDate = function (dateString) {
-  return moment(new Date(dateString));
-};
+module.exports.getMomentToDate = dateString => moment(new Date(dateString));

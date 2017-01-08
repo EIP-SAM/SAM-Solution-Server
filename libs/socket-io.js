@@ -38,7 +38,7 @@ module.exports.init = function init(server) {
       });
     });
 
-    socket.on('webapp_GetUserData', (info) => {
+    socket.on('webapp_GetUserData', () => {
       const id = uid();
       socketArray[CLIENT_TYPE_WEBAPP][id] = socket;
       logger.info(`New client from webapp connected : #${id}`);

@@ -17,7 +17,7 @@ module.exports.numberRestoresPerMonthByUser = () => new Promise((fulfill) => {
         restoresByMonth[i] = saves.count[j].count;
         k = i;
       }
-      j++;
+      j += 1;
     });
 
     const returnData = {
