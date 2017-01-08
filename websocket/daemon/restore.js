@@ -12,9 +12,7 @@ module.exports.exec = function exec(username, branch, cb) {
     }
 
     return 1;
-  } else {
-    logger.info(`${username}'s daemon is not connected`);
   }
-
+  logger.info(`${username}'s daemon is not connected`);
   return 0;
 };

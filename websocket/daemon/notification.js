@@ -20,15 +20,14 @@ module.exports.display = function display(username, title, description, cb) {
     }
 
     return 1;
-  } else {
-    logger.info(`${username}'s daemon is not connected`);
-    userAdapter.findByName(username).then((user) => {
-      daemonCmdAdapter.create(user.id, daemonCommandChecker.NOTIFICATION_DISPLAY, { title, description });
-    }).catch((err) => {
-      console.log(err);
-      logger.info(`Unable to persist notification for ${username}`);
-    });
   }
+  logger.info(`${username}'s daemon is not connected`);
+  userAdapter.findByName(username).then((user) => {
+    daemonCmdAdapter.create(user.id, daemonCommandChecker.NOTIFICATION_DISPLAY, { title, description });
+  }).catch((err) => {
+    console.log(err);
+    logger.info(`Unable to persist notification for ${username}`);
+  });
 
   return 0;
 };
