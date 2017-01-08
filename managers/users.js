@@ -124,7 +124,7 @@ function checkAndCreateUser(name, email, password, confirmation) {
 //
 // Security check for each url of this kind : /api/public/*
 //
-module.exports.ensureLoggedOut = function (req, res, next) {
+module.exports.ensureLoggedOut = (req, res, next) => {
   if (req.method == 'OPTIONS') {
     res.end();
   } else if (req.user) {
@@ -138,7 +138,7 @@ module.exports.ensureLoggedOut = function (req, res, next) {
 //
 // Security check for each url of this kind : /api/logged-in/*
 //
-module.exports.ensureLoggedIn = function (req, res, next) {
+module.exports.ensureLoggedIn = (req, res, next) => {
   if (req.method == 'OPTIONS') {
     res.end();
   } else if (req.user) {
@@ -152,7 +152,7 @@ module.exports.ensureLoggedIn = function (req, res, next) {
 //
 // Security check for each url of this kind : /api/logged-in/admin/*
 //
-module.exports.ensureAdminLoggedIn = function (req, res, next) {
+module.exports.ensureAdminLoggedIn = (req, res, next) => {
   if (req.method == 'OPTIONS') {
     res.end();
   } else if (req.user.isAdmin) {
@@ -166,78 +166,71 @@ module.exports.ensureAdminLoggedIn = function (req, res, next) {
 //
 // User identification for passport library
 //
-module.exports.identifyUser = function (name, password) {
-  return new Promise((fulfill, reject) => {
-    UsersAdapter.findByName(name).then((user) => {
-      if (user) {
-        if (password && user.password == crypto.createHmac('sha256', salt).update(password).digest('hex')) {
-          fulfill(user);
-        } else {
-          reject('Invalid password', null);
-        }
+module.exports.identifyUser = (name, password) => new Promise((fulfill, reject) => {
+  UsersAdapter.findByName(name).then((user) => {
+    if (user) {
+      if (password && user.password == crypto.createHmac('sha256', salt).update(password).digest('hex')) {
+        fulfill(user);
       } else {
-        reject('Unknown user', null);
+        reject('Invalid password', null);
       }
-    }).catch((error) => {
-      reject(null, error);
-    });
+    } else {
+      reject('Unknown user', null);
+    }
+  }).catch((error) => {
+    reject(null, error);
   });
-};
+});
 
 //
 // Log the user in the system and create a session for him
 // Entry point from the login POST route
 //
-module.exports.login = function (passport) {
-  return function (req, res, next) {
-    passport.authenticate('local', (err, user, info) => {
+module.exports.login = passport => function (req, res, next) {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      logger.setUser(user).error(`User login failure, internal server error: ${err}`);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    if (!user) {
+      logger.warn(`User login failure: ${info.message}`);
+      return res.status(401).json({ error: info.message });
+    }
+
+    req.logIn(user, (err) => {
       if (err) {
-        logger.setUser(user).error(`User login failure, internal server error: ${err}`);
+        logger.setUser(user).error(`User login failure, internal server error${err}`);
         return res.status(500).json({ error: 'Internal server error' });
+      } else {
+        constructUserProfile(user).then((userProfile) => {
+          logger.setUser({ id: req.user.id, name: req.user.name }).info('User successfully logged in');
+          return res.status(200).json(userProfile);
+        });
       }
-
-      if (!user) {
-        logger.warn(`User login failure: ${info.message}`);
-        return res.status(401).json({ error: info.message });
-      }
-
-      req.logIn(user, (err) => {
-        if (err) {
-          logger.setUser(user).error(`User login failure, internal server error${err}`);
-          return res.status(500).json({ error: 'Internal server error' });
-        } else {
-          constructUserProfile(user).then((userProfile) => {
-            logger.setUser({ id: req.user.id, name: req.user.name }).info('User successfully logged in');
-            return res.status(200).json(userProfile);
-          });
-        }
-      });
-    })(req, res, next);
-  };
+    });
+  })(req, res, next);
 };
 
 //
 // Logout the user and destroy his current session
 // Entry point from the logout POST route
 //
-module.exports.logout = function () {
-  return function (req, res) {
-    const user = req.user;
+module.exports.logout = () => function (req, res) {
+  const user = req.user;
 
-    req.logout();
-    req.session.save(() => {
-      logger.setUser({ id: user.id, name: user.name }).info('User successfully logged out');
-      res.status(200).end();
-    });
-  };
+  req.logout();
+  req.session.save(() => {
+    logger.setUser({ id: user.id, name: user.name }).info('User successfully logged out');
+    res.status(200).end();
+  });
 };
 
 //
 // Create user entry point from its POST route
 //
-module.exports.createUser = function () {
-  return function (req, res) {
-    checkAndCreateUser(req.body.username, req.body.email, req.body.password, req.body.confirmation)
+module.exports.createUser = () => function (req, res) {
+  checkAndCreateUser(req.body.username, req.body.email, req.body.password, req.body.confirmation)
       .then((user) => {
         logger.setUser({ id: user.id, name: user.name }).info('New user created');
         return res.status(200).json({ success: 'User successfully created' });
@@ -250,7 +243,6 @@ module.exports.createUser = function () {
           return res.status(405).json(userCreationError);
         }
       });
-  };
 };
 
 //
@@ -337,15 +329,14 @@ function recoverUserPassword(userEmail) {
 //
 // Recover user password entry point from its POST route
 //
-module.exports.recoverUserPassword = function () {
-  return function (req, res) {
-    const userEmail = req.body.email;
+module.exports.recoverUserPassword = () => (req, res) => {
+  const userEmail = req.body.email;
 
-    if (userEmail) {
-      recoverUserPassword(userEmail).then((user) => {
-        logger.setUser({ id: user.id, name: user.name }).info('Password recovery message successfully sent to the user email');
-        res.status(200).json({ success: `An email has been successfully sent to ${userEmail}` });
-      })
+  if (userEmail) {
+    recoverUserPassword(userEmail).then((user) => {
+      logger.setUser({ id: user.id, name: user.name }).info('Password recovery message successfully sent to the user email');
+      res.status(200).json({ success: `An email has been successfully sent to ${userEmail}` });
+    })
       .catch((usualError, internalError) => {
         if (internalError) {
           logger.error(`Internal error during user password recovery: ${internalError}`);
@@ -355,30 +346,27 @@ module.exports.recoverUserPassword = function () {
           return res.status(405).json({ error: usualError });
         }
       });
-    } else {
-      logger.warn('Error during user password recovery: empty email field');
-      return res.status(405).json({ error: 'Empty email field' });
-    }
-  };
+  } else {
+    logger.warn('Error during user password recovery: empty email field');
+    return res.status(405).json({ error: 'Empty email field' });
+  }
 };
 
 //
 // Retrieve user profile for its GET route
 //
-module.exports.retrieveUserProfile = function () {
-  return function (req, res) {
-    UsersAdapter.findById(req.user.id).then((user) => {
-      if (user) {
-        constructUserProfile(user).then((userProfile) => {
-          res.status(200).json(userProfile);
-        });
-      } else {
-        res.status(500).json({ error: 'Internal server error' });
-      }
-    }).catch((error) => {
+module.exports.retrieveUserProfile = () => (req, res) => {
+  UsersAdapter.findById(req.user.id).then((user) => {
+    if (user) {
+      constructUserProfile(user).then((userProfile) => {
+        res.status(200).json(userProfile);
+      });
+    } else {
       res.status(500).json({ error: 'Internal server error' });
-    });
-  };
+    }
+  }).catch((error) => {
+    res.status(500).json({ error: 'Internal server error' });
+  });
 };
 
 //
@@ -466,47 +454,43 @@ function updateUserProfile(userModel, userUpdateRequest) {
 //
 // Update user profile entry point from its POST route
 //
-module.exports.updateUserProfile = function () {
-  return function (req, res) {
-    const userUpdate = {};
+module.exports.updateUserProfile = () => (req, res) => {
+  const userUpdate = {};
 
-    userUpdate.name = req.body.name ? req.body.name : null;
-    userUpdate.email = req.body.email ? req.body.email : null;
-    userUpdate.password = req.body.password ? req.body.password : null;
-    userUpdate.confirmation = req.body.confirmation ? req.body.confirmation : null;
+  userUpdate.name = req.body.name ? req.body.name : null;
+  userUpdate.email = req.body.email ? req.body.email : null;
+  userUpdate.password = req.body.password ? req.body.password : null;
+  userUpdate.confirmation = req.body.confirmation ? req.body.confirmation : null;
 
-    updateUserProfile(req.user, userUpdate).then((user) => {
-      logger.setUser({ id: req.user.id, name: req.user.name }).info('Successfull user profile update');
-      return res.status(200).json({ success: 'Your profile has been successfully updated' });
-    })
+  updateUserProfile(req.user, userUpdate).then((user) => {
+    logger.setUser({ id: req.user.id, name: req.user.name }).info('Successfull user profile update');
+    return res.status(200).json({ success: 'Your profile has been successfully updated' });
+  })
     .catch((error) => {
       logger.setUser({ id: req.user.id, name: req.user.name }).warn(`User profile update error: ${error}`);
       return res.status(405).json(error);
     });
-  };
 };
 
 //
 // Retrieve all users for its GET route
 //
-module.exports.retrieveAllUsers = function (errors) {
-  return function (req, res) {
-    UsersAdapter.findAll().then((users) => {
-      const output = { users };
+module.exports.retrieveAllUsers = errors => (req, res) => {
+  UsersAdapter.findAll().then((users) => {
+    const output = { users };
 
-      users.forEach((user) => {
-        user.saveAndRestoreMode = rightsManager.getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user);
-        user.migrationMode = rightsManager.getModuleRightForUser(enumModules.MIGRATION, user);
-        user.softwarePackagesMode = rightsManager.getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user);
-      });
+    users.forEach((user) => {
+      user.saveAndRestoreMode = rightsManager.getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user);
+      user.migrationMode = rightsManager.getModuleRightForUser(enumModules.MIGRATION, user);
+      user.softwarePackagesMode = rightsManager.getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user);
+    });
 
-      if (errors) {
-        output.errors = errors;
-      }
+    if (errors) {
+      output.errors = errors;
+    }
 
-      return res.status(200).json(output);
-    }).catch(error => res.status(500).json({ error: 'Internal server error' }));
-  };
+    return res.status(200).json(output);
+  }).catch(error => res.status(500).json({ error: 'Internal server error' }));
 };
 
 function stopForEachPromise(obj, newError, fulfill) {
@@ -550,15 +534,13 @@ function createUsers(users) {
 //
 // Create users entry point from its POST route
 //
-module.exports.createUsers = function () {
-  return function (req, res) {
-    if (req.body.users && req.body.users.constructor == Array) {
-      createUsers(req.body.users).then(errors => module.exports.retrieveAllUsers(errors)(req, res));
-    } else {
-      logger.error('Error during new user creation (by an administrator): Invalid request');
-      return res.status(405).json({ error: 'Invalid request' });
-    }
-  };
+module.exports.createUsers = () => (req, res) => {
+  if (req.body.users && req.body.users.constructor == Array) {
+    createUsers(req.body.users).then(errors => module.exports.retrieveAllUsers(errors)(req, res));
+  } else {
+    logger.error('Error during new user creation (by an administrator): Invalid request');
+    return res.status(405).json({ error: 'Invalid request' });
+  }
 };
 
 function updateUsers(users) {
@@ -603,15 +585,13 @@ function updateUsers(users) {
 //
 // Update users entry point from its POST route
 //
-module.exports.updateUsers = function () {
-  return function (req, res) {
-    if (req.body.users && req.body.users.constructor == Array) {
-      updateUsers(req.body.users).then(errors => module.exports.retrieveAllUsers(errors)(req, res));
-    } else {
-      logger.error('Error during user update (by an administrator): Invalid request');
-      return res.status(405).json({ error: 'Invalid request' });
-    }
-  };
+module.exports.updateUsers = () => (req, res) => {
+  if (req.body.users && req.body.users.constructor == Array) {
+    updateUsers(req.body.users).then(errors => module.exports.retrieveAllUsers(errors)(req, res));
+  } else {
+    logger.error('Error during user update (by an administrator): Invalid request');
+    return res.status(405).json({ error: 'Invalid request' });
+  }
 };
 
 function deleteUsers(users) {
@@ -637,15 +617,13 @@ function deleteUsers(users) {
 //
 // Delete users entry point from its POST route
 //
-module.exports.deleteUsers = function () {
-  return function (req, res) {
-    if (req.body.users && req.body.users.constructor == Array) {
-      deleteUsers(req.body.users).then(errors => module.exports.retrieveAllUsers(errors)(req, res));
-    } else {
-      logger.error('Error during user deletion (by an administrator): Invalid request');
-      return res.status(405).json({ error: 'Invalid request' });
-    }
-  };
+module.exports.deleteUsers = () => (req, res) => {
+  if (req.body.users && req.body.users.constructor == Array) {
+    deleteUsers(req.body.users).then(errors => module.exports.retrieveAllUsers(errors)(req, res));
+  } else {
+    logger.error('Error during user deletion (by an administrator): Invalid request');
+    return res.status(405).json({ error: 'Invalid request' });
+  }
 };
 
 function retrieveUserFromId(req, id) {
@@ -669,28 +647,26 @@ function retrieveUserFromId(req, id) {
 //
 // Retrieve user for its GET route
 //
-module.exports.retrieveUser = function (errors) {
-  return function (req, res) {
-    if (req.query.id) {
-      if (req.user.id == req.query.id) {
-        retrieveUserFromId(req, req.query.id).then(user => res.status(200).json(user)).catch((code, error) => {
-          logger.setUser({ id: req.user.id, name: req.user.name }).error(error);
-          return res.status(code).json({ error });
-        });
-      } else if (req.user.isAdmin) {
-        retrieveUserFromId(req, req.query.id).then(user => res.status(200).json(user)).catch((code, error) => {
-          logger.setUser({ id: req.user.id, name: req.user.name }).error(error);
-          return res.status(code).json({ error });
-        });
-      } else {
-        logger.setUser({ id: req.user.id, name: req.user.name }).warn('Trying to access a protected ressource');
-        return res.status(401).json({ error: 'Access denied' });
-      }
+module.exports.retrieveUser = errors => (req, res) => {
+  if (req.query.id) {
+    if (req.user.id == req.query.id) {
+      retrieveUserFromId(req, req.query.id).then(user => res.status(200).json(user)).catch((code, error) => {
+        logger.setUser({ id: req.user.id, name: req.user.name }).error(error);
+        return res.status(code).json({ error });
+      });
+    } else if (req.user.isAdmin) {
+      retrieveUserFromId(req, req.query.id).then(user => res.status(200).json(user)).catch((code, error) => {
+        logger.setUser({ id: req.user.id, name: req.user.name }).error(error);
+        return res.status(code).json({ error });
+      });
     } else {
-      logger.setUser({ id: req.user.id, name: req.user.name }).warn('Invalid request');
-      return res.status(405).json({ error: 'Invalid request' });
+      logger.setUser({ id: req.user.id, name: req.user.name }).warn('Trying to access a protected ressource');
+      return res.status(401).json({ error: 'Access denied' });
     }
-  };
+  } else {
+    logger.setUser({ id: req.user.id, name: req.user.name }).warn('Invalid request');
+    return res.status(405).json({ error: 'Invalid request' });
+  }
 };
 
 function updateUserFromId(user) {
@@ -731,59 +707,53 @@ function updateUserFromId(user) {
 //
 // Update user entry point from its POST route
 //
-module.exports.updateUser = function () {
-  return function (req, res) {
-    if (req.body.id) {
-      if (req.user.id == req.body.id) {
-        updateUserFromId(req.body).then((user) => {
-          constructUserProfile(user).then(user => res.status(200).json(user));
-        }).catch(error => res.status(error.code).json(error.error));
-      } else if (req.user.isAdmin) {
-        updateUserFromId(req.body).then((user) => {
-          constructUserProfile(user).then(user => res.status(200).json(user));
-        }).catch(error => res.status(error.code).json(error.error));
-      } else {
-        return res.status(401).json({ error: 'Access denied' });
-      }
+module.exports.updateUser = () => (req, res) => {
+  if (req.body.id) {
+    if (req.user.id == req.body.id) {
+      updateUserFromId(req.body).then((user) => {
+        constructUserProfile(user).then(user => res.status(200).json(user));
+      }).catch(error => res.status(error.code).json(error.error));
+    } else if (req.user.isAdmin) {
+      updateUserFromId(req.body).then((user) => {
+        constructUserProfile(user).then(user => res.status(200).json(user));
+      }).catch(error => res.status(error.code).json(error.error));
     } else {
-      return res.status(405).json({ error: 'Invalid request' });
+      return res.status(401).json({ error: 'Access denied' });
     }
-  };
+  } else {
+    return res.status(405).json({ error: 'Invalid request' });
+  }
 };
 
 //
 // Delete user entry point from its POST route
 //
-module.exports.deleteUser = function () {
-  return function (req, res) {
-    if (req.body.id) {
-      UsersAdapter.findById(req.body.id).then((user) => {
-        if (user) {
-          user.destroy().then(() => {
-            logger.setUser({ id: req.body.id }).info('User deleted (by an administrator)');
-            return res.status(200).json({ message: 'User deleted' });
-          });
-        } else {
-          logger.warn(`${'Error during user deletion (by an administrator): ' + 'User id '}${req.body.id} not found`);
-          return res.status(404).json({ error: 'User not found' });
-        }
-      });
-    } else {
-      return res.status(405).json({ error: 'Invalid request' });
-    }
-  };
+module.exports.deleteUser = () => (req, res) => {
+  if (req.body.id) {
+    UsersAdapter.findById(req.body.id).then((user) => {
+      if (user) {
+        user.destroy().then(() => {
+          logger.setUser({ id: req.body.id }).info('User deleted (by an administrator)');
+          return res.status(200).json({ message: 'User deleted' });
+        });
+      } else {
+        logger.warn(`${'Error during user deletion (by an administrator): ' + 'User id '}${req.body.id} not found`);
+        return res.status(404).json({ error: 'User not found' });
+      }
+    });
+  } else {
+    return res.status(405).json({ error: 'Invalid request' });
+  }
 };
 
 //
 // Get number of user connected to deamon
 //
-module.exports.getNbrUserConnectedDeamon = function () {
-  return function (req, res) {
-    const promise = UsersAdapter.getNbrUserConnectedDeamon();
+module.exports.getNbrUserConnectedDeamon = () => (req, res) => {
+  const promise = UsersAdapter.getNbrUserConnectedDeamon();
 
-    promise.then(nbr => res.status(200).json({ nbrConnected: nbr })).catch((err) => {
-      logger.error(`Error when trying to get numbers of deamons connected: ${err}`);
-      return res.status(404).json({ error: 'Error when trying to get numbers of deamons connected' });
-    });
-  };
+  promise.then(nbr => res.status(200).json({ nbrConnected: nbr })).catch((err) => {
+    logger.error(`Error when trying to get numbers of deamons connected: ${err}`);
+    return res.status(404).json({ error: 'Error when trying to get numbers of deamons connected' });
+  });
 };

@@ -28,7 +28,7 @@ module.exports.enumModules = enumModules;
 //    }
 //  });
 //
-module.exports.getModuleRightForUser = function (moduleName, user) {
+module.exports.getModuleRightForUser = (moduleName, user) => {
   if (moduleName != enumModules.SAVE_AND_RESTORE &&
     moduleName != enumModules.MIGRATION &&
     moduleName != enumModules.SOFTWARE_PACKAGES) {

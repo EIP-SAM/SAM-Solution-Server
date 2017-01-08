@@ -5,114 +5,64 @@ const groupsManager = require('../managers/groups');
 // Users/Admin security gate
 //
 
-module.exports.ensureLoggedOut = function (req, res, next) {
-  return usersManager.ensureLoggedOut(req, res, next);
-};
+module.exports.ensureLoggedOut = (req, res, next) => usersManager.ensureLoggedOut(req, res, next);
 
-module.exports.ensureLoggedIn = function (req, res, next) {
-  return usersManager.ensureLoggedIn(req, res, next);
-};
+module.exports.ensureLoggedIn = (req, res, next) => usersManager.ensureLoggedIn(req, res, next);
 
-module.exports.ensureAdminLoggedIn = function (req, res, next) {
-  return usersManager.ensureAdminLoggedIn(req, res, next);
-};
+module.exports.ensureAdminLoggedIn = (req, res, next) => usersManager.ensureAdminLoggedIn(req, res, next);
 
 //
 // Users
 //
 
-module.exports.login = function (passport) {
-  return usersManager.login(passport);
-};
+module.exports.login = passport => usersManager.login(passport);
 
-module.exports.logout = function () {
-  return usersManager.logout();
-};
+module.exports.logout = () => usersManager.logout();
 
-module.exports.createUser = function () {
-  return usersManager.createUser();
-};
+module.exports.createUser = () => usersManager.createUser();
 
-module.exports.recoverUserPassword = function () {
-  return usersManager.recoverUserPassword();
-};
+module.exports.recoverUserPassword = () => usersManager.recoverUserPassword();
 
-module.exports.retrieveUserProfile = function () {
-  return usersManager.retrieveUserProfile();
-};
+module.exports.retrieveUserProfile = () => usersManager.retrieveUserProfile();
 
-module.exports.updateUserProfile = function () {
-  return usersManager.updateUserProfile();
-};
+module.exports.updateUserProfile = () => usersManager.updateUserProfile();
 
 //
 // Users administration
 //
 
-module.exports.retrieveAllUsers = function () {
-  return usersManager.retrieveAllUsers();
-};
+module.exports.retrieveAllUsers = () => usersManager.retrieveAllUsers();
 
-module.exports.retrieveUser = function () {
-  return usersManager.retrieveUser();
-};
+module.exports.retrieveUser = () => usersManager.retrieveUser();
 
-module.exports.createUsers = function () {
-  return usersManager.createUsers();
-};
+module.exports.createUsers = () => usersManager.createUsers();
 
-module.exports.updateUsers = function () {
-  return usersManager.updateUsers();
-};
+module.exports.updateUsers = () => usersManager.updateUsers();
 
-module.exports.deleteUsers = function () {
-  return usersManager.deleteUsers();
-};
+module.exports.deleteUsers = () => usersManager.deleteUsers();
 
-module.exports.updateUser = function () {
-  return usersManager.updateUser();
-};
+module.exports.updateUser = () => usersManager.updateUser();
 
-module.exports.deleteUser = function () {
-  return usersManager.deleteUser();
-};
+module.exports.deleteUser = () => usersManager.deleteUser();
 
-module.exports.getNbrUserConnectedDeamon = function () {
-  return usersManager.getNbrUserConnectedDeamon();
-};
+module.exports.getNbrUserConnectedDeamon = () => usersManager.getNbrUserConnectedDeamon();
 
 //
 // Groups administration
 //
 
-module.exports.retrieveAllGroups = function () {
-  return groupsManager.retrieveAllGroups();
-};
+module.exports.retrieveAllGroups = () => groupsManager.retrieveAllGroups();
 
-module.exports.retrieveGroup = function () {
-  return groupsManager.retrieveGroup();
-};
+module.exports.retrieveGroup = () => groupsManager.retrieveGroup();
 
-module.exports.createGroups = function () {
-  return groupsManager.createGroups();
-};
+module.exports.createGroups = () => groupsManager.createGroups();
 
-module.exports.updateGroups = function () {
-  return groupsManager.updateGroups();
-};
+module.exports.updateGroups = () => groupsManager.updateGroups();
 
-module.exports.deleteGroups = function () {
-  return groupsManager.deleteGroups();
-};
+module.exports.deleteGroups = () => groupsManager.deleteGroups();
 
-module.exports.updateGroup = function () {
-  return groupsManager.updateGroup();
-};
+module.exports.updateGroup = () => groupsManager.updateGroup();
 
-module.exports.deleteGroup = function () {
-  return groupsManager.deleteGroup();
-};
+module.exports.deleteGroup = () => groupsManager.deleteGroup();
 
-module.exports.addUsersToGroup = function () {
-  return groupsManager.addUsersToGroup();
-};
+module.exports.addUsersToGroup = () => groupsManager.addUsersToGroup();

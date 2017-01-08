@@ -9,34 +9,32 @@ const logger = require('../libs/bunyan');
 //
 // Get all users with their last save
 //
-module.exports.lastUsersSaves = function (req, res) {
-  return saveScheduledAdapter.lastUsersSaves().then((results) => {
-    for (const user of results) {
-      let lastSaveScheduled = [];
-      if (user.save_scheduleds.length === 0) {
+module.exports.lastUsersSaves = (req, res) => saveScheduledAdapter.lastUsersSaves().then((results) => {
+  for (const user of results) {
+    let lastSaveScheduled = [];
+    if (user.save_scheduleds.length === 0) {
+      continue;
+    }
+    lastSaveScheduled = user.save_scheduleds[0];
+    for (const saveScheduled of user.save_scheduleds) {
+      if (lastSaveScheduled.saves.length === 0) {
+        lastSaveScheduled = saveScheduled;
         continue;
       }
-      lastSaveScheduled = user.save_scheduleds[0];
-      for (const saveScheduled of user.save_scheduleds) {
-        if (lastSaveScheduled.saves.length === 0) {
-          lastSaveScheduled = saveScheduled;
-          continue;
-        }
-        if (saveScheduled.saves[0] && lastSaveScheduled.saves[0].execDate < saveScheduled.saves[0].execDate) {
-          lastSaveScheduled = saveScheduled;
-        }
+      if (saveScheduled.saves[0] && lastSaveScheduled.saves[0].execDate < saveScheduled.saves[0].execDate) {
+        lastSaveScheduled = saveScheduled;
       }
-      user.dataValues.save_scheduleds = (lastSaveScheduled.saves.length) ? lastSaveScheduled : [];
     }
-    return results;
-  });
-};
+    user.dataValues.save_scheduleds = (lastSaveScheduled.saves.length) ? lastSaveScheduled : [];
+  }
+  return results;
+});
 
 //
 // Get username from request
 // Get all saves of a user (past & scheduled)
 //
-module.exports.historySavesByUser = function (req, res) {
+module.exports.historySavesByUser = (req, res) => {
   const username = req.query.username;
   return saveScheduledAdapter.historySavesByUser(username);
 };
@@ -45,12 +43,12 @@ module.exports.historySavesByUser = function (req, res) {
 // Get username from request
 // Get all succeeded saves of a user
 //
-module.exports.historySucceededSavesByUser = function (req, res) {
+module.exports.historySucceededSavesByUser = (req, res) => {
   const username = req.query.username;
   return saveScheduledAdapter.historySucceededSavesByUser(username);
 };
 
-module.exports.createSave = function (req, res) {
+module.exports.createSave = (req, res) => {
   let usersId = req.body.usersId;
   const date = req.body.date;
   const time = req.body.time;
@@ -93,16 +91,14 @@ module.exports.createSave = function (req, res) {
 // Start save
 // Call adapter
 //
-module.exports.startSave = function (saveId) {
-  return saveScheduledAdapter.saveIsStart(saveId);
-};
+module.exports.startSave = saveId => saveScheduledAdapter.saveIsStart(saveId);
 
 //
 // If auto save then create new save
 // Else disable saveSchedule and remove cron from list
 // Call adapters
 //
-module.exports.saveFinish = function (saveScheduledId, saveId, username, files) {
+module.exports.saveFinish = (saveScheduledId, saveId, username, files) => {
   saveScheduledAdapter.findSaveScheduledById(saveScheduledId).then((saveScheduled) => {
     if (saveScheduled.cron === null) {
       saveScheduledAdapter.disableSaveScheduled(saveScheduled.id);
@@ -122,7 +118,7 @@ module.exports.saveFinish = function (saveScheduledId, saveId, username, files) 
 // Save name of the branch
 // Call adapter
 //
-module.exports.saveSuccess = function (saveId, branch) {
+module.exports.saveSuccess = (saveId, branch) => {
   saveScheduledAdapter.saveIsSuccess(saveId);
   saveScheduledAdapter.branchSave(saveId, branch);
 };
@@ -134,7 +130,7 @@ module.exports.saveSuccess = function (saveId, branch) {
 // Cancel save
 // Call adapter
 //
-module.exports.cancelSave = function (req, res) {
+module.exports.cancelSave = (req, res) => {
   const saveScheduledId = req.body.saveScheduledId;
   const saveId = req.body.saveId;
   cronManager.removeCron(saveScheduledId);

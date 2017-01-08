@@ -44,31 +44,29 @@ function initAllSaveCron() {
 // Function is call when the cron is triggered
 // Call daemon
 //
-module.exports.createSaveScheduled = function (date, username, files, saveId, saveScheduledId) {
-  return nodeSchedule.scheduleJob(date, () => {
-    if (typeof files === 'string') {
-      files = files.split();
+module.exports.createSaveScheduled = (date, username, files, saveId, saveScheduledId) => nodeSchedule.scheduleJob(date, () => {
+  if (typeof files === 'string') {
+    files = files.split();
+  }
+  daemonSave.exec(username, files, (msg) => {
+    if (msg.isSuccess) {
+      logger.setModuleName('Save').setUser({ id: '', name: username }).info(`${username} succeeded a save`);
+      saveManager.saveFinish(saveScheduledId, saveId);
+      saveManager.saveSuccess(saveId, msg.branch);
+    } else if (msg.isFinish) {
+      logger.setModuleName('Save').setUser({ id: '', name: username }).info(`${username} failed a save. Error: ${msg.msg.cmd}`);
+      saveManager.saveFinish(saveScheduledId, saveId, username, files);
+    } else if (msg.isStart) {
+      saveManager.startSave(saveId);
     }
-    daemonSave.exec(username, files, (msg) => {
-      if (msg.isSuccess) {
-        logger.setModuleName('Save').setUser({ id: '', name: username }).info(`${username} succeeded a save`);
-        saveManager.saveFinish(saveScheduledId, saveId);
-        saveManager.saveSuccess(saveId, msg.branch);
-      } else if (msg.isFinish) {
-        logger.setModuleName('Save').setUser({ id: '', name: username }).info(`${username} failed a save. Error: ${msg.msg.cmd}`);
-        saveManager.saveFinish(saveScheduledId, saveId, username, files);
-      } else if (msg.isStart) {
-        saveManager.startSave(saveId);
-      }
-    });
   });
-};
+});
 
 //
 // Stop cron
 // Remove cron from list
 //
-module.exports.removeCron = function (key) {
+module.exports.removeCron = (key) => {
   nodeSchedule.listCron[key].cancel();
   delete nodeSchedule.listCron[key];
 };
@@ -77,15 +75,13 @@ module.exports.removeCron = function (key) {
 // Parse cron expression to have a date
 // Use cron-parser lib
 //
-module.exports.parserCronToDate = function (cron) {
-  return cronParser.parseExpression(cron).next().toString();
-};
+module.exports.parserCronToDate = cron => cronParser.parseExpression(cron).next().toString();
 
 //
 // Parse date & frequency to have a cron expression
 // Day of week => cron: Sun = 1, Date: Sun = 0
 //
-module.exports.parseDateFrequencyToCron = function (date, frequency) {
+module.exports.parseDateFrequencyToCron = (date, frequency) => {
   let cron;
   switch (frequency) {
     case 'Daily':

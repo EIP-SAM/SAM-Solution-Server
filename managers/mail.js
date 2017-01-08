@@ -21,21 +21,19 @@ const mailSender = `"SAM-Solution [no-reply]" <${mailConfig.auth.user}>`;
 //
 // Plain text mail sending
 //
-module.exports.send = function (to, subject, body) {
-  return new Promise((fulfill, reject) => {
-    const mail = {
-      from: mailSender,
-      to,
-      subject,
-      text: body,
-    };
+module.exports.send = (to, subject, body) => new Promise((fulfill, reject) => {
+  const mail = {
+    from: mailSender,
+    to,
+    subject,
+    text: body,
+  };
 
-    transporter.sendMail(mail, (error, info) => {
-      if (error) {
-        reject(error);
-      } else {
-        fulfill(info);
-      }
-    });
+  transporter.sendMail(mail, (error, info) => {
+    if (error) {
+      reject(error);
+    } else {
+      fulfill(info);
+    }
   });
-};
+});

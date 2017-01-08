@@ -6,7 +6,7 @@ const saveAdapters = require('./statistics/save');
 const logsAdapters = require('./statistics/logs');
 const softwareAdapters = require('./statistics/software');
 
-module.exports.registerGraphs = function () {
+module.exports.registerGraphs = () => {
   statManager.statisticRegisterMethodForEntity('User', 'GraphRadarOfSave', dataAdapters.TESTDEFONCTION);
   statManager.statisticRegisterMethodForEntity('User', 'GraphBarOfAge', dataAdapters.TESTDEFONCTION2);
   statManager.statisticRegisterMethodForEntity('Computer', 'GraphCircleOfTypeOfComputer', dataAdapters.TESTDEFONCTION3);
@@ -46,7 +46,7 @@ SAM-Solution-Server/adapters/statistics/statistic_temporary_fake_data.js
 ***** CODE EXEMPLE *****
 ************************
 
-module.exports.TESTDEFONCTION = function () {
+module.exports.TESTDEFONCTION = () => {
 
   var returnData = {
     type: 'radar',

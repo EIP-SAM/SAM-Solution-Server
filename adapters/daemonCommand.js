@@ -16,11 +16,9 @@ module.exports.create = function saveDaemonCommand(userId, commandName, content)
 //
 // Get commands by userId
 //
-module.exports.getCommandById = function (userId) {
-  return daemonCmdModel.findAll({
-    where: { userId },
-  });
-};
+module.exports.getCommandById = userId => daemonCmdModel.findAll({
+  where: { userId },
+});
 
 //
 // Delete a command in DB

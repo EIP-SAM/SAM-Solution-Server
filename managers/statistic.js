@@ -3,7 +3,7 @@ const statAdapters = require('../adapters/statistic');
 module.exports.statisticFunctions = [];
 module.exports.statisticFilters = [];
 
-module.exports.statisticRegisterMethodForEntity = function (entity, functionName, functionData) {
+module.exports.statisticRegisterMethodForEntity = (entity, functionName, functionData) => {
   if (module.exports.statisticFunctions[entity] == null) {
     module.exports.statisticFunctions[entity] = [];
   }
@@ -12,7 +12,7 @@ module.exports.statisticRegisterMethodForEntity = function (entity, functionName
   module.exports.addFilter(entity);
 };
 
-module.exports.statisticGetMethodForEntity = function (entity, functionName) {
+module.exports.statisticGetMethodForEntity = (entity, functionName) => {
   if (module.exports.statisticFunctions[entity]) {
     if (module.exports.statisticFunctions[entity][functionName]) {
       return (module.exports.statisticFunctions[entity][functionName]());
@@ -20,25 +20,21 @@ module.exports.statisticGetMethodForEntity = function (entity, functionName) {
   }
 };
 
-module.exports.addFilter = function (entity) {
+module.exports.addFilter = (entity) => {
   if (module.exports.statisticFilters.indexOf(entity) == -1) {
     module.exports.statisticFilters.push(entity);
   }
 };
 
-module.exports.getStatisticFilters = function () {
-  return module.exports.statisticFilters;
-};
+module.exports.getStatisticFilters = () => module.exports.statisticFilters;
 
-module.exports.getStatisticByTypeAndName = function (type, name) {
-  return new Promise((fulfill, reject) => {
-    module.exports.statisticFunctions[type][name]().then((data) => {
-      fulfill(module.exports.prepareDataForGraph(data));
-    });
+module.exports.getStatisticByTypeAndName = (type, name) => new Promise((fulfill, reject) => {
+  module.exports.statisticFunctions[type][name]().then((data) => {
+    fulfill(module.exports.prepareDataForGraph(data));
   });
-};
+});
 
-module.exports.getStatisticTypeAndNameListByType = function (type) {
+module.exports.getStatisticTypeAndNameListByType = (type) => {
   const functions = module.exports.statisticFunctions[type];
   const data = [];
 
@@ -54,7 +50,7 @@ module.exports.getStatisticTypeAndNameListByType = function (type) {
   return return_data;
 };
 
-module.exports.initiateGraphs = function () {
+module.exports.initiateGraphs = () => {
   statAdapters.registerGraphs();
 };
 
@@ -364,7 +360,7 @@ function prepareLineDataForGraph(graphData, ctx) {
 //   return dataToChart;
 // }
 
-module.exports.prepareDataForGraph = function (graphData) {
+module.exports.prepareDataForGraph = (graphData) => {
   if (graphData.type == 'bar') {
     return (prepareBarDataForGraph(graphData));
   } else if (graphData.type == 'pie') {

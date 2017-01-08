@@ -10,15 +10,13 @@ const daemon = require('../websocket/daemon/restore');
 //
 // Get all users with their last restoration
 //
-module.exports.lastUsersRestores = function (req, res) {
-  return restoreAdapter.lastUsersRestores();
-};
+module.exports.lastUsersRestores = (req, res) => restoreAdapter.lastUsersRestores();
 
 //
 // Get username from request
 // Get all restorations of a user
 //
-module.exports.historyRestoreByUser = function (req, res) {
+module.exports.historyRestoreByUser = (req, res) => {
   const username = req.query.username;
   return restoreAdapter.historyRestoreByUser(username);
 };
@@ -27,7 +25,7 @@ module.exports.historyRestoreByUser = function (req, res) {
 // Get data from resquest
 // Call adapter
 //
-module.exports.createRestore = function (req, res) {
+module.exports.createRestore = (req, res) => {
   const userId = req.body.userId;
   const files = req.body.files;
   const saveId = req.body.saveId;

@@ -28,26 +28,14 @@ function exec(userName, method, params, onStatusChange) {
   });
 }
 
-module.exports.installPackages = function (userName, packages, onStatusChange) {
-  return exec(userName, 'install_packages', packages, onStatusChange);
-};
+module.exports.installPackages = (userName, packages, onStatusChange) => exec(userName, 'install_packages', packages, onStatusChange);
 
-module.exports.updatePackages = function (userName, packages, onStatusChange) {
-  return exec(userName, 'update_packages', packages, onStatusChange);
-};
+module.exports.updatePackages = (userName, packages, onStatusChange) => exec(userName, 'update_packages', packages, onStatusChange);
 
-module.exports.removePackages = function (userName, packages, onStatusChange) {
-  return exec(userName, 'remove_packages', packages, onStatusChange);
-};
+module.exports.removePackages = (userName, packages, onStatusChange) => exec(userName, 'remove_packages', packages, onStatusChange);
 
-module.exports.queryPackage = function (userName, packageName, onStatusChange) {
-  return exec(userName, 'query_package', packageName, onStatusChange);
-};
+module.exports.queryPackage = (userName, packageName, onStatusChange) => exec(userName, 'query_package', packageName, onStatusChange);
 
-module.exports.listInstalledPackages = function (userName, onStatusChange) {
-  return exec(userName, 'list_installed_packages', {}, onStatusChange);
-};
+module.exports.listInstalledPackages = (userName, onStatusChange) => exec(userName, 'list_installed_packages', {}, onStatusChange);
 
-module.exports.getOperatingSystem = function (userName, onStatusChange) {
-  return exec(userName, 'get_operating_system', {}, onStatusChange);
-};
+module.exports.getOperatingSystem = (userName, onStatusChange) => exec(userName, 'get_operating_system', {}, onStatusChange);

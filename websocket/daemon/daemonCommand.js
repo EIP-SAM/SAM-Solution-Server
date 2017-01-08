@@ -25,7 +25,7 @@ module.exports.check = function check(username) {
 };
 
 let commandFunction = [];
-commandFunction[module.exports.NOTIFICATION_DISPLAY] = function (command) {
+commandFunction[module.exports.NOTIFICATION_DISPLAY] = (command) => {
   userAdapter.findById(command.userId).then((user) => {
     const data = JSON.parse(command.content);
     notificationDaemon.display(user.name, data.title, data.description);
