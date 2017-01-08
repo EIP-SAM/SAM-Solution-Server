@@ -3,20 +3,23 @@
 //
 const logsAdapters = require('../log');
 
-//
-// Return the numbers of success actions by action name
-//
-module.exports.numberOfSoftwaresSuccessActions = () => numberOfSoftwaresGroupByActionName('successfuly', 'Pie: Software success actions');
-
-//
-// Return the numbers of failed actions by action name
-//
-module.exports.numberOfSoftwaresFailActions = () => numberOfSoftwaresGroupByActionName('failed', 'Pie: Software failed actions');
+const getNbSoftwareActions = (logsData, action, status, dataset) => {
+  let total = 0;
+  logsData.forEach((curVal) => {
+    if (curVal.msg.indexOf(action) !== -1 && curVal.msg.indexOf(status) !== -1) {
+      total += 1;
+    }
+  });
+  dataset.push({
+    title: action,
+    value: total,
+  });
+};
 
 //
 // Return the numbers of logs group by action name
 //
-let numberOfSoftwaresGroupByActionName = (status, title) => new Promise((fulfill) => {
+const numberOfSoftwaresGroupByActionName = (status, title) => new Promise((fulfill) => {
   logsAdapters.getNumberOfSoftwareGroupByActionName().then((logs) => {
     const logsData = logs.data;
     const dataset = [];
@@ -36,15 +39,12 @@ let numberOfSoftwaresGroupByActionName = (status, title) => new Promise((fulfill
   });
 });
 
-let getNbSoftwareActions = (logsData, action, status, dataset) => {
-  let total = 0;
-  logsData.forEach((curVal, index, logsData) => {
-    if (curVal.msg.indexOf(action) !== -1 && curVal.msg.indexOf(status) !== -1) {
-      total += 1;
-    }
-  });
-  dataset.push({
-    title: action,
-    value: total,
-  });
-};
+//
+// Return the numbers of success actions by action name
+//
+module.exports.numberOfSoftwaresSuccessActions = () => numberOfSoftwaresGroupByActionName('successfuly', 'Pie: Software success actions');
+
+//
+// Return the numbers of failed actions by action name
+//
+module.exports.numberOfSoftwaresFailActions = () => numberOfSoftwaresGroupByActionName('failed', 'Pie: Software failed actions');

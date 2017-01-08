@@ -5,39 +5,6 @@ const logger = require('../libs/bunyan').setModuleName('Users & Rights');
 
 const enumMode = rightsManager.enumMode;
 
-initUserDefaultGroup();
-initAdminDefaultGroup();
-
-function initUserDefaultGroup() {
-  return createGroup({
-    name: 'user_default',
-    saveAndRestoreMode: enumMode.SIMPLE,
-    migrationMode: enumMode.SIMPLE,
-    softwarePackagesMode: enumMode.SIMPLE,
-  });
-}
-
-function initAdminDefaultGroup() {
-  return createGroup({
-    name: 'admin_default',
-    saveAndRestoreMode: enumMode.ADVANCED,
-    migrationMode: enumMode.ADVANCED,
-    softwarePackagesMode: enumMode.ADVANCED,
-  });
-}
-
-module.exports.retrieveAllGroups = errors => (req, res) => {
-  GroupsAdapter.findAll().then((groups) => {
-    const output = { groups };
-
-    if (errors) {
-      output.errors = errors;
-    }
-
-    return res.status(200).json(output);
-  }).catch(() => res.status(500).json({ error: 'Internal server error' }));
-};
-
 function newGroupIsInvalid(group) {
   const name = group.name ? group.name : '';
   const rights = [group.saveAndRestoreMode, group.migrationMode, group.softwarePackagesMode];
@@ -77,6 +44,42 @@ function createGroup(newGroup) {
     });
   });
 }
+
+function initUserDefaultGroup() {
+  return createGroup({
+    name: 'user_default',
+    saveAndRestoreMode: enumMode.SIMPLE,
+    migrationMode: enumMode.SIMPLE,
+    softwarePackagesMode: enumMode.SIMPLE,
+  });
+}
+
+// called at the requirement of the file
+initUserDefaultGroup();
+
+function initAdminDefaultGroup() {
+  return createGroup({
+    name: 'admin_default',
+    saveAndRestoreMode: enumMode.ADVANCED,
+    migrationMode: enumMode.ADVANCED,
+    softwarePackagesMode: enumMode.ADVANCED,
+  });
+}
+
+// called at the requirement of the file
+initAdminDefaultGroup();
+
+module.exports.retrieveAllGroups = errors => (req, res) => {
+  GroupsAdapter.findAll().then((groups) => {
+    const output = { groups };
+
+    if (errors) {
+      output.errors = errors;
+    }
+
+    return res.status(200).json(output);
+  }).catch(() => res.status(500).json({ error: 'Internal server error' }));
+};
 
 function stopForEachPromise(obj, newError, fulfill) {
   if (newError) {

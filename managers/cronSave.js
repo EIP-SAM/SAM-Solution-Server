@@ -9,8 +9,6 @@ const userAdapter = require('../adapters/users');
 const daemonSave = require('../websocket/daemon/save');
 const logger = require('../libs/bunyan');
 
-initAllSaveCron();
-
 //
 // Call when server is restart
 // Create all the cron and add them to listCron;
@@ -38,6 +36,9 @@ function initAllSaveCron() {
     });
   });
 }
+
+// called at the requirement of the file
+initAllSaveCron();
 
 //
 // Create cron with a specific date

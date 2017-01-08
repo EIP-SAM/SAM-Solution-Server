@@ -18,6 +18,7 @@ const GroupsAdapter = require('../adapters/groups');
 const rightsManager = require('./rights');
 const mailManager = require('./mail');
 const logger = require('../libs/bunyan').setModuleName('Users & Rights');
+
 const enumModules = rightsManager.enumModules;
 
 const enumUserValues = {
@@ -35,8 +36,6 @@ const gitWorker = require('../workers/git');
 //
 // Create admin if not exists
 //
-initAdminUser();
-
 function initAdminUser() {
   return UsersAdapter.findByName('admin')
   .then((user) => {
@@ -54,6 +53,9 @@ function initAdminUser() {
     }
   });
 }
+
+// called at the requirement of the file
+initAdminUser();
 
 function checkNewUserName(name) {
   return (!name || !name.length ? 'Empty user name' : null);
@@ -183,6 +185,35 @@ module.exports.identifyUser = (name, password) => new Promise((fulfill, reject) 
 });
 
 //
+// Construct a safe and showable user profile from a user (for client side)
+//
+function constructUserProfile(user) {
+  return new Promise((fulfill) => {
+    const userProfile = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      saveAndRestoreMode: rightsManager.getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user),
+      migrationMode: rightsManager.getModuleRightForUser(enumModules.MIGRATION, user),
+      softwarePackagesMode: rightsManager.getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user),
+      groups: [],
+    };
+
+    user.groups.forEach((group) => {
+      userProfile.groups.push({
+        name: group.name,
+        saveAndRestoreMode: group.saveAndRestoreMode,
+        migrationMode: group.migrationMode,
+        softwarePackagesMode: group.softwarePackagesMode,
+      });
+    });
+
+    fulfill(userProfile);
+  });
+}
+
+//
 // Log the user in the system and create a session for him
 // Entry point from the login POST route
 //
@@ -202,12 +233,11 @@ module.exports.login = passport => (req, res, next) => {
       if (err) {
         logger.setUser(user).error(`User login failure, internal server error${err}`);
         return res.status(500).json({ error: 'Internal server error' });
-      } else {
-        constructUserProfile(user).then((userProfile) => {
-          logger.setUser({ id: req.user.id, name: req.user.name }).info('User successfully logged in');
-          return res.status(200).json(userProfile);
-        });
       }
+      constructUserProfile(user).then((userProfile) => {
+        logger.setUser({ id: req.user.id, name: req.user.name }).info('User successfully logged in');
+        return res.status(200).json(userProfile);
+      });
     });
   })(req, res, next);
 };
@@ -238,41 +268,11 @@ module.exports.createUser = () => (req, res) => {
         if (internalError) {
           logger.error(`Internal error during user creation: ${internalError}`);
           return res.status(500).json({ error: 'Internal server error' });
-        } else {
-          logger.warn(`Error during user creation:${userCreationError}`);
-          return res.status(405).json(userCreationError);
         }
+        logger.warn(`Error during user creation:${userCreationError}`);
+        return res.status(405).json(userCreationError);
       });
 };
-
-//
-// Construct a safe and showable user profile from a user (for client side)
-//
-function constructUserProfile(user) {
-  return new Promise((fulfill) => {
-    const userProfile = {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      saveAndRestoreMode: rightsManager.getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user),
-      migrationMode: rightsManager.getModuleRightForUser(enumModules.MIGRATION, user),
-      softwarePackagesMode: rightsManager.getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user),
-      groups: [],
-    };
-
-    user.groups.forEach((group) => {
-      userProfile.groups.push({
-        name: group.name,
-        saveAndRestoreMode: group.saveAndRestoreMode,
-        migrationMode: group.migrationMode,
-        softwarePackagesMode: group.softwarePackagesMode,
-      });
-    });
-
-    fulfill(userProfile);
-  });
-}
 
 //
 // Email template for the user password recovery
@@ -296,78 +296,6 @@ function generatePasswordAndMessageBody() {
     messageBody: passwordRecoveryMailTemplate.header + generatedPassword + passwordRecoveryMailTemplate.footer,
   };
 }
-
-//
-// Generate a new password for the user associated with the given email address,
-// send the new password to the user by email, and then assign the new password
-// to the user. Reject with an error message if there is something not valid or
-// not normal.
-//
-function recoverUserPassword(userEmail) {
-  return new Promise((fulfill, reject) => {
-    UsersAdapter.findByEmail(userEmail).then((user) => {
-      if (user) {
-        const passwordAndMessageBody = generatePasswordAndMessageBody();
-
-        mailManager.send(userEmail, '[SAM-Solution] Password recovery', passwordAndMessageBody.messageBody)
-        .then(() => {
-          updateUserProfile(user, passwordAndMessageBody).then((user) => {
-            fulfill(user);
-          }).catch(() => {
-            reject(null, 'Internal server error');
-          });
-        }).catch(() => {
-          reject('Unable to send an email to this email', null);
-        });
-      } else {
-        reject('No user associated to this email', null);
-      }
-    });
-  });
-}
-
-//
-// Recover user password entry point from its POST route
-//
-module.exports.recoverUserPassword = () => (req, res) => {
-  const userEmail = req.body.email;
-
-  if (userEmail) {
-    recoverUserPassword(userEmail).then((user) => {
-      logger.setUser({ id: user.id, name: user.name }).info('Password recovery message successfully sent to the user email');
-      res.status(200).json({ success: `An email has been successfully sent to ${userEmail}` });
-    })
-      .catch((usualError, internalError) => {
-        if (internalError) {
-          logger.error(`Internal error during user password recovery: ${internalError}`);
-          return res.status(500).json({ error: 'Internal server error' });
-        } else {
-          logger.warn(`Error during user password recovery: ${usualError}`);
-          return res.status(405).json({ error: usualError });
-        }
-      });
-  } else {
-    logger.warn('Error during user password recovery: empty email field');
-    return res.status(405).json({ error: 'Empty email field' });
-  }
-};
-
-//
-// Retrieve user profile for its GET route
-//
-module.exports.retrieveUserProfile = () => (req, res) => {
-  UsersAdapter.findById(req.user.id).then((user) => {
-    if (user) {
-      constructUserProfile(user).then((userProfile) => {
-        res.status(200).json(userProfile);
-      });
-    } else {
-      res.status(500).json({ error: 'Internal server error' });
-    }
-  }).catch(() => {
-    res.status(500).json({ error: 'Internal server error' });
-  });
-};
 
 //
 // Check new user name, set model field to update, or reject with error
@@ -447,9 +375,80 @@ function updateUserProfile(userModel, userUpdateRequest) {
       }
     });
   });
-
   return promise;
 }
+
+//
+// Generate a new password for the user associated with the given email address,
+// send the new password to the user by email, and then assign the new password
+// to the user. Reject with an error message if there is something not valid or
+// not normal.
+//
+function recoverUserPassword(userEmail) {
+  return new Promise((fulfill, reject) => {
+    UsersAdapter.findByEmail(userEmail).then((user) => {
+      if (user) {
+        const passwordAndMessageBody = generatePasswordAndMessageBody();
+
+        mailManager.send(userEmail, '[SAM-Solution] Password recovery', passwordAndMessageBody.messageBody)
+        .then(() => {
+          updateUserProfile(user, passwordAndMessageBody).then((user) => {
+            fulfill(user);
+          }).catch(() => {
+            reject(null, 'Internal server error');
+          });
+        }).catch(() => {
+          reject('Unable to send an email to this email', null);
+        });
+      } else {
+        reject('No user associated to this email', null);
+      }
+    });
+  });
+}
+
+//
+// Recover user password entry point from its POST route
+//
+module.exports.recoverUserPassword = () => (req, res) => {
+  const userEmail = req.body.email;
+
+  if (userEmail) {
+    recoverUserPassword(userEmail).then((user) => {
+      logger.setUser({ id: user.id, name: user.name }).info('Password recovery message successfully sent to the user email');
+      res.status(200).json({ success: `An email has been successfully sent to ${userEmail}` });
+    })
+      .catch((usualError, internalError) => {
+        if (internalError) {
+          logger.error(`Internal error during user password recovery: ${internalError}`);
+          return res.status(500).json({ error: 'Internal server error' });
+        }
+        logger.warn(`Error during user password recovery: ${usualError}`);
+        return res.status(405).json({ error: usualError });
+      });
+  } else {
+    logger.warn('Error during user password recovery: empty email field');
+    return res.status(405).json({ error: 'Empty email field' });
+  }
+};
+
+//
+// Retrieve user profile for its GET route
+//
+module.exports.retrieveUserProfile = () => (req, res) => {
+  UsersAdapter.findById(req.user.id).then((user) => {
+    if (user) {
+      constructUserProfile(user).then((userProfile) => {
+        res.status(200).json(userProfile);
+      });
+    } else {
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }).catch(() => {
+    res.status(500).json({ error: 'Internal server error' });
+  });
+};
+
 
 //
 // Update user profile entry point from its POST route
@@ -618,7 +617,7 @@ function deleteUsers(users) {
 // Delete users entry point from its POST route
 //
 module.exports.deleteUsers = () => (req, res) => {
-  if (req.body.users && req.body.users.constructor == Array) {
+  if (req.body.users && req.body.users.constructor === Array) {
     deleteUsers(req.body.users).then(errors => module.exports.retrieveAllUsers(errors)(req, res));
   } else {
     logger.error('Error during user deletion (by an administrator): Invalid request');
@@ -709,7 +708,7 @@ function updateUserFromId(user) {
 //
 module.exports.updateUser = () => (req, res) => {
   if (req.body.id) {
-    if (req.user.id == req.body.id) {
+    if (req.user.id === req.body.id) {
       updateUserFromId(req.body).then((user) => {
         constructUserProfile(user).then(user => res.status(200).json(user));
       }).catch(error => res.status(error.code).json(error.error));

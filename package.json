@@ -8,7 +8,7 @@
     "start": "node server.js | ./node_modules/bunyan/bin/bunyan",
     "test": "node_modules/.bin/istanbul cover -x server.js -x '**/webapp/**' -x '**/routes/**' -x '**/spec/**' --include-all-sources node_modules/jasmine/bin/jasmine.js",
     "lint": "node_modules/.bin/eslint .",
-    "lint:webapp": "cd webapp/ &&  npm run lint",    
+    "lint:webapp": "cd webapp/ &&  npm run lint",
     "lint:all": "npm run lint && npm run lint:webapp",
     "log_file": "cat ./log/error.log | ./node_modules/bunyan/bin/bunyan"
   },
@@ -56,6 +56,7 @@
     "git-http-backend": "^1.0.2",
     "git-wrapper": "github:eip-sam/node-git-wrapper",
     "helmet": "^2.3.0",
+    "moment": "^2.17.1",
     "mongoose": "^4.6.5",
     "mysql": "^2.12.0",
     "node-schedule": "^1.2.0",

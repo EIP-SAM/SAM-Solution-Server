@@ -22,6 +22,29 @@ module.exports.historyRestoreByUser = (req) => {
 };
 
 //
+// Update restore isStart boolean
+// Call adapter
+//
+function startRestore(restoreId) {
+  return restoreAdapter.restoreIsStart(restoreId);
+}
+
+//
+// Update restore isFinish boolean
+// Call adapter
+//
+function restoreFinish(restoreId) {
+  return restoreAdapter.restoreIsFinish(restoreId);
+}
+
+//
+// Call adapter
+//
+function restoreSuccess(restoreId) {
+  return restoreAdapter.restoreIsSuccess(restoreId);
+}
+
+//
 // Get data from resquest
 // Call adapter
 //
@@ -49,26 +72,3 @@ module.exports.createRestore = (req) => {
     });
   });
 };
-
-//
-// Update restore isStart boolean
-// Call adapter
-//
-function startRestore(restoreId) {
-  return restoreAdapter.restoreIsStart(restoreId);
-}
-
-//
-// Update restore isFinish boolean
-// Call adapter
-//
-function restoreFinish(restoreId) {
-  return restoreAdapter.restoreIsFinish(restoreId);
-}
-
-//
-// Call adapter
-//
-function restoreSuccess(restoreId) {
-  return restoreAdapter.restoreIsSuccess(restoreId);
-}

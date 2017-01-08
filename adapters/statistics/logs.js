@@ -11,7 +11,7 @@ module.exports.numberOfLogsGroupByModuleName = () => new Promise((fulfill) => {
     const logsData = logs.data;
     const dataset = [];
 
-    logsData.forEach((curVal, index, logsData) => {
+    logsData.forEach((curVal) => {
       dataset.push({
         title: curVal._id || 'Other',
         value: [curVal.total],
@@ -37,7 +37,7 @@ module.exports.numberOfLogsGroupByLevel = () => new Promise((fulfill) => {
     const logsData = logs.data;
     const dataset = [];
 
-    logsData.forEach((curVal, index, logsData) => {
+    logsData.forEach((curVal) => {
       let levelName = '';
       switch (curVal._id) {
         case 10:

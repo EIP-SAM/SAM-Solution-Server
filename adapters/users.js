@@ -100,7 +100,7 @@ module.exports.reassignUsersToGroup = (group, users) => new Promise((fulfill, re
           reject('Invalid user id');
         }
 
-        module.exports.linkGroupToUser(group, user).then((group, user) => {
+        module.exports.linkGroupToUser(group, user).then((group) => {
           if (++i >= users.length) {
             fulfill(group);
           }
