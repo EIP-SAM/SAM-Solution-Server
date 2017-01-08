@@ -11,7 +11,7 @@ const logger = require('../libs/bunyan').setModuleName('Git');
 //
 // Create new repo for a user
 //
-module.exports.initNewGitRepo = function (userName) {
+module.exports.initNewGitRepo = (userName) => {
   const pathToRepo = `${conf.baseDir + userName}/`;
 
   return new Promise((fullfill, reject) => {
@@ -21,16 +21,14 @@ module.exports.initNewGitRepo = function (userName) {
       fs.mkdirSync(pathToRepo);
       const git = new Git({ cwd: pathToRepo });
 
-      git.exec('init', {}, ['--bare']).then((stdout) => {
+      git.exec('init', {}, ['--bare']).then(() => {
         logger.info(`Repo for user [${userName}] created`);
         fullfill('ok');
       }).catch((err) => {
-        console.log(err);
+        logger.error(err);
         reject(err);
       });
-
-      return pathToRepo;
     }
+    return pathToRepo;
   });
-  return pathToRepo;
 };
