@@ -9,7 +9,7 @@
     "test": "node_modules/.bin/istanbul cover -x server.js -x '**/webapp/**' -x '**/routes/**' -x '**/spec/**' --include-all-sources node_modules/jasmine/bin/jasmine.js",
     "lint": "node_modules/.bin/eslint .",
     "lint:webapp": "cd webapp/ &&  npm run lint",
-    "lint:all": "npm run lint && npm run lint:webapp",
+    "lint:all": "npm run lint ; npm run lint:webapp",
     "log_file": "cat ./log/error.log | ./node_modules/bunyan/bin/bunyan"
   },
   "repository": {
