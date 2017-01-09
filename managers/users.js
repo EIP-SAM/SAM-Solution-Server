@@ -70,14 +70,15 @@ function checkNewUserPassword(password, confirmation) {
 }
 
 function checkNewUserValues(name, email, password, confirmation) {
-  let error = null;
-
-  if ((error = checkNewUserName(name))) {
-    return { error, field: enumUserValues.NAME };
-  } else if ((error = checkNewUserEmail(email))) {
-    return { error, field: enumUserValues.EMAIL };
-  } else if ((error = checkNewUserPassword(password, confirmation))) {
-    return { error, field: enumUserValues.PASSWORD };
+  const errorUsername = checkNewUserName(name);
+  const errorEmail = checkNewUserEmail(email);
+  const errorPassword = checkNewUserPassword(password, confirmation);
+  if (errorUsername) {
+    return { error: errorUsername, field: enumUserValues.NAME };
+  } else if (errorEmail) {
+    return { error: errorEmail, field: enumUserValues.EMAIL };
+  } else if (errorPassword) {
+    return { error: errorPassword, field: enumUserValues.PASSWORD };
   }
 
   return null;
@@ -304,7 +305,8 @@ function prepareUserNameUpdate(userModel, userUpdateRequest, fieldsToUpdate, rej
   let error = null;
 
   if (userUpdateRequest.name) {
-    if (!(error = checkNewUserName(userUpdateRequest.name))) {
+    error = checkNewUserName(userUpdateRequest.name);
+    if (!error) {
       userModel.name = userUpdateRequest.name;
       fieldsToUpdate.push('name');
     } else {
@@ -320,7 +322,8 @@ function prepareUserEmailUpdate(userModel, userUpdateRequest, fieldsToUpdate, re
   let error = null;
 
   if (userUpdateRequest.email) {
-    if (!(error = checkNewUserEmail(userUpdateRequest.email))) {
+    error = checkNewUserEmail(userUpdateRequest.email);
+    if (!error) {
       userModel.email = userUpdateRequest.email;
       fieldsToUpdate.push('email');
     } else {
@@ -336,7 +339,8 @@ function prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate,
   let error = null;
 
   if (userUpdateRequest.password) {
-    if (!(error = checkNewUserPassword(userUpdateRequest.password, userUpdateRequest.confirmation))) {
+    error = checkNewUserPassword(userUpdateRequest.password, userUpdateRequest.confirmation);
+    if (!error) {
       userModel.password = crypto.createHmac('sha256', salt).update(userUpdateRequest.password).digest('hex');
       fieldsToUpdate.push('password');
     } else {
