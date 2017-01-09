@@ -5,6 +5,7 @@ const backend = require('git-http-backend');
 const logger = require('../libs/bunyan').setModuleName('Git');
 const gitConf = require('../config/git.config.json');
 
+/* eslint consistent-return: "off" */
 module.exports = function init() {
   logger.info(`Server git repository in ${gitConf.baseDir}`);
   return (req, res) => {
