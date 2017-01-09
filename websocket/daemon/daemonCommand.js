@@ -6,6 +6,16 @@ const notificationDaemon = require('../../websocket/daemon/notification');
 
 module.exports.NOTIFICATION_DISPLAY = 'notification.display';
 
+const commandFunction = [];
+commandFunction[module.exports.NOTIFICATION_DISPLAY] = (command) => {
+  userAdapter.findById(command.userId).then((user) => {
+    const data = JSON.parse(command.content);
+    notificationDaemon.display(user.name, data.title, data.description);
+  }).catch(() => {
+    logger.info(`Unable to retrieve user ${command.userId}for persisted commands`);
+  });
+};
+
 //
 // Check if any persisted command are save for the user
 //
@@ -21,15 +31,5 @@ module.exports.check = function check(username) {
     });
   }).catch(() => {
     logger.info(`Unable to retrieve ${username}for persisted commands`);
-  });
-};
-
-let commandFunction = [];
-commandFunction[module.exports.NOTIFICATION_DISPLAY] = (command) => {
-  userAdapter.findById(command.userId).then((user) => {
-    const data = JSON.parse(command.content);
-    notificationDaemon.display(user.name, data.title, data.description);
-  }).catch(() => {
-    logger.info(`Unable to retrieve user ${command.userId}for persisted commands`);
   });
 };

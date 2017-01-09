@@ -2,14 +2,14 @@ const logger = require('../../libs/bunyan').setModuleName('Daemon');
 const daemonCmdAdapter = require('../../adapters/daemonCommand');
 const userAdapter = require('../../adapters/users');
 const daemonCommandChecker = require('./daemonCommand');
-
+const socketIo = require('../../libs/socket-io');
 
 //
 // Send a notification to display to the daemon
 // If user is not connected, the notification order may be persisted to db
 //
 module.exports.display = function display(username, title, description, cb) {
-  const socketArray = require('../../libs/socket-io').socketArray.daemon;
+  const socketArray = socketIo.socketArray.daemon;
   const socket = socketArray[username];
 
   if (typeof socket !== 'undefined') {
@@ -24,8 +24,7 @@ module.exports.display = function display(username, title, description, cb) {
   logger.info(`${username}'s daemon is not connected`);
   userAdapter.findByName(username).then((user) => {
     daemonCmdAdapter.create(user.id, daemonCommandChecker.NOTIFICATION_DISPLAY, { title, description });
-  }).catch((err) => {
-    console.log(err);
+  }).catch(() => {
     logger.info(`Unable to persist notification for ${username}`);
   });
 

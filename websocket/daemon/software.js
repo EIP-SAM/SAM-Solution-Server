@@ -1,10 +1,11 @@
 const logger = require('../../libs/bunyan').setModuleName('Daemon-software');
+const socketIo = require('../../libs/socket-io');
 
 let commandIndex = 0;
 
 function exec(userName, method, params, onStatusChange) {
   return new Promise((fulfill, reject) => {
-    const socket = require('../../libs/socket-io').socketArray.daemon[userName];
+    const socket = socketIo.socketArray.daemon[userName];
 
     method = `daemon_software_${method}`;
     if (typeof socket !== 'undefined') {

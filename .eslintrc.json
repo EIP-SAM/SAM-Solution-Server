@@ -13,9 +13,10 @@
         "sourceType": "module"
     },
     "rules": {
-        "max-len": 0,
+        "max-len": "off",
         "no-eval" : "error",
         "no-const-assign": "error",
+        "no-param-reassign": "off",
         "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
         "no-this-before-super": "warn",
         "no-undef": "error",

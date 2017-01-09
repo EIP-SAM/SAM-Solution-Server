@@ -11,6 +11,7 @@ if (!fs.existsSync(warnLogPath)) {
   fs.mkdirSync(warnLogPath);
 }
 
+/* eslint new-cap: ["error", { "newIsCap": false }] */
 const logger = new bunyan.createLogger({
   name: 'sam-logger',
   streams: [
@@ -30,10 +31,10 @@ const logger = new bunyan.createLogger({
   serializers: bunyan.stdSerializers,
 });
 
-const setLogger = (logger) => {
-  logger.setModuleName = moduleName => logger.child({ moduleName });
-  logger.setUser = user => logger.child({ user });
-  return logger;
+const setLogger = (newLogger) => {
+  newLogger.setModuleName = moduleName => newLogger.child({ moduleName });
+  newLogger.setUser = user => newLogger.child({ user });
+  return newLogger;
 };
 
 logger.setModuleName = moduleName => setLogger(logger.child({ moduleName }));
