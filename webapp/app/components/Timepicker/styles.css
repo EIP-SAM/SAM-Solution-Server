@@ -4,6 +4,7 @@
 
 .timePart {
     position: relative;
+    border-radius: 5px !important;
 }
 
 .hour {
@@ -12,6 +13,7 @@
 
 .timeMenu {
     position: absolute;
+    color: #9E9E9E;
     height: 100%;
     top: 0;
     right: 0;
@@ -31,11 +33,22 @@
     bottom: 0;
 }
 
+.plus:hover,
+.minus:hover,
+.remove:hover {
+    color: #696969;
+}
+
 .selected {
     background-color: #1E90FF;
     color: white;
 }
 
 .remove {
+    position: absolute;
+    right: 15px;
+    top: 13px;
     cursor: pointer;
+    font-size: 0.5em;
+    color: #9E9E9E;
 }

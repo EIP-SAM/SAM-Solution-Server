@@ -65,13 +65,11 @@ export default class Timepicker extends React.Component {
                         <span id="minute" className={minuteStyle} onClick={(e) => this.selectTimePart(e, 'minute')}>
                             { time[1] }
                         </span>
+                        <span className={removeStyle} onClick={this.props.handleRemove}></span>
                         <span id="time-selector" className={timeSelectorStyle}>
                             <i className={plusStyle} onClick={(e) => this.changePartTimeSelected(e, 'up')}></i>
                             <i className={minusStyle} onClick={(e) => this.changePartTimeSelected(e, 'down')}></i>
                         </span>
-                    </span>
-                    <span className="input-group-addon">
-                        <span className={removeStyle} onClick={this.props.handleRemove}></span>
                     </span>
                 </span>
             </span>
@@ -80,7 +78,7 @@ export default class Timepicker extends React.Component {
 
     // Convert string time into array string
     convertTimeToArray(time) {
-        return time ? time.split(':') : ['00', '00'];
+        return time && time !== '' ? time.split(':') : ['00', '00'];
     }
 
     // Select time part
@@ -94,8 +92,10 @@ export default class Timepicker extends React.Component {
     // change the selected time part by mode
     changePartTimeSelected(e, mode) {
         e.stopPropagation()
-        if (this.state.partSelected && this.state.time) {
-            let time = JSON.parse(JSON.stringify(this.convertTimeToArray(this.state.time)));
+        const defaultTime = this.state.time || '00:00';
+
+        if (this.state.partSelected && defaultTime) {
+            let time = JSON.parse(JSON.stringify(this.convertTimeToArray(defaultTime)));
             let value = -1;
 
             if (this.state.partSelected === 'hour') {
@@ -123,9 +123,6 @@ export default class Timepicker extends React.Component {
                     }
                 }
                 this.props.updateTimeCallback(time[0] + ":" + time[1]);
-                // this.setState({
-                //     time: time[0] + ":" + time[1],
-                // });
             }
         }
     }
