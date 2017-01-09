@@ -79,7 +79,8 @@ module.exports.unlinkAllUsersOfGroup = group => new Promise((fulfill) => {
 
       brokenUsers.forEach((brokenUser) => {
         GroupsAdapter.reassignGroupToUser(brokenUser, brokenUser.isAdmin ? 'admin_default' : 'user_default').then(() => {
-          if (++i >= brokenUsers.length) {
+          i += 1;
+          if (i >= brokenUsers.length) {
             fulfill(group);
           }
         });
@@ -101,7 +102,8 @@ module.exports.reassignUsersToGroup = (group, users) => new Promise((fulfill, re
         }
 
         module.exports.linkGroupToUser(group, user).then((group) => {
-          if (++i >= users.length) {
+          i += 1;
+          if (i >= users.length) {
             fulfill(group);
           }
         });

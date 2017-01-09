@@ -80,7 +80,7 @@ module.exports.unlinkUsersGroups = user => new Promise((fulfill) => {
   });
 });
 
-module.exports.createAndLinkGroupAndUser = (user, group) => new Promise((fulfill, reject) => {
+module.exports.createAndLinkGroupAndUser = (user, group) => new Promise((fulfill) => {
   module.exports.createGroup(group, enumMode.SIMPLE, enumMode.SIMPLE, enumMode.SIMPLE).then((group) => {
     module.exports.linkUserAndGroup(user, group).then((user, group) => {
       fulfill(user, group);
@@ -107,13 +107,14 @@ module.exports.reassignGroupsToUser = (user, groups) => new Promise((fulfill) =>
     let i = 0;
 
     if (groups.length === 0) {
-      module.exports.reassignGroupToUser(user, user.isAdmin ? 'admin_default' : 'user_default').then((user, group) => {
+      module.exports.reassignGroupToUser(user, user.isAdmin ? 'admin_default' : 'user_default').then((user) => {
         fulfill(user);
       });
     } else {
       groups.forEach((group) => {
-        module.exports.reassignGroupToUser(user, group).then((user, group) => {
-          if (++i >= groups.length) {
+        module.exports.reassignGroupToUser(user, group).then((user) => {
+          i += 1;
+          if (i >= groups.length) {
             fulfill(user);
           }
         });

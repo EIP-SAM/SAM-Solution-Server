@@ -86,7 +86,8 @@ function stopForEachPromise(obj, newError, fulfill) {
     obj.errors.push({ error: newError });
   }
 
-  if (++obj.i === obj.array.length) {
+  obj.i += 1;
+  if (obj.i === obj.array.length) {
     fulfill(obj.errors.length ? obj.errors : null);
   }
 }
@@ -121,7 +122,7 @@ module.exports.createGroups = () => (req, res) => {
   if (req.body.groups && req.body.groups.constructor === Array) {
     createGroups(req.body.groups).then(errors => module.exports.retrieveAllGroups(errors)(req, res));
   } else {
-    logger.error('Error during new group creation (by an administrator): ' + 'Invalid request');
+    logger.error('Error during new group creation (by an administrator): Invalid request');
     return res.status(405).json({ error: 'Invalid request' });
   }
 };
@@ -184,7 +185,7 @@ function deleteGroups(groups) {
           logger.warn(`Error during group deletion (by an administrator): id: ${groupId}not found`);
           stopForEachPromise(obj, `Group id ${groupId} not found`, fulfill);
         }
-      }).catch((error) => {
+      }).catch(() => {
         logger.warn(`Error during group deletion (by an administrator): id: ${groupId}not found`);
         stopForEachPromise(obj, `Group id ${groupId} not found`, fulfill);
       });

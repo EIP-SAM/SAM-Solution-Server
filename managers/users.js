@@ -497,7 +497,8 @@ function stopForEachPromise(obj, newError, fulfill) {
     obj.errors.push({ error: newError });
   }
 
-  if (++obj.i === obj.array.length) {
+  obj.i += 1;
+  if (obj.i === obj.array.length) {
     fulfill(obj.errors.length ? obj.errors : null);
   }
 }
@@ -569,7 +570,7 @@ function updateUsers(users) {
               stopForEachPromise(obj, error, fulfill);
             });
           } else {
-            logger.warn(`${'Error during user update (by an administrator): ' + 'User id '}${user.id} not found`);
+            logger.warn(`${'Error during user update (by an administrator): User id '}${user.id} not found`);
             stopForEachPromise(obj, `User id ${user.id} not found`, fulfill);
           }
         });
@@ -605,7 +606,7 @@ function deleteUsers(users) {
             stopForEachPromise(obj, null, fulfill);
           });
         } else {
-          logger.warn(`${'Error during user deletion (by an administrator): ' + 'User id '}${userId} not found`);
+          logger.warn(`${'Error during user deletion (by an administrator): User id '}${userId} not found`);
           stopForEachPromise(obj, `User id ${userId} not found`, fulfill);
         }
       });
@@ -736,7 +737,7 @@ module.exports.deleteUser = () => (req, res) => {
           return res.status(200).json({ message: 'User deleted' });
         });
       } else {
-        logger.warn(`${'Error during user deletion (by an administrator): ' + 'User id '}${req.body.id} not found`);
+        logger.warn(`${'Error during user deletion (by an administrator): User id '}${req.body.id} not found`);
         return res.status(404).json({ error: 'User not found' });
       }
     });
