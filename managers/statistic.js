@@ -42,12 +42,12 @@ module.exports.getStatisticTypeAndNameListByType = (type) => {
     data.push(i);
   }
 
-  const return_data = {
+  const returnData = {
     type,
     data,
   };
 
-  return return_data;
+  return returnData;
 };
 
 module.exports.initiateGraphs = () => {
@@ -118,35 +118,6 @@ function generateColorDoughnut(order, type) {
   if (order % 3 === 0) {
     return typeTable[2][type];
   } else if (order % 2 === 0) { return typeTable[1][type]; }
-  return typeTable[0][type];
-}
-
-function generateColorRadar(order, type) {
-  const typeTable = [];
-  typeTable[0] = [];
-  typeTable[1] = [];
-
-  typeTable[0][0] = 'rgba(220,220,220,0.2)';
-  typeTable[1][0] = 'rgba(151,187,205,0.2)';
-
-  typeTable[0][1] = 'rgba(220,220,220,1)';
-  typeTable[1][1] = 'rgba(151,187,205,1)';
-
-  typeTable[0][2] = 'rgba(220,220,220,1)';
-  typeTable[1][2] = 'rgba(151,187,205,1)';
-
-  typeTable[0][3] = '#fff';
-  typeTable[1][3] = '#fff';
-
-  typeTable[0][4] = '#fff';
-  typeTable[1][4] = '#fff';
-
-  typeTable[0][5] = 'rgba(220,220,220,1)';
-  typeTable[1][5] = 'rgba(151,187,205,1)';
-
-  if (order % 2 === 0) {
-    return typeTable[1][type];
-  }
   return typeTable[0][type];
 }
 

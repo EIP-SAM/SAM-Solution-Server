@@ -239,10 +239,9 @@ module.exports.addUsersToGroup = () => (req, res) => {
       logger.warn(`Error during user addition to group (by an administrator): ${error}`);
       return res.status(405).json({ error });
     });
-  } else {
-    logger.error('Error during user addition to group (by an administrator): Invalid request');
-    return res.status(405).json({ error: 'Invalid request' });
   }
+  logger.error('Error during user addition to group (by an administrator): Invalid request');
+  return res.status(405).json({ error: 'Invalid request' });
 };
 
 module.exports.retrieveGroup = () => (req, res) => {
@@ -250,18 +249,16 @@ module.exports.retrieveGroup = () => (req, res) => {
     GroupsAdapter.findById(req.query.id).then((group) => {
       if (group) {
         return res.status(200).json(group);
-      } else {
-        logger.setUser({ id: req.user.id, name: req.user.name }).error('Group not found');
-        return res.status(500).json({ error: 'Group not found' });
       }
+      logger.setUser({ id: req.user.id, name: req.user.name }).error('Group not found');
+      return res.status(500).json({ error: 'Group not found' });
     }).catch((error) => {
       logger.setUser({ id: req.user.id, name: req.user.name }).error(error);
       return res.status(500).json({ error });
     });
-  } else {
-    logger.setUser({ id: req.user.id, name: req.user.name }).error('Invalid request');
-    return res.status(405).json({ error: 'Invalid request' });
   }
+  logger.setUser({ id: req.user.id, name: req.user.name }).error('Invalid request');
+  return res.status(405).json({ error: 'Invalid request' });
 };
 
 module.exports.updateGroup = () => (req, res) => {

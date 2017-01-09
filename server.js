@@ -12,7 +12,8 @@ require('./models/init')().then(() => {
   const server = app.listen(config.port, () => {
     logger.info(`Listening on port ${config.port}`);
   });
-  const socket = SocketIO.init(server);
+
+  SocketIO.init(server);
 }).catch((err) => {
   console.log(err);
 });
