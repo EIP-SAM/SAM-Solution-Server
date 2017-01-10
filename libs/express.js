@@ -1,12 +1,11 @@
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const helmet = require('helmet');
+const gitMiddleware = require('./expressGit');
+const sequelizeSession = require('./sequelizeSession');
+
 module.exports = function initExpress(conf) {
-  const express = require('express');
-  const cookieParser = require('cookie-parser');
-  const bodyParser = require('body-parser');
-  const flash = require('connect-flash');
-  const helmet = require('helmet');
-  const gitMiddleware = require('./expressGit');
-
-
   // init express
   const app = express();
 
@@ -14,7 +13,6 @@ module.exports = function initExpress(conf) {
   app.use(cookieParser(conf.secret));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(flash());
   app.use(helmet());
   app.use('/git', gitMiddleware());
 
@@ -28,7 +26,6 @@ module.exports = function initExpress(conf) {
     next();
   });
 
-  require('./sequelizeSession')(app, conf);
-  require('./connectFlash')(app);
+  sequelizeSession(app, conf);
   return app;
 };

@@ -1,10 +1,9 @@
 const UsersManager = require('../managers/users');
 const UsersAdapter = require('../adapters/users');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
 
 module.exports = function initPassport(app) {
-  const passport = require('passport');
-  const LocalStrategy = require('passport-local');
-
   app.use(passport.initialize());
   app.use(passport.session());
 
