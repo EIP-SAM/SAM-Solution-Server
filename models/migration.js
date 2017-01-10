@@ -43,6 +43,4 @@ const Migration = sequelize.define('migration', {
 Migration.belongsTo(UserModel, { foreignKey: 'userId' });
 Migration.belongsTo(ImageModel, { foreignKey: 'imageId' });
 
-Migration.sync();
-
 module.exports = Migration;

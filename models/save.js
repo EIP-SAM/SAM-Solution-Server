@@ -41,9 +41,4 @@ const save = sequelize.define('save', {
 save.belongsTo(SaveScheduledModel, { foreignKey: 'saveScheduledId' });
 SaveScheduledModel.hasMany(save);
 
-//
-// Sync model Save
-//
-save.sync();
-
 module.exports = save;

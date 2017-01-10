@@ -38,9 +38,4 @@ restore.belongsTo(UserModel, { foreignKey: 'userId' });
 UserModel.hasMany(restore);
 restore.belongsTo(SaveModel, { foreignKey: 'saveId' });
 
-//
-// Sync model Restore
-//
-restore.sync();
-
 module.exports = restore;

@@ -24,9 +24,4 @@ const Image = sequelize.define('image', {
   freezeTableName: true,
 });
 
-//
-// Synchronise with database
-//
-Image.sync();
-
 module.exports = Image;
