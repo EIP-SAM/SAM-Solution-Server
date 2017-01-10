@@ -18,11 +18,11 @@
         "no-const-assign": "error",
         "no-param-reassign": "off",
         "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
-        "no-this-before-super": "warn",
+        "no-this-before-super": "error",
         "no-undef": "error",
         "no-unreachable": "warn",
         "no-unused-vars": "error",
-        "constructor-super": "warn",
-        "valid-typeof": "warn"
+        "constructor-super": "error",
+        "valid-typeof": "error"
     }
 }

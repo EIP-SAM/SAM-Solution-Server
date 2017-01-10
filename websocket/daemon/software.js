@@ -1,3 +1,5 @@
+/* eslint no-underscore-dangle: ["error", { "allow": ["_events"] }] */
+
 const logger = require('../../libs/bunyan').setModuleName('Daemon-software');
 const socketIo = require('../../libs/socket-io');
 

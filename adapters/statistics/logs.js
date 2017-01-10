@@ -1,6 +1,9 @@
 //
 // Getting logsAdapters
 //
+
+/* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
+
 const logsAdapters = require('../log');
 
 //

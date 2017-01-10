@@ -2,6 +2,8 @@
 // Adapter Log
 //
 
+/* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
+
 const logModel = require('../models/log');
 const logger = require('../libs/bunyan');
 const moment = require('../libs/moment');
