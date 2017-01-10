@@ -1,4 +1,6 @@
 const softwareDaemon = require('../websocket/daemon/software');
+const logger = require('../libs/bunyan').setModuleName('Software');
+
 
 //
 // Software daemon usage example
@@ -10,7 +12,7 @@ const softwareDaemon = require('../websocket/daemon/software');
 // is passed to each softwareDaemon call
 //
 function onStatusChange(status) {
-  console.log('status changed:', status);
+  logger.info(`Status changed : ${status}`);
 }
 
 function callSoftWareDaemon(user, fctToCall, cb = onStatusChange) {

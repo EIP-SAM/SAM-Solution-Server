@@ -7,13 +7,15 @@ const app = require('./libs/express')(config);
 const logger = require('./libs/bunyan');
 const SocketIO = require('./libs/socket-io');
 
+const generalRouter = require('./routes');
+
 require('./models/init')().then(() => {
-  require('./routes')(app, config);
+  generalRouter(app, config);
   const server = app.listen(config.port, () => {
     logger.info(`Listening on port ${config.port}`);
   });
 
   SocketIO.init(server);
 }).catch((err) => {
-  console.log(err);
+  logger.error(`Error initializing server, exiting : ${err}`);
 });

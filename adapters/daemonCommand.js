@@ -1,3 +1,4 @@
+const logger = require('../libs/bunyan').setModuleName('Daemon');
 const daemonCmdModel = require('../models/daemonCommand');
 
 //
@@ -9,7 +10,7 @@ module.exports.create = function saveDaemonCommand(userId, commandName, content)
     commandName,
     content: JSON.stringify(content),
   }).catch((err) => {
-    console.log(err);
+    logger.error(`Error creating daemon command : ${err}`);
   });
 };
 
