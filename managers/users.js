@@ -230,12 +230,12 @@ module.exports.login = passport => (req, res, next) => {
       return res.status(401).json({ error: info.message });
     }
 
-    req.logIn(user, () => {
+    return req.logIn(user, () => {
       if (err) {
         logger.setUser(user).error(`User login failure, internal server error${err}`);
         return res.status(500).json({ error: 'Internal server error' });
       }
-      constructUserProfile(user).then((userProfile) => {
+      return constructUserProfile(user).then((userProfile) => {
         logger.setUser({ id: req.user.id, name: req.user.name }).info('User successfully logged in');
         return res.status(200).json(userProfile);
       });
@@ -418,22 +418,20 @@ module.exports.recoverUserPassword = () => (req, res) => {
   const userEmail = req.body.email;
 
   if (userEmail) {
-    recoverUserPassword(userEmail).then((user) => {
+    return recoverUserPassword(userEmail).then((user) => {
       logger.setUser({ id: user.id, name: user.name }).info('Password recovery message successfully sent to the user email');
       res.status(200).json({ success: `An email has been successfully sent to ${userEmail}` });
-    })
-      .catch((usualError, internalError) => {
-        if (internalError) {
-          logger.error(`Internal error during user password recovery: ${internalError}`);
-          return res.status(500).json({ error: 'Internal server error' });
-        }
-        logger.warn(`Error during user password recovery: ${usualError}`);
-        return res.status(405).json({ error: usualError });
-      });
-  } else {
-    logger.warn('Error during user password recovery: empty email field');
-    return res.status(405).json({ error: 'Empty email field' });
+    }).catch((usualError, internalError) => {
+      if (internalError) {
+        logger.error(`Internal error during user password recovery: ${internalError}`);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+      logger.warn(`Error during user password recovery: ${usualError}`);
+      return res.status(405).json({ error: usualError });
+    });
   }
+  logger.warn('Error during user password recovery: empty email field');
+  return res.status(405).json({ error: 'Empty email field' });
 };
 
 //
@@ -540,11 +538,10 @@ function createUsers(users) {
 //
 module.exports.createUsers = () => (req, res) => {
   if (req.body.users && req.body.users.constructor === Array) {
-    createUsers(req.body.users).then(errors => module.exports.retrieveAllUsers(errors)(req, res));
-  } else {
-    logger.error('Error during new user creation (by an administrator): Invalid request');
-    return res.status(405).json({ error: 'Invalid request' });
+    return createUsers(req.body.users).then(errors => module.exports.retrieveAllUsers(errors)(req, res));
   }
+  logger.error('Error during new user creation (by an administrator): Invalid request');
+  return res.status(405).json({ error: 'Invalid request' });
 };
 
 function updateUsers(users) {
@@ -591,11 +588,10 @@ function updateUsers(users) {
 //
 module.exports.updateUsers = () => (req, res) => {
   if (req.body.users && req.body.users.constructor === Array) {
-    updateUsers(req.body.users).then(errors => module.exports.retrieveAllUsers(errors)(req, res));
-  } else {
-    logger.error('Error during user update (by an administrator): Invalid request');
-    return res.status(405).json({ error: 'Invalid request' });
+    return updateUsers(req.body.users).then(errors => module.exports.retrieveAllUsers(errors)(req, res));
   }
+  logger.error('Error during user update (by an administrator): Invalid request');
+  return res.status(405).json({ error: 'Invalid request' });
 };
 
 function deleteUsers(users) {
@@ -623,11 +619,10 @@ function deleteUsers(users) {
 //
 module.exports.deleteUsers = () => (req, res) => {
   if (req.body.users && req.body.users.constructor === Array) {
-    deleteUsers(req.body.users).then(errors => module.exports.retrieveAllUsers(errors)(req, res));
-  } else {
-    logger.error('Error during user deletion (by an administrator): Invalid request');
-    return res.status(405).json({ error: 'Invalid request' });
+    return deleteUsers(req.body.users).then(errors => module.exports.retrieveAllUsers(errors)(req, res));
   }
+  logger.error('Error during user deletion (by an administrator): Invalid request');
+  return res.status(405).json({ error: 'Invalid request' });
 };
 
 function retrieveUserFromId(req, id) {
@@ -654,23 +649,21 @@ function retrieveUserFromId(req, id) {
 module.exports.retrieveUser = () => (req, res) => {
   if (req.query.id) {
     if (req.user.id === req.query.id) {
-      retrieveUserFromId(req, req.query.id).then(user => res.status(200).json(user)).catch((code, error) => {
+      return retrieveUserFromId(req, req.query.id).then(user => res.status(200).json(user)).catch((code, error) => {
         logger.setUser({ id: req.user.id, name: req.user.name }).error(error);
         return res.status(code).json({ error });
       });
     } else if (req.user.isAdmin) {
-      retrieveUserFromId(req, req.query.id).then(user => res.status(200).json(user)).catch((code, error) => {
+      return retrieveUserFromId(req, req.query.id).then(user => res.status(200).json(user)).catch((code, error) => {
         logger.setUser({ id: req.user.id, name: req.user.name }).error(error);
         return res.status(code).json({ error });
       });
-    } else {
-      logger.setUser({ id: req.user.id, name: req.user.name }).warn('Trying to access a protected ressource');
-      return res.status(401).json({ error: 'Access denied' });
     }
-  } else {
-    logger.setUser({ id: req.user.id, name: req.user.name }).warn('Invalid request');
-    return res.status(405).json({ error: 'Invalid request' });
+    logger.setUser({ id: req.user.id, name: req.user.name }).warn('Trying to access a protected ressource');
+    return res.status(401).json({ error: 'Access denied' });
   }
+  logger.setUser({ id: req.user.id, name: req.user.name }).warn('Invalid request');
+  return res.status(405).json({ error: 'Invalid request' });
 };
 
 function updateUserFromId(user) {
@@ -714,19 +707,17 @@ function updateUserFromId(user) {
 module.exports.updateUser = () => (req, res) => {
   if (req.body.id) {
     if (req.user.id === req.body.id) {
-      updateUserFromId(req.body).then((user) => {
+      return updateUserFromId(req.body).then((user) => {
         constructUserProfile(user).then(user => res.status(200).json(user));
       }).catch(error => res.status(error.code).json(error.error));
     } else if (req.user.isAdmin) {
-      updateUserFromId(req.body).then((user) => {
+      return updateUserFromId(req.body).then((user) => {
         constructUserProfile(user).then(user => res.status(200).json(user));
       }).catch(error => res.status(error.code).json(error.error));
-    } else {
-      return res.status(401).json({ error: 'Access denied' });
     }
-  } else {
-    return res.status(405).json({ error: 'Invalid request' });
+    return res.status(401).json({ error: 'Access denied' });
   }
+  return res.status(405).json({ error: 'Invalid request' });
 };
 
 //
@@ -734,20 +725,18 @@ module.exports.updateUser = () => (req, res) => {
 //
 module.exports.deleteUser = () => (req, res) => {
   if (req.body.id) {
-    UsersAdapter.findById(req.body.id).then((user) => {
+    return UsersAdapter.findById(req.body.id).then((user) => {
       if (user) {
-        user.destroy().then(() => {
+        return user.destroy().then(() => {
           logger.setUser({ id: req.body.id }).info('User deleted (by an administrator)');
           return res.status(200).json({ message: 'User deleted' });
         });
-      } else {
-        logger.warn(`${'Error during user deletion (by an administrator): User id '}${req.body.id} not found`);
-        return res.status(404).json({ error: 'User not found' });
       }
+      logger.warn(`${'Error during user deletion (by an administrator): User id '}${req.body.id} not found`);
+      return res.status(404).json({ error: 'User not found' });
     });
-  } else {
-    return res.status(405).json({ error: 'Invalid request' });
   }
+  return res.status(405).json({ error: 'Invalid request' });
 };
 
 //

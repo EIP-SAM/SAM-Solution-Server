@@ -336,7 +336,9 @@ module.exports.prepareDataForGraph = (graphData) => {
     return (prepareBarDataForGraph(graphData));
   } else if (graphData.type === 'pie') {
     return (preparePieDataForGraph(graphData));
-  } else if (graphData.type === 'doughnut') { return (prepareDoughnutDataForGraph(graphData)); } else if (graphData.type === 'radar') {
+  } else if (graphData.type === 'doughnut') {
+    return (prepareDoughnutDataForGraph(graphData));
+  } else if (graphData.type === 'radar') {
     return prepareRadarDataForGraph(graphData);
   } else if (graphData.type === 'line') { return prepareLineDataForGraph(graphData); }
   // else if (graphData.type == "polar")
