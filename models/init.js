@@ -1,3 +1,9 @@
+//
+// Init all models
+//
+
+/* eslint global-require: "off" */
+
 module.exports = function init() {
   return new Promise((fulfill) => {
     require('./users').sync().then(() => {
