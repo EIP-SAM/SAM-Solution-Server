@@ -35,8 +35,8 @@ function createGroup(newGroup) {
     .then((group) => {
       if (!group) {
         GroupsAdapter.createGroup(newGroup.name, newGroup.saveAndRestoreMode, newGroup.migrationMode, newGroup.softwarePackagesMode)
-        .then((group) => {
-          fulfill(group);
+        .then((grp) => {
+          fulfill(grp);
         });
       } else {
         reject('A group with this name already exists');
@@ -137,17 +137,17 @@ function updateGroups(groups) {
           group.saveAndRestoreMode = groupUpdate.saveAndRestoreMode ? groupUpdate.saveAndRestoreMode : group.saveAndRestoreMode;
           group.migrationMode = groupUpdate.migrationMode ? groupUpdate.migrationMode : group.migrationMode;
           group.softwarePackagesMode = groupUpdate.softwarePackagesMode ? groupUpdate.softwarePackagesMode : group.softwarePackagesMode;
-          group.save().then((group) => {
+          group.save().then((grp) => {
             if (groupUpdate.users && groupUpdate.users.constructor === Array) {
-              UsersAdapter.reassignUsersToGroup(group, groupUpdate.users).then(() => {
-                logger.info({ group: { id: group.id, name: group.name } }, 'Group updated (by an administrator)');
+              UsersAdapter.reassignUsersToGroup(grp, groupUpdate.users).then(() => {
+                logger.info({ grp: { id: grp.id, name: grp.name } }, 'Group updated (by an administrator)');
                 stopForEachPromise(obj, null, fulfill);
               }).catch((error) => {
                 logger.warn({ error }, 'Error during group update (by an administrator)');
                 stopForEachPromise(obj, null, fulfill);
               });
             } else {
-              logger.info({ group: { id: group.id, name: group.name } }, 'Group updated (by an administrator)');
+              logger.info({ grp: { id: grp.id, name: grp.name } }, 'Group updated (by an administrator)');
               stopForEachPromise(obj, null, fulfill);
             }
           });
@@ -266,10 +266,10 @@ module.exports.updateGroup = () => (req, res) => {
         group.saveAndRestoreMode = req.body.saveAndRestoreMode ? req.body.saveAndRestoreMode : group.saveAndRestoreMode;
         group.migrationMode = req.body.migrationMode ? req.body.migrationMode : group.migrationMode;
         group.softwarePackagesMode = req.body.softwarePackagesMode ? req.body.softwarePackagesMode : group.softwarePackagesMode;
-        return group.save().then((group) => {
+        return group.save().then((grp) => {
           if (req.body.users && req.body.users.constructor === Array) {
-            return UsersAdapter.reassignUsersToGroup(group, req.body.users).then(() => {
-              logger.info({ group: { id: group.id, name: group.name } }, 'Group updated (by an administrator)');
+            return UsersAdapter.reassignUsersToGroup(grp, req.body.users).then(() => {
+              logger.info({ grp: { id: grp.id, name: grp.name } }, 'Group updated (by an administrator)');
               req.query.id = req.body.id;
               return module.exports.retrieveGroup()(req, res);
             }).catch((error) => {
@@ -277,8 +277,8 @@ module.exports.updateGroup = () => (req, res) => {
               return res.status(500).json({ message: 'Internal server error' });
             });
           }
-          logger.info({ group: { id: group.id, name: group.name } }, 'Group updated (by an administrator)');
-          return res.status(200).json(group);
+          logger.info({ grp: { id: grp.id, name: grp.name } }, 'Group updated (by an administrator)');
+          return res.status(200).json(grp);
         });
       }
       logger.warn({ group: { id: req.body.id }, error: `Group id ${req.body.id} not found` }, 'Error during group update (by an administrator)');

@@ -41,12 +41,12 @@ function initAdminUser() {
   .then((user) => {
     if (!user) {
       UsersAdapter.createAdminUser('admin', 'admin@example.com', crypto.createHmac('sha256', salt).update('admin').digest('hex'))
-      .then((user) => {
+      .then((usr) => {
         logger.info('Default administrator account created');
         GroupsAdapter.findByName('admin_default')
         .then((group) => {
           if (group) {
-            user.addGroups([group]);
+            usr.addGroups([group]);
           }
         });
       });
@@ -95,20 +95,20 @@ function checkAndCreateUser(name, email, password, confirmation) {
       .then((user) => {
         if (!user) {
           UsersAdapter.findByName(name)
-          .then((user) => {
-            if (!user) {
+          .then((usr) => {
+            if (!usr) {
               UsersAdapter.createUser(name, email, crypto.createHmac('sha256', salt).update(password).digest('hex'))
-              .then((user) => {
+              .then((newUser) => {
                 GroupsAdapter.findByName('user_default')
                 .then((group) => {
-                  user.addGroups([group])
+                  newUser.addGroups([group])
                   .then(() => {
                     gitWorker.initNewGitRepo(name)
                     .catch((err) => {
                       logger.info(err);
                     });
 
-                    fulfill(user);
+                    fulfill(newUser);
                   });
                 });
               });
@@ -396,8 +396,8 @@ function recoverUserPassword(userEmail) {
 
         mailManager.send(userEmail, '[SAM-Solution] Password recovery', passwordAndMessageBody.messageBody)
         .then(() => {
-          updateUserProfile(user, passwordAndMessageBody).then((user) => {
-            fulfill(user);
+          updateUserProfile(user, passwordAndMessageBody).then((usr) => {
+            fulfill(usr);
           }).catch(() => {
             reject(null, 'Internal server error');
           });
@@ -629,8 +629,8 @@ function retrieveUserFromId(req, id) {
   return new Promise((fulfill, reject) => {
     UsersAdapter.findById(id).then((user) => {
       if (user) {
-        constructUserProfile(user).then((user) => {
-          fulfill(user);
+        constructUserProfile(user).then((usr) => {
+          fulfill(usr);
         });
       } else if (req.user.isAdmin) {
         reject(404, 'User not found');
@@ -708,11 +708,11 @@ module.exports.updateUser = () => (req, res) => {
   if (req.body.id) {
     if (req.user.id === req.body.id) {
       return updateUserFromId(req.body).then((user) => {
-        constructUserProfile(user).then(user => res.status(200).json(user));
+        constructUserProfile(user).then(usr => res.status(200).json(usr));
       }).catch(error => res.status(error.code).json(error.error));
     } else if (req.user.isAdmin) {
       return updateUserFromId(req.body).then((user) => {
-        constructUserProfile(user).then(user => res.status(200).json(user));
+        constructUserProfile(user).then(usr => res.status(200).json(usr));
       }).catch(error => res.status(error.code).json(error.error));
     }
     return res.status(401).json({ error: 'Access denied' });

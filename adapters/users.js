@@ -51,8 +51,8 @@ module.exports.createUser = (name, email, password) => UsersModel.create({ name,
 module.exports.linkGroupToUser = (group, user) => new Promise((fulfill) => {
   module.exports.findByIdWithoutGroupRelation(user).then((foundUser) => {
     if (foundUser) {
-      group.addUsers([foundUser]).then((group) => {
-        fulfill(group, foundUser);
+      group.addUsers([foundUser]).then((grp) => {
+        fulfill(grp, foundUser);
       });
     } else {
       fulfill(group, null);
@@ -65,9 +65,9 @@ module.exports.unlinkAllUsersOfGroup = group => new Promise((fulfill) => {
 
   if (group.users) {
     group.users.forEach((user) => {
-      module.exports.findById(user.id).then((user) => {
-        if (user.groups.length === 1) {
-          brokenUsers.push(user);
+      module.exports.findById(user.id).then((usr) => {
+        if (usr.groups.length === 1) {
+          brokenUsers.push(usr);
         }
       });
     });
@@ -92,7 +92,7 @@ module.exports.unlinkAllUsersOfGroup = group => new Promise((fulfill) => {
 });
 
 module.exports.reassignUsersToGroup = (group, users) => new Promise((fulfill, reject) => {
-  module.exports.unlinkAllUsersOfGroup(group).then((group) => {
+  module.exports.unlinkAllUsersOfGroup(group).then((unlinkGroup) => {
     let i = 0;
 
     if (users.length > 0) {
@@ -101,15 +101,15 @@ module.exports.reassignUsersToGroup = (group, users) => new Promise((fulfill, re
           reject('Invalid user id');
         }
 
-        module.exports.linkGroupToUser(group, user).then((group) => {
+        module.exports.linkGroupToUser(unlinkGroup, user).then((linkGroup) => {
           i += 1;
           if (i >= users.length) {
-            fulfill(group);
+            fulfill(linkGroup);
           }
         });
       });
     } else {
-      fulfill(group);
+      fulfill(unlinkGroup);
     }
   });
 });

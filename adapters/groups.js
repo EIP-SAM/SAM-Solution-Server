@@ -69,8 +69,8 @@ module.exports.createGroup = (name, saveAndRestoreMode, migrationMode, softwareP
 });
 
 module.exports.linkUserAndGroup = (user, group) => new Promise((fulfill) => {
-  user.addGroups([group]).then((user) => {
-    fulfill(user, group);
+  user.addGroups([group]).then((usr) => {
+    fulfill(usr, group);
   });
 });
 
@@ -81,9 +81,9 @@ module.exports.unlinkUsersGroups = user => new Promise((fulfill) => {
 });
 
 module.exports.createAndLinkGroupAndUser = (user, group) => new Promise((fulfill) => {
-  module.exports.createGroup(group, enumMode.SIMPLE, enumMode.SIMPLE, enumMode.SIMPLE).then((group) => {
-    module.exports.linkUserAndGroup(user, group).then((user, group) => {
-      fulfill(user, group);
+  module.exports.createGroup(group, enumMode.SIMPLE, enumMode.SIMPLE, enumMode.SIMPLE).then((newGroup) => {
+    module.exports.linkUserAndGroup(user, newGroup).then((usr, grp) => {
+      fulfill(usr, grp);
     });
   });
 });
@@ -91,31 +91,31 @@ module.exports.createAndLinkGroupAndUser = (user, group) => new Promise((fulfill
 module.exports.reassignGroupToUser = (user, group) => new Promise((fulfill) => {
   module.exports.findByName(group).then((foundGroup) => {
     if (foundGroup) {
-      module.exports.linkUserAndGroup(user, foundGroup).then((user, group) => {
-        fulfill(user, group);
+      module.exports.linkUserAndGroup(user, foundGroup).then((usr, grp) => {
+        fulfill(usr, grp);
       });
     } else {
-      module.exports.createAndLinkGroupAndUser(user, group).then((user, group) => {
-        fulfill(user, group);
+      module.exports.createAndLinkGroupAndUser(user, group).then((usr, grp) => {
+        fulfill(usr, grp);
       });
     }
   });
 });
 
 module.exports.reassignGroupsToUser = (user, groups) => new Promise((fulfill) => {
-  module.exports.unlinkUsersGroups(user).then((user) => {
+  module.exports.unlinkUsersGroups(user).then((unlinkUser) => {
     let i = 0;
 
     if (groups.length === 0) {
-      module.exports.reassignGroupToUser(user, user.isAdmin ? 'admin_default' : 'user_default').then((user) => {
-        fulfill(user);
+      module.exports.reassignGroupToUser(unlinkUser, unlinkUser.isAdmin ? 'admin_default' : 'user_default').then((linkUser) => {
+        fulfill(linkUser);
       });
     } else {
       groups.forEach((group) => {
-        module.exports.reassignGroupToUser(user, group).then((user) => {
+        module.exports.reassignGroupToUser(user, group).then((linkUser) => {
           i += 1;
           if (i >= groups.length) {
-            fulfill(user);
+            fulfill(linkUser);
           }
         });
       });
