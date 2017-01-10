@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { EditUserFormEmail } from 'components/EditUser/Form/Email';
+import EditUserFormEmail from 'components/EditUser/Form/Email';
 import { emailChange } from './actions';
 
 function mapStateToProps(state) {
@@ -15,7 +15,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    emailChange: (email) => dispatch(emailChange(email)),
+    emailChange: email => dispatch(emailChange(email)),
   };
 }
 

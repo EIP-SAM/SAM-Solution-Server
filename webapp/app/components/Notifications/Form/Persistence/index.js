@@ -8,7 +8,7 @@ import { ButtonPopover } from 'components/ButtonPopover';
 import styles from 'components/Notifications/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class NotificationsFormPersistence extends React.Component {
+export default class NotificationsFormPersistence extends React.Component {
   constructor(props) {
     super(props);
     this.onChangePersistence = this.onChangePersistence.bind(this);

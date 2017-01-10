@@ -8,7 +8,7 @@
 //        return { type: YOUR_ACTION_CONSTANT, var: var }
 //    }
 //
-import request from 'utils/request';
+
 import {
   CREATE_GROUP_GET_USERS,
   CREATE_GROUP_PRE_SELECTED_USERS,
@@ -44,24 +44,26 @@ function removeUser(index, nextIndex) {
   };
 }
 
+/* eslint no-restricted-syntax: ["off", "ForOfStatement"] */
 export function removeUsers(users, preSelectedUsers) {
+  let allUsers = users;
   return function returnRemoveUsers(dispatch) {
-    for (let preSelectedUser of preSelectedUsers) {
-      for (let user of users) {
+    for (const preSelectedUser of preSelectedUsers) {
+      for (const user of allUsers) {
         if (user.id === preSelectedUser.id) {
-          const index = users.indexOf(user);
+          const index = allUsers.indexOf(user);
           let nextIndex = index + 1;
-          let newUsers = users.slice(0, index);
-          newUsers = users.slice(index + 1);
+          let newUsers = allUsers.slice(0, index);
+          newUsers = allUsers.slice(index + 1);
 
-          if (newUsers.length === 0 && users.length > 1) {
+          if (newUsers.length === 0 && allUsers.length > 1) {
             nextIndex = index - 1;
           } else if (newUsers.length === 0) {
             nextIndex = -1;
           }
 
           dispatch(removeUser(index, nextIndex));
-          users = newUsers;
+          allUsers = newUsers;
           break;
         }
       }

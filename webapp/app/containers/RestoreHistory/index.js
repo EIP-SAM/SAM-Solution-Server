@@ -3,8 +3,8 @@
 //
 
 import { connect } from 'react-redux';
+import RestoreHistory from 'components/RestoreHistory';
 import { getHistoryRestoresByUserRequest } from './actions';
-import { RestoreHistory } from 'components/RestoreHistory';
 
 function mapStateToProps(state) {
   return {
@@ -14,7 +14,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getHistoryRestoresByUserRequest: (username) => dispatch(getHistoryRestoresByUserRequest(username)),
+    getHistoryRestoresByUserRequest: username => dispatch(getHistoryRestoresByUserRequest(username)),
   };
 }
 

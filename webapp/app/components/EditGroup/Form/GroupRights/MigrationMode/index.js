@@ -7,7 +7,7 @@ import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import styles from 'components/EditGroup/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class EditGroupFormGroupRightsMigrationMode extends React.Component {
+export default class EditGroupFormGroupRightsMigrationMode extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeMigrationMode = this.onChangeMigrationMode.bind(this);

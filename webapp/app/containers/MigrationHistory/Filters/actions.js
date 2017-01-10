@@ -9,11 +9,9 @@
 //      }
 //
 
-import {
-  MIGRATION_HISTORY_SET_STATUS_FILTER,
-} from './constants';
+import MIGRATION_HISTORY_SET_STATUS_FILTER from './constants';
 
-export function setStatusFilter(statusFilter) {
+export default function setStatusFilter(statusFilter) {
   return {
     type: MIGRATION_HISTORY_SET_STATUS_FILTER,
     statusFilter,

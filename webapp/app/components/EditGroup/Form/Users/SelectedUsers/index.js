@@ -9,7 +9,7 @@ import Option from 'components/Option';
 import styles from 'components/EditGroup/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class EditGroupFormSelectedUsers extends React.Component {
+export default class EditGroupFormSelectedUsers extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeSelectedUsers = this.onChangeSelectedUsers.bind(this);
@@ -31,7 +31,7 @@ export class EditGroupFormSelectedUsers extends React.Component {
     let selectedUsersOption = [];
 
     if (this.props.selectedUsers.length > 0) {
-      selectedUsers = this.props.selectedUsers.map((user) => (
+      selectedUsers = this.props.selectedUsers.map(user => (
         { value: user.id, text: user.name }
       ));
       selectedUsersOption = selectedUsers.map((item, index) => (

@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SoftwaresByUser } from 'components/SoftwaresByUser';
+import SoftwaresByUser from 'components/SoftwaresByUser';
 import { resetStateTable } from './Table/actions';
 import {
   getInstalledSoftwaresRequest,
@@ -23,8 +23,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUsername: (username) => dispatch(getUsername(username)),
-    getInstalledSoftwaresRequest: (username) => getInstalledSoftwaresRequest(username),
+    getUsername: username => dispatch(getUsername(username)),
+    getInstalledSoftwaresRequest: username => getInstalledSoftwaresRequest(username),
     resetAlert: () => dispatch(resetAlert()),
     resetStateTable: () => dispatch(resetStateTable()),
   };

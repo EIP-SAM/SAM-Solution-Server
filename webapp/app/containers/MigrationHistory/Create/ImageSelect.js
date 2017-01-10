@@ -19,7 +19,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getAllImages: () => dispatch(getAllImages()),
-    setSelectedImage: (imageId) => dispatch(setSelectedImage(imageId)),
+    setSelectedImage: imageId => dispatch(setSelectedImage(imageId)),
   };
 }
 

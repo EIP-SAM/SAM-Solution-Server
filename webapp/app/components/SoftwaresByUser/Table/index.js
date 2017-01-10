@@ -14,7 +14,7 @@ import Td from 'components/Td';
 import styles from 'components/SoftwaresByUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SoftwaresByUserTable extends React.Component {
+export default class SoftwaresByUserTable extends React.Component {
   onChangeCheckboxLegend(event) {
     if (event.target.checked) {
       this.props.getSelectedSoftware(this.props.softwares);
@@ -26,6 +26,7 @@ export class SoftwaresByUserTable extends React.Component {
     this.forceUpdate();
   }
 
+  /* eslint no-restricted-syntax: ["off", "ForOfStatement"] */
   onChangeCheckbox(event, soft) {
     let selectedSoftwares = [];
     if (event.target.checked) {
@@ -76,29 +77,29 @@ export class SoftwaresByUserTable extends React.Component {
             <Tr items={names} component={Th} />
           </thead>
           <tbody>
-          {this.props.softwares.map((soft, index) => {
-            const checkbox = (
-              <FormGroup>
-                <Checkbox onChange={(event) => this.onChangeCheckbox(event, soft)} checked={(this.props.selectedSoftwares.indexOf(soft) !== -1 ? 'checked' : '')} />
-              </FormGroup>);
+            {this.props.softwares.map((soft, index) => {
+              const checkbox = (
+                <FormGroup>
+                  <Checkbox onChange={event => this.onChangeCheckbox(event, soft)} checked={(this.props.selectedSoftwares.indexOf(soft) !== -1 ? 'checked' : '')} />
+                </FormGroup>);
 
-            const actions = [];
-            if (!soft.installed) {
-              actions.push(<ButtonPopover key={`action-${0}`} id="install_software" trigger={['focus', 'hover']} placement="bottom" popoverContent="Install software" buttonType="link" icon="plus" onClick={() => this.handleInstallClick(soft.packageName)} buttonStyle={styles.plus} />);
-            } else {
-              actions.push(<ButtonPopover key={`action-${1}`} id="update_software" trigger={['focus', 'hover']} placement="bottom" popoverContent="Update software" buttonType="link" icon="open" onClick={() => this.handleUpdateClick(soft.packageName)} buttonStyle={styles.open} />);
-              actions.push(<ButtonPopover key={`action-${2}`} id="delete_software" trigger={['focus', 'hover']} placement="bottom" popoverContent="Delete software" buttonType="link" icon="trash" onClick={() => this.handleDeleteClick(soft.packageName)} buttonStyle={styles.trash} />);
-            }
-            return (
-              <Tr
-                key={`row-${index}`} items={[
+              const actions = [];
+              if (!soft.installed) {
+                actions.push(<ButtonPopover key={`action-${0}`} id="install_software" trigger={['focus', 'hover']} placement="bottom" popoverContent="Install software" buttonType="link" icon="plus" onClick={() => this.handleInstallClick(soft.packageName)} buttonStyle={styles.plus} />);
+              } else {
+                actions.push(<ButtonPopover key={`action-${1}`} id="update_software" trigger={['focus', 'hover']} placement="bottom" popoverContent="Update software" buttonType="link" icon="open" onClick={() => this.handleUpdateClick(soft.packageName)} buttonStyle={styles.open} />);
+                actions.push(<ButtonPopover key={`action-${2}`} id="delete_software" trigger={['focus', 'hover']} placement="bottom" popoverContent="Delete software" buttonType="link" icon="trash" onClick={() => this.handleDeleteClick(soft.packageName)} buttonStyle={styles.trash} />);
+              }
+              return (
+                <Tr
+                  key={`row-${index}`} items={[
                   { isLink: false, value: checkbox },
                   { isLink: false, value: soft.packageName },
                   { isLink: false, value: soft.description },
                   { isLink: false, value: actions }]} component={Td}
-              />
-            );
-          })}
+                />
+              );
+            })}
           </tbody>
         </Table>
         <AddSoftwareModal />

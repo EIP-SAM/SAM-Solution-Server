@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SoftwaresByUserAddAllSoftwaresModal } from 'components/SoftwaresByUser/Buttons/ModalAddAllSoftwares';
+import SoftwaresByUserAddAllSoftwaresModal from 'components/SoftwaresByUser/Buttons/ModalAddAllSoftwares';
 import { installSoftwares } from 'containers/SoftwaresByUser/actions';
 import { resetStateTable } from 'containers/SoftwaresByUser/Table/actions';
 import { hideAddAllSoftwaresModal } from './actions';

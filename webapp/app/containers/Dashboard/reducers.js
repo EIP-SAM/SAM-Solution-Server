@@ -5,7 +5,6 @@
 import {
   DASHBOARD_GET_SAVE_NUMBER,
   DASHBOARD_GET_RESTORE_NUMBER,
-  DASHBOARD_GET_DEAMON_USER_CONNECTED,
 } from './constants';
 
 const initialState = { saveNumbers: 0 };

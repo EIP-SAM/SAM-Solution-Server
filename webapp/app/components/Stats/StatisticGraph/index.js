@@ -1,16 +1,17 @@
 import React from 'react';
 import styles from 'components/Stats/StatisticGraph/styles.css';
+
 const chartJs = require('react-chartjs');
 
-export class StatisticGraphComponent extends React.Component {
-
+/* eslint-disable react/prefer-stateless-function */
+export default class StatisticGraphComponent extends React.Component {
   componentDidMount() {
     this.props.getGraphListByType('User');
   }
 
   render() {
     const graphs = [];
-    const allGraph = this.props.stats.stats;
+    const allGraph = this.props.stats;
 
     if (!allGraph) {
       return null;
@@ -18,7 +19,7 @@ export class StatisticGraphComponent extends React.Component {
 
     const graphNumber = allGraph.length;
 
-    let graphOptions = {
+    const graphOptions = {
       animatable: true,
     };
 
@@ -69,5 +70,5 @@ export class StatisticGraphComponent extends React.Component {
 
 StatisticGraphComponent.propTypes = {
   getGraphListByType: React.PropTypes.func.isRequired,
-  stats: React.PropTypes.object.isRequired,
+  stats: React.PropTypes.array.isRequired,
 };

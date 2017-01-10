@@ -8,13 +8,13 @@ import { LinkContainerButton } from 'components/Button';
 import styles from 'components/Notifications/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class NotificationsFormAllUsersSelectAll extends React.Component {
+export default class NotificationsFormAllUsersSelectAll extends React.Component {
   constructor(props) {
     super(props);
     this.selectAll = this.selectAll.bind(this);
   }
 
-  selectAll(event) {
+  selectAll() {
     this.props.removeUsers(this.props.users, this.props.users);
     this.props.addUsers(this.props.users);
   }
@@ -22,7 +22,7 @@ export class NotificationsFormAllUsersSelectAll extends React.Component {
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonBsStyle="info" buttonText="Select all" onClick={(event) => this.selectAll(event)} />
+        <LinkContainerButton buttonBsStyle="info" buttonText="Select all" onClick={() => this.selectAll()} />
       </ButtonToolbar>
     );
   }

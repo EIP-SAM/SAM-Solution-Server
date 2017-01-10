@@ -3,8 +3,8 @@
 //
 
 import { connect } from 'react-redux';
-import { NotificationsFormUsers } from 'components/Notifications/Form/Users';
-import { getUsersRequest } from './actions';
+import NotificationsFormUsers from 'components/Notifications/Form/Users';
+import getUsersRequest from './actions';
 
 function mapStateToProps() {
   return {

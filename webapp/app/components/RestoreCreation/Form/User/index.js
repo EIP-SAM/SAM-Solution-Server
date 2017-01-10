@@ -3,10 +3,10 @@ import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import styles from 'components/RestoreCreation/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class RestoreCreationUser extends React.Component {
+export default class RestoreCreationUser extends React.Component {
   render() {
     if (!this.props.userInfo.isAdmin) {
-      return (<div></div>);
+      return (<div />);
     }
 
     const user = this.props.username;

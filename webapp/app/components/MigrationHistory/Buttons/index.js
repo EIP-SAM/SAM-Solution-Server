@@ -29,5 +29,4 @@ export default class Buttons extends React.Component {
 
 Buttons.propTypes = {
   showCreateMigrationPopup: React.PropTypes.func,
-  setPopupToCreate: React.PropTypes.func,
 };

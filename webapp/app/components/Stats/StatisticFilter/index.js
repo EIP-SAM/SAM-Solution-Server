@@ -3,8 +3,8 @@ import { ButtonToolbar } from 'react-bootstrap';
 import { LinkContainerButton } from 'components/Button';
 import styles from 'components/Stats/StatisticFilter/styles.css';
 
-export class StatisticFilterComponent extends React.Component {
-
+/* eslint-disable react/prefer-stateless-function */
+export default class StatisticFilterComponent extends React.Component {
   componentDidMount() {
     this.props.getFiltersFromServer();
   }

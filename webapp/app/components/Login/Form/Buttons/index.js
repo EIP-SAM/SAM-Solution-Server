@@ -26,7 +26,7 @@ export class LoginFormButtons extends React.Component {
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Login" onClick={(event) => this.handleLoginClick(event)} />
+        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Login" onClick={event => this.handleLoginClick(event)} />
       </ButtonToolbar>
     );
   }

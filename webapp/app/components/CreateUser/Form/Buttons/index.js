@@ -9,7 +9,7 @@ import { LinkContainerButton } from 'components/Button';
 import styles from 'components/CreateUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class CreateUserFormButtons extends React.Component {
+export default class CreateUserFormButtons extends React.Component {
 
   handleCreateClick(event) {
     event.preventDefault();
@@ -39,8 +39,8 @@ export class CreateUserFormButtons extends React.Component {
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Create" onClick={(event) => this.handleCreateClick(event)} />
-        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={(event) => this.handleCancelClick(event)} />
+        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Create" onClick={event => this.handleCreateClick(event)} />
+        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={event => this.handleCancelClick(event)} />
       </ButtonToolbar>
     );
   }

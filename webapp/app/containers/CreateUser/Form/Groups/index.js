@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { CreateUserFormGroups } from 'components/CreateUser/Form/Groups';
+import CreateUserFormGroups from 'components/CreateUser/Form/Groups';
 import {
   getGroupsRequest,
   getSelectedGroup,
@@ -12,14 +12,13 @@ import {
 function mapStateToProps(state) {
   return {
     groups: state.get('createUser').get('CreateUserFormGroupsReducer').groups,
-    selectedGroup: state.get('createUser').get('CreateUserFormGroupsReducer').selectedGroup,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     getGroupsRequest: () => dispatch(getGroupsRequest()),
-    getSelectedGroup: (group) => dispatch(getSelectedGroup(group)),
+    getSelectedGroup: group => dispatch(getSelectedGroup(group)),
   };
 }
 

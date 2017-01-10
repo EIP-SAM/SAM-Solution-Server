@@ -19,7 +19,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getAllUsers: () => dispatch(getAllUsers()),
-    setSelectedUser: (userId) => dispatch(setSelectedUser(userId)),
+    setSelectedUser: userId => dispatch(setSelectedUser(userId)),
   };
 }
 

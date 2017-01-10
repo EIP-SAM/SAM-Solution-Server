@@ -8,9 +8,7 @@
 //    return state.set('yourStateVariable', true);
 //
 
-import {
-  EDIT_GROUP_MIGRATION_MODE_CHANGE,
-} from './constants';
+import EDIT_GROUP_MIGRATION_MODE_CHANGE from './constants';
 
 const initialState = {
   migrationMode: 0,

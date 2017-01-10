@@ -8,10 +8,10 @@ import { LinkContainerButton } from 'components/Button';
 import styles from 'components/Notifications/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class NotificationsFormButtons extends React.Component {
+export default class NotificationsFormButtons extends React.Component {
   handleCreateClick(event) {
     event.preventDefault();
-    const username = this.props.selectedUsers.map((user) => (
+    const username = this.props.selectedUsers.map(user => (
       user.name
     ));
     if (this.props.title !== '' && this.props.description !== '') {
@@ -29,7 +29,7 @@ export class NotificationsFormButtons extends React.Component {
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Send" onClick={(event) => this.handleCreateClick(event)} />
+        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Send" onClick={event => this.handleCreateClick(event)} />
       </ButtonToolbar>
     );
   }

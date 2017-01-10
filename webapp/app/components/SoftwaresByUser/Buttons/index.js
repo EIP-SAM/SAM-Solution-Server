@@ -11,7 +11,7 @@ import DeleteAllSoftwaresModal from 'containers/SoftwaresByUser/Buttons/ModalDel
 import styles from 'components/SoftwaresByUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SoftwaresByUserButtons extends React.Component {
+export default class SoftwaresByUserButtons extends React.Component {
 
   handleClickInstallSoftwares() {
     this.props.showAddAllSoftwaresModal();

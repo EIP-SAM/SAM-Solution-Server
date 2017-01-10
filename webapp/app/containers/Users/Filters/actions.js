@@ -2,9 +2,7 @@
 // users filters Actions
 //
 import { getUsers } from 'containers/Users/actions';
-import {
-  USERS_GET_ALL_USERS,
-} from './constants';
+import USERS_GET_ALL_USERS from './constants';
 
 export function getAllUsers(allUsers) {
   return {
@@ -13,6 +11,7 @@ export function getAllUsers(allUsers) {
   };
 }
 
+/* eslint no-restricted-syntax: ["off", "ForOfStatement"] */
 export function filterUsers(currentTypeUser, currentGroup, allUsers) {
   return function returnGetUsersRequest(dispatch) {
     let filteredUser = allUsers.map((user) => {
@@ -33,7 +32,7 @@ export function filterUsers(currentTypeUser, currentGroup, allUsers) {
           return '';
       }
     });
-    filteredUser = filteredUser.filter((n) => n !== undefined);
+    filteredUser = filteredUser.filter(n => n !== undefined);
     if (currentGroup !== 'All') {
       filteredUser = filteredUser.map((user) => {
         for (const group of user.groups) {
@@ -43,7 +42,7 @@ export function filterUsers(currentTypeUser, currentGroup, allUsers) {
         }
       });
     }
-    filteredUser = filteredUser.filter((n) => n !== undefined);
+    filteredUser = filteredUser.filter(n => n !== undefined);
     dispatch(getUsers(filteredUser));
   };
 }

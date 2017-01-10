@@ -8,7 +8,7 @@ import { LinkContainerButton } from 'components/Button';
 import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class GroupDeletionModal extends React.Component {
+export default class GroupDeletionModal extends React.Component {
   handleDeleteClick() {
     this.props.deleteGroup(this.props.groupId, this.props.groupName);
     this.props.hideInstantDeleteModal();

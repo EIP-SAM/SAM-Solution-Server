@@ -12,7 +12,8 @@ import request from 'utils/request';
 import { getUsers } from './AllUsers/actions';
 import { addUsersToGroup } from './SelectedUsers/actions';
 
-export function getUsersRequest(currentGroup) {
+/* eslint no-restricted-syntax: ["off", "ForOfStatement"] */
+export default function getUsersRequest(currentGroup) {
   return function returnGetUsersRequest(dispatch) {
     return request
     .get('/api/logged-in/admin/users')
@@ -20,7 +21,7 @@ export function getUsersRequest(currentGroup) {
       if (res.body.users) {
         const selectedUsers = [];
         let users = res.body.users.map((user) => {
-          for (let group of user.groups) {
+          for (const group of user.groups) {
             if (group.name === currentGroup) {
               selectedUsers.push({ id: user.id, name: user.name });
               return undefined;
@@ -28,7 +29,7 @@ export function getUsersRequest(currentGroup) {
           }
           return { id: user.id, name: user.name };
         });
-        users = users.filter((n) => n !== undefined);
+        users = users.filter(n => n !== undefined);
         dispatch(getUsers(users));
         dispatch(addUsersToGroup(selectedUsers));
       }

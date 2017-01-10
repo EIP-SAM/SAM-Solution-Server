@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { GroupsButton } from 'components/Groups/Button';
+import GroupsButton from 'components/Groups/Button';
 
 function mapStateToProps() {
   return {

@@ -8,9 +8,7 @@
 //    return state.set('yourStateVariable', true);
 //
 
-import {
-  RESTORE_HISTORY_SHOW_INSTANT_RESTORE_MODAL,
-} from './constants';
+import RESTORE_HISTORY_SHOW_INSTANT_RESTORE_MODAL from './constants';
 
 const initialState = {
   showModal: false,

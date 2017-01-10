@@ -1,15 +1,20 @@
-module.exports = function init() {
-  return new Promise(function (fulfill, reject) {
+//
+// Init all models
+//
 
-    require('./users').sync().then(function () {
-      require('./saveScheduled').sync().then(function () {
-        require('./save').sync().then(function () {
-          require('./restore').sync().then(function () {
-            require('./groups').sync().then(function () {
-              require('./usersGroupsRelations').sync().then(function () {
-                require('./migration').sync().then(function() {
-                  require('./image').sync().then(function() {
-                    require('./daemonCommand').sync().then(function() {
+/* eslint global-require: "off" */
+
+module.exports = function init() {
+  return new Promise((fulfill) => {
+    require('./users').sync().then(() => {
+      require('./saveScheduled').sync().then(() => {
+        require('./save').sync().then(() => {
+          require('./restore').sync().then(() => {
+            require('./groups').sync().then(() => {
+              require('./usersGroupsRelations').sync().then(() => {
+                require('./migration').sync().then(() => {
+                  require('./image').sync().then(() => {
+                    require('./daemonCommand').sync().then(() => {
                       fulfill();
                     });
                   });
@@ -20,6 +25,5 @@ module.exports = function init() {
         });
       });
     });
-
   });
 };

@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { Users } from 'components/Users';
+import Users from 'components/Users';
 import {
   getUsersRequest,
   resetAlert,

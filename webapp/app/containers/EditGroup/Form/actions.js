@@ -11,9 +11,9 @@
 
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
-import { saveRestoreModeChange } from './GroupRights/SaveRestoreMode/actions';
-import { migrationModeChange } from './GroupRights/MigrationMode/actions';
-import { softwareModeChange } from './GroupRights/SoftwareMode/actions';
+import saveRestoreModeChange from './GroupRights/SaveRestoreMode/actions';
+import migrationModeChange from './GroupRights/MigrationMode/actions';
+import softwareModeChange from './GroupRights/SoftwareMode/actions';
 import {
   resetStateGroupName,
   groupNameErrorMsg,
@@ -25,16 +25,16 @@ import {
   EDIT_GROUP_RESET_USER_ID,
 } from './constants';
 
+export function resetStateGroupId() {
+  return {
+    type: EDIT_GROUP_RESET_USER_ID,
+  };
+}
+
 export function resetStateForm() {
   return function resetState(dispatch) {
     dispatch(resetStateGroupId());
     dispatch(resetStateGroupName());
-  };
-}
-
-export function resetStateGroupId() {
-  return {
-    type: EDIT_GROUP_RESET_USER_ID,
   };
 }
 
@@ -64,9 +64,7 @@ export function getGroupRequest(groupId) {
 }
 
 export function editGroupRequest(groupId, groupName, saveRestoreMode, migrationMode, softwareMode, selectedUsers) {
-  const users = selectedUsers.map((user) => {
-    return user.id;
-  });
+  const users = selectedUsers.map(user => user.id);
 
   const group = {
     id: groupId,

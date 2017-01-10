@@ -18,8 +18,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     loginRequest: (username, password) => dispatch(loginRequest(username, password)),
-    usernameErrorMsg: (usernameError) => dispatch(usernameErrorMsg(usernameError)),
-    passwordErrorMsg: (passwordError) => dispatch(passwordErrorMsg(passwordError)),
+    usernameErrorMsg: usernameError => dispatch(usernameErrorMsg(usernameError)),
+    passwordErrorMsg: passwordError => dispatch(passwordErrorMsg(passwordError)),
   };
 }
 

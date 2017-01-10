@@ -10,11 +10,9 @@
 //
 
 import socket from 'utils/socket-io';
-import { store } from 'app.js';
-import {
-  SOFTWARES_BY_USER_SEARCHBAR_CHANGE,
-} from './constants';
-import { getSoftwares } from 'containers/SoftwaresByUser/actions.js'
+import { store } from 'app';
+import { getSoftwares } from 'containers/SoftwaresByUser/actions';
+import SOFTWARES_BY_USER_SEARCHBAR_CHANGE from './constants';
 
 export function searchbarChange(searchbar) {
   return {
@@ -32,7 +30,7 @@ export function searchSoftwareRequest(username, packageName) {
 }
 
 
-socket.on('server_search_software_by_user', function(data) {
+socket.on('server_search_software_by_user', (data) => {
   if (!data.error) {
     store.dispatch(getSoftwares(data));
   }

@@ -1,17 +1,20 @@
-const logger = require('../../libs/bunyan').setModuleName('Daemon-software');
+/* eslint no-underscore-dangle: ["error", { "allow": ["_events"] }] */
 
-var commandIndex = 0;
+const logger = require('../../libs/bunyan').setModuleName('Daemon-software');
+const socketIo = require('../../libs/socket-io');
+
+let commandIndex = 0;
 
 function exec(userName, method, params, onStatusChange) {
-  return new Promise(function (fulfill, reject) {
-    let socket = require('../../libs/socket-io').socketArray.daemon[userName];
+  return new Promise((fulfill, reject) => {
+    const socket = socketIo.socketArray.daemon[userName];
 
-    method = 'daemon_software_' + method;
+    method = `daemon_software_${method}`;
     if (typeof socket !== 'undefined') {
-      if (socket._events[method + '_status'] === undefined) {
-        socket.on(method + '_status', onStatusChange);
+      if (socket._events[`${method}_status`] === undefined) {
+        socket.on(`${method}_status`, onStatusChange);
       }
-      socket.on(method + '_finished_' + commandIndex, function (returnStatus) {
+      socket.on(`${method}_finished_${commandIndex}`, (returnStatus) => {
         if (!returnStatus.error) {
           fulfill(returnStatus);
         } else {
@@ -19,35 +22,23 @@ function exec(userName, method, params, onStatusChange) {
         }
       });
 
-      logger.info('Send ' + method + ' command for user ' + userName);
-      socket.emit(method, params, commandIndex++);
+      logger.info(`Send ${method} command for user ${userName}`);
+      socket.emit(method, params, commandIndex += 1);
     } else {
-      logger.warn('Daemon of user ' + userName + ' is not connected');
-      reject('Daemon of user ' + userName + ' is not connected');
+      logger.warn(`Daemon of user ${userName} is not connected`);
+      reject(`Daemon of user ${userName} is not connected`);
     }
   });
 }
 
-module.exports.installPackages = function (userName, packages, onStatusChange) {
-  return exec(userName, 'install_packages', packages, onStatusChange);
-};
+module.exports.installPackages = (userName, packages, onStatusChange) => exec(userName, 'install_packages', packages, onStatusChange);
 
-module.exports.updatePackages = function (userName, packages, onStatusChange) {
-  return exec(userName, 'update_packages', packages, onStatusChange);
-};
+module.exports.updatePackages = (userName, packages, onStatusChange) => exec(userName, 'update_packages', packages, onStatusChange);
 
-module.exports.removePackages = function (userName, packages, onStatusChange) {
-  return exec(userName, 'remove_packages', packages, onStatusChange);
-};
+module.exports.removePackages = (userName, packages, onStatusChange) => exec(userName, 'remove_packages', packages, onStatusChange);
 
-module.exports.queryPackage = function (userName, packageName, onStatusChange) {
-  return exec(userName, 'query_package', packageName, onStatusChange);
-};
+module.exports.queryPackage = (userName, packageName, onStatusChange) => exec(userName, 'query_package', packageName, onStatusChange);
 
-module.exports.listInstalledPackages = function (userName, onStatusChange) {
-  return exec(userName, 'list_installed_packages', {}, onStatusChange);
-};
+module.exports.listInstalledPackages = (userName, onStatusChange) => exec(userName, 'list_installed_packages', {}, onStatusChange);
 
-module.exports.getOperatingSystem = function (userName, onStatusChange) {
-  return exec(userName, 'get_operating_system', {}, onStatusChange);
-};
+module.exports.getOperatingSystem = (userName, onStatusChange) => exec(userName, 'get_operating_system', {}, onStatusChange);

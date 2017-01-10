@@ -9,7 +9,7 @@ import { LinkContainerButton } from 'components/Button';
 import styles from 'components/EditUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class EditUserFormButtons extends React.Component {
+export default class EditUserFormButtons extends React.Component {
 
   handleEditClick(event) {
     event.preventDefault();
@@ -38,8 +38,8 @@ export class EditUserFormButtons extends React.Component {
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Edit" onClick={(event) => this.handleEditClick(event)} />
-        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={(event) => this.handleCancelClick(event)} />
+        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Edit" onClick={event => this.handleEditClick(event)} />
+        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={event => this.handleCancelClick(event)} />
       </ButtonToolbar>
     );
   }

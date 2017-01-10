@@ -3,14 +3,10 @@
 //
 
 import React from 'react';
-import {
-  Row,
-  Col,
-  Label,
-} from 'react-bootstrap';
+import { Row, Col, Label } from 'react-bootstrap';
 import moment from 'moment';
-import styles from './styles.css';
 import statusLabel from 'components/MigrationHistory/statusToLabel.json';
+import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class MigrationInfos extends React.Component {
@@ -30,7 +26,7 @@ export default class MigrationInfos extends React.Component {
     const migration = this.props.migration;
 
     if (!migration) {
-      return (<div></div>);
+      return (<div />);
     }
 
     return (

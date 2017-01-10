@@ -25,7 +25,7 @@ export function setStatusDeleteMigrationModal(isPoppedUp, migration) {
 }
 
 export function deleteMigration(migrationId) {
-  return (dispatch) => (
+  return dispatch => (
     request
       .del(`/api/logged-in/admin/migration/${migrationId}/delete`)
       .end((err, res) => {

@@ -11,9 +11,7 @@
 import { combineReducers } from 'redux-immutable';
 import SoftwareGroupsFilterReducer from './Groups/reducer';
 import SoftwareTypeUserFilterReducer from './TypeUser/reducer';
-import {
-  SOFTWARE_GET_ALL_USERS,
-} from './constants';
+import SOFTWARE_GET_ALL_USERS from './constants';
 
 const initialState = {
   allUsers: [],

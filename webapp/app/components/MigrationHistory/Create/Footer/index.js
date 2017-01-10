@@ -16,8 +16,7 @@ export default class Footer extends React.Component {
 
     if (moment(newDate).isBefore(moment())) {
       this.props.showPasteDateWarning();
-    }
-    else if (!this.props.migrationEdited) {
+    } else if (!this.props.migrationEdited) {
       this.props.createMigration({
         userId: this.props.userId,
         imageId: this.props.imageId,
@@ -111,5 +110,4 @@ Footer.propTypes = {
   showCreateMigrationPopup: React.PropTypes.func,
   resetForm: React.PropTypes.func,
   showPasteDateWarning: React.PropTypes.func,
-  pasteDateWarning: React.PropTypes.bool,
 };

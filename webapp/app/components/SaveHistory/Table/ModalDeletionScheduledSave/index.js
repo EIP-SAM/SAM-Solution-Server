@@ -8,7 +8,7 @@ import { LinkContainerButton } from 'components/Button';
 import styles from 'components/SaveHistory/Table/ModalDeletionScheduledSave/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveHistoryDeletionScheduledSaveModal extends React.Component {
+export default class SaveHistoryDeletionScheduledSaveModal extends React.Component {
 
   handleDeleteClick() {
     this.props.cancelSave(this.props.saveId, this.props.saveScheduledId, this.props.username);

@@ -4,7 +4,7 @@ import { ButtonPopover } from 'components/ButtonPopover';
 import Option from 'components/Option';
 
 /* eslint-disable react/prefer-stateless-function */
-export class CreateUserFormGroups extends React.Component {
+export default class CreateUserFormGroups extends React.Component {
   constructor(props) {
     super(props);
     this.handleSelectedFiles = this.handleSelectedFiles.bind(this);
@@ -51,7 +51,6 @@ export class CreateUserFormGroups extends React.Component {
 
 CreateUserFormGroups.propTypes = {
   groups: React.PropTypes.array,
-  selectedGroup: React.PropTypes.array,
   getGroupsRequest: React.PropTypes.func,
   getSelectedGroup: React.PropTypes.func,
 };

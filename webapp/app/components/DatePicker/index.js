@@ -4,9 +4,10 @@
 
 import React from 'react';
 import { Glyphicon } from 'react-bootstrap';
+import 'components/DatePicker/styles.css';
+
 const Datepicker = require('react-bootstrap-date-picker');
 const moment = require('moment');
-import 'components/DatePicker/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class DatePicker extends React.Component {

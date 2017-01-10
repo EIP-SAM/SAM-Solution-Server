@@ -3,11 +3,8 @@
 //
 
 import { connect } from 'react-redux';
-import { CreateGroupFormUsersAllUsers } from 'components/CreateGroup/Form/Users/AllUsers';
-import {
-  getUsersRequest,
-  preSelectedUsersOnChange,
-} from './actions';
+import CreateGroupFormUsersAllUsers from 'components/CreateGroup/Form/Users/AllUsers';
+import { preSelectedUsersOnChange } from './actions';
 
 function mapStateToProps(state) {
   return {
@@ -17,7 +14,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    preSelectedUsersOnChange: (preSelectedUsers) => dispatch(preSelectedUsersOnChange(preSelectedUsers)),
+    preSelectedUsersOnChange: preSelectedUsers => dispatch(preSelectedUsersOnChange(preSelectedUsers)),
   };
 }
 

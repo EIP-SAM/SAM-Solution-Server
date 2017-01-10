@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { EditUserForm } from 'components/EditUser/Form';
+import EditUserForm from 'components/EditUser/Form';
 import { getUserRequest } from './actions';
 import { getGroupsRequest } from './Groups/actions';
 
@@ -14,7 +14,7 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUserRequest: (id) => dispatch(getUserRequest(id)),
+    getUserRequest: id => dispatch(getUserRequest(id)),
     getGroupsRequest: () => dispatch(getGroupsRequest()),
   };
 }

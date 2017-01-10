@@ -8,9 +8,7 @@
 //    return state.set('yourStateVariable', true);
 //
 
-import {
-  MIGRATION_HISTORY_GET_ALL_MIGRATIONS,
-} from './constants';
+import MIGRATION_HISTORY_GET_ALL_MIGRATIONS from './constants';
 
 export default function MigrationHistoryTableReducer(state = { migrations: [] }, action) {
   switch (action.type) {

@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { Groups } from 'components/Groups';
+import Groups from 'components/Groups';
 import {
   getGroupsRequest,
   resetAlert,

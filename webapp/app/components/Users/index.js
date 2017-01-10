@@ -9,7 +9,7 @@ import UserButton from 'containers/Users/Button';
 import UserFilters from 'containers/Users/Filters';
 
 /* eslint-disable react/prefer-stateless-function */
-export class Users extends React.Component {
+export default class Users extends React.Component {
   componentWillMount() {
     this.props.getUsersRequest();
   }

@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SoftwareFilters } from 'components/Software/Filters';
+import SoftwareFilters from 'components/Software/Filters';
 
 function mapStateToProps() {
   return {

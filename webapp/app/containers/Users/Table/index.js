@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { UserTable } from 'components/Users/Table';
+import UserTable from 'components/Users/Table';
 import { getUsername } from 'containers/Users/actions';
 import { showInstantRebootModal } from './ModalRebootUser/actions';
 import {
@@ -21,8 +21,8 @@ function mapDispatchToProps(dispatch) {
   return {
     showInstantDeleteModal: () => dispatch(showInstantDeleteModal()),
     showInstantRebootModal: () => dispatch(showInstantRebootModal()),
-    userToDelete: (userId) => dispatch(userToDelete(userId)),
-    getUsername: (username) => dispatch(getUsername(username)),
+    userToDelete: userId => dispatch(userToDelete(userId)),
+    getUsername: username => dispatch(getUsername(username)),
   };
 }
 

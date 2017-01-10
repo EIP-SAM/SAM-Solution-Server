@@ -11,7 +11,7 @@ import styles from 'components/Td/styles.css';
 export default class Td extends React.Component {
   render() {
     const item = this.props.object;
-    let content = (<div></div>);
+    let content = (<div />);
 
     if (item) {
       content = item.value;

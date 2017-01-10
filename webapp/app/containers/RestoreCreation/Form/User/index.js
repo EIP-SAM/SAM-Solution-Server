@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { RestoreCreationUser } from 'components/RestoreCreation/Form/User';
+import RestoreCreationUser from 'components/RestoreCreation/Form/User';
 
 function mapStateToProps(state) {
   return {

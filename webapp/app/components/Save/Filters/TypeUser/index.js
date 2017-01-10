@@ -8,7 +8,7 @@ import RadioGroup from 'components/RadioGroup';
 import styles from 'components/Save/Filters/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveFiltersTypeUser extends React.Component {
+export default class SaveFiltersTypeUser extends React.Component {
   constructor(props) {
     super(props);
     this.selectTypeUser = this.selectTypeUser.bind(this);
@@ -34,7 +34,7 @@ export class SaveFiltersTypeUser extends React.Component {
           />
         </Col>
       </FormGroup>
-   );
+    );
   }
 }
 

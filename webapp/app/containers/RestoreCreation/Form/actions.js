@@ -11,23 +11,22 @@
 
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
-const moment = require('moment');
 import {
   setUserId,
   nameUser,
   resetStateUsers,
 } from './User/actions';
-
 import {
   selectFiles,
   resetStateFiles,
 } from './Files/actions';
-
 import {
   resetStateSaves,
   getHistorySavesByUser,
   selectSave,
 } from './Saves/actions';
+
+const moment = require('moment');
 
 export function resetStateForm() {
   return function resetState(dispatch) {

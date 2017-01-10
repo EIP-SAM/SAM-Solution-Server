@@ -10,10 +10,7 @@
 import { combineReducers } from 'redux-immutable';
 import InstantRestoreModalRestoreReducer from './Table/ModalInstantRestore/reducer';
 import RestoreFiltersReducer from './Filters/reducers';
-
-import {
-  RESTORE_GET_RESTORES,
-} from './constants';
+import RESTORE_GET_RESTORES from './constants';
 
 const initialState = {
   restores: [],

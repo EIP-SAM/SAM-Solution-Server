@@ -8,7 +8,7 @@ import { LinkContainerButton } from 'components/Button';
 import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class UserRebootModal extends React.Component {
+export default class UserRebootModal extends React.Component {
   handleRebootClick() {
     this.props.rebootUser(this.props.username);
     this.props.hideInstantRebootModal();

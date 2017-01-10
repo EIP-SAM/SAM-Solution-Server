@@ -4,8 +4,8 @@
 
 import React from 'react';
 import ForgottenPasswordForm from 'containers/ForgottenPassword/Form';
-import styles from './styles.css';
 import { PageHeader } from 'react-bootstrap';
+import styles from './styles.css';
 
 
 /* eslint-disable react/prefer-stateless-function */

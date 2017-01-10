@@ -12,10 +12,7 @@ import { combineReducers } from 'redux-immutable';
 import SaveTableInstantSaveModalReducer from './Table/ModalInstantSave/reducer';
 import SaveTableInstantRestoreModalReducer from './Table/ModalInstantRestore/reducer';
 import SaveFiltersReducer from './Filters/reducers';
-
-import {
-  SAVE_GET_SAVES,
-} from './constants';
+import SAVE_GET_SAVES from './constants';
 
 const initialState = {
   saves: [],

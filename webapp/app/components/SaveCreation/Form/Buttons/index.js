@@ -9,7 +9,7 @@ import { LinkContainerButton } from 'components/Button';
 import styles from 'components/SaveCreation/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveCreationButtons extends React.Component {
+export default class SaveCreationButtons extends React.Component {
 
   handleFormClick(event) {
     event.preventDefault();
@@ -33,15 +33,11 @@ export class SaveCreationButtons extends React.Component {
     }
   }
 
-  handleCancelClick() {
-    browserHistory.goBack();
-  }
-
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Create" onClick={(event) => this.handleFormClick(event)} />
-        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
+        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Create" onClick={event => this.handleFormClick(event)} />
+        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => browserHistory.goBack()} />
       </ButtonToolbar>
     );
   }
@@ -57,6 +53,5 @@ SaveCreationButtons.propTypes = {
   userErrorMsg: React.PropTypes.func,
   dateErrorMsg: React.PropTypes.func,
   timeErrorMsg: React.PropTypes.func,
-  frequencyErrorMsg: React.PropTypes.func,
   fileErrorMsg: React.PropTypes.func,
 };

@@ -4,7 +4,7 @@
 
 import { connect } from 'react-redux';
 import { resetStateForm } from 'containers/RestoreCreation/Form/actions';
-import { RestoreHistoryInstantRestoreModal } from 'components/RestoreHistory/Table/ModalInstantRestore';
+import RestoreHistoryInstantRestoreModal from 'components/RestoreHistory/Table/ModalInstantRestore';
 import {
   hideInstantRestoreModal,
   createRestoreActionRestoreHistory,

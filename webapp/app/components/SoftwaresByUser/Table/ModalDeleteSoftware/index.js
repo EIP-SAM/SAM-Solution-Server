@@ -8,7 +8,7 @@ import { LinkContainerButton } from 'components/Button';
 import styles from 'components/SoftwaresByUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SoftwaresByUserDeleteSoftwareModal extends React.Component {
+export default class SoftwaresByUserDeleteSoftwareModal extends React.Component {
   handleDeleteClick() {
     this.props.hideDeleteSoftwareModal();
     this.props.deleteSoftwares(this.props.username, this.props.softName);

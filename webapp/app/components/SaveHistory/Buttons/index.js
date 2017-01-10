@@ -6,10 +6,11 @@ import React from 'react';
 import { ButtonToolbar } from 'react-bootstrap';
 import { LinkContainerButton } from 'components/Button';
 import styles from 'components/SaveHistory/Buttons/styles.css';
+
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveHistoryButtons extends React.Component {
+export default class SaveHistoryButtons extends React.Component {
 
   handleClick() {
     this.props.dateSave(moment().format('DD/MM/YYYY'));

@@ -10,7 +10,7 @@ import NotificationsFormAllUsersSelectAll from 'containers/Notifications/Form/Us
 import styles from 'components/Notifications/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class NotificationsFormAllUsers extends React.Component {
+export default class NotificationsFormAllUsers extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeAllUsers = this.onChangeAllUsers.bind(this);
@@ -32,7 +32,7 @@ export class NotificationsFormAllUsers extends React.Component {
     let usersOption = [];
 
     if (this.props.users.length > 0) {
-      users = this.props.users.map((user) => (
+      users = this.props.users.map(user => (
         { value: user.id, text: user.name }
       ));
       usersOption = users.map((item, index) => (

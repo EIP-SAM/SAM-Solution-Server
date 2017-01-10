@@ -6,16 +6,12 @@ const imageManager = require('../managers/image');
 //
 // Launch getImages from manager
 //
-module.exports.getImages = function () {
-  return imageManager.getImages();
-};
+module.exports.getImages = () => imageManager.getImages();
 
 //
 // Launch getImageById from manager
 //
-module.exports.getImageById = function (imageId) {
-  return imageManager.getImageById(imageId);
-};
+module.exports.getImageById = imageId => imageManager.getImageById(imageId);
 
 //
 // Launch createImage from manager
@@ -24,9 +20,7 @@ module.exports.getImageById = function (imageId) {
 // - operatingSystem (String)
 // - version (String)
 //
-module.exports.createImage = function (imageObj) {
-  return imageManager.createImage(imageObj);
-};
+module.exports.createImage = imageObj => imageManager.createImage(imageObj);
 
 //
 // Launch updateImageById from manager
@@ -36,13 +30,9 @@ module.exports.createImage = function (imageObj) {
 // - operatingSystem (String)
 // - version (String)
 //
-module.exports.updateImageById = function (imageObj) {
-  return imageManager.updateImageById(imageObj);
-};
+module.exports.updateImageById = imageObj => imageManager.updateImageById(imageObj);
 
 //
 // Launch deleteImageById from manager
 //
-module.exports.deleteImageById = function (imageId) {
-  return imageManager.deleteImageById(imageId);
-};
+module.exports.deleteImageById = imageId => imageManager.deleteImageById(imageId);
