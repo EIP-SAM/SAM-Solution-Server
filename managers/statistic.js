@@ -39,7 +39,9 @@ module.exports.getStatisticTypeAndNameListByType = (type) => {
   const data = [];
 
   for (const i in functions) {
-    data.push(i);
+    if (Object.prototype.hasOwnProperty.call(functions, i)) {
+      data.push(i);
+    }
   }
 
   const returnData = {

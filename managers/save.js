@@ -12,20 +12,17 @@ const logger = require('../libs/bunyan');
 module.exports.lastUsersSaves = () => saveScheduledAdapter.lastUsersSaves().then((results) => {
   for (const user of results) {
     let lastSaveScheduled = [];
-    if (user.save_scheduleds.length === 0) {
-      continue;
-    }
-    lastSaveScheduled = user.save_scheduleds[0];
-    for (const saveScheduled of user.save_scheduleds) {
-      if (lastSaveScheduled.saves.length === 0) {
-        lastSaveScheduled = saveScheduled;
-        continue;
+    if (user.save_scheduleds.length > 0) {
+      lastSaveScheduled = user.save_scheduleds[0];
+      for (const saveScheduled of user.save_scheduleds) {
+        if (lastSaveScheduled.saves.length === 0) {
+          lastSaveScheduled = saveScheduled;
+        } else if (saveScheduled.saves[0] && lastSaveScheduled.saves[0].execDate < saveScheduled.saves[0].execDate) {
+          lastSaveScheduled = saveScheduled;
+        }
       }
-      if (saveScheduled.saves[0] && lastSaveScheduled.saves[0].execDate < saveScheduled.saves[0].execDate) {
-        lastSaveScheduled = saveScheduled;
-      }
+      user.dataValues.save_scheduleds = (lastSaveScheduled.saves.length) ? lastSaveScheduled : [];
     }
-    user.dataValues.save_scheduleds = (lastSaveScheduled.saves.length) ? lastSaveScheduled : [];
   }
   return results;
 });

@@ -18,6 +18,7 @@
         "no-const-assign": "error",
         "no-param-reassign": "off",
         "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+        "no-restricted-syntax": "off",
         "no-this-before-super": "error",
         "no-undef": "error",
         "no-unreachable": "warn",

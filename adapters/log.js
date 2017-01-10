@@ -30,7 +30,7 @@ module.exports.getLogsWithMultipleCriteria = queryCriteria => new Promise((fulfi
   let key;
 
   for (key in criteria) {
-    if (criteria.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(criteria, key)) {
       if (criteria[key].length === 0) {
         delete criteria[key];
       }
