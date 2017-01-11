@@ -42,7 +42,7 @@ export default class StatusSelect extends React.Component {
         </Col>
         <Col sm={6}>
           <ControlLabel>Time</ControlLabel>
-          <FormControl type="time" value={time} onChange={this.handleTimeChange.bind(this)} />
+          <FormControl type="time" value={time} onChange={event => this.handleTimeChange(event)} />
         </Col>
       </FormGroup>
     );

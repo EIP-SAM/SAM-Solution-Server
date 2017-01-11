@@ -31,8 +31,9 @@ export function filterUsers(currentTypeUser, currentGroup, allUsers) {
         default:
           return '';
       }
+      return '';
     });
-    filteredUser = filteredUser.filter(n => n !== undefined);
+    filteredUser = filteredUser.filter(n => n !== '');
     if (currentGroup !== 'All') {
       filteredUser = filteredUser.map((user) => {
         for (const group of user.groups) {
@@ -40,9 +41,10 @@ export function filterUsers(currentTypeUser, currentGroup, allUsers) {
             return user;
           }
         }
+        return '';
       });
     }
-    filteredUser = filteredUser.filter(n => n !== undefined);
+    filteredUser = filteredUser.filter(n => n !== '');
     dispatch(getRestores(filteredUser));
   };
 }

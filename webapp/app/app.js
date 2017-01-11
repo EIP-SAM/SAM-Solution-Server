@@ -22,7 +22,7 @@ import { applyRouterMiddleware, Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import useScroll from 'react-router-scroll';
 import { install } from 'offline-plugin/runtime';
-import { selectLocationState } from 'containers/App/selectors';
+import selectLocationState from 'containers/App/selectors';
 import App from 'containers/App';
 import createRoutes from './routes';
 import configureStore from './store';

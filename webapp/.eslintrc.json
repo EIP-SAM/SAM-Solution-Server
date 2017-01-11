@@ -19,30 +19,17 @@
       }
     },
     "rules": {
-      "import/no-unresolved": 2,
-      "comma-dangle": [
-        2,
-        "always-multiline"
-      ],
-      "indent": [
-        2,
-        2,
-        {
-          "SwitchCase": 1
-        }
-      ],
-      "no-console": "warn",
-      "no-restricted-syntax": "off",
+      "comma-dangle": ["error", "always-multiline"],
+      "import/no-unresolved": "error",
+      "indent": [2, 2, { "SwitchCase": 1 }],
       "max-len": "off",
-      "prefer-template": 2,
+      "newline-per-chained-call": "off",
+      "no-console": "warn",
       "no-nested-ternary": "off",
       "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+      "no-restricted-syntax": "off",
+      "prefer-template": "error",
       "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx"] }],
-      "newline-per-chained-call": 0,
-      "arrow-body-style": [
-        2,
-        "as-needed"
-      ],
       "jsx-a11y/href-no-hash": 2,
       "jsx-a11y/label-has-for": 2,
       "jsx-a11y/mouse-events-have-key-events": 2,
