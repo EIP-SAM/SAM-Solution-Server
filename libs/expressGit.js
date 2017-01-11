@@ -5,7 +5,6 @@ const backend = require('git-http-backend');
 const logger = require('../libs/bunyan').setModuleName('Git');
 const gitConf = require('../config/git.config.json');
 
-/* eslint consistent-return: "off" */
 module.exports = function init() {
   logger.info(`Server git repository in ${gitConf.baseDir}`);
   return (req, res) => {
@@ -13,7 +12,7 @@ module.exports = function init() {
     const repo = urlArray[1].replace('.git', '');
     const dir = path.join(gitConf.baseDir, repo);
 
-    req.pipe(backend(req.url, (err, service) => {
+    req.pipe(backend(req.url, (err, service) => { // eslint-disable-line consistent-return
       if (err) return res.end(`${err}\n`);
 
       res.setHeader('content-type', service.type);

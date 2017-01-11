@@ -11,8 +11,7 @@ if (!fs.existsSync(warnLogPath)) {
   fs.mkdirSync(warnLogPath);
 }
 
-/* eslint new-cap: ["error", { "newIsCap": false }] */
-const logger = new bunyan.createLogger({
+const logger = new bunyan.createLogger({ // eslint-disable-line new-cap
   name: 'sam-logger',
   streams: [
     {
