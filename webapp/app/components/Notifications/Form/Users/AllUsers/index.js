@@ -60,6 +60,6 @@ export default class NotificationsFormAllUsers extends React.Component {
 }
 
 NotificationsFormAllUsers.propTypes = {
-  users: React.PropTypes.array,
+  users: React.PropTypes.arrayOf(React.PropTypes.object),
   preSelectedUsersOnChange: React.PropTypes.func,
 };

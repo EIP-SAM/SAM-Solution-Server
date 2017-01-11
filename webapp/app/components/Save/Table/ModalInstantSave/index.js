@@ -42,11 +42,11 @@ export default class SaveInstantSaveModal extends React.Component {
 }
 
 SaveInstantSaveModal.propTypes = {
-  users: React.PropTypes.array,
+  users: React.PropTypes.arrayOf(React.PropTypes.object),
   date: React.PropTypes.string,
   time: React.PropTypes.string,
   frequency: React.PropTypes.string,
-  files: React.PropTypes.array,
+  files: React.PropTypes.arrayOf(React.PropTypes.string),
   showInstantSaveModal: React.PropTypes.bool,
   hideInstantSaveModal: React.PropTypes.func,
   createSave: React.PropTypes.func.isRequired,

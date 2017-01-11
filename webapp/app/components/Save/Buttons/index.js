@@ -53,7 +53,7 @@ export default class SaveButtons extends React.Component {
 }
 
 SaveButtons.propTypes = {
-  saves: React.PropTypes.array,
+  saves: React.PropTypes.arrayOf(React.PropTypes.object),
   listUsers: React.PropTypes.func,
   dateSave: React.PropTypes.func,
   dateDisabled: React.PropTypes.func,

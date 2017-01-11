@@ -46,7 +46,7 @@ export default class SaveCreationFiles extends React.Component {
 }
 
 SaveCreationFiles.propTypes = {
-  files: React.PropTypes.array,
+  files: React.PropTypes.arrayOf(React.PropTypes.string),
   canAddFile: React.PropTypes.bool,
   displayAddFile: React.PropTypes.func,
   showAddFileModal: React.PropTypes.func,

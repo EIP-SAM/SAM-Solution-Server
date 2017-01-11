@@ -48,7 +48,7 @@ export default class ImageSelect extends React.Component {
 }
 
 ImageSelect.propTypes = {
-  images: React.PropTypes.array,
+  images: React.PropTypes.arrayOf(React.PropTypes.object),
   imageId: React.PropTypes.number,
   getAllImages: React.PropTypes.func,
   setSelectedImage: React.PropTypes.func,

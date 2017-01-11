@@ -17,6 +17,3 @@ export default class Notifications extends React.Component {
     );
   }
 }
-
-Notifications.propTypes = {
-};

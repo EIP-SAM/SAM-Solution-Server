@@ -30,10 +30,10 @@ export default class CreateGroupFormUsersButtons extends React.Component {
 }
 
 CreateGroupFormUsersButtons.propTypes = {
-  users: React.PropTypes.array,
-  preSelectedUsers: React.PropTypes.array,
-  selectedUsers: React.PropTypes.array,
-  unselectedUsers: React.PropTypes.array,
+  users: React.PropTypes.arrayOf(React.PropTypes.object),
+  preSelectedUsers: React.PropTypes.arrayOf(React.PropTypes.object),
+  selectedUsers: React.PropTypes.arrayOf(React.PropTypes.object),
+  unselectedUsers: React.PropTypes.arrayOf(React.PropTypes.object),
   getUsers: React.PropTypes.func,
   addUsersToGroup: React.PropTypes.func,
   removeUsers: React.PropTypes.func,

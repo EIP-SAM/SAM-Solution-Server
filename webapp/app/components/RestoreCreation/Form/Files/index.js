@@ -66,8 +66,8 @@ export default class RestoreCreationFiles extends React.Component {
 }
 
 RestoreCreationFiles.propTypes = {
-  allSaves: React.PropTypes.array,
-  files: React.PropTypes.array,
+  allSaves: React.PropTypes.arrayOf(React.PropTypes.object),
+  files: React.PropTypes.arrayOf(React.PropTypes.string),
   filesError: React.PropTypes.string,
   selectFiles: React.PropTypes.func,
 };

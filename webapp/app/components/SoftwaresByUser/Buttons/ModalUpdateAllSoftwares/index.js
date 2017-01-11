@@ -43,7 +43,7 @@ export default class SoftwaresByUserUpdateAllSoftwaresModal extends React.Compon
 
 SoftwaresByUserUpdateAllSoftwaresModal.propTypes = {
   username: React.PropTypes.string,
-  selectedSoftwares: React.PropTypes.array,
+  selectedSoftwares: React.PropTypes.arrayOf(React.PropTypes.object),
   showModal: React.PropTypes.bool,
   hideUpdateAllSoftwaresModal: React.PropTypes.func,
   installSoftwares: React.PropTypes.func,

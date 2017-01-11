@@ -50,7 +50,7 @@ CreateUserFormButtons.propTypes = {
   email: React.PropTypes.string,
   password: React.PropTypes.string,
   passwordConfirmation: React.PropTypes.string,
-  selectedGroup: React.PropTypes.array,
+  selectedGroup: React.PropTypes.arrayOf(React.PropTypes.string),
   createUserRequest: React.PropTypes.func,
   usernameErrorMsg: React.PropTypes.func,
   emailErrorMsg: React.PropTypes.func,

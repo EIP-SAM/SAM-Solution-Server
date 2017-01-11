@@ -43,6 +43,6 @@ export default class SoftwareTable extends React.Component {
 }
 
 SoftwareTable.propTypes = {
-  users: React.PropTypes.array,
+  users: React.PropTypes.arrayOf(React.PropTypes.object),
   refresh: React.PropTypes.number,
 };

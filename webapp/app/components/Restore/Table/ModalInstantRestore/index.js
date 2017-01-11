@@ -43,7 +43,7 @@ export default class RestoreInstantRestoreModal extends React.Component {
 
 RestoreInstantRestoreModal.propTypes = {
   userId: React.PropTypes.number,
-  selectedFiles: React.PropTypes.array,
+  selectedFiles: React.PropTypes.arrayOf(React.PropTypes.string),
   save: React.PropTypes.object,
   showModal: React.PropTypes.bool,
   hideInstantRestoreModal: React.PropTypes.func,

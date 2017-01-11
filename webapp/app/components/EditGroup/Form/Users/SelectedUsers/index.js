@@ -58,6 +58,6 @@ export default class EditGroupFormSelectedUsers extends React.Component {
 }
 
 EditGroupFormSelectedUsers.propTypes = {
-  selectedUsers: React.PropTypes.array,
+  selectedUsers: React.PropTypes.arrayOf(React.PropTypes.object),
   unselectedUsersOnChange: React.PropTypes.func,
 };

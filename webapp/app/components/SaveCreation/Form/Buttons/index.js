@@ -44,11 +44,11 @@ export default class SaveCreationButtons extends React.Component {
 }
 
 SaveCreationButtons.propTypes = {
-  users: React.PropTypes.array,
+  users: React.PropTypes.arrayOf(React.PropTypes.object),
   date: React.PropTypes.string,
   time: React.PropTypes.string,
   frequency: React.PropTypes.string,
-  files: React.PropTypes.array,
+  files: React.PropTypes.arrayOf(React.PropTypes.string),
   createSave: React.PropTypes.func,
   userErrorMsg: React.PropTypes.func,
   dateErrorMsg: React.PropTypes.func,

@@ -29,7 +29,7 @@ export default class NotificationsFormAllUsersSelectAll extends React.Component 
 }
 
 NotificationsFormAllUsersSelectAll.propTypes = {
-  users: React.PropTypes.array,
+  users: React.PropTypes.arrayOf(React.PropTypes.object),
   removeUsers: React.PropTypes.func,
   addUsers: React.PropTypes.func,
 };

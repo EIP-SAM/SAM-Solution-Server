@@ -26,6 +26,3 @@ export default class CreateUserForm extends React.Component {
     );
   }
 }
-
-CreateUserForm.propTypes = {
-};

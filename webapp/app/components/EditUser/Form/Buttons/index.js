@@ -44,7 +44,7 @@ EditUserFormButtons.propTypes = {
   email: React.PropTypes.string,
   password: React.PropTypes.string,
   passwordConfirmation: React.PropTypes.string,
-  userGroups: React.PropTypes.array,
+  userGroups: React.PropTypes.arrayOf(React.PropTypes.string),
   editUserRequest: React.PropTypes.func,
   usernameErrorMsg: React.PropTypes.func,
   emailErrorMsg: React.PropTypes.func,

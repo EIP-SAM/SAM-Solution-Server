@@ -39,7 +39,7 @@ EditGroupFormButtons.propTypes = {
   saveRestoreMode: React.PropTypes.number,
   migrationMode: React.PropTypes.number,
   softwareMode: React.PropTypes.number,
-  selectedUsers: React.PropTypes.array,
+  selectedUsers: React.PropTypes.arrayOf(React.PropTypes.object),
   editGroupRequest: React.PropTypes.func,
   groupNameErrorMsg: React.PropTypes.func,
 };

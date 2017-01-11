@@ -110,8 +110,8 @@ export default class SoftwaresByUserTable extends React.Component {
 }
 
 SoftwaresByUserTable.propTypes = {
-  softwares: React.PropTypes.array,
-  selectedSoftwares: React.PropTypes.array,
+  softwares: React.PropTypes.arrayOf(React.PropTypes.object),
+  selectedSoftwares: React.PropTypes.arrayOf(React.PropTypes.object),
   allChecked: React.PropTypes.bool,
   getSelectedSoftware: React.PropTypes.func,
   showAddSoftwareModal: React.PropTypes.func,

@@ -40,7 +40,7 @@ export default class RestoreFiltersTypeUser extends React.Component {
 
 RestoreFiltersTypeUser.propTypes = {
   currentGroup: React.PropTypes.string,
-  allUsers: React.PropTypes.array,
+  allUsers: React.PropTypes.arrayOf(React.PropTypes.object),
   getCurrentTypeUser: React.PropTypes.func,
   filterUsers: React.PropTypes.func,
 };

@@ -59,7 +59,7 @@ export default class GroupTable extends React.Component {
 }
 
 GroupTable.propTypes = {
-  groups: React.PropTypes.array,
+  groups: React.PropTypes.arrayOf(React.PropTypes.object),
   showInstantDeleteModal: React.PropTypes.func,
   groupToDelete: React.PropTypes.func,
 };

@@ -75,7 +75,7 @@ export default class RestoreTable extends React.Component {
 }
 
 RestoreTable.propTypes = {
-  restores: React.PropTypes.array,
+  restores: React.PropTypes.arrayOf(React.PropTypes.object),
   showInstantRestoreModal: React.PropTypes.func,
   setUserId: React.PropTypes.func,
   selectFiles: React.PropTypes.func,

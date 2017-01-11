@@ -63,7 +63,7 @@ export default class RestoreCreationSaves extends React.Component {
 }
 
 RestoreCreationSaves.propTypes = {
-  allSaves: React.PropTypes.array,
+  allSaves: React.PropTypes.arrayOf(React.PropTypes.object),
   saveError: React.PropTypes.string,
   selectSave: React.PropTypes.func,
   listFiles: React.PropTypes.func,

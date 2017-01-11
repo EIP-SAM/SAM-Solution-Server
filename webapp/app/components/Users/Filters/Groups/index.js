@@ -48,9 +48,9 @@ export default class UsersFiltersGroups extends React.Component {
 }
 
 UsersFiltersGroups.propTypes = {
-  groups: React.PropTypes.array,
+  groups: React.PropTypes.arrayOf(React.PropTypes.object),
   currentTypeUser: React.PropTypes.string,
-  allUsers: React.PropTypes.array,
+  allUsers: React.PropTypes.arrayOf(React.PropTypes.object),
   getCurrentGroup: React.PropTypes.func,
   getGroupsRequest: React.PropTypes.func,
   filterUsers: React.PropTypes.func,

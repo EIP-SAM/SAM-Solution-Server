@@ -58,6 +58,6 @@ export default class EditGroupFormUsersAllUsers extends React.Component {
 }
 
 EditGroupFormUsersAllUsers.propTypes = {
-  users: React.PropTypes.array,
+  users: React.PropTypes.arrayOf(React.PropTypes.object),
   preSelectedUsersOnChange: React.PropTypes.func,
 };

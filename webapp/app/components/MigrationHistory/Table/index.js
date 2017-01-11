@@ -51,7 +51,7 @@ export default class Table extends React.Component {
 }
 
 Table.propTypes = {
-  migrations: React.PropTypes.array,
+  migrations: React.PropTypes.arrayOf(React.PropTypes.object),
   statusFilter: React.PropTypes.string,
   getAllMigrations: React.PropTypes.func,
 };

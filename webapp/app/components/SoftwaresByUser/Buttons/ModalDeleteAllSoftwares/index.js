@@ -43,7 +43,7 @@ export default class SoftwaresByUserDeleteAllSoftwaresModal extends React.Compon
 
 SoftwaresByUserDeleteAllSoftwaresModal.propTypes = {
   username: React.PropTypes.string,
-  selectedSoftwares: React.PropTypes.array,
+  selectedSoftwares: React.PropTypes.arrayOf(React.PropTypes.object),
   showModal: React.PropTypes.bool,
   hideDeleteAllSoftwaresModal: React.PropTypes.func,
   installSoftwares: React.PropTypes.func,

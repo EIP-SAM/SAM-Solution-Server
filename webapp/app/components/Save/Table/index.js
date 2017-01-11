@@ -95,7 +95,7 @@ export default class SaveTable extends React.Component {
 }
 
 SaveTable.propTypes = {
-  saves: React.PropTypes.array,
+  saves: React.PropTypes.arrayOf(React.PropTypes.object),
   listUsers: React.PropTypes.func,
   dateSave: React.PropTypes.func,
   timeSave: React.PropTypes.func,

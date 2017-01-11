@@ -40,7 +40,7 @@ export default class SaveFiltersTypeUser extends React.Component {
 
 SaveFiltersTypeUser.propTypes = {
   currentGroup: React.PropTypes.string,
-  allUsers: React.PropTypes.array,
+  allUsers: React.PropTypes.arrayOf(React.PropTypes.object),
   getCurrentTypeUser: React.PropTypes.func,
   filterUsers: React.PropTypes.func,
 };

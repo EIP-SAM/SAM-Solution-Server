@@ -52,7 +52,7 @@ export default class EditUserFormGroups extends React.Component {
 }
 
 EditUserFormGroups.propTypes = {
-  allGroups: React.PropTypes.array,
-  userGroups: React.PropTypes.array,
+  allGroups: React.PropTypes.arrayOf(React.PropTypes.string),
+  userGroups: React.PropTypes.arrayOf(React.PropTypes.string),
   getUserGroups: React.PropTypes.func,
 };

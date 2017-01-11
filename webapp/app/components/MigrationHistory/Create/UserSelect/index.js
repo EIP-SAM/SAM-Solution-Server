@@ -48,7 +48,7 @@ export default class UserSelect extends React.Component {
 }
 
 UserSelect.propTypes = {
-  users: React.PropTypes.array,
+  users: React.PropTypes.arrayOf(React.PropTypes.object),
   userId: React.PropTypes.number,
   getAllUsers: React.PropTypes.func,
   setSelectedUser: React.PropTypes.func,

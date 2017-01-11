@@ -70,5 +70,5 @@ export default class StatisticGraphComponent extends React.Component {
 
 StatisticGraphComponent.propTypes = {
   getGraphListByType: React.PropTypes.func.isRequired,
-  stats: React.PropTypes.array.isRequired,
+  stats: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
 };

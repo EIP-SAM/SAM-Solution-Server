@@ -88,7 +88,7 @@ export default class SaveHistoryTable extends React.Component {
 }
 
 SaveHistoryTable.propTypes = {
-  saves: React.PropTypes.array,
+  saves: React.PropTypes.arrayOf(React.PropTypes.object),
   dateSave: React.PropTypes.func,
   timeSave: React.PropTypes.func,
   frequencySave: React.PropTypes.func,

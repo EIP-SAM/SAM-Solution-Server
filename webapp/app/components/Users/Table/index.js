@@ -74,7 +74,7 @@ export default class UserTable extends React.Component {
 }
 
 UserTable.propTypes = {
-  users: React.PropTypes.array,
+  users: React.PropTypes.arrayOf(React.PropTypes.object),
   showInstantDeleteModal: React.PropTypes.func,
   showInstantRebootModal: React.PropTypes.func,
   userToDelete: React.PropTypes.func,

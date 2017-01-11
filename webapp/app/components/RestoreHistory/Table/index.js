@@ -60,7 +60,7 @@ export default class RestoreHistoryTable extends React.Component {
 }
 
 RestoreHistoryTable.propTypes = {
-  restores: React.PropTypes.array,
+  restores: React.PropTypes.arrayOf(React.PropTypes.object),
   showInstantRestoreModal: React.PropTypes.func,
   setUserId: React.PropTypes.func,
   selectFiles: React.PropTypes.func,

@@ -39,7 +39,7 @@ NotificationsFormButtons.propTypes = {
   title: React.PropTypes.string,
   description: React.PropTypes.string,
   persistence: React.PropTypes.bool,
-  selectedUsers: React.PropTypes.array,
+  selectedUsers: React.PropTypes.arrayOf(React.PropTypes.object),
   notificationRequest: React.PropTypes.func,
   titleErrorMsg: React.PropTypes.func,
   descriptionErrorMsg: React.PropTypes.func,
