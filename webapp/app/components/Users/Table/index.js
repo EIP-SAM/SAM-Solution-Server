@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { Table } from 'react-bootstrap';
-import { ButtonPopover } from 'components/ButtonPopover';
+import ButtonPopover from 'components/ButtonPopover';
 import UserDeletionModal from 'containers/Users/Table/ModalDeletionUser';
 import UserRebootModal from 'containers/Users/Table/ModalRebootUser';
 import Tr from 'components/Tr';

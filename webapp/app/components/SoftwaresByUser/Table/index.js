@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { Table, FormGroup, Checkbox } from 'react-bootstrap';
-import { ButtonPopover } from 'components/ButtonPopover';
+import ButtonPopover from 'components/ButtonPopover';
 import AddSoftwareModal from 'containers/SoftwaresByUser/Table/ModalAddSoftware';
 import UpdateSoftwareModal from 'containers/SoftwaresByUser/Table/ModalUpdateSoftware';
 import DeleteSoftwareModal from 'containers/SoftwaresByUser/Table/ModalDeleteSoftware';

@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { Table } from 'react-bootstrap';
-import { ButtonPopover } from 'components/ButtonPopover';
+import ButtonPopover from 'components/ButtonPopover';
 import GroupDeletionModal from 'containers/Groups/Table/ModalDeletionGroup';
 import Tr from 'components/Tr';
 import Th from 'components/Th';

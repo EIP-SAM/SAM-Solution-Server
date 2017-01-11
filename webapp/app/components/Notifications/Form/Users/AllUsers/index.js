@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
-import { ButtonPopover } from 'components/ButtonPopover';
+import ButtonPopover from 'components/ButtonPopover';
 import Option from 'components/Option';
 import NotificationsFormAllUsersSelectAll from 'containers/Notifications/Form/Users/AllUsers/SelectAll';
 import styles from 'components/Notifications/styles.css';

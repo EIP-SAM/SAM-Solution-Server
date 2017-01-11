@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { ButtonToolbar } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import AddAllSoftwaresModal from 'containers/SoftwaresByUser/Buttons/ModalAddAllSoftwares';
 import UpdateAllSoftwaresModal from 'containers/SoftwaresByUser/Buttons/ModalUpdateAllSoftwares';
 import DeleteAllSoftwaresModal from 'containers/SoftwaresByUser/Buttons/ModalDeleteAllSoftwares';

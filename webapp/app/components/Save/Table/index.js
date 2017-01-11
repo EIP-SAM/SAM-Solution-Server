@@ -6,7 +6,7 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 import SaveInstantSaveModal from 'containers/Save/Table/ModalInstantSave';
 import SaveInstantRestoreModal from 'containers/Save/Table/ModalInstantRestore';
-import { ButtonPopover } from 'components/ButtonPopover';
+import ButtonPopover from 'components/ButtonPopover';
 import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Td from 'components/Td';

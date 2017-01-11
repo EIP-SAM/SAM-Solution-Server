@@ -1,7 +1,7 @@
 import React from 'react';
 import { ButtonToolbar } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from 'components/RestoreCreation/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */

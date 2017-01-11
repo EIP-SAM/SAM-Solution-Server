@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { Modal, FormControl, ButtonToolbar } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */

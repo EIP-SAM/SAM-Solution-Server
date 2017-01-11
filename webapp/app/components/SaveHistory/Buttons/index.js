@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { ButtonToolbar } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from 'components/SaveHistory/Buttons/styles.css';
 
 const moment = require('moment');

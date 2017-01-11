@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
-import { ButtonPopover } from 'components/ButtonPopover';
+import ButtonPopover from 'components/ButtonPopover';
 import Option from 'components/Option';
 
 /* eslint-disable react/prefer-stateless-function */

@@ -4,11 +4,11 @@
 
 import React from 'react';
 import { ButtonToolbar } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from 'components/Login/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class LoginFormButtons extends React.Component {
+export default class LoginFormButtons extends React.Component {
 
   handleLoginClick(event) {
     event.preventDefault();

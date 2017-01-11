@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { FormGroup, ControlLabel, Checkbox } from 'react-bootstrap';
-import { ButtonPopover } from 'components/ButtonPopover';
+import ButtonPopover from 'components/ButtonPopover';
 import styles from 'components/Notifications/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */

@@ -4,7 +4,7 @@
 
 import { connect } from 'react-redux';
 import forgottenPasswordRequest from 'containers/ForgottenPassword/Form/actions';
-import { ForgottenPasswordButtons } from 'components/ForgottenPassword/Form/Buttons';
+import ForgottenPasswordButtons from 'components/ForgottenPassword/Form/Buttons';
 
 function mapStateToProps(state) {
   return {

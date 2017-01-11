@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { LoginFormButtons } from 'components/Login/Form/Buttons';
+import LoginFormButtons from 'components/Login/Form/Buttons';
 import { loginRequest } from 'containers/Login/Form/actions';
 import { usernameErrorMsg } from 'containers/Login/Form/Username/actions';
 import { passwordErrorMsg } from 'containers/Login/Form/Password/actions';

@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { Login } from 'components/Login';
+import Login from 'components/Login';
 import { resetStateForm } from './Form/actions';
 
 function mapStateToProps() {

@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { FormGroup, ControlLabel } from 'react-bootstrap';
-import { ButtonPopover } from 'components/ButtonPopover';
+import ButtonPopover from 'components/ButtonPopover';
 import SaveCreationAddFileModal from 'containers/SaveCreation/Form/Files/Modal';
 import SaveCreationFilesSelect from 'containers/SaveCreation/Form/Files/Select';
 import styles from 'components/SaveCreation/styles.css';

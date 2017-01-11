@@ -7,7 +7,7 @@ import moment from 'moment';
 import Tr from 'components/Tr';
 import Td from 'components/Td';
 import { Label } from 'react-bootstrap';
-import { ButtonPopover } from 'components/ButtonPopover';
+import ButtonPopover from 'components/ButtonPopover';
 import statusLabel from 'components/MigrationHistory/statusToLabel.json';
 import styles from './styles.css';
 

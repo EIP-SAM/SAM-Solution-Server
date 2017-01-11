@@ -1,6 +1,6 @@
 import React from 'react';
 import { ButtonToolbar } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from 'components/Stats/StatisticFilter/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */

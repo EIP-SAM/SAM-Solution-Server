@@ -7,7 +7,7 @@ import { Table } from 'react-bootstrap';
 import SaveHistoryDeletionScheduledSaveModal from 'containers/SaveHistory/Table/ModalDeletionScheduledSave';
 import SaveHistoryInstantSaveModal from 'containers/SaveHistory/Table/ModalInstantSave';
 import SaveHistoryInstantRestoreModal from 'containers/SaveHistory/Table/ModalInstantRestore';
-import { ButtonPopover } from 'components/ButtonPopover';
+import ButtonPopover from 'components/ButtonPopover';
 import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Td from 'components/Td';

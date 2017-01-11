@@ -5,11 +5,11 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import { ButtonToolbar } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from 'components/ForgottenPassword/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class ForgottenPasswordButtons extends React.Component {
+export default class ForgottenPasswordButtons extends React.Component {
 
   constructor(props) {
     super(props);

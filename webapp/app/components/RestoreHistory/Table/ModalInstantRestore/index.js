@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { Modal, ButtonToolbar, Glyphicon } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from 'components/RestoreHistory/Table/ModalInstantRestore/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */

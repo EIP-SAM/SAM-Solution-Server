@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { Table } from 'react-bootstrap';
-import { ButtonPopover } from 'components/ButtonPopover';
+import ButtonPopover from 'components/ButtonPopover';
 import RestoreHistoryInstantRestoreModal from 'containers/RestoreHistory/Table/ModalInstantRestore';
 import Tr from 'components/Tr';
 import Th from 'components/Th';

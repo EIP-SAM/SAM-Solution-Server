@@ -9,7 +9,7 @@ import styles from './styles.css';
 
 
 /* eslint-disable react/prefer-stateless-function */
-export class ForgottenPassword extends React.Component {
+export default class ForgottenPassword extends React.Component {
   render() {
     return (
       <div className={styles.forgotten}>

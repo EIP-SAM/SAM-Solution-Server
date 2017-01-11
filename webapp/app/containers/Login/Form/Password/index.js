@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { LoginFormPassword } from 'components/Login/Form/Password';
+import LoginFormPassword from 'components/Login/Form/Password';
 import { passwordChange } from './actions';
 
 function mapStateToProps(state) {
