@@ -3,7 +3,7 @@
 //
 
 import React from 'react';
-import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap';
 import ButtonPopover from 'components/ButtonPopover';
 import Option from 'components/Option';
 import styles from 'components/Notifications/styles.css';
@@ -27,6 +27,13 @@ export default class NotificationsFormSelectedUsers extends React.Component {
   }
 
   render() {
+    let validationState = null;
+    let errorMessage = '';
+
+    if (this.props.selectedUsersError !== '') {
+      validationState = 'error';
+      errorMessage = this.props.selectedUsersError;
+    }
     let selectedUsers = [];
     let selectedUsersOption = [];
 
@@ -39,7 +46,7 @@ export default class NotificationsFormSelectedUsers extends React.Component {
       ));
     }
     return (
-      <FormGroup controlId="selectedUsers" className={styles.form} >
+      <FormGroup controlId="selectedUsers" className={styles.form} validationState={validationState}>
         <ControlLabel>Selected Users</ControlLabel>
         <ButtonPopover
           id="selectedUsers"
@@ -52,6 +59,7 @@ export default class NotificationsFormSelectedUsers extends React.Component {
         <FormControl componentClass="select" onChange={this.onChangeSelectedUsers} multiple>
           {selectedUsersOption}
         </FormControl>
+        <HelpBlock>{errorMessage}</HelpBlock>
       </FormGroup>
     );
   }
@@ -60,4 +68,5 @@ export default class NotificationsFormSelectedUsers extends React.Component {
 NotificationsFormSelectedUsers.propTypes = {
   selectedUsers: React.PropTypes.arrayOf(React.PropTypes.object),
   unselectedUsersOnChange: React.PropTypes.func,
+  selectedUsersError: React.PropTypes.string,
 };
