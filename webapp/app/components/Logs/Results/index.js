@@ -20,9 +20,9 @@ export default class LogResult extends React.Component {
     const a = (first) ? first.toLowerCase() : '';
     const b = (second) ? second.toLowerCase() : '';
 
-    if (!a && b || a < b) {
+    if ((!a && b) || (a < b)) {
       return -1;
-    } else if (a && !b || a > b) {
+    } else if ((a && !b) || (a > b)) {
       return 1;
     }
     return 0;

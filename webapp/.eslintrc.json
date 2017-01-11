@@ -31,10 +31,11 @@
           "SwitchCase": 1
         }
       ],
-      "no-console": 1,
+      "no-console": "warn",
       "no-restricted-syntax": "off",
-      "max-len": 0,
+      "max-len": "off",
       "prefer-template": 2,
+      "no-nested-ternary": "off",
       "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
       "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx"] }],
       "newline-per-chained-call": 0,

@@ -33,10 +33,9 @@ export default class SoftwaresByUserTable extends React.Component {
       selectedSoftwares.push(soft);
     } else {
       for (const software of this.props.selectedSoftwares) {
-        if (software === soft) {
-          continue;
+        if (software !== soft) {
+          selectedSoftwares.push(software);
         }
-        selectedSoftwares.push(software);
       }
     }
     this.props.getSelectedSoftware(selectedSoftwares);

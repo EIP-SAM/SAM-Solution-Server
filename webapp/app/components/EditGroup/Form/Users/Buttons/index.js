@@ -33,7 +33,7 @@ EditGroupFormUsersButtons.propTypes = {
   users: React.PropTypes.arrayOf(React.PropTypes.object),
   preSelectedUsers: React.PropTypes.arrayOf(React.PropTypes.object),
   selectedUsers: React.PropTypes.arrayOf(React.PropTypes.object),
-  unselectedUser: React.PropTypes.arrayOf(React.PropTypes.object),
+  unselectedUsers: React.PropTypes.arrayOf(React.PropTypes.object),
   getUsers: React.PropTypes.func,
   addUsersToGroup: React.PropTypes.func,
   removeUsers: React.PropTypes.func,
