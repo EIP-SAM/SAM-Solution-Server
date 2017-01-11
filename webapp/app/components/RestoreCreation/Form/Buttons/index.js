@@ -6,6 +6,9 @@ import styles from 'components/RestoreCreation/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class RestoreCreationButtons extends React.Component {
+  static handleCancelClick() {
+    browserHistory.goBack();
+  }
 
   handleFormClick(event) {
     event.preventDefault();
@@ -20,15 +23,11 @@ export default class RestoreCreationButtons extends React.Component {
     }
   }
 
-  handleCancelClick() {
-    browserHistory.goBack();
-  }
-
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
         <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Restore" onClick={event => this.handleFormClick(event)} />
-        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
+        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => RestoreCreationButtons.handleCancelClick()} />
       </ButtonToolbar>
     );
   }

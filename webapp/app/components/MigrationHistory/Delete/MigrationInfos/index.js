@@ -10,11 +10,11 @@ import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class MigrationInfos extends React.Component {
-  getFormatedDate(migration) {
+  static getFormatedDate(migration) {
     return moment(migration.migrationDate).format('YYYY MMMM Do HH:mm');
   }
 
-  getStatusLabel(migration) {
+  static getStatusLabel(migration) {
     return (
       <Label bsStyle={statusLabel[migration.status]}>
         {migration.status}
@@ -33,11 +33,11 @@ export default class MigrationInfos extends React.Component {
       <div>
         <Row className={styles.infosRow}>
           <Col sm={3} className={styles.infosLeft}>Date:</Col>
-          <Col sm={9}>{this.getFormatedDate(migration)}</Col>
+          <Col sm={9}>{MigrationInfos.getFormatedDate(migration)}</Col>
         </Row>
         <Row className={styles.infosRow}>
           <Col sm={3} className={styles.infosLeft}>Status:</Col>
-          <Col sm={9}>{this.getStatusLabel(migration)}</Col>
+          <Col sm={9}>{MigrationInfos.getStatusLabel(migration)}</Col>
         </Row>
         <Row className={styles.infosRow}>
           <Col sm={3} className={styles.infosLeft}>User:</Col>

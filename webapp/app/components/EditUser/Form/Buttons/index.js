@@ -10,6 +10,9 @@ import styles from 'components/EditUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class EditUserFormButtons extends React.Component {
+  static handleCancelClick() {
+    browserHistory.goBack();
+  }
 
   handleEditClick(event) {
     event.preventDefault();
@@ -25,15 +28,11 @@ export default class EditUserFormButtons extends React.Component {
     }
   }
 
-  handleCancelClick() {
-    browserHistory.goBack();
-  }
-
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
         <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Edit" onClick={event => this.handleEditClick(event)} />
-        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={event => this.handleCancelClick(event)} />
+        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => EditUserFormButtons.handleCancelClick()} />
       </ButtonToolbar>
     );
   }

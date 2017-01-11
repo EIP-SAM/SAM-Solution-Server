@@ -10,6 +10,9 @@ import styles from 'components/ForgottenPassword/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class ForgottenPasswordButtons extends React.Component {
+  static handleCancelClick() {
+    browserHistory.goBack();
+  }
 
   constructor(props) {
     super(props);
@@ -24,15 +27,11 @@ export default class ForgottenPasswordButtons extends React.Component {
     }
   }
 
-  handleCancelClick() {
-    browserHistory.goBack();
-  }
-
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
         <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Send" onClick={event => this.handleClick(event)} />
-        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
+        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => ForgottenPasswordButtons.handleCancelClick()} />
       </ButtonToolbar>
     );
   }

@@ -10,6 +10,9 @@ import styles from 'components/CreateUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class CreateUserFormButtons extends React.Component {
+  static handleCancelClick() {
+    browserHistory.goBack();
+  }
 
   handleCreateClick(event) {
     event.preventDefault();
@@ -32,15 +35,11 @@ export default class CreateUserFormButtons extends React.Component {
     }
   }
 
-  handleCancelClick() {
-    browserHistory.goBack();
-  }
-
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
         <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Create" onClick={event => this.handleCreateClick(event)} />
-        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={event => this.handleCancelClick(event)} />
+        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => CreateUserFormButtons.handleCancelClick()} />
       </ButtonToolbar>
     );
   }

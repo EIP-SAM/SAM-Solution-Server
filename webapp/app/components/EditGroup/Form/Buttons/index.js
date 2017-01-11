@@ -10,6 +10,10 @@ import styles from 'components/EditGroup/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class EditGroupFormButtons extends React.Component {
+  static handleCancelClick() {
+    browserHistory.goBack();
+  }
+
   handleEditClick(event) {
     event.preventDefault();
     if (this.props.groupName !== '') {
@@ -19,15 +23,11 @@ export default class EditGroupFormButtons extends React.Component {
     }
   }
 
-  handleCancelClick() {
-    browserHistory.goBack();
-  }
-
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
         <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Edit" onClick={event => this.handleEditClick(event)} />
-        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
+        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => EditGroupFormButtons.handleCancelClick()} />
       </ButtonToolbar>
     );
   }
