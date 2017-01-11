@@ -1,4 +1,5 @@
 const statAdapters = require('../adapters/statistic');
+const logger = require('../libs/bunyan');
 
 module.exports.statisticFunctions = [];
 module.exports.statisticFilters = [];
@@ -17,7 +18,12 @@ module.exports.statisticGetMethodForEntity = (entity, functionName) => {
     if (module.exports.statisticFunctions[entity][functionName]) {
       return (module.exports.statisticFunctions[entity][functionName]());
     }
+    logger.setModuleName('Stats').error(`The statistic function '${functionName}' doesn't exist`);
+    return null;
   }
+
+  logger.setModuleName('Stats').error(`The statistic function entity '${entity}' doesn't exist`);
+  return null;
 };
 
 module.exports.addFilter = (entity) => {
@@ -152,29 +158,8 @@ function generateColorRadar(order, type) {
   return typeTable[0][type];
 }
 
-// function generateColorPolar(order, type)
-// {
-//   let typeTable = [];
-//   typeTable[0] = [];
-//   typeTable[1] = [];
-//   typeTable[2] = [];
-//
-//   typeTable[0][0] = "#F7464A";
-//   typeTable[1][0] = "#46BFBD";
-//   typeTable[2][0] = "#FDB45C";
-//
-//   typeTable[0][1] = "#FF5A5E";
-//   typeTable[1][1] = "#5AD3D1";
-//   typeTable[2][1] = "#FFC870";
-//
-//   if (order % 3 == 0)
-//     return typeTable[2][type];
-//   else if (order % 2 == 0)
-//     return typeTable[1][type];
-//   return typeTable[0][type];
-// }
 
-// DATA CREATION, FILL AND PUSH TO CANVAS FUNCTIONS
+// Data creation, fill and push to canvas functions
 
 function prepareBarDataForGraph(graphData) {
   const datasets = [];
@@ -308,31 +293,6 @@ function prepareLineDataForGraph(graphData) {
   return dataToChart;
 }
 
-// function preparePolarDataForGraph(graphData, ctx) {
-//   var datasets = [];
-//
-//   for (var i = 0; i < graphData.dataset.length; i++) {
-//       datasets.push({
-//           color: generateColorPolar(i, 0),
-//           highlight: generateColorPolar(i, 1),
-//           value: graphData.dataset[i].value,
-//           label: graphData.dataset[i].title,
-//       });
-//   };
-//
-//   var dataSets = {
-//     labels: graphData.labels,
-//     datasets: datasets,
-//   }
-//
-//   var dataToChart = {
-//       datasets: dataSets,
-//       type: graphData.type
-//   };
-//
-//   return dataToChart;
-// }
-
 module.exports.prepareDataForGraph = (graphData) => {
   if (graphData.type === 'bar') {
     return (prepareBarDataForGraph(graphData));
@@ -343,6 +303,7 @@ module.exports.prepareDataForGraph = (graphData) => {
   } else if (graphData.type === 'radar') {
     return prepareRadarDataForGraph(graphData);
   } else if (graphData.type === 'line') { return prepareLineDataForGraph(graphData); }
-  // else if (graphData.type == "polar")
-  //   return preparePolarDataForGraph(graphData);
+
+  logger.setModuleName('Stats').error(`The graph type '${graphData.type}' doesn't exist`);
+  return null;
 };
