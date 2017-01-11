@@ -7,10 +7,10 @@ machine:
 test:
   pre:
     - cd webapp/ && npm install && cd ../
-    - npm run lint:all
     - for f in *config.json.example; do cp "$f" "`echo $f | sed s/json.example/json/`"; done:
         pwd:
           config/
+    - npm run lint:all
   post:
     - mkdir $CIRCLE_ARTIFACTS/json_output
     - mv coverage/coverage.json $CIRCLE_ARTIFACTS/json_output

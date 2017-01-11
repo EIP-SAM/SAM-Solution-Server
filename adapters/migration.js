@@ -3,48 +3,44 @@
 //
 const Sequelize = require('sequelize');
 const UsersModel = require('../models/users');
-var MigrationModel = require('../models/migration');
-var ImageModel = require('../models/image');
+const MigrationModel = require('../models/migration');
+const ImageModel = require('../models/image');
 
 //
 // Get all the migration order by migrationDate DESC
 //
-module.exports.getMigrations = function() {
-  return MigrationModel.findAll({
-    order: [['migrationDate', 'DESC']],
-    include: [{
-      model: UsersModel,
-      as: 'user',
-      attributes: ['id', 'name', 'email', 'isAdmin'],
-      where: { userId: Sequelize.col('user.id') },
-    }, {
-      model: ImageModel,
-      as: 'image',
-      attributes: ['id', 'name', 'operatingSystem', 'version'],
-      where: { imageId: Sequelize.col('image.id') },
-    }],
-  });
-};
+module.exports.getMigrations = () => MigrationModel.findAll({
+  order: [['migrationDate', 'DESC']],
+  include: [{
+    model: UsersModel,
+    as: 'user',
+    attributes: ['id', 'name', 'email', 'isAdmin'],
+    where: { userId: Sequelize.col('user.id') },
+  }, {
+    model: ImageModel,
+    as: 'image',
+    attributes: ['id', 'name', 'operatingSystem', 'version'],
+    where: { imageId: Sequelize.col('image.id') },
+  }],
+});
 
 //
 // Get migration by his id
 //
-module.exports.getMigrationById = function(migrationId) {
-  return MigrationModel.findById(migrationId, {
-    order: [['migrationDate', 'DESC']],
-    include: [{
-      model: UsersModel,
-      as: 'user',
-      attributes: ['id', 'name', 'email', 'isAdmin'],
-      where: { userId: Sequelize.col('user.id') },
-    }, {
-      model: ImageModel,
-      as: 'image',
-      attributes: ['id', 'name', 'operatingSystem', 'version'],
-      where: { imageId: Sequelize.col('image.id') },
-    }],
-  });
-};
+module.exports.getMigrationById = migrationId => MigrationModel.findById(migrationId, {
+  order: [['migrationDate', 'DESC']],
+  include: [{
+    model: UsersModel,
+    as: 'user',
+    attributes: ['id', 'name', 'email', 'isAdmin'],
+    where: { userId: Sequelize.col('user.id') },
+  }, {
+    model: ImageModel,
+    as: 'image',
+    attributes: ['id', 'name', 'operatingSystem', 'version'],
+    where: { imageId: Sequelize.col('image.id') },
+  }],
+});
 
 //
 // Get migration order by filter
@@ -54,8 +50,8 @@ module.exports.getMigrationById = function(migrationId) {
 //   - filterObj.name, name of the filter
 //   - filterObj.order, ASC or DESC
 //
-module.exports.getMigrationOrderByFilter = function(filterObj) {
-  let orderObj = [];
+module.exports.getMigrationOrderByFilter = (filterObj) => {
+  const orderObj = [];
 
   switch (filterObj.modelName) {
     case 'user':
@@ -90,12 +86,10 @@ module.exports.getMigrationOrderByFilter = function(filterObj) {
 //
 // Get migrations group by status
 //
-module.exports.getMigrationsGroupByStatus = function() {
-  return MigrationModel.count({
-    group: 'status',
-    attributes: ['status'],
-  })
-}
+module.exports.getMigrationsGroupByStatus = () => MigrationModel.count({
+  group: 'status',
+  attributes: ['status'],
+});
 
 //
 // Create a migration
@@ -106,9 +100,7 @@ module.exports.getMigrationsGroupByStatus = function() {
 // - status
 // - comment
 //
-module.exports.createMigration = function(migrationObj) {
-  return MigrationModel.create(migrationObj);
-};
+module.exports.createMigration = migrationObj => MigrationModel.create(migrationObj);
 
 //
 // Edit migration by his id
@@ -121,17 +113,13 @@ module.exports.createMigration = function(migrationObj) {
 // - comment
 // Except for the migrationId, each property can be undefined
 //
-module.exports.editMigrationById = function(migrationObj) {
-  return MigrationModel.update(migrationObj, {
-    where: { id: migrationObj.migrationId },
-  });
-};
+module.exports.editMigrationById = migrationObj => MigrationModel.update(migrationObj, {
+  where: { id: migrationObj.migrationId },
+});
 
 //
 // Delete migration by id
 //
-module.exports.deleteMigrationById = function(migrationId) {
-  return MigrationModel.destroy({
-    where: { id: migrationId },
-  });
-};
+module.exports.deleteMigrationById = migrationId => MigrationModel.destroy({
+  where: { id: migrationId },
+});

@@ -6,16 +6,12 @@ const imageAdapter = require('../adapters/image');
 //
 // Launch getImages from adapter
 //
-module.exports.getImages = function () {
-  return imageAdapter.getImages();
-};
+module.exports.getImages = () => imageAdapter.getImages();
 
 //
 // Launch getImageById from adapter
 //
-module.exports.getImageById = function (imageId) {
-  return imageAdapter.getImageById(imageId);
-};
+module.exports.getImageById = imageId => imageAdapter.getImageById(imageId);
 
 //
 // Launch createImage from adapter
@@ -24,9 +20,7 @@ module.exports.getImageById = function (imageId) {
 // - operatingSystem (String)
 // - version (String)
 //
-module.exports.createImage = function (imageObj) {
-  return imageAdapter.createImage(imageObj);
-};
+module.exports.createImage = imageObj => imageAdapter.createImage(imageObj);
 
 //
 // Launch updateImageById from adapter
@@ -36,13 +30,9 @@ module.exports.createImage = function (imageObj) {
 // - operatingSystem (String)
 // - version (String)
 //
-module.exports.updateImageById = function (imageObj) {
-  return imageAdapter.updateImageById(imageObj);
-};
+module.exports.updateImageById = imageObj => imageAdapter.updateImageById(imageObj);
 
 //
 // Launch deleteImageById from adapter
 //
-module.exports.deleteImageById = function (imageId) {
-  return imageAdapter.deleteImageById(imageId);
-};
+module.exports.deleteImageById = imageId => imageAdapter.deleteImageById(imageId);
