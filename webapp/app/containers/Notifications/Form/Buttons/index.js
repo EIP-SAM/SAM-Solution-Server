@@ -14,6 +14,7 @@ function mapStateToProps(state) {
   return {
     title: state.get('notifications').get('NotificationsFormTitleReducer').title,
     description: state.get('notifications').get('NotificationsFormDescriptionReducer').description,
+    persistence: state.get('notifications').get('NotificationsFormPersistenceReducer').persistence,
     selectedUsers: state.get('notifications').get('NotificationsFormUsersReducer').get('NotificationsFormSelectedUsersReducer').selectedUsers,
   };
 }
