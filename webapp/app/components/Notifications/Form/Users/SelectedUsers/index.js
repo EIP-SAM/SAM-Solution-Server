@@ -27,6 +27,13 @@ export class NotificationsFormSelectedUsers extends React.Component {
   }
 
   render() {
+    let validationState = null;
+    let errorMessage = '';
+
+    if (this.props.selectedUsersError !== '') {
+      validationState = 'error';
+      errorMessage = this.props.selectedUsersError;
+    }
     let selectedUsers = [];
     let selectedUsersOption = [];
 
@@ -60,4 +67,5 @@ export class NotificationsFormSelectedUsers extends React.Component {
 NotificationsFormSelectedUsers.propTypes = {
   selectedUsers: React.PropTypes.array,
   unselectedUsersOnChange: React.PropTypes.func,
+  selectedUsersError: React.PropTypes.string,
 };

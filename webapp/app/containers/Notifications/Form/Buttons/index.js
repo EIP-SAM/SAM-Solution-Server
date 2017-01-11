@@ -8,6 +8,7 @@ import { NotificationsFormButtons } from 'components/Notifications/Form/Buttons'
 import { notificationRequest } from 'containers/Notifications/Form/actions';
 import { titleErrorMsg } from 'containers/Notifications/Form/Title/actions';
 import { descriptionErrorMsg } from 'containers/Notifications/Form/Description/actions';
+import { selectedUsersErrorMsg } from 'containers/Notifications/Form/Users/SelectedUsers/actions';
 
 
 function mapStateToProps(state) {
@@ -24,6 +25,7 @@ function mapDispatchToProps(dispatch) {
     notificationRequest: (title, description, persistence, selectedUsers) => dispatch(notificationRequest(title, description, persistence, selectedUsers)),
     titleErrorMsg: (titleError) => dispatch(titleErrorMsg(titleError)),
     descriptionErrorMsg: (descriptionError) => dispatch(descriptionErrorMsg(descriptionError)),
+    selectedUsersErrorMsg: (selectedUsersError) => dispatch(descriptionErrorMsg(selectedUsersError)),
   };
 }
 

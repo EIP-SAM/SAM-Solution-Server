@@ -14,6 +14,7 @@ import {
   NOTIFICATIONS_UNSELECTED_USERS,
   NOTIFICATIONS_REMOVE_SELECTED_USERS,
   NOTIFICATIONS_RESET_STATE_UNSELECTED_USERS,
+  NOTIFICATIONS_SELECTED_USERS_ERROR,
 } from './constants';
 
 export function resetStateSelectedUsers() {
@@ -41,6 +42,13 @@ function removeSelectedUser(index, nextIndex) {
     type: NOTIFICATIONS_REMOVE_SELECTED_USERS,
     index,
     nextIndex,
+  };
+}
+
+export function selectedUsersErrorMsg(selectedUsersError) {
+  return {
+    type: NOTIFICATIONS_SELECTED_USERS_ERROR,
+    titleError,
   };
 }
 
