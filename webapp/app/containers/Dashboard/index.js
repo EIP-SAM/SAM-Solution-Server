@@ -11,13 +11,11 @@ import {
  } from './actions';
 
 function mapStateToProps(state) {
-  const userInfoObject = state.get('app').userInfo || {};
-
   return {
     saveNumbers: state.get('dashboard').saveNumbers,
     restoreNumbers: state.get('dashboard').restoreNumbers,
     deamonUsersConnected: state.get('dashboard').deamonUsersConnected,
-    userInfo: userInfoObject,
+    currentUserName: state.get('app').userInfo.username,
   };
 }
 

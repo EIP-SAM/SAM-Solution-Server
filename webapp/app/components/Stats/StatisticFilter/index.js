@@ -15,7 +15,7 @@ export default class StatisticFilterComponent extends React.Component {
   }
 
   render() {
-    const filters = this.props.filters.filters;
+    const filters = this.props.filters;
     if (!filters) {
       return null;
     }
@@ -39,5 +39,5 @@ StatisticFilterComponent.propTypes = {
   getFiltersFromServer: React.PropTypes.func.isRequired,
   getGraphListByType: React.PropTypes.func.isRequired,
   clearGraph: React.PropTypes.func.isRequired,
-  filters: React.PropTypes.object.isRequired,
+  filters: React.PropTypes.arrayOf(React.PropTypes.string),
 };

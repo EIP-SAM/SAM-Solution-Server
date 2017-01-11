@@ -148,8 +148,14 @@ export default class LogFilter extends React.Component {
 LogFilter.propTypes = {
   keyRerender: React.PropTypes.number.isRequired,
   incKeyRerender: React.PropTypes.func.isRequired,
-  filters: React.PropTypes.object.isRequired,
-  panel: React.PropTypes.object.isRequired,
+  filters: React.PropTypes.shape({
+    findOpts: React.PropTypes.object,
+  }),
+  panel: React.PropTypes.shape({
+    isCollapsed: React.PropTypes.bool,
+    titleIcon: React.PropTypes.string,
+    titleHelp: React.PropTypes.string,
+  }),
   collapsePanel: React.PropTypes.func.isRequired,
   setFilters: React.PropTypes.func.isRequired,
   resetFilters: React.PropTypes.func.isRequired,

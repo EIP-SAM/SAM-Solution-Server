@@ -10,7 +10,7 @@ import styles from 'components/SaveCreation/styles.css';
 /* eslint-disable react/prefer-stateless-function */
 export default class SaveCreationUsers extends React.Component {
   render() {
-    if (!this.props.userInfo.isAdmin) {
+    if (!this.props.userIsAdmin) {
       return (<div />);
     }
 
@@ -40,7 +40,7 @@ export default class SaveCreationUsers extends React.Component {
 }
 
 SaveCreationUsers.propTypes = {
-  userInfo: React.PropTypes.object,
+  userIsAdmin: React.PropTypes.bool,
   users: React.PropTypes.arrayOf(React.PropTypes.object),
   userError: React.PropTypes.string,
 };

@@ -11,7 +11,7 @@ import styles from 'components/RestoreHistory/Table/ModalInstantRestore/styles.c
 export default class RestoreInstantRestoreModal extends React.Component {
 
   handleLaunchClick() {
-    this.props.createRestoresRequest(this.props.userId, this.props.selectedFiles, this.props.save.value, false);
+    this.props.createRestoresRequest(this.props.userId, this.props.selectedFiles, this.props.saveId, false);
     this.props.hideInstantRestoreModal();
   }
 
@@ -44,7 +44,7 @@ export default class RestoreInstantRestoreModal extends React.Component {
 RestoreInstantRestoreModal.propTypes = {
   userId: React.PropTypes.number,
   selectedFiles: React.PropTypes.arrayOf(React.PropTypes.string),
-  save: React.PropTypes.object,
+  saveId: React.PropTypes.number,
   showModal: React.PropTypes.bool,
   hideInstantRestoreModal: React.PropTypes.func,
   createRestoresRequest: React.PropTypes.func,

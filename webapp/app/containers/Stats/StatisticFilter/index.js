@@ -9,7 +9,7 @@ import { getFiltersFromServer } from './actions';
 
 function mapStateToProps(state) {
   return {
-    filters: state.get('stats').get('statFilters'),
+    filters: state.get('stats').get('statFilters').filters,
   };
 }
 

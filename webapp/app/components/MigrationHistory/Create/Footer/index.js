@@ -104,7 +104,10 @@ Footer.propTypes = {
   imageId: React.PropTypes.number,
   date: React.PropTypes.string,
   time: React.PropTypes.string,
-  migrationEdited: React.PropTypes.object,
+  migrationEdited: React.PropTypes.shape({
+    id: React.PropTypes.number,
+    status: React.PropTypes.string,
+  }),
   createMigration: React.PropTypes.func,
   editMigration: React.PropTypes.func,
   showCreateMigrationPopup: React.PropTypes.func,

@@ -5,7 +5,7 @@
 import STATS_GET_STATS_FILTERS_LIST from './constants';
 
 const initialState = {
-  filters: '',
+  filters: [],
 };
 
 function StatisticFilterReducer(state = initialState, action) {

@@ -73,8 +73,16 @@ export default class App extends React.Component {
 App.propTypes = {
   children: React.PropTypes.node,
   isLoading: React.PropTypes.bool,
-  userInfo: React.PropTypes.object,
-  location: React.PropTypes.object,
+  userInfo: React.PropTypes.shape({
+    logged: React.PropTypes.bool,
+    userId: React.PropTypes.number,
+    username: React.PropTypes.string,
+    email: React.PropTypes.string,
+    isAdmin: React.PropTypes.bool,
+  }),
+  location: React.PropTypes.shape({
+    pathname: React.PropTypes.string,
+  }),
   getUserInfo: React.PropTypes.func,
   setAppLoadingState: React.PropTypes.func,
 };

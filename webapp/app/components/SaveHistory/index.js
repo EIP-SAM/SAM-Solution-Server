@@ -21,7 +21,7 @@ export default class SaveHistory extends React.Component {
 
   render() {
     let username = '';
-    if (this.props.userInfo.isAdmin) {
+    if (this.props.userIsAdmin) {
       username = <PageHeader className={styles.title}><small>{window.location.pathname.split('/')[2]}</small></PageHeader>;
     }
 
@@ -37,7 +37,7 @@ export default class SaveHistory extends React.Component {
 }
 
 SaveHistory.propTypes = {
-  userInfo: React.PropTypes.object,
+  userIsAdmin: React.PropTypes.bool,
   getHistorySavesByUserRequest: React.PropTypes.func,
   listUsers: React.PropTypes.func,
 };

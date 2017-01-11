@@ -18,7 +18,7 @@ export default class RestoreHistory extends React.Component {
 
   render() {
     let username = '';
-    if (this.props.userInfo.isAdmin) {
+    if (this.props.userIsAdmin) {
       username = <PageHeader className={styles.title}><small>{window.location.pathname.split('/')[2]}</small></PageHeader>;
     }
 
@@ -34,6 +34,6 @@ export default class RestoreHistory extends React.Component {
 }
 
 RestoreHistory.propTypes = {
-  userInfo: React.PropTypes.object,
+  userIsAdmin: React.PropTypes.bool,
   getHistoryRestoresByUserRequest: React.PropTypes.func,
 };

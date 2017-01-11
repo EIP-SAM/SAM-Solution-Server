@@ -100,6 +100,12 @@ export default class NavbarContainer extends React.Component {
 }
 
 NavbarContainer.propTypes = {
-  userInfo: React.PropTypes.object,
+  userInfo: React.PropTypes.shape({
+    logged: React.PropTypes.bool,
+    userId: React.PropTypes.number,
+    username: React.PropTypes.string,
+    email: React.PropTypes.string,
+    isAdmin: React.PropTypes.bool,
+  }),
   logoutRequest: React.PropTypes.func,
 };

@@ -14,7 +14,7 @@ function mapStateToProps(state) {
   return {
     showModal: state.get('restore').get('InstantRestoreModalRestoreReducer').showModal,
     userId: state.get('restoreCreation').get('UsersRestoreCreationReducer').userId,
-    save: state.get('restoreCreation').get('SavesRestoreCreationReducer').save,
+    saveId: state.get('restoreCreation').get('SavesRestoreCreationReducer').save.value,
     selectedFiles: state.get('restoreCreation').get('FilesRestoreCreationReducer').selectedFiles,
   };
 }

@@ -9,7 +9,7 @@ import { getHistorySavesByUserRequest } from './actions';
 
 function mapStateToProps(state) {
   return {
-    userInfo: state.get('app').userInfo,
+    userIsAdmin: state.get('app').userInfo.isAdmin,
   };
 }
 
