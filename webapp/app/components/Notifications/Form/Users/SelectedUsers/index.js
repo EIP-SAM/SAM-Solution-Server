@@ -20,7 +20,7 @@ export default class NotificationsFormSelectedUsers extends React.Component {
     const value = [];
     for (let i = 0; i < options.length; i++) {
       if (options[i].selected) {
-        value.push({ id: parseInt(options[i].value), name: options[i].text });
+        value.push({ id: parseInt(options[i].value, 10), name: options[i].text });
       }
     }
     this.props.unselectedUsersOnChange(value);

@@ -12,7 +12,6 @@ import request from 'utils/request';
 import { getUsers } from './AllUsers/actions';
 import { addUsersToGroup } from './SelectedUsers/actions';
 
-/* eslint no-restricted-syntax: ["off", "ForOfStatement"] */
 export default function getUsersRequest(currentGroup) {
   return function returnGetUsersRequest(dispatch) {
     return request

@@ -7,8 +7,6 @@ import EditUserFormButtons from 'components/EditUser/Form/Buttons';
 import { editUserRequest } from 'containers/EditUser/Form/actions';
 import { usernameErrorMsg } from 'containers/EditUser/Form/Username/actions';
 import { emailErrorMsg } from 'containers/EditUser/Form/Email/actions';
-import { passwordErrorMsg } from 'containers/EditUser/Form/Password/actions';
-import { passwordConfirmationErrorMsg } from 'containers/EditUser/Form/PasswordConfirmation/actions';
 
 function mapStateToProps(state) {
   return {
@@ -26,8 +24,6 @@ function mapDispatchToProps(dispatch) {
     editUserRequest: (userId, username, email, password, passwordConfirmation, userGroups) => dispatch(editUserRequest(userId, username, email, password, passwordConfirmation, userGroups)),
     usernameErrorMsg: usernameError => dispatch(usernameErrorMsg(usernameError)),
     emailErrorMsg: emailError => dispatch(emailErrorMsg(emailError)),
-    passwordErrorMsg: passwordError => dispatch(passwordErrorMsg(passwordError)),
-    passwordConfirmationErrorMsg: passwordConfirmationError => dispatch(passwordConfirmationErrorMsg(passwordConfirmationError)),
   };
 }
 

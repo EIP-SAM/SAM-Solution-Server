@@ -9,6 +9,7 @@ import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Td from 'components/Td';
 import RestoreInstantRestoreModal from 'containers/Restore/Table/ModalInstantRestore';
+
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */

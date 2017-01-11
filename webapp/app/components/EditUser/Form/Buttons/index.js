@@ -23,12 +23,6 @@ export default class EditUserFormButtons extends React.Component {
     if (this.props.email === '') {
       this.props.emailErrorMsg('A user must have an email');
     }
-    /* if (this.props.password === '') {
-      this.props.passwordErrorMsg('A user must have a password');
-    }
-    if (this.props.passwordConfirmation === '') {
-      this.props.passwordConfirmationErrorMsg('Please confirmation your password');
-    }*/
   }
 
   handleCancelClick() {
@@ -55,6 +49,4 @@ EditUserFormButtons.propTypes = {
   editUserRequest: React.PropTypes.func,
   usernameErrorMsg: React.PropTypes.func,
   emailErrorMsg: React.PropTypes.func,
-  passwordErrorMsg: React.PropTypes.func,
-  passwordConfirmationErrorMsg: React.PropTypes.func,
 };

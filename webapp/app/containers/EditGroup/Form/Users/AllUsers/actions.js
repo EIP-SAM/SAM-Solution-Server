@@ -37,7 +37,6 @@ function removeUser(index, nextIndex) {
   };
 }
 
-/* eslint no-restricted-syntax: ["off", "ForOfStatement"] */
 export function removeUsers(users, preSelectedUsers) {
   let allUsers = users;
   return function returnRemoveUsers(dispatch) {

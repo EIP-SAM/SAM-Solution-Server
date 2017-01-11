@@ -32,6 +32,7 @@
         }
       ],
       "no-console": 1,
+      "no-restricted-syntax": "off",
       "max-len": 0,
       "prefer-template": 2,
       "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],

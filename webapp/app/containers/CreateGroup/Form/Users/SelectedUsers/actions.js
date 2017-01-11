@@ -44,7 +44,6 @@ function removeSelectedUserFromGroup(index, nextIndex) {
   };
 }
 
-/* eslint no-restricted-syntax: ["off", "ForOfStatement"] */
 export function removeUsersFromGroup(selectedUsers, unselectedUsers) {
   let allSelectedUsers = selectedUsers;
   return function returnRemoveUsers(dispatch) {
