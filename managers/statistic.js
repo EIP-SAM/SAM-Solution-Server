@@ -109,7 +109,7 @@ function generateColorPie(order, type) {
   return typeTable[0][type];
 }
 
-function generateColorDoughnut(order, type) {
+function generateColorDoughnut(order, type) { // eslint-disable-line no-unused-vars
   const typeTable = [];
   typeTable[0] = [];
   typeTable[1] = [];
