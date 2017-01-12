@@ -13,6 +13,7 @@ export default class SoftwaresByUserAddAllSoftwaresModal extends React.Component
     this.props.hideAddAllSoftwaresModal();
     this.props.installSoftwares(this.props.username, this.props.selectedSoftwares);
     this.props.resetStateTable();
+    this.props.resetSelectedSoftware();
   }
 
   render() {
@@ -48,4 +49,5 @@ SoftwaresByUserAddAllSoftwaresModal.propTypes = {
   hideAddAllSoftwaresModal: React.PropTypes.func,
   installSoftwares: React.PropTypes.func,
   resetStateTable: React.PropTypes.func,
+  resetSelectedSoftware: React.PropTypes.func,
 };

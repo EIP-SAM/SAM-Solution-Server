@@ -4,9 +4,10 @@
 
 import { connect } from 'react-redux';
 import SoftwaresByUserUpdateAllSoftwaresModal from 'components/SoftwaresByUser/Buttons/ModalUpdateAllSoftwares';
-import { installSoftwares } from 'containers/SoftwaresByUser/actions';
 import { resetStateTable } from 'containers/SoftwaresByUser/Table/actions';
+import { updateSoftwares } from 'containers/SoftwaresByUser/actions';
 import { hideUpdateAllSoftwaresModal } from './actions';
+
 
 function mapStateToProps(state) {
   return {
@@ -19,8 +20,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     hideUpdateAllSoftwaresModal: () => dispatch(hideUpdateAllSoftwaresModal()),
-    installSoftwares: (username, packages) => installSoftwares(username, packages),
+    updateSoftwares: (username, packages) => updateSoftwares(username, packages),
     resetStateTable: () => dispatch(resetStateTable()),
+    resetSelectedSoftware: () => dispatch(resetSelectedSoftware()),
   };
 }
 

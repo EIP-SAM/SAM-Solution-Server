@@ -35,6 +35,7 @@ export function getUsersOsRequest() {
 
 /* eslint-disable no-param-reassign */
 socket.on('server_all_software', (data) => {
+  console.log("SOCKET");
   const users = store.getState().get('software').get('SoftwareReducer').users;
 
   users.forEach((user) => {
@@ -42,27 +43,28 @@ socket.on('server_all_software', (data) => {
       user.os = data.operatingSystem;
     }
   });
-
+  console.log("----");
+  console.log(data);
+  console.log("----");
   store.dispatch(getUsers(users));
   store.dispatch(getRefresh(1));
 });
 
 /* eslint-disable no-param-reassign */
 export function getUsersRequest() {
+  console.log("getUsersRequest");
   return function returnGetUsersRequest(dispatch) {
     return request
-      .get('/api/logged-in/admin/restore')
+      .get('/api/logged-in/admin/users')
       .end((err, res) => {
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
-
-        res.body.forEach((element) => {
+        res.body.users.forEach((element) => {
           element.os = '';
         });
-
-        dispatch(getUsers(res.body));
-        dispatch(getAllUsers(res.body));
+        dispatch(getUsers(res.body.users));
+        dispatch(getAllUsers(res.body.users));
         dispatch(getUsersOsRequest());
       });
   };

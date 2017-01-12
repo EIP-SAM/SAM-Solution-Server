@@ -39,6 +39,12 @@ export function getSoftwares(softwares) {
   };
 }
 
+export function resetSoftwares() {
+  return {
+    type: SOFTWARES_BY_USER_GET_SOFTWARES,
+    softwares: [],
+  };
+}
 export function getUsername(username) {
   return {
     type: SOFTWARES_BY_USER_USERNAME,
@@ -55,7 +61,7 @@ export function getInstalledSoftwaresRequest(username) {
 
 socket.on('server_all_software_by_user', (data) => {
   if (!data.error) {
-    store.dispatch(getSoftwares(data));
+    store.dispatch(getSoftwares(data.result));
   } else {
     if (!data.error.err) {
       store.dispatch(createAlert({
@@ -72,11 +78,11 @@ socket.on('server_all_software_by_user', (data) => {
 });
 
 export function installSoftwares(username, softwares) {
-  let packages = softwares;
+  let packages = [];
 
-  if (typeof softwares === 'string') {
-    packages = [softwares];
-  }
+  softwares.forEach((soft) => {
+    packages.push(soft.packageName);
+  });
 
   const data = {
     username,
@@ -87,14 +93,18 @@ export function installSoftwares(username, softwares) {
 
 socket.on('server_install_software_by_user', (data) => {
   console.log('server_install_software_by_user');
-  console.log(data);
 });
 
 export function updateSoftwares(username, softwares) {
-  let packages = softwares;
+  let packages = [];
 
   if (typeof softwares === 'string') {
-    packages = [softwares];
+    packages.push(softwares);
+  }
+  else {
+    softwares.forEach((soft) => {
+      packages.push(soft.packageName);
+    });
   }
 
   const data = {
@@ -106,14 +116,18 @@ export function updateSoftwares(username, softwares) {
 
 socket.on('server_update_software_by_user', (data) => {
   console.log('server_update_software_by_user');
-  console.log(data);
 });
 
 export function deleteSoftwares(username, softwares) {
-  let packages = softwares;
+  let packages = [];
 
   if (typeof softwares === 'string') {
-    packages = [softwares];
+    packages.push(softwares);
+  }
+  else {
+    softwares.forEach((soft) => {
+      packages.push(soft.packageName);
+    });
   }
 
   const data = {
@@ -125,5 +139,4 @@ export function deleteSoftwares(username, softwares) {
 
 socket.on('server_remove_software_by_user', (data) => {
   console.log('server_remove_software_by_user');
-  console.log(data);
 });

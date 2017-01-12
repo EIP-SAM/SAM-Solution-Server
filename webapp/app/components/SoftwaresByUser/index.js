@@ -19,6 +19,7 @@ export default class SoftwaresByUser extends React.Component {
   componentWillUnmount() {
     this.props.resetAlert();
     this.props.resetStateTable();
+    this.props.resetSoftwares();
   }
 
   render() {
@@ -52,4 +53,5 @@ SoftwaresByUser.propTypes = {
   getInstalledSoftwaresRequest: React.PropTypes.func,
   resetAlert: React.PropTypes.func,
   resetStateTable: React.PropTypes.func,
+  resetSoftwares: React.PropTypes.func,
 };

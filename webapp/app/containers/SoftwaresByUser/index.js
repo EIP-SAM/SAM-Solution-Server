@@ -9,6 +9,7 @@ import {
   getInstalledSoftwaresRequest,
   getUsername,
   resetAlert,
+  resetSoftwares,
 } from './actions';
 
 function mapStateToProps(state) {
@@ -25,6 +26,7 @@ function mapDispatchToProps(dispatch) {
     getInstalledSoftwaresRequest: username => getInstalledSoftwaresRequest(username),
     resetAlert: () => dispatch(resetAlert()),
     resetStateTable: () => dispatch(resetStateTable()),
+    resetSoftwares: () => dispatch(resetSoftwares()),
   };
 }
 
