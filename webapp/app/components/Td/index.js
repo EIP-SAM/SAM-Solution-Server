@@ -29,5 +29,10 @@ export default class Td extends React.Component {
 }
 
 Td.propTypes = {
-  object: React.PropTypes.object.isRequired,
+  object: React.PropTypes.shape({
+    value: React.PropTypes.any,
+    link: React.PropTypes.string,
+    isLink: React.PropTypes.bool,
+    onClick: React.PropTypes.func,
+  }).isRequired,
 };

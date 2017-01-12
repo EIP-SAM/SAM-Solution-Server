@@ -25,10 +25,7 @@ export default class RestoreHistoryTable extends React.Component {
   }
 
   render() {
-    const names = [{ isLink: false, value: 'Date' },
-                  { isLink: false, value: 'State' },
-                  { isLink: false, value: 'Files' },
-                  { isLink: false, value: 'Actions' }];
+    const names = ['Date', 'State', 'Files', 'Actions'];
 
     return (
       <div>

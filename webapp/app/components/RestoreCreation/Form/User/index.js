@@ -5,7 +5,7 @@ import styles from 'components/RestoreCreation/styles.css';
 /* eslint-disable react/prefer-stateless-function */
 export default class RestoreCreationUser extends React.Component {
   render() {
-    if (!this.props.userInfo.isAdmin) {
+    if (!this.props.userIsAdmin) {
       return (<div />);
     }
 
@@ -20,6 +20,6 @@ export default class RestoreCreationUser extends React.Component {
 }
 
 RestoreCreationUser.propTypes = {
-  userInfo: React.PropTypes.object,
+  userIsAdmin: React.PropTypes.bool,
   username: React.PropTypes.string,
 };

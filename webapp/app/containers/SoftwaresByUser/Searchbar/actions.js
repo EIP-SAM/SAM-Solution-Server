@@ -10,7 +10,7 @@
 //
 
 import socket from 'utils/socket-io';
-import { store } from 'app';
+import store from 'app';
 import { getSoftwares } from 'containers/SoftwaresByUser/actions';
 import SOFTWARES_BY_USER_SEARCHBAR_CHANGE from './constants';
 

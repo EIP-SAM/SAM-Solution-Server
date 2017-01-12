@@ -102,7 +102,16 @@ export default class Line extends React.Component {
 
 Line.propTypes = {
   index: React.PropTypes.number,
-  values: React.PropTypes.object,
+  values: React.PropTypes.shape({
+    comment: React.PropTypes.string,
+    id: React.PropTypes.number,
+    image: React.PropTypes.object,
+    imageId: React.PropTypes.number,
+    migrationDate: React.PropTypes.string,
+    status: React.PropTypes.string,
+    user: React.PropTypes.object,
+    userId: React.PropTypes.number,
+  }),
   setSelectedUser: React.PropTypes.func,
   setSelectedImage: React.PropTypes.func,
   setCreateDate: React.PropTypes.func,

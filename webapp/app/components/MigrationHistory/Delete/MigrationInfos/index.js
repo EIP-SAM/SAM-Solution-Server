@@ -57,5 +57,14 @@ export default class MigrationInfos extends React.Component {
 }
 
 MigrationInfos.propTypes = {
-  migration: React.PropTypes.object,
+  migration: React.PropTypes.shape({
+    comment: React.PropTypes.string,
+    id: React.PropTypes.number,
+    image: React.PropTypes.object,
+    imageId: React.PropTypes.number,
+    migrationDate: React.PropTypes.string,
+    status: React.PropTypes.string,
+    user: React.PropTypes.object,
+    userId: React.PropTypes.number,
+  }),
 };

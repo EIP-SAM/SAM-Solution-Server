@@ -50,7 +50,7 @@ export default class ButtonPopover extends React.Component {
 }
 
 ButtonPopover.propTypes = {
-  trigger: React.PropTypes.array.isRequired,
+  trigger: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.array]).isRequired,
   id: React.PropTypes.string,
   placement: React.PropTypes.string.isRequired,
   popoverContent: React.PropTypes.string.isRequired,

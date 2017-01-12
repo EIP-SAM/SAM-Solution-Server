@@ -35,7 +35,9 @@ export default class RestoreCreationButtons extends React.Component {
 
 RestoreCreationButtons.propTypes = {
   userId: React.PropTypes.number,
-  save: React.PropTypes.object,
+  save: React.PropTypes.shape({
+    value: React.PropTypes.number,
+  }),
   selectedFiles: React.PropTypes.arrayOf(React.PropTypes.string),
   createRestoresRequest: React.PropTypes.func,
   saveErrorMsg: React.PropTypes.func,

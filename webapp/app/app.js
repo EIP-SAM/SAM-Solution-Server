@@ -8,8 +8,8 @@ import 'babel-polyfill';
 
 // TODO constrain eslint import/no-unresolved rule to this block
 // Load the manifest.json file and the .htaccess file
-import 'file-loader?name=[name].[ext]!./manifest.json';  // eslint-disable-line import/no-unresolved
-import 'file-loader?name=[name].[ext]!./.htaccess';      // eslint-disable-line import/no-unresolved
+import 'file-loader?name=[name].[ext]!./manifest.json';  // eslint-disable-line import/no-unresolved, import/no-webpack-loader-syntax
+import 'file-loader?name=[name].[ext]!./.htaccess';      // eslint-disable-line import/no-unresolved, import/no-webpack-loader-syntax, import/extensions
 
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/lib/sanitize.css';
@@ -32,7 +32,8 @@ import configureStore from './store';
 // Optionally, this could be changed to leverage a created history
 // e.g. `const browserHistory = useRouterHistory(createBrowserHistory)();`
 const initialState = {};
-export const store = configureStore(initialState, browserHistory);
+const store = configureStore(initialState, browserHistory);
+export default store;
 
 // Sync history and store, as the react-router-redux reducer
 // is under the non-default key ("routing"), selectLocationState

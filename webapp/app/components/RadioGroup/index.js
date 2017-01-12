@@ -56,6 +56,6 @@ RadioGroup.propTypes = {
   placeholder: React.PropTypes.node,
   block: React.PropTypes.bool,
   inline: React.PropTypes.bool,
-  values: React.PropTypes.array.isRequired,
+  values: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   onChange: React.PropTypes.func,
 };

@@ -168,7 +168,7 @@ export default class LogResult extends React.Component {
 LogResult.propTypes = {
   logs: React.PropTypes.shape({
     error: React.PropTypes.bool,
-    data: React.PropTypes.object,
+    data: React.PropTypes.array,
   }).isRequired,
   sorts: React.PropTypes.string.isRequired,
   isLoading: React.PropTypes.bool.isRequired,

@@ -19,12 +19,7 @@ export default class GroupTable extends React.Component {
   }
 
   render() {
-    const names = [{ isLink: false, value: '#' },
-                  { isLink: false, value: 'Name' },
-                  { isLink: false, value: 'Save & Restore mode' },
-                  { isLink: false, value: 'Migration mode' },
-                  { isLink: false, value: 'Software packages mode' },
-                  { isLink: false, value: 'Actions' }];
+    const names = ['#', 'Name', 'Save & Restore mode', 'Migration mode', 'Software packages mode', 'Actions'];
 
     return (
       <div>

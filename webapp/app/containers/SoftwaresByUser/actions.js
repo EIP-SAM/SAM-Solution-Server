@@ -10,7 +10,7 @@
 //
 
 import socket from 'utils/socket-io';
-import { store } from 'app';
+import store from 'app';
 
 import {
   SOFTWARES_BY_USER_GET_SOFTWARES,

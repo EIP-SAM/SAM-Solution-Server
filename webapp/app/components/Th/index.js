@@ -7,12 +7,13 @@ import React from 'react';
 /* eslint-disable react/prefer-stateless-function */
 export default class Th extends React.Component {
   render() {
+    const value = this.props.object;
     return (
-      <th>{this.props.object.value}</th>
+      <th>{value}</th>
     );
   }
 }
 
 Th.propTypes = {
-  object: React.PropTypes.object.isRequired,
+  object: React.PropTypes.string.isRequired,
 };

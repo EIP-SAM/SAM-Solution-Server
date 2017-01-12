@@ -63,10 +63,7 @@ export default class SoftwaresByUserTable extends React.Component {
       <FormGroup>
         <Checkbox onChange={(event => this.onChangeCheckboxLegend(event))} checked={(this.props.allChecked ? 'checked' : '')} />
       </FormGroup>);
-    const names = [{ isLink: false, value: checkboxLegend },
-                  { isLink: false, value: 'Name' },
-                  { isLink: false, value: 'Description' },
-                  { isLink: false, value: 'Actions' }];
+    const names = [checkboxLegend, 'Name', 'Description', 'Actions'];
 
     return (
       <div>

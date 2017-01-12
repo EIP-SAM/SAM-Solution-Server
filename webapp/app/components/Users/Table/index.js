@@ -26,11 +26,7 @@ export default class UserTable extends React.Component {
   }
 
   render() {
-    const names = [{ isLink: false, value: '#' },
-                  { isLink: false, value: 'Name' },
-                  { isLink: false, value: 'Email' },
-                  { isLink: false, value: 'Group(s)' },
-                  { isLink: false, value: 'Actions' }];
+    const names = ['#', 'Name', 'Email', 'Group(s)', 'Actions'];
 
     return (
       <div>

@@ -24,12 +24,7 @@ export default class RestoreTable extends React.Component {
   }
 
   render() {
-    const names = [{ isLink: 'true', link: '#', value: '#' },
-                  { isLink: 'false', value: 'Username' },
-                  { isLink: 'false', value: 'Last Restore date' },
-                  { isLink: 'false', value: 'State' },
-                  { isLink: 'false', value: 'Files' },
-                  { isLink: 'false', value: 'Actions' }];
+    const names = ['#', 'Username', 'Last Restore date', 'State', 'Files', 'Actions'];
 
     return (
       <div>

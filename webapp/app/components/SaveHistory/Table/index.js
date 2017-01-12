@@ -41,11 +41,7 @@ export default class SaveHistoryTable extends React.Component {
   }
 
   render() {
-    const names = [{ isLink: false, value: 'Date' },
-                  { isLink: false, value: 'State' },
-                  { isLink: false, value: 'Files' },
-                  { isLink: false, value: 'Auto save' },
-                  { isLink: false, value: 'Actions' }];
+    const names = ['Date', 'State', 'Files', 'Auto save', 'Actions'];
 
     return (
       <div>

@@ -37,12 +37,7 @@ export default class SaveTable extends React.Component {
   }
 
   render() {
-    const names = [{ isLink: 'true', link: '#', value: '#' },
-                  { isLink: 'false', value: 'Username' },
-                  { isLink: 'false', value: 'Last save date' },
-                  { isLink: 'false', value: 'State' },
-                  { isLink: 'false', value: 'Files' },
-                  { isLink: 'false', value: 'Actions' }];
+    const names = ['#', 'Username', 'Last save date', 'State', 'Files', 'Actions'];
 
     return (
       <div>
