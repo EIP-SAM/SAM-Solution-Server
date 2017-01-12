@@ -25,11 +25,15 @@ export default class StatusSelect extends React.Component {
     }
   }
 
-  handleTimeChange(e) {
-    if (!moment(e.target.value, ['h:mm A']).isValid()) {
+  //
+  // Timepicker on change date handleRemove
+  //
+  handleTimepickerOnChange(value) {
+    if (!moment(value, ['h:mm A']).isValid()) {
       this.props.setCreateTime('');
     } else {
-      this.props.setCreateTime(moment(e.target.value, ['h:mm A']).format('HH:mm'));
+      const time = moment(value, ['h:mm A']).format('HH:mm');
+      this.props.setCreateTime(time);
     }
   }
 
@@ -60,17 +64,6 @@ export default class StatusSelect extends React.Component {
     );
   }
 
-  //
-  // Timepicker on change date handleRemove
-  //
-  handleTimepickerOnChange(value) {
-    if (!moment(value, ['h:mm A']).isValid()) {
-      this.props.setCreateTime('');
-    } else {
-      const time = moment(value, ['h:mm A']).format('HH:mm');
-      this.props.setCreateTime(time);
-    }
-  }
 }
 
 StatusSelect.propTypes = {
