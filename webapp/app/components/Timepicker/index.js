@@ -3,6 +3,7 @@
 //
 
 import React from 'react';
+import * as ReactDOM from 'react-dom';
 
 //
 // Modules
@@ -18,7 +19,7 @@ import {
 export default class Timepicker extends React.Component {
     constructor(props) {
         super(props);
- 
+
         this.state = {
             time: props.time || '00:00',
             partSelected: null
@@ -33,12 +34,21 @@ export default class Timepicker extends React.Component {
         }
     }
 
+    componentDidMount() {
+      this.loadKeyboardEventListener()
+    }
+
     componentDidUpdate(prevProps, prevState) {
+      this.loadKeyboardEventListener()
         if (prevProps.time !== this.props.time && this.props.time) {
             this.setState({
                 time: this.props.time
             });
         }
+    }
+
+    componentWillUnmount() {
+      this.unloadKeyboardEventListener();
     }
 
     render() {
@@ -54,7 +64,7 @@ export default class Timepicker extends React.Component {
         let time = this.convertTimeToArray(this.state.time);
 
         return (
-        <span className={timepickerStyle}>
+          <span id={this.props.id} className={timepickerStyle}>
                 <ControlLabel>{this.props.label}</ControlLabel>
                 <span className={timepickerStyle}>
                     <span className={formControlStyle} onClick={(e) => this.selectTimePart(e, null)}>
@@ -158,6 +168,20 @@ export default class Timepicker extends React.Component {
     // Return time part in 2 digits number
     getTwoDigitStringFromNumber(number) {
         return number > 9 ? number.toString() : "0" + number.toString();
+    }
+
+    // Add keyboard event listener to Timepicker
+    loadKeyboardEventListener() {
+        console.dir($('#'.concat(this.props.id)));
+        console.dir(ReactDOM.findDOMNode(this))
+        $('#'.concat(this.props.id)).on('keydown', function(event) {
+          console.info('keypress => ', event);
+        });
+    }
+
+    // Remove keyboard event listener from Timepicker
+    unloadKeyboardEventListener() {
+      $('#'.concat(this.props.id)).off('keydown');
     }
 }
 
