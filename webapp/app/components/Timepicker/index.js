@@ -35,11 +35,10 @@ export default class Timepicker extends React.Component {
     }
 
     componentDidMount() {
-      this.loadKeyboardEventListener()
+      this.loadKeyboardEventListener(this.handleKeyboardInput.bind(this))
     }
 
     componentDidUpdate(prevProps, prevState) {
-      this.loadKeyboardEventListener()
         if (prevProps.time !== this.props.time && this.props.time) {
             this.setState({
                 time: this.props.time
@@ -68,7 +67,7 @@ export default class Timepicker extends React.Component {
                 <ControlLabel>{this.props.label}</ControlLabel>
                 <span className={timepickerStyle}>
                     <span className={formControlStyle} onClick={(e) => this.selectTimePart(e, null)}>
-                        <span id="hour" className={hourStyle}onClick={(e) => this.selectTimePart(e, 'hour')}>
+                        <span id="hour" className={hourStyle} onClick={(e) => this.selectTimePart(e, 'hour')}>
                             { time[0] }
                         </span>
                         <span id="separator">:</span>
@@ -101,40 +100,42 @@ export default class Timepicker extends React.Component {
 
     // change the selected time part by mode
     changePartTimeSelected(e, mode) {
-        e.stopPropagation()
-        const defaultTime = this.state.time || '00:00';
+      if (e) {
+        e.stopPropagation();
+      }
+      const defaultTime = this.state.time || '00:00';
 
-        if (this.state.partSelected && defaultTime) {
-            let time = JSON.parse(JSON.stringify(this.convertTimeToArray(defaultTime)));
-            let value = -1;
+      if (this.state.partSelected && defaultTime) {
+          let time = JSON.parse(JSON.stringify(this.convertTimeToArray(defaultTime)));
+          let value = -1;
 
-            if (this.state.partSelected === 'hour') {
-                value = parseInt(time[0]);
-            } else if (this.state.partSelected === 'minute') {
-                value = parseInt(time[1]);
+          if (this.state.partSelected === 'hour') {
+            value = parseInt(time[0]);
+          } else if (this.state.partSelected === 'minute') {
+            value = parseInt(time[1]);
+          }
+
+          if (value >= 0) {
+            if (mode === 'up') {
+              if (this.state.partSelected === 'hour') {
+                value = this.handleHourLimit(value, 1)
+                time[0] = this.getTwoDigitStringFromNumber(value);
+              } else if (this.state.partSelected === 'minute') {
+                value = this.handleMinuteLimit(value, 1)
+                time[1] = this.getTwoDigitStringFromNumber(value)
+              }
+            } else if (mode === 'down') {
+              if (this.state.partSelected === 'hour') {
+                value = this.handleHourLimit(value, -1)
+                time[0] = this.getTwoDigitStringFromNumber(value);
+              } else if (this.state.partSelected === 'minute') {
+                value = this.handleMinuteLimit(value, -1)
+                time[1] = this.getTwoDigitStringFromNumber(value)
+              }
             }
-
-            if (value >= 0) {
-                if (mode === 'up') {
-                    if (this.state.partSelected === 'hour') {
-                        value = this.handleHourLimit(value, 1)
-                        time[0] = this.getTwoDigitStringFromNumber(value);
-                    } else if (this.state.partSelected === 'minute') {
-                        value = this.handleMinuteLimit(value, 1)
-                        time[1] = this.getTwoDigitStringFromNumber(value)
-                    }
-                } else if (mode === 'down') {
-                    if (this.state.partSelected === 'hour') {
-                        value = this.handleHourLimit(value, -1)
-                        time[0] = this.getTwoDigitStringFromNumber(value);
-                    } else if (this.state.partSelected === 'minute') {
-                        value = this.handleMinuteLimit(value, -1)
-                        time[1] = this.getTwoDigitStringFromNumber(value)
-                    }
-                }
-                this.props.updateTimeCallback(time[0] + ":" + time[1]);
-            }
-        }
+            this.props.updateTimeCallback(time[0] + ":" + time[1]);
+          }
+      }
     }
 
     // Handle hour max and min limit
@@ -170,18 +171,69 @@ export default class Timepicker extends React.Component {
         return number > 9 ? number.toString() : "0" + number.toString();
     }
 
+    // Handle keyborad input on time part
+    handleKeyboardInput(key) {
+      let time = this.convertTimeToArray(this.state.time);
+
+      switch (key) {
+        case 'ArrowUp':
+        {
+          if (this.state.partSelected === 'hour' || this.state.partSelected === 'minute') {
+            this.changePartTimeSelected(null, 'up');
+          }
+          break;
+        }
+        case 'ArrowDown':
+        {
+          if (this.state.partSelected === 'hour' || this.state.partSelected === 'minute') {
+            this.changePartTimeSelected(null, 'down');
+          }
+          break;
+        }
+        case 'ArrowLeft':
+        {
+          if (this.state.partSelected !== null) {
+            this.setState({
+              partSelected: this.state.partSelected === 'hour' ? 'minute' : 'hour'
+            })
+          } else {
+            this.setState({
+              partSelected: 'minute'
+            })
+          }
+          break;
+        }
+        case 'ArrowRight':
+        {
+          if (this.state.partSelected !== null) {
+            this.setState({
+              partSelected: this.state.partSelected === 'hour' ? 'minute' : 'hour'
+            })
+          } else {
+            this.setState({
+              partSelected: 'hour'
+            })
+          }
+          break;
+        }
+        default:
+        {
+          break;
+        }
+
+      }
+    }
+
     // Add keyboard event listener to Timepicker
-    loadKeyboardEventListener() {
-        console.dir($('#'.concat(this.props.id)));
-        console.dir(ReactDOM.findDOMNode(this))
-        $('#'.concat(this.props.id)).on('keydown', function(event) {
-          console.info('keypress => ', event);
+    loadKeyboardEventListener(handleKeyboardInput) {
+        $(window).on('keydown', function(event) {
+          handleKeyboardInput(event.key);
         });
     }
 
     // Remove keyboard event listener from Timepicker
     unloadKeyboardEventListener() {
-      $('#'.concat(this.props.id)).off('keydown');
+      $(window).off('keydown');
     }
 }
 
