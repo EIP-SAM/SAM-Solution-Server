@@ -8,7 +8,7 @@ import LinkContainerButton from 'components/Button';
 import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class DashboardByUserHeaderPageButtonRebootModal extends React.Component {
+export default class DashboardByUserHeaderPageButtonRebootModal extends React.Component {
   handleRebootClick() {
     const username = window.location.pathname.split('/')[2];
 

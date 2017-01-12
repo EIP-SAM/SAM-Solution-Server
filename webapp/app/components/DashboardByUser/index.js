@@ -7,7 +7,7 @@ import DashboardByUserHeaderPage from 'containers/DashboardByUser/HeaderPage';
 import DashboardByUserLogs from 'containers/DashboardByUser/Logs';
 
 /* eslint-disable react/prefer-stateless-function */
-export class DashboardByUser extends React.Component {
+export default class DashboardByUser extends React.Component {
 
   render() {
     return (

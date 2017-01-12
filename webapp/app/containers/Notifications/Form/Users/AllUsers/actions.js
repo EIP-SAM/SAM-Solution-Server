@@ -36,7 +36,7 @@ export function preSelectedUsersOnChange(preSelectedUsers) {
   };
 }
 
-function removeUser(index, nextIndex) {
+export function removeUser(index, nextIndex) {
   return {
     type: NOTIFICATIONS_REMOVE_USERS,
     index,

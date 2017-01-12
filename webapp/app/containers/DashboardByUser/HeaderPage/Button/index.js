@@ -3,10 +3,8 @@
 //
 
 import { connect } from 'react-redux';
-import { DashboardByUserHeaderPageButton } from 'components/DashboardByUser/HeaderPage/Button';
-import {
-  showInstantRebootModal,
-} from './ModalRebootUser/actions';
+import DashboardByUserHeaderPageButton from 'components/DashboardByUser/HeaderPage/Button';
+import { showInstantRebootModal } from './ModalRebootUser/actions';
 
 function mapStateToProps() {
   return {

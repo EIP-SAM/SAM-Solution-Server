@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { DashboardByUser } from 'components/DashboardByUser';
+import DashboardByUser from 'components/DashboardByUser';
 
 function mapStateToProps() {
   return {
