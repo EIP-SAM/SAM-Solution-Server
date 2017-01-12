@@ -1,5 +1,6 @@
 .timepickerStyle {
     width: 100%;
+    border-radius: 5px;
 }
 
 .timePart {
@@ -51,4 +52,9 @@
     cursor: pointer;
     font-size: 0.5em;
     color: #9E9E9E;
+}
+
+.disabled {
+  background-color: #d3d3d3;
+  cursor: not-allowed;
 }

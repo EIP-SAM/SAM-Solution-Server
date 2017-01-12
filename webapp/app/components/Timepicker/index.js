@@ -22,7 +22,8 @@ export default class Timepicker extends React.Component {
 
         this.state = {
             time: props.time || '00:00',
-            partSelected: null
+            partSelected: null,
+            isDisabled: props.isDisabled || false
         };
     }
 
@@ -35,7 +36,9 @@ export default class Timepicker extends React.Component {
     }
 
     componentDidMount() {
-      this.loadKeyboardEventListener(this.handleKeyboardInput.bind(this))
+      if (!this.state.isDisabled) {
+        this.loadKeyboardEventListener(this.handleKeyboardInput.bind(this))
+      }
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -47,25 +50,38 @@ export default class Timepicker extends React.Component {
     }
 
     componentWillUnmount() {
-      this.unloadKeyboardEventListener();
+      if (!this.state.isDisabled) {
+        this.unloadKeyboardEventListener();
+      }
     }
 
     render() {
-        const timepickerStyle = "input-group " + styles.timepickerStyle;
+        const timepickerBlockStyle = "input-group " + styles.timepickerStyle;
+        const timepickerBodyStyle = this.state.isDisabled ? timepickerBlockStyle + ' ' + styles.disabled : timepickerBlockStyle;
+        const formControlStyle = !this.state.isDisabled ? "form-control " + styles.timePart : "form-control " + styles.timePart + ' ' + styles.disabled;
         const removeStyle = "glyphicon glyphicon-remove " + styles.remove;
-        const formControlStyle = "form-control " + styles.timePart;
-        const hourStyle = this.state.partSelected === 'hour' ? styles.selected + " " + styles.hour : styles.hour;
-        const minuteStyle = this.state.partSelected === 'minute' ? styles.selected + " " + styles.hour : styles.hour;
+        const hourStyle = !this.state.isDisabled ? (this.state.partSelected === 'hour' ? styles.selected + " " + styles.hour : styles.hour) : styles.hour;
+        const minuteStyle = !this.state.isDisabled ? (this.state.partSelected === 'minute' ? styles.selected + " " + styles.hour : styles.hour) : styles.hour;
         const timeSelectorStyle = styles.timeMenu;
         const plusStyle = "glyphicon glyphicon-arrow-up " + styles.plus;
         const minusStyle = "glyphicon glyphicon-arrow-down " + styles.minus;
 
         let time = this.convertTimeToArray(this.state.time);
 
+        const timeButton = !this.state.isDisabled ? (
+          <div>
+            <span className={removeStyle} onClick={this.props.handleRemove}></span>
+            <span id="time-selector" className={timeSelectorStyle}>
+                <i className={plusStyle} onClick={(e) => this.changePartTimeSelected(e, 'up')}></i>
+                <i className={minusStyle} onClick={(e) => this.changePartTimeSelected(e, 'down')}></i>
+            </span>
+          </div>
+        ) : null;
+
         return (
-          <span id={this.props.id} className={timepickerStyle}>
+          <span id={this.props.id} className={timepickerBlockStyle}>
                 <ControlLabel>{this.props.label}</ControlLabel>
-                <span className={timepickerStyle}>
+                <span className={timepickerBodyStyle}>
                     <span className={formControlStyle} onClick={(e) => this.selectTimePart(e, null)}>
                         <span id="hour" className={hourStyle} onClick={(e) => this.selectTimePart(e, 'hour')}>
                             { time[0] }
@@ -74,11 +90,7 @@ export default class Timepicker extends React.Component {
                         <span id="minute" className={minuteStyle} onClick={(e) => this.selectTimePart(e, 'minute')}>
                             { time[1] }
                         </span>
-                        <span className={removeStyle} onClick={this.props.handleRemove}></span>
-                        <span id="time-selector" className={timeSelectorStyle}>
-                            <i className={plusStyle} onClick={(e) => this.changePartTimeSelected(e, 'up')}></i>
-                            <i className={minusStyle} onClick={(e) => this.changePartTimeSelected(e, 'down')}></i>
-                        </span>
+                        {timeButton}
                     </span>
                 </span>
             </span>
@@ -243,6 +255,7 @@ Timepicker.propTypes = {
     label: React.PropTypes.string,
     time: React.PropTypes.string,
     format: React.PropTypes.string,
-    updateTimeCallback: React.PropTypes.func,
-    handleRemove: React.PropTypes.func
+    updateTimeCallback: React.PropTypes.func.isRequired,
+    handleRemove: React.PropTypes.func,
+    isDisabled: React.PropTypes.bool
 };
