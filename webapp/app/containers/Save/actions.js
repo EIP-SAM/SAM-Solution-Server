@@ -12,10 +12,7 @@
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
 import { getAllUsers } from './Filters/actions';
-
-import {
-  SAVE_GET_SAVES,
-} from './constants';
+import SAVE_GET_SAVES from './constants';
 
 export function getSaves(saves) {
   return {

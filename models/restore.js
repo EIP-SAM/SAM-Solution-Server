@@ -1,35 +1,35 @@
 //
 // Model Restore
 //
-var Sequelize = require('sequelize');
-var sequelize = require('../libs/sequelize');
+const Sequelize = require('sequelize');
+const sequelize = require('../libs/sequelize');
 
-var UserModel = require('./users');
-var SaveModel = require('./save');
+const UserModel = require('./users');
+const SaveModel = require('./save');
 
-var restore = sequelize.define('restore', {
-    execDate: {
-      type: Sequelize.DATE,
-    },
-    files: {
-      type: Sequelize.TEXT,
-      allowNull: false,
-    },
-    isStart: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false,
-    },
-    isFinish: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false,
-    },
-    isSuccess: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false,
-    },
-  }, {
-    freezeTableName: true,
-  });
+const restore = sequelize.define('restore', {
+  execDate: {
+    type: Sequelize.DATE,
+  },
+  files: {
+    type: Sequelize.TEXT,
+    allowNull: false,
+  },
+  isStart: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
+  isFinish: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
+  isSuccess: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
+}, {
+  freezeTableName: true,
+});
 
 //
 // Setup ForeignKeys
@@ -37,10 +37,5 @@ var restore = sequelize.define('restore', {
 restore.belongsTo(UserModel, { foreignKey: 'userId' });
 UserModel.hasMany(restore);
 restore.belongsTo(SaveModel, { foreignKey: 'saveId' });
-
-//
-// Sync model Restore
-//
-restore.sync();
 
 module.exports = restore;

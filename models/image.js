@@ -10,6 +10,11 @@ const Image = sequelize.define('image', {
     allowNull: false,
     unique: false,
   },
+  fileName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: false,
+  },
   operatingSystem: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -19,14 +24,9 @@ const Image = sequelize.define('image', {
     type: Sequelize.STRING,
     allowNull: false,
     unique: false,
-  }
+  },
 }, {
   freezeTableName: true,
 });
-
-//
-// Synchronise with database
-//
-Image.sync();
 
 module.exports = Image;

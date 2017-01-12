@@ -2,4 +2,5 @@
 // Type user filter save constants
 //
 
-export const SAVE_CURRENT_TYPE_USER = 'SAVE_CURRENT_TYPE_USER';
+const SAVE_CURRENT_TYPE_USER = 'SAVE_CURRENT_TYPE_USER';
+export default SAVE_CURRENT_TYPE_USER;

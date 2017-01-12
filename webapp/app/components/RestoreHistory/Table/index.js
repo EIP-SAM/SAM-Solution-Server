@@ -4,16 +4,17 @@
 
 import React from 'react';
 import { Table } from 'react-bootstrap';
-import { ButtonPopover } from 'components/ButtonPopover';
+import ButtonPopover from 'components/ButtonPopover';
 import RestoreHistoryInstantRestoreModal from 'containers/RestoreHistory/Table/ModalInstantRestore';
 import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Td from 'components/Td';
 import styles from './styles.css';
+
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
-export class RestoreHistoryTable extends React.Component {
+export default class RestoreHistoryTable extends React.Component {
 
   handleRestoreClick(restore) {
     const files = restore.files.split(',');
@@ -24,10 +25,7 @@ export class RestoreHistoryTable extends React.Component {
   }
 
   render() {
-    const names = [{ isLink: false, value: 'Date' },
-                  { isLink: false, value: 'State' },
-                  { isLink: false, value: 'Files' },
-                  { isLink: false, value: 'Actions' }];
+    const names = ['Date', 'State', 'Files', 'Actions'];
 
     return (
       <div>
@@ -36,20 +34,20 @@ export class RestoreHistoryTable extends React.Component {
             <Tr items={names} component={Th} />
           </thead>
           <tbody>
-          {this.props.restores.map((restore, index) => {
-            const displayButton = (restore.isFinish) ? '' : styles.undisplay;
-            const actions = [];
-            actions.push(<ButtonPopover key={`action-${0}`} id="relaunch-restore" trigger={['focus', 'hover']} placement="bottom" popoverContent="Relaunch Restore" buttonType="link" icon="repeat" buttonStyle={displayButton} onClick={() => this.handleRestoreClick(restore)} />);
-            return (
-              <Tr
-                key={`row-${index}`} items={[
+            {this.props.restores.map((restore, index) => {
+              const displayButton = (restore.isFinish) ? '' : styles.undisplay;
+              const actions = [];
+              actions.push(<ButtonPopover key={`action-${0}`} id="relaunch-restore" trigger={['focus', 'hover']} placement="bottom" popoverContent="Relaunch Restore" buttonType="link" icon="repeat" buttonStyle={displayButton} onClick={() => this.handleRestoreClick(restore)} />);
+              return (
+                <Tr
+                  key={`row-${index}`} items={[
                   { isLink: false, value: moment(restore.execDate).format('DD/MM/YYYY HH:mm') },
                   { isLink: false, value: (restore.isStart) ? ((restore.isFinish) ? ((restore.isSuccess) ? 'Succeeded' : 'Failed') : 'In progress') : 'Has been launch' },
                   { isLink: false, value: restore.files },
                   { isLink: false, value: actions }]} component={Td}
-              />
-            );
-          })}
+                />
+              );
+            })}
           </tbody>
         </Table>
         <RestoreHistoryInstantRestoreModal />
@@ -59,7 +57,7 @@ export class RestoreHistoryTable extends React.Component {
 }
 
 RestoreHistoryTable.propTypes = {
-  restores: React.PropTypes.array,
+  restores: React.PropTypes.arrayOf(React.PropTypes.object),
   showInstantRestoreModal: React.PropTypes.func,
   setUserId: React.PropTypes.func,
   selectFiles: React.PropTypes.func,

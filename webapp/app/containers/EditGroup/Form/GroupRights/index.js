@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { EditGroupFormGroupRights } from 'components/EditGroup/Form/GroupRights';
+import EditGroupFormGroupRights from 'components/EditGroup/Form/GroupRights';
 
 function mapStateToProps() {
   return {

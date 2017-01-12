@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { Glyphicon } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import { browserHistory } from 'react-router';
 import styles from './styles.css';
 

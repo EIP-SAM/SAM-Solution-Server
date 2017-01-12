@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveHistoryInstantSaveModal } from 'components/SaveHistory/Table/ModalInstantSave';
+import SaveHistoryInstantSaveModal from 'components/SaveHistory/Table/ModalInstantSave';
 import { resetStateForm } from 'containers/SaveCreation/Form/actions';
 import {
   hideInstantSaveModal,

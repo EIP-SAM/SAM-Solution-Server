@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { RestoreHistoryButtons } from 'components/RestoreHistory/Buttons';
+import RestoreHistoryButtons from 'components/RestoreHistory/Buttons';
 
 function mapStateToProps() {
   return {

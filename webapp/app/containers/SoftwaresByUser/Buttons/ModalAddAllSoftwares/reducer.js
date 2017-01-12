@@ -8,9 +8,7 @@
 //    return state.set('yourStateVariable', true);
 //
 
-import {
-  SOFTWARES_BY_USER_SHOW_ADD_ALL_SOFTWARES_MODAL,
-} from './constants';
+import SOFTWARES_BY_USER_SHOW_ADD_ALL_SOFTWARES_MODAL from './constants';
 
 const initialState = {
   showModal: false,

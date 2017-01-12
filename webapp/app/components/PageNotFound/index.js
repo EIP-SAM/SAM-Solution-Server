@@ -6,7 +6,7 @@ import React from 'react';
 import { Alert, PageHeader } from 'react-bootstrap';
 
 /* eslint-disable react/prefer-stateless-function */
-export class PageNotFound extends React.Component {
+export default class PageNotFound extends React.Component {
   render() {
     return (
       <div>

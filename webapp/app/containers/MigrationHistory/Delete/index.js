@@ -19,7 +19,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     closeDeleteMigrationModal: () => dispatch(setStatusDeleteMigrationModal(false, null)),
-    deleteMigration: (migrationId) => dispatch(deleteMigration(migrationId)),
+    deleteMigration: migrationId => dispatch(deleteMigration(migrationId)),
   };
 }
 

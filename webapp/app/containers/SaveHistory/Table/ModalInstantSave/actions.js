@@ -13,9 +13,7 @@ import request from 'utils/request';
 import { browserHistory } from 'react-router';
 import { resetStateForm } from 'containers/SaveCreation/Form/actions';
 import { getHistorySavesByUserRequest } from 'containers/SaveHistory/actions';
-import {
-  SAVE_HISTORY_SHOW_INSTANT_SAVE_MODAL,
-} from './constants';
+import SAVE_HISTORY_SHOW_INSTANT_SAVE_MODAL from './constants';
 
 export function showInstantSaveModal() {
   return {

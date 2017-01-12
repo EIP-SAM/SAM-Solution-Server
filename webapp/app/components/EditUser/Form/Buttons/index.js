@@ -5,11 +5,14 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import { ButtonToolbar } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from 'components/EditUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class EditUserFormButtons extends React.Component {
+export default class EditUserFormButtons extends React.Component {
+  static handleCancelClick() {
+    browserHistory.goBack();
+  }
 
   handleEditClick(event) {
     event.preventDefault();
@@ -23,23 +26,13 @@ export class EditUserFormButtons extends React.Component {
     if (this.props.email === '') {
       this.props.emailErrorMsg('A user must have an email');
     }
-    /* if (this.props.password === '') {
-      this.props.passwordErrorMsg('A user must have a password');
-    }
-    if (this.props.passwordConfirmation === '') {
-      this.props.passwordConfirmationErrorMsg('Please confirmation your password');
-    }*/
-  }
-
-  handleCancelClick() {
-    browserHistory.goBack();
   }
 
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Edit" onClick={(event) => this.handleEditClick(event)} />
-        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={(event) => this.handleCancelClick(event)} />
+        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Edit" onClick={event => this.handleEditClick(event)} />
+        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => EditUserFormButtons.handleCancelClick()} />
       </ButtonToolbar>
     );
   }
@@ -51,10 +44,8 @@ EditUserFormButtons.propTypes = {
   email: React.PropTypes.string,
   password: React.PropTypes.string,
   passwordConfirmation: React.PropTypes.string,
-  userGroups: React.PropTypes.array,
+  userGroups: React.PropTypes.arrayOf(React.PropTypes.string),
   editUserRequest: React.PropTypes.func,
   usernameErrorMsg: React.PropTypes.func,
   emailErrorMsg: React.PropTypes.func,
-  passwordErrorMsg: React.PropTypes.func,
-  passwordConfirmationErrorMsg: React.PropTypes.func,
 };

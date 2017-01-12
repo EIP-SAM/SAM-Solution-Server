@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { RestoreFiltersGroups } from 'components/Restore/Filters/Groups';
+import RestoreFiltersGroups from 'components/Restore/Filters/Groups';
 import { filterUsers } from 'containers/Restore/Filters/actions';
 import {
   getGroupsRequest,
@@ -22,8 +22,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getGroupsRequest: () => dispatch(getGroupsRequest()),
-    getGroups: (listGroups) => dispatch(getGroups(listGroups)),
-    getCurrentGroup: (currentGroup) => dispatch(getCurrentGroup(currentGroup)),
+    getGroups: listGroups => dispatch(getGroups(listGroups)),
+    getCurrentGroup: currentGroup => dispatch(getCurrentGroup(currentGroup)),
     filterUsers: (currentTypeUser, currentGroup, allUsers) => dispatch(filterUsers(currentTypeUser, currentGroup, allUsers)),
   };
 }

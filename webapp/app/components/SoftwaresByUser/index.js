@@ -9,7 +9,7 @@ import Buttons from 'containers/SoftwaresByUser/Buttons';
 import Table from 'containers/SoftwaresByUser/Table';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SoftwaresByUser extends React.Component {
+export default class SoftwaresByUser extends React.Component {
   componentWillMount() {
     const username = window.location.pathname.split('/')[2];
     this.props.getUsername(username);

@@ -4,11 +4,11 @@
 
 import React from 'react';
 import { Modal, FormControl, ButtonToolbar } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveCreationAddFileModal extends React.Component {
+export default class SaveCreationAddFileModal extends React.Component {
   constructor(props) {
     super(props);
     this.handleFileChange = this.handleFileChange.bind(this);

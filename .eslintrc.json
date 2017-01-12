@@ -1,4 +1,5 @@
 {
+    "extends": "airbnb",
     "env": {
         "browser": true,
         "commonjs": true,
@@ -12,13 +13,17 @@
         "sourceType": "module"
     },
     "rules": {
+        "max-len": "off",
         "no-eval" : "error",
         "no-const-assign": "error",
-        "no-this-before-super": "warn",
+        "no-param-reassign": "off",
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+        "no-restricted-syntax": "off",
+        "no-this-before-super": "error",
         "no-undef": "error",
         "no-unreachable": "warn",
-        "no-unused-vars": "warn",
-        "constructor-super": "warn",
-        "valid-typeof": "warn"
+        "no-unused-vars": "error",
+        "constructor-super": "error",
+        "valid-typeof": "error"
     }
 }

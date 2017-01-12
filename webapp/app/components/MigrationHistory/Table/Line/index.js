@@ -7,9 +7,9 @@ import moment from 'moment';
 import Tr from 'components/Tr';
 import Td from 'components/Td';
 import { Label } from 'react-bootstrap';
-import { ButtonPopover } from 'components/ButtonPopover';
-import styles from './styles.css';
+import ButtonPopover from 'components/ButtonPopover';
 import statusLabel from 'components/MigrationHistory/statusToLabel.json';
+import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class Line extends React.Component {
@@ -67,7 +67,7 @@ export default class Line extends React.Component {
         />
       );
     }
-    return (<span></span>);
+    return (<span />);
   }
 
   deleteMigration() {
@@ -102,7 +102,16 @@ export default class Line extends React.Component {
 
 Line.propTypes = {
   index: React.PropTypes.number,
-  values: React.PropTypes.object,
+  values: React.PropTypes.shape({
+    comment: React.PropTypes.string,
+    id: React.PropTypes.number,
+    image: React.PropTypes.object,
+    imageId: React.PropTypes.number,
+    migrationDate: React.PropTypes.string,
+    status: React.PropTypes.string,
+    user: React.PropTypes.object,
+    userId: React.PropTypes.number,
+  }),
   setSelectedUser: React.PropTypes.func,
   setSelectedImage: React.PropTypes.func,
   setCreateDate: React.PropTypes.func,

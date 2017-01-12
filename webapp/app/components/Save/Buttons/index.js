@@ -4,15 +4,16 @@
 
 import React from 'react';
 import { ButtonToolbar } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from 'components/Save/Buttons/styles.css';
+
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveButtons extends React.Component {
+export default class SaveButtons extends React.Component {
 
   handleClickInstantSave() {
-    this.props.listUsers(this.props.saves.map((save) => (
+    this.props.listUsers(this.props.saves.map(save => (
       { id: save.id, name: save.name }
     )));
     this.props.dateSave(moment().format('DD/MM/YYYY'));
@@ -24,7 +25,7 @@ export class SaveButtons extends React.Component {
   }
 
   handleClickSaveScheduled() {
-    this.props.listUsers(this.props.saves.map((save) => (
+    this.props.listUsers(this.props.saves.map(save => (
       { id: save.id, name: save.name }
     )));
   }
@@ -52,7 +53,7 @@ export class SaveButtons extends React.Component {
 }
 
 SaveButtons.propTypes = {
-  saves: React.PropTypes.array,
+  saves: React.PropTypes.arrayOf(React.PropTypes.object),
   listUsers: React.PropTypes.func,
   dateSave: React.PropTypes.func,
   dateDisabled: React.PropTypes.func,

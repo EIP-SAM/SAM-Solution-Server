@@ -7,7 +7,8 @@ import { PageHeader, Alert } from 'react-bootstrap';
 import GroupTable from 'containers/Groups/Table';
 import GroupsButton from 'containers/Groups/Button';
 
-export class Groups extends React.Component {
+/* eslint-disable react/prefer-stateless-function */
+export default class Groups extends React.Component {
   componentWillMount() {
     this.props.getGroupsRequest();
   }

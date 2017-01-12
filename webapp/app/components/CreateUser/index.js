@@ -7,7 +7,7 @@ import { PageHeader } from 'react-bootstrap';
 import CreateUserForm from 'containers/CreateUser/Form';
 
 /* eslint-disable react/prefer-stateless-function */
-export class CreateUser extends React.Component {
+export default class CreateUser extends React.Component {
   componentWillUnmount() {
     this.props.resetStateForm();
   }

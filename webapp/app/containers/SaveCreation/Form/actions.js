@@ -33,6 +33,7 @@ export function resetStateForm() {
 // Syntaxe state.users : { value: user.id }
 // Check if all elements send through the request are completed
 //
+/* eslint no-restricted-syntax: ["off", "ForOfStatement"] */
 export function createSave(redirect, users, date, time, frequency, files) {
   const usersId = [];
   for (const user of users) {

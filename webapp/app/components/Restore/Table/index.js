@@ -4,15 +4,16 @@
 
 import React from 'react';
 import { Table } from 'react-bootstrap';
-import { ButtonPopover } from 'components/ButtonPopover';
+import ButtonPopover from 'components/ButtonPopover';
 import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Td from 'components/Td';
 import RestoreInstantRestoreModal from 'containers/Restore/Table/ModalInstantRestore';
+
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
-export class RestoreTable extends React.Component {
+export default class RestoreTable extends React.Component {
 
   handleRestoreClick(restore) {
     const files = restore.restores[0].files.split(',');
@@ -23,12 +24,7 @@ export class RestoreTable extends React.Component {
   }
 
   render() {
-    const names = [{ isLink: 'true', link: '#', value: '#' },
-                  { isLink: 'false', value: 'Username' },
-                  { isLink: 'false', value: 'Last Restore date' },
-                  { isLink: 'false', value: 'State' },
-                  { isLink: 'false', value: 'Files' },
-                  { isLink: 'false', value: 'Actions' }];
+    const names = ['#', 'Username', 'Last Restore date', 'State', 'Files', 'Actions'];
 
     return (
       <div>
@@ -63,7 +59,7 @@ export class RestoreTable extends React.Component {
                     { isLink: false, value: '' },
                     { isLink: false, value: actions }]} component={Td}
                 />
-            );
+              );
             })}
           </tbody>
         </Table>
@@ -74,7 +70,7 @@ export class RestoreTable extends React.Component {
 }
 
 RestoreTable.propTypes = {
-  restores: React.PropTypes.array,
+  restores: React.PropTypes.arrayOf(React.PropTypes.object),
   showInstantRestoreModal: React.PropTypes.func,
   setUserId: React.PropTypes.func,
   selectFiles: React.PropTypes.func,

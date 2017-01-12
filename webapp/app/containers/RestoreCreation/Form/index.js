@@ -3,8 +3,8 @@
 //
 
 import { connect } from 'react-redux';
+import RestoreCreationForm from 'components/RestoreCreation/Form';
 import { getHistorySavesByUserRequest } from './actions';
-import { RestoreCreationForm } from 'components/RestoreCreation/Form';
 
 function mapStateToProps() {
   return {
@@ -13,7 +13,7 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getHistorySavesByUserRequest: (username) => dispatch(getHistorySavesByUserRequest(username)),
+    getHistorySavesByUserRequest: username => dispatch(getHistorySavesByUserRequest(username)),
   };
 }
 

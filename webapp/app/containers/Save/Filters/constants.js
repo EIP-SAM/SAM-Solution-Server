@@ -2,4 +2,5 @@
 // Filters save Constants
 //
 
-export const SAVE_GET_ALL_USERS = 'SAVE_GET_ALL_USERS';
+const SAVE_GET_ALL_USERS = 'SAVE_GET_ALL_USERS';
+export default SAVE_GET_ALL_USERS;

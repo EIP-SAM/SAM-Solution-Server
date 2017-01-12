@@ -13,10 +13,7 @@ import request from 'utils/request';
 import { browserHistory } from 'react-router';
 import { resetStateForm } from 'containers/RestoreCreation/Form/actions';
 import { getHistoryRestoresByUserRequest } from 'containers/RestoreHistory/actions';
-
-import {
-  RESTORE_HISTORY_SHOW_INSTANT_RESTORE_MODAL,
-} from './constants';
+import RESTORE_HISTORY_SHOW_INSTANT_RESTORE_MODAL from './constants';
 
 export function showInstantRestoreModal() {
   return {

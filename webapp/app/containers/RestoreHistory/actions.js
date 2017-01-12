@@ -11,10 +11,7 @@
 
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
-
-import {
-  RESTORE_HISTORY_GET_HISTORY_RESTORES_BY_USER,
-} from './constants';
+import RESTORE_HISTORY_GET_HISTORY_RESTORES_BY_USER from './constants';
 
 export function getHistoryRestoresByUser(restores) {
   return {

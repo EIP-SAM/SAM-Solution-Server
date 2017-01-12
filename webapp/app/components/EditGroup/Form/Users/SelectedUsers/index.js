@@ -4,12 +4,12 @@
 
 import React from 'react';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
-import { ButtonPopover } from 'components/ButtonPopover';
+import ButtonPopover from 'components/ButtonPopover';
 import Option from 'components/Option';
 import styles from 'components/EditGroup/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class EditGroupFormSelectedUsers extends React.Component {
+export default class EditGroupFormSelectedUsers extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeSelectedUsers = this.onChangeSelectedUsers.bind(this);
@@ -20,7 +20,7 @@ export class EditGroupFormSelectedUsers extends React.Component {
     const value = [];
     for (let i = 0; i < options.length; i++) {
       if (options[i].selected) {
-        value.push({ id: parseInt(options[i].value), name: options[i].text });
+        value.push({ id: parseInt(options[i].value, 10), name: options[i].text });
       }
     }
     this.props.unselectedUsersOnChange(value);
@@ -31,7 +31,7 @@ export class EditGroupFormSelectedUsers extends React.Component {
     let selectedUsersOption = [];
 
     if (this.props.selectedUsers.length > 0) {
-      selectedUsers = this.props.selectedUsers.map((user) => (
+      selectedUsers = this.props.selectedUsers.map(user => (
         { value: user.id, text: user.name }
       ));
       selectedUsersOption = selectedUsers.map((item, index) => (
@@ -58,6 +58,6 @@ export class EditGroupFormSelectedUsers extends React.Component {
 }
 
 EditGroupFormSelectedUsers.propTypes = {
-  selectedUsers: React.PropTypes.array,
+  selectedUsers: React.PropTypes.arrayOf(React.PropTypes.object),
   unselectedUsersOnChange: React.PropTypes.func,
 };

@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { UserDeletionModal } from 'components/Users/Table/ModalDeletionUser';
+import UserDeletionModal from 'components/Users/Table/ModalDeletionUser';
 import {
   deleteUser,
   hideInstantDeleteModal,
@@ -19,7 +19,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    deleteUser: (userId) => dispatch(deleteUser(userId)),
+    deleteUser: userId => dispatch(deleteUser(userId)),
     hideInstantDeleteModal: () => dispatch(hideInstantDeleteModal()),
   };
 }

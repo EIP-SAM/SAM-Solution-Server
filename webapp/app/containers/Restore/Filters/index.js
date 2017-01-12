@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { RestoreFilters } from 'components/Restore/Filters';
+import RestoreFilters from 'components/Restore/Filters';
 
 function mapStateToProps() {
   return {

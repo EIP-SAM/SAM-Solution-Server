@@ -3,13 +3,12 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveInstantSaveModal } from 'components/Save/Table/ModalInstantSave';
-import { hideInstantSaveModal } from './actions';
+import SaveInstantSaveModal from 'components/Save/Table/ModalInstantSave';
 import {
   resetStateForm,
   createSave,
 } from 'containers/SaveCreation/Form/actions';
-
+import { hideInstantSaveModal } from './actions';
 
 function mapStateToProps(state) {
   return {

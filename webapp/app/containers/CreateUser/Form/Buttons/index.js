@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { CreateUserFormButtons } from 'components/CreateUser/Form/Buttons';
+import CreateUserFormButtons from 'components/CreateUser/Form/Buttons';
 import { createUserRequest } from 'containers/CreateUser/Form/actions';
 import { usernameErrorMsg } from 'containers/CreateUser/Form/Username/actions';
 import { emailErrorMsg } from 'containers/CreateUser/Form/Email/actions';
@@ -23,10 +23,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     createUserRequest: (username, email, password, passwordConfirmation, selectedGroup) => dispatch(createUserRequest(username, email, password, passwordConfirmation, selectedGroup)),
-    usernameErrorMsg: (usernameError) => dispatch(usernameErrorMsg(usernameError)),
-    emailErrorMsg: (emailError) => dispatch(emailErrorMsg(emailError)),
-    passwordErrorMsg: (passwordError) => dispatch(passwordErrorMsg(passwordError)),
-    passwordConfirmationErrorMsg: (passwordConfirmationError) => dispatch(passwordConfirmationErrorMsg(passwordConfirmationError)),
+    usernameErrorMsg: usernameError => dispatch(usernameErrorMsg(usernameError)),
+    emailErrorMsg: emailError => dispatch(emailErrorMsg(emailError)),
+    passwordErrorMsg: passwordError => dispatch(passwordErrorMsg(passwordError)),
+    passwordConfirmationErrorMsg: passwordConfirmationError => dispatch(passwordConfirmationErrorMsg(passwordConfirmationError)),
   };
 }
 

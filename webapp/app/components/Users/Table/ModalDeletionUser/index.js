@@ -4,11 +4,11 @@
 
 import React from 'react';
 import { Modal, ButtonToolbar, Glyphicon } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class UserDeletionModal extends React.Component {
+export default class UserDeletionModal extends React.Component {
   handleDeleteClick() {
     this.props.deleteUser(this.props.userId);
     this.props.hideInstantDeleteModal();

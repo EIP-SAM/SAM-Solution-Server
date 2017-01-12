@@ -4,7 +4,7 @@
 
 import { connect } from 'react-redux';
 import { resetStateForm } from 'containers/RestoreCreation/Form/actions';
-import { RestoreHistoryInstantRestoreModal } from 'components/RestoreHistory/Table/ModalInstantRestore';
+import RestoreHistoryInstantRestoreModal from 'components/RestoreHistory/Table/ModalInstantRestore';
 import {
   hideInstantRestoreModal,
   createRestoreActionRestoreHistory,
@@ -15,7 +15,7 @@ function mapStateToProps(state) {
     showModal: state.get('restoreHistory').get('InstantRestoreModalRestoreHistoryReducer').showModal,
     userId: state.get('restoreCreation').get('UsersRestoreCreationReducer').userId,
     selectedFiles: state.get('restoreCreation').get('FilesRestoreCreationReducer').selectedFiles,
-    save: state.get('restoreCreation').get('SavesRestoreCreationReducer').save,
+    saveId: state.get('restoreCreation').get('SavesRestoreCreationReducer').save.value,
   };
 }
 

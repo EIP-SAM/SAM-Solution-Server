@@ -3,8 +3,8 @@
  */
 
 import expect from 'expect';
-import configureStore from './store';
 import { browserHistory } from 'react-router';
+import configureStore from './store';
 
 describe('configureStore', () => {
   let store;

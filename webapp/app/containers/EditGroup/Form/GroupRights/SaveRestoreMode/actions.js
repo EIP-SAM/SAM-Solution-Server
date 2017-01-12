@@ -9,11 +9,9 @@
 //    }
 //
 
-import {
-  EDIT_GROUP_SAVE_RESTORE_MODE_CHANGE,
-} from './constants';
+import EDIT_GROUP_SAVE_RESTORE_MODE_CHANGE from './constants';
 
-export function saveRestoreModeChange(saveRestoreMode) {
+export default function saveRestoreModeChange(saveRestoreMode) {
   return {
     type: EDIT_GROUP_SAVE_RESTORE_MODE_CHANGE,
     saveRestoreMode,

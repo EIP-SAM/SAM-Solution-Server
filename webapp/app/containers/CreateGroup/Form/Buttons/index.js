@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { CreateGroupFormButtons } from 'components/CreateGroup/Form/Buttons';
+import CreateGroupFormButtons from 'components/CreateGroup/Form/Buttons';
 import { createGroupRequest } from 'containers/CreateGroup/Form/actions';
 import { groupNameErrorMsg } from 'containers/CreateGroup/Form/GroupName/actions';
 
@@ -20,7 +20,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     createGroupRequest: (groupName, saveRestoreMode, migrationMode, softwareMode, users) => dispatch(createGroupRequest(groupName, saveRestoreMode, migrationMode, softwareMode, users)),
-    groupNameErrorMsg: (groupNameError) => dispatch(groupNameErrorMsg(groupNameError)),
+    groupNameErrorMsg: groupNameError => dispatch(groupNameErrorMsg(groupNameError)),
   };
 }
 

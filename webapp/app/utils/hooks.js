@@ -1,4 +1,4 @@
-import createReducer from 'reducers.js';
+import createReducer from 'reducers';
 
 /**
  * Inject an asynchronously loaded reducer
@@ -14,7 +14,7 @@ export function injectAsyncReducer(store) {
  * Inject an asynchronously loaded saga
  */
 export function injectAsyncSagas(store) {
-  return (sagas) => sagas.map(store.runSaga);
+  return sagas => sagas.map(store.runSaga);
 }
 
 /**

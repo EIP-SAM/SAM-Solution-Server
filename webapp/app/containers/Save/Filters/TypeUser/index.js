@@ -3,9 +3,9 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveFiltersTypeUser } from 'components/Save/Filters/TypeUser';
-import { getCurrentTypeUser } from './actions';
+import SaveFiltersTypeUser from 'components/Save/Filters/TypeUser';
 import { filterUsers } from 'containers/Save/Filters/actions';
+import getCurrentTypeUser from './actions';
 
 function mapStateToProps(state) {
   return {
@@ -16,7 +16,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getCurrentTypeUser: (currentTypeUser) => dispatch(getCurrentTypeUser(currentTypeUser)),
+    getCurrentTypeUser: currentTypeUser => dispatch(getCurrentTypeUser(currentTypeUser)),
     filterUsers: (currentTypeUser, currentGroup, allUsers) => dispatch(filterUsers(currentTypeUser, currentGroup, allUsers)),
   };
 }

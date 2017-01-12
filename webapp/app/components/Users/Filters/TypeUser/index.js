@@ -8,7 +8,7 @@ import RadioGroup from 'components/RadioGroup';
 import styles from 'components/Users/Filters/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class UsersFiltersTypeUser extends React.Component {
+export default class UsersFiltersTypeUser extends React.Component {
   constructor(props) {
     super(props);
     this.selectTypeUser = this.selectTypeUser.bind(this);
@@ -34,13 +34,13 @@ export class UsersFiltersTypeUser extends React.Component {
           />
         </Col>
       </FormGroup>
-   );
+    );
   }
 }
 
 UsersFiltersTypeUser.propTypes = {
   currentGroup: React.PropTypes.string,
-  allUsers: React.PropTypes.array,
+  allUsers: React.PropTypes.arrayOf(React.PropTypes.object),
   getCurrentTypeUser: React.PropTypes.func,
   filterUsers: React.PropTypes.func,
 };

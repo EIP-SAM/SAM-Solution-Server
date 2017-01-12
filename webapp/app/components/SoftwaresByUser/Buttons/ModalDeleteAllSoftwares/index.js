@@ -4,11 +4,11 @@
 
 import React from 'react';
 import { Modal, ButtonToolbar, Glyphicon } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from 'components/SoftwaresByUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SoftwaresByUserDeleteAllSoftwaresModal extends React.Component {
+export default class SoftwaresByUserDeleteAllSoftwaresModal extends React.Component {
   handleDeleteAllClick() {
     this.props.hideDeleteAllSoftwaresModal();
     this.props.installSoftwares(this.props.username, this.props.selectedSoftwares);
@@ -43,7 +43,7 @@ export class SoftwaresByUserDeleteAllSoftwaresModal extends React.Component {
 
 SoftwaresByUserDeleteAllSoftwaresModal.propTypes = {
   username: React.PropTypes.string,
-  selectedSoftwares: React.PropTypes.array,
+  selectedSoftwares: React.PropTypes.arrayOf(React.PropTypes.object),
   showModal: React.PropTypes.bool,
   hideDeleteAllSoftwaresModal: React.PropTypes.func,
   installSoftwares: React.PropTypes.func,

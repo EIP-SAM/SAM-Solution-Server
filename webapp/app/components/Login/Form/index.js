@@ -9,7 +9,7 @@ import Buttons from 'containers/Login/Form/Buttons';
 import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class LoginForm extends React.Component {
+export default class LoginForm extends React.Component {
   render() {
     return (
       <form className={styles.login}>

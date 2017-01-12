@@ -3,8 +3,8 @@
 //
 
 import { connect } from 'react-redux';
+import RestoreCreationFiles from 'components/RestoreCreation/Form/Files';
 import { selectFiles } from './actions';
-import { RestoreCreationFiles } from 'components/RestoreCreation/Form/Files';
 
 function mapStateToProps(state) {
   return {
@@ -16,7 +16,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    selectFiles: (selectedFiles) => dispatch(selectFiles(selectedFiles)),
+    selectFiles: selectedFiles => dispatch(selectFiles(selectedFiles)),
   };
 }
 

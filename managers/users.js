@@ -18,6 +18,7 @@ const GroupsAdapter = require('../adapters/groups');
 const rightsManager = require('./rights');
 const mailManager = require('./mail');
 const logger = require('../libs/bunyan').setModuleName('Users & Rights');
+
 const enumModules = rightsManager.enumModules;
 
 const enumUserValues = {
@@ -35,25 +36,26 @@ const gitWorker = require('../workers/git');
 //
 // Create admin if not exists
 //
-initAdminUser();
-
 function initAdminUser() {
   return UsersAdapter.findByName('admin')
-  .then(function (user) {
+  .then((user) => {
     if (!user) {
       UsersAdapter.createAdminUser('admin', 'admin@example.com', crypto.createHmac('sha256', salt).update('admin').digest('hex'))
-      .then(function (user) {
+      .then((usr) => {
         logger.info('Default administrator account created');
         GroupsAdapter.findByName('admin_default')
-        .then(function (group) {
+        .then((group) => {
           if (group) {
-            user.addGroups([group]);
+            usr.addGroups([group]);
           }
         });
       });
     }
   });
 }
+
+// called at the requirement of the file
+initAdminUser();
 
 function checkNewUserName(name) {
   return (!name || !name.length ? 'Empty user name' : null);
@@ -64,48 +66,49 @@ function checkNewUserEmail(email) {
 }
 
 function checkNewUserPassword(password, confirmation) {
-  return (!password || !confirmation || !password.length || password != confirmation ? 'Invalid user password/confirmation' : null);
+  return (!password || !confirmation || !password.length || password !== confirmation ? 'Invalid user password/confirmation' : null);
 }
 
 function checkNewUserValues(name, email, password, confirmation) {
-  var error = null;
-
-  if ((error = checkNewUserName(name))) {
-    return { error: error, field: enumUserValues.NAME };
-  } else if ((error = checkNewUserEmail(email))) {
-    return { error: error, field: enumUserValues.EMAIL };
-  } else if ((error = checkNewUserPassword(password, confirmation))) {
-    return { error: error, field: enumUserValues.PASSWORD };
+  const errorUsername = checkNewUserName(name);
+  const errorEmail = checkNewUserEmail(email);
+  const errorPassword = checkNewUserPassword(password, confirmation);
+  if (errorUsername) {
+    return { error: errorUsername, field: enumUserValues.NAME };
+  } else if (errorEmail) {
+    return { error: errorEmail, field: enumUserValues.EMAIL };
+  } else if (errorPassword) {
+    return { error: errorPassword, field: enumUserValues.PASSWORD };
   }
 
   return null;
 }
 
 function checkAndCreateUser(name, email, password, confirmation) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise((fulfill, reject) => {
     const error = checkNewUserValues(name, email, password, confirmation);
 
     if (error) {
       reject(error, null);
     } else {
       UsersAdapter.findByEmail(email)
-      .then(function (user) {
+      .then((user) => {
         if (!user) {
           UsersAdapter.findByName(name)
-          .then(function (user) {
-            if (!user) {
+          .then((usr) => {
+            if (!usr) {
               UsersAdapter.createUser(name, email, crypto.createHmac('sha256', salt).update(password).digest('hex'))
-              .then(function (user) {
+              .then((newUser) => {
                 GroupsAdapter.findByName('user_default')
-                .then(function (group) {
-                  user.addGroups([group])
-                  .then(function () {
+                .then((group) => {
+                  newUser.addGroups([group])
+                  .then(() => {
                     gitWorker.initNewGitRepo(name)
-                    .catch(function (err) {
+                    .catch((err) => {
                       logger.info(err);
                     });
 
-                    fulfill(user);
+                    fulfill(newUser);
                   });
                 });
               });
@@ -124,148 +127,69 @@ function checkAndCreateUser(name, email, password, confirmation) {
 //
 // Security check for each url of this kind : /api/public/*
 //
-module.exports.ensureLoggedOut = function (req, res, next) {
-  if (req.method == 'OPTIONS') {
+module.exports.ensureLoggedOut = (req, res, next) => {
+  if (req.method === 'OPTIONS') {
     res.end();
+  } else if (req.user) {
+    logger.setUser({ id: req.user.id, name: req.user.name }).warn('Logged user is trying to access a public (logged-out) ressource');
+    res.status(401).json({ error: 'Already logged-in' });
   } else {
-    if (req.user) {
-      logger.setUser({ id: req.user.id, name: req.user.name }).warn('Logged user is trying to access a public (logged-out) ressource');
-      res.status(401).json({ error: 'Already logged-in' });
-    } else {
-      next();
-    }
+    next();
   }
 };
 
 //
 // Security check for each url of this kind : /api/logged-in/*
 //
-module.exports.ensureLoggedIn = function (req, res, next) {
-  if (req.method == 'OPTIONS') {
+module.exports.ensureLoggedIn = (req, res, next) => {
+  if (req.method === 'OPTIONS') {
     res.end();
+  } else if (req.user) {
+    next();
   } else {
-    if (req.user) {
-      next();
-    } else {
-      logger.warn('Non logged user is trying to access a protected ressource');
-      res.status(401).json({ error: 'Not logged-in' });
-    }
+    logger.warn('Non logged user is trying to access a protected ressource');
+    res.status(401).json({ error: 'Not logged-in' });
   }
 };
 
 //
 // Security check for each url of this kind : /api/logged-in/admin/*
 //
-module.exports.ensureAdminLoggedIn = function (req, res, next) {
-  if (req.method == 'OPTIONS') {
+module.exports.ensureAdminLoggedIn = (req, res, next) => {
+  if (req.method === 'OPTIONS') {
     res.end();
+  } else if (req.user.isAdmin) {
+    next();
   } else {
-    if (req.user.isAdmin) {
-      next();
-    } else {
-      logger.setUser({ id: req.user.id, name: req.user.name }).warn('Non admin user is trying to access a protected ressource');
-      res.status(401).json({ error: 'Access denied' });
-    }
+    logger.setUser({ id: req.user.id, name: req.user.name }).warn('Non admin user is trying to access a protected ressource');
+    res.status(401).json({ error: 'Access denied' });
   }
 };
 
 //
 // User identification for passport library
 //
-module.exports.identifyUser = function (name, password) {
-  return new Promise(function (fulfill, reject) {
-    UsersAdapter.findByName(name).then(function (user) {
-      if (user) {
-        if (password && user.password == crypto.createHmac('sha256', salt).update(password).digest('hex')) {
-          fulfill(user);
-        } else {
-          reject('Invalid password', null);
-        }
+module.exports.identifyUser = (name, password) => new Promise((fulfill, reject) => {
+  UsersAdapter.findByName(name).then((user) => {
+    if (user) {
+      if (password && user.password === crypto.createHmac('sha256', salt).update(password).digest('hex')) {
+        fulfill(user);
       } else {
-        reject('Unknown user', null);
+        reject('Invalid password', null);
       }
-    }).catch(function (error) {
-      reject(null, error);
-    });
+    } else {
+      reject('Unknown user', null);
+    }
+  }).catch((error) => {
+    reject(null, error);
   });
-};
-
-//
-// Log the user in the system and create a session for him
-// Entry point from the login POST route
-//
-module.exports.login = function (passport) {
-  return function (req, res, next) {
-    passport.authenticate('local', function (err, user, info) {
-      if (err) {
-        logger.setUser(user).error('User login failure, internal server error: ' + err);
-        return res.status(500).json({ error: 'Internal server error' });
-      }
-
-      if (!user) {
-        logger.warn('User login failure: ' + info.message);
-        return res.status(401).json({ error: info.message });
-      }
-
-      req.logIn(user, function (err) {
-        if (err) {
-          logger.setUser(user).error('User login failure, internal server error' + err);
-          return res.status(500).json({ error: 'Internal server error' });
-        } else {
-          constructUserProfile(user).then(function (userProfile) {
-            logger.setUser({ id: req.user.id, name: req.user.name }).info('User successfully logged in');
-            return res.status(200).json(userProfile);
-          });
-        }
-      });
-
-    })(req, res, next);
-  };
-};
-
-//
-// Logout the user and destroy his current session
-// Entry point from the logout POST route
-//
-module.exports.logout = function () {
-  return function (req, res) {
-    const user = req.user;
-
-    req.logout();
-    req.session.save(function () {
-      logger.setUser({ id: user.id, name: user.name }).info('User successfully logged out');
-      res.status(200).end();
-    });
-  };
-};
-
-//
-// Create user entry point from its POST route
-//
-module.exports.createUser = function () {
-  return function (req, res) {
-    checkAndCreateUser(req.body.username, req.body.email, req.body.password, req.body.confirmation)
-      .then(function (user) {
-        logger.setUser({ id: user.id, name: user.name }).info('New user created');
-        return res.status(200).json({ success: 'User successfully created' });
-      }).catch(function (userCreationError, internalError) {
-        if (internalError) {
-          logger.error('Internal error during user creation: ' + internalError);
-          return res.status(500).json({ error: 'Internal server error' });
-        } else {
-          logger.warn('Error during user creation:' + userCreationError);
-          return res.status(405).json(userCreationError);
-        }
-      }
-    );
-  };
-};
+});
 
 //
 // Construct a safe and showable user profile from a user (for client side)
 //
 function constructUserProfile(user) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise((fulfill) => {
     const userProfile = {
       id: user.id,
       name: user.name,
@@ -277,7 +201,7 @@ function constructUserProfile(user) {
       groups: [],
     };
 
-    user.groups.forEach(function (group) {
+    user.groups.forEach((group) => {
       userProfile.groups.push({
         name: group.name,
         saveAndRestoreMode: group.saveAndRestoreMode,
@@ -289,6 +213,67 @@ function constructUserProfile(user) {
     fulfill(userProfile);
   });
 }
+
+//
+// Log the user in the system and create a session for him
+// Entry point from the login POST route
+//
+module.exports.login = passport => (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      logger.setUser(user).error(`User login failure, internal server error: ${err}`);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    if (!user) {
+      logger.warn(`User login failure: ${info.message}`);
+      return res.status(401).json({ error: info.message });
+    }
+
+    return req.logIn(user, () => {
+      if (err) {
+        logger.setUser(user).error(`User login failure, internal server error${err}`);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+      return constructUserProfile(user).then((userProfile) => {
+        logger.setUser({ id: req.user.id, name: req.user.name }).info('User successfully logged in');
+        return res.status(200).json(userProfile);
+      });
+    });
+  })(req, res, next);
+};
+
+//
+// Logout the user and destroy his current session
+// Entry point from the logout POST route
+//
+module.exports.logout = () => (req, res) => {
+  const user = req.user;
+
+  req.logout();
+  req.session.save(() => {
+    logger.setUser({ id: user.id, name: user.name }).info('User successfully logged out');
+    res.status(200).end();
+  });
+};
+
+//
+// Create user entry point from its POST route
+//
+module.exports.createUser = () => (req, res) => {
+  checkAndCreateUser(req.body.username, req.body.email, req.body.password, req.body.confirmation)
+      .then((user) => {
+        logger.setUser({ id: user.id, name: user.name }).info('New user created');
+        return res.status(200).json({ success: 'User successfully created' });
+      }).catch((userCreationError, internalError) => {
+        if (internalError) {
+          logger.error(`Internal error during user creation: ${internalError}`);
+          return res.status(500).json({ error: 'Internal server error' });
+        }
+        logger.warn(`Error during user creation:${userCreationError}`);
+        return res.status(405).json(userCreationError);
+      });
+};
 
 //
 // Email template for the user password recovery
@@ -314,25 +299,109 @@ function generatePasswordAndMessageBody() {
 }
 
 //
+// Check new user name, set model field to update, or reject with error
+//
+function prepareUserNameUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject) {
+  let error = null;
+
+  if (userUpdateRequest.name) {
+    error = checkNewUserName(userUpdateRequest.name);
+    if (!error) {
+      userModel.name = userUpdateRequest.name;
+      fieldsToUpdate.push('name');
+    } else {
+      reject({ error, field: enumUserValues.NAME });
+    }
+  }
+}
+
+//
+// Check new user email, set model field to update, or reject with error
+//
+function prepareUserEmailUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject) {
+  let error = null;
+
+  if (userUpdateRequest.email) {
+    error = checkNewUserEmail(userUpdateRequest.email);
+    if (!error) {
+      userModel.email = userUpdateRequest.email;
+      fieldsToUpdate.push('email');
+    } else {
+      reject({ error, field: enumUserValues.EMAIL });
+    }
+  }
+}
+
+//
+// Check new user password, set model field to update, or reject with error
+//
+function prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject) {
+  let error = null;
+
+  if (userUpdateRequest.password) {
+    error = checkNewUserPassword(userUpdateRequest.password, userUpdateRequest.confirmation);
+    if (!error) {
+      userModel.password = crypto.createHmac('sha256', salt).update(userUpdateRequest.password).digest('hex');
+      fieldsToUpdate.push('password');
+    } else {
+      reject({ error, field: enumUserValues.PASSWORD });
+    }
+  }
+}
+
+//
+// Update user profile, if possible, or reject with error
+//
+function updateUserProfile(userModel, userUpdateRequest) {
+  const promise = new Promise((fulfill, reject) => {
+    const fieldsToUpdate = [];
+
+    prepareUserNameUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
+    prepareUserEmailUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
+    prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
+
+    if (!fieldsToUpdate.length) {
+      reject({ error: 'No update needed', field: enumUserValues.ALL });
+    }
+
+    userModel.save({ fields: fieldsToUpdate }).then((user) => {
+      fulfill(user);
+    }).catch((error) => {
+      const failure = error.errors[0];
+
+      if (failure.type === 'unique violation') {
+        let enumField = enumUserValues.ALL;
+        const errorMessage = `A user with this ${failure.path} already exists`;
+
+        enumField = failure.path === 'name' ? enumUserValues.NAME : enumField;
+        enumField = failure.path === 'email' ? enumUserValues.EMAIL : enumField;
+        reject({ error: errorMessage, field: enumField });
+      }
+    });
+  });
+  return promise;
+}
+
+//
 // Generate a new password for the user associated with the given email address,
 // send the new password to the user by email, and then assign the new password
 // to the user. Reject with an error message if there is something not valid or
 // not normal.
 //
 function recoverUserPassword(userEmail) {
-  return new Promise(function (fulfill, reject) {
-    UsersAdapter.findByEmail(userEmail).then(function (user) {
+  return new Promise((fulfill, reject) => {
+    UsersAdapter.findByEmail(userEmail).then((user) => {
       if (user) {
         const passwordAndMessageBody = generatePasswordAndMessageBody();
 
         mailManager.send(userEmail, '[SAM-Solution] Password recovery', passwordAndMessageBody.messageBody)
-        .then(function (mailInfo) {
-          updateUserProfile(user, passwordAndMessageBody).then(function (user) {
-            fulfill(user);
-          }).catch(function (error) {
+        .then(() => {
+          updateUserProfile(user, passwordAndMessageBody).then((usr) => {
+            fulfill(usr);
+          }).catch(() => {
             reject(null, 'Internal server error');
           });
-        }).catch(function (error) {
+        }).catch(() => {
           reject('Unable to send an email to this email', null);
         });
       } else {
@@ -345,178 +414,84 @@ function recoverUserPassword(userEmail) {
 //
 // Recover user password entry point from its POST route
 //
-module.exports.recoverUserPassword = function () {
-  return function (req, res) {
-    const userEmail = req.body.email;
+module.exports.recoverUserPassword = () => (req, res) => {
+  const userEmail = req.body.email;
 
-    if (userEmail) {
-      recoverUserPassword(userEmail).then(function (user) {
-        logger.setUser({ id: user.id, name: user.name }).info('Password recovery message successfully sent to the user email');
-        res.status(200).json({ success: 'An email has been successfully sent to ' + userEmail });
-      })
-      .catch(function (usualError, internalError) {
-        if (internalError) {
-          logger.error('Internal error during user password recovery: ' + internalError);
-          return res.status(500).json({ error: 'Internal server error' });
-        } else {
-          logger.warn('Error during user password recovery: ' + usualError);
-          return res.status(405).json({ error: usualError });
-        }
-      });
-    } else {
-      logger.warn('Error during user password recovery: empty email field');
-      return res.status(405).json({ error: 'Empty email field' });
-    }
-  };
+  if (userEmail) {
+    return recoverUserPassword(userEmail).then((user) => {
+      logger.setUser({ id: user.id, name: user.name }).info('Password recovery message successfully sent to the user email');
+      res.status(200).json({ success: `An email has been successfully sent to ${userEmail}` });
+    }).catch((usualError, internalError) => {
+      if (internalError) {
+        logger.error(`Internal error during user password recovery: ${internalError}`);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+      logger.warn(`Error during user password recovery: ${usualError}`);
+      return res.status(405).json({ error: usualError });
+    });
+  }
+  logger.warn('Error during user password recovery: empty email field');
+  return res.status(405).json({ error: 'Empty email field' });
 };
 
 //
 // Retrieve user profile for its GET route
 //
-module.exports.retrieveUserProfile = function () {
-  return function (req, res) {
-    UsersAdapter.findById(req.user.id).then(function (user) {
-      if (user) {
-        constructUserProfile(user).then(function (userProfile) {
-          res.status(200).json(userProfile);
-        });
-      } else {
-        res.status(500).json({ error: 'Internal server error' });
-      }
-    }).catch(function (error) {
+module.exports.retrieveUserProfile = () => (req, res) => {
+  UsersAdapter.findById(req.user.id).then((user) => {
+    if (user) {
+      constructUserProfile(user).then((userProfile) => {
+        res.status(200).json(userProfile);
+      });
+    } else {
       res.status(500).json({ error: 'Internal server error' });
-    });
-  };
+    }
+  }).catch(() => {
+    res.status(500).json({ error: 'Internal server error' });
+  });
 };
 
-//
-// Check new user name, set model field to update, or reject with error
-//
-function prepareUserNameUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject) {
-  var error = null;
-
-  if (userUpdateRequest.name) {
-    if (!(error = checkNewUserName(userUpdateRequest.name))) {
-      userModel.name = userUpdateRequest.name;
-      fieldsToUpdate.push('name');
-    } else {
-      reject({ error: error, field: enumUserValues.NAME });
-    }
-  }
-}
-
-//
-// Check new user email, set model field to update, or reject with error
-//
-function prepareUserEmailUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject) {
-  var error = null;
-
-  if (userUpdateRequest.email) {
-    if (!(error = checkNewUserEmail(userUpdateRequest.email))) {
-      userModel.email = userUpdateRequest.email;
-      fieldsToUpdate.push('email');
-    } else {
-      reject({ error: error, field: enumUserValues.EMAIL });
-    }
-  }
-}
-
-//
-// Check new user password, set model field to update, or reject with error
-//
-function prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject) {
-  var error = null;
-
-  if (userUpdateRequest.password) {
-    if (!(error = checkNewUserPassword(userUpdateRequest.password, userUpdateRequest.confirmation))) {
-      userModel.password = crypto.createHmac('sha256', salt).update(userUpdateRequest.password).digest('hex');
-      fieldsToUpdate.push('password');
-    } else {
-      reject({ error: error, field: enumUserValues.PASSWORD });
-    }
-  }
-}
-
-//
-// Update user profile, if possible, or reject with error
-//
-function updateUserProfile(userModel, userUpdateRequest) {
-  const promise = new Promise(function (fulfill, reject) {
-    const fieldsToUpdate = [];
-
-    prepareUserNameUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
-    prepareUserEmailUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
-    prepareUserPasswordUpdate(userModel, userUpdateRequest, fieldsToUpdate, reject);
-
-    if (!fieldsToUpdate.length) {
-      reject({ error: 'No update needed', field: enumUserValues.ALL });
-    }
-
-    userModel.save({ fields: fieldsToUpdate }).then(function (user) {
-      fulfill(user);
-    }).catch(function (error) {
-      const failure = error.errors[0];
-
-      if (failure.type == 'unique violation') {
-        var enumField = enumUserValues.ALL;
-        const errorMessage = 'A user with this ' + failure.path + ' already exists';
-
-        enumField = failure.path == 'name' ? enumUserValues.NAME : enumField;
-        enumField = failure.path == 'email' ? enumUserValues.EMAIL : enumField;
-        reject({ error: errorMessage, field: enumField });
-      }
-    });
-  });
-
-  return promise;
-}
 
 //
 // Update user profile entry point from its POST route
 //
-module.exports.updateUserProfile = function () {
-  return function (req, res) {
-    const userUpdate = {};
+module.exports.updateUserProfile = () => (req, res) => {
+  const userUpdate = {};
 
-    userUpdate.name = req.body.name ? req.body.name : null;
-    userUpdate.email = req.body.email ? req.body.email : null;
-    userUpdate.password = req.body.password ? req.body.password : null;
-    userUpdate.confirmation = req.body.confirmation ? req.body.confirmation : null;
+  userUpdate.name = req.body.name ? req.body.name : null;
+  userUpdate.email = req.body.email ? req.body.email : null;
+  userUpdate.password = req.body.password ? req.body.password : null;
+  userUpdate.confirmation = req.body.confirmation ? req.body.confirmation : null;
 
-    updateUserProfile(req.user, userUpdate).then(function (user) {
-      logger.setUser({ id: req.user.id, name: req.user.name }).info('Successfull user profile update');
-      return res.status(200).json({ success: 'Your profile has been successfully updated' });
-    })
-    .catch(function (error) {
-      logger.setUser({ id: req.user.id, name: req.user.name }).warn('User profile update error: ' + error);
+  updateUserProfile(req.user, userUpdate).then(() => {
+    logger.setUser({ id: req.user.id, name: req.user.name }).info('Successfull user profile update');
+    return res.status(200).json({ success: 'Your profile has been successfully updated' });
+  })
+    .catch((error) => {
+      logger.setUser({ id: req.user.id, name: req.user.name }).warn(`User profile update error: ${error}`);
       return res.status(405).json(error);
     });
-  };
 };
 
 //
 // Retrieve all users for its GET route
 //
-module.exports.retrieveAllUsers = function (errors) {
-  return function (req, res) {
-    UsersAdapter.findAll().then(function (users) {
-      const output = { users: users };
+module.exports.retrieveAllUsers = errors => (req, res) => {
+  UsersAdapter.findAll().then((users) => {
+    const output = { users };
 
-      users.forEach(function (user) {
-        user.saveAndRestoreMode = rightsManager.getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user);
-        user.migrationMode = rightsManager.getModuleRightForUser(enumModules.MIGRATION, user);
-        user.softwarePackagesMode = rightsManager.getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user);
-      });
-
-      if (errors) {
-        output.errors = errors;
-      }
-
-      return res.status(200).json(output);
-    }).catch(function (error) {
-      return res.status(500).json({ error: 'Internal server error' });
+    users.forEach((user) => {
+      user.saveAndRestoreMode = rightsManager.getModuleRightForUser(enumModules.SAVE_AND_RESTORE, user);
+      user.migrationMode = rightsManager.getModuleRightForUser(enumModules.MIGRATION, user);
+      user.softwarePackagesMode = rightsManager.getModuleRightForUser(enumModules.SOFTWARE_PACKAGES, user);
     });
-  };
+
+    if (errors) {
+      output.errors = errors;
+    }
+
+    return res.status(200).json(output);
+  }).catch(() => res.status(500).json({ error: 'Internal server error' }));
 };
 
 function stopForEachPromise(obj, newError, fulfill) {
@@ -524,25 +499,25 @@ function stopForEachPromise(obj, newError, fulfill) {
     obj.errors.push({ error: newError });
   }
 
-  if (++obj.i == obj.array.length) {
+  obj.i += 1;
+  if (obj.i === obj.array.length) {
     fulfill(obj.errors.length ? obj.errors : null);
   }
 }
 
 function createUsers(users) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise((fulfill) => {
     const obj = { errors: [], i: 0, array: users };
 
-    users.forEach(function (user) {
+    users.forEach((user) => {
       checkAndCreateUser(user.name, user.email, user.password, user.confirmation)
-      .then(function (newUser) {
-        if (user.groups && user.groups.constructor == Array) {
-          GroupsAdapter.reassignGroupsToUser(newUser, user.groups).then(function () {
+      .then((newUser) => {
+        if (user.groups && user.groups.constructor === Array) {
+          GroupsAdapter.reassignGroupsToUser(newUser, user.groups).then(() => {
             logger.setUser({ id: newUser.id, name: newUser.name }).info('New user created (by an administrator)');
             stopForEachPromise(obj, null, fulfill);
-
-          }).catch(function (error) {
-            logger.warn({ error: error }, 'Error during user update (by an administrator)');
+          }).catch((error) => {
+            logger.warn({ error }, 'Error during user update (by an administrator)');
             stopForEachPromise(obj, null, fulfill);
           });
         } else {
@@ -550,8 +525,8 @@ function createUsers(users) {
           stopForEachPromise(obj, null, fulfill);
         }
       })
-      .catch(function (error) {
-        logger.warn('Error during new user creation (by an administrator): ' + error.error);
+      .catch((error) => {
+        logger.warn(`Error during new user creation (by an administrator): ${error.error}`);
         stopForEachPromise(obj, error, fulfill);
       });
     });
@@ -561,34 +536,29 @@ function createUsers(users) {
 //
 // Create users entry point from its POST route
 //
-module.exports.createUsers = function () {
-  return function (req, res) {
-    if (req.body.users && req.body.users.constructor == Array) {
-      createUsers(req.body.users).then(function (errors) {
-        return module.exports.retrieveAllUsers(errors)(req, res);
-      });
-    } else {
-      logger.error('Error during new user creation (by an administrator): Invalid request');
-      return res.status(405).json({ error: 'Invalid request' });
-    }
-  };
+module.exports.createUsers = () => (req, res) => {
+  if (req.body.users && req.body.users.constructor === Array) {
+    return createUsers(req.body.users).then(errors => module.exports.retrieveAllUsers(errors)(req, res));
+  }
+  logger.error('Error during new user creation (by an administrator): Invalid request');
+  return res.status(405).json({ error: 'Invalid request' });
 };
 
 function updateUsers(users) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise((fulfill) => {
     const obj = { errors: [], i: 0, array: users };
 
-    users.forEach(function (user) {
+    users.forEach((user) => {
       if (user.id) {
-        UsersAdapter.findById(user.id).then(function (foundUser) {
+        UsersAdapter.findById(user.id).then((foundUser) => {
           if (foundUser) {
-            updateUserProfile(foundUser, user).then(function (updatedUser) {
-              if (user.groups && user.groups.constructor == Array) {
-                GroupsAdapter.reassignGroupsToUser(foundUser, user.groups).then(function () {
+            updateUserProfile(foundUser, user).then((updatedUser) => {
+              if (user.groups && user.groups.constructor === Array) {
+                GroupsAdapter.reassignGroupsToUser(foundUser, user.groups).then(() => {
                   logger.setUser({ id: updatedUser.id, name: updatedUser.name }).info('User updated (by an administrator)');
                   stopForEachPromise(obj, null, fulfill);
-                }).catch(function (error) {
-                  logger.warn({ error: error }, 'Error during user update (by an administrator)');
+                }).catch((error) => {
+                  logger.warn({ error }, 'Error during user update (by an administrator)');
                   stopForEachPromise(obj, null, fulfill);
                 });
               } else {
@@ -596,13 +566,13 @@ function updateUsers(users) {
                 stopForEachPromise(obj, null, fulfill);
               }
             })
-            .catch(function (error) {
-              logger.warn('Error during user update (by an administrator): ' + error.error);
+            .catch((error) => {
+              logger.warn(`Error during user update (by an administrator): ${error.error}`);
               stopForEachPromise(obj, error, fulfill);
             });
           } else {
-            logger.warn('Error during user update (by an administrator): ' + 'User id ' + user.id + ' not found');
-            stopForEachPromise(obj, 'User id ' + user.id + ' not found', fulfill);
+            logger.warn(`${'Error during user update (by an administrator): User id '}${user.id} not found`);
+            stopForEachPromise(obj, `User id ${user.id} not found`, fulfill);
           }
         });
       } else {
@@ -616,33 +586,28 @@ function updateUsers(users) {
 //
 // Update users entry point from its POST route
 //
-module.exports.updateUsers = function () {
-  return function (req, res) {
-    if (req.body.users && req.body.users.constructor == Array) {
-      updateUsers(req.body.users).then(function (errors) {
-        return module.exports.retrieveAllUsers(errors)(req, res);
-      });
-    } else {
-      logger.error('Error during user update (by an administrator): Invalid request');
-      return res.status(405).json({ error: 'Invalid request' });
-    }
-  };
+module.exports.updateUsers = () => (req, res) => {
+  if (req.body.users && req.body.users.constructor === Array) {
+    return updateUsers(req.body.users).then(errors => module.exports.retrieveAllUsers(errors)(req, res));
+  }
+  logger.error('Error during user update (by an administrator): Invalid request');
+  return res.status(405).json({ error: 'Invalid request' });
 };
 
 function deleteUsers(users) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise((fulfill) => {
     const obj = { errors: [], i: 0, array: users };
 
-    users.forEach(function (userId) {
-      UsersAdapter.findById(userId).then(function (user) {
+    users.forEach((userId) => {
+      UsersAdapter.findById(userId).then((user) => {
         if (user) {
-          user.destroy().then(function () {
+          user.destroy().then(() => {
             logger.setUser({ id: userId }).info('User deleted (by an administrator)');
             stopForEachPromise(obj, null, fulfill);
           });
         } else {
-          logger.warn('Error during user deletion (by an administrator): ' + 'User id ' + userId + ' not found');
-          stopForEachPromise(obj, 'User id ' + userId + ' not found', fulfill);
+          logger.warn(`${'Error during user deletion (by an administrator): User id '}${userId} not found`);
+          stopForEachPromise(obj, `User id ${userId} not found`, fulfill);
         }
       });
     });
@@ -652,34 +617,27 @@ function deleteUsers(users) {
 //
 // Delete users entry point from its POST route
 //
-module.exports.deleteUsers = function () {
-  return function (req, res) {
-    if (req.body.users && req.body.users.constructor == Array) {
-      deleteUsers(req.body.users).then(function (errors) {
-        return module.exports.retrieveAllUsers(errors)(req, res);
-      });
-    } else {
-      logger.error('Error during user deletion (by an administrator): Invalid request');
-      return res.status(405).json({ error: 'Invalid request' });
-    }
-  };
+module.exports.deleteUsers = () => (req, res) => {
+  if (req.body.users && req.body.users.constructor === Array) {
+    return deleteUsers(req.body.users).then(errors => module.exports.retrieveAllUsers(errors)(req, res));
+  }
+  logger.error('Error during user deletion (by an administrator): Invalid request');
+  return res.status(405).json({ error: 'Invalid request' });
 };
 
 function retrieveUserFromId(req, id) {
-  return new Promise(function (fulfill, reject) {
-    UsersAdapter.findById(id).then(function (user) {
+  return new Promise((fulfill, reject) => {
+    UsersAdapter.findById(id).then((user) => {
       if (user) {
-        constructUserProfile(user).then(function (user) {
-          fulfill(user);
+        constructUserProfile(user).then((usr) => {
+          fulfill(usr);
         });
+      } else if (req.user.isAdmin) {
+        reject(404, 'User not found');
       } else {
-        if (req.user.isAdmin) {
-          reject(404, 'User not found');
-        } else {
-          reject(500, 'Internal server error');
-        }
+        reject(500, 'Internal server error');
       }
-    }).catch(function (error) {
+    }).catch((error) => {
       reject(500, error);
     });
   });
@@ -688,46 +646,38 @@ function retrieveUserFromId(req, id) {
 //
 // Retrieve user for its GET route
 //
-module.exports.retrieveUser = function (errors) {
-  return function (req, res) {
-    if (req.query.id) {
-      if (req.user.id == req.query.id) {
-        retrieveUserFromId(req, req.query.id).then(function (user) {
-          return res.status(200).json(user);
-        }).catch(function (code, error) {
-          logger.setUser({ id: req.user.id, name: req.user.name }).error(error);
-          return res.status(code).json({ error: error });
-        });
-      } else if (req.user.isAdmin) {
-        retrieveUserFromId(req, req.query.id).then(function (user) {
-          return res.status(200).json(user);
-        }).catch(function (code, error) {
-          logger.setUser({ id: req.user.id, name: req.user.name }).error(error);
-          return res.status(code).json({ error: error });
-        });
-      } else {
-        logger.setUser({ id: req.user.id, name: req.user.name }).warn('Trying to access a protected ressource');
-        return res.status(401).json({ error: 'Access denied' });
-      }
-    } else {
-      logger.setUser({ id: req.user.id, name: req.user.name }).warn('Invalid request');
-      return res.status(405).json({ error: 'Invalid request' });
+module.exports.retrieveUser = () => (req, res) => {
+  if (req.query.id) {
+    if (req.user.id === req.query.id) {
+      return retrieveUserFromId(req, req.query.id).then(user => res.status(200).json(user)).catch((code, error) => {
+        logger.setUser({ id: req.user.id, name: req.user.name }).error(error);
+        return res.status(code).json({ error });
+      });
+    } else if (req.user.isAdmin) {
+      return retrieveUserFromId(req, req.query.id).then(user => res.status(200).json(user)).catch((code, error) => {
+        logger.setUser({ id: req.user.id, name: req.user.name }).error(error);
+        return res.status(code).json({ error });
+      });
     }
-  };
+    logger.setUser({ id: req.user.id, name: req.user.name }).warn('Trying to access a protected ressource');
+    return res.status(401).json({ error: 'Access denied' });
+  }
+  logger.setUser({ id: req.user.id, name: req.user.name }).warn('Invalid request');
+  return res.status(405).json({ error: 'Invalid request' });
 };
 
 function updateUserFromId(user) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise((fulfill, reject) => {
     if (user.id) {
-      UsersAdapter.findById(user.id).then(function (foundUser) {
+      UsersAdapter.findById(user.id).then((foundUser) => {
         if (foundUser) {
-          updateUserProfile(foundUser, user).then(function (updatedUser) {
-            if (user.groups && user.groups.constructor == Array) {
-              GroupsAdapter.reassignGroupsToUser(foundUser, user.groups).then(function () {
+          updateUserProfile(foundUser, user).then((updatedUser) => {
+            if (user.groups && user.groups.constructor === Array) {
+              GroupsAdapter.reassignGroupsToUser(foundUser, user.groups).then(() => {
                 logger.setUser({ id: updatedUser.id, name: updatedUser.name }).info('User updated');
                 fulfill(updatedUser);
-              }).catch(function (error) {
-                logger.warn({ error: error }, 'Error during user update');
+              }).catch((error) => {
+                logger.warn({ error }, 'Error during user update');
                 reject({ code: 500, error: 'Internal server error' });
               });
             } else {
@@ -735,12 +685,12 @@ function updateUserFromId(user) {
               fulfill(updatedUser);
             }
           })
-          .catch(function (error) {
+          .catch((error) => {
             logger.warn('Error during user update', error.error);
-            reject({ code: 500, error: error });
+            reject({ code: 500, error });
           });
         } else {
-          logger.warn('Error during user update', 'User id ' + user.id + ' not found');
+          logger.warn('Error during user update', `User id ${user.id} not found`);
           reject({ code: 500, error: 'Internal server error' });
         }
       });
@@ -754,69 +704,49 @@ function updateUserFromId(user) {
 //
 // Update user entry point from its POST route
 //
-module.exports.updateUser = function () {
-  return function (req, res) {
-    if (req.body.id) {
-      if (req.user.id == req.body.id) {
-        updateUserFromId(req.body).then(function (user) {
-          constructUserProfile(user).then(function (user) {
-            return res.status(200).json(user);
-          });
-        }).catch(function (error) {
-          return res.status(error.code).json(error.error);
-        });
-      } else if (req.user.isAdmin) {
-        updateUserFromId(req.body).then(function (user) {
-          constructUserProfile(user).then(function (user) {
-            return res.status(200).json(user);
-          });
-        }).catch(function (error) {
-          return res.status(error.code).json(error.error);
-        });
-      } else {
-        return res.status(401).json({ error: 'Access denied' });
-      }
-    } else {
-      return res.status(405).json({ error: 'Invalid request' });
+module.exports.updateUser = () => (req, res) => {
+  if (req.body.id) {
+    if (req.user.id === req.body.id) {
+      return updateUserFromId(req.body).then((user) => {
+        constructUserProfile(user).then(usr => res.status(200).json(usr));
+      }).catch(error => res.status(error.code).json(error.error));
+    } else if (req.user.isAdmin) {
+      return updateUserFromId(req.body).then((user) => {
+        constructUserProfile(user).then(usr => res.status(200).json(usr));
+      }).catch(error => res.status(error.code).json(error.error));
     }
-  };
+    return res.status(401).json({ error: 'Access denied' });
+  }
+  return res.status(405).json({ error: 'Invalid request' });
 };
 
 //
 // Delete user entry point from its POST route
 //
-module.exports.deleteUser = function () {
-  return function (req, res) {
-    if (req.body.id) {
-      UsersAdapter.findById(req.body.id).then(function (user) {
-        if (user) {
-          user.destroy().then(function () {
-            logger.setUser({ id: req.body.id }).info('User deleted (by an administrator)');
-            return res.status(200).json({ message: 'User deleted' });
-          });
-        } else {
-          logger.warn('Error during user deletion (by an administrator): ' + 'User id ' + req.body.id + ' not found');
-          return res.status(404).json({ error: 'User not found' });
-        }
-      });
-    } else {
-      return res.status(405).json({ error: 'Invalid request' });
-    }
-  };
+module.exports.deleteUser = () => (req, res) => {
+  if (req.body.id) {
+    return UsersAdapter.findById(req.body.id).then((user) => {
+      if (user) {
+        return user.destroy().then(() => {
+          logger.setUser({ id: req.body.id }).info('User deleted (by an administrator)');
+          return res.status(200).json({ message: 'User deleted' });
+        });
+      }
+      logger.warn(`${'Error during user deletion (by an administrator): User id '}${req.body.id} not found`);
+      return res.status(404).json({ error: 'User not found' });
+    });
+  }
+  return res.status(405).json({ error: 'Invalid request' });
 };
 
 //
 // Get number of user connected to deamon
 //
-module.exports.getNbrUserConnectedDeamon = function () {
-  return function (req, res) {
-    let promise = UsersAdapter.getNbrUserConnectedDeamon();
+module.exports.getNbrUserConnectedDeamon = () => (req, res) => {
+  const promise = UsersAdapter.getNbrUserConnectedDeamon();
 
-    promise.then(function(nbr) {
-      return res.status(200).json({ nbrConnected: nbr });
-    }).catch(function (err) {
-      logger.error('Error when trying to get numbers of deamons connected: ' + err);
-      return res.status(404).json({ error: 'Error when trying to get numbers of deamons connected' });
-    });
-  }
-}
+  promise.then(nbr => res.status(200).json({ nbrConnected: nbr })).catch((err) => {
+    logger.error(`Error when trying to get numbers of deamons connected: ${err}`);
+    return res.status(404).json({ error: 'Error when trying to get numbers of deamons connected' });
+  });
+};

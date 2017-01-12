@@ -40,7 +40,9 @@ export default class Delete extends React.Component {
 
 Delete.propTypes = {
   isPoppedUp: React.PropTypes.bool,
-  migration: React.PropTypes.object,
+  migration: React.PropTypes.shape({
+    id: React.PropTypes.id,
+  }),
   closeDeleteMigrationModal: React.PropTypes.func,
   deleteMigration: React.PropTypes.func,
 };

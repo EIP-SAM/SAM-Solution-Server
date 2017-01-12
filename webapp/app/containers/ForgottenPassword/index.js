@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { ForgottenPassword } from 'components/ForgottenPassword';
+import ForgottenPassword from 'components/ForgottenPassword';
 
 function mapStateToProps() {
   return {

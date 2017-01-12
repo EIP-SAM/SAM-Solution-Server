@@ -1,41 +1,62 @@
 //
 // Manager Restore
 //
-var restoreAdapter = require('../adapters/restore');
-var saveScheduledAdapter = require('../adapters/saveScheduled');
-var usersAdapter = require('../adapters/users');
-var logger = require('../libs/bunyan');
-var daemon = require('../websocket/daemon/restore');
+const restoreAdapter = require('../adapters/restore');
+const saveScheduledAdapter = require('../adapters/saveScheduled');
+const usersAdapter = require('../adapters/users');
+const logger = require('../libs/bunyan');
+const daemon = require('../websocket/daemon/restore');
 
 //
 // Get all users with their last restoration
 //
-module.exports.lastUsersRestores = function (req, res) {
-  return restoreAdapter.lastUsersRestores();
-}
+module.exports.lastUsersRestores = () => restoreAdapter.lastUsersRestores();
 
 //
 // Get username from request
 // Get all restorations of a user
 //
-module.exports.historyRestoreByUser = function (req, res) {
+module.exports.historyRestoreByUser = (req) => {
   const username = req.query.username;
   return restoreAdapter.historyRestoreByUser(username);
+};
+
+//
+// Update restore isStart boolean
+// Call adapter
+//
+function startRestore(restoreId) {
+  return restoreAdapter.restoreIsStart(restoreId);
+}
+
+//
+// Update restore isFinish boolean
+// Call adapter
+//
+function restoreFinish(restoreId) {
+  return restoreAdapter.restoreIsFinish(restoreId);
+}
+
+//
+// Call adapter
+//
+function restoreSuccess(restoreId) {
+  return restoreAdapter.restoreIsSuccess(restoreId);
 }
 
 //
 // Get data from resquest
 // Call adapter
 //
-module.exports.createRestore = function (req, res) {
+module.exports.createRestore = (req) => {
   const userId = req.body.userId;
   const files = req.body.files;
   const saveId = req.body.saveId;
-  return usersAdapter.findById(userId).then(function (user) {
+  return usersAdapter.findById(userId).then((user) => {
     logger.setModuleName('Restore').setUser({ id: user.id, name: user.name }).info(`${user.name} has create a restore`);
-    restoreAdapter.createRestore(userId, files, saveId).then(function (restore) {
-      saveScheduledAdapter.findSaveById(saveId).then(function(save) {
-        daemon.exec(user.name, save.hash, function(msg) {
+    restoreAdapter.createRestore(userId, files, saveId).then((restore) => {
+      saveScheduledAdapter.findSaveById(saveId).then((save) => {
+        daemon.exec(user.name, save.hash, (msg) => {
           if (msg.isSuccess) {
             logger.setModuleName('Restore').setUser({ id: '', name: user.name }).info(`${user.name} succeeded a restore`);
             restoreFinish(restore.id);
@@ -47,30 +68,7 @@ module.exports.createRestore = function (req, res) {
             startRestore(restore.id);
           }
         });
-      })
+      });
     });
   });
-};
-
-//
-// Update restore isStart boolean
-// Call adapter
-//
-function startRestore(restoreId) {
-  return restoreAdapter.restoreIsStart(restoreId);
-};
-
-//
-// Update restore isFinish boolean
-// Call adapter
-//
-function restoreFinish(restoreId) {
-  return restoreAdapter.restoreIsFinish(restoreId);
-};
-
-//
-// Call adapter
-//
-function restoreSuccess(restoreId) {
-  return restoreAdapter.restoreIsSuccess(restoreId);
 };

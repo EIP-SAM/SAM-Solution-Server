@@ -11,7 +11,7 @@ import Groups from 'containers/CreateUser/Form/Groups';
 import Buttons from 'containers/CreateUser/Form/Buttons';
 
 /* eslint-disable react/prefer-stateless-function */
-export class CreateUserForm extends React.Component {
+export default class CreateUserForm extends React.Component {
 
   render() {
     return (
@@ -26,6 +26,3 @@ export class CreateUserForm extends React.Component {
     );
   }
 }
-
-CreateUserForm.propTypes = {
-};

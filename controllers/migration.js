@@ -6,30 +6,22 @@ const migrationManager = require('../managers/migration');
 //
 // Launch getMigrations method from managers
 //
-module.exports.getMigrations = function () {
-    return migrationManager.getMigrations();
-}
+module.exports.getMigrations = () => migrationManager.getMigrations();
 
 //
 // Launch getMigrationById method from managers
 //
-module.exports.getMigrationById = function (migrationId) {
-  return migrationManager.getMigrationById(migrationId);
-}
+module.exports.getMigrationById = migrationId => migrationManager.getMigrationById(migrationId);
 
 //
 // Launch getMigrationOrderByFilter method from managers
 //
-module.exports.getMigrationOrderByFilter = function (order) {
-  return migrationManager.getMigrationOrderByFilter(order);
-}
+module.exports.getMigrationOrderByFilter = order => migrationManager.getMigrationOrderByFilter(order);
 
 //
 // Launch getMigrationsGroupByStatus method from managers
 //
-module.exports.getMigrationsGroupByStatus = function () {
-  return migrationManager.getMigrationsGroupByStatus();
-}
+module.exports.getMigrationsGroupByStatus = () => migrationManager.getMigrationsGroupByStatus();
 
 //
 // Launch createMigration method from managers
@@ -40,9 +32,8 @@ module.exports.getMigrationsGroupByStatus = function () {
 // - status
 // - comment
 //
-module.exports.createMigration = function (migrationObj) {
-  return migrationManager.createMigration(migrationObj);
-}
+
+module.exports.createMigration = (migrationObj, isInstant) => migrationManager.createMigration(migrationObj, isInstant);
 
 //
 // Launch getMigrationById method from managers
@@ -55,13 +46,14 @@ module.exports.createMigration = function (migrationObj) {
 // - comment
 // Except for the migrationId, each property can be undefined
 //
-module.exports.editMigrationById = function (migrationObj) {
-  return migrationManager.editMigrationById(migrationObj);
-}
+module.exports.editMigrationById = migrationObj => migrationManager.editMigrationById(migrationObj);
 
 //
 // Launch deleteMigrationById method from managers
 //
-module.exports.deleteMigrationById = function (migrationId) {
-  return migrationManager.deleteMigrationById(migrationId);
-}
+module.exports.deleteMigrationById = migrationId => migrationManager.deleteMigrationById(migrationId);
+
+//
+// Handle regular migration check in database
+//
+module.exports.initCheckMigration = () => migrationManager.initCheckMigration();

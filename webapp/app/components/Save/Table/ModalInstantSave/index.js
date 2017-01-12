@@ -4,11 +4,11 @@
 
 import React from 'react';
 import { Modal, ButtonToolbar, Glyphicon } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from 'components/Save/Table/ModalInstantSave/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveInstantSaveModal extends React.Component {
+export default class SaveInstantSaveModal extends React.Component {
 
   handleLaunchClick() {
     this.props.createSave(false, this.props.users, this.props.date, this.props.time, this.props.frequency, this.props.files);
@@ -42,11 +42,11 @@ export class SaveInstantSaveModal extends React.Component {
 }
 
 SaveInstantSaveModal.propTypes = {
-  users: React.PropTypes.array,
+  users: React.PropTypes.arrayOf(React.PropTypes.object),
   date: React.PropTypes.string,
   time: React.PropTypes.string,
   frequency: React.PropTypes.string,
-  files: React.PropTypes.array,
+  files: React.PropTypes.arrayOf(React.PropTypes.string),
   showInstantSaveModal: React.PropTypes.bool,
   hideInstantSaveModal: React.PropTypes.func,
   createSave: React.PropTypes.func.isRequired,

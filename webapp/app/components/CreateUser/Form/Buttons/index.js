@@ -5,11 +5,14 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import { ButtonToolbar } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from 'components/CreateUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class CreateUserFormButtons extends React.Component {
+export default class CreateUserFormButtons extends React.Component {
+  static handleCancelClick() {
+    browserHistory.goBack();
+  }
 
   handleCreateClick(event) {
     event.preventDefault();
@@ -32,15 +35,11 @@ export class CreateUserFormButtons extends React.Component {
     }
   }
 
-  handleCancelClick() {
-    browserHistory.goBack();
-  }
-
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Create" onClick={(event) => this.handleCreateClick(event)} />
-        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={(event) => this.handleCancelClick(event)} />
+        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Create" onClick={event => this.handleCreateClick(event)} />
+        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => CreateUserFormButtons.handleCancelClick()} />
       </ButtonToolbar>
     );
   }
@@ -51,7 +50,7 @@ CreateUserFormButtons.propTypes = {
   email: React.PropTypes.string,
   password: React.PropTypes.string,
   passwordConfirmation: React.PropTypes.string,
-  selectedGroup: React.PropTypes.array,
+  selectedGroup: React.PropTypes.arrayOf(React.PropTypes.string),
   createUserRequest: React.PropTypes.func,
   usernameErrorMsg: React.PropTypes.func,
   emailErrorMsg: React.PropTypes.func,

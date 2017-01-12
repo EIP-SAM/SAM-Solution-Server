@@ -1,21 +1,18 @@
-var statManagers = require('../managers/statistic');
+const statManagers = require('../managers/statistic');
 
-module.exports.getStatisticFilters = function () {
+module.exports.getStatisticFilters = () => {
   statManagers.initiateGraphs();
   return statManagers.getStatisticFilters();
-}
+};
 
-module.exports.getStatisticTypeAndNameListByType = function (type) {
-    statManagers.initiateGraphs();
+module.exports.getStatisticTypeAndNameListByType = (type) => {
+  statManagers.initiateGraphs();
+  return statManagers.getStatisticTypeAndNameListByType(type);
+};
 
-    return statManagers.getStatisticTypeAndNameListByType(type);
-}
-
-module.exports.getStatisticDataByTypeAndName = function (type, name) {
-    return new Promise(function(fulfill, reject){
-        statManagers.initiateGraphs();
-        statManagers.getStatisticByTypeAndName(type, name).then(function(result){
-            fulfill(result);
-        });
-    });
-}
+module.exports.getStatisticDataByTypeAndName = (type, name) => new Promise((fulfill) => {
+  statManagers.initiateGraphs();
+  statManagers.getStatisticByTypeAndName(type, name).then((result) => {
+    fulfill(result);
+  });
+});

@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveCreationForm } from 'components/SaveCreation/Form';
+import SaveCreationForm from 'components/SaveCreation/Form';
 
 function mapStateToProps() {
   return {

@@ -10,7 +10,7 @@ import styles from 'components/Navbar/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class NavbarContainer extends React.Component {
-  getNavbarLinkContainer(item, i) {
+  static getNavbarLinkContainer(item, i) {
     return (
       <LinkContainer key={`navItem-${i}`} to={{ pathname: item.pathname }}>
         <NavItem eventKey={i} className={styles.navBarMenuItem}><Glyphicon glyph={item.glyphicon} className={styles.icon} />{item.value}</NavItem>
@@ -90,7 +90,7 @@ export default class NavbarContainer extends React.Component {
         <Navbar.Collapse>
           <Nav className={styles.navBarSideBar}>
             {navItems.map((item, i) =>
-              this.getNavbarLinkContainer(item, i)
+              NavbarContainer.getNavbarLinkContainer(item, i)
             )}
           </Nav>
         </Navbar.Collapse>
@@ -100,6 +100,12 @@ export default class NavbarContainer extends React.Component {
 }
 
 NavbarContainer.propTypes = {
-  userInfo: React.PropTypes.object,
+  userInfo: React.PropTypes.shape({
+    logged: React.PropTypes.bool,
+    userId: React.PropTypes.number,
+    username: React.PropTypes.string,
+    email: React.PropTypes.string,
+    isAdmin: React.PropTypes.bool,
+  }),
   logoutRequest: React.PropTypes.func,
 };

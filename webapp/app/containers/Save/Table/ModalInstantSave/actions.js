@@ -10,9 +10,7 @@
 //
 
 
-import {
-  SAVE_SHOW_INSTANT_SAVE_MODAL,
-} from './constants';
+import SAVE_SHOW_INSTANT_SAVE_MODAL from './constants';
 
 export function showInstantSaveModal() {
   return {

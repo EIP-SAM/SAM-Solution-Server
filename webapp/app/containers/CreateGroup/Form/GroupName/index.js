@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { CreateGroupFormGroupName } from 'components/CreateGroup/Form/GroupName';
+import CreateGroupFormGroupName from 'components/CreateGroup/Form/GroupName';
 import { groupNameChange } from './actions';
 
 function mapStateToProps(state) {
@@ -15,7 +15,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    groupNameChange: (groupName) => dispatch(groupNameChange(groupName)),
+    groupNameChange: groupName => dispatch(groupNameChange(groupName)),
   };
 }
 

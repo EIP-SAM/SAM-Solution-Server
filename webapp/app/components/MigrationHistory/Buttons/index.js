@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { ButtonToolbar } from 'react-bootstrap';
-import { LinkContainerButton as Button } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -16,7 +16,7 @@ export default class Buttons extends React.Component {
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <Button
+        <LinkContainerButton
           buttonBsStyle="info"
           buttonText="Create Migration"
           link="#"
@@ -29,5 +29,4 @@ export default class Buttons extends React.Component {
 
 Buttons.propTypes = {
   showCreateMigrationPopup: React.PropTypes.func,
-  setPopupToCreate: React.PropTypes.func,
 };

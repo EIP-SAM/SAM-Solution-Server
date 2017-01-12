@@ -8,7 +8,7 @@ import RestoreTable from 'containers/Restore/Table';
 import RestoreFilters from 'containers/Restore/Filters';
 
 /* eslint-disable react/prefer-stateless-function */
-export class Restore extends React.Component {
+export default class Restore extends React.Component {
 
   componentDidMount() {
     this.props.getRestoresRequest();

@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { UserRebootModal } from 'components/Users/Table/ModalRebootUser';
+import UserRebootModal from 'components/Users/Table/ModalRebootUser';
 import {
   hideInstantRebootModal,
   rebootUser,
@@ -18,7 +18,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    rebootUser: (username) => dispatch(rebootUser(username)),
+    rebootUser: username => dispatch(rebootUser(username)),
     hideInstantRebootModal: () => dispatch(hideInstantRebootModal()),
   };
 }

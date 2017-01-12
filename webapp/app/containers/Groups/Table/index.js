@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { GroupTable } from 'components/Groups/Table';
+import GroupTable from 'components/Groups/Table';
 import {
   showInstantDeleteModal,
   groupToDelete,

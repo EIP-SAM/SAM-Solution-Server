@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveHistoryButtons } from 'components/SaveHistory/Buttons';
+import SaveHistoryButtons from 'components/SaveHistory/Buttons';
 import {
   timeSave,
   timeDisabled,
@@ -26,12 +26,12 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
   return {
-    dateSave: (date) => dispatch(dateSave(date)),
-    dateDisabled: (isDateDisabled) => dispatch(dateDisabled(isDateDisabled)),
-    timeSave: (time) => dispatch(timeSave(time)),
-    timeDisabled: (isTimeDisabled) => dispatch(timeDisabled(isTimeDisabled)),
-    frequencySave: (frequency) => dispatch(frequencySave(frequency)),
-    frequencyDisabled: (isFrequencyDisabled) => dispatch(frequencyDisabled(isFrequencyDisabled)),
+    dateSave: date => dispatch(dateSave(date)),
+    dateDisabled: isDateDisabled => dispatch(dateDisabled(isDateDisabled)),
+    timeSave: time => dispatch(timeSave(time)),
+    timeDisabled: isTimeDisabled => dispatch(timeDisabled(isTimeDisabled)),
+    frequencySave: frequency => dispatch(frequencySave(frequency)),
+    frequencyDisabled: isFrequencyDisabled => dispatch(frequencyDisabled(isFrequencyDisabled)),
   };
 }
 

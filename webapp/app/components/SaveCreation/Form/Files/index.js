@@ -4,13 +4,13 @@
 
 import React from 'react';
 import { FormGroup, ControlLabel } from 'react-bootstrap';
-import { ButtonPopover } from 'components/ButtonPopover';
+import ButtonPopover from 'components/ButtonPopover';
 import SaveCreationAddFileModal from 'containers/SaveCreation/Form/Files/Modal';
 import SaveCreationFilesSelect from 'containers/SaveCreation/Form/Files/Select';
 import styles from 'components/SaveCreation/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveCreationFiles extends React.Component {
+export default class SaveCreationFiles extends React.Component {
 
   componentDidMount() {
     if (this.props.files.length > 0) {
@@ -46,7 +46,7 @@ export class SaveCreationFiles extends React.Component {
 }
 
 SaveCreationFiles.propTypes = {
-  files: React.PropTypes.array,
+  files: React.PropTypes.arrayOf(React.PropTypes.string),
   canAddFile: React.PropTypes.bool,
   displayAddFile: React.PropTypes.func,
   showAddFileModal: React.PropTypes.func,

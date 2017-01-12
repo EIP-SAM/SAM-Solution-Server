@@ -11,9 +11,7 @@
 
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
-import {
-  SAVE_HISTORY_GET_HISTORY_SAVES_BY_USER,
-} from './constants';
+import SAVE_HISTORY_GET_HISTORY_SAVES_BY_USER from './constants';
 
 export function getHistorySavesByUser(saves) {
   return {

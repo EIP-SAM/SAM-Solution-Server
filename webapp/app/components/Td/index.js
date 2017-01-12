@@ -11,7 +11,7 @@ import styles from 'components/Td/styles.css';
 export default class Td extends React.Component {
   render() {
     const item = this.props.object;
-    let content = (<div></div>);
+    let content = (<div />);
 
     if (item) {
       content = item.value;
@@ -29,5 +29,10 @@ export default class Td extends React.Component {
 }
 
 Td.propTypes = {
-  object: React.PropTypes.object.isRequired,
+  object: React.PropTypes.shape({
+    value: React.PropTypes.any,
+    link: React.PropTypes.string,
+    isLink: React.PropTypes.bool,
+    onClick: React.PropTypes.func,
+  }).isRequired,
 };

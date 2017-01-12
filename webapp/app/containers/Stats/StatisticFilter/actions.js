@@ -4,10 +4,7 @@
 
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
-
-import {
-  STATS_GET_STATS_FILTERS_LIST,
-} from './constants';
+import STATS_GET_STATS_FILTERS_LIST from './constants';
 
 export function getFilters(type, filters) {
   return {

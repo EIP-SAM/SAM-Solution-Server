@@ -9,7 +9,7 @@ import RestoreHistoryTable from 'containers/RestoreHistory/Table';
 import styles from 'components/RestoreHistory/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class RestoreHistory extends React.Component {
+export default class RestoreHistory extends React.Component {
 
   componentDidMount() {
     const username = window.location.pathname.split('/')[2];
@@ -18,7 +18,7 @@ export class RestoreHistory extends React.Component {
 
   render() {
     let username = '';
-    if (this.props.userInfo.isAdmin) {
+    if (this.props.userIsAdmin) {
       username = <PageHeader className={styles.title}><small>{window.location.pathname.split('/')[2]}</small></PageHeader>;
     }
 
@@ -34,6 +34,6 @@ export class RestoreHistory extends React.Component {
 }
 
 RestoreHistory.propTypes = {
-  userInfo: React.PropTypes.object,
+  userIsAdmin: React.PropTypes.bool,
   getHistoryRestoresByUserRequest: React.PropTypes.func,
 };
