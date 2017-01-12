@@ -42,12 +42,12 @@ function NotificationsFormSelectedUsersReducer(state = initialState, action) {
         ],
         unselectedUsers: (action.nextIndex !== -1) ? [state.selectedUsers[action.nextIndex]] : [],
       });
-      case NOTIFICATIONS_SELECTED_USERS_ERROR:
-        return Object.assign({}, state, {
-          selectedUsersError: action.selectedUsersError,
+    case NOTIFICATIONS_SELECTED_USERS_ERROR:
+      return Object.assign({}, state, {
+        selectedUsersError: action.selectedUsersError,
       });
-      default:
-        return state;
+    default:
+      return state;
   }
 }
 
