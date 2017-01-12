@@ -48,7 +48,7 @@ function removeSelectedUser(index, nextIndex) {
 export function selectedUsersErrorMsg(selectedUsersError) {
   return {
     type: NOTIFICATIONS_SELECTED_USERS_ERROR,
-    titleError,
+    selectedUsersError,
   };
 }
 

@@ -3,7 +3,7 @@
 //
 
 import React from 'react';
-import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap';
 import { ButtonPopover } from 'components/ButtonPopover';
 import Option from 'components/Option';
 import styles from 'components/Notifications/styles.css';
@@ -46,7 +46,7 @@ export class NotificationsFormSelectedUsers extends React.Component {
       ));
     }
     return (
-      <FormGroup controlId="selectedUsers" className={styles.form} >
+      <FormGroup controlId="selectedUsers" className={styles.form} validationState={validationState}>
         <ControlLabel>Selected Users</ControlLabel>
         <ButtonPopover
           id="selectedUsers"
@@ -59,6 +59,7 @@ export class NotificationsFormSelectedUsers extends React.Component {
         <FormControl componentClass="select" onChange={this.onChangeSelectedUsers} multiple>
           {selectedUsersOption}
         </FormControl>
+        <HelpBlock>{errorMessage}</HelpBlock>
       </FormGroup>
     );
   }

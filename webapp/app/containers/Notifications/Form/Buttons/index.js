@@ -25,7 +25,7 @@ function mapDispatchToProps(dispatch) {
     notificationRequest: (title, description, persistence, selectedUsers) => dispatch(notificationRequest(title, description, persistence, selectedUsers)),
     titleErrorMsg: (titleError) => dispatch(titleErrorMsg(titleError)),
     descriptionErrorMsg: (descriptionError) => dispatch(descriptionErrorMsg(descriptionError)),
-    selectedUsersErrorMsg: (selectedUsersError) => dispatch(descriptionErrorMsg(selectedUsersError)),
+    selectedUsersErrorMsg: (selectedUsersError) => dispatch(selectedUsersErrorMsg(selectedUsersError)),
   };
 }
 

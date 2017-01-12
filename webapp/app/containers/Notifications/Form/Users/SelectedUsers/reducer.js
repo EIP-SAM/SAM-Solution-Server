@@ -19,6 +19,7 @@ import {
 const initialState = {
   selectedUsers: [],
   unselectedUsers: [],
+  selectedUsersError: '',
 };
 
 function NotificationsFormSelectedUsersReducer(state = initialState, action) {

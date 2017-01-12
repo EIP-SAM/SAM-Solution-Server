@@ -41,6 +41,8 @@ export function notificationRequest(title, description, persistence, username) {
           browserHistory.push('/login');
         }
         dispatch(resetStateForm());
+        // browserHistory.push('/notifications');
+        window.location.reload();
       });
   };
 }
