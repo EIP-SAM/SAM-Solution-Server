@@ -49,16 +49,6 @@ export default class Dashboard extends React.Component {
                 link="/restore"
               />
             </Col>
-            <Col md={6} lg={3}>
-              <BlockInfo
-                icon="repeat"
-                title="Restore"
-                msg={restoreNumbers.toString()}
-                color="red"
-                text="More details"
-                link="/restore"
-              />
-            </Col>
           </Row>
         </Grid>
       </div>
