@@ -76,7 +76,7 @@ module.exports.deleteMigrationById = migrationId => migrationAdapter.deleteMigra
 module.exports.initCheckMigration = () => {
   setInterval(() => {
     migrationAdapter.getPlannedMigrationBeforeNow().then((migrations) => {
-      migrations.each((migration) => {
+      migrations.forEach((migration) => {
         migrationWorker.execMigration(migration.user.name, migration.image.fileName).then((msg) => {
           const obj = {};
           obj.migrationId = migration.id;
@@ -84,11 +84,11 @@ module.exports.initCheckMigration = () => {
           migrationAdapter.editMigrationById(obj);
           logger.info(msg);
         }).catch((err) => {
-          logger.info(err);
+          logger.error(err);
         });
       });
     }).catch((err) => {
-      logger.warn(`Unable to start regular check migration : ${err}`);
+      logger.error(`Unable to start regular check migration : ${err}`);
     });
   }, 5000);
 };
