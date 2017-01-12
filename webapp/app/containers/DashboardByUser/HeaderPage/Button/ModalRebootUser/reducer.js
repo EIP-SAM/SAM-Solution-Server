@@ -7,9 +7,8 @@
 //  case YOUR_ACTION_CONSTANT:
 //    return state.set('yourStateVariable', true);
 //
-import {
-  DASHBOARD_BY_USER_SHOW_INSTANT_REBOOT_MODAL,
-} from './constants';
+
+import DASHBOARD_BY_USER_SHOW_INSTANT_REBOOT_MODAL from './constants';
 
 const initialState = {
   showModal: false,
