@@ -1,12 +1,12 @@
 //
 // Model Save
 //
-var Sequelize = require('sequelize');
-var sequelize = require('../libs/sequelize');
+const Sequelize = require('sequelize');
+const sequelize = require('../libs/sequelize');
 
-var SaveScheduledModel = require('./saveScheduled');
+const SaveScheduledModel = require('./saveScheduled');
 
-var save = sequelize.define('save', {
+const save = sequelize.define('save', {
   execDate: {
     type: Sequelize.DATE,
   },
@@ -40,10 +40,5 @@ var save = sequelize.define('save', {
 //
 save.belongsTo(SaveScheduledModel, { foreignKey: 'saveScheduledId' });
 SaveScheduledModel.hasMany(save);
-
-//
-// Sync model Save
-//
-save.sync();
 
 module.exports = save;

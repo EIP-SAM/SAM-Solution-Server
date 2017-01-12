@@ -9,7 +9,7 @@ import Logo from 'components/App/logo_sam_solution.png';
 import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class Login extends React.Component {
+export default class Login extends React.Component {
   componentWillUnmount() {
     this.props.resetStateForm();
   }

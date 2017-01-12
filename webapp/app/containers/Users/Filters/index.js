@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { UserFilters } from 'components/Users/Filters';
+import UserFilters from 'components/Users/Filters';
 
 function mapStateToProps() {
   return {

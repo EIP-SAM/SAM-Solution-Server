@@ -3,8 +3,8 @@
 //
 
 import { connect } from 'react-redux';
+import EditUserFormUsername from 'components/EditUser/Form/Username';
 import { usernameChange } from './actions';
-import { EditUserFormUsername } from 'components/EditUser/Form/Username';
 
 function mapStateToProps(state) {
   return {
@@ -15,7 +15,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    usernameChange: (username) => dispatch(usernameChange(username)),
+    usernameChange: username => dispatch(usernameChange(username)),
   };
 }
 

@@ -1,17 +1,17 @@
 const bunyan = require('bunyan');
-var fs = require('fs');
+const fs = require('fs');
 
 const Log = require('../models/log');
 
 const bunyanMongodbStream = require('bunyan-mongodb-stream')({ model: Log });
 
-var warnLogPath = './log';
+const warnLogPath = './log';
 
 if (!fs.existsSync(warnLogPath)) {
   fs.mkdirSync(warnLogPath);
 }
 
-const logger = new bunyan.createLogger({
+const logger = new bunyan.createLogger({ // eslint-disable-line new-cap
   name: 'sam-logger',
   streams: [
     {
@@ -24,28 +24,20 @@ const logger = new bunyan.createLogger({
     },
     {
       level: 'warn',
-      path: warnLogPath + '/error.log',
+      path: `${warnLogPath}/error.log`,
     },
   ],
   serializers: bunyan.stdSerializers,
 });
 
-const setLogger = function(logger) {
-  logger.setModuleName = function(moduleName) {
-    return logger.child({moduleName});
-  }
-  logger.setUser = function(user) {
-    return logger.child({user});
-  }
-  return logger;
-}
+const setLogger = (newLogger) => {
+  newLogger.setModuleName = moduleName => newLogger.child({ moduleName });
+  newLogger.setUser = user => newLogger.child({ user });
+  return newLogger;
+};
 
-logger.setModuleName = function(moduleName) {
-  return setLogger(logger.child({moduleName}));
-}
+logger.setModuleName = moduleName => setLogger(logger.child({ moduleName }));
 
-logger.setUser = function(user) {
-  return setLogger(logger.child({user}));
-}
+logger.setUser = user => setLogger(logger.child({ user }));
 
 module.exports = logger;

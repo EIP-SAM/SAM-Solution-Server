@@ -8,7 +8,7 @@ import RadioGroup from 'components/RadioGroup';
 import styles from 'components/EditUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class EditUserFormGroups extends React.Component {
+export default class EditUserFormGroups extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeGroups = this.onChangeGroups.bind(this);
@@ -17,12 +17,12 @@ export class EditUserFormGroups extends React.Component {
   onChangeGroups(changedGroup, event) {
     const userGroups = this.props.userGroups;
     if (event === 'out') {
-      const i = this.props.userGroups.map((group) => (group)).indexOf(changedGroup);
+      const i = this.props.userGroups.map(group => (group)).indexOf(changedGroup);
       if (i !== -1) {
         userGroups.splice(i, 1);
       }
     } else if (event === 'in') {
-      const i = this.props.userGroups.map((group) => (group)).indexOf(changedGroup);
+      const i = this.props.userGroups.map(group => (group)).indexOf(changedGroup);
       if (i === -1) {
         userGroups.push(changedGroup);
       }
@@ -37,7 +37,7 @@ export class EditUserFormGroups extends React.Component {
       groupsForm = this.props.allGroups.map((group, i) => (
         <Col key={i} xs={12} className={styles.editUserRightLine}>
           <Col xs={2} className={styles.editUserName}>{group}</Col>
-          <RadioGroup inline id={group} values={['in', 'out']} placeholder={this.props.userGroups.map((userGroup) => (userGroup)).indexOf(group) !== -1 ? 'in' : 'out'} onChange={this.onChangeGroups.bind(this, group)} />
+          <RadioGroup inline id={group} values={['in', 'out']} placeholder={this.props.userGroups.map(userGroup => (userGroup)).indexOf(group) !== -1 ? 'in' : 'out'} onChange={event => this.onChangeGroups(group, event)} />
         </Col>
         ));
     }
@@ -52,7 +52,7 @@ export class EditUserFormGroups extends React.Component {
 }
 
 EditUserFormGroups.propTypes = {
-  allGroups: React.PropTypes.array,
-  userGroups: React.PropTypes.array,
+  allGroups: React.PropTypes.arrayOf(React.PropTypes.string),
+  userGroups: React.PropTypes.arrayOf(React.PropTypes.string),
   getUserGroups: React.PropTypes.func,
 };

@@ -8,7 +8,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class LinkContainerButton extends React.Component {
+export default class LinkContainerButton extends React.Component {
 
   render() {
     const buttonStyle = ((this.props.buttonStyle) ? this.props.buttonStyle : styles.button);

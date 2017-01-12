@@ -11,7 +11,7 @@ import Groups from 'containers/EditUser/Form/Groups';
 import Buttons from 'containers/EditUser/Form/Buttons';
 
 /* eslint-disable react/prefer-stateless-function */
-export class EditUserForm extends React.Component {
+export default class EditUserForm extends React.Component {
   componentWillMount() {
     const id = window.location.pathname.split('/')[2];
     this.props.getUserRequest(id);

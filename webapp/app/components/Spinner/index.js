@@ -32,8 +32,7 @@ export default class Spinner extends React.Component {
     };
 
     return (
-      <div className={[styles.spinner, this.props.className].join(' ')} style={newStyle} >
-      </div>
+      <div className={[styles.spinner, this.props.className].join(' ')} style={newStyle} />
     );
   }
 }

@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { NotificationsFormDescription } from 'components/Notifications/Form/Description';
+import NotificationsFormDescription from 'components/Notifications/Form/Description';
 import { descriptionChange } from './actions';
 
 
@@ -16,7 +16,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    descriptionChange: (description) => dispatch(descriptionChange(description)),
+    descriptionChange: description => dispatch(descriptionChange(description)),
   };
 }
 

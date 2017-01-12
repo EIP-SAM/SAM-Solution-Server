@@ -39,7 +39,7 @@ export function getAllImagesResult(images) {
 }
 
 export function getAllImages() {
-  return (dispatch) => (
+  return dispatch => (
     request
       .get('/api/logged-in/admin/images/')
       .end((err, res) => {
@@ -63,7 +63,7 @@ export function getAllUsersResult(users) {
 }
 
 export function getAllUsers() {
-  return (dispatch) => (
+  return dispatch => (
     request
       .get('/api/logged-in/admin/users/')
       .end((err, res) => {
@@ -94,7 +94,7 @@ export function setSelectedImage(imageId) {
 }
 
 export function createMigration(migrationObj) {
-  return (dispatch) => (
+  return dispatch => (
     request
       .post('/api/logged-in/admin/migration/add')
       .send({ migrationObj })
@@ -110,36 +110,6 @@ export function createMigration(migrationObj) {
       })
   );
 }
-
-export function resetForm() {
-  return (dispatch) => {
-    dispatch(setSelectedUser(undefined));
-    dispatch(setSelectedImage(undefined));
-    dispatch(showCreateMigrationPopup(false, undefined));
-    dispatch(setCreateTime(undefined));
-    dispatch(setCreateDate(undefined));
-    dispatch(setPasteDateWarning(false));
-  };
-}
-
-export function editMigration(migrationObj) {
-  return (dispatch) => (
-    request
-      .post(`/api/logged-in/admin/migration/${migrationObj.migrationId}/edit`)
-      .send({ migrationObj })
-      .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
-        if (err || res.body.error) {
-          dispatch(getAllMigrationsRequest());
-        } else {
-          dispatch(getAllMigrationsRequest());
-        }
-      })
-  );
-}
-
 
 export function setCreateDate(date) {
   return {
@@ -160,4 +130,33 @@ export function setPasteDateWarning(pasteDateWarning) {
     type: MIGRATION_HISTORY_SET_PASTEDATE_WARNING,
     pasteDateWarning,
   };
+}
+
+export function resetForm() {
+  return (dispatch) => {
+    dispatch(setSelectedUser(undefined));
+    dispatch(setSelectedImage(undefined));
+    dispatch(showCreateMigrationPopup(false, undefined));
+    dispatch(setCreateTime(undefined));
+    dispatch(setCreateDate(undefined));
+    dispatch(setPasteDateWarning(false));
+  };
+}
+
+export function editMigration(migrationObj) {
+  return dispatch => (
+    request
+      .post(`/api/logged-in/admin/migration/${migrationObj.migrationId}/edit`)
+      .send({ migrationObj })
+      .end((err, res) => {
+        if (err && res.statusCode === 401) {
+          browserHistory.push('/login');
+        }
+        if (err || res.body.error) {
+          dispatch(getAllMigrationsRequest());
+        } else {
+          dispatch(getAllMigrationsRequest());
+        }
+      })
+  );
 }

@@ -6,12 +6,12 @@ import React from 'react';
 import { FormGroup, InputGroup, FormControl, Glyphicon } from 'react-bootstrap';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SoftwaresByUserSearchbar extends React.Component {
+export default class SoftwaresByUserSearchbar extends React.Component {
   handleChangeSearchbar(event) {
     this.props.searchbarChange(event.target.value);
   }
 
-  handleValidationSearchbar(event) {
+  handleValidationSearchbar() {
     this.props.searchSoftwareRequest(this.props.username, this.props.searchbar);
   }
 
@@ -19,8 +19,8 @@ export class SoftwaresByUserSearchbar extends React.Component {
     return (
       <FormGroup controlId="searchbar">
         <InputGroup>
-          <FormControl type="text" value={this.props.searchbar} placeholder="Search..." onChange={(event) => this.handleChangeSearchbar(event)}/>
-          <InputGroup.Addon onClick={(event) => this.handleValidationSearchbar(event)}><Glyphicon glyph="search" /></InputGroup.Addon>
+          <FormControl type="text" value={this.props.searchbar} placeholder="Search..." onChange={event => this.handleChangeSearchbar(event)} />
+          <InputGroup.Addon onClick={() => this.handleValidationSearchbar()}><Glyphicon glyph="search" /></InputGroup.Addon>
         </InputGroup>
       </FormGroup>
     );

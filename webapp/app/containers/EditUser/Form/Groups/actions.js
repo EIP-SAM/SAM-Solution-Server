@@ -15,7 +15,7 @@ import { browserHistory } from 'react-router';
 import {
   EDIT_USER_GET_ALL_GROUPS,
   EDIT_USER_USER_GROUPS,
-  EDIT_USER_RESET_STATE_GROUPS
+  EDIT_USER_RESET_STATE_GROUPS,
 } from './constants';
 
 export function getUserGroups(userGroups) {
@@ -49,7 +49,7 @@ export function getGroupsRequest() {
 
         let groupsName = [];
         if (res.body.groups.length > 0) {
-          groupsName = res.body.groups.map((group) => group.name);
+          groupsName = res.body.groups.map(group => group.name);
         }
         dispatch(getAllGroups(groupsName));
       });

@@ -21,7 +21,7 @@
     "setup": "node ./internals/scripts/setup.js",
     "clean": "shjs ./internals/scripts/clean.js",
     "generate": "plop --plopfile internals/generators/index.js",
-    "lint": "npm run lint:js && npm run lint:css",
+    "lint": "node_modules/.bin/eslint .",
     "lint:js": "npm run lint:eslint && npm run lint:jscs",
     "lint:js:staged": "npm run lint:eslint:staged && npm run lint:jscs:staged",
     "lint:eslint": "break",
@@ -59,106 +59,19 @@
       }
     }
   },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "extends": "airbnb",
-    "env": {
-      "browser": true,
-      "node": true,
-      "mocha": true,
-      "es6": true
-    },
-    "plugins": [
-      "react",
-      "jsx-a11y"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 6,
-      "sourceType": "module",
-      "ecmaFeatures": {
-        "jsx": true
-      }
-    },
-    "rules": {
-      "import/no-unresolved": 2,
-      "comma-dangle": [
-        2,
-        "always-multiline"
-      ],
-      "indent": [
-        2,
-        2,
-        {
-          "SwitchCase": 1
-        }
-      ],
-      "no-console": 1,
-      "max-len": 0,
-      "prefer-template": 2,
-      "no-use-before-define": 0,
-      "newline-per-chained-call": 0,
-      "arrow-body-style": [
-        2,
-        "as-needed"
-      ],
-      "jsx-a11y/href-no-hash": 2,
-      "jsx-a11y/label-has-for": 2,
-      "jsx-a11y/mouse-events-have-key-events": 2,
-      "jsx-a11y/role-has-required-aria-props": 2,
-      "jsx-a11y/role-supports-aria-props": 2,
-      "jsx-a11y/aria-props": 2
-    },
-    "settings": {
-      "import/resolver": {
-        "webpack": {
-          "config": "./internals/webpack/webpack.test.babel.js"
-        }
-      }
-    }
-  },
-  "jscsConfig": {
-    "preset": "airbnb",
-    "validateQuoteMarks": null,
-    "requireTrailingComma": null,
-    "maximumLineLength": null,
-    "maxErrors": null,
-    "requireCamelCaseOrUpperCaseIdentifiers": null,
-    "requireShorthandArrowFunctions": null,
-    "excludeFiles": [
-      "build/**",
-      "coverage/**",
-      "docs/**",
-      "node_modules/**"
-    ]
-  },
-  "stylelint": {
-    "extends": "stylelint-config-standard",
-    "rules": {
-      "color-hex-case": "upper",
-      "string-quotes": "single",
-      "font-family-name-quotes": "always-where-recommended",
-      "selector-pseudo-class-no-unknown": [
-        true,
-        {
-          "ignorePseudoClasses": [
-            "global"
-          ]
-        }
-      ],
-      "indentation": 2
-    }
-  },
   "dependencies": {
     "babel-polyfill": "^6.7.4",
     "chalk": "^1.1.3",
     "chart.js": "^1.1.1",
     "compression": "^1.6.1",
+    "expect": "^1.20.2",
     "express": "^4.13.4",
     "fontfaceobserver": "^1.7.1",
     "helmet": "^2.3.0",
     "history": "^2.1.0",
     "immutable": "^3.8.1",
     "moment": "^2.14.1",
+    "offline-plugin": "^3.4.2",
     "react": "^15.1.0",
     "react-bootstrap": "^0.30.3",
     "react-bootstrap-date-picker": "^3.1.0",
@@ -200,12 +113,13 @@
     "cross-env": "^1.0.7",
     "css-loader": "^0.23.1",
     "enzyme": "^2.2.0",
-    "eslint": "^2.10.1",
-    "eslint-config-airbnb": "^9.0.1",
-    "eslint-import-resolver-webpack": "^0.2.4",
-    "eslint-plugin-import": "^1.8.0",
-    "eslint-plugin-jsx-a11y": "^1.2.0",
-    "eslint-plugin-react": "^5.1.1",
+    "eslint": "^3.13.0",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-config-airbnb-base": "^11.0.0",
+    "eslint-import-resolver-webpack": "^0.8.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.8.0",
     "eventsource-polyfill": "^0.9.6",
     "expect": "^1.18.0",
     "expect-jsx": "^2.5.1",

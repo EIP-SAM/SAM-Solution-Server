@@ -33,13 +33,13 @@ export default class ImageSelect extends React.Component {
         <FormControl
           componentClass="select"
           multiple
-          onChange={(e) => this.onChange(e.target.options)}
+          onChange={e => this.onChange(e.target.options)}
           value={this.getSelectedValue()}
         >
-        {images.map((image, index) => (
-          <option key={index} value={image.id}>
-            {image.name}
-          </option>
+          {images.map((image, index) => (
+            <option key={index} value={image.id}>
+              {image.name}
+            </option>
         ))}
         </FormControl>
       </FormGroup>
@@ -48,7 +48,7 @@ export default class ImageSelect extends React.Component {
 }
 
 ImageSelect.propTypes = {
-  images: React.PropTypes.array,
+  images: React.PropTypes.arrayOf(React.PropTypes.object),
   imageId: React.PropTypes.number,
   getAllImages: React.PropTypes.func,
   setSelectedImage: React.PropTypes.func,

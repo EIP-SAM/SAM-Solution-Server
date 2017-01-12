@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { NotificationsFormPersistence } from 'components/Notifications/Form/Persistence';
+import NotificationsFormPersistence from 'components/Notifications/Form/Persistence';
 import { persistenceChange } from './actions';
 
 
@@ -15,7 +15,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    persistenceChange: (persistence) => dispatch(persistenceChange(persistence)),
+    persistenceChange: persistence => dispatch(persistenceChange(persistence)),
   };
 }
 

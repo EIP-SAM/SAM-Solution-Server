@@ -5,7 +5,7 @@
 import React from 'react';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
-export class ForgottenPasswordEmail extends React.Component {
+export default class ForgottenPasswordEmail extends React.Component {
 
   constructor(props) {
     super(props);

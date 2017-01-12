@@ -7,7 +7,7 @@ import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap
 import styles from 'components/EditUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class EditUserFormPasswordConfirmation extends React.Component {
+export default class EditUserFormPasswordConfirmation extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeConfirmation = this.onChangeConfirmation.bind(this);

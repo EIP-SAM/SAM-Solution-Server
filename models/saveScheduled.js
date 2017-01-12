@@ -1,12 +1,12 @@
 //
 // Model SaveScheduled
 //
-var Sequelize = require('sequelize');
-var sequelize = require('../libs/sequelize');
+const Sequelize = require('sequelize');
+const sequelize = require('../libs/sequelize');
 
-var UserModel = require('./users');
+const UserModel = require('./users');
 
-var saveScheduled = sequelize.define('save_scheduled', {
+const saveScheduled = sequelize.define('save_scheduled', {
   cron: {
     type: Sequelize.STRING,
     allowNull: true,
@@ -29,10 +29,5 @@ var saveScheduled = sequelize.define('save_scheduled', {
 //
 saveScheduled.belongsTo(UserModel, { foreignKey: 'userId' });
 UserModel.hasMany(saveScheduled);
-
-//
-// Sync model SaveScheduled
-//
-saveScheduled.sync();
 
 module.exports = saveScheduled;

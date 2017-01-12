@@ -8,9 +8,7 @@
 //    return state.set('yourStateVariable', true);
 //
 
-import {
-  SOFTWARES_BY_USER_SEARCHBAR_CHANGE,
-} from './constants';
+import SOFTWARES_BY_USER_SEARCHBAR_CHANGE from './constants';
 
 const initialState = {
   searchbar: '',

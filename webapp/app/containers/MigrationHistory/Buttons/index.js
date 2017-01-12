@@ -15,7 +15,7 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
   return {
-    showCreateMigrationPopup: (isPoppedUp) => dispatch(showCreateMigrationPopup(isPoppedUp)),
+    showCreateMigrationPopup: isPoppedUp => dispatch(showCreateMigrationPopup(isPoppedUp)),
   };
 }
 

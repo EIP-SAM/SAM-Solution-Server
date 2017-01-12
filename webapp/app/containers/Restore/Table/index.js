@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { RestoreTable } from 'components/Restore/Table';
+import RestoreTable from 'components/Restore/Table';
 import { showInstantRestoreModal } from 'containers/Restore/Table/ModalInstantRestore/actions';
 import { setUserId } from 'containers/RestoreCreation/Form/User/actions';
 import { selectFiles } from 'containers/RestoreCreation/Form/Files/actions';
@@ -18,9 +18,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     showInstantRestoreModal: () => dispatch(showInstantRestoreModal()),
-    selectFiles: (selectedFiles) => dispatch(selectFiles(selectedFiles)),
-    setUserId: (userId) => dispatch(setUserId(userId)),
-    selectSave: (save) => dispatch(selectSave(save)),
+    selectFiles: selectedFiles => dispatch(selectFiles(selectedFiles)),
+    setUserId: userId => dispatch(setUserId(userId)),
+    selectSave: save => dispatch(selectSave(save)),
   };
 }
 

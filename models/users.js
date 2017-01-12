@@ -28,6 +28,4 @@ const Users = sequelize.define('users', {
   freezeTableName: true,
 });
 
-Users.sync();
-
 module.exports = Users;

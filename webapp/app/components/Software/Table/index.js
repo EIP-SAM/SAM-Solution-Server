@@ -9,12 +9,10 @@ import Th from 'components/Th';
 import Td from 'components/Td';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SoftwareTable extends React.Component {
+export default class SoftwareTable extends React.Component {
 
   render() {
-    const names = [{ isLink: 'false', link: '#', value: '#' },
-                  { isLink: 'false', value: 'Username' },
-                  { isLink: 'false', value: 'OS' }];
+    const names = ['#', 'Username', 'OS'];
 
     if (!this.props.users) {
       return null;
@@ -43,6 +41,6 @@ export class SoftwareTable extends React.Component {
 }
 
 SoftwareTable.propTypes = {
-  users: React.PropTypes.array,
+  users: React.PropTypes.arrayOf(React.PropTypes.object),
   refresh: React.PropTypes.number,
 };

@@ -12,9 +12,7 @@ import { combineReducers } from 'redux-immutable';
 import SaveHistoryTableDeletionModalReducer from './Table/ModalDeletionScheduledSave/reducer';
 import SaveHistoryTableInstantSaveModalReducer from './Table/ModalInstantSave/reducer';
 import SaveHistoryTableInstantRestoreModalReducer from './Table/ModalInstantRestore/reducer';
-import {
-  SAVE_HISTORY_GET_HISTORY_SAVES_BY_USER,
-} from './constants';
+import SAVE_HISTORY_GET_HISTORY_SAVES_BY_USER from './constants';
 
 const initialState = {
   saves: [],

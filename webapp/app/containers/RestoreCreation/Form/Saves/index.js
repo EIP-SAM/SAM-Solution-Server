@@ -3,9 +3,9 @@
 //
 
 import { connect } from 'react-redux';
-import { selectSave } from './actions';
 import { listFiles } from 'containers/RestoreCreation/Form/Files/actions';
-import { RestoreCreationSaves } from 'components/RestoreCreation/Form/Saves';
+import RestoreCreationSaves from 'components/RestoreCreation/Form/Saves';
+import { selectSave } from './actions';
 
 function mapStateToProps(state) {
   return {
@@ -16,8 +16,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    selectSave: (save) => dispatch(selectSave(save)),
-    listFiles: (files) => dispatch(listFiles(files)),
+    selectSave: save => dispatch(selectSave(save)),
+    listFiles: files => dispatch(listFiles(files)),
   };
 }
 

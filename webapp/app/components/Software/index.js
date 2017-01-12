@@ -8,7 +8,7 @@ import SoftwareTable from 'containers/Software/Table';
 import SoftwareFilters from 'containers/Software/Filters';
 
 /* eslint-disable react/prefer-stateless-function */
-export class Software extends React.Component {
+export default class Software extends React.Component {
 
   componentDidMount() {
     this.props.getUsersRequest();

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { showInstantRestoreModal } from 'containers/RestoreHistory/Table/ModalInstantRestore/actions';
 import { setUserId } from 'containers/RestoreCreation/Form/User/actions';
 import { selectFiles } from 'containers/RestoreCreation/Form/Files/actions';
-import { RestoreHistoryTable } from 'components/RestoreHistory/Table';
+import RestoreHistoryTable from 'components/RestoreHistory/Table';
 import { selectSave } from 'containers/RestoreCreation/Form/Saves/actions';
 
 function mapStateToProps(state) {
@@ -18,9 +18,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     showInstantRestoreModal: () => dispatch(showInstantRestoreModal()),
-    selectFiles: (selectedFiles) => dispatch(selectFiles(selectedFiles)),
-    setUserId: (userId) => dispatch(setUserId(userId)),
-    selectSave: (save) => dispatch(selectSave(save)),
+    selectFiles: selectedFiles => dispatch(selectFiles(selectedFiles)),
+    setUserId: userId => dispatch(setUserId(userId)),
+    selectSave: save => dispatch(selectSave(save)),
   };
 }
 

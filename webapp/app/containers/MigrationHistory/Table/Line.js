@@ -22,12 +22,12 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setSelectedUser: (userId) => dispatch(setSelectedUser(userId)),
-    setSelectedImage: (imageId) => dispatch(setSelectedImage(imageId)),
+    setSelectedUser: userId => dispatch(setSelectedUser(userId)),
+    setSelectedImage: imageId => dispatch(setSelectedImage(imageId)),
     showCreateMigrationPopup: (isPoppedUp, migrationEdited) => dispatch(showCreateMigrationPopup(isPoppedUp, migrationEdited)),
-    deleteMigration: (migration) => dispatch(setStatusDeleteMigrationModal(true, migration)),
-    setCreateDate: (date) => dispatch(setCreateDate(date)),
-    setCreateTime: (time) => dispatch(setCreateTime(time)),
+    deleteMigration: migration => dispatch(setStatusDeleteMigrationModal(true, migration)),
+    setCreateDate: date => dispatch(setCreateDate(date)),
+    setCreateTime: time => dispatch(setCreateTime(time)),
   };
 }
 

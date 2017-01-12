@@ -14,9 +14,9 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import Navbar from 'containers/Navbar';
-import styles from './styles.css';
 import { browserHistory } from 'react-router';
 import Spinner from 'components/Spinner';
+import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class App extends React.Component {
@@ -50,7 +50,7 @@ export default class App extends React.Component {
   render() {
     const content = this.getAppContent();
     const userInfo = this.props.userInfo;
-    const navbar = (!this.props.isLoading && userInfo && userInfo.logged) ? <Navbar /> : (<span></span>);
+    const navbar = (!this.props.isLoading && userInfo && userInfo.logged) ? <Navbar /> : (<span />);
     const appClass = (userInfo && userInfo.logged) ? styles.appBlock : '';
 
     return (
@@ -73,9 +73,16 @@ export default class App extends React.Component {
 App.propTypes = {
   children: React.PropTypes.node,
   isLoading: React.PropTypes.bool,
-  userInfo: React.PropTypes.object,
-  location: React.PropTypes.object,
+  userInfo: React.PropTypes.shape({
+    logged: React.PropTypes.bool,
+    userId: React.PropTypes.number,
+    username: React.PropTypes.string,
+    email: React.PropTypes.string,
+    isAdmin: React.PropTypes.bool,
+  }),
+  location: React.PropTypes.shape({
+    pathname: React.PropTypes.string,
+  }),
   getUserInfo: React.PropTypes.func,
   setAppLoadingState: React.PropTypes.func,
-  setAppRedirectState: React.PropTypes.func,
 };

@@ -6,7 +6,6 @@ import React from 'react';
 import moment from 'moment';
 import DatePicker from 'components/DatePicker';
 import RadioGroup from 'components/RadioGroup';
-import styles from './styles.css';
 import {
   FormGroup,
   ControlLabel,
@@ -14,6 +13,7 @@ import {
   Label,
   Collapse,
 } from 'react-bootstrap';
+import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class DateRange extends React.Component {
@@ -59,7 +59,7 @@ export default class DateRange extends React.Component {
   }
 
   handleChange(name) {
-    return event => {
+    return (event) => {
       switch (name) {
         case 'mode':
           this.setStateAndNotify({ specific: event === 'Specific' });
@@ -88,22 +88,22 @@ export default class DateRange extends React.Component {
             values={['Specific', 'Range']}
             placeholder="Specific"
             onChange={this.handleChange('mode')}
-            />
-          </FormGroup>
-          <FormGroup validationState={this.setStatusStyle()}>
-            <DatePicker
-              value={this.state.dateOne}
-              onChange={this.handleChange('rangeMin')}
+          />
+        </FormGroup>
+        <FormGroup validationState={this.setStatusStyle()}>
+          <DatePicker
+            value={this.state.dateOne}
+            onChange={this.handleChange('rangeMin')}
+          />
+          <Collapse className={styles.rangeMaxLogs} in={!this.state.specific} timeout={500}>
+            <div>
+              <DatePicker
+                value={this.state.dateTwo}
+                onChange={this.handleChange('rangeMax')}
               />
-            <Collapse className={styles.rangeMaxLogs} in={!this.state.specific} timeout={500}>
-              <div>
-                <DatePicker
-                  value={this.state.dateTwo}
-                  onChange={this.handleChange('rangeMax')}
-                  />
-              </div>
-            </Collapse>
-            <HelpBlock>{this.setMessageStatus()}</HelpBlock>
+            </div>
+          </Collapse>
+          <HelpBlock>{this.setMessageStatus()}</HelpBlock>
         </FormGroup>
       </div>
     );

@@ -9,7 +9,7 @@ import Users from 'containers/CreateGroup/Form/Users';
 import Buttons from 'containers/CreateGroup/Form/Buttons';
 
 /* eslint-disable react/prefer-stateless-function */
-export class CreateGroupForm extends React.Component {
+export default class CreateGroupForm extends React.Component {
   render() {
     return (
       <form>

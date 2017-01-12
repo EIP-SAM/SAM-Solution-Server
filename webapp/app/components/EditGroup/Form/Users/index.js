@@ -10,7 +10,7 @@ import Buttons from 'containers/EditGroup/Form/Users/Buttons';
 import styles from 'components/EditGroup/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class EditGroupFormUsers extends React.Component {
+export default class EditGroupFormUsers extends React.Component {
   componentWillMount() {
     const name = window.location.pathname.split('/')[2];
     this.props.getUsersRequest(name);

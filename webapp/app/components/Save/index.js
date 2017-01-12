@@ -9,7 +9,7 @@ import SaveButtons from 'containers/Save/Buttons';
 import SaveFilters from 'containers/Save/Filters';
 
 /* eslint-disable react/prefer-stateless-function */
-export class Save extends React.Component {
+export default class Save extends React.Component {
 
   componentDidMount() {
     this.props.getSavesRequest();

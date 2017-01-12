@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { StatsComponent } from 'components/Stats';
+import StatsComponent from 'components/Stats';
 
 function mapStateToProps() {
   return {

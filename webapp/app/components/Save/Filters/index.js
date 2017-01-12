@@ -8,7 +8,7 @@ import TypeUser from 'containers/Save/Filters/TypeUser';
 import Groups from 'containers/Save/Filters/Groups';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveFilters extends React.Component {
+export default class SaveFilters extends React.Component {
   render() {
     return (
       <Form horizontal>

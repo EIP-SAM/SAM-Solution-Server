@@ -4,9 +4,9 @@
 
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
+import socket from 'utils/socket-io';
+import store from 'app';
 import { getAllUsers } from './Filters/actions';
-import socket from 'utils/socket-io.js';
-import { store } from 'app.js';
 
 import {
   SOFTWARE_USERS_GET_USERS,

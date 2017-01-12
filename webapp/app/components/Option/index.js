@@ -14,5 +14,11 @@ export default class Option extends React.Component {
 }
 
 Option.propTypes = {
-  object: React.PropTypes.object.isRequired,
+  object: React.PropTypes.shape({
+    value: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number,
+    ]),
+    text: React.PropTypes.string,
+  }).isRequired,
 };

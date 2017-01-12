@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { EditGroupFormButtons } from 'components/EditGroup/Form/Buttons';
+import EditGroupFormButtons from 'components/EditGroup/Form/Buttons';
 import { editGroupRequest } from 'containers/EditGroup/Form/actions';
 import { groupNameErrorMsg } from 'containers/EditGroup/Form/GroupName/actions';
 
@@ -21,7 +21,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     editGroupRequest: (groupId, groupName, saveRestoreMode, migrationMode, softwareMode, selectedUsers) => dispatch(editGroupRequest(groupId, groupName, saveRestoreMode, migrationMode, softwareMode, selectedUsers)),
-    groupNameErrorMsg: (groupNameError) => dispatch(groupNameErrorMsg(groupNameError)),
+    groupNameErrorMsg: groupNameError => dispatch(groupNameErrorMsg(groupNameError)),
   };
 }
 

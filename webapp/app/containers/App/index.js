@@ -3,12 +3,11 @@
 //
 
 import { connect } from 'react-redux';
+import App from 'components/App';
 import {
   getUserInfo,
   setAppLoadingState,
 } from './actions';
-
-import App from 'components/App';
 
 function getSafeIsLoading(state) {
   const isLoading = state.get('app').isLoading;
@@ -25,7 +24,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getUserInfo: () => dispatch(getUserInfo()),
-    setAppLoadingState: (isLoading) => dispatch(setAppLoadingState(isLoading)),
+    setAppLoadingState: isLoading => dispatch(setAppLoadingState(isLoading)),
   };
 }
 

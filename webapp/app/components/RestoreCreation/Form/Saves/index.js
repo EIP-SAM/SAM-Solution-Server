@@ -1,12 +1,13 @@
 import React from 'react';
 import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
-import { ButtonPopover } from 'components/ButtonPopover';
+import ButtonPopover from 'components/ButtonPopover';
 import Option from 'components/Option';
 import styles from 'components/RestoreCreation/styles.css';
+
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
-export class RestoreCreationSaves extends React.Component {
+export default class RestoreCreationSaves extends React.Component {
   constructor(props) {
     super(props);
     this.handleFilesChange = this.handleFilesChange.bind(this);
@@ -30,7 +31,7 @@ export class RestoreCreationSaves extends React.Component {
     let savesOption = [];
     let errorMessage = '';
     if (this.props.allSaves.length > 0) {
-      saves = this.props.allSaves.map((save) => (
+      saves = this.props.allSaves.map(save => (
         { value: save.id, text: moment(save.execDate).format('DD/MM/YYYY HH:mm') }
       ));
       savesOption = saves.map((item, index) => (
@@ -62,7 +63,7 @@ export class RestoreCreationSaves extends React.Component {
 }
 
 RestoreCreationSaves.propTypes = {
-  allSaves: React.PropTypes.array,
+  allSaves: React.PropTypes.arrayOf(React.PropTypes.object),
   saveError: React.PropTypes.string,
   selectSave: React.PropTypes.func,
   listFiles: React.PropTypes.func,

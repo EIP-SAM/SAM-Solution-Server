@@ -3,18 +3,18 @@
 //
 
 import { connect } from 'react-redux';
+import RestoreHistory from 'components/RestoreHistory';
 import { getHistoryRestoresByUserRequest } from './actions';
-import { RestoreHistory } from 'components/RestoreHistory';
 
 function mapStateToProps(state) {
   return {
-    userInfo: state.get('app').userInfo,
+    userIsAdmin: state.get('app').userInfo.isAdmin,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getHistoryRestoresByUserRequest: (username) => dispatch(getHistoryRestoresByUserRequest(username)),
+    getHistoryRestoresByUserRequest: username => dispatch(getHistoryRestoresByUserRequest(username)),
   };
 }
 

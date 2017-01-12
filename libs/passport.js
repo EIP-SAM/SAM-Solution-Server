@@ -1,29 +1,26 @@
 const UsersManager = require('../managers/users');
 const UsersAdapter = require('../adapters/users');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
 
 module.exports = function initPassport(app) {
-  var passport = require('passport');
-  var LocalStrategy = require('passport-local');
-
   app.use(passport.initialize());
   app.use(passport.session());
 
   passport.use(new LocalStrategy(
-    function (username, password, done) {
-
-      UsersManager.identifyUser(username, password).then(function (user) {
+    (username, password, done) => {
+      UsersManager.identifyUser(username, password).then((user) => {
         done(null, user);
-      }).catch(function (identificationError, internalError) {
+      }).catch((identificationError, internalError) => {
         if (internalError) {
           done(internalError);
         } else {
           done(null, false, { message: identificationError });
         }
       });
-    }
-  ));
+    }));
 
-  passport.serializeUser(function (user, done) {
+  passport.serializeUser((user, done) => {
     if (user && user.id) {
       done(null, user.id);
     } else {
@@ -31,14 +28,13 @@ module.exports = function initPassport(app) {
     }
   });
 
-  passport.deserializeUser(function (id, done) {
+  passport.deserializeUser((id, done) => {
     UsersAdapter.findById(id)
-    .then(function (user) {
+    .then((user) => {
       if (user) {
         return done(null, user);
-      } else {
-        return done({ message: 'Passport deserializer: User not found' }, null);
       }
+      return done({ message: 'Passport deserializer: User not found' }, null);
     });
   });
 

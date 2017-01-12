@@ -6,10 +6,11 @@ import React from 'react';
 import { FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap';
 import DatePicker from 'components/DatePicker';
 import styles from 'components/SaveCreation/styles.css';
+
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveCreationDate extends React.Component {
+export default class SaveCreationDate extends React.Component {
   constructor(props) {
     super(props);
     this.handleDateChange = this.handleDateChange.bind(this);
@@ -39,7 +40,6 @@ export class SaveCreationDate extends React.Component {
 }
 
 SaveCreationDate.propTypes = {
-  date: React.PropTypes.string,
   dateError: React.PropTypes.string,
   isDateDisabled: React.PropTypes.bool,
   dateSave: React.PropTypes.func,

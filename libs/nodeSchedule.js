@@ -1,7 +1,7 @@
 //
 // Init node-schedule
 //
-var cron = require('node-schedule');
+const cron = require('node-schedule');
 
 //
 // List of all cron

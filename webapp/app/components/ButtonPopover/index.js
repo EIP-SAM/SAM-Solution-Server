@@ -8,7 +8,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class ButtonPopover extends React.Component {
+export default class ButtonPopover extends React.Component {
   render() {
     const buttonStyle = ((this.props.buttonStyle) ? this.props.buttonStyle : styles.button);
 
@@ -50,7 +50,7 @@ export class ButtonPopover extends React.Component {
 }
 
 ButtonPopover.propTypes = {
-  trigger: React.PropTypes.array.isRequired,
+  trigger: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.array]).isRequired,
   id: React.PropTypes.string,
   placement: React.PropTypes.string.isRequired,
   popoverContent: React.PropTypes.string.isRequired,
