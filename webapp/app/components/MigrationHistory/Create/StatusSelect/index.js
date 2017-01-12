@@ -42,6 +42,7 @@ export default class StatusSelect extends React.Component {
   render() {
     const time = (this.props.time !== undefined) ? this.props.time: moment().format('HH:mm');
     const timepickerProps = {
+      id: 'createMigration',
       time: this.props.time,
       label: 'Time',
       updateTimeCallback: this.handleTimepickerOnChange.bind(this),
@@ -62,7 +63,7 @@ export default class StatusSelect extends React.Component {
   }
 
   //
-  // Timepicker on change date handleRemove 
+  // Timepicker on change date handleRemove
   //
   handleTimepickerOnChange(value) {
     if (!moment(value, ['h:mm A']).isValid()) {
