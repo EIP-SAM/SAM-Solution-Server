@@ -12,7 +12,7 @@ import Td from 'components/Td';
 import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class UserTable extends React.Component {
+export default class UserTable extends React.Component {
   handleDeleteClick(user) {
     this.props.showInstantDeleteModal();
     this.props.userToDelete(user.id);
