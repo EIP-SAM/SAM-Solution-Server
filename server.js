@@ -7,6 +7,8 @@ const app = require('./libs/express')(config);
 const logger = require('./libs/bunyan');
 const SocketIO = require('./libs/socket-io');
 
+const migrationController = require('./controllers/migration');
+
 const generalRouter = require('./routes');
 
 require('./models/init')().then(() => {
@@ -16,6 +18,7 @@ require('./models/init')().then(() => {
   });
 
   SocketIO.init(server);
+  migrationController.initCheckMigration();
 }).catch((err) => {
   logger.error(`Error initializing server, exiting : ${err}`);
 });
