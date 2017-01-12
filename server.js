@@ -9,9 +9,9 @@ const SocketIO = require('./libs/socket-io');
 
 const migrationController = require('./controllers/migration');
 
-const generalRouter = require('./routes');
 
 require('./models/init')().then(() => {
+  const generalRouter = require('./routes'); // eslint-disable-line global-require
   generalRouter(app, config);
   const server = app.listen(config.port, () => {
     logger.info(`Listening on port ${config.port}`);
