@@ -32,7 +32,8 @@ module.exports.getMigrationsGroupByStatus = () => migrationManager.getMigrations
 // - status
 // - comment
 //
-module.exports.createMigration = migrationObj => migrationManager.createMigration(migrationObj);
+
+module.exports.createMigration = (migrationObj, isInstant) => migrationManager.createMigration(migrationObj, isInstant);
 
 //
 // Launch getMigrationById method from managers
@@ -51,3 +52,8 @@ module.exports.editMigrationById = migrationObj => migrationManager.editMigratio
 // Launch deleteMigrationById method from managers
 //
 module.exports.deleteMigrationById = migrationId => migrationManager.deleteMigrationById(migrationId);
+
+//
+// Handle regular migration check in database
+//
+module.exports.initCheckMigration = () => migrationManager.initCheckMigration();
