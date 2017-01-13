@@ -38,7 +38,7 @@ SAM-Solution-Server/adapters/statistics/statistic_temporary_fake_data.js
 ***** CODE EXEMPLE *****
 ************************
 
-module.exports.TESTDEFONCTION = function () {
+module.exports.TESTDEFONCTION = () => {
 
   var returnData = {
     type: 'radar',
