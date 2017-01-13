@@ -4,11 +4,11 @@
 
 import React from 'react';
 import { Modal, ButtonToolbar, Glyphicon } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from 'components/SaveHistory/Table/ModalInstantSave/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveInstantRestoreModal extends React.Component {
+export default class SaveInstantRestoreModal extends React.Component {
 
   handleLaunchClick() {
     this.props.createRestoreRequest(this.props.userId, this.props.files, this.props.saveId);

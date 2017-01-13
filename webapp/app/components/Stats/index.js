@@ -3,8 +3,8 @@ import { PageHeader } from 'react-bootstrap';
 import StatisticFilterComponent from 'containers/Stats/StatisticFilter';
 import StatisticGraphComponent from 'containers/Stats/StatisticGraph';
 
-export class StatsComponent extends React.Component {
-
+/* eslint-disable react/prefer-stateless-function */
+export default class StatsComponent extends React.Component {
   render() {
     return (
       <div>

@@ -6,10 +6,11 @@ machine:
 ## Customize test commands
 test:
   pre:
-    - npm run lint
+    - cd webapp/ && npm install && cd ../
     - for f in *config.json.example; do cp "$f" "`echo $f | sed s/json.example/json/`"; done:
         pwd:
           config/
+    - npm run lint:all
   post:
     - mkdir $CIRCLE_ARTIFACTS/json_output
     - mv coverage/coverage.json $CIRCLE_ARTIFACTS/json_output

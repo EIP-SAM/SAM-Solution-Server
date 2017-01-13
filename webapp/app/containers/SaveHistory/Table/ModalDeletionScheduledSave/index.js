@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveHistoryDeletionScheduledSaveModal } from 'components/SaveHistory/Table/ModalDeletionScheduledSave';
+import SaveHistoryDeletionScheduledSaveModal from 'components/SaveHistory/Table/ModalDeletionScheduledSave';
 
 import {
   hideDeletionScheduledSaveModal,

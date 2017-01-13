@@ -3,10 +3,6 @@
 //
 
 import React from 'react';
-import styles from './styles.css';
-import DateRange from './DateRange';
-import LevelRange from './LevelRange';
-import NumberLogs from './NumberLogs';
 import moment from 'moment';
 import {
   Panel,
@@ -17,6 +13,10 @@ import {
   Row,
   Col,
 } from 'react-bootstrap';
+import styles from './styles.css';
+import DateRange from './DateRange';
+import LevelRange from './LevelRange';
+import NumberLogs from './NumberLogs';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class LogFilter extends React.Component {
@@ -50,7 +50,7 @@ export default class LogFilter extends React.Component {
   }
 
   handleChange(name) {
-    return event => {
+    return (event) => {
       const newFilters = this.props.filters;
       switch (name) {
         case 'number':
@@ -99,7 +99,7 @@ export default class LogFilter extends React.Component {
               delete newFilters.findOpts.afterDate;
             }
             if (event.dateTwo !== null) {
-              const nextDay = moment(event.dateTwo).add(1, 'days').startOf('date').subtract(1,'second').utcOffset(event.dateTwo).toISOString();
+              const nextDay = moment(event.dateTwo).add(1, 'days').startOf('date').subtract(1, 'second').utcOffset(event.dateTwo).toISOString();
 
               newFilters.findOpts.beforeDate = nextDay;
             } else {
@@ -148,8 +148,14 @@ export default class LogFilter extends React.Component {
 LogFilter.propTypes = {
   keyRerender: React.PropTypes.number.isRequired,
   incKeyRerender: React.PropTypes.func.isRequired,
-  filters: React.PropTypes.object.isRequired,
-  panel: React.PropTypes.object.isRequired,
+  filters: React.PropTypes.shape({
+    findOpts: React.PropTypes.object,
+  }),
+  panel: React.PropTypes.shape({
+    isCollapsed: React.PropTypes.bool,
+    titleIcon: React.PropTypes.string,
+    titleHelp: React.PropTypes.string,
+  }),
   collapsePanel: React.PropTypes.func.isRequired,
   setFilters: React.PropTypes.func.isRequired,
   resetFilters: React.PropTypes.func.isRequired,

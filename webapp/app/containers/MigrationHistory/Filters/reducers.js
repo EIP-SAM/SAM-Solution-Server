@@ -8,9 +8,7 @@
 //    return state.set('yourStateVariable', true);
 //
 
-import {
-  MIGRATION_HISTORY_SET_STATUS_FILTER,
-} from './constants';
+import MIGRATION_HISTORY_SET_STATUS_FILTER from './constants';
 
 export default function MigrationHistoryFiltersReducer(state = {}, action) {
   switch (action.type) {

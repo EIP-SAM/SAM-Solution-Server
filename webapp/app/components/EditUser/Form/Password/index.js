@@ -7,7 +7,7 @@ import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap
 import styles from 'components/EditUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class EditUserFormPassword extends React.Component {
+export default class EditUserFormPassword extends React.Component {
   constructor(props) {
     super(props);
     this.onChangePassword = this.onChangePassword.bind(this);

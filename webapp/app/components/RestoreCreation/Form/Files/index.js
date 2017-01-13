@@ -1,11 +1,11 @@
 import React from 'react';
 import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
-import { ButtonPopover } from 'components/ButtonPopover';
+import ButtonPopover from 'components/ButtonPopover';
 import Option from 'components/Option';
 import styles from 'components/RestoreCreation/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class RestoreCreationFiles extends React.Component {
+export default class RestoreCreationFiles extends React.Component {
   constructor(props) {
     super(props);
     this.handleSelectedFiles = this.handleSelectedFiles.bind(this);
@@ -29,11 +29,11 @@ export class RestoreCreationFiles extends React.Component {
 
     if (this.props.allSaves.length > 0) {
       if (this.props.files.length > 0) {
-        listFiles = this.props.files[0].split(',').map((file) => (
+        listFiles = this.props.files[0].split(',').map(file => (
             { value: file, text: file }
         ));
       } else {
-        listFiles = this.props.allSaves[0].save_scheduled.files.split(',').map((file) => (
+        listFiles = this.props.allSaves[0].save_scheduled.files.split(',').map(file => (
             { value: file, text: file }
         ));
       }
@@ -66,8 +66,8 @@ export class RestoreCreationFiles extends React.Component {
 }
 
 RestoreCreationFiles.propTypes = {
-  allSaves: React.PropTypes.array,
-  files: React.PropTypes.array,
+  allSaves: React.PropTypes.arrayOf(React.PropTypes.object),
+  files: React.PropTypes.arrayOf(React.PropTypes.string),
   filesError: React.PropTypes.string,
   selectFiles: React.PropTypes.func,
 };

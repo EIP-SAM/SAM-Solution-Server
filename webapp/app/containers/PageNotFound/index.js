@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { PageNotFound } from 'components/PageNotFound';
+import PageNotFound from 'components/PageNotFound';
 
 export default connect(
   null,

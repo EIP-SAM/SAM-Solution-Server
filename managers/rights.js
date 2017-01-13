@@ -28,20 +28,20 @@ module.exports.enumModules = enumModules;
 //    }
 //  });
 //
-module.exports.getModuleRightForUser = function (moduleName, user) {
-  if (moduleName != enumModules.SAVE_AND_RESTORE &&
-    moduleName != enumModules.MIGRATION &&
-    moduleName != enumModules.SOFTWARE_PACKAGES) {
+module.exports.getModuleRightForUser = (moduleName, user) => {
+  if (moduleName !== enumModules.SAVE_AND_RESTORE &&
+    moduleName !== enumModules.MIGRATION &&
+    moduleName !== enumModules.SOFTWARE_PACKAGES) {
     return null;
   }
 
-  var mode = 0;
-  user.groups.forEach(function (group) {
-    const moduleMode = group[moduleName + 'Mode'];
+  let mode = 0;
+  user.groups.forEach((group) => {
+    const moduleMode = group[`${moduleName}Mode`];
     mode = moduleMode > mode ? moduleMode : mode;
   });
 
-  if (mode == enumMode.SIMPLE || mode == enumMode.ADVANCED) {
+  if (mode === enumMode.SIMPLE || mode === enumMode.ADVANCED) {
     return mode;
   }
 

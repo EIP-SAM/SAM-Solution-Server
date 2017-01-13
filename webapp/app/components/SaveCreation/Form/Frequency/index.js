@@ -8,7 +8,7 @@ import Option from 'components/Option';
 import styles from 'components/SaveCreation/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveCreationFrequency extends React.Component {
+export default class SaveCreationFrequency extends React.Component {
   constructor(props) {
     super(props);
     this.handleFrequencyChange = this.handleFrequencyChange.bind(this);

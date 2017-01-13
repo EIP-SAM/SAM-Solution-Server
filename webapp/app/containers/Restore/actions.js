@@ -12,10 +12,7 @@
 import request from 'utils/request';
 import { browserHistory } from 'react-router';
 import { getAllUsers } from './Filters/actions';
-
-import {
-  RESTORE_GET_RESTORES,
-} from './constants';
+import RESTORE_GET_RESTORES from './constants';
 
 export function getRestores(restores) {
   return {

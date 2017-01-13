@@ -3,6 +3,7 @@
 //
 
 import { connect } from 'react-redux';
+import LogFilters from 'components/Logs/Filters/';
 import {
   setFilters,
   resetFilters,
@@ -15,7 +16,6 @@ import {
   clearLogs,
   setSorts,
 } from './actions/result';
-import LogFilters from 'components/Logs/Filters/';
 
 function getDefaultKeyRerender(state) {
   return state.get('logs').get('filters').get('keyRerender') || 0;
@@ -45,13 +45,13 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setFilters: (filters) => dispatch(setFilters(filters)),
+    setFilters: filters => dispatch(setFilters(filters)),
     resetFilters: () => dispatch(resetFilters()),
-    getFilteredLogs: (filters) => dispatch(getFilteredLogs(filters)),
+    getFilteredLogs: filters => dispatch(getFilteredLogs(filters)),
     clearLogs: () => dispatch(clearLogs()),
-    collapsePanel: (isCollapsed) => dispatch(collapsePanel(isCollapsed)),
+    collapsePanel: isCollapsed => dispatch(collapsePanel(isCollapsed)),
     incKeyRerender: () => dispatch(incKeyRerender()),
-    setSorts: (sort) => dispatch(setSorts(sort)),
+    setSorts: sort => dispatch(setSorts(sort)),
     resetPanel: () => dispatch(resetPanel()),
   };
 }

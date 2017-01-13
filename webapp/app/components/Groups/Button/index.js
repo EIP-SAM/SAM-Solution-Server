@@ -4,11 +4,11 @@
 
 import React from 'react';
 import { ButtonToolbar } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class GroupsButton extends React.Component {
+export default class GroupsButton extends React.Component {
 
   render() {
     return (

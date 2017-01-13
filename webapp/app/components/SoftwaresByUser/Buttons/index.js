@@ -4,14 +4,14 @@
 
 import React from 'react';
 import { ButtonToolbar } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import AddAllSoftwaresModal from 'containers/SoftwaresByUser/Buttons/ModalAddAllSoftwares';
 import UpdateAllSoftwaresModal from 'containers/SoftwaresByUser/Buttons/ModalUpdateAllSoftwares';
 import DeleteAllSoftwaresModal from 'containers/SoftwaresByUser/Buttons/ModalDeleteAllSoftwares';
 import styles from 'components/SoftwaresByUser/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SoftwaresByUserButtons extends React.Component {
+export default class SoftwaresByUserButtons extends React.Component {
 
   handleClickInstallSoftwares() {
     this.props.showAddAllSoftwaresModal();

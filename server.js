@@ -1,17 +1,24 @@
 // retrieve configuration from main config file
 const config = require('./config/base.config.json');
+
 config.rootFolder = __dirname;
 
-var app = require('./libs/express')(config);
-var logger = require('./libs/bunyan');
-var SocketIO = require('./libs/socket-io');
+const app = require('./libs/express')(config);
+const logger = require('./libs/bunyan');
+const SocketIO = require('./libs/socket-io');
 
-require('./models/init')().then(function () {
-  require('./routes')(app, config);
-  var server = app.listen(config.port, function () {
-    logger.info('Listening on port ' + config.port);
+const migrationController = require('./controllers/migration');
+
+
+require('./models/init')().then(() => {
+  const generalRouter = require('./routes'); // eslint-disable-line global-require
+  generalRouter(app, config);
+  const server = app.listen(config.port, () => {
+    logger.info(`Listening on port ${config.port}`);
   });
-  var socket = SocketIO.init(server);
-}).catch(function(err) {
-  console.log(err);
+
+  SocketIO.init(server);
+  migrationController.initCheckMigration();
+}).catch((err) => {
+  logger.error(`Error initializing server, exiting : ${err}`);
 });

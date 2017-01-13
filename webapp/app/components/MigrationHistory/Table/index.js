@@ -8,15 +8,7 @@ import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Line from 'containers/MigrationHistory/Table/Line';
 
-const columns = [
-  { isLink: false, value: '#' },
-  { isLink: false, value: 'Status' },
-  { isLink: false, value: 'Date' },
-  { isLink: false, value: 'User' },
-  { isLink: false, value: 'Image' },
-  { isLink: false, value: 'Comment' },
-  { isLink: false, value: 'Actions' },
-];
+const columns = ['#', 'Status', 'Date', 'User', 'Image', 'Comment', 'Actions'];
 
 /* eslint-disable react/prefer-stateless-function */
 export default class Table extends React.Component {
@@ -51,7 +43,7 @@ export default class Table extends React.Component {
 }
 
 Table.propTypes = {
-  migrations: React.PropTypes.array,
+  migrations: React.PropTypes.arrayOf(React.PropTypes.object),
   statusFilter: React.PropTypes.string,
   getAllMigrations: React.PropTypes.func,
 };

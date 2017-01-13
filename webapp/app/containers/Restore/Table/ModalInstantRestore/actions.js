@@ -9,10 +9,7 @@
 //      }
 //
 
-
-import {
-  RESTORE_SHOW_INSTANT_RESTORE_MODAL,
-} from './constants';
+import RESTORE_SHOW_INSTANT_RESTORE_MODAL from './constants';
 
 export function showInstantRestoreModal() {
   return {

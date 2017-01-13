@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveInstantRestoreModal } from 'components/Save/Table/ModalInstantRestore';
+import SaveInstantRestoreModal from 'components/Save/Table/ModalInstantRestore';
 import {
   hideInstantRestoreModal,
   createRestoreRequest,

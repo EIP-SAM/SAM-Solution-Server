@@ -7,7 +7,7 @@ import { PageHeader } from 'react-bootstrap';
 import CreateGroupForm from 'containers/CreateGroup/Form';
 
 /* eslint-disable react/prefer-stateless-function */
-export class CreateGroup extends React.Component {
+export default class CreateGroup extends React.Component {
   componentWillUnmount() {
     this.props.resetStateForm();
   }

@@ -33,13 +33,13 @@ export default class UserSelect extends React.Component {
         <FormControl
           componentClass="select"
           multiple
-          onChange={(e) => this.onChange(e.target.options)}
+          onChange={e => this.onChange(e.target.options)}
           value={this.getSelectedValue()}
         >
-        {users.map((user, index) => (
-          <option key={index} value={user.id}>
-            {user.name}
-          </option>
+          {users.map((user, index) => (
+            <option key={index} value={user.id}>
+              {user.name}
+            </option>
         ))}
         </FormControl>
       </FormGroup>
@@ -48,7 +48,7 @@ export default class UserSelect extends React.Component {
 }
 
 UserSelect.propTypes = {
-  users: React.PropTypes.array,
+  users: React.PropTypes.arrayOf(React.PropTypes.object),
   userId: React.PropTypes.number,
   getAllUsers: React.PropTypes.func,
   setSelectedUser: React.PropTypes.func,

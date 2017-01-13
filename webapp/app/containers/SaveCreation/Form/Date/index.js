@@ -3,12 +3,11 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveCreationDate } from 'components/SaveCreation/Form/Date';
+import SaveCreationDate from 'components/SaveCreation/Form/Date';
 import { dateSave } from './actions';
 
 function mapStateToProps(state) {
   return {
-    date: state.get('saveCreation').get('SaveCreationFormDateReducer').date,
     dateError: state.get('saveCreation').get('SaveCreationFormDateReducer').dateError,
     isDateDisabled: state.get('saveCreation').get('SaveCreationFormDateReducer').isDateDisabled,
   };
@@ -16,7 +15,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    dateSave: (date) => dispatch(dateSave(date)),
+    dateSave: date => dispatch(dateSave(date)),
   };
 }
 

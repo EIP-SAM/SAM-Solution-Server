@@ -1,11 +1,9 @@
 //
 // Adapter Git
 //
-var gitWorker = require('../workers/git');
+const gitWorker = require('../workers/git');
 
 //
 // Create new repo for a user
 //
-module.exports.initNewGitRepo = function (userId, userName) {
-  return gitWorker.initNewGitRepo(userId, userName);
-};
+module.exports.initNewGitRepo = (userId, userName) => gitWorker.initNewGitRepo(userId, userName);

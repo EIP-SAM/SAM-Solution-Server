@@ -34,7 +34,7 @@ export default class Filters extends React.Component {
           </Col>
           <Col sm={10}>
             <RadioGroup
-              onChange={(e) => this.props.setStatusFilter(e.props.children)}
+              onChange={e => this.props.setStatusFilter(e.props.children)}
               placeholder={status[0]}
               values={status}
               inline

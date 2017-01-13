@@ -5,18 +5,29 @@
 
 import React from 'react';
 import moment from 'moment';
+import Spinner from 'components/Spinner';
+import { Table, Label, Glyphicon, Alert } from 'react-bootstrap';
 import styles from './styles.css';
 import levels from './levels.json';
-import Spinner from 'components/Spinner';
-import {
-  Table,
-  Label,
-  Glyphicon,
-  Alert,
-} from 'react-bootstrap';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class LogResult extends React.Component {
+  static formatDate(ISODate) {
+    return moment(ISODate).format('YYYY MMMM Do HH:mm:ss');
+  }
+
+  static sortString(first, second) {
+    const a = (first) ? first.toLowerCase() : '';
+    const b = (second) ? second.toLowerCase() : '';
+
+    if ((!a && b) || (a < b)) {
+      return -1;
+    } else if ((a && !b) || (a > b)) {
+      return 1;
+    }
+    return 0;
+  }
+
   constructor(props) {
     super(props);
 
@@ -47,22 +58,6 @@ export default class LogResult extends React.Component {
       );
     }
     return '';
-  }
-
-  formatDate(ISODate) {
-    return moment(ISODate).format('YYYY MMMM Do HH:mm:ss');
-  }
-
-  sortString(first, second) {
-    const a = (first) ? first.toLowerCase() : '';
-    const b = (second) ? second.toLowerCase() : '';
-
-    if (!a && b || a < b) {
-      return -1;
-    } else if (a && !b || a > b) {
-      return 1;
-    }
-    return 0;
   }
 
   sortByDate() {
@@ -97,12 +92,12 @@ export default class LogResult extends React.Component {
     if (this.props.sorts !== 'module') {
       this.props.setSorts('module');
       this.props.logs.data.sort((a, b) => (
-        this.sortString(a.moduleName, b.moduleName)
+        LogResult.sortString(a.moduleName, b.moduleName)
       ));
     } else {
       this.props.setSorts('none');
       this.props.logs.data.sort((a, b) => (
-        this.sortString(b.moduleName, a.moduleName)
+        LogResult.sortString(b.moduleName, a.moduleName)
       ));
     }
   }
@@ -111,12 +106,12 @@ export default class LogResult extends React.Component {
     if (this.props.sorts !== 'message') {
       this.props.setSorts('message');
       this.props.logs.data.sort((a, b) => (
-        this.sortString(a.msg, b.msg)
+        LogResult.sortString(a.msg, b.msg)
       ));
     } else {
       this.props.setSorts('none');
       this.props.logs.data.sort((a, b) => (
-        this.sortString(b.msg, a.msg)
+        LogResult.sortString(b.msg, a.msg)
       ));
     }
   }
@@ -149,7 +144,7 @@ export default class LogResult extends React.Component {
             {this.props.logs.data.map((log, index) => (
               <tr className={styles.trLogsResults} key={index}>
                 <td>
-                  {this.formatDate(log.time)}
+                  {LogResult.formatDate(log.time)}
                 </td>
                 <td>
                   <Label bsStyle={levels[log.level].style}>{levels[log.level].name}</Label>
@@ -171,7 +166,10 @@ export default class LogResult extends React.Component {
 }
 
 LogResult.propTypes = {
-  logs: React.PropTypes.object.isRequired,
+  logs: React.PropTypes.shape({
+    error: React.PropTypes.bool,
+    data: React.PropTypes.array,
+  }).isRequired,
   sorts: React.PropTypes.string.isRequired,
   isLoading: React.PropTypes.bool.isRequired,
   setSorts: React.PropTypes.func.isRequired,

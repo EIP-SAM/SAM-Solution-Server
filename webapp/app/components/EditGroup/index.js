@@ -6,7 +6,8 @@ import React from 'react';
 import { PageHeader } from 'react-bootstrap';
 import EditGroupForm from 'containers/EditGroup/Form';
 
-export class EditGroup extends React.Component {
+/* eslint-disable react/prefer-stateless-function */
+export default class EditGroup extends React.Component {
   componentWillUnmount() {
     this.props.resetStateForm();
   }

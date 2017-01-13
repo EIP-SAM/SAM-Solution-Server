@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SaveCreationTime } from 'components/SaveCreation/Form/Time';
+import SaveCreationTime from 'components/SaveCreation/Form/Time';
 import {
   timeSave,
 } from './actions';
@@ -18,7 +18,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    timeSave: (time) => dispatch(timeSave(time)),
+    timeSave: time => dispatch(timeSave(time)),
   };
 }
 

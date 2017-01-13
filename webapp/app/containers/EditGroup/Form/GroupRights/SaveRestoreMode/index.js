@@ -3,8 +3,8 @@
 //
 
 import { connect } from 'react-redux';
-import { EditGroupFormGroupRightsSaveRestoreMode } from 'components/EditGroup/Form/GroupRights/SaveRestoreMode';
-import { saveRestoreModeChange } from './actions';
+import EditGroupFormGroupRightsSaveRestoreMode from 'components/EditGroup/Form/GroupRights/SaveRestoreMode';
+import saveRestoreModeChange from './actions';
 
 function mapStateToProps(state) {
   return {
@@ -14,7 +14,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    saveRestoreModeChange: (saveRestoreMode) => dispatch(saveRestoreModeChange(saveRestoreMode)),
+    saveRestoreModeChange: saveRestoreMode => dispatch(saveRestoreModeChange(saveRestoreMode)),
   };
 }
 

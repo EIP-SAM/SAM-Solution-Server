@@ -5,11 +5,15 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import { ButtonToolbar } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from 'components/CreateGroup/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class CreateGroupFormButtons extends React.Component {
+export default class CreateGroupFormButtons extends React.Component {
+  static handleCancelClick() {
+    browserHistory.goBack();
+  }
+
   handleCreateClick(event) {
     event.preventDefault();
     if (this.props.groupName !== '') {
@@ -19,15 +23,11 @@ export class CreateGroupFormButtons extends React.Component {
     }
   }
 
-  handleCancelClick() {
-    browserHistory.goBack();
-  }
-
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Create" onClick={(event) => this.handleCreateClick(event)} />
-        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
+        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Create" onClick={event => this.handleCreateClick(event)} />
+        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => CreateGroupFormButtons.handleCancelClick()} />
       </ButtonToolbar>
     );
   }
@@ -38,7 +38,7 @@ CreateGroupFormButtons.propTypes = {
   saveRestoreMode: React.PropTypes.number,
   migrationMode: React.PropTypes.number,
   softwareMode: React.PropTypes.number,
-  selectedUsers: React.PropTypes.array,
+  selectedUsers: React.PropTypes.arrayOf(React.PropTypes.object),
   createGroupRequest: React.PropTypes.func,
   groupNameErrorMsg: React.PropTypes.func,
 };

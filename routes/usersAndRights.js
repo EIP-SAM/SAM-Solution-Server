@@ -13,13 +13,9 @@
 //   Author: Grenadingue
 //
 
-const ensureLoggedIn = require('../libs/connectEnsureLogin').ensureLoggedIn;
-const ensureLoggedOut = require('../libs/connectEnsureLogin').ensureLoggedOut;
-
 const usersAndRightsController = require('../controllers/usersAndRights');
 
 module.exports = function initBaseRoutes(app, conf, passport) {
-
   //
   // Security gate
   //
@@ -61,9 +57,7 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   //         }
   //  - 401/500: { error: 'error message' }
   //
-  app.post('/api/public/user/login',
-    usersAndRightsController.login(passport)
-  );
+  app.post('/api/public/user/login', usersAndRightsController.login(passport));
 
   //
   // POST request form:
@@ -74,9 +68,7 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   // JSON response:
   //  - Empty
   //
-  app.post('/api/logged-in/user/logout',
-    usersAndRightsController.logout()
-  );
+  app.post('/api/logged-in/user/logout', usersAndRightsController.logout());
 
   //
   // POST request form:
@@ -90,9 +82,7 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   //  - 200: { success: 'success message' }
   //  - 401/405/500: { error: 'error message' }
   //
-  app.post('/api/public/user/sign-up',
-    usersAndRightsController.createUser()
-  );
+  app.post('/api/public/user/sign-up', usersAndRightsController.createUser());
 
   //
   // POST request form:
@@ -106,9 +96,7 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   //  - 200: { success: 'success message' }
   //  - 401/405/500: { error: 'error message' }
   //
-  app.post('/api/public/user/recover_password',
-    usersAndRightsController.recoverUserPassword()
-  );
+  app.post('/api/public/user/recover_password', usersAndRightsController.recoverUserPassword());
 
   //
   // GET request
@@ -126,9 +114,7 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   //         }
   //  - 401/500: { error: 'error message' }
   //
-  app.get('/api/logged-in/user/profile',
-    usersAndRightsController.retrieveUserProfile()
-  );
+  app.get('/api/logged-in/user/profile', usersAndRightsController.retrieveUserProfile());
 
   //
   // POST request form:
@@ -141,79 +127,43 @@ module.exports = function initBaseRoutes(app, conf, passport) {
   //  - 200: { success: 'success message' }
   //  - 401/405: { error: 'error message' }
   //
-  app.post('/api/logged-in/user/profile/update',
-    usersAndRightsController.updateUserProfile()
-  );
+  app.post('/api/logged-in/user/profile/update', usersAndRightsController.updateUserProfile());
 
   //
   // Users administration
   //
+  app.get('/api/logged-in/admin/users', usersAndRightsController.retrieveAllUsers());
 
-  app.get('/api/logged-in/admin/users',
-    usersAndRightsController.retrieveAllUsers()
-  );
+  app.get('/api/logged-in/user', usersAndRightsController.retrieveUser());
 
-  app.get('/api/logged-in/user',
-    usersAndRightsController.retrieveUser()
-  );
+  app.post('/api/logged-in/admin/users/create', usersAndRightsController.createUsers());
 
-  app.post('/api/logged-in/admin/users/create',
-    usersAndRightsController.createUsers()
-  );
+  app.post('/api/logged-in/admin/users/update', usersAndRightsController.updateUsers());
 
-  app.post('/api/logged-in/admin/users/update',
-    usersAndRightsController.updateUsers()
-  );
+  app.post('/api/logged-in/admin/users/delete', usersAndRightsController.deleteUsers());
 
-  app.post('/api/logged-in/admin/users/delete',
-    usersAndRightsController.deleteUsers()
-  );
+  app.post('/api/logged-in/user/update', usersAndRightsController.updateUser());
 
-  app.post('/api/logged-in/user/update',
-    usersAndRightsController.updateUser()
-  );
+  app.post('/api/logged-in/admin/user/delete', usersAndRightsController.deleteUser());
 
-  app.post('/api/logged-in/admin/user/delete',
-    usersAndRightsController.deleteUser()
-  );
-
-  app.get('/api/logged-in/admin/deamon/connected',
-    usersAndRightsController.getNbrUserConnectedDeamon()
-  );
+  app.get('/api/logged-in/admin/deamon/connected', usersAndRightsController.getNbrUserConnectedDeamon());
 
   //
   // Groups administration
   //
+  app.get('/api/logged-in/admin/groups', usersAndRightsController.retrieveAllGroups());
 
-  app.get('/api/logged-in/admin/groups',
-    usersAndRightsController.retrieveAllGroups()
-  );
+  app.get('/api/logged-in/admin/group', usersAndRightsController.retrieveGroup());
 
-  app.get('/api/logged-in/admin/group',
-    usersAndRightsController.retrieveGroup()
-  );
+  app.post('/api/logged-in/admin/groups/create', usersAndRightsController.createGroups());
 
-  app.post('/api/logged-in/admin/groups/create',
-    usersAndRightsController.createGroups()
-  );
+  app.post('/api/logged-in/admin/groups/update', usersAndRightsController.updateGroups());
 
-  app.post('/api/logged-in/admin/groups/update',
-    usersAndRightsController.updateGroups()
-  );
+  app.post('/api/logged-in/admin/groups/delete', usersAndRightsController.deleteGroups());
 
-  app.post('/api/logged-in/admin/groups/delete',
-    usersAndRightsController.deleteGroups()
-  );
+  app.post('/api/logged-in/admin/group/update', usersAndRightsController.updateGroup());
 
-  app.post('/api/logged-in/admin/group/update',
-    usersAndRightsController.updateGroup()
-  );
+  app.post('/api/logged-in/admin/group/delete', usersAndRightsController.deleteGroup());
 
-  app.post('/api/logged-in/admin/group/delete',
-    usersAndRightsController.deleteGroup()
-  );
-
-  app.post('/api/logged-in/admin/groups/add_users',
-    usersAndRightsController.addUsersToGroup()
-  );
+  app.post('/api/logged-in/admin/groups/add_users', usersAndRightsController.addUsersToGroup());
 };

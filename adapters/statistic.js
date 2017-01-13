@@ -1,12 +1,12 @@
-var statManager = require('../managers/statistic');
-var dataAdapters = require('./statistics/statistic_temporary_fake_data');
-var restoreAdapters = require('./statistics/restore');
-var migrationAdapter = require('./statistics/migration');
-var saveAdapters = require('./statistics/save');
-var logsAdapters = require('./statistics/logs');
-var softwareAdapters = require('./statistics/software');
+const statManager = require('../managers/statistic');
+const dataAdapters = require('./statistics/statistic_temporary_fake_data');
+const restoreAdapters = require('./statistics/restore');
+const migrationAdapter = require('./statistics/migration');
+const saveAdapters = require('./statistics/save');
+const logsAdapters = require('./statistics/logs');
+const softwareAdapters = require('./statistics/software');
 
-module.exports.registerGraphs = function () {
+module.exports.registerGraphs = () => {
   statManager.statisticRegisterMethodForEntity('User', 'GraphRadarOfSave', dataAdapters.TESTDEFONCTION);
   statManager.statisticRegisterMethodForEntity('User', 'GraphBarOfAge', dataAdapters.TESTDEFONCTION2);
   statManager.statisticRegisterMethodForEntity('Computer', 'GraphCircleOfTypeOfComputer', dataAdapters.TESTDEFONCTION3);
@@ -46,7 +46,7 @@ SAM-Solution-Server/adapters/statistics/statistic_temporary_fake_data.js
 ***** CODE EXEMPLE *****
 ************************
 
-module.exports.TESTDEFONCTION = function () {
+module.exports.TESTDEFONCTION = () => {
 
   var returnData = {
     type: 'radar',

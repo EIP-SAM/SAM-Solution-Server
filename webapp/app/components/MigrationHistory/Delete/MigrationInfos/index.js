@@ -3,22 +3,18 @@
 //
 
 import React from 'react';
-import {
-  Row,
-  Col,
-  Label,
-} from 'react-bootstrap';
+import { Row, Col, Label } from 'react-bootstrap';
 import moment from 'moment';
-import styles from './styles.css';
 import statusLabel from 'components/MigrationHistory/statusToLabel.json';
+import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class MigrationInfos extends React.Component {
-  getFormatedDate(migration) {
+  static getFormatedDate(migration) {
     return moment(migration.migrationDate).format('YYYY MMMM Do HH:mm');
   }
 
-  getStatusLabel(migration) {
+  static getStatusLabel(migration) {
     return (
       <Label bsStyle={statusLabel[migration.status]}>
         {migration.status}
@@ -30,18 +26,18 @@ export default class MigrationInfos extends React.Component {
     const migration = this.props.migration;
 
     if (!migration) {
-      return (<div></div>);
+      return (<div />);
     }
 
     return (
       <div>
         <Row className={styles.infosRow}>
           <Col sm={3} className={styles.infosLeft}>Date:</Col>
-          <Col sm={9}>{this.getFormatedDate(migration)}</Col>
+          <Col sm={9}>{MigrationInfos.getFormatedDate(migration)}</Col>
         </Row>
         <Row className={styles.infosRow}>
           <Col sm={3} className={styles.infosLeft}>Status:</Col>
-          <Col sm={9}>{this.getStatusLabel(migration)}</Col>
+          <Col sm={9}>{MigrationInfos.getStatusLabel(migration)}</Col>
         </Row>
         <Row className={styles.infosRow}>
           <Col sm={3} className={styles.infosLeft}>User:</Col>
@@ -61,5 +57,14 @@ export default class MigrationInfos extends React.Component {
 }
 
 MigrationInfos.propTypes = {
-  migration: React.PropTypes.object,
+  migration: React.PropTypes.shape({
+    comment: React.PropTypes.string,
+    id: React.PropTypes.number,
+    image: React.PropTypes.object,
+    imageId: React.PropTypes.number,
+    migrationDate: React.PropTypes.string,
+    status: React.PropTypes.string,
+    user: React.PropTypes.object,
+    userId: React.PropTypes.number,
+  }),
 };

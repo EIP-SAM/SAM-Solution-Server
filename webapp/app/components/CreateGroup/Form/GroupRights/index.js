@@ -8,7 +8,7 @@ import MigrationMode from 'containers/CreateGroup/Form/GroupRights/MigrationMode
 import SoftwareMode from 'containers/CreateGroup/Form/GroupRights/SoftwareMode';
 
 /* eslint-disable react/prefer-stateless-function */
-export class CreateGroupFormGroupRights extends React.Component {
+export default class CreateGroupFormGroupRights extends React.Component {
   render() {
     return (
       <div>

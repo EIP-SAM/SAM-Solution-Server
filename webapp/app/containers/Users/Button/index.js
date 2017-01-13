@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { UsersButton } from 'components/Users/Button';
+import UsersButton from 'components/Users/Button';
 
 function mapStateToProps() {
   return {

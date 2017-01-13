@@ -3,8 +3,8 @@
 //
 
 import { connect } from 'react-redux';
-import { setSorts } from './actions/result';
 import LogResult from 'components/Logs/Results';
+import { setSorts } from './actions/result';
 
 function getDefaultRequestStatus(state) {
   return state.get('logs').get('result').get('request') || false;
@@ -32,7 +32,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setSorts: (sorts) => dispatch(setSorts(sorts)),
+    setSorts: sorts => dispatch(setSorts(sorts)),
   };
 }
 

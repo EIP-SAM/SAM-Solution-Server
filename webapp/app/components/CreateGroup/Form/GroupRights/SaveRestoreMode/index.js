@@ -7,7 +7,7 @@ import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import styles from 'components/CreateGroup/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class CreateGroupFormGroupRightsSaveRestoreMode extends React.Component {
+export default class CreateGroupFormGroupRightsSaveRestoreMode extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeSaveAndRestoreMode = this.onChangeSaveAndRestoreMode.bind(this);

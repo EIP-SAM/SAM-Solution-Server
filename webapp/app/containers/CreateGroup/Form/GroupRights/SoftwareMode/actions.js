@@ -9,11 +9,9 @@
 //    }
 //
 
-import {
-  CREATE_GROUP_SOFTWARE_MODE_CHANGE,
-} from './constants';
+import CREATE_GROUP_SOFTWARE_MODE_CHANGE from './constants';
 
-export function softwareModeChange(softwareMode) {
+export default function softwareModeChange(softwareMode) {
   return {
     type: CREATE_GROUP_SOFTWARE_MODE_CHANGE,
     softwareMode,

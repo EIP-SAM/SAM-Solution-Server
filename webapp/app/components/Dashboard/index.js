@@ -8,7 +8,7 @@ import BlockInfo from 'containers/Dashboard/BlockInfo';
 
 export default class Dashboard extends React.Component {
   componentWillMount() {
-    this.username = this.props.userInfo.username;
+    this.username = this.props.currentUserName;
     this.props.getSavesNumbers(this.username);
     this.props.getRestoresNumbers(this.username);
   }
@@ -19,7 +19,7 @@ export default class Dashboard extends React.Component {
   }
 
   render() {
-    const username = this.props.userInfo.username;
+    const username = this.props.currentUserName;
     const saveNumbers = this.props.saveNumbers || 0;
     const restoreNumbers = this.props.restoreNumbers || 0;
 
@@ -49,16 +49,6 @@ export default class Dashboard extends React.Component {
                 link="/restore"
               />
             </Col>
-            <Col md={6} lg={3}>
-              <BlockInfo
-                icon="repeat"
-                title="Restore"
-                msg={restoreNumbers.toString()}
-                color="red"
-                text="More details"
-                link="/restore"
-              />
-            </Col>
           </Row>
         </Grid>
       </div>
@@ -67,7 +57,7 @@ export default class Dashboard extends React.Component {
 }
 
 Dashboard.propTypes = {
-  userInfo: React.PropTypes.object,
+  currentUserName: React.PropTypes.string,
   saveNumbers: React.PropTypes.number,
   restoreNumbers: React.PropTypes.number,
   getSavesNumbers: React.PropTypes.func,

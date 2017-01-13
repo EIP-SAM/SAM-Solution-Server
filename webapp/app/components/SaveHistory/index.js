@@ -9,7 +9,7 @@ import SaveHistoryTable from 'containers/SaveHistory/Table';
 import styles from 'components/SaveHistory/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveHistory extends React.Component {
+export default class SaveHistory extends React.Component {
 
   componentDidMount() {
     const url = window.location.pathname.split('/');
@@ -21,7 +21,7 @@ export class SaveHistory extends React.Component {
 
   render() {
     let username = '';
-    if (this.props.userInfo.isAdmin) {
+    if (this.props.userIsAdmin) {
       username = <PageHeader className={styles.title}><small>{window.location.pathname.split('/')[2]}</small></PageHeader>;
     }
 
@@ -37,7 +37,7 @@ export class SaveHistory extends React.Component {
 }
 
 SaveHistory.propTypes = {
-  userInfo: React.PropTypes.object,
+  userIsAdmin: React.PropTypes.bool,
   getHistorySavesByUserRequest: React.PropTypes.func,
   listUsers: React.PropTypes.func,
 };

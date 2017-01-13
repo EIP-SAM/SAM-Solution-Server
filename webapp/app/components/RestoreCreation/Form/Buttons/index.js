@@ -1,10 +1,14 @@
 import React from 'react';
 import { ButtonToolbar } from 'react-bootstrap';
 import { browserHistory } from 'react-router';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from 'components/RestoreCreation/styles.css';
+
 /* eslint-disable react/prefer-stateless-function */
-export class RestoreCreationButtons extends React.Component {
+export default class RestoreCreationButtons extends React.Component {
+  static handleCancelClick() {
+    browserHistory.goBack();
+  }
 
   handleFormClick(event) {
     event.preventDefault();
@@ -19,15 +23,11 @@ export class RestoreCreationButtons extends React.Component {
     }
   }
 
-  handleCancelClick() {
-    browserHistory.goBack();
-  }
-
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Restore" onClick={(event) => this.handleFormClick(event)} />
-        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => this.handleCancelClick()} />
+        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Restore" onClick={event => this.handleFormClick(event)} />
+        <LinkContainerButton buttonBsStyle="default" buttonText="Cancel" onClick={() => RestoreCreationButtons.handleCancelClick()} />
       </ButtonToolbar>
     );
   }
@@ -35,9 +35,10 @@ export class RestoreCreationButtons extends React.Component {
 
 RestoreCreationButtons.propTypes = {
   userId: React.PropTypes.number,
-  save: React.PropTypes.object,
-  selectedFiles: React.PropTypes.array,
-  resetStateForm: React.PropTypes.func,
+  save: React.PropTypes.shape({
+    value: React.PropTypes.number,
+  }),
+  selectedFiles: React.PropTypes.arrayOf(React.PropTypes.string),
   createRestoresRequest: React.PropTypes.func,
   saveErrorMsg: React.PropTypes.func,
   filesErrorMsg: React.PropTypes.func,

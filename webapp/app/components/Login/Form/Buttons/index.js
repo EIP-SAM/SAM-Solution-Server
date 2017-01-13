@@ -4,11 +4,11 @@
 
 import React from 'react';
 import { ButtonToolbar } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from 'components/Login/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class LoginFormButtons extends React.Component {
+export default class LoginFormButtons extends React.Component {
 
   handleLoginClick(event) {
     event.preventDefault();
@@ -26,7 +26,7 @@ export class LoginFormButtons extends React.Component {
   render() {
     return (
       <ButtonToolbar className={styles.toolbar}>
-        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Login" onClick={(event) => this.handleLoginClick(event)} />
+        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Login" onClick={event => this.handleLoginClick(event)} />
       </ButtonToolbar>
     );
   }

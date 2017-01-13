@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { SoftwareTable } from 'components/Software/Table';
+import SoftwareTable from 'components/Software/Table';
 
 function mapStateToProps(state) {
   return {

@@ -8,9 +8,7 @@
 //    return state.set('yourStateVariable', true);
 //
 
-import {
-  SOFTWARE_CURRENT_TYPE_USER,
-} from './constants';
+import SOFTWARE_CURRENT_TYPE_USER from './constants';
 
 const initialState = {
   currentTypeUser: 'All',

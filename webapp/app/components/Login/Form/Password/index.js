@@ -4,11 +4,11 @@
 
 import React from 'react';
 import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap';
-import { LinkContainerButton } from 'components/Button';
+import LinkContainerButton from 'components/Button';
 import styles from 'components/Login/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class LoginFormPassword extends React.Component {
+export default class LoginFormPassword extends React.Component {
   constructor(props) {
     super(props);
     this.onChangePassword = this.onChangePassword.bind(this);

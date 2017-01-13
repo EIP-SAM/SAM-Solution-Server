@@ -12,9 +12,7 @@ import { combineReducers } from 'redux-immutable';
 import LoginFormUsernameReducer from './Username/reducer';
 import LoginFormPasswordReducer from './Password/reducer';
 
-import {
-  LOGIN,
-} from './constants';
+import LOGIN from './constants';
 
 const initialState = {};
 

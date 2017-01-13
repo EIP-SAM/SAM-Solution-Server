@@ -4,12 +4,16 @@
 
 import React from 'react';
 import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap';
+<<<<<<< HEAD
 import { ButtonPopover } from 'components/ButtonPopover';
+=======
+import ButtonPopover from 'components/ButtonPopover';
+>>>>>>> 4ca1ba85acd5f33abd04add0824831aaa8aef649
 import Option from 'components/Option';
 import styles from 'components/Notifications/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class NotificationsFormSelectedUsers extends React.Component {
+export default class NotificationsFormSelectedUsers extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeSelectedUsers = this.onChangeSelectedUsers.bind(this);
@@ -20,7 +24,7 @@ export class NotificationsFormSelectedUsers extends React.Component {
     const value = [];
     for (let i = 0; i < options.length; i++) {
       if (options[i].selected) {
-        value.push({ id: parseInt(options[i].value), name: options[i].text });
+        value.push({ id: parseInt(options[i].value, 10), name: options[i].text });
       }
     }
     this.props.unselectedUsersOnChange(value);
@@ -38,7 +42,7 @@ export class NotificationsFormSelectedUsers extends React.Component {
     let selectedUsersOption = [];
 
     if (this.props.selectedUsers.length > 0) {
-      selectedUsers = this.props.selectedUsers.map((user) => (
+      selectedUsers = this.props.selectedUsers.map(user => (
         { value: user.id, text: user.name }
       ));
       selectedUsersOption = selectedUsers.map((item, index) => (
@@ -66,7 +70,7 @@ export class NotificationsFormSelectedUsers extends React.Component {
 }
 
 NotificationsFormSelectedUsers.propTypes = {
-  selectedUsers: React.PropTypes.array,
+  selectedUsers: React.PropTypes.arrayOf(React.PropTypes.object),
   unselectedUsersOnChange: React.PropTypes.func,
   selectedUsersError: React.PropTypes.string,
 };

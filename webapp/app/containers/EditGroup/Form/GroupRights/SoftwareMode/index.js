@@ -3,8 +3,8 @@
 //
 
 import { connect } from 'react-redux';
-import { EditGroupFormGroupRightsSoftwareMode } from 'components/EditGroup/Form/GroupRights/SoftwareMode';
-import { softwareModeChange } from './actions';
+import EditGroupFormGroupRightsSoftwareMode from 'components/EditGroup/Form/GroupRights/SoftwareMode';
+import softwareModeChange from './actions';
 
 function mapStateToProps(state) {
   return {
@@ -14,7 +14,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    softwareModeChange: (softwareMode) => dispatch(softwareModeChange(softwareMode)),
+    softwareModeChange: softwareMode => dispatch(softwareModeChange(softwareMode)),
   };
 }
 

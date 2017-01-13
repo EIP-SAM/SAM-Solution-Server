@@ -11,9 +11,7 @@
 import { combineReducers } from 'redux-immutable';
 import SaveGroupsFilterReducer from './Groups/reducer';
 import SaveTypeUserFilterReducer from './TypeUser/reducer';
-import {
-  SAVE_GET_ALL_USERS,
-} from './constants';
+import SAVE_GET_ALL_USERS from './constants';
 
 const initialState = {
   allUsers: [],

@@ -10,7 +10,7 @@ import Buttons from 'containers/CreateGroup/Form/Users/Buttons';
 import styles from 'components/CreateGroup/styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
-export class CreateGroupFormUsers extends React.Component {
+export default class CreateGroupFormUsers extends React.Component {
   componentWillMount() {
     this.props.getUsersRequest();
   }

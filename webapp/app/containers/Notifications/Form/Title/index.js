@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { NotificationsFormTitle } from 'components/Notifications/Form/Title';
+import NotificationsFormTitle from 'components/Notifications/Form/Title';
 import { titleChange } from './actions';
 
 
@@ -16,7 +16,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    titleChange: (title) => dispatch(titleChange(title)),
+    titleChange: title => dispatch(titleChange(title)),
   };
 }
 

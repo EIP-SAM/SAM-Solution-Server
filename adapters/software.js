@@ -1,4 +1,6 @@
 const softwareDaemon = require('../websocket/daemon/software');
+const logger = require('../libs/bunyan').setModuleName('Software');
+
 
 //
 // Software daemon usage example
@@ -10,51 +12,39 @@ const softwareDaemon = require('../websocket/daemon/software');
 // is passed to each softwareDaemon call
 //
 function onStatusChange(status) {
-  console.log('status changed:', status);
+  logger.info(`Status changed : ${status}`);
 }
 
-module.exports.launchAnInstall = function (user, packages) {
-  return callSoftWareDaemonWithPackage(user, packages, 'installPackages');
-};
-
-module.exports.launchAnUpdate = function (user, packages) {
-  return callSoftWareDaemonWithPackage(user, packages, 'updatePackages');
-};
-
-module.exports.launchARemove = function (user, packages) {
-  return callSoftWareDaemonWithPackage(user, packages, 'removePackages');
-};
-
-module.exports.launchAQuery = function (user, packages) {
-  return callSoftWareDaemonWithPackage(user, packages, 'queryPackage');
-};
-
-module.exports.launchListPackages = function (user) {
-  return callSoftWareDaemon(user, 'listInstalledPackages');
-};
-
-module.exports.launchGetOperatingSystem = function (user) {
-  return callSoftWareDaemon(user, 'getOperatingSystem');
-};
-
 function callSoftWareDaemon(user, fctToCall, cb = onStatusChange) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise((fulfill, reject) => {
     softwareDaemon[fctToCall](user, cb)
-    .then(function (returnStatus) {
+    .then((returnStatus) => {
       fulfill(returnStatus);
-    }).catch(function (error) {
+    }).catch((error) => {
       reject(error);
     });
   });
 }
 
 function callSoftWareDaemonWithPackage(user, packages, fctToCall, cb = onStatusChange) {
-  return new Promise(function (fulfill, reject) {
+  return new Promise((fulfill, reject) => {
     softwareDaemon[fctToCall](user, packages, cb)
-    .then(function (returnStatus) {
+    .then((returnStatus) => {
       fulfill(returnStatus);
-    }).catch(function (error) {
+    }).catch((error) => {
       reject(error);
     });
   });
 }
+
+module.exports.launchAnInstall = (user, packages) => callSoftWareDaemonWithPackage(user, packages, 'installPackages');
+
+module.exports.launchAnUpdate = (user, packages) => callSoftWareDaemonWithPackage(user, packages, 'updatePackages');
+
+module.exports.launchARemove = (user, packages) => callSoftWareDaemonWithPackage(user, packages, 'removePackages');
+
+module.exports.launchAQuery = (user, packages) => callSoftWareDaemonWithPackage(user, packages, 'queryPackage');
+
+module.exports.launchListPackages = user => callSoftWareDaemon(user, 'listInstalledPackages');
+
+module.exports.launchGetOperatingSystem = user => callSoftWareDaemon(user, 'getOperatingSystem');

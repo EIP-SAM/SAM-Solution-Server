@@ -7,7 +7,7 @@ import { FormGroup, FormControl, HelpBlock } from 'react-bootstrap';
 import Option from 'components/Option';
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveCreationFilesSelect extends React.Component {
+export default class SaveCreationFilesSelect extends React.Component {
   render() {
     let validationState = null;
     let errorMessage = '';
@@ -20,7 +20,7 @@ export class SaveCreationFilesSelect extends React.Component {
     let options = [];
 
     if (this.props.files) {
-      const files = this.props.files.map((file) => (
+      const files = this.props.files.map(file => (
         { isActive: false, value: file, text: file }
       ));
 
@@ -55,7 +55,6 @@ export class SaveCreationFilesSelect extends React.Component {
 }
 
 SaveCreationFilesSelect.propTypes = {
-  test: React.PropTypes.string,
-  files: React.PropTypes.array,
+  files: React.PropTypes.arrayOf(React.PropTypes.string),
   fileError: React.PropTypes.string,
 };

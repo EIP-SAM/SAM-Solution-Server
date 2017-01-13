@@ -6,15 +6,16 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 import SaveInstantSaveModal from 'containers/Save/Table/ModalInstantSave';
 import SaveInstantRestoreModal from 'containers/Save/Table/ModalInstantRestore';
-import { ButtonPopover } from 'components/ButtonPopover';
+import ButtonPopover from 'components/ButtonPopover';
 import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Td from 'components/Td';
 import styles from './styles.css';
+
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
-export class SaveTable extends React.Component {
+export default class SaveTable extends React.Component {
 
   handleSaveClick(save) {
     this.props.showInstantSaveModal();
@@ -36,12 +37,7 @@ export class SaveTable extends React.Component {
   }
 
   render() {
-    const names = [{ isLink: 'true', link: '#', value: '#' },
-                  { isLink: 'false', value: 'Username' },
-                  { isLink: 'false', value: 'Last save date' },
-                  { isLink: 'false', value: 'State' },
-                  { isLink: 'false', value: 'Files' },
-                  { isLink: 'false', value: 'Actions' }];
+    const names = ['#', 'Username', 'Last save date', 'State', 'Files', 'Actions'];
 
     return (
       <div>
@@ -94,7 +90,7 @@ export class SaveTable extends React.Component {
 }
 
 SaveTable.propTypes = {
-  saves: React.PropTypes.array,
+  saves: React.PropTypes.arrayOf(React.PropTypes.object),
   listUsers: React.PropTypes.func,
   dateSave: React.PropTypes.func,
   timeSave: React.PropTypes.func,

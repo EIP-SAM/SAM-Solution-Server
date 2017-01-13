@@ -4,7 +4,6 @@
 
 import React from 'react';
 import RadioGroup from 'components/RadioGroup';
-import styles from './styles.css';
 import {
   FormGroup,
   ControlLabel,
@@ -13,6 +12,7 @@ import {
   Label,
   Collapse,
 } from 'react-bootstrap';
+import styles from './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class DateRange extends React.Component {
@@ -37,8 +37,8 @@ export default class DateRange extends React.Component {
     if (this.state.specific) {
       return undefined;
     }
-    if (this.state.levelOne != 'all' && this.state.levelTwo != 'all') {
-      if (parseInt(this.state.levelOne) > parseInt(this.state.levelTwo)) {
+    if (this.state.levelOne !== 'all' && this.state.levelTwo !== 'all') {
+      if (parseInt(this.state.levelOne, 10) > parseInt(this.state.levelTwo, 10)) {
         return 'error';
       }
     }
@@ -49,8 +49,8 @@ export default class DateRange extends React.Component {
     if (this.state.specific) {
       return undefined;
     }
-    if (this.state.levelOne != 'all' && this.state.levelTwo != 'all') {
-      if (parseInt(this.state.levelOne) > parseInt(this.state.levelTwo)) {
+    if (this.state.levelOne !== 'all' && this.state.levelTwo !== 'all') {
+      if (parseInt(this.state.levelOne, 10) > parseInt(this.state.levelTwo, 10)) {
         return 'First level must be higher than second level';
       }
     }
@@ -58,7 +58,7 @@ export default class DateRange extends React.Component {
   }
 
   handleChange(name) {
-    return event => {
+    return (event) => {
       switch (name) {
         case 'mode':
           this.setStateAndNotify({ specific: event === 'Specific' });
@@ -87,7 +87,7 @@ export default class DateRange extends React.Component {
             values={['Specific', 'Range']}
             placeholder="Specific"
             onChange={this.handleChange('mode')}
-            />
+          />
         </FormGroup>
         <FormGroup validationState={this.setStatusStyle()}>
           <FormControl componentClass="select" onChange={this.handleChange('rangeMin')} placeholder={this.state.levelOne}>

@@ -7,7 +7,7 @@ import Email from 'containers/ForgottenPassword/Form/Email';
 import Buttons from 'containers/ForgottenPassword/Form/Buttons';
 
 /* eslint-disable react/prefer-stateless-function */
-export class ForgottenPasswordForm extends React.Component {
+export default class ForgottenPasswordForm extends React.Component {
 
   render() {
     return (

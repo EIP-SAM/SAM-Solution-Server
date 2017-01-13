@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { NotificationsFormAllUsersSelectAll } from 'components/Notifications/Form/Users/AllUsers/SelectAll';
+import NotificationsFormAllUsersSelectAll from 'components/Notifications/Form/Users/AllUsers/SelectAll';
 import { removeUsers } from '../actions';
 import { addUsers } from '../../SelectedUsers/actions';
 
@@ -16,7 +16,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     removeUsers: (users, preSelectedUsers) => dispatch(removeUsers(users, preSelectedUsers)),
-    addUsers: (users) => dispatch(addUsers(users)),
+    addUsers: users => dispatch(addUsers(users)),
   };
 }
 
