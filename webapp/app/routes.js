@@ -178,6 +178,15 @@ export default function createRoutes() {
         .catch(errorLoading);
       },
     }, {
+      path: '/images',
+      name: 'images',
+      getComponent(nextState, cb) {
+        System.import('components/ImageManagement')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      },
+    },
+    {
       path: '/migration/history',
       name: 'migrationHistory',
       getComponent(nextState, cb) {

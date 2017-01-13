@@ -42,6 +42,7 @@ export function getAllImages() {
   return dispatch => (
     request
       .get('/api/logged-in/admin/images/')
+      .query({ isValid: true })
       .end((err, res) => {
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');

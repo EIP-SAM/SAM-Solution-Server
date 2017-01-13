@@ -29,6 +29,7 @@ import softwaresByUserReducer from 'containers/SoftwaresByUser/reducers';
 import migrationHistoryReducer from 'containers/MigrationHistory/reducers';
 import SoftwareReducer from 'containers/Software/reducers';
 import NotificationsReducer from 'containers/Notifications/Form/reducers';
+import ImageManagementReducer from 'containers/ImageManagement/reducers';
 
 /*
  * routeReducer
@@ -86,6 +87,7 @@ export default function createReducer(asyncReducers) {
     migrationHistory: migrationHistoryReducer,
     software: SoftwareReducer,
     notifications: NotificationsReducer,
+    ImageManagement: ImageManagementReducer,
     ...asyncReducers,
   });
 }
