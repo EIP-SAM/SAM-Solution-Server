@@ -78,6 +78,7 @@ Configuration file: `config/base.config.json`
 | MSSQL        | `npm install --save tedious`      |
 
 * In the config file, update:
+  * The `systemImagesPath` value with the absolute path of the directory holding all system images for the migrations
   * The `secret` value with a secret key >= 8 characters
   * The `salt` value with a different secret key >= 8 characters
 

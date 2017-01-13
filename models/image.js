@@ -27,6 +27,7 @@ const Image = sequelize.define('image', {
   },
 }, {
   freezeTableName: true,
+  paranoid: true,
 });
 
 module.exports = Image;

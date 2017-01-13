@@ -6,7 +6,7 @@ const imageManager = require('../managers/image');
 //
 // Launch getImages from manager
 //
-module.exports.getImages = () => imageManager.getImages();
+module.exports.getImages = onlyValid => imageManager.getImages(onlyValid);
 
 //
 // Launch getImageById from manager

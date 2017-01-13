@@ -6,7 +6,7 @@ const imageAdapter = require('../adapters/image');
 //
 // Launch getImages from adapter
 //
-module.exports.getImages = () => imageAdapter.getImages();
+module.exports.getImages = onlyValid => imageAdapter.getImages(onlyValid);
 
 //
 // Launch getImageById from adapter
