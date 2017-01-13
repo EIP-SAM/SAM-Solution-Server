@@ -6,8 +6,6 @@ const cronParser = require('cron-parser');
 const saveManager = require('./save');
 const saveScheduledAdapter = require('../adapters/saveScheduled');
 const userAdapter = require('../adapters/users');
-const daemonSave = require('../websocket/daemon/save');
-const logger = require('../libs/bunyan');
 
 //
 // Call when server is restart
@@ -43,24 +41,9 @@ initAllSaveCron();
 //
 // Create cron with a specific date
 // Function is call when the cron is triggered
-// Call daemon
 //
 module.exports.createSaveScheduled = (date, username, files, saveId, saveScheduledId) => nodeSchedule.scheduleJob(date, () => {
-  if (typeof files === 'string') {
-    files = files.split();
-  }
-  daemonSave.exec(username, files, (msg) => {
-    if (msg.isSuccess) {
-      logger.setModuleName('Save').setUser({ id: '', name: username }).info(`${username} succeeded a save`);
-      saveManager.saveFinish(saveScheduledId, saveId);
-      saveManager.saveSuccess(saveId, msg.branch);
-    } else if (msg.isFinish) {
-      logger.setModuleName('Save').setUser({ id: '', name: username }).info(`${username} failed a save. Error: ${msg.msg.cmd}`);
-      saveManager.saveFinish(saveScheduledId, saveId, username, files);
-    } else if (msg.isStart) {
-      saveManager.startSave(saveId);
-    }
-  });
+  saveManager.execSave(username, files, saveId, saveScheduledId);
 });
 
 //
