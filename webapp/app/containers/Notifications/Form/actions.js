@@ -15,7 +15,7 @@ import { resetStateDescription } from './Description/actions';
 import { resetStateTitle } from './Title/actions';
 import { resetStateAllUsers } from './Users/AllUsers/actions';
 import { resetStateSelectedUsers } from './Users/SelectedUsers/actions';
-import { getUsersRequest } from './Users/actions';
+import getUsersRequest from './Users/actions';
 
 export function resetStateForm() {
   return function resetState(dispatch) {
@@ -26,7 +26,7 @@ export function resetStateForm() {
   };
 }
 
-export function notificationRequest(title, description, persistence, username) {
+export function notificationRequest(title, description, persistence, username, isGroup) {
   return function returnNotificationRequest(dispatch) {
     return request
       .post('/api/logged-in/admin/notification/display')
@@ -36,6 +36,7 @@ export function notificationRequest(title, description, persistence, username) {
         description,
         persistence,
         username,
+        isGroup,
       })
       .end((err, res) => {
         if (err && res.statusCode === 401) {

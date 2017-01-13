@@ -194,6 +194,14 @@ export default function createRoutes() {
         .catch(errorLoading);
       },
     }, {
+      path: '/notifications/groups',
+      name: 'NotificationsGroups',
+      getComponent(nextState, cb) {
+        System.import('containers/NotificationsGroups')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      },
+    }, {
       path: '/notifications',
       name: 'Notifications',
       getComponent(nextState, cb) {
