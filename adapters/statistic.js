@@ -1,19 +1,11 @@
-const statManager = require('../managers/statistic');
-const dataAdapters = require('./statistics/statistic_temporary_fake_data');
-const restoreAdapters = require('./statistics/restore');
-const migrationAdapter = require('./statistics/migration');
-const saveAdapters = require('./statistics/save');
-const logsAdapters = require('./statistics/logs');
-const softwareAdapters = require('./statistics/software');
+var statManager = require('../managers/statistic');
+var restoreAdapters = require('./statistics/restore');
+var migrationAdapter = require('./statistics/migration');
+var saveAdapters = require('./statistics/save');
+var logsAdapters = require('./statistics/logs');
+var softwareAdapters = require('./statistics/software');
 
-module.exports.registerGraphs = () => {
-  statManager.statisticRegisterMethodForEntity('User', 'GraphRadarOfSave', dataAdapters.TESTDEFONCTION);
-  statManager.statisticRegisterMethodForEntity('User', 'GraphBarOfAge', dataAdapters.TESTDEFONCTION2);
-  statManager.statisticRegisterMethodForEntity('Computer', 'GraphCircleOfTypeOfComputer', dataAdapters.TESTDEFONCTION3);
-  statManager.statisticRegisterMethodForEntity('User', 'GraphRadarOfAge', dataAdapters.TESTDEFONCTION4);
-  statManager.statisticRegisterMethodForEntity('User', 'GraphLineOfAge', dataAdapters.TESTDEFONCTION5);
-  // statManager.statisticRegisterMethodForEntity('Save', 'GraphDoughnutOfTypeOfSave', dataAdapters.TESTDEFONCTION7);
-  // statManager.statisticRegisterMethodForEntity('Save', 'GraphRadarOfSave', dataAdapters.TESTDEFONCTION8);
+module.exports.registerGraphs = function () {
   statManager.statisticRegisterMethodForEntity('Restore', 'GraphLineOfRestore', restoreAdapters.numberRestoresPerMonthByUser);
   statManager.statisticRegisterMethodForEntity('Migrations', 'GraphPieOfMigrationsByStatus', migrationAdapter.getMigrations);
   statManager.statisticRegisterMethodForEntity('Save', 'GraphLineOfSave', saveAdapters.numberSavesPerMonthByUser);
@@ -46,7 +38,7 @@ SAM-Solution-Server/adapters/statistics/statistic_temporary_fake_data.js
 ***** CODE EXEMPLE *****
 ************************
 
-module.exports.TESTDEFONCTION = () => {
+module.exports.TESTDEFONCTION = function () {
 
   var returnData = {
     type: 'radar',
