@@ -4,11 +4,7 @@
 
 import React from 'react';
 import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap';
-<<<<<<< HEAD
-import { ButtonPopover } from 'components/ButtonPopover';
-=======
 import ButtonPopover from 'components/ButtonPopover';
->>>>>>> 4ca1ba85acd5f33abd04add0824831aaa8aef649
 import Option from 'components/Option';
 import styles from 'components/Notifications/styles.css';
 
