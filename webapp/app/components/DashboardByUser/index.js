@@ -5,6 +5,7 @@
 import React from 'react';
 import DashboardByUserHeaderPage from 'containers/DashboardByUser/HeaderPage';
 import DashboardByUserLogs from 'containers/DashboardByUser/Logs';
+import DashboardByUserSave from 'containers/DashboardByUser/Save';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class DashboardByUser extends React.Component {
@@ -14,10 +15,8 @@ export default class DashboardByUser extends React.Component {
       <div>
         <DashboardByUserHeaderPage />
         <DashboardByUserLogs />
+        <DashboardByUserSave />
       </div>
     );
   }
 }
-
-DashboardByUser.propTypes = {
-};

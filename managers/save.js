@@ -34,7 +34,11 @@ module.exports.lastUsersSaves = () => saveScheduledAdapter.lastUsersSaves().then
 //
 module.exports.historySavesByUser = (req) => {
   const username = req.query.username;
-  return saveScheduledAdapter.historySavesByUser(username);
+  let limit;
+  if (req.query.limit) {
+    limit = parseInt(req.query.limit, 10);
+  }
+  return saveScheduledAdapter.historySavesByUser(username, limit);
 };
 
 //
