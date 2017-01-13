@@ -11,11 +11,6 @@ const moment = require('moment');
 /* eslint-disable react/prefer-stateless-function */
 export default class SaveCreationTime extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.handleTimeChange = SaveCreationTime.handleTimeChange;
-  }
-
   componentWillMount() {
     this.props.timeSave(moment().format('HH:mm'));
   }
