@@ -43,7 +43,6 @@ export function notificationRequest(title, description, persistence, username) {
         }
         dispatch(resetStateForm());
         dispatch(getUsersRequest());
-        // window.location.reload();
       });
   };
 }
