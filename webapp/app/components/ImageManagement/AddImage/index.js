@@ -58,7 +58,7 @@ export default class AddImage extends React.Component {
                 type="text"
                 placeholder="Operating System name"
                 value={this.state.os}
-                onChange={(e) => this.setState({ name: e.target.value })}
+                onChange={(e) => this.setState({ os: e.target.value })}
               />
             </FormGroup>
             <FormGroup controlId="imageVersionForm">
@@ -66,8 +66,8 @@ export default class AddImage extends React.Component {
               <FormControl
                 type="text"
                 placeholder="Version"
-                value={this.state.os}
-                onChange={(e) => this.setState({ name: e.target.os })}
+                value={this.state.version}
+                onChange={(e) => this.setState({ version: e.target.value })}
               />
             </FormGroup>
           </form>

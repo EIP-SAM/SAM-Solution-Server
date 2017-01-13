@@ -50,7 +50,9 @@ export function getAllImages() {
         if (err || res.body.error) {
           dispatch(getAllImagesResult([]));
         } else {
-          dispatch(getAllImagesResult(res.body.images));
+          if (res.body.images) {
+            dispatch(getAllImagesResult(res.body.images.images));
+          }
         }
       })
   );

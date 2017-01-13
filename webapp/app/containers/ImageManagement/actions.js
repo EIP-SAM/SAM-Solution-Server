@@ -59,8 +59,10 @@ export function getAllImagesAndFiles() {
           dispatch(setImages([]));
           dispatch(setNewFiles([]));
         } else {
-          dispatch(setImages(res.body.images));
-          dispatch(setNewFiles(res.body.files));
+          if (res.body.images) {
+            dispatch(setImages(res.body.images.images));
+            dispatch(setNewFiles(res.body.images.files));
+          }
         }
       })
   );
@@ -69,13 +71,13 @@ export function getAllImagesAndFiles() {
 export function addImage(imageObj) {
   return dispatch => (
     request
-      .post('/api/logged-in/admin/images/add')
+      .post('/api/logged-in/admin/image/add')
       .send({ imageObj })
       .end((err, res) => {
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         } else {
-          dispatch(getAllImagesAndFiles);
+          dispatch(getAllImagesAndFiles());
         }
       })
   );
@@ -89,7 +91,7 @@ export function deleteImage(imageId) {
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         } else {
-          dispatch(getAllImagesAndFiles);
+          dispatch(getAllImagesAndFiles());
         }
       })
   );
