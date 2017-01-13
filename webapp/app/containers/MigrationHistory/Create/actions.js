@@ -47,7 +47,7 @@ export function getAllImages() {
           browserHistory.push('/login');
         }
         if (err || res.body.error) {
-          dispatch(getAllImagesResult({ images: [] }));
+          dispatch(getAllImagesResult([]));
         } else {
           dispatch(getAllImagesResult(res.body.images));
         }

@@ -8,7 +8,7 @@ const socketIo = require('../../libs/socket-io');
 // Send a notification to display to the daemon
 // If user is not connected, the notification order may be persisted to db
 //
-module.exports.display = function display(username, title, description, cb) {
+module.exports.display = function display(username, title, description, persistence, cb) {
   const socketArray = socketIo.socketArray.daemon;
   const socket = socketArray[username];
 
@@ -22,11 +22,14 @@ module.exports.display = function display(username, title, description, cb) {
     return 1;
   }
   logger.info(`${username}'s daemon is not connected`);
-  userAdapter.findByName(username).then((user) => {
-    daemonCmdAdapter.create(user.id, daemonCommandChecker.NOTIFICATION_DISPLAY, { title, description });
-  }).catch(() => {
-    logger.info(`Unable to persist notification for ${username}`);
-  });
+  if (persistence && persistence === 'true') {
+    userAdapter.findByName(username).then((user) => {
+      logger.info(`Notification for ${username} persisted`);
+      daemonCmdAdapter.create(user.id, daemonCommandChecker.NOTIFICATION_DISPLAY, { title, description });
+    }).catch(() => {
+      logger.error(`Unable to persist notification for ${username}`);
+    });
+  }
 
   return 0;
 };
