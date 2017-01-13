@@ -17,10 +17,10 @@ export default class DashboardByUserLogs extends React.Component {
     const username = window.location.pathname.split('/')[2];
 
     this.props.getFilteredLogs(
-      { findOpts: {
-        day: moment().utcOffset(moment().toISOString()).startOf('date').toISOString(),
-        user: { name: username, id: parseInt(userId, 10) },
-      },
+      {
+        findOpts: {
+          user: { name: username, id: parseInt(userId, 10) },
+        },
         limit: 10,
       });
   }
