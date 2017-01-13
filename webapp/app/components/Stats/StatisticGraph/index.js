@@ -6,7 +6,7 @@ const chartJs = require('react-chartjs');
 /* eslint-disable react/prefer-stateless-function */
 export default class StatisticGraphComponent extends React.Component {
   componentDidMount() {
-    this.props.getGraphListByType('User');
+    this.props.getGraphListByType('Restore');
   }
 
   render() {
