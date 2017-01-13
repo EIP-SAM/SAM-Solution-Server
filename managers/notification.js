@@ -6,6 +6,7 @@ module.exports.displayNotificationByUsername = (req) => {
   let username = req.body.username;
   const title = req.body.title;
   const description = req.body.description;
+  const persistence = req.body.persistence;
 
   if (!username || !title || !description) {
     return { isSuccess: false, err: 'Missing POST parameter', obj: req.body };
@@ -17,7 +18,7 @@ module.exports.displayNotificationByUsername = (req) => {
 
   for (let i = 0; i < username.length; ++i) {
     logger.info(`Notification display asked for ${username[i]}`);
-    daemonNotification.display(username[i], title, description, () => {
+    daemonNotification.display(username[i], title, description, persistence, () => {
       logger.info(`Notification displayed for ${username[i]}`);
     });
   }

@@ -9,6 +9,7 @@ import { unselectedUsersOnChange } from './actions';
 function mapStateToProps(state) {
   return {
     selectedUsers: state.get('notifications').get('NotificationsFormUsersReducer').get('NotificationsFormSelectedUsersReducer').selectedUsers,
+    selectedUsersError: state.get('notifications').get('NotificationsFormUsersReducer').get('NotificationsFormSelectedUsersReducer').selectedUsersError,
   };
 }
 

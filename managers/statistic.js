@@ -216,8 +216,8 @@ function prepareDoughnutDataForGraph(graphData) {
 
   for (let i = 0; i < graphData.dataset.length; i++) {
     datasets.push({
-      color: generateColorPie(i, 0),
-      highlight: generateColorPie(i, 1),
+      color: generateColorDoughnut(i, 0),
+      highlight: generateColorDoughnut(i, 1),
       value: graphData.dataset[i].value,
       label: graphData.dataset[i].title,
     });

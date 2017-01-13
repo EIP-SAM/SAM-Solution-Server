@@ -55,7 +55,9 @@ function initUserDefaultGroup() {
 }
 
 // called at the requirement of the file
-initUserDefaultGroup();
+initUserDefaultGroup().catch(() => {
+  logger.debug('user_default already created');
+});
 
 function initAdminDefaultGroup() {
   return createGroup({
@@ -67,7 +69,9 @@ function initAdminDefaultGroup() {
 }
 
 // called at the requirement of the file
-initAdminDefaultGroup();
+initAdminDefaultGroup().catch(() => {
+  logger.debug('user_default already created');
+});
 
 module.exports.retrieveAllGroups = errors => (req, res) => {
   GroupsAdapter.findAll().then((groups) => {
