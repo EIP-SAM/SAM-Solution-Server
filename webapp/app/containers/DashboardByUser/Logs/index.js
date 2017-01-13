@@ -3,15 +3,18 @@
 //
 
 import { connect } from 'react-redux';
-import { DashboardByUserLogs } from 'components/DashboardByUser/Logs';
+import DashboardByUserLogs from 'components/DashboardByUser/Logs';
+import { getFilteredLogs } from 'containers/Logs/actions/result';
 
-function mapStateToProps() {
+function mapStateToProps(state) {
   return {
+    logs: state.get('logs').get('result').get('logs').logs.data,
   };
 }
 
-function mapDispatchToProps() {
+function mapDispatchToProps(dispatch) {
   return {
+    getFilteredLogs: filters => dispatch(getFilteredLogs(filters)),
   };
 }
 
