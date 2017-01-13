@@ -84,7 +84,10 @@ function saveSuccess(saveId, branch) {
   saveScheduledAdapter.branchSave(saveId, branch);
 }
 
-function callBackExecSaveExecDaemon(username, files, saveScheduledId, saveId, msg) {
+//
+// Callback called after launch of save by the daemon
+//
+module.exports.callBackSaveExecDaemon = (username, files, saveScheduledId, saveId) => (msg) => {
   if (msg.isSuccess) {
     logger.setModuleName('Save').setUser({ id: '', name: username }).info(`${username} succeeded a save`);
     saveFinish(saveScheduledId, saveId);
@@ -97,7 +100,7 @@ function callBackExecSaveExecDaemon(username, files, saveScheduledId, saveId, ms
   } else {
     logger.setModuleName('Save').setUser({ id: '', name: username }).error(`${msg.msg.err}`);
   }
-}
+};
 
 //
 // Call when save if launch
@@ -108,9 +111,7 @@ module.exports.execSave = (username, files, saveId, saveScheduledId) => {
     files = files.split();
   }
 
-  daemonSave.exec(username, files, (msg) => {
-    callBackExecSaveExecDaemon(username, files, saveScheduledId, saveId, msg);
-  });
+  daemonSave.exec(username, files, saveScheduledId, saveId, module.exports.callBackSaveExecDaemon(username, files, saveScheduledId, saveId));
 };
 
 //

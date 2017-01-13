@@ -45,9 +45,9 @@ function restoreSuccess(restoreId) {
 }
 
 //
-// Callback called after execution of launch by the daemon
+// Callback called after launch of restore by the daemon
 //
-module.exports.callBackRestoreExecDaemon = (username, restoreId, msg) => {
+module.exports.callBackRestoreExecDaemon = (username, restoreId) => (msg) => {
   if (msg.isSuccess) {
     logger.setModuleName('Restore').setUser({ id: '', name: username }).info(`${username} succeeded a restore`);
     restoreFinish(restoreId);
@@ -62,7 +62,6 @@ module.exports.callBackRestoreExecDaemon = (username, restoreId, msg) => {
   }
 };
 
-
 //
 // Get data from resquest
 // Call adapter
@@ -76,9 +75,7 @@ module.exports.createRestore = (req) => {
     logger.setModuleName('Restore').setUser({ id: user.id, name: user.name }).info(`${user.name} has create a restore`);
     restoreAdapter.createRestore(userId, files, saveId).then((restore) => {
       saveScheduledAdapter.findSaveById(saveId).then((save) => {
-        daemon.exec(user.name, save.hash, (msg) => {
-          module.exports.callBackRestoreExecDaemon(user.name, restore.id, msg);
-        });
+        daemon.exec(user.name, save.hash, restore.id, module.exports.callBackRestoreExecDaemon(user.name, restore.id));
       });
     });
   });
