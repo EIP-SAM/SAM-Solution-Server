@@ -80,7 +80,7 @@ module.exports.getLogsWithMultipleCriteria = queryCriteria => new Promise((fulfi
     }
   }
 
-  const query = logModel.find(findOpts);
+  const query = criteria.filterObj.user === undefined ? logModel.find(findOpts) : logModel.aggregate(this.getLogsByUserId(criteria.filterObj.user));
 
   if (criteria.limit !== undefined) {
     let limit;
@@ -102,6 +102,21 @@ module.exports.getLogsWithMultipleCriteria = queryCriteria => new Promise((fulfi
     }
   });
 });
+
+//
+// Get logs by user id
+//
+module.exports.getLogsByUserId = (user) => {
+  const aggregate = [
+    {
+      $match: {
+        user,
+      },
+    },
+  ];
+
+  return aggregate;
+};
 
 //
 // Get the numbers of logs group by module name
