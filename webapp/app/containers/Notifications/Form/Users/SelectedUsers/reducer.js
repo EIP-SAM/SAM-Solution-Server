@@ -13,11 +13,13 @@ import {
   NOTIFICATIONS_UNSELECTED_USERS,
   NOTIFICATIONS_REMOVE_SELECTED_USERS,
   NOTIFICATIONS_RESET_STATE_UNSELECTED_USERS,
+  NOTIFICATIONS_SELECTED_USERS_ERROR,
 } from './constants';
 
 const initialState = {
   selectedUsers: [],
   unselectedUsers: [],
+  selectedUsersError: '',
 };
 
 function NotificationsFormSelectedUsersReducer(state = initialState, action) {
@@ -39,6 +41,10 @@ function NotificationsFormSelectedUsersReducer(state = initialState, action) {
           ...state.selectedUsers.slice(action.index + 1),
         ],
         unselectedUsers: (action.nextIndex !== -1) ? [state.selectedUsers[action.nextIndex]] : [],
+      });
+    case NOTIFICATIONS_SELECTED_USERS_ERROR:
+      return Object.assign({}, state, {
+        selectedUsersError: action.selectedUsersError,
       });
     default:
       return state;
