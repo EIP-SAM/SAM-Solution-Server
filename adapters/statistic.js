@@ -1,11 +1,11 @@
-var statManager = require('../managers/statistic');
-var restoreAdapters = require('./statistics/restore');
-var migrationAdapter = require('./statistics/migration');
-var saveAdapters = require('./statistics/save');
-var logsAdapters = require('./statistics/logs');
-var softwareAdapters = require('./statistics/software');
+const statManager = require('../managers/statistic');
+const restoreAdapters = require('./statistics/restore');
+const migrationAdapter = require('./statistics/migration');
+const saveAdapters = require('./statistics/save');
+const logsAdapters = require('./statistics/logs');
+const softwareAdapters = require('./statistics/software');
 
-module.exports.registerGraphs = function () {
+module.exports.registerGraphs = () => {
   statManager.statisticRegisterMethodForEntity('Restore', 'GraphLineOfRestore', restoreAdapters.numberRestoresPerMonthByUser);
   statManager.statisticRegisterMethodForEntity('Migrations', 'GraphPieOfMigrationsByStatus', migrationAdapter.getMigrations);
   statManager.statisticRegisterMethodForEntity('Save', 'GraphLineOfSave', saveAdapters.numberSavesPerMonthByUser);
