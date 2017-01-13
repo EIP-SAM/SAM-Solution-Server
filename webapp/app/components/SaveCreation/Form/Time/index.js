@@ -3,23 +3,21 @@
 //
 
 import React from 'react';
-import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
-import Timepicker from 'components/Timepicker'
+import { FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap';
+import Timepicker from 'components/Timepicker';
+
 const moment = require('moment');
 
 /* eslint-disable react/prefer-stateless-function */
 export default class SaveCreationTime extends React.Component {
+
   constructor(props) {
     super(props);
-    this.handleTimeChange = this.handleTimeChange.bind(this);
+    this.handleTimeChange = SaveCreationTime.handleTimeChange;
   }
 
   componentWillMount() {
     this.props.timeSave(moment().format('HH:mm'));
-  }
-
-  handleTimeChange(value) {
-    this.props.timeSave(moment(value, ['h:mm A']).format('HH:mm'));
   }
 
   render() {
@@ -31,12 +29,10 @@ export default class SaveCreationTime extends React.Component {
       errorMessage = this.props.timeError;
     }
 
-    // <FormControl type="time" value={this.props.time} onChange={this.handleTimeChange} disabled={this.props.isTimeDisabled} />
-
     return (
       <FormGroup controlId="time" validationState={validationState}>
         <ControlLabel>Time</ControlLabel>
-        <Timepicker time={this.props.time} updateTimeCallback={this.handleTimeChange.bind(this)} isDisabled={this.props.isTimeDisabled} />
+        <Timepicker time={this.props.time} updateTimeCallback={this.props.timeSave} isDisabled={this.props.isTimeDisabled} />
 
         <HelpBlock>{errorMessage}</HelpBlock>
       </FormGroup>

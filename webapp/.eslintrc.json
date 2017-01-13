@@ -7,6 +7,9 @@
       "mocha": true,
       "es6": true
     },
+    "globals": {
+      "$": false
+    },
     "plugins": [
       "react",
       "jsx-a11y"

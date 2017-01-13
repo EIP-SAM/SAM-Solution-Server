@@ -3,10 +3,8 @@
 //
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {
   FormGroup,
-  FormControl,
   ControlLabel,
   Col,
 } from 'react-bootstrap';
@@ -16,6 +14,11 @@ import moment from 'moment';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class StatusSelect extends React.Component {
+
+  static handleRemoveTime() {
+    this.props.setCreateTime('');
+  }
+
   componentWillMount() {
     if (!this.props.time) {
       this.props.setCreateTime(moment().format('HH:mm'));
@@ -25,31 +28,14 @@ export default class StatusSelect extends React.Component {
     }
   }
 
-  //
-  // Timepicker on change date handleRemove
-  //
-  handleTimepickerOnChange(value) {
-    if (!moment(value, ['h:mm A']).isValid()) {
-      this.props.setCreateTime('');
-    } else {
-      const time = moment(value, ['h:mm A']).format('HH:mm');
-      this.props.setCreateTime(time);
-    }
-  }
-
-  handleRemoveTime(e) {
-    this.props.setCreateTime('');
-  }
-
   render() {
-    const time = (this.props.time !== undefined) ? this.props.time: moment().format('HH:mm');
     const timepickerProps = {
       id: 'createMigration',
       time: this.props.time,
       label: 'Time',
-      updateTimeCallback: this.handleTimepickerOnChange.bind(this),
-      handleRemove: this.handleRemoveTime.bind(this)
-    }
+      updateTimeCallback: this.props.setCreateTime,
+      handleRemove: StatusSelect.handleRemoveTime,
+    };
 
     return (
       <FormGroup controlId="time" className="clearfix">
@@ -58,7 +44,7 @@ export default class StatusSelect extends React.Component {
           <DatePicker value={this.props.date} onChange={this.props.setCreateDate} />
         </Col>
         <Col sm={6}>
-          <Timepicker {...timepickerProps}/>
+          <Timepicker {...timepickerProps} />
         </Col>
       </FormGroup>
     );
