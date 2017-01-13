@@ -10,12 +10,6 @@ describe('getImages', function () {
 
     expect(typeof images.then === 'function').toBeTruthy();
   });
-
-  it('should have called findAll once', function () {
-    spyOn(ImageModel, 'findAll');
-    imageAdapter.getImages();
-    expect(ImageModel.findAll).toHaveBeenCalledTimes(1);
-  });
 });
 
 describe('getImageById', function () {
