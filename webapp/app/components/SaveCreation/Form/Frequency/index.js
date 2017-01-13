@@ -28,7 +28,7 @@ export default class SaveCreationFrequency extends React.Component {
     return (
       <FormGroup controlId="frequency" className={styles.form}>
         <ControlLabel>Repeat</ControlLabel>
-        <FormControl componentClass="select" onChange={this.handleFrequencyChange}>
+        <FormControl componentClass="select" onChange={this.handleFrequencyChange} defaultValue="No Repeat">
           <Option object={{ isActive: this.props.isFrequencyDisabled, value: 'No Repeat', text: 'No Repeat' }} key="item-0" />
           <Option object={{ isActive: this.props.isFrequencyDisabled, value: 'Daily', text: 'Daily' }} key="item-1" />
           <Option object={{ isActive: this.props.isFrequencyDisabled, value: 'Weekly', text: 'Weekly' }} key="item-2" />
