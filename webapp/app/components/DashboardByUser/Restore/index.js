@@ -5,7 +5,6 @@
 import React from 'react';
 import { Panel, ButtonToolbar } from 'react-bootstrap';
 import RestoreHistoryTable from 'containers/RestoreHistory/Table';
-import moment from 'moment';
 import LinkContainerButton from 'components/Button';
 import styles from './styles.css';
 
