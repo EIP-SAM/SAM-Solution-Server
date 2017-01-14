@@ -43,10 +43,10 @@ export function resetUserInfo() {
     type: APP_SET_USER_INFO,
     userInfo: {
       logged: false,
-      userId: '',
+      userId: 0,
       username: '',
       email: '',
-      isAdmin: '',
+      isAdmin: false,
     },
   };
 }

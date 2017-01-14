@@ -85,6 +85,24 @@ function saveSuccess(saveId, branch) {
 }
 
 //
+// Callback called after launch of save by the daemon
+//
+module.exports.callBackSaveExecDaemon = (username, files, saveScheduledId, saveId) => (msg) => {
+  if (msg.isSuccess) {
+    logger.setModuleName('Save').setUser({ id: '', name: username }).info(`${username} succeeded a save`);
+    saveFinish(saveScheduledId, saveId);
+    saveSuccess(saveId, msg.branch);
+  } else if (msg.isFinish) {
+    logger.setModuleName('Save').setUser({ id: '', name: username }).warn(`${username} failed a save. Error: ${msg.msg.err}`);
+    saveFinish(saveScheduledId, saveId, username, files);
+  } else if (msg.isStart) {
+    startSave(saveId);
+  } else {
+    logger.setModuleName('Save').setUser({ id: '', name: username }).error(`${msg.msg.err}`);
+  }
+};
+
+//
 // Call when save if launch
 // Call daemon & update data in db
 //
@@ -92,18 +110,8 @@ module.exports.execSave = (username, files, saveId, saveScheduledId) => {
   if (typeof files === 'string') {
     files = files.split();
   }
-  daemonSave.exec(username, files, (msg) => {
-    if (msg.isSuccess) {
-      logger.setModuleName('Save').setUser({ id: '', name: username }).info(`${username} succeeded a save`);
-      saveFinish(saveScheduledId, saveId);
-      saveSuccess(saveId, msg.branch);
-    } else if (msg.isFinish) {
-      logger.setModuleName('Save').setUser({ id: '', name: username }).info(`${username} failed a save. Error: ${msg.msg.cmd}`);
-      saveFinish(saveScheduledId, saveId, username, files);
-    } else if (msg.isStart) {
-      startSave(saveId);
-    }
-  });
+
+  daemonSave.exec(username, files, saveScheduledId, saveId, module.exports.callBackSaveExecDaemon(username, files, saveScheduledId, saveId));
 };
 
 //
