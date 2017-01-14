@@ -19,7 +19,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     hideAddImage: () => dispatch(setAddImageVisibility(false)),
-    addImageRequest: (image) => dispatch(addImage(image)),
+    addImageRequest: image => dispatch(addImage(image)),
   };
 }
 

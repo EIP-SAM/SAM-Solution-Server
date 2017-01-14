@@ -58,11 +58,9 @@ export function getAllImagesAndFiles() {
         if (err || res.body.error) {
           dispatch(setImages([]));
           dispatch(setNewFiles([]));
-        } else {
-          if (res.body.images) {
-            dispatch(setImages(res.body.images.images));
-            dispatch(setNewFiles(res.body.images.files));
-          }
+        } else if (res.body.images) {
+          dispatch(setImages(res.body.images.images));
+          dispatch(setNewFiles(res.body.images.files));
         }
       })
   );

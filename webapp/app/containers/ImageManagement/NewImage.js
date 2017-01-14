@@ -19,7 +19,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     openAddImage: () => dispatch(setAddImageVisibility(true)),
-    setFileName: (fileName) => dispatch(setFileName(fileName)),
+    setFileName: fileName => dispatch(setFileName(fileName)),
     getAllImagesAndFiles: () => dispatch(getAllImagesAndFiles()),
   };
 }

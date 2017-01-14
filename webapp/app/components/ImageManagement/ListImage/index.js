@@ -7,28 +7,29 @@ import { Table } from 'react-bootstrap';
 import Tr from 'components/Tr';
 import Th from 'components/Th';
 import Td from 'components/Td';
-import styles from './styles.css';
 import ButtonPopover from 'components/ButtonPopover';
+import styles from './styles.css';
+
 
 const columns = ['#', 'Name', 'Operating System', 'Version', 'File Name', 'Action'];
 
 /* eslint-disable react/prefer-stateless-function */
 export default class ListImage extends React.Component {
-  getRowStyle(isValid) {
+  static getRowStyle(isValid) {
     if (isValid) {
       return null;
     }
     return styles.imageToDelete;
   }
 
-  getRowFileName(fileName, isValid) {
+  static getRowFileName(fileName, isValid) {
     if (isValid) {
       return fileName;
     }
     return `${fileName} (not found)`;
   }
 
-  getRowAction(id, isValid) {
+  static getRowAction(id, isValid) {
     if (isValid) {
       return null;
     }
@@ -57,14 +58,14 @@ export default class ListImage extends React.Component {
           {this.props.images.map((image, index) => (
             <Tr
               key={index}
-              className={this.getRowStyle(image.isValid)}
+              className={ListImage.getRowStyle(image.isValid)}
               items={[
                 { isLink: false, value: index },
                 { isLink: false, value: image.name },
                 { isLink: false, value: image.operatingSystem },
                 { isLink: false, value: image.version },
-                { isLink: false, value: this.getRowFileName(image.fileName, image.isValid) },
-                { isLink: false, value: this.getRowAction(image.id, image.isValid) },
+                { isLink: false, value: ListImage.getRowFileName(image.fileName, image.isValid) },
+                { isLink: false, value: ListImage.getRowAction(image.id, image.isValid) },
               ]}
               component={Td}
             />

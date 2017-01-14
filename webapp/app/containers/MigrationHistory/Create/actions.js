@@ -49,10 +49,8 @@ export function getAllImages() {
         }
         if (err || res.body.error) {
           dispatch(getAllImagesResult([]));
-        } else {
-          if (res.body.images) {
-            dispatch(getAllImagesResult(res.body.images.images));
-          }
+        } else if (res.body.images) {
+          dispatch(getAllImagesResult(res.body.images.images));
         }
       })
   );

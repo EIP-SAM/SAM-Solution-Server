@@ -16,7 +16,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    deleteImage: (imageId) => dispatch(deleteImage(imageId)),
+    deleteImage: imageId => dispatch(deleteImage(imageId)),
   };
 }
 
