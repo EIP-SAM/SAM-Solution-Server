@@ -3,7 +3,7 @@
 //
 
 import React from 'react';
-import { Panel, ButtonToolbar } from 'react-bootstrap';
+import { Panel, ButtonToolbar, Glyphicon } from 'react-bootstrap';
 import SaveHistoryTable from 'containers/SaveHistory/Table';
 import moment from 'moment';
 import LinkContainerButton from 'components/Button';
@@ -14,7 +14,7 @@ export default class DashboardByUserSave extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
+      expanded: false,
     };
   }
 
@@ -26,6 +26,21 @@ export default class DashboardByUserSave extends React.Component {
     this.props.listUsers([{ id: userId, name: username }]);
   }
 
+  getHeaderPanel() {
+    const icon = (this.state.expanded) ? 'minus-sign' : 'plus-sign';
+    const helpText = (this.state.expanded) ? '(click to hide)' : '(click to show)';
+
+    return (
+      <h5 onClick={() => this.setState({ expanded: !this.state.expanded })}>
+        <Glyphicon glyph={icon} />
+        {' Save '}
+        <span className={styles.panelHelpText}>
+          {helpText}
+        </span>
+      </h5>
+    );
+  }
+
   handleClick() {
     this.props.dateSave(moment().format('DD/MM/YYYY'));
     this.props.dateDisabled(true);
@@ -35,13 +50,9 @@ export default class DashboardByUserSave extends React.Component {
     this.props.frequencyDisabled(true);
   }
 
-  handleCollapsingPanelClick() {
-    this.setState({ open: !this.state.open });
-  }
-
   render() {
     return (
-      <Panel collapsible header="Save" expanded={this.state.open} onClick={() => this.handleCollapsingPanelClick()}>
+      <Panel header={this.getHeaderPanel()} collapsible bsStyle="primary">
         <ButtonToolbar className={styles.saveButtons}>
           <LinkContainerButton
             buttonBsStyle="info"

@@ -3,7 +3,7 @@
 //
 
 import React from 'react';
-import { Panel, ButtonToolbar } from 'react-bootstrap';
+import { Panel, ButtonToolbar, Glyphicon } from 'react-bootstrap';
 import RestoreHistoryTable from 'containers/RestoreHistory/Table';
 import LinkContainerButton from 'components/Button';
 import styles from './styles.css';
@@ -16,7 +16,7 @@ export default class DashboardByUserRestore extends React.Component {
     const username = url[2];
     const userId = url[3];
     this.state = {
-      open: false,
+      expanded: false,
       userId,
       username,
     };
@@ -26,13 +26,24 @@ export default class DashboardByUserRestore extends React.Component {
     this.props.getHistoryRestoresByUserRequest(this.state.username, 5);
   }
 
-  handleCollapsingPanelClick() {
-    this.setState({ open: !this.state.open });
+  getHeaderPanel() {
+    const icon = (this.state.expanded) ? 'minus-sign' : 'plus-sign';
+    const helpText = (this.state.expanded) ? '(click to hide)' : '(click to show)';
+
+    return (
+      <h5 onClick={() => this.setState({ expanded: !this.state.expanded })}>
+        <Glyphicon glyph={icon} />
+        {' Restore '}
+        <span className={styles.panelHelpText}>
+          {helpText}
+        </span>
+      </h5>
+    );
   }
 
   render() {
     return (
-      <Panel collapsible header="Restore" expanded={this.state.open} onClick={() => this.handleCollapsingPanelClick()}>
+      <Panel header={this.getHeaderPanel()} collapsible bsStyle="primary">
         <ButtonToolbar className={styles.saveButtons}>
           <LinkContainerButton
             buttonBsStyle="info"
