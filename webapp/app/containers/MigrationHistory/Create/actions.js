@@ -42,14 +42,15 @@ export function getAllImages() {
   return dispatch => (
     request
       .get('/api/logged-in/admin/images/')
+      .query({ isValid: true })
       .end((err, res) => {
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
         if (err || res.body.error) {
           dispatch(getAllImagesResult([]));
-        } else {
-          dispatch(getAllImagesResult(res.body.images));
+        } else if (res.body.images) {
+          dispatch(getAllImagesResult(res.body.images.images));
         }
       })
   );

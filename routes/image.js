@@ -13,7 +13,7 @@ module.exports = function initImageRoutes(app) {
   // Get all images
   //
   app.get('/api/logged-in/admin/images/', (req, res) => {
-    const promise = imageController.getImages();
+    const promise = imageController.getImages(JSON.parse(req.query.isValid));
 
     promise.then((images) => {
       res.json({ images });
@@ -51,7 +51,7 @@ module.exports = function initImageRoutes(app) {
   // - version (String)
   //
   app.post('/api/logged-in/admin/image/add', (req, res) => {
-    const imageObj = JSON.parse(req.body.imageObj);
+    const imageObj = req.body.imageObj;
     const promise = imageController.createImage(imageObj);
 
     promise.then((image) => {
@@ -74,7 +74,7 @@ module.exports = function initImageRoutes(app) {
   // - version (String)
   //
   app.post('/api/logged-in/admin/image/:image_id/edit', (req, res) => {
-    const imageObj = JSON.parse(req.body.imageObj);
+    const imageObj = req.body.imageObj;
     const promise = imageController.updateImageById(imageObj);
 
     promise.then((image) => {

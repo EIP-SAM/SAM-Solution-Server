@@ -1,0 +1,12 @@
+.imageToDelete {
+  background-color: #f2dede !important;
+  color: #a94442;
+}
+
+.trash {
+  color: #d9534f;
+}
+
+.trash:hover {
+  color: #c9302c;
+}

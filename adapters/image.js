@@ -13,23 +13,23 @@ const config = require('../config/base.config.json');
 module.exports.getImages = onlyValid => ImageModel.findAll({
   order: [['createdAt', 'DESC']],
 }).then((imagesDb) => {
-  const retImage = { images: imagesDb };
-  if (onlyValid) {
-    return retImage;
-  }
-  retImage.files = [];
+  const retImage = { images: [], files: [] };
   return ImageWorker.retrieveImages(path.join(config.systemImagesPath, '/*')).then((imagesFs) => {
     imagesFs.forEach((imageFs) => {
-      const imageFsIsValid = imagesDb.some((imageDb) => {
+      let isUsed = false;
+      imagesDb.forEach((imageDb) => {
         if (imageDb.fileName === imageFs.fileName) {
-          imageDb.isValid = true;
-          return true;
+          imageDb.dataValues.isValid = true;
+          isUsed = true;
         }
-        imageDb.isValid = !!imageDb.isValid;
-        return false;
       });
-      if (!imageFsIsValid) {
+      if (!isUsed && !onlyValid) {
         retImage.files.push({ name: imageFs.fileName });
+      }
+    });
+    imagesDb.forEach((imageDb) => {
+      if (!onlyValid || imageDb.dataValues.isValid) {
+        retImage.images.push(imageDb);
       }
     });
     return retImage;
