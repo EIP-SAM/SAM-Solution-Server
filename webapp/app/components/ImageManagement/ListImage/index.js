@@ -29,7 +29,7 @@ export default class ListImage extends React.Component {
     return `${fileName} (not found)`;
   }
 
-  static getRowAction(id, isValid) {
+  getRowAction(id, isValid) {
     if (isValid) {
       return null;
     }
@@ -65,7 +65,7 @@ export default class ListImage extends React.Component {
                 { isLink: false, value: image.operatingSystem },
                 { isLink: false, value: image.version },
                 { isLink: false, value: ListImage.getRowFileName(image.fileName, image.isValid) },
-                { isLink: false, value: ListImage.getRowAction(image.id, image.isValid) },
+                { isLink: false, value: this.getRowAction(image.id, image.isValid) },
               ]}
               component={Td}
             />
