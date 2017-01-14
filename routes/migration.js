@@ -113,7 +113,7 @@ module.exports = function initMigrationRoutes(app) {
     const migrationObj = req.body.migrationObj;
     const isInstant = req.body.isInstant;
     const promise = migrationController.createMigration(migrationObj, isInstant);
-
+    console.log(isInstant);
     promise.then((migration) => {
       res.json({
         migration,
