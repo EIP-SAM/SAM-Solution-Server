@@ -18,7 +18,7 @@ module.exports.lastUsersRestores = () => restoreAdapter.lastUsersRestores();
 //
 module.exports.historyRestoreByUser = (req) => {
   const username = req.query.username;
-  let limit;
+  let limit; // initialize to undefined
   if (req.query.limit) {
     limit = parseInt(req.query.limit, 10);
   }
