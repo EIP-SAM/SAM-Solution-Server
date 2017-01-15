@@ -211,6 +211,14 @@ export default function createRoutes() {
         .catch(errorLoading);
       },
     }, {
+      path: '/dashboard/:username/:id',
+      name: 'dashboard by user',
+      getComponent(nextState, cb) {
+        System.import('containers/DashboardByUser')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
