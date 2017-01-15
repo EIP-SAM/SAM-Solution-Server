@@ -15,12 +15,13 @@ export default class Tr extends React.Component {
     ));
 
     return (
-      <tr>{content}</tr>
+      <tr className={this.props.className}>{content}</tr>
     );
   }
 }
 
 Tr.propTypes = {
   component: React.PropTypes.func.isRequired,
+  className: React.PropTypes.string,
   items: React.PropTypes.arrayOf(React.PropTypes.any).isRequired,
 };

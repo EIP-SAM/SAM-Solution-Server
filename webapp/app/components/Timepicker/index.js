@@ -231,11 +231,11 @@ export default class Timepicker extends React.Component {
         <span className={timepickerBodyStyle}>
           <span className={formControlStyle} onClick={e => this.selectTimePart(e, null)}>
             <span id="hour" className={hourStyle} onClick={e => this.selectTimePart(e, 'hour')}>
-              { time[0] }
+              {time[0]}
             </span>
             <span id="separator">:</span>
             <span id="minute" className={minuteStyle} onClick={e => this.selectTimePart(e, 'minute')}>
-              { time[1] }
+              {time[1]}
             </span>
             {timeButton}
           </span>

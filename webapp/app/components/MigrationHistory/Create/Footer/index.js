@@ -22,7 +22,7 @@ export default class Footer extends React.Component {
         imageId: this.props.imageId,
         status: 'planned',
         migrationDate: newDate,
-      });
+      }, false);
       this.closeCreatePopup();
     } else {
       this.props.editMigration({
@@ -31,7 +31,7 @@ export default class Footer extends React.Component {
         imageId: this.props.imageId,
         status: this.props.migrationEdited.status,
         migrationDate: newDate,
-      });
+      }, false);
       this.closeCreatePopup();
     }
   }
@@ -43,7 +43,7 @@ export default class Footer extends React.Component {
         imageId: this.props.imageId,
         status: 'in progress',
         migrationDate: moment(),
-      });
+      }, true);
     } else {
       this.props.editMigration({
         migrationId: this.props.migrationEdited.id,
@@ -51,7 +51,7 @@ export default class Footer extends React.Component {
         imageId: this.props.imageId,
         status: 'in progress',
         migrationDate: moment(),
-      });
+      }, true);
     }
 
     this.closeCreatePopup();

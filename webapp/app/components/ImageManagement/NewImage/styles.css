@@ -1,0 +1,13 @@
+.panelHelpText {
+  font-style: italic;
+  margin-left: 10px;
+}
+
+.lineGlyph {
+  color: green;
+  margin-right: 10px;
+}
+
+.filesList {
+  margin-bottom: 0px;
+}

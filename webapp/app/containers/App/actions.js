@@ -71,9 +71,7 @@ export function logoutRequest() {
     return request
       .post('/api/logged-in/user/logout')
       .end((err) => {
-        if (err) {
-          console.log(err);
-        } else {
+        if (!err) {
           dispatch(resetUserInfo());
           browserHistory.push('/login');
         }
