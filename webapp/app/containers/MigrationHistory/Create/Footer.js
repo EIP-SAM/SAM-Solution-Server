@@ -24,7 +24,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createMigration: migration => dispatch(createMigration(migration)),
+    createMigration: (migration, isInstant) => dispatch(createMigration(migration, isInstant)),
     editMigration: migration => dispatch(editMigration(migration)),
     showCreateMigrationPopup: isPoppedUp => dispatch(showCreateMigrationPopup(isPoppedUp)),
     showPasteDateWarning: () => dispatch(setPasteDateWarning(true)),
