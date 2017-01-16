@@ -44,7 +44,7 @@ socket.on('server_all_software', (data) => {
   });
 
   store.dispatch(getUsers(users));
-  store.dispatch(getRefresh(1));
+  store.dispatch(getRefresh(!store.getState().get('software').get('SoftwareReducer').refresh));
 });
 
 /* eslint-disable no-param-reassign */

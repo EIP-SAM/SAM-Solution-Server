@@ -12,7 +12,7 @@ import {
 
 const initialState = {
   users: [],
-  refresh: 0,
+  refresh: false,
 };
 
 function SoftwareReducer(state = initialState, action) {
