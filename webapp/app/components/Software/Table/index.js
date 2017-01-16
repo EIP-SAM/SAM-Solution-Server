@@ -12,9 +12,11 @@ import Td from 'components/Td';
 export default class SoftwareTable extends React.Component {
 
   render() {
-    const names = [{ isLink: 'false', link: '#', value: '#' },
-                  { isLink: 'false', value: 'Username' },
-                  { isLink: 'false', value: 'OS' }];
+    const names = ['#', 'Username', 'OS'];
+
+    if (!this.props.users) {
+      return null;
+    }
 
     return (
       <div>

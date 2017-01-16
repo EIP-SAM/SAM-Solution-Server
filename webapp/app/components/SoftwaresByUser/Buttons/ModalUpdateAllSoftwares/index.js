@@ -13,7 +13,6 @@ export default class SoftwaresByUserUpdateAllSoftwaresModal extends React.Compon
     this.props.hideUpdateAllSoftwaresModal();
     this.props.updateSoftwares(this.props.username, this.props.selectedSoftwares);
     this.props.resetStateTable();
-    this.props.resetSelectedSoftware();
   }
 
   render() {
@@ -49,5 +48,4 @@ SoftwaresByUserUpdateAllSoftwaresModal.propTypes = {
   hideUpdateAllSoftwaresModal: React.PropTypes.func,
   updateSoftwares: React.PropTypes.func,
   resetStateTable: React.PropTypes.func,
-  resetSelectedSoftware: React.PropTypes.func,
 };

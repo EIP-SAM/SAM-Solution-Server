@@ -23,20 +23,19 @@ export default class SoftwaresByUser extends React.Component {
   }
 
   render() {
-    let alert = '';
-    // if (this.props.displayAlert) {
-    //   alert = (
-    //     <Alert bsStyle={this.props.typeAlert}>
-    //       <strong>{`${this.props.softName}`}</strong> {`${this.props.alertMsg}`}
-    //     </Alert>
-    //   );
-    // }
-    console.log(this.props.alerts);
+    let alerts = '';
+    if (this.props.displayAlert) {
+      alerts = this.props.alerts.map((alert, index) => (
+        <Alert key={`row-${index}`} bsStyle={alert.typeAlert}>
+          <strong>{alert.alertMsg}</strong>
+        </Alert>
+        ));
+    }
 
     return (
       <div>
         <PageHeader>{this.props.username}</PageHeader>
-        {alert}
+        {alerts}
         <Searchbar />
         <Buttons />
         <Table />
@@ -47,7 +46,7 @@ export default class SoftwaresByUser extends React.Component {
 
 SoftwaresByUser.propTypes = {
   username: React.PropTypes.string,
-  alerts: React.PropTypes.array,
+  alerts: React.PropTypes.arrayOf(React.PropTypes.object),
   displayAlert: React.PropTypes.bool,
   getUsername: React.PropTypes.func,
   getInstalledSoftwaresRequest: React.PropTypes.func,

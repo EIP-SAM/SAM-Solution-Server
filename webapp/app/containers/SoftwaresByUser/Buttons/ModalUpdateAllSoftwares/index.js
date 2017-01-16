@@ -22,7 +22,6 @@ function mapDispatchToProps(dispatch) {
     hideUpdateAllSoftwaresModal: () => dispatch(hideUpdateAllSoftwaresModal()),
     updateSoftwares: (username, packages) => updateSoftwares(username, packages),
     resetStateTable: () => dispatch(resetStateTable()),
-    resetSelectedSoftware: () => dispatch(resetSelectedSoftware()),
   };
 }
 

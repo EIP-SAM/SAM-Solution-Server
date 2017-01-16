@@ -13,7 +13,6 @@ export default class SoftwaresByUserDeleteAllSoftwaresModal extends React.Compon
     this.props.hideDeleteAllSoftwaresModal();
     this.props.deleteSoftwares(this.props.username, this.props.selectedSoftwares);
     this.props.resetStateTable();
-    this.props.resetSelectedSoftware();
   }
 
   render() {
@@ -49,5 +48,4 @@ SoftwaresByUserDeleteAllSoftwaresModal.propTypes = {
   hideDeleteAllSoftwaresModal: React.PropTypes.func,
   deleteSoftwares: React.PropTypes.func,
   resetStateTable: React.PropTypes.func,
-  resetSelectedSoftware: React.PropTypes.func,
 };

@@ -63,26 +63,23 @@ socket.on('server_all_software_by_user', (data) => {
   if (!data.error) {
     store.dispatch(getSoftwares(data.result));
   } else {
-    if (!data.error.err) {
-      store.dispatch(createAlert({
-        typeAlert: "danger",
-        alertMsg: 'An undefined error occured',
-      }));
-    } else {
-      store.dispatch(createAlert({
-        typeAlert: "danger",
-        alertMsg: data.error.err,
-      }));
-    }
+    store.dispatch(createAlert({
+      typeAlert: 'danger',
+      alertMsg: data.error.err,
+    }));
   }
 });
 
 export function installSoftwares(username, softwares) {
-  let packages = [];
+  const packages = [];
 
-  softwares.forEach((soft) => {
-    packages.push(soft.packageName);
-  });
+  if (typeof softwares === 'string') {
+    packages.push(softwares);
+  } else {
+    softwares.forEach((soft) => {
+      packages.push(soft.packageName);
+    });
+  }
 
   const data = {
     username,
@@ -92,16 +89,29 @@ export function installSoftwares(username, softwares) {
 }
 
 socket.on('server_install_software_by_user', (data) => {
-  console.log('server_install_software_by_user');
+  if (!data.error) {
+    data.result.forEach((soft) => {
+      store.dispatch(createAlert({
+        typeAlert: 'success',
+        alertMsg: `${soft.packageName} has been installed`,
+      }));
+    });
+  } else {
+    data.result.forEach((soft) => {
+      store.dispatch(createAlert({
+        typeAlert: 'danger',
+        alertMsg: `${soft.packageName} could not be install`,
+      }));
+    });
+  }
 });
 
 export function updateSoftwares(username, softwares) {
-  let packages = [];
+  const packages = [];
 
   if (typeof softwares === 'string') {
     packages.push(softwares);
-  }
-  else {
+  } else {
     softwares.forEach((soft) => {
       packages.push(soft.packageName);
     });
@@ -115,16 +125,29 @@ export function updateSoftwares(username, softwares) {
 }
 
 socket.on('server_update_software_by_user', (data) => {
-  console.log('server_update_software_by_user');
+  if (!data.error) {
+    data.result.forEach((soft) => {
+      store.dispatch(createAlert({
+        typeAlert: 'success',
+        alertMsg: `${soft.packageName} has been updated`,
+      }));
+    });
+  } else {
+    data.result.forEach((soft) => {
+      store.dispatch(createAlert({
+        typeAlert: 'danger',
+        alertMsg: `${soft.packageName} could not be update`,
+      }));
+    });
+  }
 });
 
 export function deleteSoftwares(username, softwares) {
-  let packages = [];
+  const packages = [];
 
   if (typeof softwares === 'string') {
     packages.push(softwares);
-  }
-  else {
+  } else {
     softwares.forEach((soft) => {
       packages.push(soft.packageName);
     });
@@ -138,5 +161,19 @@ export function deleteSoftwares(username, softwares) {
 }
 
 socket.on('server_remove_software_by_user', (data) => {
-  console.log('server_remove_software_by_user');
+  if (!data.error) {
+    data.result.forEach((soft) => {
+      store.dispatch(createAlert({
+        typeAlert: 'success',
+        alertMsg: `${soft.packageName} has been removed`,
+      }));
+    });
+  } else {
+    data.result.forEach((soft) => {
+      store.dispatch(createAlert({
+        typeAlert: 'danger',
+        alertMsg: `${soft.packageName} could not be remove`,
+      }));
+    });
+  }
 });

@@ -29,13 +29,6 @@ export function getSelectedSoftware(selectedSoftwares) {
   };
 }
 
-export function resetSelectedSoftware() {
-  return {
-    type: SOFTWARES_BY_USER_SELECTED_SOFTWARES,
-    selectedSoftwares: [],
-  };
-}
-
 export function isAllCheckboxChecked(allChecked) {
   return {
     type: SOFTWARES_BY_USER_ALL_CHECKED,
