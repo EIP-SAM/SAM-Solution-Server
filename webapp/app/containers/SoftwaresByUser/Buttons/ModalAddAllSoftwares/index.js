@@ -4,8 +4,8 @@
 
 import { connect } from 'react-redux';
 import SoftwaresByUserAddAllSoftwaresModal from 'components/SoftwaresByUser/Buttons/ModalAddAllSoftwares';
-import { installSoftwares } from 'containers/SoftwaresByUser/actions';
 import { resetStateTable } from 'containers/SoftwaresByUser/Table/actions';
+import { installSoftwares } from 'containers/SoftwaresByUser/actions';
 import { hideAddAllSoftwaresModal } from './actions';
 
 function mapStateToProps(state) {

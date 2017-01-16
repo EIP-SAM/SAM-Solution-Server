@@ -15,9 +15,7 @@ import store from 'app';
 import {
   SOFTWARES_BY_USER_GET_SOFTWARES,
   SOFTWARES_BY_USER_USERNAME,
-  SOFTWARES_BY_USER_ADDITION_ALERT,
-  SOFTWARES_BY_USER_UPDATE_ALERT,
-  SOFTWARES_BY_USER_DELETION_ALERT,
+  SOFTWARES_BY_USER_ALERT,
   SOFTWARES_BY_USER_RESET_ALERT,
 } from './constants';
 
@@ -27,21 +25,10 @@ export function resetAlert() {
   };
 }
 
-export function additionAlert() {
+export function createAlert(alert) {
   return {
-    type: SOFTWARES_BY_USER_ADDITION_ALERT,
-  };
-}
-
-export function updateAlert() {
-  return {
-    type: SOFTWARES_BY_USER_UPDATE_ALERT,
-  };
-}
-
-export function deletionAlert() {
-  return {
-    type: SOFTWARES_BY_USER_DELETION_ALERT,
+    type: SOFTWARES_BY_USER_ALERT,
+    alert,
   };
 }
 
@@ -52,6 +39,12 @@ export function getSoftwares(softwares) {
   };
 }
 
+export function resetSoftwares() {
+  return {
+    type: SOFTWARES_BY_USER_GET_SOFTWARES,
+    softwares: [],
+  };
+}
 export function getUsername(username) {
   return {
     type: SOFTWARES_BY_USER_USERNAME,
@@ -68,15 +61,24 @@ export function getInstalledSoftwaresRequest(username) {
 
 socket.on('server_all_software_by_user', (data) => {
   if (!data.error) {
-    store.dispatch(getSoftwares(data));
+    store.dispatch(getSoftwares(data.result));
+  } else {
+    store.dispatch(createAlert({
+      typeAlert: 'danger',
+      alertMsg: data.error.err,
+    }));
   }
 });
 
 export function installSoftwares(username, softwares) {
-  let packages = softwares;
+  const packages = [];
 
   if (typeof softwares === 'string') {
-    packages = [softwares];
+    packages.push(softwares);
+  } else {
+    softwares.forEach((soft) => {
+      packages.push(soft.packageName);
+    });
   }
 
   const data = {
@@ -87,15 +89,32 @@ export function installSoftwares(username, softwares) {
 }
 
 socket.on('server_install_software_by_user', (data) => {
-  console.log('server_install_software_by_user');
-  console.log(data);
+  if (!data.error) {
+    data.result.forEach((soft) => {
+      store.dispatch(createAlert({
+        typeAlert: 'success',
+        alertMsg: `${soft.packageName} has been installed`,
+      }));
+    });
+  } else {
+    data.result.forEach((soft) => {
+      store.dispatch(createAlert({
+        typeAlert: 'danger',
+        alertMsg: `${soft.packageName} could not be install`,
+      }));
+    });
+  }
 });
 
 export function updateSoftwares(username, softwares) {
-  let packages = softwares;
+  const packages = [];
 
   if (typeof softwares === 'string') {
-    packages = [softwares];
+    packages.push(softwares);
+  } else {
+    softwares.forEach((soft) => {
+      packages.push(soft.packageName);
+    });
   }
 
   const data = {
@@ -106,15 +125,32 @@ export function updateSoftwares(username, softwares) {
 }
 
 socket.on('server_update_software_by_user', (data) => {
-  console.log('server_update_software_by_user');
-  console.log(data);
+  if (!data.error) {
+    data.result.forEach((soft) => {
+      store.dispatch(createAlert({
+        typeAlert: 'success',
+        alertMsg: `${soft.packageName} has been updated`,
+      }));
+    });
+  } else {
+    data.result.forEach((soft) => {
+      store.dispatch(createAlert({
+        typeAlert: 'danger',
+        alertMsg: `${soft.packageName} could not be update`,
+      }));
+    });
+  }
 });
 
 export function deleteSoftwares(username, softwares) {
-  let packages = softwares;
+  const packages = [];
 
   if (typeof softwares === 'string') {
-    packages = [softwares];
+    packages.push(softwares);
+  } else {
+    softwares.forEach((soft) => {
+      packages.push(soft.packageName);
+    });
   }
 
   const data = {
@@ -125,6 +161,19 @@ export function deleteSoftwares(username, softwares) {
 }
 
 socket.on('server_remove_software_by_user', (data) => {
-  console.log('server_remove_software_by_user');
-  console.log(data);
+  if (!data.error) {
+    data.result.forEach((soft) => {
+      store.dispatch(createAlert({
+        typeAlert: 'success',
+        alertMsg: `${soft.packageName} has been removed`,
+      }));
+    });
+  } else {
+    data.result.forEach((soft) => {
+      store.dispatch(createAlert({
+        typeAlert: 'danger',
+        alertMsg: `${soft.packageName} could not be remove`,
+      }));
+    });
+  }
 });

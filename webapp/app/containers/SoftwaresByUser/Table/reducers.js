@@ -29,7 +29,9 @@ const initialState = {
 function SoftwaresByUserTableReducer(state = initialState, action) {
   switch (action.type) {
     case SOFTWARES_BY_USER_RESET_STATE_TABLE:
-      return Object.assign({}, initialState, {});
+      return Object.assign({}, initialState, {
+        selectedSoftwares: [],
+      });
     case SOFTWARES_BY_USER_SELECTED_SOFTWARES:
       return Object.assign({}, state, {
         selectedSoftwares: action.selectedSoftwares,

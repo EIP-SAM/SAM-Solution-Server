@@ -16,18 +16,15 @@ import SoftwaresByUserTableReducers from './Table/reducers';
 import {
   SOFTWARES_BY_USER_GET_SOFTWARES,
   SOFTWARES_BY_USER_USERNAME,
-  SOFTWARES_BY_USER_ADDITION_ALERT,
-  SOFTWARES_BY_USER_UPDATE_ALERT,
-  SOFTWARES_BY_USER_DELETION_ALERT,
+  SOFTWARES_BY_USER_ALERT,
   SOFTWARES_BY_USER_RESET_ALERT,
 } from './constants';
 
 const initialState = {
   softwares: [],
   username: '',
-  alertMsg: '',
-  typeAlert: '',
-  displayAlert: false,
+  alerts: [], // {typeAlert, alertMsg, softName}
+  displayAlerts: false,
 };
 
 function SoftwaresByUserReducer(state = initialState, action) {
@@ -42,26 +39,15 @@ function SoftwaresByUserReducer(state = initialState, action) {
       });
     case SOFTWARES_BY_USER_RESET_ALERT:
       return Object.assign({}, state, {
-        alertMsg: '',
-        typeAlert: '',
+        alerts: [],
         displayAlert: false,
       });
-    case SOFTWARES_BY_USER_ADDITION_ALERT:
+    case SOFTWARES_BY_USER_ALERT:
       return Object.assign({}, state, {
-        alertMsg: 'has been installed',
-        typeAlert: 'info',
-        displayAlert: true,
-      });
-    case SOFTWARES_BY_USER_UPDATE_ALERT:
-      return Object.assign({}, state, {
-        alertMsg: 'has been updated',
-        typeAlert: 'warning',
-        displayAlert: true,
-      });
-    case SOFTWARES_BY_USER_DELETION_ALERT:
-      return Object.assign({}, state, {
-        alertMsg: 'has been deleted',
-        typeAlert: 'danger',
+        alerts: [
+          ...state.alerts,
+          action.alert,
+        ],
         displayAlert: true,
       });
     default:

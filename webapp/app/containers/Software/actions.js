@@ -44,25 +44,23 @@ socket.on('server_all_software', (data) => {
   });
 
   store.dispatch(getUsers(users));
-  store.dispatch(getRefresh(1));
+  store.dispatch(getRefresh(!store.getState().get('software').get('SoftwareReducer').refresh));
 });
 
 /* eslint-disable no-param-reassign */
 export function getUsersRequest() {
   return function returnGetUsersRequest(dispatch) {
     return request
-      .get('/api/logged-in/admin/restore')
+      .get('/api/logged-in/admin/users')
       .end((err, res) => {
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
-
-        res.body.forEach((element) => {
+        res.body.users.forEach((element) => {
           element.os = '';
         });
-
-        dispatch(getUsers(res.body));
-        dispatch(getAllUsers(res.body));
+        dispatch(getUsers(res.body.users));
+        dispatch(getAllUsers(res.body.users));
         dispatch(getUsersOsRequest());
       });
   };
