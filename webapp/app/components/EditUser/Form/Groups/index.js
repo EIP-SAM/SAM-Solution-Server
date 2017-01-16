@@ -35,8 +35,8 @@ export default class EditUserFormGroups extends React.Component {
 
     if (this.props.allGroups) {
       groupsForm = this.props.allGroups.map((group, i) => (
-        <Col key={i} xs={12} className={styles.editUserRightLine}>
-          <Col xs={2} className={styles.editUserName}>{group}</Col>
+        <Col key={i} xs={12}>
+          <p className={styles.editUserName}>{group}</p>
           <RadioGroup inline id={group} values={['in', 'out']} placeholder={this.props.userGroups.map(userGroup => (userGroup)).indexOf(group) !== -1 ? 'in' : 'out'} onChange={event => this.onChangeGroups(group, event)} />
         </Col>
         ));

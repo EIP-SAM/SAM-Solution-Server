@@ -22,7 +22,8 @@ module.exports.lastUsersRestores = () => UserModel.findAll({
 //
 // Get all restorations of a user
 //
-module.exports.historyRestoreByUser = username => RestoreModel.findAll({
+module.exports.historyRestoreByUser = (username, limit) => RestoreModel.findAll({
+  limit,
   order: [['execDate', 'DESC']],
   include: [{
     model: UserModel,

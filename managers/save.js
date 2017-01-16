@@ -4,6 +4,7 @@
 const saveScheduledAdapter = require('../adapters/saveScheduled');
 const cronManager = require('./cronSave');
 const nodeSchedule = require('../libs/nodeSchedule');
+const daemonSave = require('../websocket/daemon/save');
 const logger = require('../libs/bunyan');
 
 //
@@ -33,7 +34,11 @@ module.exports.lastUsersSaves = () => saveScheduledAdapter.lastUsersSaves().then
 //
 module.exports.historySavesByUser = (req) => {
   const username = req.query.username;
-  return saveScheduledAdapter.historySavesByUser(username);
+  let limit; // initialize to undefined
+  if (req.query.limit) {
+    limit = parseInt(req.query.limit, 10);
+  }
+  return saveScheduledAdapter.historySavesByUser(username, limit);
 };
 
 //
@@ -45,6 +50,78 @@ module.exports.historySucceededSavesByUser = (req) => {
   return saveScheduledAdapter.historySucceededSavesByUser(username);
 };
 
+//
+// Start save
+// Call adapter
+//
+function startSave(saveId) {
+  saveScheduledAdapter.saveIsStart(saveId);
+}
+
+//
+// If auto save then create new save
+// Else disable saveSchedule and remove cron from list
+// Call adapters
+//
+function saveFinish(saveScheduledId, saveId, username, files) {
+  saveScheduledAdapter.findSaveScheduledById(saveScheduledId).then((saveScheduled) => {
+    if (saveScheduled.cron === null) {
+      saveScheduledAdapter.disableSaveScheduled(saveScheduled.id);
+      // cronManager.removeCron(saveScheduled.id);
+    } else {
+      const nextDateSave = cronManager.parserCronToDate(saveScheduled.cron);
+      saveScheduledAdapter.createSave(saveScheduled.id, nextDateSave).then((save) => {
+        nodeSchedule.listCron[saveScheduled.id] = cronManager.createSaveScheduled(nextDateSave, username, files, save.id, saveScheduled.id);
+      });
+    }
+  });
+  return saveScheduledAdapter.saveIsFinish(saveId);
+}
+
+//
+// Update Success boolean
+// Save name of the branch
+// Call adapter
+//
+function saveSuccess(saveId, branch) {
+  saveScheduledAdapter.saveIsSuccess(saveId);
+  saveScheduledAdapter.branchSave(saveId, branch);
+}
+
+//
+// Callback called after launch of save by the daemon
+//
+module.exports.callBackSaveExecDaemon = (username, files, saveScheduledId, saveId) => (msg) => {
+  if (msg.isSuccess) {
+    logger.setModuleName('Save').setUser({ id: '', name: username }).info(`${username} succeeded a save`);
+    saveFinish(saveScheduledId, saveId);
+    saveSuccess(saveId, msg.branch);
+  } else if (msg.isFinish) {
+    logger.setModuleName('Save').setUser({ id: '', name: username }).warn(`${username} failed a save. Error: ${msg.msg.err}`);
+    saveFinish(saveScheduledId, saveId, username, files);
+  } else if (msg.isStart) {
+    startSave(saveId);
+  } else {
+    logger.setModuleName('Save').setUser({ id: '', name: username }).error(`${msg.msg.err}`);
+  }
+};
+
+//
+// Call when save if launch
+// Call daemon & update data in db
+//
+module.exports.execSave = (username, files, saveId, saveScheduledId) => {
+  if (typeof files === 'string') {
+    files = files.split();
+  }
+
+  daemonSave.exec(username, files, saveScheduledId, saveId, module.exports.callBackSaveExecDaemon(username, files, saveScheduledId, saveId));
+};
+
+//
+// Create save
+// Launch instant save or create cron if scheduled or auto save
+//
 module.exports.createSave = (req) => {
   let usersId = req.body.usersId;
   const date = req.body.date;
@@ -56,11 +133,8 @@ module.exports.createSave = (req) => {
   const splitTime = time.split(':');
   // In JavaScript - 0 - January, 11 - December
   // YYYY-MM-DD hh:mm
-  let dateFormat = new Date(splitDate[2], splitDate[1] - 1, splitDate[0],
+  const dateFormat = new Date(splitDate[2], splitDate[1] - 1, splitDate[0],
     splitTime[0], splitTime[1]);
-  if (dateFormat < new Date()) {
-    dateFormat = new Date(new Date().getTime() + 60000);
-  }
 
   let cron = null;
   if (frequency !== 'No Repeat') {
@@ -77,47 +151,15 @@ module.exports.createSave = (req) => {
         saveScheduledAdapter.findUserBySaveScheduledId(saveScheduled.id).then((username) => {
           logger.setModuleName('Save').setUser({ id: username[0].dataValues.id, name: username[0].dataValues.name }).info(`${username[0].dataValues.name} created a save`);
           saveScheduledAdapter.createSave(saveScheduled.id, dateFormat).then((save) => {
-            nodeSchedule.listCron[saveScheduled.id] = cronManager.createSaveScheduled(dateFormat, username[0].dataValues.name, files, save.id, saveScheduled.id);
+            if (dateFormat < new Date()) {
+              module.exports.execSave(username[0].dataValues.name, files, save.id, saveScheduled.id);
+            } else {
+              nodeSchedule.listCron[saveScheduled.id] = cronManager.createSaveScheduled(dateFormat, username[0].dataValues.name, files, save.id, saveScheduled.id);
+            }
           });
         });
       });
   }
-};
-
-//
-// Start save
-// Call adapter
-//
-module.exports.startSave = saveId => saveScheduledAdapter.saveIsStart(saveId);
-
-//
-// If auto save then create new save
-// Else disable saveSchedule and remove cron from list
-// Call adapters
-//
-module.exports.saveFinish = (saveScheduledId, saveId, username, files) => {
-  saveScheduledAdapter.findSaveScheduledById(saveScheduledId).then((saveScheduled) => {
-    if (saveScheduled.cron === null) {
-      saveScheduledAdapter.disableSaveScheduled(saveScheduled.id);
-      // cronManager.removeCron(saveScheduled.id);
-    } else {
-      const nextDateSave = cronManager.parserCronToDate(saveScheduled.cron);
-      saveScheduledAdapter.createSave(saveScheduled.id, nextDateSave).then((save) => {
-        nodeSchedule.listCron[saveScheduled.id] = cronManager.createSaveScheduled(nextDateSave, username, files, save.id, saveScheduled.id);
-      });
-    }
-  });
-  return saveScheduledAdapter.saveIsFinish(saveId);
-};
-
-//
-// Update Success boolean
-// Save name of the branch
-// Call adapter
-//
-module.exports.saveSuccess = (saveId, branch) => {
-  saveScheduledAdapter.saveIsSuccess(saveId);
-  saveScheduledAdapter.branchSave(saveId, branch);
 };
 
 //

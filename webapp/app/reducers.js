@@ -10,6 +10,7 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import logsReducer from 'containers/Logs/reducers';
 import StatsReducer from 'containers/Stats/reducers';
 import dashboardReducer from 'containers/Dashboard/reducers';
+import dashboardByUserReducer from 'containers/DashboardByUser/reducers';
 import forgottenPasswordReducer from 'containers/ForgottenPassword/Form/Email/reducer';
 import appReducer from 'containers/App/reducer';
 import loginReducer from 'containers/Login/Form/reducers';
@@ -29,6 +30,7 @@ import softwaresByUserReducer from 'containers/SoftwaresByUser/reducers';
 import migrationHistoryReducer from 'containers/MigrationHistory/reducers';
 import SoftwareReducer from 'containers/Software/reducers';
 import NotificationsReducer from 'containers/Notifications/Form/reducers';
+import ImageManagementReducer from 'containers/ImageManagement/reducers';
 
 /*
  * routeReducer
@@ -68,6 +70,7 @@ export default function createReducer(asyncReducers) {
     logs: logsReducer,
     stats: StatsReducer,
     dashboard: dashboardReducer,
+    dashboardByUser: dashboardByUserReducer,
     login: loginReducer,
     forgottenPassword: forgottenPasswordReducer,
     createUser: createUserReducer,
@@ -86,6 +89,7 @@ export default function createReducer(asyncReducers) {
     migrationHistory: migrationHistoryReducer,
     software: SoftwareReducer,
     notifications: NotificationsReducer,
+    ImageManagement: ImageManagementReducer,
     ...asyncReducers,
   });
 }

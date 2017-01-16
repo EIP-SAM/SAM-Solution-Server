@@ -1,7 +1,10 @@
 const logger = require('../../libs/bunyan').setModuleName('Daemon');
+const daemonCmdAdapter = require('../../adapters/daemonCommand');
+const userAdapter = require('../../adapters/users');
+const daemonCommandChecker = require('./daemonCommand');
 const socketIo = require('../../libs/socket-io');
 
-module.exports.exec = function exec(username, branch, cb) {
+module.exports.exec = function exec(username, branch, restoreId, cb) {
   const socketArray = socketIo.socketArray.daemon;
   const socket = socketArray[username];
 
@@ -14,6 +17,11 @@ module.exports.exec = function exec(username, branch, cb) {
 
     return 1;
   }
-  logger.info(`${username}'s daemon is not connected`);
+  userAdapter.findByName(username).then((user) => {
+    logger.info(`Persist restore for ${username}`);
+    daemonCmdAdapter.create(user.id, daemonCommandChecker.RESTORE_EXEC, { branch, restoreId });
+  }).catch(() => {
+    logger.info(`Unable to persist notification for ${username}`);
+  });
   return 0;
 };

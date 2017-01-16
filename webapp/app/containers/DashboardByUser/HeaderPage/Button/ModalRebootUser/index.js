@@ -1,9 +1,9 @@
 //
-// Container modal reboot user Users
+// Container modal reboot user button header page dashboard by user page
 //
 
 import { connect } from 'react-redux';
-import UserRebootModal from 'components/Users/Table/ModalRebootUser';
+import DashboardByUserHeaderPageButtonRebootModal from 'components/DashboardByUser/HeaderPage/Button/ModalRebootUser';
 import {
   hideInstantRebootModal,
   rebootUser,
@@ -11,8 +11,7 @@ import {
 
 function mapStateToProps(state) {
   return {
-    username: state.get('users').get('UsersReducer').username,
-    showModal: state.get('users').get('UsersRebootModalReducer').showModal,
+    showModal: state.get('dashboardByUser').get('DashboardByUserHeaderPageReducers').get('DashboardByUserRebootModalReducer').showModal,
   };
 }
 
@@ -26,4 +25,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(UserRebootModal);
+)(DashboardByUserHeaderPageButtonRebootModal);

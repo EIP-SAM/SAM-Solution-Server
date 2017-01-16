@@ -34,7 +34,11 @@ function sorts(state = 'none', action) {
   }
 }
 
-function logs(state = {}, action) {
+const initialState = {
+  logs: { error: false, data: [] },
+};
+
+function logs(state = initialState, action) {
   switch (action.type) {
     case LOGS_GET_FILTERED_LOGS:
       return Object.assign({}, state, {

@@ -178,6 +178,15 @@ export default function createRoutes() {
         .catch(errorLoading);
       },
     }, {
+      path: '/images',
+      name: 'images',
+      getComponent(nextState, cb) {
+        System.import('components/ImageManagement')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      },
+    },
+    {
       path: '/migration/history',
       name: 'migrationHistory',
       getComponent(nextState, cb) {
@@ -198,6 +207,14 @@ export default function createRoutes() {
       name: 'Notifications',
       getComponent(nextState, cb) {
         System.import('containers/Notifications')
+        .then(loadModule(cb))
+        .catch(errorLoading);
+      },
+    }, {
+      path: '/dashboard/:username/:id',
+      name: 'dashboard by user',
+      getComponent(nextState, cb) {
+        System.import('containers/DashboardByUser')
         .then(loadModule(cb))
         .catch(errorLoading);
       },

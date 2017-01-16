@@ -1,5 +1,5 @@
 //
-// Users table actions
+// Modal reboot user button header page dashboard by user page actions
 //
 // To add a new Action :
 // 1) Import you constant
@@ -13,18 +13,18 @@ import request from 'utils/request';
 import { browserHistory } from 'react-router';
 import { rebootAlert } from 'containers/Users/actions';
 
-import USERS_SHOW_INSTANT_REBOOT_MODAL from './constants';
+import DASHBOARD_BY_USER_SHOW_INSTANT_REBOOT_MODAL from './constants';
 
 export function showInstantRebootModal() {
   return {
-    type: USERS_SHOW_INSTANT_REBOOT_MODAL,
+    type: DASHBOARD_BY_USER_SHOW_INSTANT_REBOOT_MODAL,
     showModal: true,
   };
 }
 
 export function hideInstantRebootModal() {
   return {
-    type: USERS_SHOW_INSTANT_REBOOT_MODAL,
+    type: DASHBOARD_BY_USER_SHOW_INSTANT_REBOOT_MODAL,
     showModal: false,
   };
 }

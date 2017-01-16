@@ -18,7 +18,11 @@ module.exports.lastUsersRestores = () => restoreAdapter.lastUsersRestores();
 //
 module.exports.historyRestoreByUser = (req) => {
   const username = req.query.username;
-  return restoreAdapter.historyRestoreByUser(username);
+  let limit; // initialize to undefined
+  if (req.query.limit) {
+    limit = parseInt(req.query.limit, 10);
+  }
+  return restoreAdapter.historyRestoreByUser(username, limit);
 };
 
 //
@@ -45,8 +49,27 @@ function restoreSuccess(restoreId) {
 }
 
 //
+// Callback called after launch of restore by the daemon
+//
+module.exports.callBackRestoreExecDaemon = (username, restoreId) => (msg) => {
+  if (msg.isSuccess) {
+    logger.setModuleName('Restore').setUser({ id: '', name: username }).info(`${username} succeeded a restore`);
+    restoreFinish(restoreId);
+    restoreSuccess(restoreId);
+  } else if (msg.isFinish) {
+    logger.setModuleName('Restore').setUser({ id: '', name: username }).warn(`${username} failed a restore. Error: ${msg.msg.err}`);
+    restoreFinish(restoreId);
+  } else if (msg.isStart) {
+    startRestore(restoreId);
+  } else {
+    logger.setModuleName('Restore').setUser({ id: '', name: username }).error(`${msg.msg.err}`);
+  }
+};
+
+//
 // Get data from resquest
 // Call adapter
+// Call daemon
 //
 module.exports.createRestore = (req) => {
   const userId = req.body.userId;
@@ -56,18 +79,7 @@ module.exports.createRestore = (req) => {
     logger.setModuleName('Restore').setUser({ id: user.id, name: user.name }).info(`${user.name} has create a restore`);
     restoreAdapter.createRestore(userId, files, saveId).then((restore) => {
       saveScheduledAdapter.findSaveById(saveId).then((save) => {
-        daemon.exec(user.name, save.hash, (msg) => {
-          if (msg.isSuccess) {
-            logger.setModuleName('Restore').setUser({ id: '', name: user.name }).info(`${user.name} succeeded a restore`);
-            restoreFinish(restore.id);
-            restoreSuccess(restore.id);
-          } else if (msg.isFinish) {
-            logger.setModuleName('Restore').setUser({ id: '', name: user.name }).info(`${user.name} failed a restore. Error: ${msg.msg.cmd}`);
-            restoreFinish(restore.id);
-          } else if (msg.isStart) {
-            startRestore(restore.id);
-          }
-        });
+        daemon.exec(user.name, save.hash, restore.id, module.exports.callBackRestoreExecDaemon(user.name, restore.id));
       });
     });
   });

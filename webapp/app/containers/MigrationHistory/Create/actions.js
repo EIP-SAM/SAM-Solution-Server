@@ -42,14 +42,15 @@ export function getAllImages() {
   return dispatch => (
     request
       .get('/api/logged-in/admin/images/')
+      .query({ isValid: true })
       .end((err, res) => {
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
         if (err || res.body.error) {
-          dispatch(getAllImagesResult({ images: [] }));
-        } else {
-          dispatch(getAllImagesResult(res.body.images));
+          dispatch(getAllImagesResult([]));
+        } else if (res.body.images) {
+          dispatch(getAllImagesResult(res.body.images.images));
         }
       })
   );
@@ -93,11 +94,11 @@ export function setSelectedImage(imageId) {
   };
 }
 
-export function createMigration(migrationObj) {
+export function createMigration(migrationObj, isInstant) {
   return dispatch => (
     request
       .post('/api/logged-in/admin/migration/add')
-      .send({ migrationObj })
+      .send({ migrationObj, isInstant })
       .end((err, res) => {
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');

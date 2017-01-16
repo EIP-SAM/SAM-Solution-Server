@@ -1,14 +1,39 @@
 //
 // Image adapter
 //
+const path = require('path');
 
 const ImageModel = require('../models/image');
+const ImageWorker = require('../workers/imageFilesystem');
+const config = require('../config/base.config.json');
 
 //
 // Get all images
 //
-module.exports.getImages = () => ImageModel.findAll({
+module.exports.getImages = onlyValid => ImageModel.findAll({
   order: [['createdAt', 'DESC']],
+}).then((imagesDb) => {
+  const retImage = { images: [], files: [] };
+  return ImageWorker.retrieveImages(path.join(config.systemImagesPath, '/*')).then((imagesFs) => {
+    imagesFs.forEach((imageFs) => {
+      let isUsed = false;
+      imagesDb.forEach((imageDb) => {
+        if (imageDb.fileName === imageFs.fileName) {
+          imageDb.dataValues.isValid = true;
+          isUsed = true;
+        }
+      });
+      if (!isUsed && !onlyValid) {
+        retImage.files.push({ name: imageFs.fileName });
+      }
+    });
+    imagesDb.forEach((imageDb) => {
+      if (!onlyValid || imageDb.dataValues.isValid) {
+        retImage.images.push(imageDb);
+      }
+    });
+    return retImage;
+  });
 });
 
 //
