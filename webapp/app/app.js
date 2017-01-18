@@ -10,6 +10,7 @@ import 'babel-polyfill';
 // Load the manifest.json file and the .htaccess file
 import 'file-loader?name=[name].[ext]!./manifest.json';  // eslint-disable-line import/no-unresolved, import/no-webpack-loader-syntax
 import 'file-loader?name=[name].[ext]!./.htaccess';      // eslint-disable-line import/no-unresolved, import/no-webpack-loader-syntax, import/extensions
+import 'file-loader?name=[name].[ext]!./favicon.ico';     // eslint-disable-line import/no-unresolved, import/no-webpack-loader-syntax, import/extensions
 
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/lib/sanitize.css';
