@@ -21,6 +21,7 @@ export default class DashboardByUserLogs extends React.Component {
       {
         findOpts: {
           user: { name: username, id: parseInt(userId, 10) },
+          levelAbove: 40,
         },
         limit: 10,
       });
