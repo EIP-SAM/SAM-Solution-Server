@@ -16,6 +16,7 @@ import { resetStateTitle } from './Title/actions';
 import { resetStateAllUsers } from './Users/AllUsers/actions';
 import { resetStateSelectedUsers } from './Users/SelectedUsers/actions';
 import getUsersRequest from './Users/actions';
+import { addAlert } from '../actions';
 
 export function resetStateForm() {
   return function resetState(dispatch) {
@@ -43,6 +44,7 @@ export function notificationRequest(title, description, persistence, username, i
           browserHistory.push('/login');
         }
         dispatch(resetStateForm());
+        dispatch(addAlert());
         dispatch(getUsersRequest());
       });
   };

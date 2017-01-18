@@ -9,7 +9,7 @@ import { addGroups } from '../../SelectedGroups/actions';
 
 function mapStateToProps(state) {
   return {
-    groups: state.get('notifications').get('NotificationsFormGroupsReducer').get('NotificationsFormAllGroupsReducer').groups,
+    groups: state.get('notifications').get('NotificationsFormReducer').get('NotificationsFormGroupsReducer').get('NotificationsFormAllGroupsReducer').groups,
   };
 }
 

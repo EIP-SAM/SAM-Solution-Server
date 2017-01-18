@@ -16,10 +16,10 @@ import {
 
 function mapStateToProps(state) {
   return {
-    users: state.get('notifications').get('NotificationsFormUsersReducer').get('NotificationsFormAllUsersReducer').users,
-    preSelectedUsers: state.get('notifications').get('NotificationsFormUsersReducer').get('NotificationsFormAllUsersReducer').preSelectedUsers,
-    selectedUsers: state.get('notifications').get('NotificationsFormUsersReducer').get('NotificationsFormSelectedUsersReducer').selectedUsers,
-    unselectedUsers: state.get('notifications').get('NotificationsFormUsersReducer').get('NotificationsFormSelectedUsersReducer').unselectedUsers,
+    users: state.get('notifications').get('NotificationsFormReducer').get('NotificationsFormUsersReducer').get('NotificationsFormAllUsersReducer').users,
+    preSelectedUsers: state.get('notifications').get('NotificationsFormReducer').get('NotificationsFormUsersReducer').get('NotificationsFormAllUsersReducer').preSelectedUsers,
+    selectedUsers: state.get('notifications').get('NotificationsFormReducer').get('NotificationsFormUsersReducer').get('NotificationsFormSelectedUsersReducer').selectedUsers,
+    unselectedUsers: state.get('notifications').get('NotificationsFormReducer').get('NotificationsFormUsersReducer').get('NotificationsFormSelectedUsersReducer').unselectedUsers,
   };
 }
 

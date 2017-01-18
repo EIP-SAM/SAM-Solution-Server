@@ -8,8 +8,8 @@ import { unselectedGroupsOnChange } from './actions';
 
 function mapStateToProps(state) {
   return {
-    selectedGroups: state.get('notifications').get('NotificationsFormGroupsReducer').get('NotificationsFormSelectedGroupsReducer').selectedGroups,
-    selectedGroupsError: state.get('notifications').get('NotificationsFormGroupsReducer').get('NotificationsFormSelectedGroupsReducer').selectedGroupsError,
+    selectedGroups: state.get('notifications').get('NotificationsFormReducer').get('NotificationsFormGroupsReducer').get('NotificationsFormSelectedGroupsReducer').selectedGroups,
+    selectedGroupsError: state.get('notifications').get('NotificationsFormReducer').get('NotificationsFormGroupsReducer').get('NotificationsFormSelectedGroupsReducer').selectedGroupsError,
   };
 }
 

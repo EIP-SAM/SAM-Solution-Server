@@ -13,11 +13,11 @@ import { selectedGroupsErrorMsg } from 'containers/Notifications/Form/Groups/Sel
 
 function mapStateToProps(state) {
   return {
-    title: state.get('notifications').get('NotificationsFormTitleReducer').title,
-    description: state.get('notifications').get('NotificationsFormDescriptionReducer').description,
-    persistence: state.get('notifications').get('NotificationsFormPersistenceReducer').persistence,
-    selectedUsers: state.get('notifications').get('NotificationsFormUsersReducer').get('NotificationsFormSelectedUsersReducer').selectedUsers,
-    selectedGroups: state.get('notifications').get('NotificationsFormGroupsReducer').get('NotificationsFormSelectedGroupsReducer').selectedGroups,
+    title: state.get('notifications').get('NotificationsFormReducer').get('NotificationsFormTitleReducer').title,
+    description: state.get('notifications').get('NotificationsFormReducer').get('NotificationsFormDescriptionReducer').description,
+    persistence: state.get('notifications').get('NotificationsFormReducer').get('NotificationsFormPersistenceReducer').persistence,
+    selectedUsers: state.get('notifications').get('NotificationsFormReducer').get('NotificationsFormUsersReducer').get('NotificationsFormSelectedUsersReducer').selectedUsers,
+    selectedGroups: state.get('notifications').get('NotificationsFormReducer').get('NotificationsFormGroupsReducer').get('NotificationsFormSelectedGroupsReducer').selectedGroups,
   };
 }
 
