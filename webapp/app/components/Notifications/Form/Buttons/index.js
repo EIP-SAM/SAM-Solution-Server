@@ -10,23 +10,20 @@ import styles from 'components/Notifications/styles.css';
 /* eslint-disable react/prefer-stateless-function */
 export default class NotificationsFormButtons extends React.Component {
   handleCreateClick(event) {
+    let username;
+    let isGroup;
     event.preventDefault();
     if (this.props.selectedGroups.length > 0) {
-      var username = this.props.selectedGroups.map(group => (
+      username = this.props.selectedGroups.map(group => (
         group.name
       ));
-      var isGroup = true;
+      isGroup = true;
     } else {
-      var username = this.props.selectedUsers.map(user => (
+      username = this.props.selectedUsers.map(user => (
         user.name
       ));
-      var isGroup = false;
+      isGroup = false;
     }
-    console.log("title : " + this.props.title);
-    console.log("description : " + this.props.description);
-    console.log("persistence : " + this.props.persistence);
-    console.log("username : " + username);
-    console.log("isGroup : " + isGroup);
     if (this.props.title !== '' && this.props.description !== '' && (this.props.selectedUsers.length !== 0 || this.props.selectedGroups.length !== 0)) {
       this.props.notificationRequest(this.props.title, this.props.description, this.props.persistence, username, isGroup);
     } else if (this.props.title === '' && this.props.description === '' && this.props.selectedUsers.length === 0 && this.props.selectedGroups.length === 0) {
@@ -69,6 +66,7 @@ NotificationsFormButtons.propTypes = {
   description: React.PropTypes.string,
   persistence: React.PropTypes.bool,
   selectedUsers: React.PropTypes.arrayOf(React.PropTypes.object),
+  selectedGroups: React.PropTypes.arrayOf(React.PropTypes.object),
   notificationRequest: React.PropTypes.func,
   titleErrorMsg: React.PropTypes.func,
   descriptionErrorMsg: React.PropTypes.func,
