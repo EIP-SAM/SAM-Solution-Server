@@ -12,6 +12,7 @@
   },
   "debug": false,
   "systemImagesPath": "path/to/system/images/",
+  "onMigrationExecCmd": "drbl-ocs -b -g auto -x -h \"#macaddress#\" -p reboot startdisk restore \"#imagepath#\" sda",
   "secret": "mySuperCookieSecretKeyIMustUpdate",
   "salt": "anotherAwsomeKeyIMustUpdate"
 }
