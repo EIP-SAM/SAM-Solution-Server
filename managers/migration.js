@@ -38,18 +38,34 @@ module.exports.getMigrationsGroupByStatus = () => migrationAdapter.getMigrations
 // - comment
 //
 module.exports.createMigration = (migrationObj, isInstant) => {
-  if (isInstant) {
-    userAdapter.findById(migrationObj.userId).then((user) => {
-      imageAdapter.getImageById(migrationObj.imageId).then((image) => {
-        migrationWorker.execMigration(user.name, image.fileName);
-      }).catch((err) => {
-        logger.warn(`Unable to retrieve image for migration (IMAGE ID : ${migrationObj.imageId}) : ${err}`);
-      });
+  return new Promise((fullfill, reject) => {
+    migrationAdapter.createMigration(migrationObj).then((newMigration) => {
+      fullfill(newMigration);
+      if (isInstant) {
+        userAdapter.findById(newMigration.userId).then((user) => {
+          imageAdapter.getImageById(newMigration.imageId).then((image) => {
+            migrationWorker.execMigration(user.name, image.fileName).then((msg) => {
+              newMigration.status = 'in progress';
+              newMigration.comment = `${msg}`;
+              newMigration.save();
+              logger.info(msg);
+            }).catch((err) => {
+              newMigration.status = 'failed';
+              newMigration.comment = `${err}`;
+              newMigration.save();
+              logger.error(err);
+            });
+          }).catch((err) => {
+            logger.warn(`Unable to retrieve image for migration (IMAGE ID : ${migrationObj.imageId}) : ${err}`);
+          });
+        }).catch((err) => {
+          logger.warn(`Unable to retrieve image for migration (IMAGE ID : ${migrationObj.imageId}) : ${err}`);
+        });
+      }
     }).catch((err) => {
-      logger.warn(`Unable to retrieve image for migration (IMAGE ID : ${migrationObj.imageId}) : ${err}`);
+      reject(err);
     });
-  }
-  return migrationAdapter.createMigration(migrationObj);
+  });
 };
 
 //
@@ -77,18 +93,22 @@ module.exports.initCheckMigration = () => {
   setInterval(() => {
     migrationAdapter.getPlannedMigrationBeforeNow().then((migrations) => {
       migrations.forEach((migration) => {
+        const obj = {};
+        obj.migrationId = migration.id;
         migrationWorker.execMigration(migration.user.name, migration.image.fileName).then((msg) => {
-          const obj = {};
-          obj.migrationId = migration.id;
           obj.status = 'in progress';
+          obj.comment = `${msg}`;
           migrationAdapter.editMigrationById(obj);
           logger.info(msg);
         }).catch((err) => {
+          obj.status = 'failed';
+          obj.comment = `${err}`;
+          migrationAdapter.editMigrationById(obj);
           logger.error(err);
         });
       });
     }).catch((err) => {
       logger.error(`Unable to start regular check migration : ${err}`);
     });
-  }, 5000);
+  }, 60000);
 };
