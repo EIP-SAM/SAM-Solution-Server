@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import { NotificationsGroupsForm } from 'components/NotificationsGroups/Form';
+import NotificationsGroupsForm from 'components/NotificationsGroups/Form';
 
 function mapStateToProps() {
   return {
