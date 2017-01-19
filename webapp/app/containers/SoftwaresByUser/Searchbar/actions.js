@@ -12,12 +12,22 @@
 import socket from 'utils/socket-io';
 import store from 'app';
 import { getSoftwares } from 'containers/SoftwaresByUser/actions';
-import SOFTWARES_BY_USER_SEARCHBAR_CHANGE from './constants';
+import {
+  SOFTWARES_BY_USER_SEARCHBAR_CHANGE,
+  SOFTWARES_BY_USER_SEARCHBAR_STATE,
+} from './constants';
 
 export function searchbarChange(searchbar) {
   return {
     type: SOFTWARES_BY_USER_SEARCHBAR_CHANGE,
     searchbar,
+  };
+}
+
+export function searchbarState(searchstate) {
+  return {
+    type: SOFTWARES_BY_USER_SEARCHBAR_STATE,
+    searchstate,
   };
 }
 
@@ -32,6 +42,6 @@ export function searchSoftwareRequest(username, packageName) {
 
 socket.on('server_search_software_by_user', (data) => {
   if (!data.error) {
-    store.dispatch(getSoftwares(data));
+    store.dispatch(getSoftwares(data.result));
   }
 });

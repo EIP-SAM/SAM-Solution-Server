@@ -11,7 +11,7 @@ import styles from 'components/SoftwaresByUser/styles.css';
 export default class SoftwaresByUserDeleteAllSoftwaresModal extends React.Component {
   handleDeleteAllClick() {
     this.props.hideDeleteAllSoftwaresModal();
-    this.props.installSoftwares(this.props.username, this.props.selectedSoftwares);
+    this.props.deleteSoftwares(this.props.username, this.props.selectedSoftwares);
     this.props.resetStateTable();
   }
 
@@ -46,6 +46,6 @@ SoftwaresByUserDeleteAllSoftwaresModal.propTypes = {
   selectedSoftwares: React.PropTypes.arrayOf(React.PropTypes.object),
   showModal: React.PropTypes.bool,
   hideDeleteAllSoftwaresModal: React.PropTypes.func,
-  installSoftwares: React.PropTypes.func,
+  deleteSoftwares: React.PropTypes.func,
   resetStateTable: React.PropTypes.func,
 };

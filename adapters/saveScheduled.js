@@ -26,7 +26,8 @@ module.exports.lastUsersSaves = () => UserModel.findAll({
 //
 // Get all saves of a user (past & scheduled)
 //
-module.exports.historySavesByUser = username => SaveModel.findAll({
+module.exports.historySavesByUser = (username, limit) => SaveModel.findAll({
+  limit,
   order: [['execDate', 'DESC']],
   include: [{
     model: SaveScheduledModel,

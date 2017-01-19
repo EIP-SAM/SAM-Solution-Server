@@ -19,22 +19,23 @@ export default class SoftwaresByUser extends React.Component {
   componentWillUnmount() {
     this.props.resetAlert();
     this.props.resetStateTable();
+    this.props.resetSoftwares();
   }
 
   render() {
-    let alert = '';
+    let alerts = '';
     if (this.props.displayAlert) {
-      alert = (
-        <Alert bsStyle={this.props.typeAlert}>
-          <strong>{`${this.props.softName}`}</strong> {`${this.props.alertMsg}`}
+      alerts = this.props.alerts.map((alert, index) => (
+        <Alert key={`row-${index}`} bsStyle={alert.typeAlert}>
+          <strong>{alert.alertMsg}</strong>
         </Alert>
-      );
+        ));
     }
 
     return (
       <div>
         <PageHeader>{this.props.username}</PageHeader>
-        {alert}
+        {alerts}
         <Searchbar />
         <Buttons />
         <Table />
@@ -45,12 +46,11 @@ export default class SoftwaresByUser extends React.Component {
 
 SoftwaresByUser.propTypes = {
   username: React.PropTypes.string,
-  softName: React.PropTypes.string,
-  alertMsg: React.PropTypes.string,
-  typeAlert: React.PropTypes.string,
+  alerts: React.PropTypes.arrayOf(React.PropTypes.object),
   displayAlert: React.PropTypes.bool,
   getUsername: React.PropTypes.func,
   getInstalledSoftwaresRequest: React.PropTypes.func,
   resetAlert: React.PropTypes.func,
   resetStateTable: React.PropTypes.func,
+  resetSoftwares: React.PropTypes.func,
 };

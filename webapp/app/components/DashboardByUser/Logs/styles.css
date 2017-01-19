@@ -1,0 +1,8 @@
+.tableInverse {
+  background-color: #333333;
+  color: white;
+}
+
+.tableInverse > tbody > tr:hover {
+  background-color: #555555!important;
+}

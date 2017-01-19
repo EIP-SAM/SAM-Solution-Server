@@ -33,7 +33,11 @@ module.exports.allSoftwaresByUser = (user, socket) => {
     .then((listpackage) => {
       socket.emit('server_all_software_by_user', listpackage);
     }).catch((err) => {
-      socket.emit('server_all_software_by_user', err);
+      if (err === 'undefined') {
+        socket.emit('server_all_software_by_user', { error: {} });
+      } else {
+        socket.emit('server_all_software_by_user', { error: { err } });
+      }
       logger.setUser({ id: '', name: user }).error(`${user} failed to get all packages`);
     });
 };
@@ -55,7 +59,7 @@ module.exports.searchSoftwareByUser = (user, packageName, socket) => {
 // Install a package
 //
 module.exports.installSoftwareByUser = (user, packageName, socket) => {
-  softwareAdapter.launchAnInstall(user, [packageName]).then((listpackage) => {
+  softwareAdapter.launchAnInstall(user, packageName).then((listpackage) => {
     socket.emit('server_install_software_by_user', listpackage);
     logger.setUser({ id: '', name: user }).info(`${user} has successfuly installed ${packageName}`);
   }).catch((err) => {
@@ -68,7 +72,7 @@ module.exports.installSoftwareByUser = (user, packageName, socket) => {
 // Update a package
 //
 module.exports.updateSoftwareByUser = (user, packageName, socket) => {
-  softwareAdapter.launchAnUpdate(user, [packageName]).then((listpackage) => {
+  softwareAdapter.launchAnUpdate(user, packageName).then((listpackage) => {
     socket.emit('server_update_software_by_user', listpackage);
     logger.setUser({ id: '', name: user }).info(`${user} has successfuly updated ${packageName}`);
   }).catch((err) => {
@@ -81,7 +85,7 @@ module.exports.updateSoftwareByUser = (user, packageName, socket) => {
 // Remove package
 //
 module.exports.removeSoftwareByUser = (user, packageName, socket) => {
-  softwareAdapter.launchARemove(user, [packageName]).then((listpackage) => {
+  softwareAdapter.launchARemove(user, packageName).then((listpackage) => {
     socket.emit('server_remove_software_by_user', listpackage);
     logger.setUser({ id: '', name: user }).info(`${user} has successfuly removed ${packageName}`);
   }).catch((err) => {

@@ -162,7 +162,7 @@ module.exports.ensureAdminLoggedIn = (req, res, next) => {
     next();
   } else {
     logger.setUser({ id: req.user.id, name: req.user.name }).warn('Non admin user is trying to access a protected ressource');
-    res.status(401).json({ error: 'Access denied' });
+    res.status(403).json({ error: 'Access denied' });
   }
 };
 

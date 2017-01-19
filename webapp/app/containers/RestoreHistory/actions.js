@@ -10,7 +10,6 @@
 //
 
 import request from 'utils/request';
-import { browserHistory } from 'react-router';
 import RESTORE_HISTORY_GET_HISTORY_RESTORES_BY_USER from './constants';
 
 export function getHistoryRestoresByUser(restores) {
@@ -20,16 +19,13 @@ export function getHistoryRestoresByUser(restores) {
   };
 }
 
-export function getHistoryRestoresByUserRequest(username) {
+export function getHistoryRestoresByUserRequest(username, limit) {
   return function returnGetHistoryRestoresByUserRequest(dispatch) {
     return request
       .get('/api/logged-in/history_restore')
-      .query({ username })
+      .query({ username, limit })
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
-
+        request.redirectHandling(res.statusCode);
         dispatch(getHistoryRestoresByUser(res.body));
       });
   };

@@ -1,0 +1,11 @@
+.inline {
+  color: #616161;
+  display: inline;
+  font-size: 0.5em;
+  margin-left: 10px;
+  padding-bottom: 0;
+}
+
+.inline:hover {
+  color: black;
+}

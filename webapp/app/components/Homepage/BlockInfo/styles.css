@@ -1,0 +1,144 @@
+.BlockInfoIcon {
+  font-size: 2em;
+}
+
+.BlockInfoTextBlock {
+  position: absolute;
+  width: 90%;
+  vertical-align: top;
+  text-align: left;
+  font-size: .7em;
+}
+
+.BlockInfoMessage {
+  text-align: right;
+}
+
+.BlockInfoTitle {
+  font-size: 1.1em;
+  display: block;
+  font-weight: bold;
+}
+
+.blockInfoBlue {
+  margin-bottom: 20px;
+  border: 1px solid #337ab7;
+}
+
+.blockInfoHeader {
+  font-size: 1.5em;
+  padding: 10px;
+  width: 100%;
+  height: 150px;
+}
+
+.blockInfoBlue .blockInfoHeader {
+  background-color: #337ab7;
+  color: #ffffff;
+}
+
+.blockInfoBlue button {
+  color: #337ab7;
+  font-weight: 500;
+  background-color: #efefef;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 100%;
+  text-align: left;
+}
+
+.blockInfoBlue button:hover,
+.blockInfoBlue button:focus,
+.blockInfoBlue button:focus:active {
+  color: #23527c;
+  outline: none;
+}
+
+.blockInfoGreen {
+  margin-bottom: 20px;
+  border: 1px solid #5cb85c;
+}
+
+.blockInfoGreen .blockInfoHeader {
+  background-color: #5cb85c;
+  color: #ffffff;
+}
+
+.blockInfoGreen button {
+  color: #5cb85c;
+  font-weight: 500;
+  background-color: #efefef;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 100%;
+  text-align: left;
+}
+
+.blockInfoGreen button:hover,
+.blockInfoGreen button:focus,
+.blockInfoGreen button:focus:active {
+  color: #3d8b3d;
+  outline: none;
+}
+
+.blockInfoOrange {
+  margin-bottom: 20px;
+  border: 1px solid #f0ad4e;
+
+}
+
+.blockInfoOrange .blockInfoHeader {
+  background-color: #f0ad4e;
+  color: #ffffff;
+}
+
+.blockInfoOrange button {
+  color: #f0ad4e;
+  font-weight: 500;
+  background-color: #efefef;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 100%;
+  text-align: left;
+}
+
+.blockInfoOrange button:hover,
+.blockInfoOrange button:focus,
+.blockInfoOrange button:focus:active {
+  color: #df8a13;
+  outline: none;
+}
+
+.blockInfoRed {
+  margin-bottom: 20px;
+  border: 1px solid #d9534f;
+
+}
+
+.blockInfoRed .blockInfoHeader {
+  background-color: #d9534f;
+  color: #ffffff;
+}
+
+.blockInfoRed button {
+  color: #d9534f;
+  font-weight: 500;
+  background-color: #efefef;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 100%;
+  text-align: left;
+}
+
+.blockInfoRed button:hover,
+.blockInfoRed button:focus,
+.blockInfoRed button:focus:active  {
+  color: #b52b27;
+  outline: none;
+}
+
+@media (max-width: 992px) {
+  .BlockInfoIcon {
+    font-size: 4em;
+  }
+}

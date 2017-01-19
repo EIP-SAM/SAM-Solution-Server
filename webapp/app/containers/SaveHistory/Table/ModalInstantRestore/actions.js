@@ -10,7 +10,6 @@
 //
 
 import request from 'utils/request';
-import { browserHistory } from 'react-router';
 import {
   SAVE_HISTORY_SHOW_INSTANT_RESTORE_MODAL,
   SAVE_HISTORY_INSTANT_RESTORE,
@@ -57,10 +56,7 @@ export function createRestoreRequest(userId, files, saveId) {
         files,
       })
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
-
+        request.redirectHandling(res.statusCode);
         dispatch(resetRestoreState());
       });
   };

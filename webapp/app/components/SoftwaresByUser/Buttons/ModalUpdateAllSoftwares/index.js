@@ -11,7 +11,7 @@ import styles from 'components/SoftwaresByUser/styles.css';
 export default class SoftwaresByUserUpdateAllSoftwaresModal extends React.Component {
   handleUpdateAllClick() {
     this.props.hideUpdateAllSoftwaresModal();
-    this.props.installSoftwares(this.props.username, this.props.selectedSoftwares);
+    this.props.updateSoftwares(this.props.username, this.props.selectedSoftwares);
     this.props.resetStateTable();
   }
 
@@ -46,6 +46,6 @@ SoftwaresByUserUpdateAllSoftwaresModal.propTypes = {
   selectedSoftwares: React.PropTypes.arrayOf(React.PropTypes.object),
   showModal: React.PropTypes.bool,
   hideUpdateAllSoftwaresModal: React.PropTypes.func,
-  installSoftwares: React.PropTypes.func,
+  updateSoftwares: React.PropTypes.func,
   resetStateTable: React.PropTypes.func,
 };

@@ -10,7 +10,6 @@
 //
 
 import request from 'utils/request';
-import { browserHistory } from 'react-router';
 import { getAllMigrationsRequest } from '../Table/actions';
 import {
   MIGRATION_HISTORY_STATUS_DELETE_MODAL,
@@ -29,9 +28,7 @@ export function deleteMigration(migrationId) {
     request
       .del(`/api/logged-in/admin/migration/${migrationId}/delete`)
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
+        request.redirectHandling(res.statusCode);
         dispatch(getAllMigrationsRequest());
       })
   );

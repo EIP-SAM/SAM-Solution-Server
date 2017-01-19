@@ -10,7 +10,6 @@
 //
 
 import request from 'utils/request';
-import { browserHistory } from 'react-router';
 import { resetStateForm } from 'containers/SaveCreation/Form/actions';
 import { getHistorySavesByUserRequest } from 'containers/SaveHistory/actions';
 import SAVE_HISTORY_SHOW_INSTANT_SAVE_MODAL from './constants';
@@ -42,10 +41,7 @@ export function createSaveActionSaveHistory(users, date, time, frequency, files)
         files,
       })
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
-
+        request.redirectHandling(res.statusCode);
         dispatch(resetStateForm());
         dispatch(getHistorySavesByUserRequest(users[0].name));
       });

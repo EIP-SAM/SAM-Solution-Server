@@ -10,7 +10,6 @@
 //
 
 import request from 'utils/request';
-import { browserHistory } from 'react-router';
 import { getAllMigrationsRequest } from '../Table/actions';
 import {
   MIGRATION_HISTORY_STATUS_CREATE_POPUP,
@@ -42,14 +41,13 @@ export function getAllImages() {
   return dispatch => (
     request
       .get('/api/logged-in/admin/images/')
+      .query({ isValid: true })
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
+        request.redirectHandling(res.statusCode);
         if (err || res.body.error) {
           dispatch(getAllImagesResult([]));
-        } else {
-          dispatch(getAllImagesResult(res.body.images));
+        } else if (res.body.images) {
+          dispatch(getAllImagesResult(res.body.images.images));
         }
       })
   );
@@ -67,9 +65,7 @@ export function getAllUsers() {
     request
       .get('/api/logged-in/admin/users/')
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
+        request.redirectHandling(res.statusCode);
         if (err || res.body.error) {
           dispatch(getAllUsersResult({ users: [] }));
         } else {
@@ -93,15 +89,13 @@ export function setSelectedImage(imageId) {
   };
 }
 
-export function createMigration(migrationObj) {
+export function createMigration(migrationObj, isInstant) {
   return dispatch => (
     request
       .post('/api/logged-in/admin/migration/add')
-      .send({ migrationObj })
+      .send({ migrationObj, isInstant })
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
+        request.redirectHandling(res.statusCode);
         if (err || res.body.error) {
           dispatch(getAllMigrationsRequest());
         } else {
@@ -149,9 +143,7 @@ export function editMigration(migrationObj) {
       .post(`/api/logged-in/admin/migration/${migrationObj.migrationId}/edit`)
       .send({ migrationObj })
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
+        request.redirectHandling(res.statusCode);
         if (err || res.body.error) {
           dispatch(getAllMigrationsRequest());
         } else {

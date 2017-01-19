@@ -47,17 +47,24 @@ module.exports.getLogsWithMultipleCriteria = queryCriteria => new Promise((fulfi
     }
 
     if (criteria.findOpts.level !== undefined) {
-      findOpts.level = criteria.findOpts.level;
+      findOpts.level = parseInt(criteria.findOpts.level, 10);
+    }
+
+    if (criteria.findOpts.user !== undefined) {
+      findOpts.user = {
+        name: criteria.findOpts.user.name,
+        id: parseInt(criteria.findOpts.user.id, 10),
+      };
     }
 
     if (criteria.findOpts.levelAbove !== undefined) {
       findOpts.level = findOpts.level || {};
-      findOpts.level.$gte = criteria.findOpts.levelAbove;
+      findOpts.level.$gte = parseInt(criteria.findOpts.levelAbove, 10);
     }
 
     if (criteria.findOpts.levelBelow !== undefined) {
       findOpts.level = findOpts.level || {};
-      findOpts.level.$lte = criteria.findOpts.levelBelow;
+      findOpts.level.$lte = parseInt(criteria.findOpts.levelBelow, 10);
     }
 
     if (criteria.findOpts.day !== undefined) {
@@ -80,7 +87,7 @@ module.exports.getLogsWithMultipleCriteria = queryCriteria => new Promise((fulfi
     }
   }
 
-  const query = logModel.find(findOpts);
+  const query = criteria.findOpts.user === undefined ? logModel.find(findOpts) : logModel.aggregate(this.getLogsByUserId(findOpts));
 
   if (criteria.limit !== undefined) {
     let limit;
@@ -102,6 +109,23 @@ module.exports.getLogsWithMultipleCriteria = queryCriteria => new Promise((fulfi
     }
   });
 });
+
+//
+// Get logs by user id
+//
+module.exports.getLogsByUserId = (findOpts) => {
+  const aggregate = [
+    {
+      $match: findOpts,
+    },
+    {
+      $sort: {
+        time: -1,
+      },
+    },
+  ];
+  return aggregate;
+};
 
 //
 // Get the numbers of logs group by module name
