@@ -9,11 +9,6 @@ import Persistence from 'containers/Notifications/Form/Persistence';
 import Groups from 'containers/Notifications/Form/Groups';
 import Buttons from 'containers/Notifications/Form/Buttons';
 import LinkContainerButton from 'components/Button';
-import { browserHistory } from 'react-router';
-
-function selectByUsers() {
-  browserHistory.push('/notifications');
-}
 
 /* eslint-disable react/prefer-stateless-function */
 export default class NotificationsGroupsForm extends React.Component {
@@ -23,7 +18,7 @@ export default class NotificationsGroupsForm extends React.Component {
         <Title />
         <Description />
         <Persistence />
-        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Select by users" onClick={selectByUsers} />
+        <LinkContainerButton buttonType="submit" buttonBsStyle="info" buttonText="Select by users" link="/notifications/" />
         <Groups />
         <Buttons />
       </form>
