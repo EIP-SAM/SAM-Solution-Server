@@ -10,7 +10,6 @@
 //
 
 import request from 'utils/request';
-import { browserHistory } from 'react-router';
 import { getHistorySavesByUserRequest } from 'containers/SaveHistory/actions';
 import {
   SAVE_HISTORY_SHOW_DELETION_SCHEDULED_SAVE_MODAL,
@@ -50,10 +49,7 @@ export function cancelSave(saveId, saveScheduledId, username) {
       saveId,
     })
     .end((err, res) => {
-      if (err && res.statusCode === 401) {
-        browserHistory.push('/login');
-      }
-
+      request.redirectHandling(res.statusCode);
       dispatch(getHistorySavesByUserRequest(username));
     });
   };

@@ -52,10 +52,7 @@ export function createSave(redirect, users, date, time, frequency, files) {
         files,
       })
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
-
+        request.redirectHandling(res.statusCode);
         if (redirect) {
           browserHistory.goBack();
         }

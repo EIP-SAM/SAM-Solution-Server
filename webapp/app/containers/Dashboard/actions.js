@@ -3,7 +3,6 @@
 //
 
 import request from 'utils/request';
-import { browserHistory } from 'react-router';
 import {
   DASHBOARD_GET_SAVE_NUMBER,
   DASHBOARD_GET_RESTORE_NUMBER,
@@ -28,10 +27,7 @@ export function getSavesNumbers(username) {
     return request.get('/api/logged-in/history_save')
     .query({ username })
     .end((err, res) => {
-      if (err && res.statusCode === 401) {
-        browserHistory.push('/login');
-      }
-
+      request.redirectHandling(res.statusCode);
       dispatch(savesNumbers(res.body.length));
     });
   };
@@ -42,10 +38,7 @@ export function getRestoresNumbers(username) {
     return request.get('/api/logged-in/history_restore')
     .query({ username })
     .end((err, res) => {
-      if (err && res.statusCode === 401) {
-        browserHistory.push('/login');
-      }
-
+      request.redirectHandling(res.statusCode);
       dispatch(restoresNumbers(res.body.length));
     });
   };

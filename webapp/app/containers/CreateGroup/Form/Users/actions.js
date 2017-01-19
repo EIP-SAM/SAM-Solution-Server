@@ -16,6 +16,8 @@ export default function getUsersRequest() {
     return request
     .get('/api/logged-in/admin/users')
     .end((err, res) => {
+      request.redirectHandling(res.statusCode);
+
       if (res.body.users) {
         const users = res.body.users.map(user => ({ id: user.id, name: user.name }));
         dispatch(getUsers(users));

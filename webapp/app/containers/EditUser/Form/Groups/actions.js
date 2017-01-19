@@ -10,7 +10,6 @@
 //
 
 import request from 'utils/request';
-import { browserHistory } from 'react-router';
 
 import {
   EDIT_USER_GET_ALL_GROUPS,
@@ -43,9 +42,7 @@ export function getGroupsRequest() {
     return request
       .get('/api/logged-in/admin/groups')
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
+        request.redirectHandling(res.statusCode);
 
         let groupsName = [];
         if (res.body.groups.length > 0) {
