@@ -99,6 +99,15 @@ module.exports.getRestoreByUser = userId => RestoreModel.findAll({
 });
 
 //
+// Get all restorations finished
+//
+module.exports.getAllFinishedRestore = () => RestoreModel.findAll({
+  where: {
+    isFinish: true,
+  },
+});
+
+//
 // Get number restores by day (savesScheduleds)
 //
 module.exports.getRestoresByDay = () => {
