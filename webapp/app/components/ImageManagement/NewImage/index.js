@@ -24,10 +24,10 @@ export default class NewImage extends React.Component {
     const helpText = (this.state.expanded) ? '(click to hide)' : '(click to show)';
 
     return (
-      <h5 onClick={() => this.setState({ expanded: !this.state.expanded })}>
+      <h5>
         <Glyphicon glyph={icon} />
         {' New images need to be added !'}
-        <span className={styles.panelHelpText}>
+        <span className={styles.panelHelpText} onClick={() => this.setState({ expanded: !this.state.expanded })}>
           {helpText}
         </span>
       </h5>
