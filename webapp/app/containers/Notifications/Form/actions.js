@@ -14,8 +14,11 @@ import { browserHistory } from 'react-router';
 import { resetStateDescription } from './Description/actions';
 import { resetStateTitle } from './Title/actions';
 import { resetStateAllUsers } from './Users/AllUsers/actions';
+import { resetStateAllGroups } from './Groups/AllGroups/actions';
 import { resetStateSelectedUsers } from './Users/SelectedUsers/actions';
+import { resetStateSelectedGroups } from './Groups/SelectedGroups/actions';
 import getUsersRequest from './Users/actions';
+import getGroupsRequest from './Groups/actions';
 import { addAlert } from '../actions';
 
 export function resetStateForm() {
@@ -23,7 +26,9 @@ export function resetStateForm() {
     dispatch(resetStateTitle());
     dispatch(resetStateDescription());
     dispatch(resetStateAllUsers());
+    dispatch(resetStateAllGroups());
     dispatch(resetStateSelectedUsers());
+    dispatch(resetStateSelectedGroups());
   };
 }
 
@@ -46,6 +51,7 @@ export function notificationRequest(title, description, persistence, username, i
         dispatch(resetStateForm());
         dispatch(addAlert());
         dispatch(getUsersRequest());
+        dispatch(getGroupsRequest());
       });
   };
 }
