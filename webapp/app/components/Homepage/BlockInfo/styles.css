@@ -15,8 +15,9 @@
 }
 
 .BlockInfoTitle {
+  font-size: 1.1em;
   display: block;
-  font-weight: 200;
+  font-weight: bold;
 }
 
 .blockInfoBlue {
@@ -134,4 +135,10 @@
 .blockInfoRed button:focus:active  {
   color: #b52b27;
   outline: none;
+}
+
+@media (max-width: 992px) {
+  .BlockInfoIcon {
+    font-size: 4em;
+  }
 }
