@@ -32,7 +32,6 @@ export default class Notifications extends React.Component {
 }
 
 Notifications.propTypes = {
-  alertMsg: React.PropTypes.string,
   typeAlert: React.PropTypes.string,
   displayAlert: React.PropTypes.bool,
   resetAlert: React.PropTypes.func,

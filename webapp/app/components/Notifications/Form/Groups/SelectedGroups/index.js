@@ -39,7 +39,7 @@ export default class NotificationsFormSelectedGroups extends React.Component {
     let selectedGroupsOption = [];
 
     if (this.props.selectedGroups.length > 0) {
-      selectedGroups = this.props.selectedGroups.map((user) => (
+      selectedGroups = this.props.selectedGroups.map(user => (
         { value: user.id, text: user.name }
       ));
       selectedGroupsOption = selectedGroups.map((item, index) => (

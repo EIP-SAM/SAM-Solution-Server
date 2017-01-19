@@ -25,9 +25,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addGroups: (selectedGroups) => dispatch(addGroups(selectedGroups)),
+    addGroups: selectedGroups => dispatch(addGroups(selectedGroups)),
     removeGroups: (groups, preSelectedGroups) => dispatch(removeGroups(groups, preSelectedGroups)),
-    getGroups: (groups) => dispatch(getGroups(groups)),
+    getGroups: groups => dispatch(getGroups(groups)),
     removeGroupsSelected: (selectedGroups, unselectedGroups) => dispatch(removeGroupsSelected(selectedGroups, unselectedGroups)),
   };
 }

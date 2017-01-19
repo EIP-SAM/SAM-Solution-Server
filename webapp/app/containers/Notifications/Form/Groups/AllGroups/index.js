@@ -14,7 +14,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    preSelectedGroupsOnChange: (preSelectedGroups) => dispatch(preSelectedGroupsOnChange(preSelectedGroups)),
+    preSelectedGroupsOnChange: preSelectedGroups => dispatch(preSelectedGroupsOnChange(preSelectedGroups)),
   };
 }
 

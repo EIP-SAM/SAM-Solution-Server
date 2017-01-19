@@ -32,7 +32,7 @@ export default class NotificationsFormAllGroups extends React.Component {
     let groupsOption = [];
 
     if (this.props.groups.length > 0) {
-      groups = this.props.groups.map((user) => (
+      groups = this.props.groups.map(user => (
         { value: user.id, text: user.name }
       ));
       groupsOption = groups.map((item, index) => (
@@ -60,6 +60,6 @@ export default class NotificationsFormAllGroups extends React.Component {
 }
 
 NotificationsFormAllGroups.propTypes = {
-  groups: React.PropTypes.array,
+  groups: React.PropTypes.arrayOf(React.PropTypes.object),
   preSelectedGroupsOnChange: React.PropTypes.func,
 };

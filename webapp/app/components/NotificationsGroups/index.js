@@ -7,7 +7,7 @@ import { PageHeader, Alert } from 'react-bootstrap';
 import NotificationsGroupsForm from 'containers/NotificationsGroups/Form';
 
 /* eslint-disable react/prefer-stateless-function */
-export class NotificationsGroups extends React.Component {
+export default class NotificationsGroups extends React.Component {
   componentWillUnmount() {
     this.props.resetAlert();
   }
@@ -32,7 +32,6 @@ export class NotificationsGroups extends React.Component {
 }
 
 NotificationsGroups.propTypes = {
-  alertMsg: React.PropTypes.string,
   typeAlert: React.PropTypes.string,
   displayAlert: React.PropTypes.bool,
   resetAlert: React.PropTypes.func,

@@ -17,7 +17,7 @@ function selectByUsers() {
 }
 
 /* eslint-disable react/prefer-stateless-function */
-export class NotificationsGroupsForm extends React.Component {
+export default class NotificationsGroupsForm extends React.Component {
   render() {
     return (
       <form>
