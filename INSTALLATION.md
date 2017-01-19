@@ -79,7 +79,7 @@ Configuration file: `config/base.config.json`
 
 * In the config file, update:
   * The `systemImagesPath` value with the absolute path of the directory holding all system images for the migrations
-  * The `onMigrationExecCmd` value with the command you want S.A.M. to execute for every migration. It could be a system command or an absolute path to a script. If this config is left blank, no command will be executed. `#macaddress#` can be used as a placeholder for the client mac address `#imagepath#` as a placeholder for the absolute image path.
+  * The `onMigrationExecCmd` value with the command you want S.A.M. to execute for every migration. It could be a system command or an absolute path to a script. If this config is left blank, no command will be executed. `#macaddress#` can be used as a placeholder for the client mac address, `#ipaddress#` can be used as a placeholder for the client ip address and `#imagepath#` as a placeholder for the absolute image path.
   * The `secret` value with a secret key >= 8 characters
   * The `salt` value with a different secret key >= 8 characters
 
