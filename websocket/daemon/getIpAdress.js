@@ -5,17 +5,23 @@ const socketIo = require('../../libs/socket-io');
  * Retrieve IP adress for a specific daemon
  */
 module.exports.exec = function exec(username, cb) {
-  const socketArray = socketIo.socketArray.daemon;
-  const socket = socketArray[username];
+  return new Promise((fullfill, reject) => {
+    const socketArray = socketIo.socketArray.daemon;
+    const socket = socketArray[username];
 
-  let ip = socket.handshake.address;
-  ip = ip.substring(ip.lastIndexOf(':') + 1);
+    if (!socket) {
+      return reject(`User ${username} is not connected`);
+    }
 
-  logger.info(`IP requested for ${username} : ${ip}`);
+    let ip = socket.handshake.address;
+    ip = ip.substring(ip.lastIndexOf(':') + 1);
 
-  if (typeof cb !== 'undefined') {
-    cb({ ip });
-  }
+    logger.info(`IP requested for ${username} : ${ip}`);
 
-  return ip;
+    if (typeof cb !== 'undefined') {
+      cb({ ip });
+    }
+
+    return fullfill(ip);
+  });
 };
