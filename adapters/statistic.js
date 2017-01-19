@@ -6,13 +6,15 @@ const logsAdapters = require('./statistics/logs');
 const softwareAdapters = require('./statistics/software');
 
 module.exports.registerGraphs = () => {
-  statManager.statisticRegisterMethodForEntity('Restore', 'GraphLineOfRestore', restoreAdapters.numberRestoresPerMonthByUser);
-  statManager.statisticRegisterMethodForEntity('Migrations', 'GraphPieOfMigrationsByStatus', migrationAdapter.getMigrations);
   statManager.statisticRegisterMethodForEntity('Save', 'GraphLineOfSave', saveAdapters.numberSavesPerMonthByUser);
-  statManager.statisticRegisterMethodForEntity('Logs', 'GraphPieOfLogsGroupByModuleName', logsAdapters.numberOfLogsGroupByModuleName);
-  statManager.statisticRegisterMethodForEntity('Logs', 'GraphPieOfLogsGroupByLevel', logsAdapters.numberOfLogsGroupByLevel);
+  statManager.statisticRegisterMethodForEntity('Save', 'GrapPieOfSave', restoreAdapters.SavesGroupBySuccessFailure);
+  statManager.statisticRegisterMethodForEntity('Restore', 'GraphLineOfRestore', restoreAdapters.numberRestoresPerMonthByUser);
+  statManager.statisticRegisterMethodForEntity('Restore', 'GrapPieOfRestore', restoreAdapters.RestoresGroupBySuccessFailure);
   statManager.statisticRegisterMethodForEntity('Software', 'GraphPieOfNumberOfSoftwaresSuccessActions', softwareAdapters.numberOfSoftwaresSuccessActions);
   statManager.statisticRegisterMethodForEntity('Software', 'GraphPieOfNumberOfSoftwaresFailActions', softwareAdapters.numberOfSoftwaresFailActions);
+  statManager.statisticRegisterMethodForEntity('Migrations', 'GraphPieOfMigrationsByStatus', migrationAdapter.getMigrations);
+  statManager.statisticRegisterMethodForEntity('Logs', 'GraphPieOfLogsGroupByModuleName', logsAdapters.numberOfLogsGroupByModuleName);
+  statManager.statisticRegisterMethodForEntity('Logs', 'GraphPieOfLogsGroupByLevel', logsAdapters.numberOfLogsGroupByLevel);
 };
 
 /*
