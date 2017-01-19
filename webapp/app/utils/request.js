@@ -3,6 +3,7 @@
 //
 
 import superagent from 'superagent';
+import { browserHistory } from 'react-router';
 import manifest from '../manifest.json';
 
 const baseUrl = manifest.url_server_api;
@@ -27,10 +28,19 @@ function head(url) {
   return superagent.head(baseUrl + url).withCredentials();
 }
 
+function redirectHandling(errorCode) {
+  if (errorCode === 403 || errorCode === 404) {
+    browserHistory.push('/notfound');
+  } else if (errorCode === 401) {
+    browserHistory.push('/login');
+  }
+}
+
 export default {
   get,
   post,
   put,
   del,
   head,
+  redirectHandling,
 };

@@ -37,6 +37,7 @@ export function loginRequest(username, password) {
       .type('form')
       .send({ username, password })
       .end((err, res) => {
+        request.redirectHandling(res.statusCode);
         if (!err && res.body.name) {
           dispatch(login(res.body));
           dispatch(setUserInfo(true, res.body));

@@ -68,9 +68,7 @@ export function getUserRequest(id) {
     return request
       .get(`/api/logged-in/user?id=${id}`)
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
+        request.redirectHandling(res.statusCode);
         dispatch(getUserId(res.body.id));
         dispatch(usernameChange(res.body.name));
         dispatch(emailChange(res.body.email));
@@ -99,9 +97,7 @@ export function editUserRequest(userId, username, email, password, passwordConfi
       .type('json')
       .send(user)
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
+        request.redirectHandling(res.statusCode);
         if (res.body.error) {
           switch (res.body.field) {
             case 1:
