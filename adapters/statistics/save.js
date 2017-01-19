@@ -34,3 +34,38 @@ module.exports.numberSavesPerMonthByUser = () => new Promise((fulfill) => {
     fulfill(returnData);
   });
 });
+
+//
+// Return the saves numbers of logs group by success / error
+//
+module.exports.RestoresGroupBySuccessFailure = () => new Promise((fulfill) => {
+  saveAdapter.getAllFinishedRestore().then((saves) => {
+    let success = 0;
+    let errors = 0;
+
+    saves.forEach((save) => {
+      if (save.isSuccess === true) {
+        success += 1;
+      } else {
+        errors += 1;
+      }
+    });
+
+    const returnData = {
+      complete: 1,
+      type: 'pie',
+      title: 'Success and Failure saves',
+      dataset: [
+        {
+          title: 'Success save',
+          value: success,
+        }, {
+          title: 'Fail save',
+          value: errors,
+        },
+      ],
+    };
+
+    fulfill(returnData);
+  });
+});

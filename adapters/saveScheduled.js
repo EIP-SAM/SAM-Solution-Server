@@ -186,3 +186,12 @@ module.exports.getSavesByDay = () => {
     group: ['execDate'],
   });
 };
+
+//
+// Get all saves finished
+//
+module.exports.getAllFinishedSave = () => SaveModel.findAll({
+  where: {
+    isFinish: true,
+  },
+});

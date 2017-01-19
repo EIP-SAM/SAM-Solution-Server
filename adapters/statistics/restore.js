@@ -35,3 +35,38 @@ module.exports.numberRestoresPerMonthByUser = () => new Promise((fulfill) => {
     fulfill(returnData);
   });
 });
+
+//
+// Return the restores numbers of logs group by success / error
+//
+module.exports.RestoresGroupBySuccessFailure = () => new Promise((fulfill) => {
+  restoreAdapter.getAllFinishedRestore().then((restores) => {
+    let success = 0;
+    let errors = 0;
+
+    restores.forEach((restore) => {
+      if (restore.isSuccess === true) {
+        success += 1;
+      } else {
+        errors += 1;
+      }
+    });
+
+    const returnData = {
+      complete: 1,
+      type: 'pie',
+      title: 'Success and Failure restorations',
+      dataset: [
+        {
+          title: 'Success restoration',
+          value: success,
+        }, {
+          title: 'Fail restoration',
+          value: errors,
+        },
+      ],
+    };
+
+    fulfill(returnData);
+  });
+});
