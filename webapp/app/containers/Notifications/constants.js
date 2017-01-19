@@ -1,0 +1,6 @@
+//
+// Notifications constants
+//
+
+export const NOTIFICATIONS_ALERT = 'NOTIFICATIONS_ALERT';
+export const NOTIFICATIONS_RESET_ALERT = 'NOTIFICATIONS_RESET_ALERT';

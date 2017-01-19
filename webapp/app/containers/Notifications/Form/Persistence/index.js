@@ -9,7 +9,7 @@ import { persistenceChange } from './actions';
 
 function mapStateToProps(state) {
   return {
-    persistence: state.get('notifications').get('NotificationsFormPersistenceReducer').persistence,
+    persistence: state.get('notifications').get('NotificationsFormReducer').get('NotificationsFormPersistenceReducer').persistence,
   };
 }
 

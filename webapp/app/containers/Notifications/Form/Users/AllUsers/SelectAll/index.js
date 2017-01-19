@@ -9,7 +9,7 @@ import { addUsers } from '../../SelectedUsers/actions';
 
 function mapStateToProps(state) {
   return {
-    users: state.get('notifications').get('NotificationsFormUsersReducer').get('NotificationsFormAllUsersReducer').users,
+    users: state.get('notifications').get('NotificationsFormReducer').get('NotificationsFormUsersReducer').get('NotificationsFormAllUsersReducer').users,
   };
 }
 

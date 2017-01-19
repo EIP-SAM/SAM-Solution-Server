@@ -20,6 +20,10 @@ body {
     overflow: hidden;
 }
 
+.groups {
+    overflow: hidden;
+}
+
 .toolbar {
   margin-top: 20px;
   text-align: right;
@@ -38,5 +42,21 @@ body {
 }
 
 .usersButtons:first-child {
+  margin-bottom: 10px!important;
+}
+
+.groupsToolbar {
+  margin-top: 35px;
+}
+
+.groupsButtons {
+  display: block;
+  float: none!important;
+  font-weight: bold;
+  margin-left: 0!important;
+  margin: auto!important;
+}
+
+.groupsButtons:first-child {
   margin-bottom: 10px!important;
 }

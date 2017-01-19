@@ -10,31 +10,45 @@ import styles from 'components/Notifications/styles.css';
 /* eslint-disable react/prefer-stateless-function */
 export default class NotificationsFormButtons extends React.Component {
   handleCreateClick(event) {
+    let username;
+    let isGroup;
     event.preventDefault();
-    const username = this.props.selectedUsers.map(user => (
-      user.name
-    ));
-    if (this.props.title !== '' && this.props.description !== '' && this.props.selectedUsers.length !== 0) {
-      this.props.notificationRequest(this.props.title, this.props.description, this.props.persistence, username);
-    } else if (this.props.title === '' && this.props.description === '' && this.props.selectedUsers.length === 0) {
+    if (this.props.selectedGroups.length > 0) {
+      username = this.props.selectedGroups.map(group => (
+        group.name
+      ));
+      isGroup = true;
+    } else {
+      username = this.props.selectedUsers.map(user => (
+        user.name
+      ));
+      isGroup = false;
+    }
+    if (this.props.title !== '' && this.props.description !== '' && (this.props.selectedUsers.length !== 0 || this.props.selectedGroups.length !== 0)) {
+      this.props.notificationRequest(this.props.title, this.props.description, this.props.persistence, username, isGroup);
+    } else if (this.props.title === '' && this.props.description === '' && this.props.selectedUsers.length === 0 && this.props.selectedGroups.length === 0) {
       this.props.titleErrorMsg('A notification must have a title');
       this.props.descriptionErrorMsg('A notification must have a description');
       this.props.selectedUsersErrorMsg('At least one user must be selected');
+      this.props.selectedGroupsErrorMsg('At least one group must be selected');
     } else if (this.props.title === '' && this.props.description === '') {
       this.props.titleErrorMsg('A notification must have a title');
       this.props.descriptionErrorMsg('A notification must have a description');
-    } else if (this.props.title === '' && this.props.selectedUsers.length === 0) {
+    } else if (this.props.title === '' && this.props.selectedUsers.length === 0 && this.props.selectedGroups.length === 0) {
       this.props.titleErrorMsg('A notification must have a title');
       this.props.selectedUsersErrorMsg('At least one user must be selected');
-    } else if (this.props.description === '' && this.props.selectedUsers.length === 0) {
+      this.props.selectedGroupsErrorMsg('At least one group must be selected');
+    } else if (this.props.description === '' && this.props.selectedUsers.length === 0 && this.props.selectedGroups.length === 0) {
       this.props.descriptionErrorMsg('A notification must have a description');
       this.props.selectedUsersErrorMsg('At least one user must be selected');
+      this.props.selectedGroupsErrorMsg('At least one group must be selected');
     } else if (this.props.title === '') {
       this.props.titleErrorMsg('A notification must have a title');
     } else if (this.props.description === '') {
       this.props.descriptionErrorMsg('A notification must have a description');
-    } else if (this.props.selectedUsers.length === 0) {
+    } else if (this.props.selectedUsers.length === 0 && this.props.selectedGroups.length === 0) {
       this.props.selectedUsersErrorMsg('At least one user must be selected');
+      this.props.selectedGroupsErrorMsg('At least one group must be selected');
     }
   }
 
@@ -52,8 +66,10 @@ NotificationsFormButtons.propTypes = {
   description: React.PropTypes.string,
   persistence: React.PropTypes.bool,
   selectedUsers: React.PropTypes.arrayOf(React.PropTypes.object),
+  selectedGroups: React.PropTypes.arrayOf(React.PropTypes.object),
   notificationRequest: React.PropTypes.func,
   titleErrorMsg: React.PropTypes.func,
   descriptionErrorMsg: React.PropTypes.func,
   selectedUsersErrorMsg: React.PropTypes.func,
+  selectedGroupsErrorMsg: React.PropTypes.func,
 };

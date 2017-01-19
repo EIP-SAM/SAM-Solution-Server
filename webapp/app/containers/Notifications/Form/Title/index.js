@@ -9,8 +9,8 @@ import { titleChange } from './actions';
 
 function mapStateToProps(state) {
   return {
-    title: state.get('notifications').get('NotificationsFormTitleReducer').title,
-    titleError: state.get('notifications').get('NotificationsFormTitleReducer').titleError,
+    title: state.get('notifications').get('NotificationsFormReducer').get('NotificationsFormTitleReducer').title,
+    titleError: state.get('notifications').get('NotificationsFormReducer').get('NotificationsFormTitleReducer').titleError,
   };
 }
 

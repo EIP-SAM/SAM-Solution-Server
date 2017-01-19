@@ -4,10 +4,10 @@
 
 import React from 'react';
 import { PageHeader, Alert } from 'react-bootstrap';
-import NotificationsForm from 'containers/Notifications/Form';
+import NotificationsGroupsForm from 'containers/NotificationsGroups/Form';
 
 /* eslint-disable react/prefer-stateless-function */
-export default class Notifications extends React.Component {
+export default class NotificationsGroups extends React.Component {
   componentWillUnmount() {
     this.props.resetAlert();
   }
@@ -25,13 +25,13 @@ export default class Notifications extends React.Component {
       <div>
         {alert}
         <PageHeader>Notifications</PageHeader>
-        <NotificationsForm />
+        <NotificationsGroupsForm />
       </div>
     );
   }
 }
 
-Notifications.propTypes = {
+NotificationsGroups.propTypes = {
   typeAlert: React.PropTypes.string,
   displayAlert: React.PropTypes.bool,
   resetAlert: React.PropTypes.func,

@@ -14,19 +14,25 @@ import { browserHistory } from 'react-router';
 import { resetStateDescription } from './Description/actions';
 import { resetStateTitle } from './Title/actions';
 import { resetStateAllUsers } from './Users/AllUsers/actions';
+import { resetStateAllGroups } from './Groups/AllGroups/actions';
 import { resetStateSelectedUsers } from './Users/SelectedUsers/actions';
-import { getUsersRequest } from './Users/actions';
+import { resetStateSelectedGroups } from './Groups/SelectedGroups/actions';
+import getUsersRequest from './Users/actions';
+import getGroupsRequest from './Groups/actions';
+import { addAlert } from '../actions';
 
 export function resetStateForm() {
   return function resetState(dispatch) {
     dispatch(resetStateTitle());
     dispatch(resetStateDescription());
     dispatch(resetStateAllUsers());
+    dispatch(resetStateAllGroups());
     dispatch(resetStateSelectedUsers());
+    dispatch(resetStateSelectedGroups());
   };
 }
 
-export function notificationRequest(title, description, persistence, username) {
+export function notificationRequest(title, description, persistence, username, isGroup) {
   return function returnNotificationRequest(dispatch) {
     return request
       .post('/api/logged-in/admin/notification/display')
@@ -36,13 +42,16 @@ export function notificationRequest(title, description, persistence, username) {
         description,
         persistence,
         username,
+        isGroup,
       })
       .end((err, res) => {
         if (err && res.statusCode === 401) {
           browserHistory.push('/login');
         }
         dispatch(resetStateForm());
+        dispatch(addAlert());
         dispatch(getUsersRequest());
+        dispatch(getGroupsRequest());
       });
   };
 }
