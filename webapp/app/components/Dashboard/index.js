@@ -39,7 +39,7 @@ export default class Dashboard extends React.Component {
                 icon="tags"
                 title="Module groups"
                 msg="You can also manage the users by grouping them. Consequently, you can create edit or remove a group"
-                color="green"
+                color="blue"
                 text="More details"
                 link="/groups"
               />
@@ -51,7 +51,7 @@ export default class Dashboard extends React.Component {
                 icon="floppy-disk"
                 title="Module save"
                 msg="You can create an instant save, scheduled a one shot save or scheduled an auto save"
-                color="orange"
+                color="blue"
                 text="More details"
                 link="/save"
               />
@@ -63,7 +63,7 @@ export default class Dashboard extends React.Component {
                 icon="repeat"
                 title="Module restore"
                 msg="You can restore data from a previous save"
-                color="red"
+                color="blue"
                 text="More details"
                 link="/restore"
               />
@@ -87,7 +87,7 @@ export default class Dashboard extends React.Component {
                 icon="list"
                 title="Module logs"
                 msg="You can check every action made on the application in the logs module. There are several levels of logs : info, warn, error and fatal"
-                color="green"
+                color="blue"
                 text="More details"
                 link="/logs"
               />
@@ -99,7 +99,7 @@ export default class Dashboard extends React.Component {
                 icon="envelope"
                 title="Module notifications"
                 msg="You can send a notification to one or several users"
-                color="orange"
+                color="blue"
                 text="More details"
                 link="/notifications"
               />
