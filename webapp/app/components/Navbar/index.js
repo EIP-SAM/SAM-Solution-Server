@@ -50,16 +50,12 @@ export default class NavbarContainer extends React.Component {
         { pathname: '/logs', value: 'Logs', glyphicon: 'list' },
         { pathname: '/statistics', value: 'Statistics', glyphicon: 'stats' },
         { pathname: '/notifications', value: 'Notifications', glyphicon: 'envelope' },
-        { pathname: '#', value: 'Help', glyphicon: 'book' },
       ];
     } else {
       navItems = [
         { pathname: '/homepage', value: 'Homepage', glyphicon: 'dashboard' },
         { pathname: `/save/${userInfo.username}/${userInfo.userId}`, value: 'Save', glyphicon: 'floppy-disk' },
         { pathname: `/restore/${userInfo.username}`, value: 'Restore', glyphicon: 'repeat' },
-        { pathname: '/migration/history', value: 'Migration', glyphicon: 'send' },
-        { pathname: '#', value: 'Software', glyphicon: 'list' },
-        { pathname: '#', value: 'Help', glyphicon: 'book' },
       ];
     }
 
