@@ -23,7 +23,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    notificationRequest: (title, description, persistence, selectedUsers) => dispatch(notificationRequest(title, description, persistence, selectedUsers)),
+    notificationRequest: (title, description, persistence, selectedUsers, isGroup) => dispatch(notificationRequest(title, description, persistence, selectedUsers, isGroup)),
     titleErrorMsg: titleError => dispatch(titleErrorMsg(titleError)),
     descriptionErrorMsg: descriptionError => dispatch(descriptionErrorMsg(descriptionError)),
     selectedUsersErrorMsg: selectedUsersError => dispatch(selectedUsersErrorMsg(selectedUsersError)),
