@@ -50,10 +50,7 @@ export function getGroupRequest(groupId) {
     return request
       .get(`/api/logged-in/admin/group?id=${groupId}`)
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
-
+        request.redirectHandling(res.statusCode);
         dispatch(getGroupId(res.body.id));
         dispatch(groupNameChange(res.body.name));
         dispatch(saveRestoreModeChange(res.body.saveAndRestoreMode));
@@ -81,10 +78,7 @@ export function editGroupRequest(groupId, groupName, saveRestoreMode, migrationM
       .type('json')
       .send(group)
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
-
+        request.redirectHandling(res.statusCode);
         if (res.body.errors && res.body.errors[0].error.includes('name')) {
           dispatch(groupNameErrorMsg(res.body.errors[0].error));
         } else {

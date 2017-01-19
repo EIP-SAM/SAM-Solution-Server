@@ -10,7 +10,6 @@
 //
 
 import request from 'utils/request';
-import { browserHistory } from 'react-router';
 import { getAllMigrationsRequest } from '../Table/actions';
 import {
   MIGRATION_HISTORY_STATUS_CREATE_POPUP,
@@ -44,9 +43,7 @@ export function getAllImages() {
       .get('/api/logged-in/admin/images/')
       .query({ isValid: true })
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
+        request.redirectHandling(res.statusCode);
         if (err || res.body.error) {
           dispatch(getAllImagesResult([]));
         } else if (res.body.images) {
@@ -68,9 +65,7 @@ export function getAllUsers() {
     request
       .get('/api/logged-in/admin/users/')
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
+        request.redirectHandling(res.statusCode);
         if (err || res.body.error) {
           dispatch(getAllUsersResult({ users: [] }));
         } else {
@@ -100,9 +95,7 @@ export function createMigration(migrationObj, isInstant) {
       .post('/api/logged-in/admin/migration/add')
       .send({ migrationObj, isInstant })
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
+        request.redirectHandling(res.statusCode);
         if (err || res.body.error) {
           dispatch(getAllMigrationsRequest());
         } else {
@@ -150,9 +143,7 @@ export function editMigration(migrationObj) {
       .post(`/api/logged-in/admin/migration/${migrationObj.migrationId}/edit`)
       .send({ migrationObj })
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
+        request.redirectHandling(res.statusCode);
         if (err || res.body.error) {
           dispatch(getAllMigrationsRequest());
         } else {

@@ -10,7 +10,6 @@
 //
 
 import request from 'utils/request';
-import { browserHistory } from 'react-router';
 import SAVE_HISTORY_GET_HISTORY_SAVES_BY_USER from './constants';
 
 export function getHistorySavesByUser(saves) {
@@ -26,10 +25,7 @@ export function getHistorySavesByUserRequest(username, limit) {
       .get('/api/logged-in/history_save')
       .query({ username, limit })
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
-
+        request.redirectHandling(res.statusCode);
         let saves = [];
         if (res.body.length) {
           saves = res.body;

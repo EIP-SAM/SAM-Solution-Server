@@ -10,7 +10,6 @@
 //
 
 import request from 'utils/request';
-import { browserHistory } from 'react-router';
 import {
   LOGS_GET_FILTERED_LOGS,
   LOGS_CLEAR_LOGS,
@@ -47,10 +46,7 @@ export function getFilteredLogs(filters) {
       .get('/api/logged-in/admin/log/multiple_criteria')
       .query({ criteria: filters })
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
-
+        request.redirectHandling(res.statusCode);
         dispatch(requestIsLoading(false));
         if (err || res.body.error) {
           dispatch(getLogs(LOGS_GET_FILTERED_LOGS, { error: true, data: [] }));

@@ -10,7 +10,6 @@
 //
 
 import request from 'utils/request';
-import { browserHistory } from 'react-router';
 import {
   getUsersRequest,
   removeAlert,
@@ -52,10 +51,7 @@ export function deleteUser(userId) {
     .type('json')
     .send({ users })
     .end((err, res) => {
-      if (err && res.statusCode === 401) {
-        browserHistory.push('/login');
-      }
-
+      request.redirectHandling(res.statusCode);
       dispatch(removeAlert());
       dispatch(getUsersRequest());
     });

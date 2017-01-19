@@ -10,7 +10,6 @@
 //
 
 import request from 'utils/request';
-import { browserHistory } from 'react-router';
 import {
   IMAGE_MANAGEMENT_SET_ADDIMAGE_VISIBILITY,
   IMAGE_MANAGEMENT_SET_FILENAME,
@@ -52,9 +51,7 @@ export function getAllImagesAndFiles() {
       .get('/api/logged-in/admin/images/')
       .query({ isValid: false })
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
+        request.redirectHandling(res.statusCode);
         if (err || res.body.error) {
           dispatch(setImages([]));
           dispatch(setNewFiles([]));
@@ -72,11 +69,8 @@ export function addImage(imageObj) {
       .post('/api/logged-in/admin/image/add')
       .send({ imageObj })
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        } else {
-          dispatch(getAllImagesAndFiles());
-        }
+        request.redirectHandling(res.statusCode);
+        dispatch(getAllImagesAndFiles());
       })
   );
 }
@@ -86,11 +80,8 @@ export function deleteImage(imageId) {
     request
       .del(`/api/logged-in/admin/image/${imageId}/delete`)
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        } else {
-          dispatch(getAllImagesAndFiles());
-        }
+        request.redirectHandling(res.statusCode);
+        dispatch(getAllImagesAndFiles());
       })
   );
 }
