@@ -81,7 +81,7 @@ export default class Homepage extends React.Component {
               this.isAdmin ? (
                 <Col md={6} lg={4}>
                   <BlockInfo
-                    icon="repeat"
+                    icon="send"
                     title="Module migration"
                     msg="You can migration one or several users into a new OS"
                     color="blue"
@@ -97,7 +97,7 @@ export default class Homepage extends React.Component {
               this.isAdmin ? (
                 <Col md={6} lg={4}>
                   <BlockInfo
-                    icon="repeat"
+                    icon="modal-window"
                     title="Module images"
                     msg="You can manage OS images by adding or removing them"
                     color="blue"
