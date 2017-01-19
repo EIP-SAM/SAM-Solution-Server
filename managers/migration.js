@@ -37,36 +37,34 @@ module.exports.getMigrationsGroupByStatus = () => migrationAdapter.getMigrations
 // - status
 // - comment
 //
-module.exports.createMigration = (migrationObj, isInstant) => {
-  return new Promise((fullfill, reject) => {
-    migrationAdapter.createMigration(migrationObj).then((newMigration) => {
-      fullfill(newMigration);
-      if (isInstant) {
-        userAdapter.findById(newMigration.userId).then((user) => {
-          imageAdapter.getImageById(newMigration.imageId).then((image) => {
-            migrationWorker.execMigration(user.name, image.fileName).then((msg) => {
-              newMigration.status = 'in progress';
-              newMigration.comment = `${msg}`;
-              newMigration.save();
-              logger.info(msg);
-            }).catch((err) => {
-              newMigration.status = 'failed';
-              newMigration.comment = `${err}`;
-              newMigration.save();
-              logger.error(err);
-            });
+module.exports.createMigration = (migrationObj, isInstant) => new Promise((fullfill, reject) => {
+  migrationAdapter.createMigration(migrationObj).then((newMigration) => {
+    fullfill(newMigration);
+    if (isInstant) {
+      userAdapter.findById(newMigration.userId).then((user) => {
+        imageAdapter.getImageById(newMigration.imageId).then((image) => {
+          migrationWorker.execMigration(user.name, image.fileName).then((msg) => {
+            newMigration.status = 'in progress';
+            newMigration.comment = `${msg}`;
+            newMigration.save();
+            logger.info(msg);
           }).catch((err) => {
-            logger.warn(`Unable to retrieve image for migration (IMAGE ID : ${migrationObj.imageId}) : ${err}`);
+            newMigration.status = 'failed';
+            newMigration.comment = `${err}`;
+            newMigration.save();
+            logger.error(err);
           });
         }).catch((err) => {
           logger.warn(`Unable to retrieve image for migration (IMAGE ID : ${migrationObj.imageId}) : ${err}`);
         });
-      }
-    }).catch((err) => {
-      reject(err);
-    });
+      }).catch((err) => {
+        logger.warn(`Unable to retrieve image for migration (IMAGE ID : ${migrationObj.imageId}) : ${err}`);
+      });
+    }
+  }).catch((err) => {
+    reject(err);
   });
-};
+});
 
 //
 // Launch getMigrationById method from adapters
