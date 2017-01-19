@@ -39,7 +39,7 @@ export default class NavbarContainer extends React.Component {
 
     if (userInfo.isAdmin) {
       navItems = [
-        { pathname: '/dashboard', value: 'Dashboard', glyphicon: 'dashboard' },
+        { pathname: '/homepage', value: 'Homepage', glyphicon: 'dashboard' },
         { pathname: '/users', value: 'Users', glyphicon: 'user' },
         { pathname: '/groups', value: 'Groups', glyphicon: 'tags' },
         { pathname: '/save', value: 'Save', glyphicon: 'floppy-disk' },
@@ -50,16 +50,12 @@ export default class NavbarContainer extends React.Component {
         { pathname: '/logs', value: 'Logs', glyphicon: 'list' },
         { pathname: '/statistics', value: 'Statistics', glyphicon: 'stats' },
         { pathname: '/notifications', value: 'Notifications', glyphicon: 'envelope' },
-        { pathname: '#', value: 'Help', glyphicon: 'book' },
       ];
     } else {
       navItems = [
-        { pathname: '/dashboard', value: 'Dashboard', glyphicon: 'dashboard' },
+        { pathname: '/homepage', value: 'Homepage', glyphicon: 'dashboard' },
         { pathname: `/save/${userInfo.username}/${userInfo.userId}`, value: 'Save', glyphicon: 'floppy-disk' },
         { pathname: `/restore/${userInfo.username}`, value: 'Restore', glyphicon: 'repeat' },
-        { pathname: '/migration/history', value: 'Migration', glyphicon: 'send' },
-        { pathname: '#', value: 'Software', glyphicon: 'list' },
-        { pathname: '#', value: 'Help', glyphicon: 'book' },
       ];
     }
 
@@ -71,11 +67,11 @@ export default class NavbarContainer extends React.Component {
     return (
       <Navbar inverse fixedTop className={styles.navbarStyle} role="navigation">
         <Navbar.Header>
-          <LinkContainer key={'item-logo'} to={{ pathname: '/dashboard' }}>
+          <LinkContainer key={'item-logo'} to={{ pathname: '/homepage' }}>
             <NavItem><Image src={Logo} responsive className={styles.navbarLogo} /></NavItem>
           </LinkContainer>
           <Navbar.Brand>
-            <LinkContainer key={'item-name'} to={{ pathname: '/dashboard' }}>
+            <LinkContainer key={'item-name'} to={{ pathname: '/homepage' }}>
               <NavItem>SAM-Solution</NavItem>
             </LinkContainer>
           </Navbar.Brand>

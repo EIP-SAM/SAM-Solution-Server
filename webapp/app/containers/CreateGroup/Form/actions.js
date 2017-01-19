@@ -43,9 +43,7 @@ export function createGroupRequest(groupName, saveRestoreMode, migrationMode, so
       .type('json')
       .send({ groups })
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
+        request.redirectHandling(res.statusCode);
 
         if (res.body.errors && res.body.errors[0].error.includes('name')) {
           dispatch(groupNameErrorMsg(res.body.errors[0].error));

@@ -2,7 +2,6 @@
 // Groups filter software actions
 //
 
-import { browserHistory } from 'react-router';
 import request from 'utils/request';
 import {
   SOFTWARE_USERS_GROUPS,
@@ -28,9 +27,7 @@ export function getGroupsRequest() {
     return request
     .get('/api/logged-in/admin/groups')
     .end((err, res) => {
-      if (err && res.statusCode === 401) {
-        browserHistory.push('/login');
-      }
+      request.redirectHandling(res.statusCode);
       dispatch(getGroups(res.body.groups));
     });
   };

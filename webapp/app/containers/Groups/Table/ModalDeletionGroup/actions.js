@@ -10,7 +10,6 @@
 //
 
 import request from 'utils/request';
-import { browserHistory } from 'react-router';
 import {
   getGroupsRequest,
   removeAlert,
@@ -54,10 +53,7 @@ export function deleteGroup(groupId, groupName) {
     .type('json')
     .send(group)
     .end((err, res) => {
-      if (err && res.statusCode === 401) {
-        browserHistory.push('/login');
-      }
-
+      request.redirectHandling(res.statusCode);
       dispatch(removeAlert());
       dispatch(getGroupsRequest());
     });

@@ -3,11 +3,9 @@
 //
 
 import request from 'utils/request';
-import { browserHistory } from 'react-router';
 import socket from 'utils/socket-io';
 import store from 'app';
 import { getAllUsers } from './Filters/actions';
-
 import {
   SOFTWARE_USERS_GET_USERS,
   SOFTWARE_USERS_REFRESH,
@@ -53,9 +51,7 @@ export function getUsersRequest() {
     return request
       .get('/api/logged-in/admin/users')
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
+        request.redirectHandling(res.statusCode);
         res.body.users.forEach((element) => {
           element.os = '';
         });

@@ -52,9 +52,8 @@ export function createUserRequest(username, email, password, passwordConfirmatio
       .type('json')
       .send({ users })
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
+        request.redirectHandling(res.statusCode);
+
         if (res.body.errors) {
           switch (res.body.errors[0].error.field) {
             case 1:

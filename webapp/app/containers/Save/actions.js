@@ -10,7 +10,6 @@
 //
 
 import request from 'utils/request';
-import { browserHistory } from 'react-router';
 import { getAllUsers } from './Filters/actions';
 import SAVE_GET_SAVES from './constants';
 
@@ -26,10 +25,7 @@ export function getSavesRequest() {
     return request
       .get('/api/logged-in/admin/save')
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
-
+        request.redirectHandling(res.statusCode);
         dispatch(getSaves(res.body));
         dispatch(getAllUsers(res.body));
       });

@@ -10,7 +10,6 @@
 //
 
 import request from 'utils/request';
-import { browserHistory } from 'react-router';
 import MIGRATION_HISTORY_GET_ALL_MIGRATIONS from './constants';
 
 export function getAllMigrations(migrations) {
@@ -25,9 +24,7 @@ export function getAllMigrationsRequest() {
     request
       .get('/api/logged-in/admin/migrations/')
       .end((err, res) => {
-        if (err && res.statusCode === 401) {
-          browserHistory.push('/login');
-        }
+        request.redirectHandling(res.statusCode);
         if (err || res.body.error) {
           dispatch(getAllMigrations([]));
         } else {

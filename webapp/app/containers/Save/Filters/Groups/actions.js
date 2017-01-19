@@ -27,6 +27,7 @@ export function getGroupsRequest() {
     return request
     .get('/api/logged-in/admin/groups')
     .end((err, res) => {
+      request.redirectHandling(res.statusCode);
       dispatch(getGroups(res.body.groups));
     });
   };

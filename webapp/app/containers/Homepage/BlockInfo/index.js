@@ -3,7 +3,7 @@
 //
 
 import { connect } from 'react-redux';
-import BlockInfo from 'components/Dashboard/BlockInfo';
+import BlockInfo from 'components/Homepage/BlockInfo';
 
 function mapStateToProps() {
   return {

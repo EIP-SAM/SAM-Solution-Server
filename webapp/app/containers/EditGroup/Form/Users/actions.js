@@ -17,6 +17,7 @@ export default function getUsersRequest(currentGroup) {
     return request
     .get('/api/logged-in/admin/users')
     .end((err, res) => {
+      request.redirectHandling(res.statusCode);
       if (res.body.users) {
         const selectedUsers = [];
         let users = res.body.users.map((user) => {
