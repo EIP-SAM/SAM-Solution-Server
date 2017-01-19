@@ -6,8 +6,9 @@ import { connect } from 'react-redux';
 import Login from 'components/Login';
 import { resetStateForm } from './Form/actions';
 
-function mapStateToProps() {
+function mapStateToProps(state) {
   return {
+    wrongCredentials: state.get('login').get('LoginFormReducer').wrongCredentials,
   };
 }
 
