@@ -5,7 +5,7 @@
 import superagent from 'superagent';
 import { browserHistory } from 'react-router';
 import manifest from '../manifest.json';
-import store from 'store.js';
+
 const baseUrl = manifest.url_server_api;
 
 function get(url) {
