@@ -11,8 +11,10 @@
 import { combineReducers } from 'redux-immutable';
 import LoginFormUsernameReducer from './Username/reducer';
 import LoginFormPasswordReducer from './Password/reducer';
-
-import LOGIN from './constants';
+import {
+  LOGIN,
+  LOGIN_SET_WRONG_CREDENTIALS,
+} from './constants';
 
 const initialState = {};
 
@@ -21,6 +23,10 @@ function LoginFormReducer(state = initialState, action) {
     case LOGIN:
       return Object.assign({}, state, {
         user: action.user,
+      });
+    case LOGIN_SET_WRONG_CREDENTIALS:
+      return Object.assign({}, state, {
+        wrongCredentials: action.wrongCredentials,
       });
     default:
       return state;

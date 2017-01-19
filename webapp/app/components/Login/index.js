@@ -3,7 +3,7 @@
 //
 
 import React from 'react';
-import { PageHeader, Image, Col } from 'react-bootstrap';
+import { PageHeader, Image, Col, Alert } from 'react-bootstrap';
 import LoginForm from 'containers/Login/Form';
 import Logo from 'components/App/logo_sam_solution.png';
 import styles from './styles.css';
@@ -18,6 +18,11 @@ export default class Login extends React.Component {
     return (
       <Col lg={6} className={styles.colLogin} id="colLogin">
         <PageHeader className={styles.titre}>Login</PageHeader>
+        {this.props.wrongCredentials &&
+        <Alert bsStyle="danger">
+          <h4>Error !</h4>
+          <p>Wrong username or password...</p>
+        </Alert>}
         <Image src={Logo} responsive className={styles.logo} />
         <LoginForm />
       </Col>
@@ -27,4 +32,5 @@ export default class Login extends React.Component {
 
 Login.propTypes = {
   resetStateForm: React.PropTypes.func,
+  wrongCredentials: React.PropTypes.bool,
 };
