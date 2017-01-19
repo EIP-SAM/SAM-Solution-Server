@@ -17,6 +17,7 @@ const status = [
   <Label bsStyle="success">done</Label>,
   <Label bsStyle="warning">in progress</Label>,
   <Label bsStyle="primary">planned</Label>,
+  <Label bsStyle="danger">failed</Label>,
 ];
 
 /* eslint-disable react/prefer-stateless-function */
