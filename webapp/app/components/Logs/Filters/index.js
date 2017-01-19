@@ -39,10 +39,10 @@ export default class LogFilter extends React.Component {
 
   getHeaderPanel() {
     return (
-      <h5 onClick={() => this.props.collapsePanel(this.props.panel.isCollapsed)}>
+      <h5>
         <Glyphicon glyph={this.props.panel.titleIcon} />
         {' Filters '}
-        <span className={styles.panelTitleHelpLogs}>
+        <span className={styles.panelTitleHelpLogs} onClick={() => this.props.collapsePanel(this.props.panel.isCollapsed)}>
           {this.props.panel.titleHelp}
         </span>
       </h5>
