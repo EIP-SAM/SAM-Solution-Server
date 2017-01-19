@@ -32,7 +32,7 @@ export default class App extends React.Component {
       browserHistory.push('/login');
     } else if (nextProps.userInfo && nextProps.userInfo.logged
       && this.props.location.pathname === '/login') {
-      browserHistory.push('/dashboard');
+      browserHistory.push('/homepage');
     } else {
       this.props.setAppLoadingState(false);
     }

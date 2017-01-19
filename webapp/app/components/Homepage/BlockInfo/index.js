@@ -3,7 +3,7 @@
 //
 
 import React from 'react';
-import { Glyphicon } from 'react-bootstrap';
+import { Glyphicon, Grid, Row, Col } from 'react-bootstrap';
 import LinkContainerButton from 'components/Button';
 import { browserHistory } from 'react-router';
 import styles from './styles.css';
@@ -63,13 +63,19 @@ export default class BlockInfo extends React.Component {
   render() {
     return (
       <div className={this.state.blockInfoClass}>
-        <div className={styles.blockInfoHeader}>
-          <Glyphicon className={styles.BlockInfoIcon} glyph={this.props.icon} />
-          <div className={styles.BlockInfoTextBlock}>
-            <span className={styles.BlockInfoMessage}>{this.props.msg}</span>
-            <span className={styles.BlockInfoTitle}>{this.props.title}</span>
-          </div>
-        </div>
+        <Grid fluid bsClass="" className={styles.blockInfoHeader}>
+          <Row>
+            <Col xs={2}>
+              <Glyphicon className={styles.BlockInfoIcon} glyph={this.props.icon} />
+            </Col>
+            <Col xs={10}>
+              <div className={styles.BlockInfoTextBlock}>
+                <span className={styles.BlockInfoTitle}>{this.props.title}</span>
+                <span className={styles.BlockInfoMessage}>{this.props.msg}</span>
+              </div>
+            </Col>
+          </Row>
+        </Grid>
         <LinkContainerButton
           buttonBsStyle="link"
           buttonText={this.props.text}

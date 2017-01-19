@@ -9,7 +9,6 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 
 import logsReducer from 'containers/Logs/reducers';
 import StatsReducer from 'containers/Stats/reducers';
-import dashboardReducer from 'containers/Dashboard/reducers';
 import dashboardByUserReducer from 'containers/DashboardByUser/reducers';
 import forgottenPasswordReducer from 'containers/ForgottenPassword/Form/Email/reducer';
 import appReducer from 'containers/App/reducer';
@@ -69,7 +68,6 @@ export default function createReducer(asyncReducers) {
     app: appReducer,
     logs: logsReducer,
     stats: StatsReducer,
-    dashboard: dashboardReducer,
     dashboardByUser: dashboardByUserReducer,
     login: loginReducer,
     forgottenPassword: forgottenPasswordReducer,
