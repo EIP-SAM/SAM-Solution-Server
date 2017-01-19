@@ -33,7 +33,7 @@ function NotificationsReducer(state = initialState, action) {
     case NOTIFICATIONS_ALERT:
       return Object.assign({}, state, {
         alertMsg: 'has been deleted',
-        typeAlert: 'success',
+        typeAlert: 'info',
         displayAlert: true,
       });
     default:
