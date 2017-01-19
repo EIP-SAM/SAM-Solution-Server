@@ -21,15 +21,15 @@ export default function createRoutes() {
       path: '/',
       name: 'home',
       getComponent(nextState, cb) {
-        System.import('containers/Dashboard')
+        System.import('containers/Homepage')
           .then(loadModule(cb))
           .catch(errorLoading);
       },
     }, {
-      path: '/dashboard',
-      name: 'dashboard',
+      path: '/homepage',
+      name: 'homepage',
       getComponent(nextState, cb) {
-        System.import('containers/Dashboard')
+        System.import('containers/Homepage')
           .then(loadModule(cb))
           .catch(errorLoading);
       },

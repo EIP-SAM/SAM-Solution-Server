@@ -40,7 +40,7 @@ export function loginRequest(username, password) {
         if (!err && res.body.name) {
           dispatch(login(res.body));
           dispatch(setUserInfo(true, res.body));
-          browserHistory.push('/dashboard');
+          browserHistory.push('/homepage');
         }
       });
   };

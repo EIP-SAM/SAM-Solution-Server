@@ -1,9 +1,9 @@
 //
-// Dashboard containers
+// Homepage containers
 //
 
 import { connect } from 'react-redux';
-import Dashboard from 'components/Dashboard';
+import Homepage from 'components/Homepage';
 
 function mapStateToProps(state) {
   return {
@@ -18,4 +18,4 @@ function mapDispatchToProps() {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Dashboard);
+)(Homepage);
