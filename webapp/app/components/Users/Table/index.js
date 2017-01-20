@@ -66,3 +66,7 @@ UserTable.propTypes = {
   userToDelete: React.PropTypes.func,
   getUsername: React.PropTypes.func,
 };
+
+UserTable.defaultProps = {
+  users: [],
+};
