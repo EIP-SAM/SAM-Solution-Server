@@ -419,7 +419,7 @@ module.exports.recoverUserPassword = () => (req, res) => {
 
   if (userEmail) {
     return recoverUserPassword(userEmail).then((user) => {
-      logger.setUser({ id: user.id, name: user.name }).info('Password recovery message successfully sent to the user email');
+      logger.setUser({ id: user.id, name: user.name }).warn('Password recovery message successfully sent to the user email');
       res.status(200).json({ success: `An email has been successfully sent to ${userEmail}` });
     }).catch((usualError, internalError) => {
       if (internalError) {
