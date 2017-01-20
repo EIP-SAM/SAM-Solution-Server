@@ -97,7 +97,7 @@ module.exports.callBackSaveExecDaemon = (username, files, saveScheduledId, saveI
     saveFinish(saveScheduledId, saveId);
     saveSuccess(saveId, msg.branch);
   } else if (msg.isFinish) {
-    logger.setModuleName('Save').setUser({ id: '', name: username }).warn(`${username} failed a save. Error: ${msg.err}`);
+    logger.setModuleName('Save').setUser({ id: '', name: username }).error(`${username} failed a save. Error: ${msg.err}`);
     saveFinish(saveScheduledId, saveId, username, files);
   } else if (msg.isStart) {
     startSave(saveId);
